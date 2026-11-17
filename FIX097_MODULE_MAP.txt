@@ -1,0 +1,8 @@
+FIX097 MODULE MAP
+- URUCHOM_TYLKO_TEN_PLIK.cmd: jeden punkt startowy, trwałe okno CMD i osobny proces roboczy.
+- VALIDATE_FIX097_PACKAGE.ps1: kontrola znacznika, wymaganych plików, UTF-8 BOM, SHA-256 i parsera PowerShell.
+- CHECK_SOURCE.cmd: aktywna bramka testów FIX097 oraz testów regresji wcześniejszych poprawek.
+- CHECK_FIX097_*.ps1: testy aktywnej walidacji, cache, CMD, Pages i kolejności pipeline.
+- CLEAN_SAFE_TEMP.ps1: czyszczenie TEMP i jawnie dozwolonych regenerowalnych cache aplikacji.
+- Repozytorium: naprawapclaptop1-dev/komputerowe-centrum-serwisu
+- Wersja produktu: 1.0.0.69

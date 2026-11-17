@@ -1,0 +1,9 @@
+FIX098 MODULE MAP
+- URUCHOM_TYLKO_TEN_PLIK.cmd: single entry point and persistent console.
+- CLEAN_SAFE_TEMP.ps1: package-local temporary cleanup only.
+- PUBLISH_GITHUB_SOURCE.ps1: publishes project source and website from this package folder to the configured GitHub repository; its temporary clone is inside this package.
+- PUBLISH_GITHUB_RELEASES.ps1: publishes the built installer and portable package to the configured GitHub Releases repository.
+- CHECK_FIX098_*: regression tests for cleanup scope, pipeline, Pages and persistent CMD.
+- Product version: 1.0.0.69.
+
+Source publisher sends only the project package folder to the assigned public GitHub repository; review FIX098_NETWORK_SCOPE.txt before running the automatic release.

@@ -36,3 +36,7 @@ BEZPIECZEŃSTWO I WZNOWIENIE
 Wersja aplikacji pozostaje 1.0.0.69. FIX087 naprawia test walidacyjny workflow Pages: testy używają teraz rekordów PSCustomObject, aby PowerShell 5.1 nie spłaszczał wyników i opisów kontroli.
 
 FIX088: testy uruchamiane przez CMD używają PSCustomObject zamiast zagnieżdżonych tablic.
+
+
+FIX095 - CZYSZCZENIE CACHE INNYCH APLIKACJI
+Automat czyści stare pliki .tmp/.temp z katalogów TEMP oraz pliki z jawnie dozwolonych, regenerowalnych katalogów cache: przeglądarki (Chrome, Edge, Firefox, Brave, Vivaldi, Opera), Discord, klasyczny Microsoft Teams i cache DirectX/NVIDIA/AMD/Intel. Usuwane są wyłącznie pliki w tych katalogach cache; pliki zablokowane są pomijane. Nie są usuwane cookies, sesje, hasła, historia, rozszerzenia, ustawienia, profile, bazy danych, dokumenty ani programy. Raport: dist\build-logs\SAFE_TEMP_CLEANUP.log.

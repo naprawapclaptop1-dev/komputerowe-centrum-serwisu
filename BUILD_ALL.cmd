@@ -1,6 +1,6 @@
 @echo off
 setlocal EnableExtensions EnableDelayedExpansion
-title KOMPUTEROWE CENTRUM SERWISU FIX093 - BUDOWANIE WSZYSTKICH ELEMENTOW
+title KOMPUTEROWE CENTRUM SERWISU FIX098 - BUDOWANIE WSZYSTKICH ELEMENTOW
 pushd "%~dp0"
 set "LOGDIR=%~dp0dist\build-logs"
 if not exist "%LOGDIR%" mkdir "%LOGDIR%"

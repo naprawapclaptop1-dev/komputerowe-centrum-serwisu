@@ -1,0 +1,14 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX097
+
+Naprawiono błąd regresyjny bramki CHECK_SOURCE:
+- test CHECK_FIX097_APP_CACHE_CLEANUP.ps1 sprawdza teraz rzeczywisty zapis ścieżki Cache\Cache_Data (jeden separator w źródle PowerShell),
+  zamiast błędnie wymagać dwóch separatorów;
+- zachowano kontrolę czterech jawnie nazwanych katalogów odtwarzalnej pamięci podręcznej: Cache\Cache_Data, Code Cache, GPUCache i cache2;
+- sprawdzanie pozostałych zabezpieczeń czyszczenia, pomijania plików zablokowanych/systemowych/reparse-point i ochrony danych użytkownika pozostaje aktywne.
+
+Pakiet: FIX097.
+Wersja produktu: 1.0.0.69 (bez zmiany numeru produktu).
+Repozytorium: naprawapclaptop1-dev/komputerowe-centrum-serwisu.
+
+Zakres weryfikacji w tym środowisku: kontrola treści testu, kompletności pakietu, BOM i SHA-256 manifestu oraz integralności ZIP.
+Testy PowerShell, kompilacja Windows, publikacja GitHub Release i instalacja wymagają uruchomienia głównego CMD na komputerze Windows.

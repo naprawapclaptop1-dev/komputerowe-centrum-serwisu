@@ -39,10 +39,12 @@ if not exist "%CSC%" (>>"%LOG%" echo [FAIL] csc.exe not found.& goto :fail)
 if not exist "%CSHARP%" (>>"%LOG%" echo [FAIL] Microsoft.CSharp.dll not found.& goto :fail)
 if not exist "%WEBEXT%" (>>"%LOG%" echo [FAIL] System.Web.Extensions.dll not found.& goto :fail)
 for %%F in (README.txt INSTRUKCJA.txt CHANGELOG.txt VERSION.txt) do if not exist "%~dp0%%F" (>>"%LOG%" echo [FAIL] Missing documentation %%F.& goto :fail)
-set "TEMP_EXE=%TEMP%\NaprawaPC_FIX069_%RANDOM%_%RANDOM%.exe"
+set "TEMP_BUILDDIR=%DIST%\build-temp\portable"
+if not exist "%TEMP_BUILDDIR%" mkdir "%TEMP_BUILDDIR%"
+set "TEMP_EXE=%TEMP_BUILDDIR%\NaprawaPC_FIX069_%RANDOM%_%RANDOM%.exe"
 set "TEMP_STAGE=%STAGE%.new"
 set "TEMP_PORTABLE=%PORTABLE%.new"
-set "TEMP_STAMP=%TEMP%\NaprawaPC_FIX069_%RANDOM%_%RANDOM%.buildinfo"
+set "TEMP_STAMP=%TEMP_BUILDDIR%\NaprawaPC_FIX069_%RANDOM%_%RANDOM%.buildinfo"
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX069_REGRESSION.ps1" >>"%LOG%" 2>&1
 if errorlevel 1 goto :fail
 >>"%LOG%" echo [INFO] Compiler: %CSC%

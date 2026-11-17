@@ -6,7 +6,9 @@ $Root=$PSScriptRoot
 $LogDir=Join-Path $Root "dist\build-logs"
 New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
 $Log=Join-Path $LogDir "01-github-source-sync-and-pages.log"
-$Temp=Join-Path $env:TEMP ("KCS_FIX093_SourceSync_"+[guid]::NewGuid().ToString("N"))
+$SyncTempRoot=Join-Path $Root "dist\source-sync-temp"
+New-Item -ItemType Directory -Force -Path $SyncTempRoot | Out-Null
+$Temp=Join-Path $SyncTempRoot ("KCS_FIX098_SourceSync_"+[guid]::NewGuid().ToString("N"))
 $PageUrl="https://naprawapclaptop1-dev.github.io/komputerowe-centrum-serwisu/"
 $PagesReady=$false
 $TranscriptStarted=$false
@@ -102,18 +104,18 @@ function Invoke-GitChecked([string[]]$GitArgs,[string]$Description){
 try {
   Start-Transcript -Path $Log -Force | Out-Null
   $TranscriptStarted=$true
-  Write-Host "[INFO] FIX093 source sync / push-trigger Pages deployment / safe package validation"
+  Write-Host "[INFO] FIX098 source sync / push-trigger Pages deployment / safe package validation"
   Write-Host "[INFO] Folder projektu: $Root"
-  $markerPath=Join-Path $Root "FIX093_PACKAGE_MARKER.txt"
-  if(!(Test-Path -LiteralPath $markerPath -PathType Leaf)){throw "Brak markera FIX093. Uruchom CMD z kompletnego pakietu FIX093."}
+  $markerPath=Join-Path $Root "FIX098_PACKAGE_MARKER.txt"
+  if(!(Test-Path -LiteralPath $markerPath -PathType Leaf)){throw "Brak markera FIX098. Uruchom CMD z kompletnego pakietu FIX098."}
   $markerLines=Get-Content -LiteralPath $markerPath
-  if($markerLines -notcontains "PACKAGE=FIX093" -or $markerLines -notcontains "REPOSITORY=$Repo"){throw "Marker pakietu nie zgadza się z FIX093 lub przypisanym repozytorium."}
-  Write-Host "[PASS] Marker FIX093 i repozytorium potwierdzone. Folder nadrzędny: $Root"
+  if($markerLines -notcontains "PACKAGE=FIX098" -or $markerLines -notcontains "REPOSITORY=$Repo"){throw "Marker pakietu nie zgadza się z FIX098 lub przypisanym repozytorium."}
+  Write-Host "[PASS] Marker FIX098 i repozytorium potwierdzone. Folder nadrzędny: $Root"
   Write-Host "[INFO] Repozytorium: $Repo / galaz $Branch"
   $RepoFile=Join-Path $Root "GITHUB_REPOSITORY.txt"
   if(!(Test-Path -LiteralPath $RepoFile)){throw "Brak GITHUB_REPOSITORY.txt — uruchom wyłącznie URUCHOM_TYLKO_TEN_PLIK.cmd."}
   if((Get-Content -LiteralPath $RepoFile -Raw).Trim() -ne $Repo){throw "Repozytorium źródeł jest inne niż przypisane do tego programu."}
-  $repoMeta=Invoke-RestMethod -Headers @{"User-Agent"="KCS-FIX093";Accept="application/vnd.github+json"} -Uri "https://api.github.com/repos/$Repo" -TimeoutSec 30
+  $repoMeta=Invoke-RestMethod -Headers @{"User-Agent"="KCS-FIX098";Accept="application/vnd.github+json"} -Uri "https://api.github.com/repos/$Repo" -TimeoutSec 30
   if($repoMeta.visibility -ne "public" -or $repoMeta.default_branch -ne $Branch){throw "Repozytorium musi być publiczne i używać gałęzi main. visibility=$($repoMeta.visibility), default_branch=$($repoMeta.default_branch)."}
   $gh=Get-Command gh.exe -ErrorAction SilentlyContinue
   if(!$gh){$gh=Get-Command gh -ErrorAction SilentlyContinue}
@@ -203,7 +205,7 @@ try {
   if($statusResult.ExitCode -ne 0){throw "git status nie powiódł się: $changes"}
   if($changes){
     Write-Host "[GIT] Tworzę commit źródeł, strony i workflow Pages."
-    Invoke-GitChecked @("-C",$Temp,"commit","-m","FIX093: push-trigger Pages deployment and cache-safe source sync") "Nie udało się utworzyć commitu źródeł"
+    Invoke-GitChecked @("-C",$Temp,"commit","-m","FIX098: package-local cleanup and push-trigger Pages deployment and cache-safe source sync") "Nie udało się utworzyć commitu źródeł"
     $pushResult=Invoke-NativeCapture -Executable $git.Source -Arguments @("-C",$Temp,"push","origin","HEAD:refs/heads/$Branch")
     $pushOut=$pushResult.Output; $pushCode=$pushResult.ExitCode
     if($pushOut.Trim()){Write-Host $pushOut.TrimEnd()}

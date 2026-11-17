@@ -1,7 +1,35 @@
 @echo off
+rem FIX098: keep a dedicated outer CMD host open even if the worker or a child script exits unexpectedly.
+if /I "%~1"=="__KCS_KEEP_OPEN" goto :KCS_KEEP_OPEN
+if /I "%~1"=="__KCS_WORKER" goto :KCS_WORKER
+start "KOMPUTEROWE CENTRUM SERWISU - FIX098" "%ComSpec%" /d /k ""%~f0" __KCS_KEEP_OPEN"
+exit /b 0
+
+:KCS_KEEP_OPEN
+@echo off
+title KOMPUTEROWE CENTRUM SERWISU - OKNO DIAGNOSTYCZNE FIX098
+echo ============================================================
+echo KOMPUTEROWE CENTRUM SERWISU - STALE OKNO KONTROLNE FIX098
+echo ============================================================
+echo To okno pozostanie otwarte rowniez po bledzie lub zakonczeniu procesu.
+echo.
+"%ComSpec%" /d /c ""%~f0" __KCS_WORKER"
+set "KCS_WORKER_RC=%ERRORLEVEL%"
+echo.
+echo ============================================================
+echo PROCES ZAKONCZONY - KOD: %KCS_WORKER_RC%
+if not "%KCS_WORKER_RC%"=="0" echo [BLAD] Proces roboczy zakonczyl sie bledem. Okno pozostaje otwarte.
+if "%KCS_WORKER_RC%"=="0" echo [PASS] Proces roboczy zakonczyl sie poprawnie.
+echo Szczegoly: folder dist\build-logs w katalogu programu.
+echo Nacisnij klawisz, aby przejsc do wiersza polecen.
+echo ============================================================
+pause
+exit /b 0
+
+:KCS_WORKER
 setlocal EnableExtensions DisableDelayedExpansion
 chcp 65001 >nul
-title KOMPUTEROWE CENTRUM SERWISU - AUTOMATYCZNY START FIX093
+title KOMPUTEROWE CENTRUM SERWISU - AUTOMATYCZNY START FIX098
 set "ROOT=%~dp0"
 pushd "%ROOT%" >nul 2>&1
 if errorlevel 1 goto :path_fail
@@ -14,7 +42,7 @@ set "LOG=%LOGDIR%\00-AUTOMATYCZNY-START.log"
 set "STATUS=%LOGDIR%\FULL_RELEASE.status"
 set "RC=0"
 set "CHECKSTEP=initialization"
->"%LOG%" echo KOMPUTEROWE CENTRUM SERWISU FIX093
+>"%LOG%" echo KOMPUTEROWE CENTRUM SERWISU FIX098
 >>"%LOG%" echo Folder: %ROOT%
 >>"%LOG%" echo Repozytorium: %GHREPO%
 >>"%LOG%" echo Start: %DATE% %TIME%
@@ -22,7 +50,7 @@ if exist "%STATUS%" del /q "%STATUS%" >nul 2>&1
 if exist "%ROOT%PUBLICATION_VERIFICATION.status" del /q "%ROOT%PUBLICATION_VERIFICATION.status" >nul 2>&1
 >"%ROOT%GITHUB_REPOSITORY.txt" echo %GHREPO%
 echo ============================================================
-echo KOMPUTEROWE CENTRUM SERWISU - FIX093
+echo KOMPUTEROWE CENTRUM SERWISU - FIX098
 echo AUTOMATYCZNA BUDOWA + PUBLIKACJA + INSTALACJA
 echo ============================================================
 echo Repozytorium: %GHREPO%
@@ -32,7 +60,7 @@ echo Aktywny folder: %ROOT%
 echo.
 
 set "CHECKSTEP=walidacja pakietu"
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%VALIDATE_FIX093_PACKAGE.ps1" >>"%LOG%" 2>&1
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%VALIDATE_FIX098_PACKAGE.ps1" >>"%LOG%" 2>&1
 set "RC=%ERRORLEVEL%"
 if not "%RC%"=="0" goto :validation_fail
 
@@ -42,10 +70,10 @@ set "RC=%ERRORLEVEL%"
 if not "%RC%"=="0" goto :validation_fail
 
 echo.
-echo [CLEAN] Bezpieczne czyszczenie starych plikow tymczasowych...
+echo [CLEAN] tymczasowe pliki tylko wewnatrz folderu programu...
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%CLEAN_SAFE_TEMP.ps1"
 set "CLEAN_RC=%ERRORLEVEL%"
-if not "%CLEAN_RC%"=="0" echo [WARN] Czyszczenie TEMP niepelne - kod %CLEAN_RC%; budowa bedzie kontynuowana bez usuwania plikow. Raport: dist\build-logs\SAFE_TEMP_CLEANUP.log.
+if not "%CLEAN_RC%"=="0" echo [WARN] Czyszczenie folderu programu niepelne - kod %CLEAN_RC%; budowa bedzie kontynuowana; raport czyszczenia zostal zachowany. Raport: dist\build-logs\SAFE_TEMP_CLEANUP.log.
 
 echo.
 echo [0/5] Automatyczne przygotowanie narzedzi...
@@ -100,7 +128,6 @@ echo Strona globalna: %PAGEURL%
 echo Wersja produktu: 1.0.0.69
 echo Log: %LOG%
 echo.
-pause
 popd
 exit /b 0
 
@@ -145,12 +172,10 @@ powershell.exe -NoLogo -NoProfile -Command "Get-Content -LiteralPath '%LOG%' -Ta
 goto :end_fail
 :path_fail
 echo [BLAD] Nie mozna ustawic katalogu pakietu.
-pause
 exit /b 2
 :end_fail
 echo.
 echo Pelny log: %LOG%
-echo Okno CMD pozostaje otwarte. Nacisnij klawisz dopiero po przeczytaniu bledu.
-pause
+echo Blad zapisano w logu. Sterowanie wraca do stalego okna CMD.
 popd
 exit /b 1

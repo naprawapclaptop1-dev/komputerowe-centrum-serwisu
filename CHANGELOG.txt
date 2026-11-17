@@ -879,3 +879,30 @@ PIPELINE
 Walidacja → CHECK_SOURCE raz → bezpieczne TEMP → przygotowanie narzędzi → synchronizacja źródeł i strony → kompilacja EXE/portable/instalatora → GitHub Release → test publiczny → instalacja lokalna.
 
 Wersja produktu pozostaje 1.0.0.69. FIX093 naprawia bramkę testów; nie oznacza jeszcze, że kompilacja, pierwsze wydanie i instalacja zostały wykonane.
+
+
+[2026-11-17] FIX094 - PERSISTENT CMD WINDOW
+- Added a dedicated outer cmd.exe /d /k host which remains open after the worker exits.
+- Runs the full automation in an isolated cmd.exe /d /c worker, so an unexpected EXIT in a child batch process cannot close the diagnostic host.
+- Captures and displays the worker exit code and leaves the user at the prompt after the final pause.
+- Added CHECK_FIX094_KEEP_OPEN.ps1 and included it in CHECK_SOURCE and package validation.
+- Keeps the single ZIP and single entrypoint; product version remains 1.0.0.69.
+
+
+KOMPUTEROWE CENTRUM SERWISU - FIX095
+- Naprawiono walidator pakietu: CHECK_SOURCE nie odwoluje sie do brakujacych testow CHECK_FIX094.
+- Dodano bezpieczne czyszczenie jawnie wskazanych cache Chrome/Edge/Firefox/Brave/Vivaldi/Opera/Discord/Teams oraz cache DirectX i sterownikow GPU.
+- Zachowano dane profili, cookies, logowania, historie, hasla, rozszerzenia, ustawienia, bazy, instalacje i pliki projektu.
+- Zachowano stale okno CMD /K i diagnostyke kodu zakonczenia.
+- Wersja produktu pozostaje 1.0.0.69.
+
+
+FIX097 — naprawiono test CHECK_SOURCE, który szukał dwóch ukośników w ścieżce Cache\\Cache_Data zamiast jednego; pozostałe testy bezpieczeństwa czyszczenia pozostają aktywne. Numer produktu bez zmian: 1.0.0.69.
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX098
+- Zgodnie z zakresem użytkownika ograniczono czyszczenie wyłącznie do dedykowanych katalogów tymczasowych wewnątrz folderu pakietu.
+- Usunięto operacje czyszczenia systemowego TEMP, Windows TEMP, AppData i cache innych programów.
+- Przeniesiono roboczy klon synchronizacji GitHub do dist\source-sync-temp wewnątrz pakietu.
+- Dodano testy FIX098 zakresu czyszczenia oraz kolejności pipeline.
+- Wersja produktu bez zmian: 1.0.0.69.
