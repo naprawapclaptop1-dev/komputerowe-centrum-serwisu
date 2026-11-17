@@ -11,3 +11,4 @@ GlobalUpdateServer/
 *.pem
 .env
 .env.*
+.tools/
