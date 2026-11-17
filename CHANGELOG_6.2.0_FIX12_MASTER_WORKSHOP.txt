@@ -1,0 +1,49 @@
+NAUKA OD A DO Z — 6.2.0 FIX12
+WARSZTAT MISTRZA PRO
+Data pakietu: 02.11.2026
+
+NOWE FUNKCJE
+1. Osobny, podłączony do nawigacji widok „Warsztat Mistrza PRO”.
+2. Atlas 10 dziedzin i 30 procedur: płyty główne/PCB, CPU/sockety/VRM,
+   GPU/VRAM, RAM, BIOS/UEFI/EC, HDD/SSD/NVMe, USB-C/Power Delivery,
+   lutowanie SMD/BGA, chłodzenie oraz diagnostyka i pomiary.
+3. Symulator 8 przypadków diagnostycznych, każdy z 3 etapami decyzji,
+   informacją zwrotną i lokalnym zapisem ukończenia.
+4. Trzy egzaminy po 8 pytań (24 pytania łącznie), wyjaśnienia odpowiedzi,
+   próg 80% i lokalne certyfikaty ukończenia testu.
+5. Kalkulatory prawa Ohma, dzielnika napięcia, połączeń rezystorów i mocy.
+6. Dekoder oznaczeń rezystorów SMD: kody 3/4-cyfrowe, zapis R i EIA-96.
+   Nieznane oznaczenia nie są zgadywane.
+7. Lokalny dziennik przypadków w IndexedDB ze zdjęciami PRZED/PO,
+   opisem objawów, diagnozą, naprawą, Board ID i testem końcowym.
+8. Edytor własnych materiałów i notatek.
+9. Wyszukiwarka uruchamia wyszukiwanie dokumentacji; instrukcja wymaga
+   potwierdzenia producenta, pełnego oznaczenia i rewizji.
+10. Eksport/import kopii warsztatu z walidacją danych, limitem rozmiaru
+    i scalaniem postępu zamiast bezwarunkowego nadpisywania.
+11. Dziesięć zestawów mediów lokalnych (zdjęcie, film MP4, plakat i napisy VTT).
+    Opisy uczciwie określają zakres materiału; film o chłodzeniu nie jest
+    przedstawiany jako instrukcja reballingu VRAM/BGA.
+
+ZACHOWANE FUNKCJE
+- 1060 lekcji, baza napraw, istniejące kursy, filmy i laboratoria.
+- FIX10: bezpieczny eksport i scalanie postępu nauki.
+- FIX11: dziennik pomiarów serwisowych i poprawiona weryfikacja MP4 GET/Range.
+- Dotychczasowe API kont, katalog modeli, statystyki, społeczność i D1.
+- Bez modułu przyjmowania zleceń serwisowych.
+
+BEZPIECZEŃSTWO I OGRANICZENIA
+- Dziennik, notatki, egzaminy i postęp Warsztatu są lokalne w przeglądarce.
+  Nie są automatycznie wysyłane do D1 ani synchronizowane między urządzeniami.
+- Certyfikat jest lokalnym potwierdzeniem wyniku testu; nie jest dokumentem
+  państwowym ani akredytowanym potwierdzeniem kwalifikacji.
+- Symulator jest edukacyjny i nie steruje fizycznym zasilaczem, miernikiem,
+  programatorem ani innym sprzętem.
+- Parametry, pinouty i napięcia trzeba potwierdzać w dokumentacji dokładnego
+  modelu i rewizji. Moduł nie generuje niepotwierdzonych wartości.
+- FIX12 nie wykonuje migracji bazy D1 i nie zmienia istniejących danych.
+
+PUBLIKACJA
+Paczka lokalna jest przygotowana do weryfikacji. Nie oznacza to, że FIX12
+został opublikowany pod stałym adresem Pages. Kontrolę produkcji wykonuje
+istniejący watcher i wymaga on nowego HTML, JS oraz CSS FIX12.

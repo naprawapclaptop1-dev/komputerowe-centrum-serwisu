@@ -1,0 +1,91 @@
+AKADEMIA SERWISU PRO 3.9.8 — KONFIGURACJA CZATU HYBRYDOWEGO
+================================================================
+
+Kolejność działania
+-------------------
+1. OpenAI Responses API jest głównym dostawcą. Domyślny model: gpt-6.1-sol.
+2. Gdy OpenAI zwróci błąd, limit, timeout albo przerwie strumień, serwer próbuje
+   Cloudflare Workers AI: @cf/meta/llama-3.3-70b-instruct-fp8-fast.
+3. Gdy oba modele są niedostępne, interfejs przechodzi na lokalne wyszukiwanie
+   w materiałach Akademii. UI wyraźnie pokazuje użyty tryb.
+
+A. Klucz OpenAI — wymagany dla głównego modelu
+----------------------------------------------
+1. Utwórz klucz na: https://platform.openai.com/api-keys
+2. Upewnij się, że konto API ma skonfigurowane rozliczenia:
+   https://platform.openai.com/settings/organization/billing
+3. W Cloudflare otwórz Workers & Pages.
+4. Wybierz projekt: naprawa-pc-akademia-serwisu-pro.
+5. Wejdź w Settings -> Variables and Secrets -> Production -> Add.
+6. Wybierz typ Secret / Encrypt.
+7. Nazwa: OPENAI_API_KEY
+8. Wartość: wklej nowy klucz API. Zapisz i wykonaj redeploy projektu Pages.
+
+Klucza nie wpisuj do index.html, plików JavaScript, wrangler.toml, ZIP ani logów.
+Kod serwerowy odczytuje go z env.OPENAI_API_KEY. Przeglądarka dostaje jedynie
+status true/false; nigdy nie otrzymuje wartości sekretu.
+
+B. Cloudflare Workers AI — zapasowy dostawca
+--------------------------------------------
+1. W Cloudflare otwórz Workers & Pages -> naprawa-pc-akademia-serwisu-pro.
+2. Settings -> Bindings -> Production -> Add -> Workers AI.
+3. Variable name / binding name: AI
+4. Zapisz i wykonaj redeploy projektu Pages.
+5. Sprawdź status na ekranie czatu Akademii. Powinno być widoczne:
+   OpenAI główny + Cloudflare Workers AI zapasowy.
+
+Plik Wrangler zawiera również deklarację AI na poziomie głównym i
+env.production. Pages Functions wymagają aktywnego bindingu AI w środowisku
+produkcyjnym; jeśli runtime /api/chat zgłasza cloudflareConfigured=false,
+sprawdź binding w dashboardzie i wykonaj redeploy.
+
+C. Opcjonalne zmienne
+---------------------
+OPENAI_MODEL=gpt-6.1-sol
+WORKERS_AI_MODEL=@cf/meta/llama-3.3-70b-instruct-fp8-fast
+
+Są to zwykłe ustawienia, nie sekrety. Domyślne wartości są już w kodzie, więc
+nie musisz ich dodawać. Dodawaj je tylko wtedy, gdy chcesz zmienić model.
+
+D. Test po konfiguracji
+-----------------------
+Otwórz: https://naprawa-pc-akademia-serwisu-pro.pages.dev/
+W ekranie Asystent AI sprawdź status dostawców i wpisz np.:
+„Laptop Lenovo nie uruchamia się, dioda zasilania miga 3 razy. Jak bezpiecznie
+rozpocząć diagnostykę?”
+
+GET /api/chat pokazuje wyłącznie: openaiConfigured, cloudflareConfigured i
+nazwy modeli. Nie pokazuje kluczy. Po dodaniu obu konfiguracji oba pola muszą
+być true. Test nie wywołuje płatnej odpowiedzi; prawdziwe zapytanie już tak.
+
+E. Prywatność i historia
+------------------------
+- Klucz OpenAI i binding AI są używane wyłącznie w Pages Functions.
+- Wysłane wiadomości są przekazywane do wybranego dostawcy AI, aby wygenerował
+  odpowiedź. Nie wpisuj haseł, kluczy BitLocker ani danych klientów.
+- Historia rozmowy jest zapisywana w D1 tylko dla użytkownika, który włączył
+  synchronizację i wyraził zgodę. Bez zgody pozostaje lokalnie w przeglądarce.
+- Materiały Bazy Wiedzy są dodawane do promptu jako kontekst, a nie jako instrukcje.
+- Limit zapytań API jest egzekwowany przez D1.
+
+F. Koszty
+---------
+OpenAI API jest rozliczane osobno od abonamentu ChatGPT. Samo utworzenie klucza
+jest bezpłatne, ale generowanie odpowiedzi jest płatne według zużycia tokenów.
+Cloudflare Workers AI również nalicza opłaty za wykonane inferencje — nie jest
+to bezpłatny i nielimitowany fallback. Przy domyślnych modelach dokumentacja
+podaje obecnie orientacyjnie: GPT-6.1 Sol 2 USD / 1 mln tokenów wejściowych i
+10 USD / 1 mln wyjściowych; Llama 3.3 70B 0,293 USD / 1 mln wejściowych i
+2,253 USD / 1 mln wyjściowych. Cenniki mogą się zmieniać; sprawdź je przed użyciem:
+https://developers.openai.com/api/docs/pricing
+https://developers.cloudflare.com/workers-ai/platform/pricing/
+
+G. Diagnostyka
+---------------
+GET https://naprawa-pc-akademia-serwisu-pro.pages.dev/api/chat
+- openaiConfigured=false: sprawdź sekret OPENAI_API_KEY w Production.
+- cloudflareConfigured=false: sprawdź binding Workers AI AI w Production.
+- oba true: integracja hybrydowa jest skonfigurowana.
+- HTTP 503 podczas POST: oba modele są niedostępne albo brak DB/rate limit table.
+
+Konfiguracja nie umieszcza żadnych kluczy w archiwum. Klucz OpenAI dodajesz przez lokalne okno przeglądarki uruchamiane z URUCHOM_AKADEMIE.cmd lub USTAW_KLUCZ_OPENAI.cmd; można normalnie wkleić go skrótem Ctrl+V. Formularz nasłuchuje wyłącznie na 127.0.0.1 i przekazuje wartość do Wrangler przez stdin.

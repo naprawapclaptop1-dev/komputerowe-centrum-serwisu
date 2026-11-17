@@ -1,0 +1,32 @@
+NAUKA OD A DO Z — RAPORT TESTÓW FIX52 PREFLIGHT HOTFIX
+Data: 2026-11-05
+Zakres: poprawka testów preflight FIX51; bez zmian aplikacji produkcyjnej.
+
+NAPRAWIONA PRZYCZYNA
+- Test UI szukał „localne plakaty lekcji”, podczas gdy UI zawierało poprawne „lokalne plakaty lekcji”.
+- Test kontraktu wydania używał publicContract przed deklaracją const.
+
+WYNIKI
+- Kontrola składni: 221/221 PASS, 0 FAIL.
+- Testy scripts/test-*.js: 28/28 PASS.
+- Testy scripts/test-*.mjs: 53/53 PASS.
+- Razem regresja: 81/81 PASS, 0 FAIL.
+- Test Visual Academy: 7/7 PASS.
+- Test kontraktu: PASS — 12 fotografii + 3 plakaty + 18 ilustracji SVG = 33 zasoby.
+- Test serwera podglądu: PASS — HTML, JS, CSS, SVG, JSON, JPG, HEAD, 404 i path safety.
+- Audyt bezpieczeństwa: 243 pliki, 0 critical, 0 high.
+- Audyt migracji: 17 plików przeanalizowanych; 2 historyczne pliki wymagają ręcznej oceny.
+
+ŚRODOWISKO
+- Testy uruchomiono w kontenerze na Node.js v22.16.0.
+- Windows Node.js v24.19.0 należy potwierdzić przez WYKONAJ_TESTY_FIX52.cmd.
+- Test GUI Chrome/Edge nie został wykonany.
+
+BEZPIECZEŃSTWO
+- Nie wykonano publikacji produkcyjnej.
+- Nie wykonano migracji ani zapisów D1.
+- Nie zmieniono konfiguracji OpenAI, OAuth, sekretów ani bindingu Cloudflare.
+- Dwie historyczne migracje wymagają oceny przed jakimkolwiek zastosowaniem; audyt nie wykonuje SQL.
+
+WNIOSEK
+Fałszywie negatywna asercja „localne plakaty lekcji” została poprawiona. Drugi błąd kolejności deklaracji testu kontraktu także został naprawiony. Preflight przechodzi w środowisku testowym Node.js v22.16.0. Przed publikacją wymagana jest weryfikacja testów na docelowym Windows/Node.js v24.19.0 oraz ręczna kontrola Chrome/Edge.

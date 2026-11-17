@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const shim = fs.readFileSync(path.join(root, 'RESOLVE_NODE_FIX104.cmd'), 'utf8');
+const current = fs.readFileSync(path.join(root, 'RESOLVE_NODE_FIX105.cmd'), 'utf8');
+assert.ok(shim.includes('RESOLVE_NODE_FIX105.cmd'));
+assert.ok(current.includes('-Root "%NPA_ROOT%" -NodePathFile "%NODE_PATH_FILE%" -VersionFile "%NODE_VERSION_FILE%"'));
+assert.ok(!current.includes('-Root "%~dp0"'));
+console.log('FIX104 compatibility / FIX105 invocation smoke test: 1/1 PASS');

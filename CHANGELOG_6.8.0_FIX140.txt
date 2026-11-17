@@ -1,0 +1,17 @@
+NAUKA OD A DO Z 6.8.0 — FIX140
+NAPRAWA BLOKADY PUBLIKACJI FIX135
+
+Przyczyna:
+FIX139 przeniósł seed usb-c-laptop-port z 19 przypisanych kart modułów do slotu HERO.
+Walidator FIX135 prawidłowo odrzuca taką zmianę: 19 seedów jest zarezerwowanych
+wyłącznie dla 19 kart modułów, a sloty specjalistyczne nie mogą ich konsumować.
+
+Poprawka:
+- Przywrócono oryginalne, zatwierdzone 19 przypisań homepageSlotSeedMap z FIX137.
+- Przywrócono unikalność 19 seedów i zgodność typów zdjęć modułów.
+- Główny HERO zachowuje lokalny, zatwierdzony fallback SVG.
+- Nie zmieniono HTML, CSS, układu, menu, kursów, funkcji, D1, sekretów ani konfiguracji Cloudflare.
+- Wersja produktu pozostaje 6.8.0.
+
+Zakres: wyłącznie przywrócenie prawidłowej mapy 19 zdjęć modułów.
+Status publikacji: nie wykonano z tego środowiska.

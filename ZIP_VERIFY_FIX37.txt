@@ -1,0 +1,10 @@
+WERYFIKACJA ARCHIWUM FIX37
+============================================================
+Zrodlo: NAUKA_OD_A_DO_Z_6_8_0_FIX36_SUPPORT_COMMUNITY_CENTER.zip
+Pliki projektu i dokumentacji: 693.
+Wpisy archiwum lacznie z wpisami katalogow: 719.
+Baza: 683 pliki.
+FIX37: 5 nowych plikow projektu/testow, 5 nowych dokumentow, 0 plikow usunietych.
+
+Archiwum zostalo sprawdzone po spakowaniu: ZIP CRC/testzip bez bledow, suma SHA-256 obliczona z gotowego pliku.
+Szczegoly potwierdzenia rozmiaru i sumy sa rowniez w pliku .sha256 obok archiwum.

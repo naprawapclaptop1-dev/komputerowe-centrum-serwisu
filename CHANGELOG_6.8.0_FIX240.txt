@@ -1,0 +1,5 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 / FIX240
+
+FIX240 — naprawiono ReferenceError `html is not defined` w verifyWeb: walidator FIX231–FIX239 używa teraz prawidłowych zmiennych `indexHtml` i `sw`. Auto Publisher Watcher zachowuje swoje lokalne aliasy `html` i `sw`. Dodano test regresyjny, test składni obu publikatorów, wymaganie testu w preflight oraz metadane wydania.
+
+Nie zmieniono numeru produktu, konfiguracji D1, sekretów ani nazw cache PWA. Nie wykonano zdalnej publikacji Cloudflare.

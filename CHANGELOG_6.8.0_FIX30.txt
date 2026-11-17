@@ -1,0 +1,33 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 FIX30
+Data: 2026-11-04
+
+- Naprawiono przechwytywanie kliknięć menu: zdarzenie używa wspólnego window.ACADEMY_SHOW_VIEW() i głównego showView(), zamiast przełączać wyłącznie klasy CSS.
+- Zachowano efekty nawigacji, odświeżanie paneli, aktualizację historii/adresu i zamykanie menu mobilnego.
+- Przebudowano wizualnie stronę startową: lepszy hero, collage zdjęć, siatkę modułów, odstępy i responsywność.
+- Wprowadzono 22 unikalne elementy wizualne na stronie startowej: 12 fotografii i 10 odrębnych ilustracji technicznych SVG.
+- Zmieniono alokację zdjęć: każde źródło fotografii jest rezerwowane pojedynczo; po wyczerpaniu puli wykorzystywana jest indywidualna ilustracja, nie duplikat zdjęcia.
+- Dodano photo-unique-thumbnails-fix30.js i home-refresh-fix30.css.
+- Dodano 10 osobnych ilustracji technicznych SVG.
+- Zaktualizowano cache PWA, publikator, watcher, release metadata, runner testów i kontrolę kont.
+- Uporządkowano sześć kafli powtarzającej się ścieżki w trzy etapy; nie usunięto modułów ani plików.
+- Dodano test regresyjny nawigacji i unikalności zdjęć.
+
+ZACHOWANO
+- Wszystkie dotychczasowe pliki i moduły FIX29.
+- Kursy, laboratoria, konta, OAuth/2FA, D1, publikator i system kopii D1 przed migracjami.
+- Brak integracji Google Drive/OneDrive/Dropbox.
+
+TESTY
+- 45/45 testów regresyjnych PASS.
+- 138 plików JS/MJS/CJS bez błędów składni.
+- 38 plików CSS bez błędów parsera.
+- 648 unikalnych ID HTML.
+- 26 widoków i brak brakujących celów nawigacji.
+- 124 wystąpienia odwołań lokalnych, 110 unikalnych, 0 brakujących.
+- 22 unikalne elementy wizualne na stronie startowej.
+- 30 obrazów rastrowych, 0 identycznych plików wg SHA-256.
+- FIX29: 595 plików; FIX30: 611 plików; usunięte: 0; dodane: 16.
+
+OGRANICZENIA
+- Test E2E Chromium nie mógł zostać wykonany w środowisku budowania (ERR_BLOCKED_BY_ADMINISTRATOR).
+- FIX30 nie został opublikowany na Cloudflare i nie zmieniono produkcyjnej D1.

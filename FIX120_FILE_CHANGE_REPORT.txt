@@ -1,0 +1,19 @@
+RAPORT ZMIAN PLIKÓW — FIX120
+
+1. ONECLICK_AKADEMIA.js
+   - Przeniesiono inicjalizację serviceWorkerVisualSource przed pierwszą kontrolę FIX119.
+   - Zaktualizowano oznaczenie narzędzia: Publisher FIX120 / website release FIX119.
+
+2. scripts/test-oneclick-service-worker-tdz-fix120.mjs
+   - Dodano 4 asercje regresyjne sprawdzające położenie inicjalizacji i pojedynczą deklarację.
+
+3. scripts/run-tests-fix119.mjs
+   - Włączono test FIX120 do pełnego preflight oraz kontroli składni.
+
+4. CHANGELOG_6.8.0_FIX120.txt / README_FIX120_PUBLISHER_HOTFIX.txt
+   - Dodano opis poprawki, zakres oraz ograniczenia testów.
+
+5. RAPORT_FIX120_TESTY.log
+   - Zapisano wyniki 55/55, 16/16 i 4/4.
+
+Bez zmian: produkt WWW 6.8.0 FIX119, HTML strony, konfiguracja Cloudflare, istniejący projekt Pages, binding D1, nazwa i zawartość bazy danych, migracje oraz cache biblioteki zdjęć FIX118.

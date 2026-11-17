@@ -1,0 +1,13 @@
+NAUKA OD A DO Z — CHANGELOG FIX63
+
+FIX63 — CLOUDFARE PAGES BRANCH DISCOVERY
+- Naprawiono blokadę publikacji wynikającą z braku pola production_branch w wyjściu Wrangler 4.156.0.
+- Dodano odczyt rzeczywistej Production Branch przez Cloudflare Pages API.
+- Token pobierany jest z CLOUDFLARE_API_TOKEN lub istniejącego profilu OAuth Wrangler.
+- Ustawiana jest gałąź zwrócona przez Cloudflare; watcher nie zakłada, że zawsze jest to main.
+- Dodano walidację odpowiedzi API, projektu, konta, nazwy gałęzi oraz zgodności ręcznego potwierdzenia.
+- Token nie jest logowany ani zapisywany w projekcie.
+- Zachowano blokadę, gdy nie da się bezpiecznie ustalić Production Branch.
+- Dodano testy FIX63 i runner WYKONAJ_TESTY_FIX63.cmd.
+
+Wersja produktu pozostaje 6.8.0. FIX63 jest hotfixem publikatora, nie nowym wydaniem funkcjonalnym.

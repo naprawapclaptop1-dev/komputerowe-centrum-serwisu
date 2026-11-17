@@ -1,0 +1,23 @@
+NAUKA OD A DO Z — DLA WSZYSTKICH 6.2.0 FIX9
+POPRAWKA FILMU NA STRONIE WSPARCIA
+
+1. Przebudowano rzeczywisty plik MP4, a nie tylko arkusz CSS.
+2. Usunięto pusty prostokąt i nietrafione plansze wypalone w poprzednich klatkach filmu.
+3. Film pokazuje 6 odrębnych scen z różnymi fotografiami warsztatowymi:
+   - workbench-motherboard-inspection.jpg
+   - laptop-board-inspection.jpg
+   - motherboard-multimeter-probing.jpg
+   - ram-m2-installation-detail.jpg
+   - cooling-cleaning.jpg
+   - usb-c-power-delivery-diagnostic.jpg
+4. Każda scena ma delikatny ruch obrazu i zanikanie na wejściu/wyjściu.
+5. MP4: H.264, 1280x720, 30 kl./s, AAC, długość 33,111 s.
+6. Zachowano poprzednią ścieżkę narracji AAC.
+7. Napisy VTT nie są już włączone domyślnie; widz może użyć przycisku CC.
+8. Dodano czytelną transkrypcję pod odtwarzaczem.
+9. Zaktualizowano plakat do nazwy NAUKA OD A DO Z.
+10. Zmieniono URL wersji źródła MP4, metadane release.json i namespace Service Workera na FIX9.
+11. Publikator wymaga nowego pliku MP4 (powyżej 1 MB); watcher po publikacji wykonuje HEAD do publicznego MP4 i sprawdza Content-Length.
+
+Zakres tej poprawki dotyczy filmu na stronie wsparcia. Nie oznacza globalnego zakończenia deduplikacji wszystkich fotografii w 155 kartach napraw.
+Nie wykonano publikacji produkcyjnej ani migracji D1.

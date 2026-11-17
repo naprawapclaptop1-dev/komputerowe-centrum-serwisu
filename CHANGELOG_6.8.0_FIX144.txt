@@ -1,0 +1,27 @@
+NAUKA OD A DO Z — FIX144
+Produkt: 6.8.0
+Data: 2026-11-14
+Zakres: wyłącznie brakujące zdjęcie HERO USB-C / POWER DELIVERY.
+
+PRZYCZYNA
+FIX142 poprawnie dodał lokalne zdjęcie JPEG do WEB_PUBLISH/media, ale globalny strażnik unikalności FIX77 nadal miał zamkniętą listę dozwolonych 13 fotografii i nie zawierał nowego pliku HERO. Podczas audytu DOM traktował więc poprawne lokalne zdjęcie jako niedozwolony raster i zastępował je ilustracją SVG. To dokładnie powodowało komunikat „Ilustracja techniczna offline · zdjęcie niedostępne”.
+
+NAPRAWA
+- Dodano dokładny plik media/hero-usbc-power-delivery-fix142.jpg do allowlisty FIX77.
+- Nie wyłączono audytu, globalnej kontroli duplikatów, SHA-256/pHash ani ochrony pozostałych zdjęć.
+- Rozszerzono test FIX142 i dodano test regresji FIX144.
+- Publisher sprawdza teraz obecność wpisu HERO w allowliście przed publikacją.
+
+ZACHOWANO
+- HTML, CSS, układ strony, menu, kursy i wszystkie sekcje bez zmian.
+- 19 przypisań zdjęć modułów oraz dotychczasową bibliotekę zdjęć.
+- Lokalny plik HERO, fallback SVG, projekt Pages, istniejącą bazę D1 i sekrety.
+- Wersję produktu 6.8.0; bez migracji D1 i bez tworzenia nowego projektu.
+
+TESTY
+- test-fix142-local-usbc-hero-photo.mjs: 4/4 PASS.
+- test-fix144-hero-allowlist.mjs: 3/3 PASS.
+- Pełny preflight FIX137 uruchamia oba testy oraz dotychczasowe testy FIX136/FIX137.
+
+WDROŻENIE
+Poprawka jest lokalna w pełnym ZIP. Publikacja produkcyjna wymaga uruchomienia dotychczasowego START_FIX105 na komputerze użytkownika. Nie deklaruje się wdrożenia Cloudflare bez potwierdzonego logu.

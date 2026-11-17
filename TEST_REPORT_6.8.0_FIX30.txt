@@ -1,0 +1,59 @@
+NAUKA OD A DO Z 6.8.0 — FIX30
+RAPORT AUDYTU WYGLĄDU, NAWIGACJI I ZDJĘĆ
+Data: 2026-11-04
+
+PODSUMOWANIE
+- Testy regresyjne: 45/45 PASS, 0 FAIL.
+- JavaScript/MJS/CJS: 138 plików, 0 błędów składni (node --check).
+- CSS: 38 plików, 0 błędów parsera/struktury.
+- HTML: 648 identyfikatorów, 0 duplikatów.
+- Widoki aplikacji: 26; cele nawigacji bez brakujących sekcji.
+- Lokalne odwołania src/href/poster: 124 wystąpienia, 110 unikalnych ścieżek, 0 brakujących zasobów.
+- Wizualne elementy z blokadą ponownego użycia: 22, 22 różne identyfikatory i 22 różne źródła.
+- Zdjęcia JPG w galerii lokalnej: 12; zdjęcia rastrowe ogółem: 30.
+- Porównanie SHA-256 obrazów rastrowych: 0 grup identycznych plików.
+- ZIP zostanie sprawdzony testem CRC po spakowaniu.
+
+CO POPRAWIONO
+1. NAWIGACJA I KLIKNIĘCIA
+- Poprzedni przechwyt kliknięć menu zmieniał tylko klasę aktywnego widoku i omijał część logiki głównego modułu.
+- FIX30 przekazuje zmianę widoku do window.ACADEMY_SHOW_VIEW(), które uruchamia właściwe showView() aplikacji.
+- Zachowane są efekty przełączenia widoku: zamknięcie menu mobilnego, odświeżenie odpowiednich paneli, historia/adres widoku i stan menu.
+- Pozostawiono bezpieczny fallback, jeśli moduł główny nie jest jeszcze gotowy.
+
+2. ZDJĘCIA — BRAK POWTÓRZEŃ W WIDOCZNYCH ELEMENTACH STARTU
+- Strona startowa ma 22 różne elementy wizualne: 12 fotografii i 10 oddzielnych ilustracji technicznych SVG.
+- 12 zdjęć w slajderze ma osobne pliki i osobne źródła.
+- Karty modułów nie współdzielą zdjęć; po wykorzystaniu dostępnych fotografii dynamiczne karty otrzymują różne ilustracje techniczne zamiast ponownie używać tej samej fotografii.
+- 12 zewnętrznych źródeł Pexels w galerii jest przydzielanych pojedynczo; nie są używane jako wspólny fallback wielu kart.
+- Nowy photo-unique-thumbnails-fix30.js pilnuje rezerwacji zdjęć i unikalnych ilustracji awaryjnych.
+- Istniejący mechanizm trzech różnych zdjęć na przypadek naprawy pozostał bez zmian.
+- Ilustracje SVG są oznaczone jako grafiki techniczne, a nie przedstawiane jako fotografie.
+
+3. WYGLĄD STRONY STARTOWEJ
+- Odświeżono sekcję główną, rozmieszczenie fotografii, siatkę modułów, odstępy i zachowanie responsywne.
+- Sześć powtarzalnych kafli ścieżki nauki uporządkowano w trzy czytelne etapy: start, praktyka i specjalizacja.
+- Wszystkie wcześniejsze moduły i ich cele pozostają dostępne w nawigacji oraz siatce modułów.
+- Dodano 10 odrębnych ilustracji: komponenty, BoardView, oscyloskop, ścieżka nauki, checklista, identyfikacja modelu, biblioteka mediów, mapa wiedzy, mentor AI i symulator warsztatu.
+
+PORÓWNANIE Z FIX29
+- FIX29: 595 plików.
+- FIX30: 611 plików.
+- Usunięte pliki: 0.
+- Nowe pliki: 16 (runner testów i kontroli kont, test FIX30, CSS, skrypt unikalności zdjęć oraz 10 ilustracji SVG).
+- Nie usuwano istniejących kursów, laboratoriów, API, logowania ani modułów.
+
+WYNIKI TESTÓW REGRESYJNYCH
+- 45 plików testowych JS/MJS: PASS.
+- Testy obejmują m.in. logowanie, OAuth, TOTP/2FA, reset hasła, katalog kursów, import/eksport, laboratoria, zdjęcia, menu, PWA, publikator i konfigurację D1.
+- Nowy test FIX30 sprawdza nawigację, unikalne źródła zdjęć, unikalne identyfikatory wizualne, pliki zasobów i zachowanie po wyczerpaniu puli zdjęć.
+
+OGRANICZENIA / UCZCIWY STATUS
+- Nie wykonano pełnego testu E2E w prawdziwym Chromium: środowisko blokuje otwieranie lokalnego projektu błędem ERR_BLOCKED_BY_ADMINISTRATOR. Testy statyczne, składni, regresji i symulacji logiki przeszły; rzeczywiste klikanie w przeglądarce Windows wymaga potwierdzenia po rozpakowaniu.
+- FIX30 nie został opublikowany na Cloudflare. Nie wykonano migracji ani zmian produkcyjnej bazy D1.
+- Poprawka FIX30 nie jest potwierdzeniem, że produkcyjne logowanie działa. Po publikacji wymagany jest CHECK_KONTA_FIX30.cmd.
+- 10 SVG to unikalne ilustracje techniczne, nie fotografie.
+- Dynamiczny katalog nie powiela zdjęć po wyczerpaniu dostępnej puli; pokazuje odrębną ilustrację techniczną.
+
+WNIOSKI
+W porównaniu z FIX29 nie usunięto żadnego pliku ani modułu. Naprawiono obsługę kliknięć, przebudowano stronę startową i wprowadzono jawne przydzielanie różnych zdjęć/ilustracji.

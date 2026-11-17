@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:08.918
+Zgodność części. Sprawdź DDR4/DDR5. format SO-DIMM/DIMM. M.2 SATA/NVMe i długość SSD.
+
+00:00:08.918 --> 00:00:17.837
+Zabezpiecz dane. Wykonaj kopię i sprawdź. czy da się odczytać; najpierw ratuj dane z awaryjnego SSD.
+
+00:00:17.837 --> 00:00:26.755
+Bezpieczny demontaż. Odłącz zasilanie i baterię zgodnie z dokumentacją modelu.
+
+00:00:26.755 --> 00:00:35.673
+Montaż RAM. Wyrównaj nacięcie. włóż moduł pod kątem i zamknij zatrzaski.
+
+00:00:35.673 --> 00:00:44.592
+Montaż NVMe. Sprawdź Key. długość. śrubę i radiator; nie wyginaj PCB.
+
+00:00:44.592 --> 00:00:53.510
+Weryfikacja. Sprawdź UEFI. SMART. test pamięci i działanie systemu.

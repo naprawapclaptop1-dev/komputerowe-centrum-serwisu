@@ -1,0 +1,21 @@
+NAUKA OD A DO Z — AKADEMIA SERWISU PRO
+CHANGELOG 6.8.0 / FIX95
+Data: 2026-11-07
+
+NAPRAWY
+- Naprawiono fałszywie negatywną zdalną walidację katalogu fotografii. Dane opisujące politykę dopasowania tematu (strictPortEvidence, strictVramEvidence, strictRamEvidence, noGenericTopicFallback i category-specific) są sprawdzane w photo-sources-online.json, a znaczniki zachowania wykonywalnego wyłącznie w photo-catalog-fix94.js.
+- Zachowano wszystkie wymagania dotyczące źródeł, licencji, liczby zdjęć, unikalności, filtrów tematycznych i trzech różnych zdjęć na procedurę. Brak wymaganych danych nadal blokuje publikację.
+- Rozdzielono identyfikator hotfixa publikatora FIX95 od identyfikatora aktywnego runtime fotografii FIX94. Zmiana samego strażnika publikacji nie wymusza przebudowy działającego katalogu zdjęć.
+- Watcher raportuje listę niespełnionych warunków katalogu, aby kolejna diagnostyka wskazywała konkretną przyczynę.
+- Kontrola Global Academy FIX83 nadal wymaga kompletnego i poprawnego wyniku katalogu zdjęć, aktualnego hotfixa i wymaganych zasobów.
+- Dodano test regresyjny test-publication-guard-fix95.mjs oraz pełny runner run-tests-fix95.mjs.
+
+ZACHOWANO
+- Numer produktu 6.8.0 i bazowy build 6.8.0-fix51-visual-academy-pro-20261105.
+- Aktywny runtime zdjęć FIX94 i manifest photo-sources-online.json.
+- Istniejący projekt Cloudflare Pages, tryb Direct Upload, domenę i konfigurację Wrangler.
+- Istniejącą bazę D1 i migracje; żadne zapytania SQL ani migracje nie zostały wykonane.
+- Istniejące moduły, 1060 lekcji, konta, widoki, media, funkcje i cache PWA.
+
+WDROŻENIE
+Nie wykonano wdrożenia produkcyjnego. Pakiet zawiera naprawę i testy lokalne; produkcyjne działanie wymaga uruchomienia publikatora na komputerze użytkownika i potwierdzenia nowego builda pod stałą domeną.

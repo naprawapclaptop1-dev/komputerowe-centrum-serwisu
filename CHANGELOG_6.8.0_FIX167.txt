@@ -1,0 +1,31 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 FIX167
+Data: 2026-11-15
+
+FIX167 — NAPRAWA FAŁSZYWEJ BLOKADY PUBLIKACJI / GEMINI CMD-ONLY
+
+1. ONECLICK_AKADEMIA.js
+   - Usunięto błędny wymóg obecności tekstów konfiguracji klucza w WEB_PUBLISH/index.html.
+   - Walidacja sprawdza teraz USTAW_KLUCZ_GEMINI.cmd oraz scripts/configure-gemini-secret.ps1.
+   - Wymagane są ukryte Read-Host -AsSecureString, parametr --stdin-secret oraz przekazanie sekretu przez stdin.
+   - Wymagane metadane FIX167 potwierdzają brak pola klucza na stronie WWW, brak lokalnego zapisu klucza i brak zmian runtime/cache/D1.
+   - Baner publikatora identyfikuje FIX167.
+
+2. AUTO_PUBLISH_WATCHER.js
+   - Zsynchronizowano kontrakt weryfikacji konfiguratora CMD-only z OneClick.
+   - Watcher sprawdza rzeczywisty mechanizm CMD/PowerShell, a nie formularz strony.
+
+3. WEB_PUBLISH/release.json
+   - Dodano metadane academyGeminiCmdOnlyGuardFix167.
+   - Nie zmieniono latestHotfix ani cache strony: aktywny runtime WWW pozostaje FIX165.
+
+4. TESTY
+   - Dodano 7 asercji FIX167.
+   - Zaktualizowano historyczny test banera publikatora, aby nie wymagał starej nazwy FIX166.
+   - Pełny łańcuch regresji FIX136–FIX166 oraz FIX167: STATUS PASS.
+
+ZAKRES
+- Produkt pozostaje 6.8.0.
+- Bez zmian w funkcjach WWW, zdjęciach, lekcjach, widokach, cache PWA i schemacie D1.
+- Bez nowych tabel, migracji i baz.
+- Wartość GEMINI_API_KEY nie jest zawarta w paczce ani logach.
+- Publikacja produkcyjna nie została wykonana przez proces przygotowania FIX167.

@@ -1,0 +1,35 @@
+NAUKA OD A DO Z — DLA WSZYSTKICH
+CHANGELOG 6.8.0 — FIX88
+Data: 2026-11-06
+
+PRZYCZYNA
+Log z Node.js 24.19.0 zatrzymywał OneClick na komunikacie:
+"FIX83: brak podłączonej biblioteki unikalnych ilustracji lub poprawnej grafiki VRAM."
+Nie brakowało jednak plików ani grafiki. WEB_PUBLISH/index.html poprawnie ładował
+assets/visual-uniqueness-fix83.js?v=6.8.0-fix87, podczas gdy OneClick i lokalny
+Auto-Watcher wymagały przestarzałego, zahardkodowanego URL z query string fix83.
+Była to fałszywa negatywna walidacja.
+
+ZMIANY
+1. Dodano wspólny moduł scripts/fix83-visual-library-guard-fix88.cjs.
+2. OneClick i Auto-Watcher korzystają z tego samego walidatora.
+3. Wersja URL silnika jest jawnie opisana w release.json jako visualRuntimeBuildTag.
+4. Walidator potwierdza dokładny tag skryptu, kolejność ładowania przed lesson-art.js/app.js,
+   synchroniczne uruchomienie, istnienie runtime i manifestu, 54 ilustracje, kategorie
+   VRAM/RAM, regułę GDDR/BGA bez DIMM/SO-DIMM oraz znaczniki generatora uniqueVisualUrl.
+5. Dodano osiem testów regresyjnych obejmujących poprawny URL FIX87, brak biblioteki,
+   błędny tag, błędną regułę VRAM, niepoprawny runtime i integrację obu skryptów.
+6. Test zgodności historycznych runnerów uznaje WYKONAJ_TESTY_FIX88.cmd za niezależny,
+   kompletny runner — bez osłabiania pozostałych testów.
+7. Release metadata wskazuje FIX88. Wersja produktu pozostaje 6.8.0.
+
+NIE ZMIENIANO
+- bazy D1, schematu ani migracji;
+- sekretu OPENAI_API_KEY i konfiguracji OAuth;
+- nazwy istniejącego projektu Cloudflare Pages;
+- fizycznych zasobów graficznych FIX83/FIX87.
+
+TESTY
+scripts/run-tests-fix88.mjs — 92/92 PASS w środowisku Node.js v22.16.0.
+Docelowy Node.js użytkownika: v24.19.0; nie został uruchomiony w tym środowisku.
+Nie wykonano deploymentu produkcyjnego Cloudflare.

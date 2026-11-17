@@ -1,0 +1,47 @@
+NAUKA OD A DO Z — AKADEMIA SERWISU PRO
+RAPORT TESTÓW FIX95
+Data: 2026-11-07
+
+WYNIK: 147/147 PASS
+
+Zakres:
+- Regresja bazowa FIX88: 92/92 PASS.
+- Zgodność nagłówków, wersji produktu, hotfixa i runtime FIX94: 6/6 PASS.
+- Katalog zdjęć online FIX94: 25/25 PASS.
+- Strażniki fotografii online FIX94: 15/15 PASS.
+- Nowy kontrakt publikacji FIX95: 9/9 PASS.
+- Dodatkowo przeszły historyczne testy gałęzi/Direct Upload FIX85/FIX86, układu fotografii FIX87, wizualnej biblioteki FIX83, cache Service Workera i zgodności starszych kontraktów.
+
+Wykryta i naprawiona przyczyna:
+Zdalny walidator sprawdzał opisowe klucze manifestu JSON (strictPortEvidence, strictVramEvidence, strictRamEvidence, noGenericTopicFallback, category-specific) w wykonywalnym pliku JS. Te dane są prawidłowo zapisane w photo-sources-online.json, a nie w kodzie JS. Walidator odrzucał więc katalog mimo prawidłowych zasobów. Global Academy FIX83 zależało od tego statusu i także otrzymywało false.
+
+Poprawka FIX95:
+- Rozdzielono kontrolę manifestu JSON od kontroli wykonywalnych znaczników JS i CSS.
+- Zachowano wymagania licencji, filtrów tematycznych, USB-C/RAM/VRAM, 19 źródeł, unikalności i trzech różnych zdjęć na procedurę.
+- Rozdzielono numer hotfixa publikatora FIX95 od runtime katalogu zdjęć FIX94.
+- Watcher raportuje dokładną listę niespełnionych warunków katalogu.
+- Global Academy FIX83 nadal wymaga prawidłowego katalogu, aktualnego wydania i wymaganych zasobów.
+- Dodano regresję FIX95 i runner Windows.
+
+Spójność wydania:
+- Produkt: 6.8.0 (bez zmiany).
+- Bazowy build: 6.8.0-fix51-visual-academy-pro-20261105 (bez zmiany).
+- Hotfix publikatora: FIX95.
+- Runtime fotografii: FIX94 (bez zmiany).
+- Źródła zdjęć seed: 19.
+- Ilustracje wizualne FIX83: 54.
+- Ilustracje danych lekcji FIX77: 203.
+- Migracje D1: bez zmian; żadne SQL nie zostało wykonane.
+
+Kontrole techniczne:
+- node --check: OneClick_AKADEMIA.js — PASS.
+- node --check: AUTO_PUBLISH_WATCHER.js — PASS.
+- node --check: helper FIX95 — PASS.
+- node --check: Service Worker — PASS.
+- node --check: runner i test FIX95 — PASS.
+- Parsowanie release.json i photo-sources-online.json oraz zgodność wersji — PASS.
+- Wersja Node użyta w środowisku testowym: v22.16.0.
+
+OGRANICZENIA WERYFIKACJI:
+Nie wykonano wdrożenia Cloudflare Pages ani połączenia z produkcyjną domeną. Z tego środowiska nie można potwierdzić zachowania nowego deploymentu na żywej domenie. Nie zmieniono bazy D1 ani sekretów Cloudflare. Po wdrożeniu należy pozwolić watcherowi odczytać stałą domenę i potwierdzić remotePhotoCatalogValid=true oraz remoteGlobalAcademyFix83Valid=true.
+Nie wykonano testu natywnego Windows/Node v24.19.0; dołączono WYKONAJ_TESTY_FIX95.cmd dla uruchomienia na komputerze użytkownika.

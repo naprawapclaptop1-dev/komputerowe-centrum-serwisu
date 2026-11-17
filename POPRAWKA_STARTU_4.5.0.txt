@@ -1,0 +1,11 @@
+POPRAWKA STARTU 4.5.0
+
+W tej paczce poprawiono oba pliki CMD:
+- URUCHOM_AKADEMIE.cmd
+- USTAW_KLUCZ_OPENAI.cmd
+
+Pliki zapisano jako ASCII bez BOM i z zakonczeniami CRLF, zgodnie z oczekiwaniami klasycznego Windows CMD.
+Wczesniejsza wersja URUCHOM_AKADEMIE.cmd miala UTF-8 BOM i zakonczenia LF, przez co CMD blednie odczytywal polecenia (m.in. @echo off, cd, echo i if).
+
+Nie dolaczono ani nie nadpisano TOOLS_CLOUDFLARE. Nalezy zachowac dotychczasowy katalog narzedzi w G:\AKADEMIA_SERWISU_PRO.
+Nie zmieniono bazy D1, migracji ani sekretow Cloudflare.

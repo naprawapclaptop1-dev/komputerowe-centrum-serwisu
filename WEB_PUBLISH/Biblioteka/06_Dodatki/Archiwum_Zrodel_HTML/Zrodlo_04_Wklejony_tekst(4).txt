@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="pl">
+ <head><script>window["__codeletBootstrap__"]=JSON.parse('{"A":"A","B":"20261030-04-cb63f40","C":{"ABeeZee":"YADK31-VBBc,1","Abel":"YAHO2Ehol3g,0","Abhaya Libre":"YAFdJvwa-l0,0","Abril Fatface":"YACgEZbkUVE,0","Aclonica":"YAHO2OEKYj0,0","Acme":"YAHO2Gflqzo,0","Actor":"YAHO2N0IV_4,0","Adamina":"YAHO2Ko8ddg,0","Advent Pro":"YAFdJvNZdCk,0","Afacad":"YAHO2HaK_fU,0","Afacad Flux":"YAHO2DjbA6Y,0","Agrandir":"YAFdJpYuLss,0","Aileron":"YAFdJn5d8s0,0","Akshar":"YAGWNF0jApg,0","Alata":"YAD1aLikJo8,0","Albert Sans":"YAHO2HRfeh4,0","Alegreya":"YAFdJs07v-8,0","Alegreya Sans":"YAFdJvgJ5TU,0","Alegreya Sans SC":"YAFdJuaTEaM,0","Alegreya SC":"YACgEen8jXo,0","Aleo":"YAFdJg_txOU,0","Alex Brush":"YAE2gr0Mbng,0","Alexandria":"YAGVt-AWBcU,0","Alfa Slab One":"YACgEYS9sJU,0","Alice":"YALBszUSD-E,0","Allison":"YAG5KfE49h8,0","Allura":"YACgEap1YR0,0","Almarai":"YAFdJuZe0mI,0","Alumni Sans":"YAHO2DByoho,0","Amaranth":"YACgEaBTFMQ,0","Amatic SC":"YACgEbSBm0k,0","Amiri":"YAEWgjWFb1M,0","Amiri Quran":"YAHO2Enz6cg,0","Amita":"YADK309xYYo,1","Andika":"YACkoFAye4w,0","Anek Bangla":"YAGVuloYrvI,0","Anek Gujarati":"YAHO2NTD_LM,0","Anek Latin":"YAHO2C6lVnU,0","Anek Telugu":"YAHO2KVu8lI,0","Anonymous Pro":"YACgEV9owk4,0","Antic Slab":"YAHO2HJeTP0,0","Anton":"YACgEcYqQ-A,0","Antonio":"YAFdJjZxcpY,0","Anuphan":"YAHO2IhZ4E0,0","Anybody":"YAHO2MTsics,0","Aptos":"YAGi2jFvvq4,1","Arapey":"YADK32AK2Uk,1","Architects Daughter":"YACgEc9BFCs,0","Archivo":"YAHO2-t-jNE,0","Archivo Black":"YACgEZulLoA,0","Archivo Narrow":"YACgEa-oJH8,0","Aref Ruqaa":"YAHO2NMqGdM,0","Arial":"YAGyDvJ_4Ts,0","Arimo":"YACgEZ1cb1Q,0","Arsenal":"YADK3_DWcOc,0","Arvo":"YACgEf17hXM,0","Asap":"YAFdJr0OaFw,0","Asap Condensed":"YAD1fmY3NpE,0","Assistant":"YAFdtfahXt8,0","Atkinson Hyperlegible":"YAFge7Z-F6s,0","Atkinson Hyperlegible Next":"YAHO2IeQVB0,0","Audiowide":"YAHO2MsoafU,0","Avenir":"YAFcfmNq6UY,0","Azeret Mono":"YAHO2EIdDP0,0","Bacasime Antique":"YAHO2JjJq4o,0","Bad Script":"YADK31ojH6A,1","Bagel Fat One":"YAFyG3A11Bw,0","Bai Jamjuree":"YAFdJjI5olU,0","Baloo 2":"YAHO2IcQUcM,0","Baloo Bhaijaan 2":"YAHO2NwTj3Y,0","Baloo Da 2":"YAHO2LicHPY,0","Balsamiq Sans":"YAE3C_w4eo8,0","Bangers":"YAD5qTdjGKo,1","Barlow":"YAFdJsyuOPM,1","Barlow Condensed":"YAFdJljEuFc,0","Barlow Semi Condensed":"YAFdJu55qXI,0","Baskervville":"YAHO2JTYNKo,0","Beau Rivage":"YAHO2NDDGu0,0","Bebas Neue":"YACgESME5ew,0","Belanosima":"YAHO2KW8vyU,0","Bellefair":"YADSJ8TFXwA,0","Belleza":"YADK3w_fTc4,0","BenchNine":"YAHO2Gl7yMc,0","Berkshire Swash":"YACgEa7uPMI,0","Besley":"YAHO2BTXWYc,0","Bevan":"YACkoDaMIbc,0","Big Shoulders Display":"YAFdJs8L2aw,0","Birthstone":"YAGXhLyeE6I,0","Biryani":"YAFdtZ_PRAs,0","Bitter":"YACkoOF0Xck,0","BIZ UDPGothic":"YAGWY3VAK4Q,0","Black Ops One":"YACgEaY4FIU,0","Blinker":"YAFdJoBYX9o,0","Bodoni Moda":"YAHO2C7VUJE,0","Bowlby One":"YAHO2EunPos,0","Bowlby One SC":"YAHO2J38FUs,0","Bree Serif":"YACkoD1yZN0,0","Bricolage Grotesque":"YAFyMcdwzpc,0","Bubblegum Sans":"YAHO2JdFc_U,0","Bungee":"YALBszL9wLA,0","Bungee Shade":"YACkoPYyrRk,0","Cabin":"YAFdJnEgsb0,0","Cabin Condensed":"YAHO2F-FVVw,0","Cairo":"YAFdtXpDzlQ,0","Caladea":"YAD1hHx0kVU,0","Calistoga":"YAD1aIFxe3I,1","Cambria":"YAFcfgNlM2Y,0","Cantarell":"YAHO2LSCGX4,0","Canva Sans":"YAFdJjTk5UU,1","Canva Sans Display":"YAFTjyMT8Hc,0","Caprasimo":"YAHO2PYTkbo,0","Capriola":"YALBs4liG7k,0","Cardo":"YACkoGIT9qo,0","Carlito":"YACkoIZXsrc,0","Carter One":"YACgEZJ1Flw,0","Castoro":"YAHO2cDcmVM,0","Catamaran":"YAFdJhPTLAc,0","Caveat":"YALBs2ploWQ,0","Caveat Brush":"YALBs8ZVRhw,0","Chakra Petch":"YAD1fCkY3IQ,0","Changa":"YAFdJtbG8fw,0","Changa One":"YAHO2WdsbtM,0","Chango":"YADK37RW0po,0","Charis SIL":"YAGvf-G3GGU,0","Charm":"YAD1b_s4o-w,0","Chelsea Market":"YAHO2UOd5sY,0","Chewy":"YACgEZfALnA,0","Chivo":"YAHO2WvGfDs,0","Chivo Mono":"YAHO2Qd3y5g,0","Chonburi":"YALBsz_RTwU,0","Cinzel":"YACgEeV8bIQ,0","Cinzel Decorative":"YAEe9XbWpNs,0","Climate Crisis":"YAFdJnbiwgQ,0","Comfortaa":"YAFdJoWmhxU,0","Comic Neue":"YAHO2VMiyZo,0","Commissioner":"YAHO2RRI-KE,0","Concert One":"YAFyG1vOkaw,0","Consolas":"YAFcfu6YYdE,0","Cookie":"YAHO2TxA9Mk,0","Cormorant Garamond":"YAFdJhX-538,0","Cormorant Infant":"YAHO2cgbXjc,0","Cormorant SC":"YAFdJg7KuRM,0","Cormorant Unicase":"YAHO2b4ohVo,0","Courgette":"YACgEU5nS9M,0","Courier New":"YAGzXiGs0_8,0","Courier Prime":"YAD1aFjegN8,0","Cousine":"YADK35VyDYU,0","Crete Round":"YAHO2Uu9SvI,0","Crimson Pro":"YAFdJsEGkW0,0","Crimson Text":"YAHO2RsfBzg,0","Cuprum":"YACkoB3fESg,0","Cutive Mono":"YAHO2cov6H4,0","Damion":"YAHO2SxDErM,0","Dancing Script":"YALBs2pfuW0,0","Darker Grotesque":"YAD1acp_tgc,1","DejaVu Sans":"YAFdtfpl0Yc,0","Delius":"YAHO2f1B8B4,0","Dhurjati":"YAHO2RElIME,0","Didact Gothic":"YALBs-mIj2o,0","DM Mono":"YAHO2SGpw0w,0","DM Sans":"YAD1aU3sLnI,0","DM Serif Display":"YAD1aYG82rc,0","Domine":"YAHO2bbCOA4,0","Dongle":"YAGXDU1dmuc,0","Doppio One":"YAHO2ckhWaI,0","Dosis":"YAFdte3F-n0,1","DotGothic16":"YAHO2fxQNHM,0","DynaPuff":"YAFyMRnxBDs,0","East Sea Dokdo":"YAHO2V39uyM,0","Eater":"YAHO2VpLF0c,0","EB Garamond":"YAFdJtfMD6Y,0","Economica":"YACgEeIOo5w,0","Eczar":"YAFdJrnVElk,0","Edo":"YADoUIDNzaE,1","El Messiri":"YAFdJoZarj8,0","Encode Sans":"YAHO2R-vLyo,0","Encode Sans Condensed":"YAHO2RQWhbg,0","Epilogue":"YAHO2WWHRqI,0","Exo":"YACgEf2dbI4,0","Exo 2":"YAFdJor4M6A,1","Fahkwang":"YAFdJp0SJos,0","Familjen Grotesk":"YAHO2ZriIzU,0","Faustina":"YAFdJnqy8Oc,0","Figtree":"YAHO2b-mV7A,0","Fira Code":"YAFdJsxBlTg,0","Fira Mono":"YAHO2bTKfjg,0","Fira Sans":"YAFdJnJKOPE,0","Fira Sans Condensed":"YAHMLJN-FcA,0","Fira Sans Extra Condensed":"YAHMLGqUb6Q,0","Fjalla One":"YAHO2VMyTKw,0","Fondamento":"YAHO2X_okmA,0","Forum":"YACgEcnnqB4,0","Fragment Mono":"YAHO2ZlYXZc,0","Francois One":"YADK3zbC6RM,0","Frank Ruhl Libre":"YAFdJiGIKxQ,0","Fraunces":"YAFdJpU7Kkk,0","Fredoka":"YACgEZml080,0","Fugaz One":"YAHO2f5L5K0,0","Funnel Display":"YAHO2TmVuEs,0","Funnel Sans":"YAHO2R0FK5U,0","Futura":"YAFcfgcNhWk,3","Gabarito":"YAHO2cD3JmI,0","Gaegu":"YAFdJj615Ls,0","Gantari":"YAHO2WveuBo,0","Garamond":"YAFcfhlhK9c,0","Geist":"YAHO2SfKS30,0","Geist Mono":"YAHO2XOe8v8,0","Gelasio":"YAHO2e426-k,0","Gentium Book Plus":"YAHO2b-adyU,0","Geologica":"YAHMLpZ3y5c,0","Geom":"YAHMLFz7unQ,0","Georama":"YAHO21l9KR8,0","Georgia":"YAGzXkO0pEM,0","GFS Didot":"YADK39vXpyU,0","Gilda Display":"YADK34sD2QM,0","Gilroy":"YAFcf0f10mQ,0","Gloock":"YAHO2WVhd0Q,0","Gloria Hallelujah":"YALBs50JjRs,0","Gochi Hand":"YACgEWWPgRQ,0","Goldman":"YAHO2TATES8,0","Golos Text":"YAHO2QlqAQk,0","Google Sans":"YAHO2dYZ4Uw,0","Google Sans Code":"YAHO2XdQwlA,0","Google Sans Flex":"YAHO2e8mtck,0","Gotham":"YAFcfr0ZwUA,0","Goudy Bookletter 1911":"YAHO2X7CqQQ,0","Gowun Batang":"YAGXDQtk-ic,0","Gowun Dodum":"YAGXDZ921io,0","Graduate":"YACgEajwz7Y,0","Grandstander":"YAHO2bN2hd8,0","Gravitas One":"YAHO2WtqHRw,0","Great Vibes":"YACgEX27qLg,0","Grenze":"YAFdJpFWOZM,0","Gruppo":"YACgEbcz8MU,0","Gudea":"YAHO2WlVs30,0","Hahmlet":"YAGXDTqs4Ac,0","Hammersmith One":"YACgEWNFnT4,0","Handlee":"YAHO2U9C-xI,0","Hanken Grotesk":"YAHO2VB9G0I,0","Heebo":"YAFdJqqaebw,0","Helvetica":"YAFcf7zkXN0,0","Hind Guntur":"YAFdJq1FbIc,0","Hind Madurai":"YAFdJtsMgQk,0","Hind Siliguri":"YAFdJodBWQk,0","Hind Vadodara":"YAFdJrnuAas,0","HK Grotesk":"YAFdJsjyMsM,0","Homemade Apple":"YADK3zBTjLs,0","Host Grotesk":"YAHO2VztvdY,0","Hubot Sans":"YAHO2cDVt0E,0","Huninn":"YAHO2dG1YxU,0","Ibarra Real Nova":"YAD1aDS1Jq8,0","IBM Plex Mono":"YAFdJkmvhGI,0","IBM Plex Sans":"YAFdJgT0SHI,0","IBM Plex Sans Arabic":"YAGVuEYCNg0,1","IBM Plex Sans Condensed":"YAFdJrPBof8,0","IBM Plex Sans JP":"YAGWY6rvaqo,0","IBM Plex Sans KR":"YAGXDbUrwEo,0","IBM Plex Sans Thai":"YAFdJkdZC28,0","IBM Plex Serif":"YAFdJt16xgA,0","IM Fell English":"YAHO2QB0QVo,0","IM Fell English SC":"YACgERmrc6I,0","IM Fell French Canon":"YAHO2bMvABs,0","Impact":"YAFcfnjI7Vk,0","Inclusive Sans":"YAGzRvSP2H0,0","Inconsolata":"YAHO2SpO-5g,0","Indie Flower":"YAHO2aaUih8,0","Instrument Sans":"YAHO2bKyaSQ,0","Instrument Serif":"YAHFeOnZNEk,0","Inter":"YAFdJvSyp_k,3","Inter Tight":"YAHO2Wv04Hw,0","Istok Web":"YAHO2XNFLkI,0","Italiana":"YAHO2Toik_w,0","Italianno":"YADK33wZXP4,1","Itim":"YAE0Z3ly4AQ,0","Jacques Francois":"YAHO2a5g66Q,0","Jersey 10":"YAHO2QXCPBA,0","Jersey 25":"YAHO2b0HdSo,0","JetBrains Mono":"YAFdJksXcAk,0","Josefin Sans":"YAFdJjvw9Ps,0","Josefin Slab":"YACgEQmaEIc,0","Jost":"YAHO2TSelXg,0","Jua":"YADK3-gZSDU,0","Julius Sans One":"YACgET-7cBI,0","Jura":"YAFdJmtyccY,0","Kaisei Decol":"YAGWY5xJxfk,0","Kalam":"YAFdJrEg2ic,0","Kanit":"YAHO2TvSf7E,0","Kantumruy Pro":"YAHO2SVqwqY,0","Karla":"YAHO2V2NSXM,0","Kaushan Script":"YACgEbGmrJs,0","Khand":"YAFdJm18w3g,0","Khula":"YAFdJvaOkWI,0","Kiwi Maru":"YAFdJmm1njU,0","Klee One":"YAHO2dadxts,0","Knewave":"YACgEYSBEEA,0","Kodchasan":"YAFdJmfmzeo,0","Kosugi Maru":"YAEhL82apSM,0","Krub":"YAFdJl9ACwk,0","Kumbh Sans":"YAHO2UjzjpM,0","La Belle Aurore":"YAHO2QKdLHU,0","Lalezar":"YACkoB188Y0,0","Lato":"YAFdJuFCnaw,0","League Gothic":"YACgEZ1OEPI,0","League Spartan":"YACgEcnJpjs,0","Leckerli One":"YAGX4ddZAAg,0","Lemonada":"YAFdtQVfQCk,0","Lexend":"YAHO2SCkHoU,0","Lexend Deca":"YAD9UdTHECk,0","Lexend Exa":"YAD9UUZHL7I,0","Lexend Giga":"YAD9UYAqrOc,0","Lexend Mega":"YAD9UdrjgZw,0","Lexend Zetta":"YAD9UYrErMw,0","Libre Baskerville":"YACgEUFdPdA,0","Libre Bodoni":"YAHO2fbN094,0","Libre Caslon Display":"YAHO2XhLmt0,0","Libre Caslon Text":"YAHO2USylHk,0","Libre Franklin":"YAFdJr3SNlU,1","Lilita One":"YACgEblklxo,0","Limelight":"YACgEUpkTXE,0","LINE Seed JP":"YAHO2d8yXa4,0","Literata":"YAD1b0SpOHQ,0","Lobster":"YAD8SnSjSFI,0","Lobster Two":"YACgEesdoec,0","Londrina Solid":"YAFdJnyMeQE,0","Lora":"YACgEXvxf8Q,0","Luckiest Guy":"YADK4PnlFRs,0","Lusitana":"YAHO2SveFfM,0","LXGW WenKai TC":"YAHO2ehQ5_o,0","M PLUS 1p":"YAHO2fozO7I,0","M PLUS 2":"YAHO2RUGZcQ,0","Ma Shan Zheng":"YAD1b3yES34,0","Mada":"YAFd-HxC1Y0,0","Maitree":"YAFdJh4v5pY,0","Mali":"YAFdJh7OuNE,0","Manrope":"YAHO2b2feC4,0","Mansalva":"YAD1aZCCYU8,1","Marcellus":"YADK4L2nGbg,0","Marck Script":"YALBs9DBETo,0","Martel":"YAFdtY7FRH8,1","Martian Mono":"YAHO2YhUMkk,0","Mate":"YAHO2eaPuMk,0","Maven Pro":"YAFdJgCyb_c,0","Mea Culpa":"YAHO2UQx4WU,0","MedievalSharp":"YAHO2XoH9qQ,0","Megrim":"YACgEQu0pLY,0","Meiryo":"YAGmJPEz0BM,0","Merienda":"YAGXhISLJkY,0","Merriweather":"YACgEXvHxxs,0","Merriweather Sans":"YAFdJorZgto,1","Michroma":"YADK4IYX8vY,0","Mitr":"YAFdJh-DKf0,0","Mona Sans":"YAHO2XGz2BM,0","Monda":"YADK34lACd0,1","Monoton":"YALBs_hWWG8,0","Mont":"YAFdJgul-2U,0","Montserrat":"YAFdtQi73Xs,0","Montserrat Alternates":"YAHO2d5URdI,0","Mooli":"YAHO2QudnvU,0","More Sugar":"YAFdJkVWBPo,1","Mountains of Christmas":"YAHO2f6R-YA,0","Mr Dafoe":"YACgEbw4BXM,0","Mrs Saint Delafield":"YAHO2Tnt53k,0","Ms Madi":"YAHO2SBc4rI,0","Mukta":"YAFdJjsZaSM,0","Muli":"YAFdtZAC0Mk,0","Mulish":"YAHO28rytyw,0","Nanum Myeongjo":"YAFdJqiu4VY,0","Neucha":"YAEkTBQffFg,0","Neuton":"YAFdtcDBvdA,0","New Rocker":"YAHO2YI8rWg,0","News Cycle":"YACkoEMGWek,0","Nothing You Could Do":"YAHO2WqRm_c,0","Noticia Text":"YACkoDm0xlE,0","Noto Color Emoji":"YAGumpcTCok,0","Noto Kufi Arabic":"YACkoGW2dTA,0","Noto Naskh Arabic":"YACkoI8Oj1c,0","Noto Nastaliq Urdu":"YAGU_Q5u0w4,0","Noto Sans":"YACkoCjjZNk,0","Noto Sans Bengali":"YAFdJjnhMdI,0","Noto Sans Devanagari":"YAFdJnKmmqM,0","Noto Sans Display":"YAHO2eyZBeY,0","Noto Sans Ethiopic":"YAHO20DfUMM,0","Noto Sans Georgian":"YACkoFKxqWs,0","Noto Sans HK":"YAHO2fCytzw,0","Noto Sans JP":"YAFdJiHXlcI,0","Noto Sans Khmer":"YACkoFdRIJM,0","Noto Sans KR":"YAGsojZj-RQ,0","Noto Sans Lao":"YAHO2f6jVpw,0","Noto Sans Lao Looped":"YAHO2TSQjpA,0","Noto Sans Malayalam":"YACkoMzSo98,0","Noto Sans Mono":"YAHO2TFVtN0,0","Noto Sans Myanmar":"YACkoPHEdMk,0","Noto Sans SC":"YAHO2hDCDFM,0","Noto Sans Sinhala":"YACkoJiU_Ak,0","Noto Sans Symbols":"YAHO2n0Zh0w,0","Noto Sans Tamil":"YAHO2r9jkew,0","Noto Sans TC":"YAHO2pzGHBE,0","Noto Sans Telugu":"YAHO2uFAQs4,0","Noto Serif":"YACkoGNq-XY,0","Noto Serif Bengali":"YAGVuu_j8c8,0","Noto Serif Devanagari":"YAGWNWUpY9s,0","Noto Serif Display":"YAFdJllHsUM,0","Nunito":"YAFdJoNRMmU,1","Nunito Sans":"YAFdtQJYB9w,1","Old Standard TT":"YAHO2lhtDcg,0","Oleo Script":"YACgEQQ14jI,0","Onest":"YAHO2kaArOY,0","Open Sans":"YAFdJt8dAY0,1","Open Sans Condensed":"YAD7Rf0lmm4,1","Open Sans Hebrew":"YAFdJlARYMY,0","Optima":"YAFcf0Fltlg,0","Orbit":"YAFyMQm0Z54,0","Orbitron":"YAHO2tXXH_o,0","Oswald":"YACgEQY10lw,0","Outfit":"YAHO2nVlg14,0","Overpass":"YAFdJhmdIMM,1","Oxanium":"YAHO2kINDn0,0","Oxygen":"YAHO2nOU31A,0","Pacifico":"YADLjORQ1u4,0","Pangolin":"YADK4DH4-fM,0","Parisienne":"YACgERSYqTw,0","Parkinsans":"YAHO2j-ZSEo,0","Passion One":"YAFdJo9cFec,0","Pathway Gothic One":"YACkoMQo7Mc,0","Patrick Hand":"YAHO2swKcgg,0","Patua One":"YAHO2qRZWLE,0","Paytone One":"YALBs8J6By4,0","Permanent Marker":"YACgEcB-r-s,0","Petrona":"YADK4PUbnVg,1","Philosopher":"YAEkTCvkg7Q,0","Pinyon Script":"YACgEQzTJgs,0","Pirata One":"YALBs3j2Xx0,0","Pixelify Sans":"YAHO2v5ARTA,0","Play":"YADK4EFto8o,0","Playball":"YAHO2hWLQJ0,0","Playfair Display":"YAFdJhem5V8,1","Playfair Display SC":"YACgESE7eJQ,0","Playwrite VN":"YAHO2_bSM7Y,0","Plus Jakarta Sans":"YAHO2gdhi18,0","Poiret One":"YAHO2nweLas,0","Pontano Sans":"YAHO2t91rWw,0","Poppins":"YAFdJjbTu24,1","Prata":"YACgES4qGnk,0","Press Start 2P":"YAFyGr-8pmQ,0","Pridi":"YAFdJmJ3gqA,0","Prompt":"YAFdJmA6sOY,0","Proxima Nova":"YAFcfjveRFU,0","Proxima Nova Condensed":"YAFcfiSm_SA,0","Proza Libre":"YAHO2nv0NKc,0","PT Mono":"YAHO2lnK_7w,0","PT Sans":"YACgEYbsV-E,0","PT Sans Caption":"YAHO2oZpTQc,0","PT Sans Narrow":"YAHO2glZymI,0","PT Serif":"YACgEcU7Qg4,0","Public Sans":"YAFdJj8NdaU,1","Pyidaungsu":"YACkoGGC7sA,0","Quantico":"YAHO2me4bVc,0","Quattrocento":"YACgEcL5b3s,0","Quattrocento Sans":"YAHO2vuaC0Y,0","Questrial":"YADK4LSvvyE,1","Quicksand":"YAFdJpYtCxE,1","Racing Sans One":"YACgEbcqMPM,0","Radio Canada":"YAHO2qxyljs,0","Radio Canada Big":"YAHO2r7P8wg,0","Rajdhani":"YAFdJoWaWgo,0","Raleway":"YAFdJhmxbVQ,1","Ramabhadra":"YACkoN_hhSs,0","Rammetto One":"YAHO2nAqWuQ,0","Rasa":"YAFdJg-9rGY,0","Readex Pro":"YAGVt3RBO3c,0","Recursive":"YAHO2oZn01g,0","Red Hat Display":"YAD1bzs0p0Y,0","Red Hat Mono":"YAHO2gB0kV8,0","Red Hat Text":"YAHO21kkNWg,0","Reddit Sans":"YAHO2kKAR-8,0","Reem Kufi":"YADSJ0ceOYQ,0","Reenie Beanie":"YAHO2s4qTnk,0","Rethink Sans":"YAHO2q9_FzY,0","Righteous":"YAHO2oo4-So,0","Roboto":"YACgEev4gKc,0","Roboto Condensed":"YACgEan-tYE,0","Roboto Flex":"YAHO2nqK4E8,0","Roboto Mono":"YAFdJkvp3-k,0","Roboto Slab":"YAFdJswIKAg,0","Rock Salt":"YAHO2vFSVxE,0","Rockwell":"YAFcfyVZnN0,0","Rokkitt":"YAFdJnlBl3o,0","Ropa Sans":"YACkoCA_LhY,0","Rowdies":"YAFyL2wl4FI,0","Rozha One":"YACkoMIfZVA,0","Rubik":"YAFdJsMWVVc,0","Rubik Dirt":"YAFyHRD_ZDY,0","Rubik Mono One":"YAHO2qtMuC0,0","Rubik Wet Paint":"YAHO2mLD_X0,0","Ruda":"YAFdJuuBNyM,1","Rye":"YACgEdQP21k,0","Sacramento":"YACgEf5ivwU,0","Saira":"YAFdJk33d3s,0","Saira Condensed":"YAFdJuBuAxg,0","Saira Extra Condensed":"YAFdJiQUvWc,0","Saira Semi Condensed":"YAHO2gfd5g8,0","Saira Stencil One":"YAD1aV1l2HE,0","Sanchez":"YACgEbBJLy8,0","Sarabun":"YAFdJssSnME,0","Sarala":"YADK4LF5xeY,0","Satisfy":"YACgEf5XTk0,0","Sawarabi Mincho":"YAD1faq7yjk,0","Scheherazade New":"YAHO2sxcjiY,0","Schibsted Grotesk":"YAHO2sWydRk,0","Segoe Script":"YAF3uTF1s5I,0","Segoe UI":"YAHNdRD1Klw,0","Sen":"YAHO2h5vrRE,0","Shadows Into Light":"YAHO2tztN1k,0","Share Tech":"YAHO2q4NPs0,0","Share Tech Mono":"YAHO2oHio98,0","Shippori Mincho":"YAGWZNRJkO8,0","Shippori Mincho B1":"YAGWZJnXF8c,0","Shrikhand":"YACkoEA0Kc0,0","Signika":"YACgEfiK7GI,0","Signika Negative":"YAHO2rWYEng,0","Silkscreen":"YAHO2rdlQ_o,0","Skranji":"YAHO2uPivlQ,0","Slabo 13px":"YAHO2hvaP1I,0","Slabo 27px":"YAHO2n--yeE,0","Smooch Sans":"YAHO2tPdb20,0","Sniglet":"YACgEUJSCy8,0","Sofia":"YAHO2kq3qHg,0","Sofia Sans":"YAHMLUINeco,0","Sofia Sans Condensed":"YAHMLQmSo-Y,0","Sofia Sans Extra Condensed":"YAHMLV0fp0c,0","Sora":"YAHO2rDTR1E,0","Sorts Mill Goudy":"YADK4Fi0R2c,0","Source Code Pro":"YAHO2tzIJbg,0","Source Sans 3":"YAG4lO1Mj10,0","Source Sans Pro":"YACgEQzTv38,0","Source Serif Pro":"YACgEfdj394,0","Space Grotesk":"YAHO2sjPCSM,0","Space Mono":"YADW1-vpsoc,0","Special Elite":"YACgEYVlm9Q,0","Special Gothic Expanded One":"YAHO2oaS0m0,0","Spectral":"YAHO2rVUHIM,0","Spline Sans":"YAHO2rZC9CE,0","Squada One":"YADK4PDlAAM,0","Sriracha":"YALBs4sJbXs,0","Staatliches":"YAD1bzJCL-s,0","Stardos Stencil":"YADK4Mu_Xj0,1","STIX Two Text":"YAHO2joycuk,0","Suez One":"YACkoJMi7_c,0","Syncopate":"YAHO2iXpgDY,0","Syne":"YAHML9oLRPc,0","Tahoma":"YAFcfipOFgg,0","Tajawal":"YAFdJg45t1g,0","Tangerine":"YADK4L8oUVI,0","Taviraj":"YAFdJjquxqU,0","Teko":"YAFdJsF6lbU,0","Tektur":"YAHMLdkk1tM,0","Tenor Sans":"YACgEVY5j_w,0","Tilt Warp":"YAHO2uqld84,0","Times New Roman":"YAGzXW3gftg,0","Tinos":"YACkoJyNZF4,0","Tiro Bangla":"YAGVuiG7jnE,0","Tiro Devanagari Hindi":"YAGWNCjUq0o,0","Titan One":"YAHO2v8eA3A,0","Titillium Web":"YAFdtTOE9xo,0","Tomorrow":"YAFdJlW65k4,0","Traditional Arabic":"YAGLszSchGc,0","Trebuchet MS":"YAFcfrglpVA,0","Trocchi":"YACgEV-yq04,0","Turret Road":"YAHO2pKQLYQ,0","Ubuntu":"YACgERDU--Q,0","Ubuntu Condensed":"YAHO2nCaahY,0","Ubuntu Mono":"YAHO2g6B-Uo,0","Ubuntu Sans":"YAHO2kypvWc,0","Ultra":"YACgEWHSPx0,0","Unbounded":"YAHO2rkdmWY,0","Unica One":"YALBs74Pdjc,0","UnifrakturCook":"YAHO2srzKxY,0","UnifrakturMaguntia":"YACgEZRHDPA,0","Unna":"YADK4PtOh7E,0","Urbanist":"YAHO2o1IFy0,0","Varela":"YAHO2gPi4IU,0","Varela Round":"YALBs2IK6rw,0","Vazirmatn":"YAHO2z1lH5c,0","Verdana":"YAGzXTctYtQ,0","Vidaloka":"YACgEdRnAX0,0","Viga":"YAHO2v8Lzbg,0","Volkhov":"YAHO2uWq-qg,0","Vollkorn":"YAFdJli9wSA,0","VT323":"YACgEYI9BCI,0","Wix Madefor Display":"YAHO2o-Qfis,0","Wix Madefor Text":"YAHO2rU16Qc,0","Work Sans":"YAGXhLOKv44,0","Yanone Kaffeesatz":"YAFdtbpuM0E,0","Yantramanav":"YAFdJuZAcfY,0","Yatra One":"YACkoJ228Ho,0","Yellowtail":"YACgEYG4kG4,0","Yeseva One":"YALBs4GWnJw,0","Ysabeau":"YAHMLjcdG48,0","Ysabeau Office":"YAHO2uUYDYI,0","Yuji Boku":"YAFGHcN5e_Y,0","Yusei Magic":"YAEhL8RNAMk,0","Zain":"YAHO2lC1Xkw,0","Zalando Sans":"YAHO2k5OK-M,0","Zalando Sans Expanded":"YAHO2h6OPds,0","Zen Kaku Gothic Antique":"YAHO2u8F_xk,0","Zen Kaku Gothic New":"YAHO2tS_yps,0","Zen Maru Gothic":"YAFdJgMrcdw,0","Zen Old Mincho":"YAHO2tMwaEs,0","Zeyada":"YAHO2lP62P0,0","Zilla Slab":"YAFdJpPotmI,0"}}');</script><script src="/_sdk/640c2c9485552aa0.telemetry_sdk.js" integrity="sha512-x7sJNwBS9reCVXham9nBdUp9EtXT/bbNZQpT1cWbDa+n6qr1jm8WdBMFUK+gVfm5CtLZVOtKSGRXT0C+rD4Hdw=="></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Napraw komputer od zera — pełny podręcznik</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Fraunces:wght@500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root{--ink:#172b34;--muted:#52646c;--green:#11695e;--line:#dce5e3;--cream:#f5f5ed}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);font-family:"DM Sans",sans-serif}
+    .app-wrapper{width:100%}.heading{font-family:"Fraunces",serif;line-height:1.2}.eyebrow{font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+    .body-copy{line-height:1.7;overflow-wrap:anywhere}.lesson{border:1px solid var(--line);border-radius:20px;background:#fff;overflow:hidden;box-shadow:0 8px 28px #172b3409}
+    .lesson>img{display:block;width:100%;height:190px;object-fit:cover;background:#d5e2dc}.lesson-block{border-top:1px solid var(--line);padding-top:.85rem;margin-top:.85rem}
+    .lesson-label{font-size:.73rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green)}
+    .lesson-more{margin-top:1rem;border-radius:14px;background:#f5f8f5;padding:0 1rem 1rem}.lesson-more summary{cursor:pointer;padding:1rem 0;font-weight:700;color:var(--green)}
+    .path-card{border:1px solid #c9dad4;border-radius:18px;background:#fff;padding:1.35rem}.path-card::before{content:attr(data-step);display:flex;align-items:center;justify-content:center;width:2rem;height:2rem;border-radius:9px;background:var(--green);color:#fff;font-weight:700;margin-bottom:1rem}
+    .fault{border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden}.fault summary{cursor:pointer;list-style:none;padding:1.1rem 1.25rem;font-weight:700;display:flex;justify-content:space-between;gap:1rem}
+    .fault summary::-webkit-details-marker{display:none}.fault summary::after{content:"＋";color:var(--green)}.fault[open] summary::after{content:"−"}.fault-body{border-top:1px solid var(--line);padding:1rem 1.25rem 1.25rem;line-height:1.7}
+    .note{border-left:3px solid #bd7640;background:#fbf1e6;border-radius:0 10px 10px 0;padding:.85rem 1rem}
+    a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #df8a4b;outline-offset:3px}[hidden]{display:none!important}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
+  <script src="/_sdk/8fed440c6f94b5da.data_sdk.js" type="text/javascript" integrity="sha512-hrvcCCJ6nkL5gG3mdqPDbgyAf9a/fg/zBF51sU5N3rM1WmeSu8K36+6wn9TZeAZrLIonoaPBeVyFsXxXxZjq0w=="></script>
+  <script src="/_sdk/dc9eaed14b563eb8.editing_sdk.js" type="text/javascript" integrity="sha512-U1pSpFrQ86eOO8lqZ1xWYnEMHIYQODbWTwR3Q90z8aWFeEUSJieZRq+g7FYNvauPQ0rG84s3SFjWyB/NxzRXNA=="></script>
+  <script src="/_sdk/dfeb017e55db4863.resizing_sdk.js" type="text/javascript" integrity="sha512-kbPBNN/FAxsctln1jqNvXyIdF7mIhQx0C+eGGC2IF3mNjNZZcftDT1wFztswSSk4KXRWYHIC3uA9NMfJV4IVUw=="></script>
+ </head>
+ <body data-template-id="__page-root" class="w-full">
+  <div class="app-wrapper">
+   <header class="w-full border-b border-[#dce5e3] bg-[#f5f5ed]">
+    <div class="mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-5 md:px-10"><a href="#poczatek" class="flex items-center gap-3 no-underline text-[#172b34]"><span aria-hidden="true" class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#11695e] text-white">✳</span><span data-template-id="brand" class="canva-text font-bold">Napraw komputer od zera</span></a>
+     <nav aria-label="Spis treści" class="flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
+      <a href="#bezpieczenstwo" class="hover:underline">Bezpieczeństwo</a><a href="#podzespoly" class="hover:underline">Podzespoły</a><a href="#sciezka" class="hover:underline">Diagnoza</a><a href="#slownik" class="hover:underline">Słownik</a><a href="#usterki" class="hover:underline">Usterki</a>
+     </nav>
+    </div>
+   </header>
+   <main id="poczatek" class="w-full">
+    <section class="mx-auto grid w-full max-w-7xl items-center gap-10 px-5 py-12 md:grid-cols-[1.05fr_.95fr] md:px-10 md:py-16">
+     <div>
+      <p data-template-id="hero-kicker" class="canva-text eyebrow mb-4">PODRĘCZNIK • DIAGNOZA • NAPRAWA</p>
+      <h1 data-template-id="hero-title" class="canva-text heading">Poznaj każdy podzespół. Diagnozuj bez zgadywania.</h1>
+      <p data-template-id="hero-description" class="canva-text mt-6 max-w-xl body-copy">Dwanaście rozbudowanych lekcji, bezpieczna ścieżka sprawdzania i 26 opisanych objawów. Zacznij od obserwacji i ochrony danych, zanim pomyślisz o wymianie części.</p><a data-template-id="hero-cta" href="#podzespoly" class="canva-button mt-7 inline-block rounded-xl px-6 py-3 font-semibold hover:brightness-90">Przejdź do lekcji ↓</a>
+     </div>
+     <div class="relative overflow-hidden rounded-[26px] bg-[#d5e2dc] shadow-[0_22px_60px_#122e2924]">
+      <img data-template-id="hero-image" loading="lazy" class="canva-image h-[290px] w-full object-cover sm:h-[390px]"><span data-template-id="hero-caption" class="canva-tag absolute bottom-5 left-5 rounded-full px-4 py-2 font-semibold">Najpierw bezpieczeństwo.</span>
+     </div>
+    </section>
+    <section id="bezpieczenstwo" class="mx-auto w-full max-w-7xl px-5 pb-14 md:px-10" aria-labelledby="safety-title">
+     <div data-template-id="safety-panel" class="canva-panel rounded-[22px] p-6 md:p-8">
+      <h2 id="safety-title" data-template-id="safety-title" class="canva-text heading">Bezpieczeństwo przed każdą lekcją</h2>
+      <p data-template-id="safety-text" class="canva-text mt-4 body-copy">Przed otwarciem obudowy wyłącz komputer, odłącz zasilanie i postępuj zgodnie z instrukcją modelu. Nigdy nie otwieraj zasilacza ani pakietu baterii. Po zalaniu, przy dymie, nadpaleniu, korozji lub spuchniętej baterii przerwij pracę i nie uruchamiaj sprzętu ponownie.</p>
+      <p data-template-id="safety-measure" class="canva-text mt-3 body-copy">Ciągłość i rezystancję mierzy się tylko przy odłączonym zasilaniu. Pomiary odsłoniętej płyty pod napięciem, lutowanie i naprawy układów powierz technikowi. Przykładowe wartości nie zastępują schematu urządzenia.</p>
+     </div>
+     <div class="mt-6 grid gap-4 md:grid-cols-2">
+      <article class="rounded-2xl border border-[#dce5e3] bg-white p-6">
+       <h3 data-template-id="prepare-title" class="canva-text heading">Zanim zaczniesz</h3>
+       <p data-template-id="prepare-text" class="canva-text mt-3 body-copy">Zapisz dokładny model, objaw, moment jego wystąpienia i komunikaty błędów. Jeśli komputer działa, zrób kopię ważnych plików. Przygotuj instrukcję producenta i zmieniaj jedną rzecz naraz.</p>
+      </article>
+      <article class="rounded-2xl border border-[#dce5e3] bg-white p-6">
+       <h3 data-template-id="tools-title" class="canva-text heading">Stanowisko i narzędzia</h3>
+       <p data-template-id="tools-text" class="canva-text mt-3 body-copy">Pracuj na czystym, stabilnym blacie. Używaj właściwego wkrętaka i odkładaj śruby według miejsca montażu. Nie dotykaj styków, nie używaj siły i nie demontuj części, do których dostęp nie jest przewidziany w instrukcji.</p>
+      </article>
+     </div>
+    </section>
+    <section id="podzespoly" class="mx-auto w-full max-w-7xl px-5 pb-16 md:px-10" aria-labelledby="lessons-title">
+     <p data-template-id="lessons-kicker" class="canva-text eyebrow mb-2">LEKCJE O CZĘŚCIACH KOMPUTERA</p>
+     <h2 id="lessons-title" data-template-id="lessons-title" class="canva-text heading">Każdy podzespół, krok po kroku</h2>
+     <p data-template-id="lessons-intro" class="canva-text mt-3 mb-8 max-w-4xl body-copy">Rozwiń każdą lekcję, aby poznać kolejne sprawdzenia, zasady doboru części i moment, w którym potrzebny jest serwis. Objaw to wskazówka, nie dowód.</p>
+     <div class="grid gap-5 lg:grid-cols-2">
+      <article class="lesson">
+       <img data-template-id="cpu-image" loading="lazy" class="canva-image">
+       <div class="p-6 md:p-7">
+        <p data-template-id="cpu-number" class="canva-text eyebrow">01 / PŁYTA GŁÓWNA I CPU</p>
+        <h3 data-template-id="cpu-title" class="canva-text heading mt-2">Centrum połączeń i obliczeń</h3>
+        <div class="lesson-block">
+         <p class="lesson-label">Jak to działa i co może zawieść</p>
+         <p data-template-id="cpu-a" class="canva-text mt-2 body-copy">Płyta łączy podzespoły, CPU wykonuje instrukcje, a firmware inicjuje sprzęt. Brak startu może wynikać również z zasilania, RAM lub obrazu. Kręcący się wentylator nie potwierdza sprawności procesora.</p>
+        </div>
+        <div class="lesson-block">
+         <p class="lesson-label">Pierwszy bezpieczny test</p>
+         <p data-template-id="cpu-b" class="canva-text mt-2 body-copy">Odłącz zbędne akcesoria, zapisz zachowanie kontrolek i odczytaj znaczenie kodów w instrukcji producenta. Ustal, czy brakuje zasilania, POST, obrazu czy startu systemu.</p>
+        </div>
+        <details class="lesson-more">
+         <summary>Rozwiń pełną diagnozę</summary>
+         <p data-template-id="cpu-extra" class="canva-text body-copy">Jeśli system się uruchamia, sprawdź zewnętrzny ekran. Przed wymianą potwierdź model i rewizję płyty, zgodność gniazda, CPU i wersji firmware; procesor laptopa bywa wlutowany. Nie kupuj płyty przed wykluczeniem zasilacza i RAM. Korozja, nadpalenie, uszkodzone gniazdo lub sekcja zasilania wymagają serwisu.</p>
+        </details>
+       </div>
+      </article>
+      <article class="lesson">
+       <img data-template-id="ram-image" loading="lazy" class="canva-image">
+       <div class="p-6 md:p-7">
+        <p data-template-id="ram-number" class="canva-text eyebrow">02 / PAMIĘĆ RAM</p>
+        <h3 data-template-id="ram-title" class="canva-text heading mt-2">Pamięć używana podczas pracy</h3>
+        <div class="lesson-block">
+         <p class="lesson-label">Jak to działa i co może zawieść</p>
+         <p data-template-id="ram-a" class="canva-text mt-2 body-copy">RAM przechowuje tymczasowe dane programów. Błędy testu, zawieszanie i brak POST mogą wskazywać na moduł, gniazdo albo kontroler; nie każdy czarny ekran oznacza awarię pamięci.</p>
+        </div>
+        <div class="lesson-block">
+         <p class="lesson-label">Pierwszy bezpieczny test</p>
+         <p data-template-id="ram-b" class="canva-text mt-2 body-copy">Zapisz kod diagnostyczny. Jeśli system działa, zabezpiecz pliki i wykonaj test pamięci. Przy dostępie przewidzianym przez producenta sprawdź osadzenie modułu po odłączeniu zasilania.</p>
+        </div>
+        <details class="lesson-more">
+         <summary>Rozwiń pełną diagnozę</summary>
+         <p data-template-id="ram-extra" class="canva-text body-copy">Test pojedynczego, zgodnego modułu może pomóc odróżnić moduł od gniazda. Przed zakupem sprawdź generację DDR, format DIMM lub SO-DIMM i maksymalną pojemność; część pamięci bywa wlutowana. Nie wciskaj modułu na siłę. Uszkodzone gniazdo i wlutowana pamięć to zadanie dla serwisu.</p>
+        </details>
+       </div>
+      </article>
+      <article class="lesson">
+       <img data-template-id="disk-image" loading="lazy" class="canva-image">
+       <div class="p-6 md:p-7">
+        <p data-template-id="disk-number" class="canva-text eyebrow">03 / SSD I HDD</p>
+        <h3 data-template-id="disk-title" class="canva-text heading mt-2">Dysk i bezpieczeństwo danych</h3>
+        <div class="lesson-block">
+         <p class="lesson-label">Jak to działa i co może zawieść</p>
+         <p data-template-id="disk-a" class="canva-text mt-2 body-copy">SSD używa pamięci flash, HDD ruchomych talerzy. Znikający nośnik, błędy odczytu i wolny start wymagają diagnostyki; klikający HDD może mieć awarię mechaniczną.</p>
+        </div>
+        <div class="lesson-block">
+         <p class="lesson-label">Pierwszy bezpieczny test</p>
+         <p data-template-id="disk-b" class="canva-text mt-2 body-copy">Jeżeli dysk odpowiada, najpierw skopiuj najważniejsze pliki. Dopiero potem sprawdź wykrywanie w UEFI i dane SMART. Nie reinstaluj systemu na nośniku z jedyną kopią danych.</p>
+        </div>
+        <details class="lesson-more">
+         <summary>Rozwiń pełną diagnozę</summary>
+         <p data-template-id="disk-extra" class="canva-text body-copy">Oddziel brak wykrywania dysku od błędu startu systemu i niedostępnych plików. M.2 opisuje format, a nie zgodność SATA z NVMe. Przed wymianą sprawdź interfejs, długość i sposób odtworzenia danych. Klikający lub znikający dysk z ważnymi danymi wymaga ograniczenia prób i konsultacji ze specjalistą.</p>
+        </details>
+       </div>
+      </article>
+      <article class="lesson">
+       <img data-template-id="gpu-image" loading="lazy" class="canva-image">
+       <div class="p-6 md:p-7">
+        <p data-template-id="gpu-number" class="canva-text eyebrow">04 / UKŁAD GRAFICZNY</p>
+        <h3 data-template-id="gpu-title" class="canva-text heading mt-2">GPU i droga obrazu</h3>
+        <div class="lesson-block">
+         <p class="lesson-label">Jak to działa i co może zawieść</p>
+         <p data-template-id="gpu-a" class="canva-text mt-2 body-copy">GPU przygotowuje obraz; może być zintegrowany, osobną kartą lub układem wlutowanym. Artefakty i czarny ekran mogą też wynikać z monitora, kabla, sterownika albo temperatury.</p>
+        </div>
+        <div class="lesson-block">
+         <p class="lesson-label">Pierwszy bezpieczny test</p>
+         <p data-template-id="gpu-b" class="canva-text mt-2 body-copy">Porównaj drugi monitor i sprawny przewód. Zwróć uwagę, czy zakłócenia pojawiają się przed uruchomieniem systemu, czy dopiero w aplikacjach.</p>
+        </div>
+        <details class="lesson-more">
+         <summary>Rozwiń pełną diagnozę</summary>
+         <p data-template-id="gpu-extra" class="canva-text body-copy">Jeśli problem występuje wyłącznie w systemie, sprawdź ustawienia i sterownik. Przy wyłączaniu pod obciążeniem przerwij testy. Przed wymianą karty sprawdź złącze, przestrzeń, moc zasilacza i wyjścia. Nie podgrzewaj układu „na próbę”. Artefakty przed startem systemu na kilku ekranach lub podejrzenie układu wlutowanego wymagają serwisu.</p>
+        </details>
+       </div>
+      </article>
+      <article class="lesson">
+       <img data-template-id="screen-image" loading="lazy" class="canva-image">
+       <div class="p-6 md:p-7">
+        <p data-template-id="screen-number" class="canva-text eyebrow">05 / EKRAN</p>
+        <h3 data-template-id="screen-title" class="canva-text heading mt-2">Matryca, podświetlenie i taśma</h3>
+        <div class="lesson-block">
+         <p class="lesson-label">Jak to działa i co może zawieść</p>
+         <p data-template-id="screen-a" class="canva-text mt-2 body-copy">Panel odbiera sygnał przez taśmę, a podświetlenie umożliwia oglądanie obrazu. Pęknięcie, pasy, ciemny ekran i migotanie przy ruchu pokrywy mają różne przyczyny.</p>
+        </div>
+        <div class="lesson-block">
+         <p class="lesson-label">Pierwszy bezpieczny test</p>
+         <p data-template-id="screen-b" class="canva-text mt-2 body-copy">Sprawdź jasność i wybrane wyjście obrazu. Podłącz monitor zewnętrzny oraz ustal, czy komputer rzeczywiście uruchamia system.</p>
+        </div>
+        <details class="lesson-more">
+         <summary>Rozwiń pełną diagnozę</summary>
+         <p data-template-id="screen-extra" class="canva-text body-copy">Obraz na monitorze zewnętrznym zawęża poszukiwania do toru ekranu, lecz nie rozstrzyga między panelem, taśmą a złączem. Przed zakupem sprawdź numer panelu, rozdzielczość, złącze i mocowanie. Nie odłączaj taśmy przy podłączonej baterii. Uszkodzony zawias lub złącze powierz serwisowi.</p>
+        </details>
+       </div>
+      </article>
+      <article class="lesson">
+       <img data-template-id="psu-image" loading="lazy" class="canva-image">
+       <div class="p-6 md:p-7">
+        <p data-template-id="psu-number" class="canva-text eyebrow">06 / ZASILANIE</p>
+        <h3 data-template-id="psu-title" class="canva-text heading mt-2">Zasilacz i wejście zasilania</h3>
+        <div class="lesson-block">
+         <p class="lesson-label">Jak to działa i co może zawieść</p>
+         <p data-template-id="psu-a" class="canva-text mt-2 body-copy">Zasilacz dostarcza energię o parametrach wymaganych przez komputer. Brak reakcji lub przerywane ładowanie może wynikać z gniazda, przewodu, zasilacza albo płyty.</p>
+        </div>
+        <div class="lesson-block">
+         <p class="lesson-label">Pierwszy bezpieczny test</p>
+         <p data-template-id="psu-b" class="canva-text mt-2 body-copy">Sprawdź gniazdko, widoczny stan kabla i oznaczenia zasilacza. Nie używaj uszkodzonego przewodu ani nadpalonego złącza.</p>
+        </div>
+        <details class="lesson-more">
+         <summary>Rozwiń pełną diagnozę</summary>
+         <p data-template-id="psu-extra" class="canva-text body-copy">Porównaj zachowanie tylko ze sprawnym zasilaczem potwierdzonym jako zgodny. Sprawdź napięcie, moc, złącze i — gdy dotyczy — polaryzację; w USB‑C również profil zasilania i kabel. Nie otwieraj zasilacza. Iskrzenie, zapach spalenizny, gorące lub luźne gniazdo wymagają przerwania prób i serwisu.</p>
+        </details>
+       </div>
+      </article>
+      <article class="lesson">
+       <img data-template-id="battery-image" loading="lazy" class="canva-image">
+       <div class="p-6 md:p-7">
+        <p data-template-id="battery-number" class="canva-text eyebrow">07 / BATERIA</p>
+        <h3 data-template-id="battery-title" class="canva-text heading mt-2">Akumulator i ładowanie</h3>
+        <div class="lesson-block">
+         <p class="lesson-label">Jak to działa i co może zawieść</p>
+         <p data-template-id="battery-a" class="canva-text mt-2 body-copy">Pakiet ogniw magazynuje energię. Krótki czas pracy, nagłe wyłączenia lub brak ładowania mogą mieć związek także z limitem ładowania, zasilaczem lub gniazdem.</p>
+        </div>
+        <div class="lesson-block">
+         <p class="lesson-label">Pierwszy bezpieczny test</p>
+         <p data-template-id="battery-b" class="canva-text mt-2 body-copy">Sprawdź ustawienia ładowania i zgodność zasilacza. W Windows możesz wygenerować raport poleceniem powercfg /batteryreport. Nie testuj spuchniętej baterii.</p>
+        </div>
+        <details class="lesson-more">
+         <summary>Rozwiń pełną diagnozę</summary>
+         <p data-template-id="battery-extra" class="canva-text body-copy">Porównaj raportowaną pojemność z projektową, pamiętając, że pojedynczy odczyt nie przesądza o stanie pakietu. Dobierz część po numerze i procedurze producenta. Nie otwieraj ani nie przebijaj baterii. Przy spuchnięciu, zapachu lub silnym nagrzewaniu odłącz zasilanie, nie ładuj i skontaktuj się z serwisem.</p>
+        </details>
+       </div>
+      </article>
+      <article class="lesson">
+       <img data-template-id="cooling-image" loading="lazy" class="canva-image">
+       <div class="p-6 md:p-7">
+        <p data-template-id="cooling-number" class="canva-text eyebrow">08 / CHŁODZENIE</p>
+        <h3 data-template-id="cooling-title" class="canva-text heading mt-2">Wentylator, radiator i temperatura</h3>
+        <div class="lesson-block">
+         <p class="lesson-label">Jak to działa i co może zawieść</p>
+         <p data-template-id="cooling-a" class="canva-text mt-2 body-copy">Radiator odbiera ciepło, wentylator je odprowadza, a pasta i termopady wspomagają przewodzenie. Hałas, spadki wydajności i wyłączenia wymagają ustalenia przyczyny.</p>
+        </div>
+        <div class="lesson-block">
+         <p class="lesson-label">Pierwszy bezpieczny test</p>
+         <p data-template-id="cooling-b" class="canva-text mt-2 body-copy">Ustaw komputer na twardym podłożu, odsłoń wloty i sprawdź obciążenie systemu. Przy nagłym wyłączaniu przerwij testy obciążeniowe.</p>
+        </div>
+        <details class="lesson-more">
+         <summary>Rozwiń pełną diagnozę</summary>
+         <p data-template-id="cooling-extra" class="canva-text body-copy">Porównaj zachowanie przy małym obciążeniu. Nie zatrzymuj wirnika palcem ani nie wdmuchuj zabrudzeń głębiej w obudowę. Wentylator dobieraj po numerze części; termopadów nie zastępuj przypadkową grubością. Mechanicznego ocierania nie naprawi sama pasta. Trudny demontaż i powtarzające się wyłączenia wymagają serwisu.</p>
+        </details>
+       </div>
+      </article>
+      <article class="lesson">
+       <img data-template-id="ports-image" loading="lazy" class="canva-image">
+       <div class="p-6 md:p-7">
+        <p data-template-id="ports-number" class="canva-text eyebrow">09 / PORTY I ZŁĄCZA</p>
+        <h3 data-template-id="ports-title" class="canva-text heading mt-2">USB, HDMI i połączenia</h3>
+        <div class="lesson-block">
+         <p class="lesson-label">Jak to działa i co może zawieść</p>
+         <p data-template-id="ports-a" class="canva-text mt-2 body-copy">Porty przenoszą dane, obraz lub zasilanie. Podobnie wyglądające gniazda USB‑C mogą obsługiwać różne funkcje; problem może leżeć także w kablu lub urządzeniu.</p>
+        </div>
+        <div class="lesson-block">
+         <p class="lesson-label">Pierwszy bezpieczny test</p>
+         <p data-template-id="ports-b" class="canva-text mt-2 body-copy">Wypróbuj sprawny kabel, drugie urządzenie i — jeśli dostępny — inny port. Sprawdź specyfikację; obejrzyj gniazdo bez wkładania metalowych narzędzi.</p>
+        </div>
+        <details class="lesson-more">
+         <summary>Rozwiń pełną diagnozę</summary>
+         <p data-template-id="ports-extra" class="canva-text body-copy">Brak obrazu z USB‑C nie oznacza awarii, jeżeli port nie obsługuje wideo. Ustal, czy złącze jest na wymiennej płytce, czy na płycie głównej. Nie forsuj wtyku. Luźne, wyrwane lub nadpalone gniazdo — szczególnie zasilające — powinien sprawdzić serwis.</p>
+        </details>
+       </div>
+      </article>
+      <article class="lesson">
+       <img data-template-id="keyboard-image" loading="lazy" class="canva-image">
+       <div class="p-6 md:p-7">
+        <p data-template-id="keyboard-number" class="canva-text eyebrow">10 / KLAWIATURA I TOUCHPAD</p>
+        <h3 data-template-id="keyboard-title" class="canva-text heading mt-2">Sterowanie komputerem</h3>
+        <div class="lesson-block">
+         <p class="lesson-label">Jak to działa i co może zawieść</p>
+         <p data-template-id="keyboard-a" class="canva-text mt-2 body-copy">Klawiatura i touchpad przekazują polecenia przez kontrolery i taśmy. Niedziałający klawisz, cała klawiatura i touchpad to różne przypadki; touchpad bywa wyłączony skrótem.</p>
+        </div>
+        <div class="lesson-block">
+         <p class="lesson-label">Pierwszy bezpieczny test</p>
+         <p data-template-id="keyboard-b" class="canva-text mt-2 body-copy">Sprawdź ustawienia oraz urządzenie zewnętrzne. Ustal, czy problem występuje w innych aplikacjach. Po zalaniu wyłącz komputer i nie włączaj go ponownie.</p>
+        </div>
+        <details class="lesson-more">
+         <summary>Rozwiń pełną diagnozę</summary>
+         <p data-template-id="keyboard-extra" class="canva-text body-copy">Przed wymianą sprawdź model, układ klawiszy, podświetlenie i mocowanie; klawiatura może być częścią górnej obudowy. Nie odrywaj klawiszy na siłę. Zalanie, uszkodzona taśma lub konieczność rozebrania większości obudowy wymagają serwisu.</p>
+        </details>
+       </div>
+      </article>
+      <article class="lesson">
+       <img data-template-id="wifi-image" loading="lazy" class="canva-image">
+       <div class="p-6 md:p-7">
+        <p data-template-id="wifi-number" class="canva-text eyebrow">11 / WI‑FI I SIEĆ</p>
+        <h3 data-template-id="wifi-title" class="canva-text heading mt-2">Karta sieciowa i połączenie</h3>
+        <div class="lesson-block">
+         <p class="lesson-label">Jak to działa i co może zawieść</p>
+         <p data-template-id="wifi-a" class="canva-text mt-2 body-copy">Karta komunikuje się z routerem przez anteny. Połączenie z Wi‑Fi nie gwarantuje dostępu do internetu; źródłem problemu może być komputer, router albo dostawca.</p>
+        </div>
+        <div class="lesson-block">
+         <p class="lesson-label">Pierwszy bezpieczny test</p>
+         <p data-template-id="wifi-b" class="canva-text mt-2 body-copy">Sprawdź tę samą sieć na telefonie, tryb samolotowy i widoczność karty w systemie. Jeśli wszystkie urządzenia mają problem, zacznij od routera.</p>
+        </div>
+        <details class="lesson-more">
+         <summary>Rozwiń pełną diagnozę</summary>
+         <p data-template-id="wifi-extra" class="canva-text body-copy">Porównaj inną sieć lub połączenie przewodowe. Przed zakupem modułu potwierdź format, zgodność platformy i liczbę anten. Nie ciągnij anten za przewody. Urwane złącza antenowe, uszkodzona antena w pokrywie lub wlutowany moduł wymagają serwisu.</p>
+        </details>
+       </div>
+      </article>
+      <article class="lesson">
+       <img data-template-id="audio-image" loading="lazy" class="canva-image">
+       <div class="p-6 md:p-7">
+        <p data-template-id="audio-number" class="canva-text eyebrow">12 / DŹWIĘK</p>
+        <h3 data-template-id="audio-title" class="canva-text heading mt-2">Głośniki, mikrofon i wyjścia audio</h3>
+        <div class="lesson-block">
+         <p class="lesson-label">Jak to działa i co może zawieść</p>
+         <p data-template-id="audio-a" class="canva-text mt-2 body-copy">System wybiera wejście i wyjście dźwięku: lokalne, HDMI, USB lub Bluetooth. Cisza i brak mikrofonu mogą wynikać z ustawień, uprawnień, sterownika lub sprzętu.</p>
+        </div>
+        <div class="lesson-block">
+         <p class="lesson-label">Pierwszy bezpieczny test</p>
+         <p data-template-id="audio-b" class="canva-text mt-2 body-copy">Sprawdź wybrane urządzenia, głośność, wyciszenie i uprawnienia mikrofonu. Porównaj głośniki ze słuchawkami i działanie w innej aplikacji.</p>
+        </div>
+        <details class="lesson-more">
+         <summary>Rozwiń pełną diagnozę</summary>
+         <p data-template-id="audio-extra" class="canva-text body-copy">Przed wymianą sprawdź, czy dźwięk nie jest kierowany do monitora lub słuchawek Bluetooth. Dobierz głośnik po numerze części i typie przewodu. Uszkodzone gniazdo, ślady cieczy lub brak dźwięku na wielu sprawnych urządzeniach wymagają dalszej diagnostyki serwisowej.</p>
+        </details>
+       </div>
+      </article>
+     </div>
+    </section>
+    <section id="sciezka" class="w-full bg-[#e9eee8] py-14 md:py-20" aria-labelledby="path-title">
+     <div class="mx-auto w-full max-w-7xl px-5 md:px-10">
+      <p data-template-id="path-kicker" class="canva-text eyebrow mb-2">ŚCIEŻKA DIAGNOSTYCZNA</p>
+      <h2 id="path-title" data-template-id="path-title" class="canva-text heading">Sześć etapów bez wymiany części na próbę</h2>
+      <p data-template-id="path-intro" class="canva-text mt-3 mb-7 body-copy">Zacznij od oględzin i czynności niewymagających otwierania urządzenia. Dokumentuj wynik każdego kroku.</p>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+       <article class="path-card" data-step="1">
+        <h3 data-template-id="path-1-title" class="canva-text heading">Inspekcja</h3>
+        <p data-template-id="path-1-text" class="canva-text mt-3 body-copy">Zapisz model, objaw i okoliczności. Przy cieczy, dymie lub uszkodzonej baterii nie uruchamiaj sprzętu.</p>
+       </article>
+       <article class="path-card" data-step="2">
+        <h3 data-template-id="path-2-title" class="canva-text heading">Zasilanie</h3>
+        <p data-template-id="path-2-text" class="canva-text mt-3 body-copy">Sprawdź gniazdko, przewód i zgodność zasilacza. Nie używaj nadpalonych złączy.</p>
+       </article>
+       <article class="path-card" data-step="3">
+        <h3 data-template-id="path-3-title" class="canva-text heading">Start i POST</h3>
+        <p data-template-id="path-3-text" class="canva-text mt-3 body-copy">Zanotuj kontrolki, dźwięki i kody producenta. Praca wentylatora nie dowodzi zakończenia POST.</p>
+       </article>
+       <article class="path-card" data-step="4">
+        <h3 data-template-id="path-4-title" class="canva-text heading">Obraz i system</h3>
+        <p data-template-id="path-4-text" class="canva-text mt-3 body-copy">Oddziel brak obrazu od braku startu systemu. Porównaj monitor, kabel i komunikaty.</p>
+       </article>
+       <article class="path-card" data-step="5">
+        <h3 data-template-id="path-5-title" class="canva-text heading">Podzespół i objaw</h3>
+        <p data-template-id="path-5-text" class="canva-text mt-3 body-copy">Wybierz lekcję. Wyklucz ustawienia i akcesoria, zanim rozważysz wymianę części.</p>
+       </article>
+       <article class="path-card" data-step="6">
+        <h3 data-template-id="path-6-title" class="canva-text heading">Test końcowy</h3>
+        <p data-template-id="path-6-text" class="canva-text mt-3 body-copy">Sprawdź pierwotny objaw, ładowanie, obraz, porty, sieć i chłodzenie. Zapisz wynik.</p>
+       </article>
+      </div>
+      <p data-template-id="path-warning" class="canva-text note mt-6 body-copy">Przykładowe objawy nie zastępują dokumentacji modelu. Pomiary pod napięciem wykonuje wyłącznie przygotowany technik.</p>
+     </div>
+    </section>
+    <section id="slownik" class="mx-auto w-full max-w-7xl px-5 py-14 md:px-10" aria-labelledby="glossary-title">
+     <p data-template-id="glossary-kicker" class="canva-text eyebrow mb-2">SŁOWNIK</p>
+     <h2 id="glossary-title" data-template-id="glossary-title" class="canva-text heading">Pojęcia, które pomagają w diagnozie</h2>
+     <div class="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <article class="path-card">
+       <h3 data-template-id="term-post-title" class="canva-text heading">POST</h3>
+       <p data-template-id="term-post-text" class="canva-text mt-3 body-copy">Wstępna kontrola sprzętu przy uruchamianiu. Wynik może być sygnalizowany kodem, dźwiękiem lub kontrolką.</p>
+      </article>
+      <article class="path-card">
+       <h3 data-template-id="term-uefi-title" class="canva-text heading">UEFI</h3>
+       <p data-template-id="term-uefi-text" class="canva-text mt-3 body-copy">Oprogramowanie uruchamiające komputer przed systemem. Może pokazywać wykryte dyski i ustawienia startu.</p>
+      </article>
+      <article class="path-card">
+       <h3 data-template-id="term-smart-title" class="canva-text heading">SMART</h3>
+       <p data-template-id="term-smart-text" class="canva-text mt-3 body-copy">Dane diagnostyczne nośnika. Prawidłowy odczyt nie gwarantuje, że dysk nie ulegnie awarii.</p>
+      </article>
+      <article class="path-card">
+       <h3 data-template-id="term-nvme-title" class="canva-text heading">NVMe i M.2</h3>
+       <p data-template-id="term-nvme-text" class="canva-text mt-3 body-copy">NVMe to protokół dostępu do nośnika, a M.2 — format modułu i złącza. Podobny wygląd nie oznacza zgodności.</p>
+      </article>
+      <article class="path-card">
+       <h3 data-template-id="term-thermal-title" class="canva-text heading">Throttling</h3>
+       <p data-template-id="term-thermal-text" class="canva-text mt-3 body-copy">Automatyczne ograniczenie wydajności, często z powodu temperatury lub limitu zasilania.</p>
+      </article>
+      <article class="path-card">
+       <h3 data-template-id="term-backup-title" class="canva-text heading">Kopia zapasowa</h3>
+       <p data-template-id="term-backup-text" class="canva-text mt-3 body-copy">Dodatkowa kopia ważnych danych na innym nośniku. Wykonaj ją przed ryzykownymi testami, jeśli sprzęt działa.</p>
+      </article>
+     </div>
+    </section>
+    <section id="usterki" class="mx-auto w-full max-w-7xl px-5 pb-16 md:px-10" aria-labelledby="faults-title">
+     <p data-template-id="faults-kicker" class="canva-text eyebrow mb-2">BIBLIOTEKA OBJAWÓW</p>
+     <h2 id="faults-title" data-template-id="faults-title" class="canva-text heading">Od objawu do właściwej lekcji</h2>
+     <p data-template-id="faults-description" class="canva-text mt-3 max-w-3xl body-copy">Wyszukaj problem i rozwiń wskazówkę. Pojedynczy objaw nie potwierdza awarii konkretnej części.</p>
+     <div class="mt-6 flex flex-wrap items-end gap-3">
+      <div class="w-full max-w-md">
+       <label for="fault-search" data-template-id="search-label" class="canva-text mb-2 block font-semibold">Szukaj objawu</label><input id="fault-search" data-template-id="search-input" type="search" autocomplete="off" class="canva-input w-full rounded-xl border border-[#bbcbc7] px-4 py-3">
+      </div><button id="clear-search" data-template-id="clear-button" type="button" class="canva-button rounded-xl px-5 py-3 font-semibold hover:brightness-90">Wyczyść</button>
+     </div>
+     <p id="result-count" class="mt-3 text-sm text-[#52646c]" role="status" aria-live="polite"></p>
+     <div id="fault-list" class="mt-5 grid items-start gap-3 md:grid-cols-2">
+      <details class="fault" data-search="komputer nie wlacza sie martwy zasilanie">
+       <summary><span data-template-id="fault-power-title" class="canva-text">Komputer nie włącza się</span></summary>
+       <div class="fault-body">
+        <p data-template-id="fault-power-text" class="canva-text">Sprawdź gniazdko, przewód i zgodny zasilacz. Przy zapachu spalenizny przerwij próby.</p>
+       </div>
+      </details>
+      <details class="fault" data-search="blad pamieci brak post ram beep">
+       <summary><span data-template-id="fault-ram-title" class="canva-text">Błąd pamięci lub brak POST</span></summary>
+       <div class="fault-body">
+        <p data-template-id="fault-ram-text" class="canva-text">Zapisz kod producenta. Zajrzyj do lekcji RAM, ale sprawdź również zasilanie i tor obrazu.</p>
+       </div>
+      </details>
+      <details class="fault" data-search="dysk znika wolno ssd hdd smart">
+       <summary><span data-template-id="fault-disk-title" class="canva-text">Dysk znika lub działa wolno</span></summary>
+       <div class="fault-body">
+        <p data-template-id="fault-disk-text" class="canva-text">Najpierw zabezpiecz dane. Następnie sprawdź wykrywanie nośnika i dostępne dane SMART.</p>
+       </div>
+      </details>
+      <details class="fault" data-search="ekran czarny obraz monitor">
+       <summary><span data-template-id="fault-screen-title" class="canva-text">Komputer działa, ale ekran jest czarny</span></summary>
+       <div class="fault-body">
+        <p data-template-id="fault-screen-text" class="canva-text">Sprawdź jasność, zewnętrzny monitor i to, czy system się uruchamia. Porównaj lekcje ekranu i GPU.</p>
+       </div>
+      </details>
+      <details class="fault" data-search="bateria nie laduje akumulator limit">
+       <summary><span data-template-id="fault-battery-title" class="canva-text">Bateria nie ładuje</span></summary>
+       <div class="fault-body">
+        <p data-template-id="fault-battery-text" class="canva-text">Sprawdź limit ładowania i zgodność zasilacza. Spuchniętej baterii nie używaj ani nie ładuj.</p>
+       </div>
+      </details>
+      <details class="fault" data-search="przegrzewa temperatura restart chlodzenie">
+       <summary><span data-template-id="fault-heat-title" class="canva-text">Przegrzewa się lub restartuje</span></summary>
+       <div class="fault-body">
+        <p data-template-id="fault-heat-text" class="canva-text">Odsłoń wentylację i sprawdź obciążenie. Gdy komputer nagle gaśnie, przerwij intensywne testy.</p>
+       </div>
+      </details>
+      <details class="fault" data-search="wifi internet siec router">
+       <summary><span data-template-id="fault-wifi-title" class="canva-text">Nie działa Wi‑Fi</span></summary>
+       <div class="fault-body">
+        <p data-template-id="fault-wifi-text" class="canva-text">Porównaj sieć na telefonie i sprawdź tryb samolotowy. Problem wszystkich urządzeń sugeruje sprawdzenie routera.</p>
+       </div>
+      </details>
+      <details class="fault" data-search="usb hdmi port zlacze kabel">
+       <summary><span data-template-id="fault-ports-title" class="canva-text">Nie działa port USB lub HDMI</span></summary>
+       <div class="fault-body">
+        <p data-template-id="fault-ports-text" class="canva-text">Wypróbuj sprawny kabel i inne urządzenie. Nie używaj nadpalonego ani luźnego gniazda.</p>
+       </div>
+      </details>
+      <details class="fault" data-search="audio dzwiek glosnik mikrofon sluchawki">
+       <summary><span data-template-id="fault-audio-title" class="canva-text">Brak dźwięku lub mikrofonu</span></summary>
+       <div class="fault-body">
+        <p data-template-id="fault-audio-text" class="canva-text">Sprawdź wybrane urządzenie, wyciszenie i uprawnienia. Porównaj słuchawki z głośnikami.</p>
+       </div>
+      </details>
+      <details class="fault" data-search="zalanie ciecz dym korozja spuchnieta bateria">
+       <summary><span data-template-id="fault-liquid-title" class="canva-text">Zalanie, dym lub spuchnięta bateria</span></summary>
+       <div class="fault-body">
+        <p data-template-id="fault-liquid-text" class="canva-text">Wyłącz i odłącz zasilanie, jeśli jest to bezpieczne. Nie uruchamiaj ponownie; skontaktuj się z serwisem.</p>
+       </div>
+      </details>
+      <details class="fault" data-search="hdd klika stuka odzyskiwanie danych">
+       <summary><span data-template-id="fault-click-title" class="canva-text">Dysk HDD klika lub stuka</span></summary>
+       <div class="fault-body">
+        <p data-template-id="fault-click-text" class="canva-text">Ogranicz uruchomienia i nie wykonuj długich testów. Ważne dane powierz specjaliście od odzyskiwania.</p>
+       </div>
+      </details>
+      <details class="fault" data-search="gpu artefakty pasy grafika">
+       <summary><span data-template-id="fault-artifact-title" class="canva-text">Na obrazie pojawiają się artefakty</span></summary>
+       <div class="fault-body">
+        <p data-template-id="fault-artifact-text" class="canva-text">Porównaj inny monitor i kabel. Zanotuj, czy zakłócenia są widoczne jeszcze przed startem systemu.</p>
+       </div>
+      </details>
+      <details class="fault" data-search="ekran miga pokrywa tasma zawias">
+       <summary><span data-template-id="fault-flicker-title" class="canva-text">Ekran miga przy ruchu pokrywy</span></summary>
+       <div class="fault-body">
+        <p data-template-id="fault-flicker-text" class="canva-text">Możliwy jest problem panelu, taśmy albo złącza. Nie wyginaj dalej pokrywy; sprawdź monitor zewnętrzny.</p>
+       </div>
+      </details>
+      <details class="fault" data-search="wentylator glosny halas ociera">
+       <summary><span data-template-id="fault-fan-title" class="canva-text">Wentylator hałasuje</span></summary>
+       <div class="fault-body">
+        <p data-template-id="fault-fan-text" class="canva-text">Sprawdź obciążenie i wloty powietrza. Otarcia mogą wskazywać na uszkodzenie mechaniczne.</p>
+       </div>
+      </details>
+      <details class="fault" data-search="klawiatura klawisz pisanie">
+       <summary><span data-template-id="fault-key-title" class="canva-text">Nie działa jeden lub kilka klawiszy</span></summary>
+       <div class="fault-body">
+        <p data-template-id="fault-key-text" class="canva-text">Porównaj klawiaturę zewnętrzną i inną aplikację. Po zalaniu nie uruchamiaj ponownie komputera.</p>
+       </div>
+      </details>
+      <details class="fault" data-search="touchpad kursor mysz">
+       <summary><span data-template-id="fault-touch-title" class="canva-text">Touchpad nie reaguje</span></summary>
+       <div class="fault-body">
+        <p data-template-id="fault-touch-text" class="canva-text">Sprawdź ustawienia i skrót wyłączający touchpad. Porównaj działanie myszy zewnętrznej.</p>
+       </div>
+      </details>
+      <details class="fault" data-search="usb c usbc ladowanie obraz profil kabel">
+       <summary><span data-template-id="fault-usbc-title" class="canva-text">USB‑C nie ładuje lub nie pokazuje obrazu</span></summary>
+       <div class="fault-body">
+        <p data-template-id="fault-usbc-text" class="canva-text">Sprawdź możliwości portu, przewodu i zasilacza. Nie każdy port USB‑C obsługuje wideo.</p>
+       </div>
+      </details>
+      <details class="fault" data-search="system nie startuje boot uefi dysk">
+       <summary><span data-template-id="fault-boot-title" class="canva-text">Komputer włącza się, ale system nie startuje</span></summary>
+       <div class="fault-body">
+        <p data-template-id="fault-boot-text" class="canva-text">Zapisz komunikat i sprawdź wykrywanie dysku w UEFI. Zabezpiecz dane przed reinstalacją.</p>
+       </div>
+      </details>
+      <details class="fault" data-search="nie widzi dysku ssd nvme bios uefi">
+       <summary><span data-template-id="fault-missing-title" class="canva-text">UEFI nie widzi dysku</span></summary>
+       <div class="fault-body">
+        <p data-template-id="fault-missing-text" class="canva-text">Sprawdź model nośnika i jego zgodność z komputerem. Jeśli dysk zawiera ważne dane, ogranicz próby uruchomienia.</p>
+       </div>
+      </details>
+      <details class="fault" data-search="wolny komputer spowolnienie procesor ram dysk">
+       <summary><span data-template-id="fault-slow-title" class="canva-text">Komputer nagle działa bardzo wolno</span></summary>
+       <div class="fault-body">
+        <p data-template-id="fault-slow-text" class="canva-text">Zabezpiecz pliki, sprawdź obciążenie systemu, wolne miejsce i stan dysku. Nie zakładaj od razu awarii CPU.</p>
+       </div>
+      </details>
+      <details class="fault" data-search="niebieski ekran bluescreen bsod blad">
+       <summary><span data-template-id="fault-blue-title" class="canva-text">Pojawia się niebieski ekran błędu</span></summary>
+       <div class="fault-body">
+        <p data-template-id="fault-blue-text" class="canva-text">Zapisz pełny kod i okoliczności. Sprawdź niedawne zmiany, sterowniki, pamięć oraz stan nośnika.</p>
+       </div>
+      </details>
+      <details class="fault" data-search="sam sie wylacza zasilanie temperatura bateria">
+       <summary><span data-template-id="fault-shutdown-title" class="canva-text">Komputer sam się wyłącza</span></summary>
+       <div class="fault-body">
+        <p data-template-id="fault-shutdown-text" class="canva-text">Ustal, czy dzieje się to na baterii, zasilaczu lub pod obciążeniem. Przy nagrzewaniu przerwij testy.</p>
+       </div>
+      </details>
+      <details class="fault" data-search="brak internetu wifi polaczone dns router">
+       <summary><span data-template-id="fault-online-title" class="canva-text">Wi‑Fi jest połączone, ale nie ma internetu</span></summary>
+       <div class="fault-body">
+        <p data-template-id="fault-online-text" class="canva-text">Sprawdź inną stronę i inne urządzenie w tej samej sieci. Samo połączenie z routerem nie dowodzi dostępu do internetu.</p>
+       </div>
+      </details>
+      <details class="fault" data-search="bateria szybko sie rozladowuje czas pracy">
+       <summary><span data-template-id="fault-drain-title" class="canva-text">Bateria szybko się rozładowuje</span></summary>
+       <div class="fault-body">
+        <p data-template-id="fault-drain-text" class="canva-text">Sprawdź zużycie energii przez aplikacje i raport baterii. Pojedynczy odczyt pojemności nie jest pełną diagnozą.</p>
+       </div>
+      </details>
+      <details class="fault" data-search="komputer piszczy sygnaly dzwiek post">
+       <summary><span data-template-id="fault-beep-title" class="canva-text">Komputer wydaje sygnały przy starcie</span></summary>
+       <div class="fault-body">
+        <p data-template-id="fault-beep-text" class="canva-text">Zapisz liczbę i sekwencję sygnałów. Ich znaczenie sprawdź w dokumentacji konkretnego producenta.</p>
+       </div>
+      </details>
+      <details class="fault" data-search="zewnetrzny monitor nie dziala hdmi obraz">
+       <summary><span data-template-id="fault-external-title" class="canva-text">Nie działa monitor zewnętrzny</span></summary>
+       <div class="fault-body">
+        <p data-template-id="fault-external-text" class="canva-text">Sprawdź wejście monitora, kabel, wybór wyjścia obrazu i obsługę wideo przez używany port.</p>
+       </div>
+      </details>
+     </div>
+     <div id="no-results" hidden class="mt-5 rounded-2xl border border-dashed border-[#bbcbc7] bg-white p-7">
+      <p data-template-id="no-results-text" class="canva-text">Brak pasującego tematu. Spróbuj krótszego hasła, np. „ekran”, „dysk” albo „bateria”.</p>
+     </div>
+    </section>
+   </main>
+   <footer class="w-full border-t border-[#dce5e3] px-5 py-6 text-center">
+    <p data-template-id="footer-text" class="canva-text">Napraw komputer od zera · Najpierw bezpieczeństwo, potem diagnoza.</p>
+   </footer>
+  </div>
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const search = document.getElementById('fault-search');
+  const items = [...document.querySelectorAll('#fault-list .fault')];
+  const count = document.getElementById('result-count');
+  const empty = document.getElementById('no-results');
+  const normalize = value => value.toLocaleLowerCase('pl-PL').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ł/g, 'l');
+  function filter() {
+    const query = normalize(search.value.trim());
+    let visible = 0;
+    items.forEach(item => {
+      const matches = !query || normalize(item.dataset.search).includes(query);
+      item.hidden = !matches;
+      if (matches) visible++;
+    });
+    count.textContent = visible === 1 ? '1 pasujący temat' : `${visible} pasujących tematów`;
+    empty.hidden = visible !== 0;
+  }
+  search.addEventListener('input', filter);
+  document.getElementById('clear-search').addEventListener('click', () => {
+    search.value = '';
+    filter();
+    search.focus();
+  });
+  filter();
+});
+</script>
+ </body>
+</html>

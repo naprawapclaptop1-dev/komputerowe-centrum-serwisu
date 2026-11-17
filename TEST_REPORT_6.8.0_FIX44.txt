@@ -1,0 +1,63 @@
+RAPORT TESTÓW — NAUKA OD A DO Z 6.8.0 FIX44
+===========================================
+Build: 6.8.0-social-login-fix44-master-service-center-20261104
+Data: 2026-11-04
+
+WYNIK KOŃCOWY
+-------------
+67 / 67 skryptów regresji zakończonych PASS.
+189 / 189 plików JS/MJS/CJS przeszło kontrolę składni Node.js.
+23 / 23 asercji nowego modułu FIX44 zakończonych PASS.
+Lokalny ONECLICK verifyWeb(): PASS.
+
+ZAKRES KONTROLI FIX44
+---------------------
+- Rejestracja runtime API i 15 modułów oraz pulpitu.
+- 16 niezależnych zakładek w UI.
+- Kalkulator IPv4/CIDR z prawidłową siecią, broadcast i hostami.
+- Odrzucanie niepoprawnych adresów i prefiksów.
+- Kalkulator mocy U × I.
+- Porównywanie binarnych plików BIOS, długości, bajtów i zakresów.
+- Brak zapisu/flashowania BIOS.
+- Rozpoznawanie sygnatur MBR i GPT na danych testowych.
+- Normalizacja danych i ograniczanie rozmiarów kolekcji.
+- Lokalny zapis katalogu modeli, zleceń i przypadków.
+- 12 lokalnych self-checków.
+- Kontrola SHA-256 manifestu źródeł.
+- HTML, nawigacja, zasoby PWA i cache.
+- Zgodność identyfikatora wydania między release.json, HTML i auth status.
+- Kontrola wymagań OneClick i AUTO_PUBLISH_WATCHER.
+- Zachowanie FIX43: opinie, API i migracja 0017.
+- CSS responsive i wydruk raportu.
+
+REGRESJA DZIEDZICZONA
+---------------------
+Przeszło 67 istniejących i nowych skryptów test-*.js oraz test-*.mjs w scripts.
+Pełna lista i wyniki znajdują się w TEST_LOG_6.8.0_FIX44.txt.
+
+LOKALNY VERIFYWEB
+-----------------
+Build: 6.8.0-social-login-fix44-master-service-center-20261104
+Lekcje: 1060
+Karty diagnostyczne: 12
+Niezależne widoki: 30
+Wynik: katalog WWW przeszedł wszystkie kontrole.
+Cloudflare, zdalne API, D1 i produkcyjny deploy nie były uruchamiane.
+
+KOMPLETNOŚĆ PROJEKTU
+--------------------
+Pliki bazowe FIX43: 758.
+Pliki bazowe zachowane: 758.
+Usunięte pliki: 0.
+Nowe pliki kodu/testów FIX44 przed dokumentacją: 5.
+
+OGRANICZENIA
+------------
+Testy są testami kontraktowymi, runtime i lokalnymi. Nie stanowią dowodu na:
+- poprawne działanie każdego widoku w rzeczywistym browser E2E;
+- fizyczną komunikację z dowolnym miernikiem, programatorem lub płytą;
+- poprawność diagnozy konkretnego egzemplarza urządzenia;
+- pełne odzyskiwanie danych z dysków;
+- działanie publicznego marketplace lub synchronizacji między kontami;
+- automatyczne pobieranie BIOS, firmware i dokumentacji producentów;
+- produkcyjne wdrożenie lub wykonanie migracji Cloudflare D1.

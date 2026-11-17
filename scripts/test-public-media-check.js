@@ -1,0 +1,22 @@
+const assert = require('node:assert/strict');
+const { checkPublicMediaAsset } = require('./public-media-check');
+(async () => {
+  const calls = [];
+  const rangeResponse = new Response(new Uint8Array([0]), { status: 206, headers: { 'content-type': 'video/mp4', 'content-range': 'bytes 0-0/6600000', 'content-length': '1' } });
+  const ranged = await checkPublicMediaAsset('https://example.test/video.mp4', async (url, init) => { calls.push({url,init}); return rangeResponse; });
+  assert.equal(ranged.ok, true); assert.equal(ranged.bytes, 6600000); assert.equal(calls[0].init.method, 'GET'); assert.equal(calls[0].init.headers.Range, 'bytes=0-1048575');
+  const complete = new Response(new Uint8Array([0]), { status: 200, headers: { 'content-type': 'video/mp4', 'content-length': '6500000' } });
+  assert.equal((await checkPublicMediaAsset('https://example.test/video.mp4', async () => complete)).ok, true);
+  const wrongType = new Response('not a video', { status: 200, headers: { 'content-type': 'text/html', 'content-length': '6500000' } });
+  assert.equal((await checkPublicMediaAsset('https://example.test/video.mp4', async () => wrongType)).ok, false);
+  const missing = new Response('missing', { status: 404, headers: { 'content-type': 'text/plain' } });
+  assert.equal((await checkPublicMediaAsset('https://example.test/video.mp4', async () => missing)).ok, false);
+  const small = new Response(new Uint8Array(120), { status: 200, headers: { 'content-type': 'video/mp4', 'content-length': '120' } });
+  assert.equal((await checkPublicMediaAsset('https://example.test/video.mp4', async () => small)).ok, false);
+  const exactlyOneMb = new Response(new Uint8Array([0]), { status: 206, headers: { 'content-type': 'video/mp4', 'content-range': 'bytes 0-0/1000000', 'content-length': '1' } });
+  assert.equal((await checkPublicMediaAsset('https://example.test/video.mp4', async () => exactlyOneMb)).ok, false);
+  const noSizeHeaders = new Response(new Uint8Array(1100000), { status: 200, headers: { 'content-type': 'video/mp4' } });
+  assert.equal((await checkPublicMediaAsset('https://example.test/video.mp4', async () => noSizeHeaders)).ok, true);
+  console.log('PASS | public media check uses GET + Range, accepts total Content-Range / Content-Length');
+  console.log('PASS | wrong MIME type, HTTP errors and media at or below 1,000,000 bytes are rejected; bounded stream fallback works');
+})().catch(error => { console.error(error); process.exitCode = 1; });

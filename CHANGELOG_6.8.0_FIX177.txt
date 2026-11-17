@@ -1,0 +1,25 @@
+NAUKA OD A DO Z — FIX177
+Data: 2026-11-16
+
+Zakres: naprawa publikatora/obserwatora, bez zmiany runtime strony.
+
+NAPRAWIONE
+- AUTO_PUBLISH_WATCHER.js przekazuje pobrany `remoteHomePhotoLibrary` do
+  `evaluatePhotoCatalogPublicationContractFix115` jako `photoLibrary`.
+- Usunięto redundantne drugie pobranie `photo-catalog-fix115.js` w tej samej
+  grupie Promise.all.
+- OneClick i Watcher uruchamiają runner FIX177, który najpierw wykonuje cały
+  pakiet regresyjny FIX176, a następnie nowe testy FIX177.
+- Dodano test regresyjny FIX177, który odtwarza rzeczywisty kontrakt lokalnych
+  zasobów FIX176 i sprawdza 19 przypisań zdjęć.
+
+ZACHOWANO
+- Wersja produktu 6.8.0 i opublikowane metadane FIX176.
+- Istniejący projekt Cloudflare Pages i istniejący binding D1.
+- Brak migracji D1, resetu danych, zmian klucza Gemini i zmian katalogu zdjęć.
+- 1083 lekcje, 35 widoków, 19 zdjęć modułów oraz dotychczasowy runtime FIX176.
+
+TESTY
+- Pełny pakiet regresyjny FIX176.
+- FIX177 PUBLISHER PHOTO-LIBRARY WIRING: 4/4 PASS.
+- Kontrola składni AUTO_PUBLISH_WATCHER.js.

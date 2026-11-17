@@ -1,0 +1,12 @@
+NAPRAWA PC — AKADEMIA SERWISU PRO 3.8.5 — PROSTSZE POTWIERDZENIE D1
+
+- Naprawiono nieczytelny krok potwierdzenia wyboru istniejącej bazy D1.
+- Po wyborze bazy program pokazuje jej nazwę i UUID oraz nazwy istniejących tabel związanych z nauką (learning_*) i Akademią (academy_*).
+- Potwierdzenie jest teraz jednoznaczne: wpisz 1 = TAK lub 0 = NIE. Nadal można wpisać pełne „DODAJ AKADEMIE”.
+- Błędna odpowiedź nie kończy od razu całego CMD: program zachowuje wybraną bazę i ponawia pytanie maksymalnie trzy razy.
+- Enter przy wyborze bazy nadal oznacza anulowanie; 0 przy potwierdzeniu oznacza anulowanie.
+- Wersja nie wybiera samodzielnie bazy i nie uznaje samego wyświetlenia listy za zgodę.
+- Migracje nadal wykonują się dopiero po jednoznacznym potwierdzeniu użytkownika.
+- Istniejące tabele nie są usuwane ani przebudowywane; migracje dodają tabele academy_*.
+
+Nie wykonano zdalnej migracji ani publikacji na koncie Cloudflare użytkownika.

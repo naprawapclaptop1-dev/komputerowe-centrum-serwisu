@@ -1,0 +1,5 @@
+NAPRAWA PC — AKADEMIA SERWISU PRO 5.0.0
+NEON MOTION ACADEMY
+
+Pełny interfejs elektroniki z animowanymi ścieżkami PCB, pięcioma skórkami, regulacją ruchu, pełnym ekranem i trybem skupienia.
+Ustawienia wyglądu pozostają lokalne w przeglądarce. Nie wprowadzono migracji D1.

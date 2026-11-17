@@ -1,0 +1,24 @@
+1
+00:00:00,000 --> 00:00:09,454
+Objaw przegrzewania. Zapisz temperaturę, hałas, obroty, throttling i moment wyłączenia.
+
+2
+00:00:09,454 --> 00:00:18,908
+Przygotowanie. Sprawdź instrukcję serwisową, odłącz energię i baterię zgodnie z OEM.
+
+3
+00:00:18,908 --> 00:00:28,362
+Zabezpiecz wirnik. Nie pozwól, aby sprężone powietrze rozpędziło wentylator.
+
+4
+00:00:28,362 --> 00:00:37,816
+Oczyść radiator. Usuń kurz z wlotu, finów i kanałów bez wciskania go w głąb.
+
+5
+00:00:37,816 --> 00:00:47,270
+Sprawdź wentylator. Oceń łożysko, przewód, złącze i swobodę obrotu.
+
+6
+00:00:47,270 --> 00:00:56,724
+Test po montażu. Monitoruj temperatury, taktowanie, hałas i stabilność w kontrolowanym teście.
+

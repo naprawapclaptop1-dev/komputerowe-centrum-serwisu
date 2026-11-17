@@ -1,0 +1,60 @@
+NAUKA OD A DO Z — PUBLICATION GUARD FIX49
+========================================
+
+WSPÓLNE ŹRÓDŁO PRAWDY
+--------------------
+- FIX49_RELEASE_MANIFEST.json
+- WEB_PUBLISH/release-contract-fix49.json
+- scripts/release-contract-fix49.cjs
+
+OneClick i Auto-Publish Watcher używają tego samego parsera Service Workera,
+walidatora manifestu i zestawu obowiązkowych testów.
+
+KOLEJNOŚĆ ONECLICK
+------------------
+1. Kontrola lokalnych plików, konfiguracji i konta Cloudflare.
+2. verifyWeb() oraz testy FIX49.
+3. Audyt statyczny sekretów i całej historii migracji.
+4. Wywołanie `wrangler d1 migrations list <DB> --remote`.
+5. Parsowanie tylko listy niezaaplikowanych migracji (zgodnie z semantyką
+   komendy Wrangler).
+6. Każda oczekująca migracja musi istnieć lokalnie i przejść audyt.
+7. Nieznany format wyniku, brak pliku albo migracja wysokiego ryzyka blokuje
+   proces przed backupem i `migrations apply`.
+8. Dopiero po przejściu bramki OneClick wykonuje kopię D1 i etap migracji.
+9. Watcher uruchamia ponowny lokalny preflight i kontrolę zasobów po wdrożeniu.
+
+ZASADY BEZPIECZEŃSTWA
+--------------------
+- Nie drukować wartości sekretów.
+- Nie wczytywać .env do raportu diagnostycznego.
+- Nie wysyłać formularzy, haseł, tokenów ani rekordów użytkowników w Diagnostic
+  Bundle.
+- Nie uruchamiać nieznanych migracji.
+- Nie kontynuować przy nieznanym formacie wyniku Wrangler.
+- Nie automatyzować przywracania D1 bez ręcznej decyzji operatora.
+- Staging wymaga osobnej gałęzi, bazy D1 i sekretów preview.
+
+OPERACJE, KTÓRYCH TEN BUILD NIE WYKONUJE SAMODZIELNIE
+-----------------------------------------------------
+- Tworzenie środowiska staging.
+- Promocja staging -> production.
+- Rollback Cloudflare Pages.
+- Przywracanie backupu D1.
+- Uruchamianie SQL z symulatora.
+- Publikacja podczas tego procesu przygotowawczego.
+
+UWAGA O HISTORYCZNYCH MIGRACJACH
+--------------------------------
+Audyt statyczny oznacza 0008_social_login_x_github.sql oraz
+0009_discord_social_login.sql do ręcznego przeglądu (RENAME/DROP). Ten wynik
+nie stwierdza ich statusu w produkcyjnej bazie. Status ustala dopiero zdalne
+`d1 migrations list --remote` podczas uruchomienia OneClick.
+
+PRZED PUBLIKACJĄ
+----------------
+1. Uruchom WYKONAJ_TESTY_FIX49.cmd na Node.js v24.19.0 na komputerze Windows.
+2. Zweryfikuj konto, istniejący projekt Pages i binding DB.
+3. Zadbaj o aktualny backup i sprawdź listę pending migrations.
+4. Zatrzymaj się, jeśli OneClick zgłosi migrację wymagającą ręcznego przeglądu.
+5. Nie usuwaj poprzedniego działającego wydania przed potwierdzeniem nowego.

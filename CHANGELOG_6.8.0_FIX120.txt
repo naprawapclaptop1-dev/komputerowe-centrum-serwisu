@@ -1,0 +1,16 @@
+NAUKA OD A DO Z — FIX120 (POPRAWKA PUBLIKATORA)
+Data: 2026-11-10
+Produkt WWW: 6.8.0 FIX119 (bez zmian w kodzie strony i metadanych release)
+Zakres: ONECLICK_AKADEMIA.js / lokalny proces walidacji i publikacji
+
+NAPRAWA
+1. Usunięto ReferenceError: Cannot access 'serviceWorkerVisualSource' before initialization.
+2. Przeniesiono jedyną deklarację const serviceWorkerVisualSource na początek verifyWeb(), bezpośrednio po odczycie index.html, przed wszystkimi kontrolami FIX119, które odczytują zawartość Service Workera.
+3. Zachowano istniejący projekt Cloudflare Pages, konto, binding D1, konfigurację wrangler, migracje oraz nazwę bazy. Ta poprawka nie zmienia żadnych danych w chmurze.
+4. Nie zmieniono wersji produktu 6.8.0 ani opublikowanego wydania strony FIX119; FIX120 dotyczy wyłącznie lokalnego publikatora.
+
+TESTY
+- Test regresyjny TDZ: 4 asercje.
+- node --check ONECLICK_AKADEMIA.js.
+- Pełny lokalny preflight projektu uruchamiany przez scripts/run-tests-fix119.mjs.
+- Nie uruchamiano publikacji produkcyjnej ani migracji D1 podczas testów tej poprawki.

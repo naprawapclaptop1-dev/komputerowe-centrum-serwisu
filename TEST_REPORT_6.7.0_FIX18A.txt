@@ -1,0 +1,41 @@
+NAUKA OD A DO Z — 6.7.0 FIX18A
+RAPORT HOTFIXA SERVICE WORKER / PWA CACHE
+Data: 2026-11-03
+
+PRZYCZYNA BLEDU Z LOGU UZYTKOWNIKA
+Publikator sprawdzal w Service Workerze historyczny znacznik support-video-clean-fix9. Cache FIX18 byl nowy i zawieral film MP4, ale nie mial znacznika historycznej rewizji. Walidator zgłaszał więc fałszywy błąd „Service Worker nadal używa starej pamięci filmu FIX8”. Publikacja zatrzymała się przed migracjami D1.
+
+WYKONANE POPRAWKI
+- CACHE_NAME otrzymał unikalną nazwę FIX18A.
+- Zachowano pełny identyfikator release.build: 6.7.0-social-login-fix18-20261102.
+- Zachowano historyczny znacznik support-video-clean-fix9.
+- Service Worker CORE jawnie zawiera MP4, plakat JPG oraz napisy VTT.
+- ONECLICK_AKADEMIA.js weryfikuje nową rewizję cache i wszystkie trzy zasoby przed migracjami.
+- AUTO_PUBLISH_WATCHER.js wykonuje tę samą kontrolę przed wdrożeniem.
+- Zastąpiono kruchą kontrolę jednego podciągu semantyczną kontrolą nazwy cache i zasobów.
+- Dodano test regresyjny scripts/test-pwa-cache-fix18a.mjs do WYKONAJ_TESTY_FIX18.cmd.
+- Zachowano wyłączenie endpointów /api/ z cache oraz usuwanie poprzednich cache aplikacji w aktywacji.
+
+WYNIKI TESTÓW LOKALNYCH
+- 29/29 skryptów funkcjonalnych PASS, 0 FAIL.
+- 82 kontrole składni JavaScript/MJS PASS.
+- 35 arkuszy CSS — kontrola strukturalna PASS.
+- HTML: 553 unikalne identyfikatory.
+- 98 lokalnych odwołań; 0 brakujących.
+- Testy PWA: cache zawiera MP4, plakat, napisy i ma nowy namespace; API nie jest cache'owane.
+- Testy regresyjne publikatora i obserwatora: PASS.
+
+IDENTYFIKATOR WYDANIA
+Release: 6.7.0
+Build aplikacji (bez zmian funkcjonalności OAuth): 6.7.0-social-login-fix18-20261102
+Cache PWA: nauka-od-a-do-z-6.7.0-social-login-fix18-20261102-fix18a-pwa-support-video-clean-fix9-20261103
+
+OGRANICZENIA
+- Testy uruchomiono lokalnie w środowisku Node.js v22.16.0; nie jest to test Windows/PowerShell na komputerze użytkownika.
+- Nie uruchomiono testu Chromium w tej sesji.
+- Nie wykonano publikacji Cloudflare.
+- Nie wykonano kopii ani migracji produkcyjnej D1.
+- Nie sprawdzono publicznego adresu po wdrożeniu.
+- Logowanie OAuth na żywo nadal wymaga prawdziwych Client ID/Client Secret skonfigurowanych w panelach dostawców.
+
+Wniosek: błąd z przesłanego logu został usunięty w lokalnym pakiecie FIX18A. Publikacja nie została wykonana; do sprawdzenia na koncie użytkownika pozostaje cały proces od kroku 5/7 po rozpakowaniu nowego ZIP-a.

@@ -1,0 +1,65 @@
+NAUKA OD A DO Z — DLA WSZYSTKICH
+CHANGELOG 6.8.0 / FIX162
+Data wydania: 14.11.2026
+
+NOWE ZAKRESY: FIX156–FIX162
+
+FIX156 — BOARDVIEW I SCHEMATY ELEKTRONICZNE PRO
+- Interaktywna mapa edukacyjna płyty głównej z 8 blokami: CPU, VRM, RAM, BIOS/UEFI, EC, USB-C/PD, SSD i PCH.
+- Lista objawów zmienia zalecane kroki weryfikacji dla wybranego bloku.
+- Wyraźne oznaczenie, że mapa nie jest pinoutem konkretnego modelu.
+
+FIX157 — WIRTUALNY WARSZTAT ELEKTRONIKA PRO
+- Multimetr szkoleniowy z syntetycznymi przykładami pomiarów napięcia i rezystancji.
+- Scenariusze diagnostyczne oraz lokalna historia ćwiczeń.
+- Brak połączenia z prawdziwym przyrządem lub sprzętem.
+
+FIX158 — KONFIGURATOR PC PRO
+- Ćwiczenia kompatybilności socketu CPU, płyty, generacji RAM i zasilacza.
+- Szacowanie poboru mocy i orientacyjnego zapasu zasilacza.
+- Wynik jest uproszczonym profilem edukacyjnym, nie potwierdzeniem kompatybilności konkretnego SKU.
+
+FIX159 — AKADEMIA LUTOWANIA I BGA PRO
+- Zadania układania bezpiecznej kolejności czynności dla złącza, SMD i BGA.
+- Kontrola kolejności i informacja zwrotna.
+- Symulator nie steruje stacją lutowniczą ani nie zastępuje dokumentacji procesu.
+
+FIX160 — NAUCZYCIEL AI PRO
+- Integracja z istniejącym endpointem Pages /api/chat.
+- Zachowanie identyfikatora rozmowy między kolejnymi pytaniami.
+- Sekrety OpenAI / Cloudflare pozostają po stronie serwera; nie są umieszczone w kodzie przeglądarki.
+
+FIX161 — KLASY ONLINE PRO
+- Tworzenie klas, kody zaproszeń, zadania, przekazywanie prac i oceny nauczyciela.
+- Dane zapisywane jako zdarzenia w istniejącej tabeli academy_events.
+- Dostęp do operacji online wymaga istniejącej sesji konta i zgody synchronizacji.
+- Kod zaproszenia jest przechowywany w bazie jako skrót SHA-256.
+
+FIX162 — CERTYFIKATY, ATLAS, WYZWANIA I POSTĘPY
+- Publiczne sprawdzanie wpisu ukończenia ćwiczenia w istniejącej D1.
+- Wyszukiwarka atlasu podzespołów i usterek.
+- Katalog odsyłaczy do istniejących materiałów wideo/lekcji (nie dodano nowych nagrań).
+- Wyzwania tygodniowe, punkty, odznaki i eksport postępów do JSON.
+
+ZAKRES OCHRONY
+- Wersja produktu pozostaje 6.8.0; aktywny hotfix: FIX162.
+- Zachowano istniejący widok view-academypro; nie dodano nowego widoku ani trasy.
+- Zachowano 1083 lekcje, 35 widoków i 19 wpisów biblioteki zdjęć.
+- Zachowano dotychczasowy projekt Cloudflare Pages i binding do istniejącej bazy D1.
+- Bez nowych baz D1, tabel i migracji schematu.
+- Zachowano oddzielny cache zdjęć PWA FIX135; zmieniono tylko cache aplikacji na FIX162.
+- OneClick i Watcher sprawdzają obecność aktywnych zasobów FIX162 i API klas/certyfikatów.
+
+WAŻNE OGRANICZENIA
+- Wyniki multimetru, mapa płyty, konfigurator i lutowanie są symulacjami edukacyjnymi.
+- AI wymaga działającej konfiguracji istniejącego /api/chat i dostawcy po stronie Cloudflare.
+- Klasy online wymagają zalogowanego konta i zaakceptowanej synchronizacji.
+- Rejestr publiczny potwierdza obecność zapisu w platformie. Wynik egzaminu przekazuje przeglądarka; nie jest to kryptograficzny dowód egzaminu, akredytacja ani państwowa kwalifikacja zawodowa.
+- Katalog wideo odsyła do już istniejących materiałów/lekcji; nie powstały nowe pliki wideo.
+
+WERYFIKACJA
+- Pełny lokalny zestaw testów: STATUS: PASS.
+- Nowy zestaw FIX162: 14/14 PASS.
+- Testy objęły statyczne kontrakty HTML/JS, funkcje Pages, OneClick, Watcher, cache PWA i regresję poprzednich wersji.
+- Nie zaliczono automatycznego testu przeglądarkowego: próba uruchomienia Chromium w środowisku roboczym przekroczyła limit czasu.
+- Nie wykonano publikacji produkcyjnej Cloudflare w ramach tego wydania.

@@ -1,0 +1,14 @@
+NAUKA OD A DO Z 6.8.0 — FIX38
+============================================================
+
+- Naprawiono niezgodność pozostającego lokalnie testu scripts/test-unique-repair-photos-long-videos-fix5.js.
+- Dodano aktualny plik zgodności pod tą samą nazwą, aby rozpakowanie FIX38 nadpisywało stary test zamiast pozostawiać go w lokalnym folderze.
+- OneClick i watcher sprawdzają jawnie dokładny marker runtime api.uniquePhotoEngineVersion='6.2.0-fix7-per-repair-3photos-hash'.
+- Dodano test FIX38 kontroli znacznika oraz kontrakt wydania.
+- Zaktualizowano oczekiwania starszych testów, które nadal wypisywały lub wymagały etykiety FIX37.
+- Dodano WYKONAJ_TESTY_FIX38.cmd i CHECK_KONTA_FIX38.cmd; polecenia FIX37 przekierowują do nowych.
+- Zachowano dotychczasowy silnik FIX7, politykę licencji, 155 przypadków × 3 fotografie, 12 długich szkoleń, wszystkie funkcje społeczności FIX36 i pozostałe moduły.
+- 0 plików usuniętych względem FIX37; dodano 6 plików projektu/testów oraz 5 dokumentów raportowych.
+
+Weryfikacja: 59/59 testów PASS; pełny test zdjęć 465/465; lokalny verifyWeb PASS; 171 JS/MJS/CJS bez błędów składni; 42 CSS bez błędów strukturalnych; 704 unikalne ID HTML; 128 lokalnych referencji, 0 braków.
+Nie wykonano wdrożenia produkcyjnego ani migracji D1.

@@ -1,0 +1,52 @@
+NAUKA OD A DO Z — FIX164
+RAPORT ZMIAN PLIKÓW
+Baza porównawcza: pełna paczka FIX163
+Produkt: 6.8.0
+
+PODSUMOWANIE
+- Pliki w bazowej paczce FIX163: 2049
+- Pliki w paczce FIX164: 2058
+- Dodane pliki: 9 (w tym raport, manifest i raport testów)
+- Zmienione pliki względem FIX163: 10
+- Usunięte pliki: 0
+- Zmiany w schemacie D1: 0
+- Nowa baza D1: nie
+- Zmiana runtime strony / Service Workera / cache strony: nie
+- Publikacja produkcyjna Cloudflare wykonana: nie
+
+DODANE
+- scripts/configure-gemini-secret.ps1 — bezpieczne ukryte pole w tym samym CMD.
+- scripts/run-tests-fix164.mjs — pełny runner regresji FIX164.
+- scripts/test-gemini-cmd-paste-fix164.mjs — 8 testów nowego mechanizmu wejścia.
+- WYKONAJ_TESTY_FIX164.cmd — skrót testów.
+- README_FIX164.txt — instrukcja konfiguracji.
+- CHANGELOG_6.8.0_FIX164.txt — historia zmian.
+- RAPORT_FIX164_TESTY.log — pełny raport PASS.
+- FIX164_FILE_CHANGE_REPORT.txt — ten raport.
+- SHA256_FIX164_CHANGED_FILES.txt — manifest SHA-256.
+
+ZMIENIONE
+- URUCHOM_AKADEMIE.cmd — START FIX105 kieruje wprowadzanie klucza do wrappera PowerShell.
+- USTAW_KLUCZ_GEMINI.cmd — ręczna zmiana klucza używa tego samego ukrytego pola.
+- scripts/configure-gemini-secret.js — brak trybu raw; obsługa wejścia przez stdin i check-only.
+- ONECLICK_AKADEMIA.js — wymaga obecności nowego bezpiecznego wrappera.
+- AUTO_PUBLISH_WATCHER.js — kontroluje nowy wrapper.
+- scripts/test-gemini-cmd-setup-fix163.mjs — testuje wejście stdin i nowy wrapper.
+- scripts/test-fix162-master-technician-curriculum.mjs — historyczny test wymaga bezpiecznego mechanizmu bez raw mode.
+- RAPORT_FIX136_TESTY.log — odświeżony wynik bazowej regresji.
+- RAPORT_FIX162_TESTY.log — odświeżony wynik bazowej regresji.
+- RAPORT_FIX163_TESTY.log — odświeżony wynik bazowej regresji.
+
+NAPRAWA
+W FIX163 process.stdin.setRawMode(true) przechwytywał znaki w sposób, który w części
+wersji CMD/Windows Terminal uniemożliwiał wklejenie klucza. Nowy wrapper PowerShell
+używa Read-Host -AsSecureString w tej samej konsoli, po czym przekazuje tekst
+bezpośrednio do procesu Node przez przekierowane stdin. Klucz nie trafia do pliku
+tymczasowego, argumentów procesu, zmiennych środowiskowych ani logów.
+
+ZACHOWANE
+- Google Gemini pozostaje jedynym dostawcą AI.
+- Ograniczenie tematyczne serwisu komputerów/laptopów pozostaje bez zmian.
+- Produkt 6.8.0 i publiczny runtime FIX163 pozostają bez zmian.
+- 35 widoków, 1083 lekcje, 19 zdjęć, konta, OAuth i istniejąca baza D1 pozostają.
+- Wszystkie pliki FIX163 zachowano; brak plików usuniętych.

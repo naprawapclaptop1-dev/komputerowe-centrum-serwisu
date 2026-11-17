@@ -1,0 +1,35 @@
+NAUKA OD A DO Z — SHA-256 MANIFEST FIX165
+Pliki dodane lub zmienione względem FIX164.
+
+4563b0ea19467a57960527b06397b879da857dd4d701246ecc34ad949393a0fe      171809  AUTO_PUBLISH_WATCHER.js
+8732a9b7140b55ce831df53fbfb6d09bbc9108ea16b394a49efca6e5fa03bd69         965  CHANGELOG_6.8.0_FIX165.txt
+3b56d3f6702be2b55ef70ae1b5a361d18a681a9428b82d912505614731ef89e3        1966  FIX165_FILE_CHANGE_REPORT.txt
+4a01b085b870a38c6ca80934f701a44d139f40b3ec7b6c15aea9fa5a9dcebd5b      120763  ONECLICK_AKADEMIA.js
+11840fe4698602b51944af365a1a5bdab71287668ebc3ac8286039c6d7cd4653        7836  RAPORT_FIX136_TESTY.log
+0c15c83434d4ae909a2541212416159eb7bce5e65a38d2376a2859c982dcaba3       15682  RAPORT_FIX162_TESTY.log
+152a19509a8ca156d4bf2ddd07d0ca68cca9349fbc102ec813c04cd2096b6561       20587  RAPORT_FIX163_TESTY.log
+8d1b9085ff9866628e699b0fe7d1cd4ab62d250253c0298017fbef715519ae29       21845  RAPORT_FIX164_TESTY.log
+aaaedbb26cceb829d5fd33b2f9947069b178fa7fd7c2d2181f7754597de71171       22941  RAPORT_FIX165_TESTY.log
+7312bbf76025a8d671bc68c2ef993c5fc0e0e8b34fec2c47043367e3103de872        2570  README_FIX165.txt
+9c368a6e9bd1b800ee4d48eee6e5f17fa5e406db4f94f0acb5ec1c1311ea6d47      432194  WEB_PUBLISH/index.html
+a2a088500e40f498ff629043dd16e4cb38d6b2d7c28d57daf975ba07cf3f07f2      124618  WEB_PUBLISH/release.json
+4c417dd9a878d5e647d6785cc7ccc90029bf0a279e7a4f10ced4953711bd83a2       18461  WEB_PUBLISH/service-worker.js
+f6bf1c14d81824edb482e5761afee322372b2b109f6ba9136dbe5358f8ae3a4b         696  WYKONAJ_TESTY_FIX165.cmd
+ac7849e87229216432c461a1231abf61a0c910e6e19f424680bcd1a65cd6bff9       18846  functions/api/chat.js
+6819ed411af3b88b984e7c347efc431c43ab7d492226aad0062ef43a23e1f8ea       10216  scripts/configure-gemini-secret.js
+5a5f25b9a758396e3ed29c21fe190985a9005b33b1407b2ef8d2664cc0deb9bc       22334  scripts/photo-catalog-publication-contract-fix115.cjs
+b90b349a5221e9c39b7de1c1f5599dc2a03daf9d25ee2e865de86615386675eb        1619  scripts/run-tests-fix165.mjs
+cb711386e2208dda3f5fdcfe578d1990525300c6f152113f174a2c7e4489b488        4062  scripts/test-fix136-release-integration.mjs
+c4368a560219abf5c610cbbb7f51321ccb519f68981feddcad15ebf8057ba2d3        4492  scripts/test-fix136-top-photo-priority-and-home-preservation.mjs
+8546f8e5121c68abc193d2682a091620fa3ce0276f4da5c923241415d7736578        3839  scripts/test-fix147-publisher-lesson-count.mjs
+e2d429c24be32d1f1a77864eac42deb3f15196c6a5a5e9ecd4db4e34a8c6cac1        5037  scripts/test-fix148-master-technician-suite.mjs
+104c024ee9839e8a5a5a2a38be6483dd17bae01ca43869e641ff7ed7fa23f094        5434  scripts/test-fix149-advanced-training.mjs
+9f23e624b74a95858a9f96a16f887979712a3eead4f8a834d82bd0a9be9c45e2        1608  scripts/test-fix150-publisher-release-scope.mjs
+cb5cf492c24846db6fc28044e328e3212605ac43842c7bb12b4929062fd3314e        7905  scripts/test-fix155-practical-suite.mjs
+c3d312e6c02a69361c75ec4c093423b3a0464ec500c9e0261ed40009e5186912       10436  scripts/test-fix162-master-technician-curriculum.mjs
+0877a1598d8408b61077a351a36cae80c614132220df8026ea4f899a123be9d0        8718  scripts/test-gemini-chat-fix163.mjs
+52aa0753cd5d0da7b5a9d9b50d93ed076923909f74331fd9c7a3445cf43ef6c9        6952  scripts/test-gemini-cmd-setup-fix163.mjs
+e187254b6dfe36531de8cd4a3bedb196a8c8decde248b4401142b9da43d0e999        2970  scripts/test-gemini-fast-key-check-fix165.mjs
+8e8534e79415a38b62d3e7c97ce2f4b56840e1fec76b013241b848fcff68d908        3966  scripts/test-pages-function-residue-fix133.mjs
+24ead55f82fa94de9ffcfdccf9d6b447b4578e70cca489c717947139717468eb        2691  scripts/test-portable-sha256-fix127.mjs
+6590c70092782de181b283c5253817ebb8de0fda7e38025c11eba2bb57cfd867        3979  scripts/test-publisher-photo-cache-guard-fix137.mjs

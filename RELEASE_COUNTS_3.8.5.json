@@ -1,0 +1,51 @@
+{
+  "version": "3.8.5",
+  "project": "naprawa-pc-akademia-serwisu-pro",
+  "accountId": "4ddfc3803a4f0c4457ccae083f18b975",
+  "productionBranch": "main",
+  "stableUrl": "https://naprawa-pc-akademia-serwisu-pro.pages.dev",
+  "singleCommand": "URUCHOM_AKADEMIE.cmd",
+  "bindingResolution": "read Pages production DB binding; if missing, show existing D1 IDs and sqlite_master tables; require explicit database selection; require 1=YES or 0=NO confirmation; retry invalid consent three times",
+  "singleCommandSteps": [
+    "verify account and existing Pages project",
+    "read Pages production D1 binding",
+    "match binding UUID against existing D1 list if present",
+    "if Pages has no DB binding, inspect tables of all existing D1 databases read-only",
+    "ask user to select existing D1 database",
+    "confirm separately with 1=YES or 0=NO; retry invalid answer up to three times",
+    "backup and update Wrangler DB binding with selected database UUID",
+    "apply migrations to selected existing database",
+    "verify WEB_PUBLISH and Pages Functions",
+    "deploy existing Pages project main so binding takes effect",
+    "verify /api/health and start automatic watcher"
+  ],
+  "createsNewPagesProject": false,
+  "createsNewD1Database": false,
+  "addsOnlyAcademyPrefixedTablesAfterConsent": true,
+  "preservesExistingNonAcademyTables": true,
+  "configSupport": [
+    "wrangler.toml",
+    "wrangler.json",
+    "wrangler.jsonc"
+  ],
+  "lessons": 409,
+  "repairs": 155,
+  "beginnerLessons": 337,
+  "advancedTopics": 158,
+  "articles": 80,
+  "checklists": 51,
+  "sources": 182,
+  "tools": 161,
+  "methods": 147,
+  "components": 292,
+  "photos": 12,
+  "videos": 10,
+  "localChatIndexedRecords": 2829,
+  "confirmation": {
+    "yes": "1",
+    "no": "0",
+    "alternative": "DODAJ AKADEMIE",
+    "invalidRetries": 3,
+    "preserveSelectedDatabaseOnRetry": true
+  }
+}

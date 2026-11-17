@@ -1,0 +1,17 @@
+ZIP VERIFY — NAUKA OD A DO Z 6.8.0 FIX32
+Data: 2026-11-04
+
+WERYFIKACJA
+- Archiwum zawiera pełną strukturę projektu, bez katalogu nadrzędnego.
+- Liczba wpisów ZIP: 635 (zgodna z liczbą plików w katalogu projektu).
+- CRC wszystkich wpisów: PASS (ZipFile.testzip() zwrócił None).
+- Porównanie nazw plików z wydaniem FIX31: 625 plików bazowych; brak usuniętych plików; 10 nowych wpisów (7 plików projektu FIX32 i 3 dokumenty raportowe FIX32).
+- Pełna regresja: 48/48 testów PASS, 0 FAIL.
+- Składnia JavaScript: 144 pliki, 0 błędów.
+- CSS: 38 plików, 0 błędów strukturalnych.
+- Identyfikator: 6.8.0-social-login-fix32-homepage-showcase-guard-20261104.
+
+Wynik: archiwum kompletne i poprawne CRC. Suma SHA-256 znajduje się w osobnym pliku .sha256 obok archiwum.
+
+UWAGA WDROŻENIOWA
+W tej sesji nie wykonano publikacji Cloudflare ani migracji D1. W logu FIX31 użytkownik potwierdził kopię istniejącej bazy i brak oczekujących migracji; watcher zatrzymał publikację przed wdrożeniem.

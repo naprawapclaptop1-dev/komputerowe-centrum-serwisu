@@ -1,0 +1,47 @@
+RAPORT TESTOW FIX43
+===================
+Build: 6.8.0-social-login-fix43-knowledge-feedback-20261104
+Wynik: ZALICZONY W ZAKRESIE TESTOW LOKALNYCH
+
+PODSUMOWANIE
+- 187 plikow JS/MJS/CJS: node --check, 0 bledow skladni.
+- 66/66 historycznych i nowych skryptow testowych: PASS.
+- Nowy test kontraktu Knowledge Suite: 17/17 kontroli PASS.
+- Test runtime opinii/API: PASS (walidacja, zgoda, same-origin, limit,
+  ochrona administracyjna, zmiany statusow, obsluga nieznanego rekordu).
+- Lokalny OneClick verifyWeb(): PASS.
+- Rozpoznany build: 6.8.0-social-login-fix43-knowledge-feedback-20261104.
+- Liczba lekcji w verifyWeb(): 1060.
+- Liczba niezaleznych widokow: 29.
+- HTML: 778 identyfikatorow, wszystkie unikalne.
+- Porownanie ZIP FIX42 -> FIX43: 744 pliki bazowe zachowane, 0 usunietych,
+  9 dodanych plikow.
+- Wszystkie nowo dodane zasoby lokalne znajduja sie w projekcie.
+- Migracja 0017: addytywna; test runtime opinii stosuje migracje w testowej bazie.
+- Archiwum wynikowe jest sprawdzane przez ZIP integrity test.
+
+CO ZOSTALO PRZETESTOWANE
+- Kontrakty HTML, CSS, JS i nawigacja nowych widokow.
+- Normalizacja i bezpieczny zapis danych Knowledge Suite.
+- Diagnoza lokalna oraz wynik no-match.
+- Analiza sekwencji zasilania i nieznanych pomiarow.
+- Parser telemetrii i odrzucanie tekstu wygladajacego jak komendy.
+- Kontrola kompatybilnosci podanych parametrow PC.
+- Budowa i przywrocenie kopii AES-GCM/PBKDF2, w tym odrzucenie blednego hasla.
+- Formularz opinii, walidacja oceny i komentarzy, zgoda, same-origin,
+  limit zgloszen i kontrola administratora.
+- PWA cache, OneClick, Watcher i kontrakty wydania.
+- Pelny zestaw 66 plikow testowych obejmujacy starsze moduly FIX5–FIX42.
+
+OGRANICZENIA TESTOW
+- Nie wykonano testu E2E na prawdziwym koncie w rzeczywistej przegladarce.
+- Nie testowano fizycznego multimetru/oscyloskopu/zasilacza z powodu braku
+  urzadzen i sterownikow; most jest tylko opcjonalnym odczytem Web Serial.
+- Board Doctor nie rozpoznaje automatycznie zdjec i nie zastapia schematu.
+- Nie wykonano wdrozenia Cloudflare Pages.
+- Nie wykonano migracji na produkcyjnej bazie D1.
+- Zdalny endpoint opinii stanie sie aktywny po wdrozeniu kodu i migracji 0017.
+
+Wniosek: lokalny build i regresja przechodza. Publikacja produkcyjna pozostaje
+zablokowana do oddzielnego backupu D1, przegladu sekretow/bindingow i zgody
+na wdrozenie.

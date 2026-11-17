@@ -1,0 +1,8 @@
+NAPRAWA AKADEMIA SERWISU PRO 6.1.0
+
+Usunięto ReferenceError: indexHtml is not defined w AUTO_PUBLISH_WATCHER.js.
+Kontrola mapy wiedzy w verifyLocalRelease() korzysta teraz z lokalnej zmiennej html
+wczytanej z WEB_PUBLISH/index.html. Nie zmieniono strony, lekcji, API, konfiguracji
+Cloudflare ani migracji D1.
+Walidacja: node --check obu głównych skryptów oraz test regresji.
+Publikacja produkcyjna nie została wykonana z tego środowiska.

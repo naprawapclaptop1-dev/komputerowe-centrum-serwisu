@@ -1,0 +1,11 @@
+# FIX18B — OAuth diagnostics and visible provider buttons
+
+- Usunięto ukrywanie przycisków logowania społecznościowego w JS i CSS.
+- Dodano indywidualne statusy Google, Facebook, Microsoft, X, GitHub i Discord.
+- `GET /api/auth/status` sprawdza tabele, kolumny i ograniczenia dostawców D1; raportuje tylko nazwy brakujących sekretów.
+- Start/callback wymagają gotowego schematu OAuth i zwracają konkretny kod błędu przy brakujących migracjach.
+- Oddzielono błąd wymiany tokenu od błędu weryfikacji tożsamości.
+- Dodano wyświetlanie oraz kopiowanie dokładnego adresu callback.
+- Dodano identyfikator wydania FIX18B, nowy cache PWA i test regresji.
+- Nie zapisano Client Secret do archiwum. Nie wykonano wdrożenia ani migracji produkcyjnej D1.
+- Dodano `CHECK_LOGOWANIA_OAUTH_FIX18B.cmd`, odczytowy test publicznego endpointu statusu (bez migracji, publikacji i bez odczytu wartości sekretów).

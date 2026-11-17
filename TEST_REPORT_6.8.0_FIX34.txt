@@ -1,0 +1,37 @@
+RAPORT TESTÓW — NAUKA OD A DO Z 6.8.0 FIX34
+Data: 2026-11-04
+Build: 6.8.0-social-login-fix34-support-view-boundary-20261104
+Wynik: PASS
+
+1. PRZYCZYNA I POPRAWKA
+W WEB_PUBLISH/index.html po elemencie .support-video-wrap znajdowało się </div></div>, choć wymagany był tylko jeden znacznik zamykający. Drugi zamykał kontener nadrzędny zbyt wcześnie. Fragmenty wsparcia mogły przez to wypaść z #view-support i zostać pokazane, gdy aktywny był inny widok.
+
+FIX34 usuwa dodatkowy znacznik. Nie zmieniono zawartości BLIK/SumUp, tekstów wsparcia, metod płatności ani menu. Zabezpieczono granice całej strony nowym walidatorem.
+
+2. REGRESJA
+Uruchomiono 50/50 skryptów testowych: 24 pliki test-*.js i 26 plików test-*.mjs. Wszystkie zakończyły się kodem 0.
+W tym:
+- test-support-view-guard-fix34.js — PASS; kontrola 26 widoków, czterech elementów wsparcia oraz odrzucanie starego błędu z dodatkowym </div>.
+- test-publisher-verifyweb-local-fix31.mjs — PASS; pełna lokalna funkcja ONECLICK verifyWeb(), 1060 lekcji i 12 kart diagnostycznych.
+- pozostałe testy zachowania logowania, OAuth, 2FA, D1, publikatora, watchera, PWA, galerii, zdjęć, nawigacji, kursów i laboratoriów — PASS.
+
+3. KONTROLE STATYCZNE
+- Składnia JavaScript: 150 plików JS/MJS/CJS sprawdzonych przez node --check, 0 błędów.
+- CSS: 38 plików, 0 błędów strukturalnych.
+- Identyfikatory HTML: 648, 0 duplikatów.
+- Widoki: 26, ID unikalne.
+- Lokalne referencje src/href w HTML: 123, 0 brakujących plików.
+- Parser HTML: wszystkie 26 elementów .view-section są bezpośrednimi dziećmi .content-wrap.
+- #supportImpact, #supportFaq, .support-grid i .support-transparency znajdują się wewnątrz #view-support.
+- Żaden z tych elementów nie znajduje się wewnątrz #view-repairmaster.
+
+4. PORÓWNANIE Z FIX33
+- Pliki obecne w FIX33: 645.
+- Pliki źródłowe/techniczne FIX34 przed dołączeniem dokumentacji wydania: 650.
+- Nowe pliki projektu: 5.
+- Usunięte pliki projektu: 0.
+
+5. ZAKRES WDROŻENIA
+To wydanie zostało zweryfikowane lokalnie. Nie wykonano deploy do Cloudflare Pages, operacji na produkcyjnej bazie D1 ani migracji. Weryfikacja verifyWeb() działała bez łączenia z Cloudflare.
+
+Wniosek: wada struktury HTML odpowiedzialna za wyciek sekcji wsparcia została usunięta i zabezpieczona testem regresji oraz walidacją przed publikacją.

@@ -1,0 +1,11 @@
+NAUKA OD A DO Z — PRODUCT 6.8.0 — FIX199
+Data: 2026-11-17
+
+DODANO
+- Warsztat płyty głównej z geometrią 3D: 411 ścian wielokątów, projekcja perspektywiczna i renderowanie na Canvas 2D.
+- Elementy: płyta, socket/CPU, DIMM/RAM, VRM, M.2, PCIe/GPU, chipset, porty, otwory montażowe i ścieżki PCB.
+- Obracanie przeciąganiem myszy/dotyku, zoom rolką, klawiatura i podświetlanie wybranego komponentu.
+
+OGRANICZENIA
+- To geometryczny model edukacyjny, nie model CAD producenta i nie wierna reprezentacja konkretnej płyty głównej.
+- Renderer tworzy obraz 3D z geometrii przez Canvas 2D; nie używa WebGL ani zewnętrznego silnika Three.js.

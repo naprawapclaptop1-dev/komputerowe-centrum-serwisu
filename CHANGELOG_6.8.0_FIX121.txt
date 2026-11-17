@@ -1,0 +1,34 @@
+NAUKA OD A DO Z — PUBLISHER FIX121
+Data: 2026-11-10
+Produkt: 6.8.0 (bez zmiany wersji strony)
+Wersja publikowana strony: 6.8.0 FIX119
+
+PRZYCZYNA BŁĘDU
+Publikator nadal wymagał starego adresu master-workshop-630-extension.js?v=6.3.0-fix14, podczas gdy zaktualizowany HTML ładował ten sam moduł pod wersją 6.8.0-fix119. Akademia Master Electronics & Repair FIX14 była obecna i kompletna; niezgodność dotyczyła kontraktu wersjonowania zasobu, a nie brakujących plików.
+
+NAPRAWY
+1. Ujednolicono wersję cache JS Akademii Master Electronics & Repair do 6.8.0-fix119 w HTML, OneClick, Watcherze i Service Workerze.
+2. Ujednolicono wersję cache CSS do 6.8.0-fix119 we wszystkich tych samych warstwach.
+3. OneClick verifyWeb sprawdza teraz zgodność obu adresów i ich obecność w precache PWA.
+4. AUTO_PUBLISH_WATCHER lokalnie sprawdza dokładne adresy zasobów, a zdalna weryfikacja pobiera bieżące JS/CSS, zamiast historycznego URL FIX14.
+5. Zaktualizowano test regresyjny Akademii FIX14 i dodano test spójności wersji zasobów FIX121.
+6. Dodano osobny zestaw testów i launcher WYKONAJ_TESTY_FIX121.cmd.
+7. Naprawiono przestarzałą asercję testu Watchera: poprawny lokalny parametr indexHtml nie jest już błędnie uznawany za niezadeklarowaną zmienną.
+
+ZACHOWANO
+- Wersję strony 6.8.0 i metadane wydania FIX119.
+- Pliki i API Akademii Master Electronics & Repair FIX14 oraz moduły FIX15–FIX17.
+- Nazwę głównego cache PWA FIX118.
+- Osobną przestrzeń cache biblioteki zdjęć academy-photo-library-fix118.
+- Istniejący projekt Cloudflare Pages, binding D1 i dane użytkowników — nie wykonywano operacji na koncie ani bazie.
+
+TESTY LOKALNE
+- Pełny preflight FIX121: 58/58 testów PASS.
+- Kontrola składni JavaScript: 19/19 PASS.
+- Manifesty JSON: 4/4 PASS.
+- Test Akademii FIX14: 31 komponentów, 17 rodzin zamienników, 10 ścieżek nauki, 5 laboratoriów.
+- Test spójności HTML/OneClick/Watcher/Service Worker: PASS.
+- Testy oscyloskopu i USB-C PD FIX119: zachowane w regresji.
+
+PUBLIKACJA
+Nie wykonano publikacji produkcyjnej, migracji D1 ani zmian kont. FIX121 jest poprawką publikatora i kontroli zasobów dla istniejącego wydania strony FIX119.

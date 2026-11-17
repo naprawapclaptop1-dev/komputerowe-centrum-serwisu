@@ -1,0 +1,7 @@
+6.0.0 — ULTIMATE CYBER LAB
+- 200 nowych, ustrukturyzowanych lekcji warsztatowych (łącznie 1000).
+- Animowane tło elektroniczne, warstwy Glass UI, responsywny pulpit.
+- Repair Master z wyszukiwaniem w lokalnej bazie Akademii.
+- Interaktywna edukacyjna płyta PCB z warstwami i inspektorem elementów.
+- Panel administratora z autoryzacją ADMIN_REVIEW_TOKEN i moderacją istniejących endpointów.
+- Bez nowych migracji SQL; zachowane istniejące dane D1 i konfiguracja Pages.

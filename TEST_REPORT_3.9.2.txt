@@ -1,0 +1,39 @@
+TEST REPORT — NAPRAWA PC / AKADEMIA SERWISU PRO 3.9.2
+PEŁNA PACZKA — NAVY UI, WIEDZA SPOŁECZNOŚCI, OAUTH, WSPARCIE
+
+ZAWARTOŚĆ
+- Pełne WEB_PUBLISH, media, biblioteka materiałów i zasoby strony.
+- Pages Functions z istniejącymi endpointami oraz nowymi trasami /api/auth/status, /api/auth/start i /api/auth/callback.
+- 5 migracji SQL: 0001–0005; dwie ostatnie dodają tabele tożsamości OAuth / stany logowania i nonce OIDC.
+- Pliki ONECLICK, AUTO-PUBLISH WATCHER, URUCHOM_AKADEMIE.cmd i moduły Wrangler.
+- Dokumentacja OAuth i konfiguracji moderatora.
+- Kod QR SumUp dostarczony przez użytkownika oraz wskazany numer/dane BLIK.
+
+WYNIKI KONTROLI LOKALNYCH
+- Node.js --check: 39 plików JavaScript, 0 błędów składni.
+- Migracje 0001–0005: wykonane sekwencyjnie na testowej bazie SQLite, bez błędów.
+- Schemat OAuth: obecne academy_auth_identities, academy_oauth_states oraz kolumna nonce.
+- HTMLParser: index.html poprawnie sparsowany; 129 identyfikatorów HTML, 0 duplikatów.
+- Odwołania do lokalnych plików CSS/JS: wszystkie wskazują istniejące pliki.
+- CSS theme-392.css: 269 reguł najwyższego poziomu, 0 błędów parsera.
+- Responsywne siatki: 4 kolumny szeroki ekran, 3 średni, 2 tablet, 1 telefon.
+- Nawigacja: 16 widoków; JavaScript pokazuje wybrany widok i przewija do początku, pozostałe widoki są ukryte.
+- Formularz społeczności: zgodność nazw pól frontendu i API; wymagany pseudonim, zgoda na przekazanie, potwierdzenie praw i licencja.
+- Publiczny GET wiedzy zwraca wyłącznie zatwierdzone przypadki; nowe zgłoszenia mają status pending.
+- OAuth: sprawdzone trasy, state cookie, PKCE dla Google/Microsoft, nonce OIDC, weryfikacja podpisu i audience; Facebook debug_token/appsecret_proof.
+- SumUp: QR odczytano; URL zawiera parametry kampanii PDF i prowadzi do wskazanego przez użytkownika adresu płatności.
+- BLIK: wartość 78640187 umieszczona w widoku wsparcia i przycisk kopiowania.
+- Referencje CSS/JS i integralność archiwum: kontrola zakończona.
+
+WAŻNE OGRANICZENIA
+- Logowanie Google, Facebook i Microsoft wymaga utworzenia aplikacji OAuth przez właściciela i zapisania Client ID/Client Secret w Cloudflare Pages. Żadnych sekretów nie umieszczono w ZIP.
+- Panel moderacji wymaga ustawienia ADMIN_REVIEW_TOKEN jako sekretu Cloudflare Pages.
+- Z tego środowiska nie wykonano zdalnego wdrożenia ani logowania OAuth na koncie użytkownika.
+- Próba wizualnego testu przez przeglądarkę headless została zablokowana przez politykę środowiska (ERR_BLOCKED_BY_ADMINISTRATOR); nie deklarujemy testu wizualnego na komputerze użytkownika.
+- Lokalny wrangler.toml i folder TOOLS_CLOUDFLARE pozostają lokalne, ponieważ zawierają konfigurację i narzędzia użytkownika. Pełny ZIP nie nadpisuje ich; ONECLICK pobiera konfigurację z istniejącego Pages, gdy lokalnego pliku Wrangler brakuje.
+
+BEZPIECZEŃSTWO I DANE
+- Nie zmieniono UUID produkcyjnej D1: 6ac0a922-639c-43ee-ba33-5da14c25a533.
+- Nie dodano ani nie usunięto żadnej tabel produkcyjnej w tym środowisku.
+- Migracje 0004–0005 są dołączone do paczki i zostaną zastosowane standardowym mechanizmem Wrangler podczas uruchomienia programu; przed migracjami ONECLICK wykonuje kopię D1.
+- Wszystkie hasła OAuth pozostają po stronie Cloudflare Pages Secrets.

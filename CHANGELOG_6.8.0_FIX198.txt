@@ -1,0 +1,12 @@
+NAUKA OD A DO Z — PRODUCT 6.8.0 — FIX198
+Data: 2026-11-17
+
+DODANO
+- Odczyt diagnostyczny Windows przez PowerShell/CIM: procesor, pamięć, system, BIOS, płyta, moduły pamięci, GPU (identyfikacja), dyski i liczniki niezawodności dostępne przez Storage, bateria, obsługiwane strefy ACPI, wybrane sterowniki i zdarzenia systemowe.
+- Raport JSON oraz TXT zapisywany lokalnie przez użytkownika.
+- Import lokalnego raportu JSON do istniejącego laboratorium serwisowego; plik nie jest automatycznie wysyłany do chmury.
+
+OGRANICZENIA
+- To nie jest uniwersalny odczyt wszystkich czujników. Temperatura CPU/GPU i obroty wentylatorów zależą od sterowników i producenta; raport nie zgaduje brakujących wartości.
+- Skrypt jest tylko do odczytu i nie wykonuje napraw, testów obciążeniowych, zmian BIOS ani zapisów na dyskach.
+- Test kontraktu kodu wykonano w środowisku Node. Nie wykonano jeszcze skryptu na rzeczywistym Windows 10/11.

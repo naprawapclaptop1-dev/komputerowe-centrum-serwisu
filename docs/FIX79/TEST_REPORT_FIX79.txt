@@ -1,0 +1,53 @@
+NAUKA OD A DO Z — RAPORT TESTÓW FIX79
+Data: 2026-11-06
+
+WYNIK GŁÓWNY
+34/34 skryptów testowych PASS, 0 FAIL.
+
+REGRESJA SERVICE WORKER
+8/8 asercji PASS:
+- krótka i jednoznaczna nazwa cache FIX79;
+- film MP4 w CORE;
+- plakat JPG w CORE;
+- napisy VTT w CORE;
+- brak powtórzonych URL-i w CORE;
+- wszystkie 491 wpisów CORE wskazują na istniejące pliki lokalne;
+- OneClick oraz AUTO_PUBLISH_WATCHER wymagają aktualnego cache i pełnych mediów;
+- API wyłączone z cache, a /Biblioteka/ pozostaje buforowana na żądanie.
+
+AUDYT PRECACHE
+CORE entries: 491
+Missing local files: 0
+Duplicate exact URLs: 0
+Old repeated CACHE_NAME prefix: removed
+
+DODATKOWE TESTY ZGODNOŚCI
+- PWA cache FIX18A: PASS
+- FIX46 watcher contract: PASS
+- FIX47 watcher contract: PASS
+- FIX41 Academy: 18/18 PASS
+- FIX42 Real Workshop: 21/21 PASS
+- FIX43 Knowledge Suite: 17/17 PASS
+- FIX47 Master Control Center: 24/24 PASS
+- FIX49 Ultimate Quality Center: 14/14 PASS
+- FIX45 Professional Service: 24/24 PASS
+
+ŚRODOWISKO
+Node.js v22.16.0, Linux container.
+Testy składni kluczowych plików: PASS.
+Nie wykonano testu Chrome/Edge ani publikacji z docelowego Windows.
+Wymagane potwierdzenie na Windows Node.js v24.19.0.
+
+ZAKRES ZMIAN
+- Service Worker: dodany brakujący poster wsparcia do precache.
+- CACHE_NAME: krótki identyfikator FIX79.
+- Usunięto cztery zdublowane adresy video-index.
+- OneClick i watcher: lokalna kontrola bieżącego cache i trzech zasobów wsparcia.
+- Watcher: kontrola zdalnego cache, odpowiedzi plakatu JPEG i napisów WEBVTT.
+
+BEZPIECZEŃSTWO
+- Produkt pozostaje w wersji 6.8.0.
+- Brak nowych migracji D1 i brak wykonanych zapytań SQL.
+- Sekret OPENAI_API_KEY nie był odczytywany ani zmieniany.
+- Konfiguracja Cloudflare i istniejący projekt nie zostały zmienione.
+- Publikacja produkcyjna nie została wykonana.

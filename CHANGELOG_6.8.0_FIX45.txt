@@ -1,0 +1,36 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 FIX45
+=======================================
+
+NOWY MODUŁ PROFESSIONAL REPAIR & QUALITY CENTER
+- Osobny widok FIX45 z trybami Akademia i Professional Service.
+- 18 zakładek: pulpit, identyfikacja, live hardware, burn-in, quality control,
+  driver lab, demontaż, thermal, power supply, SMD, Windows deployment,
+  paszport PC, workflow, course creator, investigator, hardware bridge,
+  admin QA i backup.
+- Lokalne paszporty urządzeń, zadania, kursy, pomiary, kontrole jakości,
+  badania przypadków i wyniki testu JS.
+- Parsowanie identyfikatorów PCI/USB i obliczanie tolerancji edukacyjnych szyn PSU.
+- Walidacja pustych i nieprawidłowych danych; puste napięcie nie jest
+  interpretowane jako 0 V.
+- Ograniczony, nieblokujący test JavaScript 100–5000 ms.
+- Raport możliwości przeglądarki i obsługi Web Serial/WebUSB bez obietnicy
+  odczytu temperatur lub pełnych danych sprzętowych.
+- Eksport/odtworzenie danych modułu FIX45 w lokalnym JSON.
+- 13 wewnętrznych testów samokontroli modułu.
+
+NAPRAWA WATCHERA / PUBLIKATORA
+- Przeniesiono odczyt `service-worker.js` przed pierwsze użycie zmiennej `sw`
+  w verifyLocalRelease(); rozwiązano ReferenceError temporal dead zone.
+- Dodano test scripts/test-watcher-service-worker-tdz-fix45.mjs.
+- Zaktualizowano strażniki FIX45 w OneClick i watcherze.
+- PWA cache zachowuje nazwy historycznych cache i dopisuje pełny bieżący
+  identyfikator buildu.
+- Ujednolicono metadane release.json, meta academy-build i auth/status.js.
+- Aktualizowano historyczne testy, które wymagały dokładnie buildu FIX44,
+  tak aby weryfikowały FIX45 bez usuwania sprawdzeń wcześniejszych modułów.
+
+ZACHOWANIE
+- Wszystkie 768 plików projektu FIX44 zachowane.
+- Nie usunięto żadnego wcześniejszego pliku.
+- Nie zmieniono schematu D1, kont, OAuth ani sekretu OpenAI.
+- Nie wdrożono produkcji i nie uruchomiono migracji D1.

@@ -1,0 +1,28 @@
+#!/usr/bin/env node
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const read=p=>fs.readFileSync(path.join(ROOT,p),'utf8');
+const json=p=>JSON.parse(read(p));
+const html=read('WEB_PUBLISH/index.html'), sw=read('WEB_PUBLISH/service-worker.js');
+const sources=json('WEB_PUBLISH/media/photo-sources-online.json');
+const library=json('WEB_PUBLISH/media/home-photo-library-fix118.json');
+const policy=json('WEB_PUBLISH/assets/equipment-photo-policy-fix129.json');
+const release=json('WEB_PUBLISH/release.json');
+const prime=read('WEB_PUBLISH/assets/homepage-photo-prime-fix118.js');
+const catalog=read('WEB_PUBLISH/assets/photo-catalog-fix115.js');
+const one=read('ONECLICK_AKADEMIA.js');
+const photos=new Map(sources.photos.map(x=>[x.id,x]));
+let passed=0; const check=(name,fn)=>{fn();passed++;console.log(`[PASS] ${name}`);};
+check('FIX129 photo curation remains enabled under FIX131 same-origin delivery; product stays 6.8.0',()=>{assert.equal(release.release,'6.8.0');assert.equal(release.latestHotfix,'FIX135');assert.equal(release.fix118_local_photo_library.homepageEnabled,true);assert.equal(release.fix118_local_photo_library.photoSlots,19);assert.equal(release.photoCatalog.requiresBrowserOnline,true);assert.ok(release.photoCatalog.firstLoadRequirement.includes('Internet is required'));assert.equal(release.homepagePhotoFirstRenderFix.registeredAssignments,19);});
+check('19 slotów strony głównej mają unikalne, istniejące źródła',()=>{const m=sources.homepageSlotSeedMap;assert.equal(Object.keys(m).length,19);assert.equal(new Set(Object.values(m)).size,19);assert.equal(library.entries.length,19);for(const [slot,seed] of Object.entries(m)){assert.ok(photos.has(seed),`${slot} -> ${seed}`);assert.ok(library.entries.some(x=>x.slotId===slot&&x.seedId===seed));}});
+check('wszystkie 19 źródeł mają metadane bez słów wskazujących ludzi lub dłonie',()=>{const bad=/\b(person|people|human|man|woman|hand|hands|finger|face|teacher|student|technician|worker|astronaut|classroom|team|group|osoba|czlowiek|rece|dlonie|technik|serwisant|nauczyciel|uczen)\b/i;for(const seed of Object.values(sources.homepageSlotSeedMap)){const x=photos.get(seed);const t=[x.topic,x.tags,x.description,x.page].join(' ');assert.ok(!bad.test(t),`${seed} contains prohibited metadata: ${t}`);}});
+check('silnik pobiera fotografie i odrzuca tematy związane z ludźmi',()=>{assert.ok(catalog.includes('hasHumanSubjectMetadata'));assert.ok(catalog.includes('NO_HUMAN_SUBJECT_RE'));assert.ok(catalog.includes('FIX129') && catalog.includes('FIX131'));assert.ok(prime.includes('curated-equipment-photographs-with-local-svg-fallback'));assert.ok(prime.includes('EXPECTED_SLOTS = 19'));assert.ok(prime.includes("img.dataset.photoFix90Loaded === '1'"));});
+check('blokady FIX122/FIX123 nie są już ładowane w HTML ani Service Workerze',()=>{for(const token of ['sitewide-tech-visuals-fix123.js?v=6.8.0-fix123','homepage-tech-only-fix122.js?v=6.8.0-fix122']){assert.ok(!html.includes(token));assert.ok(!sw.includes(token));}});
+check('Service Worker cache’uje wyłącznie określone HTTPS źródła zdjęć i nie podmienia ich na SVG',()=>{assert.ok(sw.includes("const CACHE_NAME = 'nauka-6.8.0-fix135-home-module-photo-coverage-20261113'"));assert.ok(sw.includes("const PHOTO_CACHE_NAME = 'academy-photo-library-fix135'"));assert.ok(sw.includes("url.pathname.startsWith('/media/photos/')"));assert.ok(sw.includes('photoCache.put(request, response.clone())'));assert.ok(!sw.includes('FIX123_LOCAL_IMAGE_FALLBACK')); assert.ok(sw.includes("url.pathname.startsWith('/media/photos/')"));});
+check('OneClick wymaga kontraktu wydania FIX135 i 19 przypisań zdjęć FIX129',()=>{assert.ok(one.includes("releaseJson.latestHotfix !== 'FIX135'"));assert.ok(one.includes('photoLibraryFix129.entries?.length !== 19'));assert.ok(one.includes('registeredAssignments !== 19'));assert.ok(release.fix128_live_technical_visual_publication.historicalSnapshotOnly);assert.equal(release.fix128_live_technical_visual_publication.supersededBy,'FIX129');});
+check('JavaScript runtime, Service Worker i publisher mają poprawną składnię',()=>{for(const f of ['WEB_PUBLISH/assets/photo-catalog-fix115.js','WEB_PUBLISH/assets/homepage-photo-prime-fix118.js','WEB_PUBLISH/service-worker.js','ONECLICK_AKADEMIA.js','AUTO_PUBLISH_WATCHER.js']){const r=spawnSync(process.execPath,['--check',path.join(ROOT,f)],{encoding:'utf8'});assert.equal(r.status,0,`${f}: ${r.stderr||r.stdout}`);}});
+console.log(`FIX129 PHOTO RECOVERY / FIX135 MODULE PHOTO COVERAGE: ${passed}/${passed} PASS`);

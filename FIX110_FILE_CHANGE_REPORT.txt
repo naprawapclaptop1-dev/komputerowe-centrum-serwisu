@@ -1,0 +1,15 @@
+FIX110 — RAPORT ZMIAN
+
+- WEB_PUBLISH/service-worker.js: zachowany aktywny CACHE_NAME FIX109; nie wymuszono resetu cache.
+- ONECLICK_AKADEMIA.js: dokładna walidacja aktualnego cache FIX109, plakat, film, napisy;
+  bardziej szczegółowy błąd; test FIX110 w lokalnym preflight.
+- AUTO_PUBLISH_WATCHER.js: zgodność lokalnego i zdalnego cache FIX110.
+- WEB_PUBLISH/release.json: metadane publicationPipelineHotfix FIX110;
+  zachowany photoCatalogRuntimeBuildTag FIX109.
+- scripts/test-service-worker-fix79.mjs: oczekuje aktywnego cache FIX109.
+- scripts/test-fix110-service-worker-publication-guard.mjs: nowy kontrakt.
+- scripts/run-tests-fix110.mjs i WYKONAJ_TESTY_FIX110.cmd: runner testów.
+- CHANGELOG_6.8.0_FIX110.txt / README_FIX110_NAPRAWA_PWA_CACHE.txt.
+
+Bez zmian w migracjach SQL, identyfikatorze projektu Pages, bindingu D1,
+danych użytkowników, plikach logowania i katalogu fotografii FIX109.

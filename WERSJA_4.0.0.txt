@@ -1,0 +1,3 @@
+NAPRAWA PC — AKADEMIA SERWISU PRO 4.0.0
+80 nowych lekcji praktycznych; 489 lekcji serwisowych; 1 075 pozycji kursowych.
+Kontynuacja 3.9.10; D1 bez zmian; brak nowych migracji.

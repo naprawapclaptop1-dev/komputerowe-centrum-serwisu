@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 350" role="img" aria-labelledby="t d">
+<title id="t">WARSZTAT MISTRZA</title><desc id="d">Scenariusze i symulator usterek</desc>
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="hsl(95 58% 17%)"/><stop offset="1" stop-color="#071326"/></linearGradient><radialGradient id="glow"><stop stop-color="hsl(150 90% 65% / .26)"/><stop offset="1" stop-color="#061426" stop-opacity="0"/></radialGradient></defs>
+<rect width="500" height="350" rx="24" fill="url(#bg)"/><circle cx="405" cy="80" r="190" fill="url(#glow)"/>
+<g fill="none" stroke="hsl(150 88% 72%)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><rect x="75" y="70" width="350" height="210" rx="18"/><path d="M110 117h90v56h-90zm180 0h90v56h-90zM110 205h90v48h-90zm180 0h90v48h-90z"/><path d="M200 145h90m-135 28v32m180-32v32m-45-60h45"/><circle cx="245" cy="145" r="7"/></g>
+<path d="M35 295h430" stroke="hsl(95 75% 65% / .5)" stroke-width="2"/><text x="38" y="45" fill="#a7f5ef" font-family="Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="3">NAUKA OD A DO Z / PRO</text><text x="38" y="327" fill="#effbff" font-family="Arial,sans-serif" font-size="18" font-weight="700">FAULT / TEST / PASS</text></svg>

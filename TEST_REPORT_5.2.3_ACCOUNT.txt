@@ -1,0 +1,20 @@
+AKADEMIA SERWISU PRO 5.2.3 — RAPORT KONTROLI
+
+KONTO / REJESTRACJA:
+- Backend onRequestGet: accountRegistrationAvailable=true po migracjach 0001 + 0006.
+- Rejestracja: HTTP 201, zapis PBKDF2-HMAC-SHA256, cookie HttpOnly.
+- Odczyt sesji po rejestracji: active=true.
+- Logowanie na istniejące konto: HTTP 200.
+- Duplikat adresu: HTTP 409 / ACCOUNT_EXISTS z czytelnym komunikatem.
+- Synchronizacja historii pozostaje oddzielną zgodą.
+
+UX:
+- Nowy panel konta w układzie dwukolumnowym z korzyściami i opisem bezpieczeństwa.
+- Widoczny status API kont i przycisk ponownego sprawdzenia.
+- Oddzielony przycisk rejestracji od zgody; formularz nie ustawia już komunikatu informacyjnego na czerwono.
+- Pokazanie/ukrywanie haseł, miernik długości, zgodność powtórzenia.
+- Walidacja przenosi fokus do pola z błędem.
+- Po rejestracji potwierdzane jest zapisanie cookie sesyjnego.
+
+Baza D1: brak nowych migracji; istniejące migracje 0006 i 0007 były już zastosowane w logu użytkownika.
+Nie przeprowadzono wdrożenia produkcyjnego.

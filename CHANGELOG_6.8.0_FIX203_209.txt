@@ -1,0 +1,40 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 / FIX203–FIX209
+=================================================
+
+FIX203 — klasy online
+- Lista członków obejmuje uczniów, którzy dołączyli kodem klasy, niezależnie od oddanych prac.
+- Dodano zapis obecności: present / absent / late / excused, z dostępem do zapisu wyłącznie dla nauczyciela-właściciela klasy.
+- Zachowano istniejący model zdarzeń academy_events i bazę D1.
+
+FIX204 — synchronizacja dużych stanów
+- Dodano addytywną tabelę academy_user_state_chunks (migracja 0018).
+- Synchronizacja stanów do 360 000 znaków w porcjach po 30 000 znaków.
+- Zachowano obsługę małych stanów, autoryzację, zgodę, eksport i usuwanie danych.
+
+FIX205 — analiza migawki sprzętowej
+- Dodano wstępną analizę regułową zdarzeń Windows i stanu nośników.
+- Brak danych jest raportowany jako brak danych; nie jest interpretowany jako sprawność.
+- Nie jest to certyfikowany wynik zdrowia ani skaner malware.
+
+FIX206 — renderer WebGL
+- Dodano WebGL 2 / WebGL 1 z fallbackiem Canvas 2D i shaderami zgodnymi z daną wersją API.
+- Zachowano rotację, zoom i podświetlanie podzespołów.
+
+FIX207 — bezpieczeństwo laboratorium
+- Dodano odczytowy audyt izolacji Hyper-V przed startem oraz statyczną kontrolę plików.
+- Analiza plików nie wykonuje kodu i nie wydaje werdyktu malware.
+
+FIX208 — egzaminy serwerowe
+- Dodano bank pytań i ocenę po stronie serwera (migracja 0019).
+- Klucz odpowiedzi pozostaje w D1; przeglądarka nie może samodzielnie przesłać wyniku.
+- Starsze certyfikaty są oznaczone jako legacy / niezweryfikowane przez nowy egzamin serwerowy.
+
+FIX209 — centrum administracyjne
+- Dodano chroniony kontrolą administratora health-check D1, schematu i konfiguracji Gemini / pięciu dostawców OAuth.
+- Sekrety i dane kont nie są zwracane.
+
+Wspólne
+- Wersja produktu pozostaje 6.8.0.
+- Zachowano dotychczasowe Cloudflare Pages, binding D1, istniejące rekordy, konta, logowanie e-mail/hasło, 2FA oraz dostawców Google, Microsoft, Facebook, GitHub, Discord. X pozostaje wyłączony.
+- Nie wykonano produkcyjnego wdrożenia Cloudflare i nie zastosowano migracji D1 w środowisku produkcyjnym w ramach tej pracy.
+- Wykonanie PowerShell / Hyper-V wymaga osobnego testu na obsługiwanym Windows.

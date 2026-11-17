@@ -1,0 +1,2 @@
+NAPRAWA PC — AKADEMIA SERWISU PRO 4.1.1 FIX
+Poprawka mechanizmu publikacji i walidacji globalnego licznika odwiedzin dla istniejącego builda strony 4.1.0.

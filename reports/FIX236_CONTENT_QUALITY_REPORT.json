@@ -1,0 +1,15 @@
+{
+  "hotfix": "FIX236",
+  "productVersion": "6.8.0",
+  "checkedAt": "2026-11-17T17:57:30.051Z",
+  "errors": [],
+  "warnings": [],
+  "metrics": {
+    "htmlBytes": 531422,
+    "viewCount": 35,
+    "images": 62,
+    "imagesWithoutAlt": 0,
+    "newFeatureIds": 47,
+    "localAssets": 171
+  }
+}

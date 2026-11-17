@@ -1,0 +1,75 @@
+NAUKA OD A DO Z — DLA WSZYSTKICH — FIX126
+RAPORT DODATKOWEGO PREFLIGHTU ONECLICK / WATCHER
+
+Wynik końcowy: 62/62 unikalnych skryptów PASS.
+Lista pochodzi bezpośrednio z tablic testowych ONECLICK_AKADEMIA.js i AUTO_PUBLISH_WATCHER.js.
+OneClick: 59 pozycji. Auto-Watcher: 60 pozycji. Łącznie: 62 unikalne skrypty.
+Test metadanych MP4 FIX126 znajduje się na obu listach.
+
+Weryfikacja testu globalnych grafik wykazała początkowo brak zewnętrznego ffprobe na środowisku Windows. Test został zmieniony na natywny parser Node.js. Po tej poprawce ponownie uruchomiono test globalnych grafik, test FIX83 manifestu publikacji i wszystkie podstawowe regresje. Wszystkie końcowe wyniki są PASS.
+
+Wykonane skrypty (62):
+01. PASS — scripts/test-support-video-fix124.mjs
+02. PASS — scripts/test-support-video-fix126-contract.mjs
+03. PASS — scripts/test-product-name-openai-setup-fix126.mjs
+04. PASS — scripts/test-sitewide-tech-visuals-fix123.mjs
+05. PASS — scripts/test-mp4-metadata-reader-fix126.mjs
+06. PASS — scripts/test-electronics-simulators-fix119.mjs
+07. PASS — scripts/test-visual-academy-fix51.mjs
+08. PASS — scripts/test-preview-server-fix51.mjs
+09. PASS — scripts/test-release-contract-fix51.mjs
+10. PASS — scripts/test-pages-production-direct-upload-fix86.mjs
+11. PASS — scripts/test-fix83-manifest-contract-fix86.mjs
+12. PASS — scripts/test-fix83-visual-library-guard-fix88.mjs
+13. PASS — scripts/test-repair-photo-layout-fix87.mjs
+14. PASS — scripts/test-photo-method-renderer-fix106.mjs
+15. PASS — scripts/test-photo-catalog-publication-contract-fix115.mjs
+16. PASS — scripts/test-photo-topic-quality-fix115.mjs
+17. PASS — scripts/test-home-specialist-containment-fix115.mjs
+18. PASS — scripts/test-homepage-photo-library-fix118.mjs
+19. PASS — scripts/test-homepage-tech-only-fix122.mjs
+20. PASS — scripts/test-oneclick-release-scope-fix115.mjs
+21. PASS — scripts/test-photo-provider-recovery-fix111.mjs
+22. PASS — scripts/test-active-view-photo-queue-fix111.mjs
+23. PASS — scripts/test-fix110-service-worker-publication-guard.mjs
+24. PASS — scripts/test-node-runtime-discovery-fix101.mjs
+25. PASS — scripts/test-startup-window-guard-fix102.mjs
+26. PASS — scripts/test-node-resolver-fix103.mjs
+27. PASS — scripts/test-release-contract-fix49.mjs
+28. PASS — scripts/test-release-contract-fix50.mjs
+29. PASS — scripts/test-watcher-fix51-asset-count-fix53.mjs
+30. PASS — scripts/test-global-academy-suite-fix60.mjs
+31. PASS — scripts/test-global-academy-expansion-fix73.mjs
+32. PASS — scripts/test-global-academy-http-fix73.mjs
+33. PASS — scripts/test-home-learning-fix77.mjs
+34. PASS — scripts/test-photo-uniqueness-fix77.mjs
+35. PASS — scripts/test-global-academy-fix77.mjs
+36. PASS — scripts/test-global-academy-http-fix77.mjs
+37. PASS — scripts/test-global-academy-http-proxy-fix113.mjs
+38. PASS — scripts/test-oneclick-fix77.mjs
+39. PASS — scripts/test-fix78-photo-manifest-guard.mjs
+40. PASS — scripts/test-homepage-showcase-fix80.mjs
+41. PASS — scripts/test-watcher-homepage-showcase-fix32.mjs
+42. PASS — scripts/test-homepage-showcase-fix8.js
+43. PASS — scripts/test-syntax-root-fix74.mjs
+44. PASS — scripts/test-syntax-fix64-fix73.mjs
+45. PASS — scripts/test-migration-inventory-compat-fix62.mjs
+46. PASS — scripts/test-visual-assets-http-fix54.mjs
+47. PASS — scripts/test-production-branch-guard-fix54.mjs
+48. PASS — scripts/test-pages-branch-discovery-fix63.mjs
+49. PASS — scripts/test-view-count-fix61.mjs
+50. PASS — scripts/security-audit-fix51.mjs
+51. PASS — scripts/migration-audit-fix51.mjs
+52. PASS — scripts/test-ultimate-quality-fix49.mjs
+53. PASS — scripts/test-pending-migration-guard-fix49.mjs
+54. PASS — scripts/security-audit-fix49.mjs
+55. PASS — scripts/migration-audit-fix49.mjs
+56. PASS — scripts/test-pages-production-direct-upload-fix81.mjs
+57. PASS — scripts/test-pages-production-branch-fix85.mjs
+58. PASS — scripts/test-photo-reliability-fix50.mjs
+59. PASS — scripts/test-service-worker-fix79.mjs
+60. PASS — scripts/test-fix82-global-academy-marker.mjs
+61. PASS — scripts/test-fix83-unique-visuals.mjs
+62. PASS — scripts/test-fix84-node-crypto.mjs
+
+Nie wykonywano publikacji produkcyjnej, migracji D1 ani zmian sekretów Cloudflare/OpenAI.

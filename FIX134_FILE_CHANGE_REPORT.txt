@@ -1,0 +1,47 @@
+NAUKA OD A DO Z 6.8.0 — RAPORT ZMIAN FIX134
+Data: 2026-11-13
+
+GŁÓWNE POPRAWKI
+1. Cloudflare Workers nie obsługuje fetch redirect:error. Zastąpiono je redirect:manual i bezpieczną obsługą przekierowań 301/302/303/307/308.
+2. Każdy kolejny host jest sprawdzany przed żądaniem: HTTPS, brak credentials w URL, allowlista images.pexels.com / thumb.wikimedia.org / upload.wikimedia.org, maksimum 4 przekierowania, wykrywanie pętli.
+3. Odpowiedzi błędne udostępniają X-Photo-Proxy-Fix i X-Photo-Error oraz status upstream, MIME, host końcowy i liczbę przekierowań.
+4. Poprawiono Watchera: manifest photo-sources-online.json oczekuje FIX129, ale home-photo-library-fix118.json prawidłowo oczekuje FIX131. Poprzedni warunek FIX129 dla biblioteki strony głównej powodował fałszywe sitewideNoPeopleVisualsValid=false.
+5. Dodano osobną diagnostykę składników kontroli polityki zdjęć: sitewidePolicyValid, homepagePolicyValid, homepageMarkupValid, wersje manifestów, liczby i unikalne ID.
+6. Uzgodniono deklarację cache w home-photo-library-fix118.json z nazwą cache Workera FIX134.
+7. OneClick i Watcher odrzucają nieobsługiwany redirect:error i wymagają manual + MAX_SAFE_REDIRECTS=4.
+
+WYNIKI WALIDACJI
+- 16/16 skryptów regresyjnych PASS.
+- node --check: OneClick, Watcher, helper proxy, route [id].js — PASS.
+- Katalog functions/: wszystkie pliki .js/.ts; brak niedozwolonych rozszerzeń.
+- D1 migrations: brak nowych migracji; baza i binding nie są zmieniane przez FIX134.
+- Node użyty w tym środowisku testowym: v22.16.0. Log użytkownika wcześniej wykazał Node v26.13.0; zalecane ponowne uruchomienie testów na tej wersji.
+
+OGRANICZENIA / STATUS
+- Test przekierowań używa kontrolowanych odpowiedzi symulowanych. Środowisko budowania nie rozwiązuje nazw DNS Pexels/Wikimedia, więc rzeczywiste pobranie źródeł nie mogło być tu sprawdzone.
+- FIX134 nie jest oznaczony jako opublikowany w release.json. Nie wykonano wdrożenia na Cloudflare ani zmian w produkcyjnej bazie D1.
+- Właściwym kryterium powodzenia po publikacji są trzy rzeczywiste odpowiedzi zdjęć HTTP 200, Content-Type image/*, X-Photo-Proxy-Fix=FIX134-SAFE-REDIRECTS oraz zdekodowane obrazy w przeglądarce.
+
+ZMODYFIKOWANE PLIKI (główne):
+ - AUTO_PUBLISH_WATCHER.js
+ - ONECLICK_AKADEMIA.js
+ - functions/_photo-proxy-fix131.js
+ - WEB_PUBLISH/index.html
+ - WEB_PUBLISH/release.json
+ - WEB_PUBLISH/service-worker.js
+ - WEB_PUBLISH/media/home-photo-library-fix118.json
+ - WYKONAJ_TESTY_FIX134.cmd
+ - scripts/run-tests-fix134.mjs
+ - scripts/test-photo-proxy-safe-redirects-fix134.mjs
+ - scripts/test-pages-function-residue-fix133.mjs
+ - scripts/test-photo-recovery-fix129.mjs
+ - scripts/test-photo-local-proxy-fix131.mjs
+ - scripts/test-photo-method-renderer-fix106.mjs
+ - scripts/test-electronics-simulators-fix119.mjs
+ - scripts/test-portable-sha256-fix127.mjs
+ - scripts/photo-catalog-publication-contract-fix115.cjs
+ - README_FIX134_SAFE_PHOTO_REDIRECTS.md
+ - CHANGELOG_6.8.0_FIX134.txt
+ - RAPORT_FIX134_TESTY.log
+
+Wersja produktu: 6.8.0 (bez zmiany). Hotfix: FIX134.

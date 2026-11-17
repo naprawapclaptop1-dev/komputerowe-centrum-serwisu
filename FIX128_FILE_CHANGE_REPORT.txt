@@ -1,0 +1,23 @@
+NAUKA OD A DO Z — FIX128 — RAPORT ZMIAN
+
+GŁÓWNE PLIKI
+- AUTO_PUBLISH_WATCHER.js — nowy zdalny kontrakt FIX122/FIX123; nie wymaga historycznych foto-slotów FIX77 dla strony głównej.
+- ONECLICK_AKADEMIA.js — FIX128 w wersji wydania i lokalnym preflight; nowy test wymuszony przed publikacją.
+- WEB_PUBLISH/release.json — latestHotfix FIX128, latestHotfixBuild, publicationGuard i opis zakresu bez zmian D1/sekretów.
+- WEB_PUBLISH/index.html — znacznik FIX128, tytuł i etykieta wydania.
+- scripts/test-watcher-live-tech-visual-contract-fix128.mjs — 8 testów nowego zdalnego kontraktu.
+- scripts/run-tests-fix128.mjs oraz WYKONAJ_TESTY_FIX128.cmd — runner 29 testów regresyjnych.
+- README_FIX128_PELNY_PROJEKT.txt, CHANGELOG_6.8.0_FIX128.txt, raporty testów — instrukcja i dokumentacja.
+
+POLITYKA GRAFIK
+- 36 lokalnych ilustracji strony głównej pozostaje bez postaci.
+- Zewnętrzne fotografie i ich cache pozostają wyłączone.
+- Globalny strażnik FIX123 blokuje widoczne osoby i dłonie.
+- 203 ilustracje lekcji i moduły edukacyjne pozostają zachowane.
+
+METADANE I BEZPIECZEŃSTWO
+- Produkt: 6.8.0.
+- Hotfix: FIX128.
+- Service Worker cache: FIX127 (bez zmian zasobów przeglądarki).
+- Bez migracji SQL/D1, bez zmian sekretów i kont Cloudflare/OpenAI.
+- Archiwum nie zawiera lokalnych .env/.dev.vars/tokenów ani kopii BACKUPS_D1.

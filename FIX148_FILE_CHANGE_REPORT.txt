@@ -1,0 +1,43 @@
+NAUKA OD A DO Z 6.8.0 — FIX148 FILE CHANGE REPORT
+
+ZMIENIONE / DODANE
+- WEB_PUBLISH/index.html — siedem zakładek i paneli wewnątrz istniejącego view-academypro; znaczniki FIX148; nowe zasoby CSS/JS; bez zmian w view-home.
+- WEB_PUBLISH/assets/academy-pro-modules-fix148.js — logika BOARDVIEW, symulatora serwisu, rozszerzonej zgodności PC, raportów, szkiców nauczyciela, bazy usterek i laboratorium lutowania.
+- WEB_PUBLISH/assets/academy-pro-modules-fix148.css — responsywny styl zgodny z aktualnym Centrum Mistrza PRO.
+- WEB_PUBLISH/service-worker.js — nowy cache aplikacji FIX148 i dwa nowe zasoby w CORE; cache zdjęć FIX135 zachowany.
+- WEB_PUBLISH/release.json — latestHotfix FIX148, build/cache, opis siedmiu modułów; release 6.8.0 zachowany.
+- ONECLICK_AKADEMIA.js — wymagane zasoby i identyfikatory FIX148, release/cache contract FIX148.
+- AUTO_PUBLISH_WATCHER.js — walidacja FIX148 oraz nowych zasobów; remote Service Worker musi zawierać moduły FIX148.
+- scripts/photo-catalog-publication-contract-fix115.cjs — FIX148 zachowuje aktywny runtime zdjęć FIX136.
+- scripts/run-tests-fix137.mjs — dołączony test test-fix148-master-technician-suite.mjs do wymaganego preflightu.
+- scripts/test-fix147-publisher-lesson-count.mjs — kontrakt 1083 lekcji sprawdza aktywne metadane/cache FIX148.
+- scripts/test-fix148-master-technician-suite.mjs — 7 nowych kontroli.
+- Pozostałe testy aktywnego wydania — zaktualizowane do FIX148.
+- CHANGELOG_6.8.0_FIX148.txt, README_FIX148.txt, RAPORT_FIX148_TESTY.log, SHA256_FIX148_CHANGED_FILES.txt.
+
+ZACHOWANE
+- Wersja produktu 6.8.0.
+- 1083 lekcje oraz historyczny trzeci pakiet szkoleniowy.
+- 35 istniejących widoków — bez nowej trasy.
+- 19 unikalnych przypisań zdjęć i lokalne zdjęcie HERO USB-C.
+- Istniejący projekt Cloudflare Pages, binding i baza D1 naprawapc-orders.
+- Konta, OAuth, sekret OPENAI_API_KEY, migracje D1 i dane użytkowników.
+- Cache fotografii academy-photo-library-fix135.
+- Struktura #view-home i jej HTML/CSS.
+
+DANE FIX148
+Nowe raporty, własne szkice lekcji, własne wpisy bazy usterek i postępy checklisty są lokalne w localStorage. Nie są synchronizowane do D1. Dostępny eksport JSON.
+
+WYNIKI
+- Pełny preflight: PASS.
+- Runtime FIX136: 14/14 PASS.
+- Cache publisher FIX137: 6/6 PASS.
+- HERO FIX144: 3/3 PASS.
+- Akademia FIX145: 7/7 PASS.
+- Guard widoków FIX146: 7/7 PASS.
+- Lekcje/release FIX148: 3/3 PASS.
+- Nowy suite FIX148: 7/7 PASS.
+- Integralność ZIP: PASS.
+
+STATUS WDROŻENIA
+Zmiany przygotowane lokalnie; Cloudflare production deploy nie został wykonany. Nie dodano migracji D1.

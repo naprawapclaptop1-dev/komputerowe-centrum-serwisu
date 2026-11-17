@@ -1,0 +1,11 @@
+NAUKA OD A DO Z — CHANGELOG FIX230
+Produkt: 6.8.0 (bez zmiany)
+
+- Naprawiono fałszywie negatywną kontrolę FIX198–FIX202 w ONECLICK_AKADEMIA.js.
+- Naprawiono kontrolę FIX198–FIX202 oraz FIX203–FIX209 w AUTO_PUBLISH_WATCHER.js.
+- Dodano wspólny walidator zasobów HTML/PWA z kontrolą dokładnej zgodności aktualnych URL-i z parametrami wersji.
+- Walidator sprawdza istnienie rzeczywistych plików lokalnych i nie omija kontroli zasobów.
+- Dodano szczegółowe komunikaty brakujących lub niezgodnych zasobów.
+- Dodano test regresyjny zmienionych parametrów ?v=.
+- Zachowano projekt Cloudflare Pages, binding D1, sekrety i historyczne nazwy cache PWA.
+- Nie wykonano publikacji produkcyjnej.

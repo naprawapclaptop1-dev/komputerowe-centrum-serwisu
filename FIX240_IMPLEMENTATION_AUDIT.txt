@@ -1,0 +1,6 @@
+FIX240 IMPLEMENTATION AUDIT
+
+Root cause: `ONECLICK_AKADEMIA.js::verifyWeb()` defines `indexHtml` and `sw`; FIX231–FIX239 guard accidentally referenced undeclared `html`.
+Correction: use `indexHtml` in HTML checks and `{html:indexHtml,serviceWorker:sw}` in asset audit. Watcher already has local `html` and `sw` aliases and is tested as such.
+Tests: exact guard scope assertions; node --check for both publishers; full FIX220–FIX239 regression invoked by run-tests-fix240.mjs.
+Production status: not deployed; Cloudflare account/D1 unchanged.

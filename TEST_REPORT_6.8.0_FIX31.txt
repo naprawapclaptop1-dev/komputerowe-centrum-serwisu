@@ -1,0 +1,47 @@
+NAUKA OD A DO Z 6.8.0 — RAPORT TESTÓW FIX31
+Data: 2026-11-04
+Zakres: naprawa blokady publikacji ENOENT w ONECLICK_AKADEMIA.js
+
+1. PRZYCZYNA
+W verifyWeb() w ONECLICK_AKADEMIA.js, linia 606, trzy nazwy zasobów były przekazane do jednego path.join():
+- advanced-learning-studio-620.css
+- home-refresh-fix30.css
+- photo-unique-thumbnails-fix30.js
+Node próbował otworzyć nieistniejącą ścieżkę złożoną z tych trzech nazw. Błąd występował przed migracjami i wdrożeniem.
+
+2. NAPRAWA
+- advanced-learning-studio-620.css jest otwierany oddzielnie.
+- home-refresh-fix30.css jest otwierany oddzielnie.
+- photo-unique-thumbnails-fix30.js jest otwierany oddzielnie.
+- Dotychczasowe sprawdzanie treści, galerii, 13 kart startowych i unikalności 22 elementów wizualnych pozostało zachowane.
+- Build FIX31 został ujednolicony w release.json, index.html, API statusu kont, watcherze i cache Service Workera.
+- Dodano test regresji ścieżek i test lokalnego wykonania całego verifyWeb().
+
+3. WYNIKI
+- Testy automatyczne JS/MJS: 47/47 PASS, 0 FAIL.
+- Pełna funkcja ONECLICK verifyWeb(): PASS; wynik zawiera 1060 lekcji i 12 kart diagnostycznych.
+- Pliki JS/MJS/CJS: 141 sprawdzonych, 0 błędów składni.
+- Pliki CSS: 38 sprawdzonych, 0 błędów strukturalnych.
+- HTML: 648 identyfikatorów, 0 duplikatów.
+- Lokalne odwołania z index.html: 124 sprawdzone, 0 brakujących.
+- Lokalne pliki rastrowe w katalogu media: 30, 0 grup identycznych SHA-256.
+- Porównanie zawartości z ZIP FIX30: 615 plików bazowych; FIX31 ma 621 plików źródłowych; usunięte: 0; dodane: 6.
+
+4. NOWE PLIKI ŹRÓDŁOWE
+- CHANGELOG_6.8.0_FIX31.txt
+- CHECK_KONTA_FIX31.cmd
+- WYKONAJ_TESTY_FIX31.cmd
+- scripts/check-account-production-fix31.mjs
+- scripts/test-publisher-assets-separate-fix31.mjs
+- scripts/test-publisher-verifyweb-local-fix31.mjs
+
+5. OGRANICZENIA WERYFIKACJI
+- Test verifyWeb() uruchomiono lokalnie z odizolowanego test harnessu. Nie uruchamiał on main(), Wranglera, migracji D1 ani wdrożenia.
+- W tej sesji nie publikowano do Cloudflare i nie modyfikowano produkcyjnej D1.
+- Nie wykonano pełnego klikowego E2E w przeglądarce Windows.
+- Testy lokalne w tym środowisku uruchomiono pod Node.js 22.16.0; log z komputera użytkownika potwierdza Node.js 24.19.0.
+
+6. BEZPIECZEŃSTWO
+Nie tworzono nowego projektu Pages ani nowej bazy. Nie zmieniano produkcyjnego identyfikatora D1, sekretu OPENAI_API_KEY, danych użytkowników, kont, sesji ani historii nauki. Nie dodano migracji SQL.
+
+Werdykt: błąd ENOENT wskazany w logu został usunięty; lokalna kontrola publikatora verifyWeb() przechodzi w całości. FIX31 nie jest jeszcze opublikowany na produkcji.

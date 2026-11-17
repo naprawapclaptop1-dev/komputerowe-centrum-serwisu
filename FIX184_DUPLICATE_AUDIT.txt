@@ -1,0 +1,101 @@
+AUDYT UNIKALNOŚCI FIX184
+Aktywny katalog lekcji: 1083
+Katalog przypadków/usterek: 155
+Materiały FIX179–FIX183: 212
+Nowe lekcje: 20
+Nowe przypadki: 15
+Nowe projekty: 10
+Najwyższe podobieństwo tytułu: 0.333
+
+0.333 | [LEKCJA] Zdalne zbieranie dowodów — minimalizacja, anonimizacja i raport
+  najbliższy wcześniejszy tytuł: Pakiet dowodów diagnostycznych: minimalizacja i anonimizacja logów [academy-system-diagnostics-fix180.js]
+0.286 | [PRZYPADEK] Kerberos działa tylko dla części usług
+  najbliższy wcześniejszy tytuł: Laptop działa tylko z zasilaczem [usterki]
+0.250 | [LEKCJA] Diagnostyka odnajdywania kontrolera domeny i rekordów DNS SRV
+  najbliższy wcześniejszy tytuł: Diagnostyka kontrolera EC/KBC [katalog 1083]
+0.250 | [LEKCJA] Bezpieczne pakietowanie skryptów serwisowych — podpis, wersje i audyt
+  najbliższy wcześniejszy tytuł: UEFI Shell: audyt skryptów startup.nsh i bezpieczne uruchamianie [academy-specialist-systems-fix182.js]
+0.250 | [PRZYPADEK] Stacja nie odnajduje kontrolera domeny
+  najbliższy wcześniejszy tytuł: Stacja dokująca nie wykrywa monitorów [usterki]
+0.250 | [PRZYPADEK] RDP działa tylko po publicznym otwarciu 3389
+  najbliższy wcześniejszy tytuł: Laptop działa tylko z zasilaczem [usterki]
+0.250 | [PROJEKT] Raport integralności sygnału dla pary różnicowej
+  najbliższy wcześniejszy tytuł: Raport integralności i kompletności odzysku [academy-advanced-service-lab-fix183.js]
+0.222 | [LEKCJA] Kerberos, SPN i synchronizacja czasu — analiza błędów uwierzytelniania
+  najbliższy wcześniejszy tytuł: Analiza błędów TPM po naprawie [katalog 1083]
+0.222 | [LEKCJA] Kanał bezpieczny komputera domenowego — test i kontrolowana naprawa
+  najbliższy wcześniejszy tytuł: Test odbiorczy komputera po naprawie [katalog 1083]
+0.222 | [LEKCJA] WHEA, DPC i ISR — korelacja awarii sprzętu i sterowników
+  najbliższy wcześniejszy tytuł: Diagnostyka opóźnień DPC i ISR [katalog 1083]
+0.222 | [PRZYPADEK] Jitter rośnie w trakcie obciążenia GPU
+  najbliższy wcześniejszy tytuł: Test pamięci GPU — plan bezpiecznego obciążenia [katalog 1083]
+0.222 | [PROJEKT] Audyt diagnostyczny stacji przed dołączeniem do domeny
+  najbliższy wcześniejszy tytuł: ESD — audyt stanowiska przed naprawą [katalog 1083]
+0.200 | [LEKCJA] Pomiary różnicowe — dobór sondy, deskew i obciążenie DUT
+  najbliższy wcześniejszy tytuł: Dobór sondy różnicowej do pomiaru pływającego [katalog 1083]
+0.200 | [PROJEKT] Projekt endpointu JEA dla raportowania serwisowego
+  najbliższy wcześniejszy tytuł: Arkusz doboru UPS dla stanowiska serwisowego [academy-advanced-service-lab-fix183.js]
+0.182 | [LEKCJA] Zbieranie dzienników Windows PowerShell — filtr, zakres i korelacja
+  najbliższy wcześniejszy tytuł: Dziennik niezawodności Windows: korelacja awarii i zmian [katalog 1083]
+0.182 | [LEKCJA] Quick Assist — procedura zdalnej pomocy za świadomą zgodą
+  najbliższy wcześniejszy tytuł: Projekt: Świadoma zgoda na Restore i kontrola po odtworzeniu [academy-deployment-migration-refurb-fix181.js]
+0.182 | [PROJEKT] Oś czasu awarii Kerberos dla jednej usługi
+  najbliższy wcześniejszy tytuł: BMC Event Log: korelacja zdarzeń, czasu i awarii [academy-specialist-systems-fix182.js]
+0.167 | [PRZYPADEK] GPO nie trafia do jednego użytkownika
+  najbliższy wcześniejszy tytuł: Nie działa Wi-Fi [usterki]
+0.167 | [PRZYPADEK] Zebrane logi nie obejmują awarii
+  najbliższy wcześniejszy tytuł: Nie działa Wi-Fi [usterki]
+0.143 | [PRZYPADEK] Zerwane zaufanie stacji członkowskiej
+  najbliższy wcześniejszy tytuł: Diagnostyka Thunderbolt i stacji dokującej [katalog 1083]
+0.143 | [PRZYPADEK] Raport PowerShell ma puste pola BIOS
+  najbliższy wcześniejszy tytuł: Aktualizacja BIOS a BitLocker [katalog 1083]
+0.143 | [PRZYPADEK] Zdalna sesja JEA nie ma przypisanego technika
+  najbliższy wcześniejszy tytuł: Nie działa Wi-Fi [usterki]
+0.143 | [PRZYPADEK] WinDbg pokazuje nierozpoznane adresy
+  najbliższy wcześniejszy tytuł: Analiza minidump BSOD w WinDbg [katalog 1083]
+0.143 | [PRZYPADEK] Po Driver Verifier VM wpada w pętlę BSOD
+  najbliższy wcześniejszy tytuł: Analiza minidump i BSOD [katalog 1083]
+0.143 | [PROJEKT] Pełny raport analizy zrzutu jądra
+  najbliższy wcześniejszy tytuł: Raport końcowy z pomiarami przed i po [katalog 1083]
+0.125 | [LEKCJA] Pełny zrzut jądra, symbole i konfiguracja sesji WinDbg
+  najbliższy wcześniejszy tytuł: Konfiguracja wentylatorów PWM/DC [katalog 1083]
+0.125 | [LEKCJA] Zdalna diagnostyka PowerShell — WinRM, SSH i ograniczenie JEA
+  najbliższy wcześniejszy tytuł: Diagnostyka routera i Wi-Fi [katalog 1083]
+0.125 | [PRZYPADEK] TDR pokazuje odbicie przy adapterze
+  najbliższy wcześniejszy tytuł: Analiza błędu GPU TDR [katalog 1083]
+0.125 | [PROJEKT] Kontrolowany eksperyment Driver Verifier w VM
+  najbliższy wcześniejszy tytuł: Projekt 5: Kontrolowane uporządkowanie Driver Store [academy-system-diagnostics-fix180.js]
+0.125 | [PROJEKT] Procedura zdalnej pomocy z wyraźną zgodą
+  najbliższy wcześniejszy tytuł: Procedura odzyskiwania BIOS producenta [katalog 1083]
+0.111 | [LEKCJA] Stosy wątków, IRQL, blokady i analiza zakleszczeń jądra
+  najbliższy wcześniejszy tytuł: Analiza minidump i BSOD [katalog 1083]
+0.111 | [LEKCJA] Przesłuch, konwersja trybu i korelacja z integralnością zasilania
+  najbliższy wcześniejszy tytuł: Zasilacz i wejście zasilania [katalog 1083]
+0.111 | [PRZYPADEK] Diagram oka jest zamknięty po zmianie sondy
+  najbliższy wcześniejszy tytuł: TPM i BitLocker po zmianie BIOS [katalog 1083]
+0.111 | [PROJEKT] Raport GPO/RSOP dla komputera i użytkownika
+  najbliższy wcześniejszy tytuł: Kontrola końcowa po naprawie komputera [katalog 1083]
+0.111 | [PROJEKT] Bezpieczna baza RDP dla stanowisk firmowych
+  najbliższy wcześniejszy tytuł: Bezpieczna ocena zasilacza ATX [katalog 1083]
+0.100 | [LEKCJA] Group Policy: RSOP, gpresult, SYSVOL i kolejność przetwarzania
+  najbliższy wcześniejszy tytuł: Diagnostyka Windows – kolejność działań [katalog 1083]
+0.100 | [LEKCJA] PowerShell Remoting i JEA — ograniczona administracja serwisowa
+  najbliższy wcześniejszy tytuł: Odzyskiwanie BIOS/UEFI – procedura serwisowa [katalog 1083]
+0.100 | [LEKCJA] Driver Verifier — kontrolowany eksperyment na maszynie testowej
+  najbliższy wcześniejszy tytuł: Projekt 5: Kontrolowane uporządkowanie Driver Store [academy-system-diagnostics-fix180.js]
+0.100 | [LEKCJA] RDP w serwisie — NLA, RD Gateway, MFA i ograniczanie ekspozycji
+  najbliższy wcześniejszy tytuł: Test temperatur po serwisie chłodzenia [katalog 1083]
+0.100 | [PROJEKT] Modułowy raport sprzętowy PowerShell tylko do odczytu
+  najbliższy wcześniejszy tytuł: Prawidłowy dobór termopadów [katalog 1083]
+0.091 | [LEKCJA] TDR — lokalizacja nieciągłości impedancji w torze sygnałowym
+  najbliższy wcześniejszy tytuł: Wi-Fi — anteny, przewody i diagnostyka sygnału [katalog 1083]
+0.083 | [LEKCJA] Raport sprzętowy PowerShell przez CIM — modułowy i tylko do odczytu
+  najbliższy wcześniejszy tytuł: Prawidłowy dobór termopadów [katalog 1083]
+0.077 | [PRZYPADEK] Klient otrzymuje nieoczekiwany kod pomocy zdalnej
+  najbliższy wcześniejszy tytuł: Mac wymaga firmware recovery, klient chce zachować dane [academy-deployment-migration-refurb-fix181.js]
+0.000 | [LEKCJA] Diagram oka, jitter, maska i margines czasowy
+  najbliższy wcześniejszy tytuł: Bezpieczeństwo stanowiska ESD [katalog 1083]
+0.000 | [PRZYPADEK] Skrypt zawiera jawne poświadczenie
+  najbliższy wcześniejszy tytuł: Bezpieczeństwo stanowiska ESD [katalog 1083]
+
+Wynik: brak dokładnych duplikatów; wszystkie podobieństwa tytułów poniżej 0.55. Kontrola tytułów nie zastępuje ręcznej oceny pełnej semantyki materiału.

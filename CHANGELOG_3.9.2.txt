@@ -1,0 +1,31 @@
+NAPRAWA PC — AKADEMIA SERWISU PRO 3.9.2
+
+INTERFEJS
+- Przebudowany motyw na granatowo-czarny z niebieskimi akcentami i zielonymi przyciskami akcji.
+- Dodana górna nawigacja: Pulpit, Kursy, Diagnostyka, Baza wiedzy, Narzędzia, Czat AI, Społeczność.
+- Każdy moduł jest osobnym widokiem; zmiana zakładki ukrywa pozostałe widoki i przewija do początku.
+- Siatki kart: 4 kolumny na szerokim ekranie, 3/2/1 przy mniejszej szerokości.
+- Karty napraw i katalogów mają duże ilustracje i wyraźne CTA.
+- Ciemny styl okien procedur, formularzy, kont, czatu, społeczności i biblioteki.
+
+WIEDZA SPOŁECZNOŚCI
+- Profil pseudonimowy od 3 do 32 znaków jest wystarczający do przesłania sprawdzonego przypadku.
+- Wpisy trafiają jako pending do moderacji; publiczny GET pokazuje wyłącznie zatwierdzone wpisy.
+- Oddzielne potwierdzenie praw/licencji i zgody na publikację pozostaje wymagane.
+
+LOGOWANIE
+- Dodane trasy /api/auth/status, /api/auth/start i /api/auth/callback.
+- Google i Microsoft: weryfikacja podpisu OIDC, aud, exp, iat, nbf, nonce, issuer i klucza JWKS.
+- Facebook: wymiana authorization code, kontrola debug_token, app_id/user_id oraz appsecret_proof.
+- Wylogowanie usuwa wyłącznie bieżącą sesję przeglądarki, nie konto ani zgłoszenia.
+- Migracja 0005 dodaje kolumnę nonce dla stanów OIDC.
+- Aktywacja SSO wymaga Client ID/Client Secret zarejestrowanych aplikacji dostawców.
+
+WSPARCIE
+- Dodany przesłany kod QR SumUp, link https://pay.sumup.com/b2c/QON3J042 i wartość BLIK 78640187.
+- Przycisk kopiowania danych BLIK.
+
+BEZPIECZEŃSTWO I WDROŻENIE
+- Nie zmieniono identyfikatora produkcyjnej D1 (UUID potwierdzony w poprzednich logach użytkownika).
+- Nie dołączono wrangler.toml ani sekretów konta.
+- Migracje wykonywane standardowym mechanizmem Wrangler; 0005 jest addytywna.

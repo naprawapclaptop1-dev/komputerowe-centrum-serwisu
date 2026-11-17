@@ -1,0 +1,4 @@
+NAUKA OD A DO Z 6.8.0 FIX38 — WERYFIKACJA ARCHIWUM
+
+Plik ZIP został utworzony po pełnych testach 59/59 PASS.
+Szczegóły CRC, liczba wpisów i SHA-256 są podane w zewnętrznym raporcie ZIP_VERIFY_FIX38.txt dostarczonym razem z archiwum.

@@ -1,0 +1,12 @@
+NAUKA OD A DO Z 6.8.0 — FIX132
+Data: 2026-11-13
+
+- Naprawiono blokadę publikacji Cloudflare Pages Functions: helper zdjęć zmieniono z niedozwolonego .mjs na .js.
+- Zaktualizowano import ścieżki /media/photos/{id}.jpg, OneClick, Watcher i testy.
+- Dodano test rozszerzeń wszystkich plików functions/; dozwolone są wyłącznie .js i .ts.
+- Test importu lokalnego ładuje kod helpera jako ESM data URL, niezależnie od package.json.
+- Zaktualizowano latestHotfix do FIX132 i główny namespace Service Workera; zachowano dedykowany cache fotografii FIX131.
+- Zachowano 19 źródeł zdjęć, allowlistę, filtr tematów, atrybucje i fallback SVG.
+- Brak migracji D1 i zmian danych użytkowników / sekretów.
+
+Weryfikacja: scripts/run-tests-fix132.mjs.

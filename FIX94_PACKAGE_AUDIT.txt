@@ -1,0 +1,18 @@
+FIX94 PACKAGE AUDIT
+==================
+Included files: 1548 (audit file included)
+Uncompressed size: 116,962,622 bytes
+Product: 6.8.0
+Hotfix: FIX94
+Release build: 6.8.0-fix94-topic-verified-photo-catalog-20261107
+Photo source records: 19
+Unique photo IDs: 19
+Unique photo URLs: 19
+Missing author/license/source metadata: 0
+Secrets scan: no .env/.dev.vars files included; no real OpenAI API key or Cloudflare API token found in source. Synthetic tokens in tests are test fixtures.
+D1 schema changed: no
+Production D1 migrations executed: no
+Cloudflare production deployment: no
+Migration review: 17 files scanned; 0008 and 0009 remain manual-review items; no SQL was executed.
+Included QA reports: full FIX94 regression log and OneClick 41-script preflight log.
+Temporary files excluded: http.log, http.pid, patch_fix94_final.py; .git/.wrangler/node_modules/__pycache__ excluded if present.

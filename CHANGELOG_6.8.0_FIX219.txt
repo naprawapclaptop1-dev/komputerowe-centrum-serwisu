@@ -1,0 +1,7 @@
+NAUKA OD A DO Z 6.8.0 — FIX219
+================================
+- Naprawiono fałszywie negatywną kontrolę FIX210–FIX218: strażnik wymagał spacji w identyfikatorze końcowego pytania `pc-050`.
+- Zastosowano odporną na formatowanie kontrolę w ONECLICK_AKADEMIA.js i AUTO_PUBLISH_WATCHER.js.
+- Publikator podaje teraz konkretną listę brakujących zasobów zamiast ogólnego komunikatu.
+- Dodano test regresyjny rzeczywistego banku egzaminacyjnego i obu strażników.
+- Zachowano wersję produktu 6.8.0, D1, OAuth Google/Microsoft/Facebook/GitHub/Discord, 2FA, Gemini, konfigurację Cloudflare i historyczny cache PWA.

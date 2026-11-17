@@ -1,0 +1,89 @@
+{
+  "schema": "npa-video-poster-fix83-v1",
+  "productVersion": "6.8.0",
+  "hotfix": "FIX83",
+  "posterCount": 10,
+  "allPosterFilesUniqueBySha256": true,
+  "allPostersTopicSpecific": true,
+  "dimensions": "1280x720",
+  "files": [
+    {
+      "id": "LOCAL-ESD",
+      "file": "/media/video_posters/LOCAL-ESD.jpg?v=6.8.0-fix83",
+      "width": 1280,
+      "height": 720,
+      "sha256": "61984bb42cd2fcb86c99bac611a4c085265dc34d2c3da1a752337db72c56db17"
+    },
+    {
+      "id": "LOCAL-COOL",
+      "file": "/media/video_posters/LOCAL-COOL.jpg?v=6.8.0-fix83",
+      "width": 1280,
+      "height": 720,
+      "sha256": "1656167591de7a07a640c995bf3c012e529288608ca3f6801c3e9c701a7b7168"
+    },
+    {
+      "id": "LOCAL-RAMSSD",
+      "file": "/media/video_posters/LOCAL-RAMSSD.jpg?v=6.8.0-fix83",
+      "width": 1280,
+      "height": 720,
+      "sha256": "2dce22d6dae481602c2bfd561e58a4e219a6e159d99d006ad7c3bd8a5833b4e9"
+    },
+    {
+      "id": "LOCAL-POWER",
+      "file": "/media/video_posters/LOCAL-POWER.jpg?v=6.8.0-fix83",
+      "width": 1280,
+      "height": 720,
+      "sha256": "f37a3d5825bf1fc10ee25037501692142310d7fe05f7c1bf7f17697b88d19f91"
+    },
+    {
+      "id": "LOCAL-DISPLAY",
+      "file": "/media/video_posters/LOCAL-DISPLAY.jpg?v=6.8.0-fix83",
+      "width": 1280,
+      "height": 720,
+      "sha256": "9338e1c65751d2fdda15d577c094e977d33e034149274a470f55669bcc29fd01"
+    },
+    {
+      "id": "LOCAL-WIN26",
+      "file": "/media/video_posters/LOCAL-WIN26.jpg?v=6.8.0-fix83",
+      "width": 1280,
+      "height": 720,
+      "sha256": "9e6641e208cad734e657f03c01977e7b8b9a96a60b33d4adba51de7af3f2bea8"
+    },
+    {
+      "id": "LOCAL-SECUREBOOT",
+      "file": "/media/video_posters/LOCAL-SECUREBOOT.jpg?v=6.8.0-fix83",
+      "width": 1280,
+      "height": 720,
+      "sha256": "807ee6617aab8f2c0693e54401268d53ac6babbb7fce1d7966103925353cad86"
+    },
+    {
+      "id": "LOCAL-WIFIUSB4",
+      "file": "/media/video_posters/LOCAL-WIFIUSB4.jpg?v=6.8.0-fix83",
+      "width": 1280,
+      "height": 720,
+      "sha256": "e5dca82827befba993a23b3ae88d99e04459d2f332390078bf99aca889160d18"
+    },
+    {
+      "id": "LOCAL-POSTTEST",
+      "file": "/media/video_posters/LOCAL-POSTTEST.jpg?v=6.8.0-fix83",
+      "width": 1280,
+      "height": 720,
+      "sha256": "19f6d3fd2724752cf45735fafebc45d35ca41a1feb2a9ed226a978873ea8d3ca"
+    },
+    {
+      "id": "LOCAL-NPU",
+      "file": "/media/video_posters/LOCAL-NPU.jpg?v=6.8.0-fix83",
+      "width": 1280,
+      "height": 720,
+      "sha256": "e413e84cefacd2d7686a71cf5c9610879131a1a8114ad1719b0ad5923ff354e1"
+    }
+  ],
+  "visualAudit": {
+    "rasterContentImageCount": 30,
+    "pairwiseDctPerceptualComparisons": 435,
+    "minimumDctPhashHammingDistance": 12,
+    "threshold": 10,
+    "qrAssetExcluded": true,
+    "note": "Measured on all visual raster images in WEB_PUBLISH/media after poster replacement. All 435 pairwise comparisons were >=10."
+  }
+}

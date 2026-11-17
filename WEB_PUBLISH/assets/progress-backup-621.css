@@ -1,0 +1,10 @@
+/* FIX10 — panel kopii postępu */
+.npb-backup-panel{margin:22px 0;padding:clamp(18px,2.4vw,26px);border:1px solid rgba(74,178,255,.24);border-radius:20px;background:linear-gradient(135deg,rgba(9,31,58,.88),rgba(5,14,30,.94));box-shadow:0 16px 42px rgba(0,0,0,.18)}
+.npb-backup-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.npb-backup-head h3{margin:4px 0 8px}.npb-backup-head p{max-width:780px;margin:0;color:var(--muted,#a8b9cc);line-height:1.6}
+.npb-backup-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:18px}
+.npb-backup-import{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:10px 15px;border:1px solid rgba(83,188,255,.42);border-radius:10px;color:#dff5ff;background:rgba(23,89,140,.2);font-weight:700;cursor:pointer}
+.npb-backup-import input{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.npb-backup-summary{display:block;margin-top:12px;color:#a9c5d9;font-size:.86rem}
+#npbBackupStatus{min-height:1.4em;margin:10px 0 0;font-size:.9rem}#npbBackupStatus.success{color:#76e5b3}#npbBackupStatus.error{color:#ff9a9a}
+.npb-backup-warning{margin-top:12px;color:#91a9be;font-size:.78rem;line-height:1.5}

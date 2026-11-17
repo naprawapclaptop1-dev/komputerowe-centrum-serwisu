@@ -1,0 +1,35 @@
+NAUKA OD A DO Z — RAPORT TESTÓW FIX105
+====================================
+
+Powód poprawki
+--------------
+Log z Windows potwierdzał, że PowerShell potrafił wykryć Node.js v24.19.0 pod:
+C:\Program Files\nodejs\node.exe
+Jednak po powrocie do CMD brakowało plików NODE_EXE.path oraz NODE_EXE.version w oczekiwanym katalogu projektu. Resolver FIX104 przekazywał argument Root w postaci "%~dp0" (z końcowym separatorem), a domyślne ścieżki wyjściowe były wyliczane ponownie w PowerShell. FIX105 usuwa tę niejednoznaczność: normalizuje folder projektu bez końcowego separatora i jawnie przekazuje pełne ścieżki obu plików wynikowych.
+
+Zakres FIX105
+-------------
+- Nowy RESOLVE_NODE_FIX105.cmd kanonikalizuje katalog projektu przez FOR %%I in ("%~dp0.") do set NPA_ROOT=%%~fI.
+- PowerShell otrzymuje trzy jawne, niepuste argumenty: Root, NodePathFile oraz VersionFile.
+- Skrypt PowerShell tworzy katalogi docelowe, zapisuje NODE_EXE.path i NODE_EXE.version, odczytuje je ponownie i porównuje z wykrytym plikiem oraz wersją.
+- CMD sprawdza osobno brak pliku, pustą zawartość, brak node.exe, błąd uruchomienia i niezgodność wersji.
+- CMD odczytuje wyniki przez FOR /F z plików UTF-8 bez BOM; nie polega na SET /P.
+- Skrypt PowerShell zapisano w UTF-8 z BOM i CRLF dla zgodności z Windows PowerShell 5.1.
+- Starsze punkty wejścia FIX103/FIX104 delegują do FIX105.
+- Główny start, diagnostyka, konfiguracja OpenAI i przygotowanie Wrangler używają bieżącego resolvera.
+- Systemowy PATH i rejestr Windows nie są modyfikowane.
+
+Wyniki
+------
+- Pełna poprzednia regresja FIX104: 184/184 PASS.
+- Nowe testy kontraktu FIX105: 13/13 PASS.
+- Łącznie: 197/197 PASS.
+- Kontrola składni JavaScript: 8/8 PASS.
+- Archiwum ZIP: test integralności PASS.
+
+Ograniczenie weryfikacji
+------------------------
+Testy wykonano w środowisku Linux z Node.js v22.16.0. Nie ma tu natywnego Windows CMD ani Windows PowerShell 5.1, dlatego rzeczywistego uruchomienia resolvera na komputerze użytkownika nie można poświadczyć z tego środowiska. Pierwszym testem po rozpakowaniu powinien być SPRAWDZ_NODE_FIX105.cmd. Oczekiwany wynik na komputerze użytkownika to Node.js v24.19.0 oraz dwie utworzone wartości plików NODE_EXE.path i NODE_EXE.version w katalogu głównym projektu.
+
+Cloudflare Pages publication and D1 migrations were not run as part of FIX105.
+Product version remains 6.8.0; startup hotfix FIX105; photo runtime FIX99.

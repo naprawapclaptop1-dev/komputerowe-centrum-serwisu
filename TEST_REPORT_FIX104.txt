@@ -1,0 +1,38 @@
+NAUKA OD A DO Z — RAPORT TESTÓW FIX104
+Data: 2026-11-08
+
+CEL
+Naprawić błąd PowerShell zgłoszony w logu Windows:
+Cannot bind argument to parameter 'NodePathFile' because it is an empty string.
+PowerShell wcześniej żądał NodePathFile i VersionFile, mimo że ścieżki przekazywane z CMD mogły być puste.
+
+DIAGNOZA
+Parametry NodePathFile i VersionFile w resolve-node-fix103.ps1 były oznaczone jako Mandatory. Stary resolver budował ich wartości z tymczasowej zmiennej CMD. W niektórych uruchomieniach wartości docierały jako puste ciągi, więc PowerShell odrzucał wywołanie zanim rozpoczął wyszukiwanie node.exe.
+
+POPRAWKA FIX104
+- Parametry NodePathFile i VersionFile są opcjonalne i oznaczone AllowEmptyString.
+- Gdy parametr nie zostanie przekazany lub będzie pusty, PowerShell sam ustawia domyślne pliki projektu: NODE_EXE.path i NODE_EXE.version.
+- CMD przekazuje do PowerShell tylko parametr Root; nie przekazuje pustych parametrów i nie buduje losowej ścieżki tymczasowej.
+- CMD odczytuje te same dwa pliki, sprawdza istnienie node.exe i uruchamia node.exe --version jeszcze raz.
+- Dodano RESOLVE_NODE_FIX104.cmd i resolve-node-fix104.ps1.
+- RESOLVE_NODE_FIX103.cmd pozostaje kompatybilnym przekierowaniem do resolvera FIX104; stary skrypt PowerShell FIX103 również przyjmuje puste parametry i ma bezpieczne wartości domyślne.
+- Główny start, OpenAI, Wrangler, diagnostyka i testy korzystają z aktywnego resolvera FIX104.
+- Nie jest modyfikowany systemowy PATH ani rejestr Windows.
+
+WYNIKI
+- Pełna regresja poprzednich wydań: 168/168 PASS.
+- Nowa regresja parametrów PowerShell/CMD: 16/16 PASS.
+- Łącznie: 184/184 PASS.
+- Składnia JavaScript w runnerze wewnętrznym: 8/8 PASS.
+- Składnia JavaScript w runnerze końcowym: 6/6 PASS.
+- Integralność archiwum ZIP: PASS.
+- Pliki z wcześniejszego FIX103: wszystkie zachowane; usuniętych plików: 0.
+
+OGRANICZENIA TESTU
+Testy wykonano na Node.js v22.16.0 w środowisku Linux. W tym środowisku nie było Windows PowerShell 5.1 ani Windows CMD, więc natywnego uruchomienia resolvera oraz okna wyboru node.exe na komputerze użytkownika nie można było przeprowadzić. Poprawność poprawki potwierdzono testami statycznymi kontraktu i pełną regresją JavaScript. Pierwszą kontrolą w Windows powinno być SPRAWDZ_NODE_FIX104.cmd.
+
+WERSJE I BEZPIECZEŃSTWO
+Produkt pozostaje 6.8.0.
+Lokalna poprawka startowa: FIX104.
+Photo runtime pozostaje FIX99.
+Nie wykonano publikacji Cloudflare Pages, migracji D1 ani zmian danych. Nie zmieniono systemowego PATH ani rejestru Windows.

@@ -1,0 +1,104 @@
+AUDYT POWTÓRZEŃ FIX182
+Aktywny katalog lekcji: 1083
+Istniejące awarie: 155
+Dodatkowe materiały FIX179–FIX181: 120
+Nowe lekcje: 20
+Nowe przypadki: 17
+Nowe projekty: 10
+
+0.250 | LVM na LUKS: kolejność aktywacji i diagnostyka warstw
+  najbliższy wcześniejszy tytuł: Diagnostyka Windows – kolejność działań [catalog]
+0.250 | PCIe topology i NUMA: diagnostyka przepustowości stacji
+  najbliższy wcześniejszy tytuł: Diagnostyka Thunderbolt i stacji dokującej [catalog]
+0.250 | ChromeOS Recovery: kwalifikacja i ochrona danych
+  najbliższy wcześniejszy tytuł: Ochrona danych klienta i zgoda na diagnostykę [catalog]
+0.250 | Chromebook: zgodność board/recovery i kontrola po naprawie
+  najbliższy wcześniejszy tytuł: Kontrola końcowa po naprawie komputera [catalog]
+0.250 | [PRZYPADEK] Stacja robocza nie udostępnia Redfish
+  najbliższy wcześniejszy tytuł: Stacja dokująca nie wykrywa monitorów [faults]
+0.250 | [PRZYPADEK] Chromebook recovery: właściciel nie ma kopii danych
+  najbliższy wcześniejszy tytuł: Weryfikacja integralności kopii danych [catalog]
+0.250 | [PROJEKT] Oś czasu zdarzeń BMC i Windows
+  najbliższy wcześniejszy tytuł: Windows: analiza logów Podglądu zdarzeń i niezawodności [catalog]
+0.250 | [PROJEKT] Procedura odzyskania Chromebooka z ochroną danych
+  najbliższy wcześniejszy tytuł: Ochrona danych klienta i zgoda na diagnostykę [catalog]
+0.222 | [PRZYPADEK] Shell nie widzi oczekiwanego FS0:
+  najbliższy wcześniejszy tytuł: Host nie widzi Maca w trybie DFU [academy-deployment-migration-refurb-fix181.js]
+0.222 | [PRZYPADEK] Urządzenie PCI nie pojawia się w inwentaryzacji firmware
+  najbliższy wcześniejszy tytuł: Komputer nie włącza się [faults]
+0.222 | [PRZYPADEK] Lenovo: brak zapisanego logu testów UEFI
+  najbliższy wcześniejszy tytuł: Brak wykrywania dysku NVMe w UEFI [catalog]
+0.200 | UEFI Shell: bezpieczny odczyt zmiennych NVRAM
+  najbliższy wcześniejszy tytuł: Bezpieczny odczyt pamięci SPI i kopia wsadu [catalog]
+0.200 | Lenovo UEFI Diagnostics: zapis logu i interpretacja testu
+  najbliższy wcześniejszy tytuł: Interpretacja trybu testu diody na półprzewodniku [catalog]
+0.200 | ChromeOS Verified Boot: łańcuch zaufania i tryby awarii
+  najbliższy wcześniejszy tytuł: Secure Boot — kontrola łańcucha zaufania [catalog]
+0.200 | [PRZYPADEK] HP: 24-cyfrowy Failure ID bez zapisu Test Logs
+  najbliższy wcześniejszy tytuł: Zasilacz ATX: test bez otwierania obudowy [catalog]
+0.182 | BMC Event Log: korelacja zdarzeń, czasu i awarii
+  najbliższy wcześniejszy tytuł: Dziennik niezawodności Windows: korelacja awarii i zmian [catalog]
+0.182 | [PRZYPADEK] Po odblokowaniu LUKS nie widać logicznych woluminów
+  najbliższy wcześniejszy tytuł: Nowy dysk widać w UEFI, ale nie w Windows [faults]
+0.143 | Bezpieczeństwo sieci zarządzającej BMC/IPMI
+  najbliższy wcześniejszy tytuł: Bezpieczeństwo stanowiska ESD [catalog]
+0.143 | [PRZYPADEK] Podejrzenie uszkodzonej zmiennej Boot####
+  najbliższy wcześniejszy tytuł: Diagnostyka TPM 2.0 i Secure Boot [catalog]
+0.143 | [PROJEKT] Sesja inwentaryzacyjna UEFI Shell
+  najbliższy wcześniejszy tytuł: UEFI: diagnostyka wpisów rozruchowych [catalog]
+0.143 | [PROJEKT] Bezpieczny raport zmiennych rozruchowych
+  najbliższy wcześniejszy tytuł: UEFI: diagnostyka wpisów rozruchowych [catalog]
+0.125 | Ext4 po awarii: diagnoza na kopii i dobór narzędzia
+  najbliższy wcześniejszy tytuł: Dobór i wymiana termopadów [catalog]
+0.125 | UEFI Shell: inwentaryzacja PCI, sterowników i pamięci
+  najbliższy wcześniejszy tytuł: Diagnostyka konfliktu sterowników [catalog]
+0.125 | HP UEFI Diagnostics: Failure ID i dziennik testów
+  najbliższy wcześniejszy tytuł: UEFI: diagnostyka wpisów rozruchowych [catalog]
+0.125 | [PRZYPADEK] Btrfs: scrub wykrywa checksum errors
+  najbliższy wcześniejszy tytuł: UEFI nie wykrywa dysku [faults]
+0.125 | [PRZYPADEK] Raport OEM PASS nie odtwarza usterki okresowej
+  najbliższy wcześniejszy tytuł: Nie działa Wi-Fi [faults]
+0.125 | [PRZYPADEK] Redfish LogService ma zdarzenia z inną godziną
+  najbliższy wcześniejszy tytuł: Data i godzina resetują się [faults]
+0.125 | [PRZYPADEK] BMC jest dostępny z publicznej sieci
+  najbliższy wcześniejszy tytuł: Ekran jest bardzo ciemny [faults]
+0.125 | [PRZYPADEK] Chromebook po recovery wraca do wymuszonej rejestracji
+  najbliższy wcześniejszy tytuł: Komputer nie wraca z uśpienia [faults]
+0.125 | [PRZYPADEK] Chromebook zgłasza błąd weryfikacji rozruchu
+  najbliższy wcześniejszy tytuł: Klonowanie SSD z zachowaniem danych i rozruchu [catalog]
+0.125 | [PROJEKT] Raport Btrfs: scrub, check i restore
+  najbliższy wcześniejszy tytuł: Raport końcowy z pomiarami przed i po [catalog]
+0.125 | [PROJEKT] Inwentaryzacja BMC przez Redfish GET
+  najbliższy wcześniejszy tytuł: Diagnostyka pakietu nierozpoznawanego przez EC [catalog]
+0.125 | [PROJEKT] Mapa topologii PCIe i NUMA workstation
+  najbliższy wcześniejszy tytuł: Diagnostyka błędów WHEA i PCIe [catalog]
+0.125 | [PROJEKT] Zwrot Chromebooka z organizacji do właściciela
+  najbliższy wcześniejszy tytuł: Kontrola po Revive/Restore i blokady właściciela [academy-deployment-migration-refurb-fix181.js]
+0.111 | UEFI Shell: mapowanie urządzeń i systemów plików
+  najbliższy wcześniejszy tytuł: Aktualizacja firmware urządzeń peryferyjnych [catalog]
+0.111 | Dell ePSA: interpretacja kodu błędu i walidacji
+  najbliższy wcześniejszy tytuł: Interpretacja SMART i ostrzeżeń NVMe [catalog]
+0.111 | Redfish: odczyt zasobów BMC i inwentaryzacja stacji
+  najbliższy wcześniejszy tytuł: Diagnostyka Thunderbolt i stacji dokującej [catalog]
+0.111 | [PRZYPADEK] LUKS: brak otwierania po uszkodzeniu nagłówka
+  najbliższy wcześniejszy tytuł: Brak dźwięku lub mikrofonu [faults]
+0.111 | [PROJEKT] Plan ratowania zaszyfrowanego woluminu LUKS/LVM
+  najbliższy wcześniejszy tytuł: Plan bezpiecznego obrazowania nośnika [catalog]
+0.111 | [PROJEKT] Porównanie procedur ePSA / HP Failure ID / Lenovo log
+  najbliższy wcześniejszy tytuł: Porównanie zdjęć przed i po naprawie [catalog]
+0.100 | LUKS: nagłówek, keyslots i kopia bezpieczeństwa
+  najbliższy wcześniejszy tytuł: Identyfikacja kości SPI i kopia BIOS [catalog]
+0.100 | ChromeOS Enterprise: Enrollment, deprovision i zwrot sprzętu
+  najbliższy wcześniejszy tytuł: Sterowniki: identyfikacja sprzętu i bezpieczna instalacja [catalog]
+0.091 | Btrfs: scrub, check i restore — trzy różne zadania
+  najbliższy wcześniejszy tytuł: BitLocker: diagnostyka żądania klucza odzyskiwania [catalog]
+0.091 | UEFI Shell: audyt skryptów startup.nsh i bezpieczne uruchamianie
+  najbliższy wcześniejszy tytuł: UEFI: diagnostyka wpisów rozruchowych [catalog]
+0.091 | Triangulacja wyników OEM: ePSA, HP Failure ID i Lenovo log
+  najbliższy wcześniejszy tytuł: NVMe: interpretacja SMART i health log [catalog]
+0.091 | [PRZYPADEK] Dell ePSA: 2000-0142 i validation code
+  najbliższy wcześniejszy tytuł: Windows 11 26H2 — USB Audio Class 1.0 i Code 10 [catalog]
+0.083 | [PRZYPADEK] Ext4: I/O errors i nieudany journal replay
+  najbliższy wcześniejszy tytuł: NVMe SMART — Critical Warning, Media Errors i Percentage Used [catalog]
+
+Wynik: brak identycznych tytułów; podobieństwo tytułów poniżej progu 0.55. Audyt semantyczny wykonano również względem funkcjonalnego zakresu poprzednich modułów.

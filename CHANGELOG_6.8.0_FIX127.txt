@@ -1,0 +1,27 @@
+NAUKA OD A DO Z — DLA WSZYSTKICH
+CHANGELOG 6.8.0 FIX127
+Data: 11.11.2026
+
+PRZYCZYNA
+Publikacja zatrzymywała się w scripts/test-sitewide-tech-visuals-fix123.mjs podczas kontroli SHA-256 grafik. Test uruchamiał polecenie sha256sum przez spawnSync. Windows nie zapewnia sha256sum domyślnie, więc status procesu był null i asercja kończyła się błędem null !== 0.
+
+NAPRAWA
+1. Zastąpiono zewnętrzne sha256sum w teście sitewide wbudowanym node:crypto createHash('sha256').
+2. Dodano test-portable-sha256-fix127.mjs, który sprawdza brak zależności od CLI i porównuje SHA-256 wszystkich 30 lokalnych grafik z manifestem.
+3. Test przenośnego SHA-256 dodano do preflight OneClick oraz Auto-Watcher.
+4. Ujednolicono release.json, HTML i Service Worker do FIX127 oraz nowej przestrzeni cache PWA.
+5. Zachowano nazwy produktu NAUKA OD A DO Z — DLA WSZYSTKICH i wersję produktu 6.8.0.
+
+ZACHOWANO
+- Globalną politykę lokalnych ilustracji technicznych FIX123.
+- Film FIX126, jego tytuł MP4, dźwięk, transkrypcję i opcjonalne polskie napisy.
+- Istniejący projekt Cloudflare Pages, binding D1 i migracje bez zmian.
+- Sekrety Cloudflare/OpenAI, konfigurację Wrangler, konta i dane użytkowników.
+
+TESTY
+- Test FIX127: sprawdzenie przenośnego SHA-256 dla 30 grafik.
+- Pełna regresja produktu: raport RAPORT_FIX127_TESTY.log.
+- Preflight OneClick/Watcher: raport RAPORT_FIX127_PUBLISH_PREFLIGHT.log.
+
+PUBLIKACJA
+Nie wykonywano publikacji produkcyjnej ani migracji D1. Testy są lokalne.

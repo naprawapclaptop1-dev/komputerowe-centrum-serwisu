@@ -1,0 +1,17 @@
+RAPORT KONTROLI 3.9.6
+
+- Pliki JavaScript: 39; node --check — PASS.
+- Statyczny build marker 3.9.6 — PASS.
+- Diagnostyka aktywna w czystym HTML — PASS.
+- Pulpit ukryty w stanie początkowym — PASS.
+- Karty diagnostyczne w statycznym HTML: 12 — PASS.
+- Lokalne odwołania src/href — PASS.
+- Pięć migracji SQL przetestowanych na świeżej testowej bazie SQLite — PASS (20 tabel).
+- Testy cloudflare-pages-d1 i wrangler-production-d1 — PASS (uruchomione oddzielnie).
+- Kontrola wersji przed migracją i przed publikacją — dodana.
+- Zamknięcie starych obserwatorów z tego samego katalogu — dodane.
+- Weryfikacja publicznego adresu produkcyjnego po wdrożeniu — dodana.
+- Automatyczne otwarcie stałego adresu po pozytywnym teście — dodane.
+- UUID D1 i migracje produkcyjne — bez zmian.
+- Zdalna publikacja Cloudflare — NIE WYKONANO z tego środowiska.
+- Wizualny test w Chromium — ograniczony przez blokadę nawigacji administratora środowiska.

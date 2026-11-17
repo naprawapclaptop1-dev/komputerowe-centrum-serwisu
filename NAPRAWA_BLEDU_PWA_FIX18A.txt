@@ -1,0 +1,14 @@
+NAPRAWA BLEDU „SERVICE WORKER NADAL UZYWA STAREJ PAMIECI FILMU FIX8”
+
+Blad byl w niespojnej kontroli: Service Worker mial juz nowy cache FIX18 i plik MP4 w CORE, ale nazwa cache nie zachowywala znacznika support-video-clean-fix9.
+
+FIX18A:
+- nowa nazwa cache zawiera release.build + fix18a-pwa + support-video-clean-fix9;
+- CORE zawiera MP4, plakat JPG i napisy VTT;
+- publikator i watcher sprawdzaja wszystkie elementy przed migracjami/wdrozeniem;
+- test regresyjny sprawdza te warunki;
+- nie wylaczono walidacji, cache nie obejmuje /api/.
+
+Uzyj calego nowego archiwum FIX18A w nowym folderze. Nie kopiuj pojedynczych plikow do starego katalogu. Uruchom WYKONAJ_TESTY_FIX18.cmd, a dopiero potem dotychczasowy URUCHOM_AKADEMIE.cmd z tego samego folderu.
+
+Publikacja Cloudflare i migracje D1 nie zostaly wykonane w tej sesji.

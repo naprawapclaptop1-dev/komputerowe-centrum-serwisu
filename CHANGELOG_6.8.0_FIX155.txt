@@ -1,0 +1,59 @@
+NAUKA OD A DO Z — DLA WSZYSTKICH 6.8.0 — FIX155
+AKADEMIA PRAKTYCZNA SERWISANTA / ZESTAW MODUŁÓW FIX151–FIX155
+
+CEL WYDANIA
+Rozbudowa istniejącego widoku view-academypro o praktyczne laboratoria i narzędzia do ćwiczeń serwisowych. Zamiast tworzyć nową trasę, rozszerzono Centrum Mistrza PRO o osiem zakładek.
+
+ZAKRES FUNKCJONALNY
+1. Akademia Przypadków Serwisowych PRO — 6 interaktywnych scenariuszy, sekwencje decyzji, ocena i historia.
+2. Laboratorium BIOS / UEFI / Windows PRO — kontrola zgodności UEFI/Legacy, GPT/MBR, EFI, Secure Boot, TPM, trybu kontrolera, systemu docelowego i pojemności dysku.
+3. Laboratorium Diagnostyki Sprzętu PRO — 6 symulowanych przypadków RAM, SMART SSD, GPU, CPU/temperatur, zasilania i baterii.
+4. Egzaminy i Certyfikaty PRO — losowy egzamin 10-pytaniowy, 10 minut, próg 70%, historia lokalna i dokument HTML do wydruku.
+5. Akademia Sieci Komputerowych PRO — obliczenia IPv4/CIDR oraz edukacyjne scenariusze diagnostyki DHCP, DNS, Wi-Fi i łączności.
+6. Praktyki Serwisowe i Portfolio PRO — wpisy ćwiczeń, historia, eksport danych i strona HTML do wydruku.
+7. Tutor Serwisowy i Mapa Umiejętności — lokalne wskazówki regułowe, obszary do powtórzenia oraz mapa umiejętności.
+8. Tryb Nauczyciela PRO — zadania, pseudonimy uczniów, terminy, statusy i raport grupy.
+
+PLIKI I INTEGRACJA
+- Dodano WEB_PUBLISH/assets/academy-practical-core-fix155.js.
+- Dodano WEB_PUBLISH/assets/academy-practical-suite-fix155.js.
+- Dodano WEB_PUBLISH/assets/academy-practical-suite-fix155.css.
+- Rozszerzono WEB_PUBLISH/index.html w ramach istniejącego view-academypro.
+- Zmieniono namespace cache aplikacji Service Workera na nauka-6.8.0-fix155-practical-academy-suite-20261114.
+- Zachowano PHOTO_CACHE_NAME academy-photo-library-fix135.
+- Rozszerzono WEB_PUBLISH/release.json o metadane FIX155.
+- Rozszerzono preflight ONECLICK_AKADEMIA.js i AUTO_PUBLISH_WATCHER.js o sprawdzanie FIX155, plików i PWA.
+- Dodano runner scripts/run-tests-fix155.mjs, test scripts/test-fix155-practical-suite.mjs oraz WYKONAJ_TESTY_FIX155.cmd.
+- Dodano FIX155_MODULES_HTML.txt jako referencję wstawionego fragmentu HTML.
+
+DANE I GRANICE BEZPIECZEŃSTWA
+- Postępy są lokalne w localStorage, bez synchronizacji między przeglądarkami.
+- Tutor jest lokalny i regułowy; nie jest generatywnym AI i nie wysyła danych do API.
+- BIOS/UEFI, sprzęt i sieć są ćwiczeniami symulacyjnymi; brak zmian firmware/partycji, odczytu sensorów i skanowania sieci.
+- Certyfikat jest dokumentem ukończenia ćwiczenia, a nie formalnym lub akredytowanym świadectwem.
+- Brak nowych widoków, tras, migracji D1, migracji danych i nowych sekretów.
+
+ZACHOWANE KONTRAKTY
+- Wersja produktu pozostaje 6.8.0.
+- Aktywny hotfix: FIX155.
+- Katalog lekcji: 1083; kontrakt historyczny FIX149 pozostaje zachowany.
+- Liczba widoków: 35.
+- Katalog zdjęć: 19 wpisów; cache zdjęć FIX135 zachowany.
+- Istniejący projekt Pages naprawa-pc-akademia-serwisu-pro i istniejąca baza D1 naprawapc-orders pozostają bez zmian.
+- Widok HOME, konta i OAuth nie są przebudowywane przez FIX155.
+
+TESTY
+- FIX155 suite: 10/10 PASS.
+- FIX150 publisher scope: 3/3 PASS.
+- FIX149 suite: 8/8 PASS.
+- FIX148 suite: 7/7 PASS.
+- FIX147 lesson contract: 3/3 PASS.
+- FIX145 suite: 7/7 PASS.
+- FIX144 HERO: 3/3 PASS.
+- FIX137 photo-cache guard: 6/6 PASS.
+- FIX136 regression: 14/14 PASS.
+- HTML: 967 identyfikatorów, wszystkie unikalne; 8 tabów / 8 paneli.
+- Log pełnego zestawu: RAPORT_FIX155_TESTY.log.
+
+STATUS WDROŻENIA
+Paczka i testy są przygotowane lokalnie. Publikacja produkcyjna Cloudflare Pages nie została wykonana w ramach tego wydania. Po lokalnej instalacji należy uruchomić START_FIX105; wynik wdrożenia trzeba potwierdzić w jego logu oraz na publicznej stronie.

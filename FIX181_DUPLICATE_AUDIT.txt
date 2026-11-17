@@ -1,0 +1,109 @@
+FIX181 — AUDYT ZAWARTOŚCI I DUPLIKATÓW
+Aktywny katalog bazowy: 1083 lekcji
+Istniejący katalog przypadków usterek: 155
+Porównane dodatkowe kursy: FIX179 (24) i FIX180 (15)
+Nowe pozycje FIX181: 50 (lekcje, przypadki i projekty)
+Metoda: normalizacja tytułów i podobieństwo Jaccarda tokenów; próg alarmowy 0,55.
+Wynik: nie znaleziono identycznych tytułów ani podobieństwa przekraczającego próg.
+Uwaga: automatyczny audyt tytułów nie zastępuje oceny semantycznej; zakresy porównano też z opisami istniejących paneli.
+
+LESSON | 0.444 | Wdrażanie WIM na UEFI/GPT i kontrola partycji
+  Najbliższy istniejący tytuł: UEFI/GPT — kontrola partycji EFI i wpisów rozruchowych
+LESSON | 0.375 | Ochrona danych przed procedurami firmware Maca
+  Najbliższy istniejący tytuł: Ochrona danych przed testami obciążeniowymi
+LESSON | 0.286 | Pakowanie i transport komputera/laptopa po naprawie
+  Najbliższy istniejący tytuł: Kontrola końcowa po naprawie komputera
+LESSON | 0.250 | Sterowniki offline: Windows, WinPE i WinRE bez przeładowania obrazu
+  Najbliższy istniejący tytuł: Windows WinRE — naprawa rozruchu bez reinstalacji
+LESSON | 0.222 | Przechwytywanie obrazu WIM z WinPE i DISM
+  Najbliższy istniejący tytuł: Naprawa obrazu systemu przez DISM i SFC
+LESSON | 0.222 | Tryb DFU: porty, sekwencje i diagnostyka połączenia
+  Najbliższy istniejący tytuł: Wi-Fi 7 — MLO, 320 MHz i diagnostyka połączenia
+LESSON | 0.222 | Kontrola po Revive/Restore i blokady właściciela
+  Najbliższy istniejący tytuł: Kontrola taśmy FFC/FPC i blokady ZIF
+CASE | 0.222 | OOBE zatrzymuje się przez ustawienia unattend
+  Najbliższy istniejący tytuł: Komputer zatrzymuje się na logo producenta
+CASE | 0.222 | LoadState kończy się błędami i pominiętymi komponentami
+  Najbliższy istniejący tytuł: Kopiowanie plików kończy się błędem
+LESSON | 0.200 | Revive kontra Restore: skutki dla danych i firmware
+  Najbliższy istniejący tytuł: Rozpoznawanie regionów firmware i danych platformy
+LESSON | 0.200 | Kontrola Windows Autopilot, MDM i blokad organizacji przed odsprzedażą
+  Najbliższy istniejący tytuł: Windows — kontrola integralności systemu
+LESSON | 0.200 | Blokady BIOS/UEFI i Absolute Persistence przed odsprzedażą
+  Najbliższy istniejący tytuł: Odzyskiwanie BIOS/UEFI – procedura serwisowa
+CASE | 0.200 | WIM wdraża niewłaściwą edycję Windows
+  Najbliższy istniejący tytuł: Windows: właściwa kolejność SFC, DISM i logów
+CASE | 0.200 | Service Tag na obudowie nie zgadza się z BIOS/SMBIOS
+  Najbliższy istniejący tytuł: Komputer nie włącza się
+CASE | 0.182 | Host nie widzi Maca w trybie DFU
+  Najbliższy istniejący tytuł: Nośnik WinPE nie widzi NVMe za kontrolerem VMD
+CASE | 0.182 | Laptop dociera po transporcie z uszkodzonym ekranem lub zawiasem
+  Najbliższy istniejący tytuł: Laptop nie uruchamia kamery lub mikrofonu
+PROJECT | 0.182 | Projekt: Nośnik WinPE do wdrażania i serwisowania WIM
+  Najbliższy istniejący tytuł: Nośnik WinPE nie widzi NVMe za kontrolerem VMD
+CASE | 0.167 | Mac wymaga firmware recovery, klient chce zachować dane
+  Najbliższy istniejący tytuł: Regiony BIOS: firmware, NVRAM i dane platformy
+LESSON | 0.143 | Projektowanie komputera referencyjnego Windows
+  Najbliższy istniejący tytuł: Diagnostyka Windows – kolejność działań
+LESSON | 0.143 | Audit Mode: przygotowanie aplikacji i ustawień
+  Najbliższy istniejący tytuł: Przygotowanie stanowiska do mikrolutowania
+LESSON | 0.143 | USMT: dobór scenariusza migracji komputera
+  Najbliższy istniejący tytuł: Dobór i wymiana termopadów
+LESSON | 0.143 | Windows ADK i przygotowanie środowiska USMT
+  Najbliższy istniejący tytuł: Przygotowanie stanowiska do mikrolutowania
+LESSON | 0.143 | ScanState: zbieranie danych i konfiguracji
+  Najbliższy istniejący tytuł: Diagnostyka konfiguracji RAID i VMD
+LESSON | 0.143 | LoadState: odtwarzanie na nowym komputerze
+  Najbliższy istniejący tytuł: Odtwarzanie BIOS z funkcji Flashback
+LESSON | 0.143 | Weryfikacja pochodzenia i dokumentów sprzętu poleasingowego
+  Najbliższy istniejący tytuł: Weryfikacja bezpiecznika wejściowego
+CASE | 0.143 | Sysprep nie kończy pracy na obrazie referencyjnym
+  Najbliższy istniejący tytuł: Nie działa Wi-Fi
+CASE | 0.143 | Obraz WIM urósł po dodaniu sterowników
+  Najbliższy istniejący tytuł: Diagnostyka konfliktu sterowników
+CASE | 0.143 | Po LoadState brakuje dokumentów z innego katalogu
+  Najbliższy istniejący tytuł: Brakuje miejsca na dysku
+PROJECT | 0.143 | Projekt: Diagnostyka i Revive Maca z T2/Apple Silicon
+  Najbliższy istniejący tytuł: Diagnostyka routera i Wi-Fi
+LESSON | 0.125 | Sysprep /generalize: usuwanie tożsamości urządzenia
+  Najbliższy istniejący tytuł: Przyjęcie urządzenia i zabezpieczenie danych
+LESSON | 0.125 | Ewidencja i logistyka zużytych baterii laptopów
+  Najbliższy istniejący tytuł: Ocena kondycji baterii laptopa
+LESSON | 0.125 | Klasy A/B/C: ocena wizualna bez wprowadzania w błąd
+  Najbliższy istniejący tytuł: Ocena kondycji baterii laptopa
+PROJECT | 0.125 | Projekt: Migracja użytkownika ze starego PC na nowy
+  Najbliższy istniejący tytuł: Naprawa profilu użytkownika Windows
+PROJECT | 0.125 | Projekt: Świadoma zgoda na Restore i kontrola po odtworzeniu
+  Najbliższy istniejący tytuł: Kontrola mechaniczna gniazda RJ-45
+LESSON | 0.111 | Plik unattend.xml: konfiguracja bez ujawniania sekretów
+  Najbliższy istniejący tytuł: Konfiguracja wentylatorów PWM/DC
+LESSON | 0.111 | Serwisowanie obrazu offline: montowanie, aktualizacje i cleanup
+  Najbliższy istniejący tytuł: Diagnostyka obrazu na monitorze zewnętrznym
+LESSON | 0.111 | Mac Apple Silicon/T2: rozpoznanie modelu i warunków DFU
+  Najbliższy istniejący tytuł: Rozpoznanie uszkodzonego gniazda DC-in
+CASE | 0.111 | Laptop poleasingowy żąda hasła administratora UEFI
+  Najbliższy istniejący tytuł: UEFI: diagnostyka wpisów rozruchowych
+CASE | 0.111 | Laptop poleasingowy nadal pobiera profil organizacji
+  Najbliższy istniejący tytuł: Laptop po zalaniu — triage i dokumentacja
+PROJECT | 0.111 | Projekt: Refresh Windows z zachowaniem user state
+  Najbliższy istniejący tytuł: Diagnostyka Windows – kolejność działań
+PROJECT | 0.111 | Projekt: Analiza opłacalności odnowienia partii komputerów i laptopów
+  Najbliższy istniejący tytuł: Analiza minidump i BSOD
+PROJECT | 0.111 | Projekt: Administracyjne zwolnienie laptopa poleasingowego z Autopilot/MDM
+  Najbliższy istniejący tytuł: Diagnostyka ładowarki laptopa
+CASE | 0.100 | Pliki EFS są widoczne, lecz użytkownik nie może ich otworzyć
+  Najbliższy istniejący tytuł: Nie działa Wi-Fi
+PROJECT | 0.100 | Projekt: Złoty obraz Windows dla floty 3 modeli
+  Najbliższy istniejący tytuł: Diagnostyka Windows – kolejność działań
+LESSON | 0.091 | Typy magazynu USMT: hard-link, lokalny i sieciowy
+  Najbliższy istniejący tytuł: Diagnostyka PCIe link speed i szerokości
+LESSON | 0.091 | Walidacja migracji: ACL, profile, EFS i dane aplikacji
+  Najbliższy istniejący tytuł: Profile termiczne i pomiar temperatury PCB
+PROJECT | 0.091 | Projekt: Audyt partii laptopów poleasingowych — tożsamość i blokady firmware
+  Najbliższy istniejący tytuł: Aktualizacja firmware urządzeń peryferyjnych
+LESSON | 0.083 | Audyt tożsamości sprzętu: numer seryjny, Service Tag i SMBIOS
+  Najbliższy istniejący tytuł: Sterowniki: identyfikacja sprzętu i bezpieczna instalacja
+LESSON | 0.000 | Reguły migracji XML: MigDocs, MigApp i Config.xml
+  Najbliższy istniejący tytuł: Bezpieczeństwo stanowiska ESD
+LESSON | 0.000 | Ekonomika partii poleasingowej: uzysk, odrzuty i próg rentowności
+  Najbliższy istniejący tytuł: Bezpieczeństwo stanowiska ESD

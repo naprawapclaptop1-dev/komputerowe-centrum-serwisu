@@ -1,0 +1,32 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 FIX52
+Typ: hotfix testów preflight dla pakietu FIX51
+Data: 2026-11-05
+
+NAPRAWIONE
+- Poprawiono literówkę w teście Visual Academy: asercja oczekuje teraz polskiego tekstu „lokalne plakaty lekcji”, zgodnego z rzeczywistym interfejsem. Poprzednia asercja szukała nieistniejącego tekstu „localne plakaty lekcji” i blokowała preflight mimo obecności plakatów.
+- Test Visual Academy sprawdza teraz, czy trzy ścieżki posterPaths są identyczne z listą localPosters w manifeście wydania.
+- Poprawiono kolejność deklaracji w teście kontraktu wydania: publicContract jest parsowany przed pierwszym użyciem. Wcześniejsza kolejność prowadziła do ReferenceError po przejściu testu Visual Academy.
+- Zaktualizowano historyczny test spójności runnerów: nowy WYKONAJ_TESTY_FIX52.cmd jest wyjątkiem od reguły legacy i ma osobną asercję, że przekazuje pełne testy do aktualnego WYKONAJ_TESTY_FIX51.cmd.
+- Poprawiono dwie nieaktualne informacje dokumentacji: biblioteka zawiera 33 zasoby wizualne (12 fotografii + 3 plakaty + 18 SVG), a nie 30.
+
+ZAKRES
+- Hotfix dotyczy testów, kontroli wydania i dokumentacji. Nie zmienia funkcji aplikacji ani publicznego build ID FIX51.
+- Wersja produktu pozostaje 6.8.0; FIX52 jest numerem hotfixu jakościowego.
+- Nie zmieniono danych, sekretów, konfiguracji OpenAI/OAuth ani konfiguracji Cloudflare.
+- Nie wykonano publikacji produkcyjnej ani migracji D1.
+
+WERYFIKACJA W KONTENERZE
+- Node.js v22.16.0.
+- 221/221 plików JS/MJS/CJS: node --check PASS.
+- 28/28 testów scripts/test-*.js PASS.
+- 53/53 testów scripts/test-*.mjs PASS.
+- Visual Academy: 7/7 PASS.
+- Kontrakt wydania FIX51: PASS (12 fotografii, 3 plakaty, 18 ilustracji, 33 zasoby).
+- Lokalny serwer HTTP: PASS (HTML, JS, CSS, SVG, JSON, JPG, HEAD, 404, path safety).
+- Audyt bezpieczeństwa: 243 pliki, 0 critical, 0 high.
+- Audyt migracji: 17 plików; 2 historyczne migracje wymagają ręcznej oceny. Żadnego SQL nie wykonano.
+
+OGRANICZENIA
+- Środowisko kontenera korzystało z Node.js v22.16.0. Należy ponowić test WYKONAJ_TESTY_FIX52.cmd na Windows z Node.js v24.19.0.
+- Nie wykonano ręcznej akceptacji GUI Chrome/Edge na komputerze użytkownika.
+- Preflight jest poprawiony, ale publikacja produkcyjna pozostaje zablokowana do zakończenia kontroli w środowisku docelowym.

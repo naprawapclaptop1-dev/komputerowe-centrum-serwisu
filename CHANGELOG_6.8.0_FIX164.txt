@@ -1,0 +1,28 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 FIX164
+Data: 2026-11-15
+
+NAPRAWIONO
+- Usunięto surowy tryb wejścia Node.js, który w części konsol Windows blokował
+  wklejanie klucza Gemini.
+- Dodano configure-gemini-secret.ps1 z ukrytym Read-Host -AsSecureString.
+- Klucz jest przekazywany do Node przez stdin; nie trafia do pliku tymczasowego,
+  argumentów procesu, zmiennych środowiskowych ani logów.
+- START_FIX105 i USTAW_KLUCZ_GEMINI.cmd korzystają z nowego wrappera.
+- Dodano kontrolę --check-only: jeśli sekret istnieje, konfigurator nie pyta
+  ponownie; jeśli go nie ma, dopiero wtedy otwiera stronę tworzenia klucza i
+  pokazuje ukryte pole do wklejenia.
+- OneClick i Watcher wymagają obecności nowego wrappera PowerShell.
+
+ZACHOWANO
+- Produkt 6.8.0 i dotychczasowy runtime strony FIX163.
+- Gemini jako jedyny dostawca AI; bez awaryjnego OpenAI/Workers AI.
+- Ograniczenie tematyczne nauczyciela AI do serwisu komputerów i laptopów.
+- Istniejący projekt Cloudflare Pages, konto, sekret nazwy GEMINI_API_KEY,
+  binding D1 i schemat bazy; bez nowych baz i migracji.
+- 35 widoków, 1083 lekcje, zdjęcia, logowanie i OAuth.
+
+TESTY
+- Testy regresyjne FIX136–FIX163.
+- Testy konfiguratora Gemini przez stdin.
+- Testy statyczne Read-Host -AsSecureString / braku setRawMode / CMD wrappera.
+- Kontrola składni Node.js.

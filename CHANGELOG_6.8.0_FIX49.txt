@@ -1,0 +1,37 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 FIX49
+======================================
+
+NOWE
+----
+- Nowy widok Ultimate Quality & Knowledge Center (10 zakładek).
+- Real Browser Testing: statyczny smoke test DOM i kontrola zasobów.
+- Universal Error Center z redakcją sekretów i ograniczeniem historii.
+- Wspólny manifest FIX49 dla OneClick i Auto-Publish Watcher.
+- Wspólny parser Service Workera i CACHE_NAME, eliminujący rozbieżne
+  deklaracje i błędy temporal dead zone.
+- Przygotowanie planu Cloudflare staging z oddzielną bazą i sekretami preview.
+- Plan rollbacku kodu, bez automatycznego odtwarzania bazy.
+- Symulator migracji SQL bez wykonywania poleceń.
+- Strażnik oczekujących migracji: `wrangler d1 migrations list <DB> --remote`;
+  blokada nieznanych wyników i oczekujących migracji wysokiego ryzyka.
+- Audyt statyczny sekretów bez ujawniania ich wartości w logach.
+- Diagnostic Bundle z fingerprintami SHA-256 bez danych uwierzytelniających.
+- Lokalny pokój ćwiczeń z jawną informacją, że synchronizacja multiplayer
+  wymaga osobnego backendu.
+- Opcjonalny skrypt Playwright E2E, który nie oznacza braku Playwright jako PASS.
+
+POPRAWKI
+--------
+- OneClick uruchamia test strażnika migracji przed kontrolą zdalnej D1.
+- OneClick pobiera listę tylko niezaaplikowanych migracji przed etapem backupu
+  i `migrations apply`.
+- Watcher i OneClick korzystają ze wspólnego kontraktu wydania FIX49.
+- Zachowano poprzednie znaczniki cache PWA oraz dodano marker FIX49.
+- Dodano regresję na rozpoznawanie odpowiedzi Wrangler „No migrations to apply”.
+- Zachowano aliasy wcześniejszych skryptów testowych i kont.
+
+ZACHOWANIE
+----------
+- 808 plików z FIX48 zachowano bez usuwania.
+- Brak nowej migracji D1 w FIX49.
+- Wersja produktu pozostaje 6.8.0; numer poprawki FIX49.

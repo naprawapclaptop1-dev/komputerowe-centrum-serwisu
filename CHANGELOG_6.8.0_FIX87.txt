@@ -1,0 +1,23 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 FIX87
+Data: 2026-11-06
+
+Cel poprawki
+Naprawa widoku ilustracji na kartach usterek i w szczegółach procedur, zgodnie ze zrzutami ekranu przekazanymi przez użytkownika.
+
+Zmiany
+1. Karty usterek: usunięto ograniczenie miniatury 92x58 px; kontener obrazu zajmuje szerokość karty, a obraz ma proporcje 16:9.
+2. Ilustracje techniczne SVG używają object-fit: contain; fotografie zewnętrzne zachowują object-fit: cover.
+3. Runtime visual-uniqueness-fix83.js jest ładowany synchronicznie przed lesson-art.js i app.js, aby klasyfikator i generator były dostępne przed pierwszym renderem.
+4. lesson-art.js zachowuje uniqueVisualUrl z FIX83 podczas inicjalizacji ACADEMY_ART, zamiast nadpisywać API generatora.
+5. Obraz karty usterki jest odrębny od trzech ilustracji w szczegółach procedury.
+6. Dla 155 procedur generator dostarcza 4 niezależne ilustracje SVG na procedurę: 1 kartę i 3 obrazy szczegółów (łącznie 620 unikalnych adresów ilustracji w zakresie testu).
+7. Klasyfikacja VRAM i RAM pozostaje rozdzielona: VRAM = GDDR/BGA; RAM = DIMM/SO-DIMM.
+8. Service Worker otrzymał nowy klucz cache FIX87 i precache nowych wersji JS/CSS.
+9. Metadane wydania, OneClick i Auto-Watcher wskazują FIX87. Zachowano numer produktu 6.8.0 oraz historyczne kontrakty testowe.
+10. Dodano test regresyjny test-repair-photo-layout-fix87.mjs i runner run-tests-fix87.mjs.
+
+Zakres / ograniczenia
+- Zmiana dotyczy rozmiaru, kolejności ładowania i unikalnych ilustracji technicznych offline.
+- photo-sources-online.json nadal deklaruje photosPerRepair: 0. Zrzut użytkownika pokazywał 0/465 unikalnych fotografii online. FIX87 NIE pobiera 465 prawdziwych zdjęć i nie należy traktować ilustracji SVG jako fotografii.
+- 13 fotografii strony głównej pozostaje przypisanych oddzielnie zgodnie z wcześniejszym kontraktem FIX77.
+- Nie wykonano migracji D1, zmian sekretów OpenAI ani publikacji na Cloudflare.

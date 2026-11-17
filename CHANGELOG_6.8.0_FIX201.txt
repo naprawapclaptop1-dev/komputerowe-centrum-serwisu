@@ -1,0 +1,12 @@
+NAUKA OD A DO Z — PRODUCT 6.8.0 — FIX201
+Data: 2026-11-17
+
+DODANO
+- Panel analityczny nauczyciela wewnątrz istniejącego widoku klasy, korzystający z istniejącego API /api/classroom i tabeli academy_events D1.
+- Liczba zadań, oddanych prac, prac oczekujących na ocenę, średnia ocen i aktywni uczniowie.
+- Zestawienie uczniów wyliczane z rzeczywistych oddanych prac oraz eksport CSV.
+- Ochrona eksportu CSV przed formułami arkusza w danych użytkownika.
+
+OGRANICZENIA
+- Lista aktywnych uczniów obejmuje uczniów, którzy oddali co najmniej jedną pracę; nie jest pełną listą zaproszonych do klasy.
+- Nie dodano nowej tabeli D1 ani osobnego widoku.

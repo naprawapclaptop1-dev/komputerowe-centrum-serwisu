@@ -1,0 +1,40 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 FIX98
+=======================================
+
+FIX98 — UZUPEŁNIENIE ZDJĘĆ MODUŁÓW I SPECJALIZACJI
+
+1. Katalog 19 modułów na stronie głównej
+   - Dodano fotografie dla 15 kart, które wcześniej używały wyłącznie
+     technicznych ilustracji zastępczych.
+   - Cztery istniejące lokalne zdjęcia modułów pozostają bez zmian.
+   - Każdy slot ma własny identyfikator, temat, kategorię i tekst ALT.
+
+2. Specjalizacje serwisowe PRO
+   - Dodano sześć osobnych zdjęć dla ścieżek: naprawa laptopów,
+     BIOS/UEFI, dyski, Windows, sieci oraz CPU/RAM.
+   - Zachowano nazwy, odnośniki i istniejące działanie sześciu ścieżek.
+
+3. Źródła i prawa użycia
+   - Katalog zawiera 37 kuratorowanych źródeł ze stroną źródłową,
+     autorem, kategorią i odnośnikiem licencyjnym.
+   - Wykorzystano zdjęcia Pexels oznaczone jako Free oraz zdjęcie pary
+     układów BIOS z Wikimedia Commons na licencji CC BY-SA 4.0.
+   - Zdjęcia z nowych slotów są dostarczane zdalnie przez źródłowe CDN;
+     nie są dodane jako lokalne pliki ZIP. Do ich pobrania potrzebne jest
+     połączenie z Internetem. W razie niedostępności źródła pozostaje
+     jawnie podpisana ilustracja techniczna offline.
+   - 13 lokalnych fotografii FIX96 (3 baner + 6 slajdów + 4 moduły)
+     pozostaje bez zmian i bez ponownego wykorzystania.
+
+4. Kontrola jakości i publikacji
+   - Dodano testy kompletności 15 kart modułów i 6 kart specjalizacji.
+   - Dodano test integracyjny kolejki 21 unikalnych zdjęć tematycznych.
+   - Kontrole sprawdzają unikalne ID/URL/strony źródłowe, kategorie,
+     metadane autorów/licencji, opisy ALT, CSS i aktualny runtime FIX98.
+   - Zachowano globalną politykę niewykorzystywania ponownie zdjęć.
+
+5. Dane i wydanie
+   - Wersja produktu pozostaje 6.8.0; hotfix publikatora i runtime zdjęć: FIX98.
+   - Nie wykonano wdrożenia produkcyjnego.
+   - Nie wykonano migracji, zapisu ani zmian w bazie D1.
+   - Nie usunięto dotychczasowych modułów, kursów, plików ani danych użytkowników.

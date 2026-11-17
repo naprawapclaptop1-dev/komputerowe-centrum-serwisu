@@ -1,0 +1,16 @@
+NAUKA OD A DO Z — DLA WSZYSTKICH
+WERSJA 6.5.0 FIX16 — ULTIMATE REPAIR CENTER
+Build: 6.5.0-ultimate-repair-center-fix16-20261102
+
+FIX16 rozszerza FIX15 o bazę kodów STOP/POST, rejestr pomiarów, lokalne adnotacje PDF/PCB, raport możliwości przeglądarki i analizę zaimportowanych raportów, anonimizowany dziennik przypadków, adaptacyjny test technika, sześć akademii specjalistycznych oraz szyfrowany eksport danych. Zmieniono widoczne nagłówki Warsztatu i Laboratoriów PRO na ULTIMATE REPAIR CENTER / FIX16.
+
+Zachowano 1060 lekcji, moduły FIX11–FIX15, konta, istniejące API, D1 oraz dotychczasowe ścieżki publikacji.
+
+Testy: 24/24 skrypty PASS; 43 pliki JS/MJS WEB_PUBLISH przechodzą node --check; 34 arkusze CSS poprawne strukturalnie; 546 unikalnych ID HTML; 96 lokalnych odwołań bez braków. Lokalny podgląd HTTP jest przetestowany.
+
+Chromium E2E: NIEPOTWIERDZONY (zawieszenie przeglądarki nawet na about:blank w środowisku budowania). Testy fizycznego sprzętu: NIEPRZEPROWADZONE.
+
+Ważne granice: brak parsera zastrzeżonych plików BoardView .fz/.brd; brak bezpośredniego dostępu do fizycznych dysków; brak uniwersalnego odczytu temperatur/SMART/EDID przez samą przeglądarkę; brak programowania BIOS, sterowania PSU, aktywnego skanowania sieci i publikowania zleceń serwisowych.
+Dane FIX16 pozostają lokalne. Szyfrowanie dotyczy eksportowanego pliku kopii, nie bieżącego localStorage.
+
+Produkcja: NIE OPUBLIKOWANO. D1: BEZ ZMIAN.

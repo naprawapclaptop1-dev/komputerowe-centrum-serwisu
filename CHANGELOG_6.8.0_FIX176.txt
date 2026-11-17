@@ -1,0 +1,32 @@
+NAUKA OD A DO Z – DLA WSZYSTKICH
+CHANGELOG 6.8.0 / FIX176
+
+NAPRAWY
+- Naprawiono pusty widok Centrum Wiedzy (view=globalacademy) przez dodanie statycznej zawartości awaryjnej bezpośrednio do HTML.
+- Dynamiczny montaż global-academy-suite-fix60.js zachowuje kopię zawartości awaryjnej i odtwarza ją po błędzie montowania.
+- Starszy moduł rozszerzenia FIX73 bezpiecznie kończy pracę, jeśli dynamiczny panel nie został zainicjowany.
+- Dodano responsywne style fallbacku oraz wpis do cache aplikacji Service Worker.
+
+NAWIGACJA
+- Dodano bezpośredni skrót „Akademia Mistrza” w górnym pasku nawigacji.
+- Zachowano osobną pozycję „Akademia Mistrza Serwisu” w menu bocznym.
+- Zachowano baner i kartę szybkiego dostępu na pulpicie.
+- Ekran Centrum Wiedzy oferuje skróty do Akademii Mistrza, kursów, diagnostyki i napraw.
+
+ZACHOWANE
+- Wszystkie 8 laboratoriów FIX168–FIX175 i 5 wspólnych narzędzi.
+- Produkt 6.8.0; 35 widoków; 1083 lekcje.
+- Istniejący Cloudflare Pages, D1, logowanie/OAuth i sekret Gemini.
+- Biblioteka 19 fotografii sprzętu oraz cache zdjęć FIX135.
+- Brak nowych baz/tabel D1 i brak migracji.
+- Bez zmian w rzeczywistym dostępie do sprzętu; moduły praktyczne pozostają symulacjami.
+
+TESTY
+- FIX168–FIX175 professional academy: 16/16 PASS.
+- FIX176 Global Academy rescue: 8/8 PASS.
+- Kontrakt publikacji zdjęć: 5/5 PASS.
+- Regresja historyczna FIX136–FIX167: STATUS PASS.
+- Kontrole składni OneClick, Watcher, Service Worker i runtime: PASS.
+- Integralność archiwum ZIP: PASS.
+
+Uwaga: lokalne testy nie oznaczają, że wydanie zostało opublikowane w Cloudflare Production. Publikacja wymaga uruchomienia START_FIX105 w środowisku użytkownika.

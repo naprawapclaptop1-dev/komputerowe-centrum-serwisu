@@ -1,0 +1,38 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 FIX93
+Data: 2026-11-07
+
+FIX93 — REAL PHOTO RENDER / LEGACY SVG GUARD COMPATIBILITY
+
+Problem potwierdzony na publicznej stronie przed poprawką:
+- Licznik katalogu wskazywał zapisane/przypisane pozycje, ale kontrola DOM wykazała, że 6/6 sprawdzonych obrazów strony głównej było SVG (zewnętrzny plik SVG lub data:image/svg+xml).
+- Strona używa kilku struktur podpisów: .photo-credit-fix90, .np640-photo-credit i figcaption. Nie każdy wrapper ma data-photo-credit-for.
+- Starsze strażniki FIX77/FIX83 mogły zastąpić zewnętrzne zdjęcie SVG, zanim katalog fotografii obsłużył błąd lub odtworzył przypisanie.
+- Katalog wykonywał osobny, długi probe kandydata przed ponownym załadowaniem zdjęcia do docelowego elementu IMG.
+
+Zmiany:
+1. FIX83 i FIX77 rozpoznają katalogowy slot zdjęcia po rzeczywistych markerach katalogu oraz strukturach podpisów występujących na stronie. Zwykłe, nieprzypisane obrazy zewnętrzne nadal podlegają dotychczasowym zabezpieczeniom.
+2. Własność zdarzeń błędu obrazu przekazano katalogowi: globalny capture-error FIX83 pomija slot katalogowy, aby jego onerror mógł najpierw spróbować oryginalnego URL.
+3. Katalog odtwarza brakujące photoId z istniejącego data-photo-credit-for albo z deterministycznego kontekstu rzeczywistego wrappera (alt, nagłówek i zawartość karty).
+4. Markery katalogu, alt/title oraz handlery onload/onerror są ustawiane przed przypisaniem src, aby uniknąć wyścigu z cache i starym MutationObserver.
+5. Obraz ładowany jest bezpośrednio w docelowym IMG. Usunięto osobny długotrwały probe wykonywany przed każdym obrazem.
+6. Przy błędzie miniatury katalog próbuje oryginalnego URL. Dopiero po niepowodzeniu używa podpisanej ilustracji zastępczej.
+7. Licznik pokazuje wyłącznie dekodowane fotografie rastrowe z naturalWidth >= 320 i naturalHeight >= 180; liczba przypisań jest raportowana osobno. SVG nie jest liczone jako fotografia.
+8. Manifest źródeł online opisuje kompatybilność ze starymi strażnikami i realnymi klasami podpisów DOM.
+9. OneClick i Auto-Watcher blokują publikację, jeżeli stare strażniki nadal mogą zamieniać zdjęcia katalogowe na SVG.
+10. Odświeżono aktywny klucz cache Service Workera na FIX93; OneClick i Watcher wymagają nowego cache, a jednocześnie nadal sprawdzają film, plakat, napisy i zasoby offline.
+11. Kontrakt archiwalnego testu FIX79 został zaktualizowany do aktywnego cache FIX93 bez usuwania testu zasobów offline.
+
+Zachowane zasady:
+- Produkt pozostaje 6.8.0; poprawka: FIX93.
+- VRAM pozostaje osobną kategorią od RAM: VRAM wymaga dowodu GDDR/HBM/pamięci graficznej; DIMM/SO-DIMM nie są akceptowane jako VRAM.
+- Jedno zdjęcie ma jedno globalne przypisanie; pozostają metadane autor/licencja/źródło.
+- Brak nowych migracji D1; nie zmieniono bazy ani sekretów.
+
+Testy:
+- 130/130 testów regresyjnych PASS.
+- Lokalny OneClick verifyWeb(): PASS — bez połączenia z Cloudflare i bez uruchamiania migracji.
+- Środowisko testowe: Node.js v22.16.0.
+- Node.js v24.19.0 użytkownika nie był uruchamiany w tym środowisku.
+- Nie wykonano wdrożenia produkcyjnego Cloudflare ani przeglądarkowego testu E2E po wdrożeniu FIX93.
+- Audyt bezpieczeństwa FIX51: 325 plików, 0 critical, 0 high.
+- Audyt migracji: pliki 0008 i 0009 oznaczone do ręcznego przeglądu z powodu historycznych RENAME/DROP; żadnego SQL nie wykonano.

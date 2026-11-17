@@ -1,0 +1,35 @@
+FIX40 — WARUNKI BEZPIECZNEJ PUBLIKACJI
+======================================
+
+Bramki publikacji sprawdzają co najmniej:
+1. release.json: wersja 6.8.0 oraz dokładny build FIX40;
+2. obecność wszystkich siedmiu paneli data-l40-pane;
+3. obecność nowego widoku view-learnpro i jego nawigacji;
+4. obecność wymaganych kontrolek pulpitu, wyszukiwarki, symulatora, egzaminów,
+   certyfikatów, atlasu, eksportu/importu offline i raportów;
+5. obecność runtime JS i CSS FIX40 oraz kluczowych funkcji;
+6. obsługę cache dokumentów /Biblioteka/ w Service Workerze;
+7. obecność testu scripts/test-nauka-centrum-fix40.mjs;
+8. brak regresji w istniejących testach projektu.
+
+RUNNER
+------
+Windows: uruchom WYKONAJ_TESTY_FIX40.cmd.
+Ręcznie: node scripts/test-nauka-centrum-fix40.mjs
+Pełna regresja: node scripts/test-*.js i node scripts/test-*.mjs (runner CMD
+wykonuje oba zestawy w pętli; nie wklejaj wzorca glob bezpośrednio do Node).
+
+ZASADY
+------
+- Nie wdrażaj automatycznie na podstawie samego faktu, że pliki są w ZIP.
+- Najpierw uruchom kompletny runner, następnie kontrolę lokalnego verifyWeb.
+- Nie wyłączaj ochrony antywirusowej i nie usuwaj wcześniejszego projektu.
+- Zachowaj kopię wdrożonej wersji i możliwość powrotu do poprzedniego builda.
+- Produkcyjna publikacja oraz migracje D1 wymagają odrębnej świadomej decyzji.
+
+STAN W TYM ARCHIWUM
+-------------------
+Publikacja produkcyjna: NIE WYKONANO
+Migracje D1: NIE WYKONANO
+Zmiany produkcyjnego API/kont: NIE WYKONANO
+Testy rzeczywistej przeglądarki: NIE WYKONANO

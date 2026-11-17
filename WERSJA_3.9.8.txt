@@ -1,0 +1,5 @@
+NAPRAWA PC — AKADEMIA SERWISU PRO 3.9.8
+CZAT HYBRYDOWY: OPENAI GŁÓWNY + CLOUDFLARE WORKERS AI AWARYJNY
+Lokalna baza wiedzy jako ostatni tryb awaryjny.
+Konfiguracja kluczy po stronie serwera: CHAT_AI_SETUP_3.9.8.txt
+Nie zmieniono produkcyjnego UUID D1. Nie dodano migracji D1.

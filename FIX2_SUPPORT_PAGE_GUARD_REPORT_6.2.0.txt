@@ -1,0 +1,30 @@
+NAUKA OD A DO Z — DLA WSZYSTKICH 6.2.0
+FIX2 — NAPRAWA WALIDACJI STRONY WSPARCIA
+Data: 2026-11-02
+
+PRZYCZYNA
+Strona wsparcia miała prawidłową treść „Dlaczego warto wspierać platformę?”, film MP4 i polskie napisy VTT. Dwie bramki publikacji wymagały jednak na sztywno starszego sformułowania „Dlaczego warto wspierać Akademię?”. To powodowało fałszywy błąd w kroku 5/7.
+
+ZMIANY
+- ONECLICK_AKADEMIA.js akceptuje nazwę „Akademię” lub „platformę”.
+- Kontroler wydania sprawdza też fizyczną obecność pliku MP4 i minimalny rozmiar pliku.
+- AUTO_PUBLISH_WATCHER.js używa zgodnego warunku i nie odrzuca aktualnej nazwy platformy.
+- Dodano scripts/test-support-page-contract-620.js.
+- Zachowano nazwę wydania 6.2.0; build: 6.2.0-lab-photo-hardware-support-guard-fix2-20261102.
+- Nie zmieniano konta Cloudflare, projektu Pages ani identyfikatora bazy D1.
+- Nie wykonano migracji ani publikacji produkcyjnej w ramach tej poprawki.
+
+WERYFIKACJA
+- Test strony wsparcia: PASS.
+- Test kontraktu release 6.2.0: PASS.
+- Test bramek watchera: PASS.
+- Test konfiguracji Wrangler production D1: PASS.
+- Test Cloudflare Pages / D1: PASS.
+- Test laboratorium foto / UVC / Serial / WebUSB: PASS.
+- Test nazwy i kontraktu marki: PASS.
+- Test konfiguracji OpenAI: 10/10 PASS.
+- Test rejestracji kont: PASS.
+- Test hybrydowego czatu: PASS.
+
+OGRANICZENIE
+Nie uruchamiano publikacji na koncie Cloudflare z tego środowiska. Nie należy traktować lokalnego PASS jako potwierdzenia wdrożenia produkcyjnego.

@@ -1,0 +1,34 @@
+NAUKA OD A DO Z — DLA WSZYSTKICH
+CHANGELOG 6.8.0 — FIX126
+Data: 11.11.2026
+
+PRZYCZYNA
+Test globalnej polityki grafik FIX123 uruchamiał zewnętrzne narzędzie ffprobe przez spawnSync. Na Windows bez ffprobe w PATH narzędzie nie uruchamiało się, a test przekazywał undefined jako komunikat do assert.equal, kończąc się TypeError. Znacznik tytułu w samym filmie jest prawidłowy.
+
+NAPRAWA
+- Dodano scripts/mp4-metadata-reader-fix126.mjs — natywny parser atomów ISO-BMFF/MP4 w Node.js.
+- Test test-sitewide-tech-visuals-fix123.mjs odczytuje tytuł MP4 bez ffprobe/FFmpeg.
+- Dodano test-mp4-metadata-reader-fix126.mjs: rzeczywisty plik MP4, UTF-8, atomy 64-bit, brak znacznika i uszkodzone atomy.
+- Dodano WYKONAJ_TESTY_FIX126.cmd oraz scripts/run-tests-fix126.mjs.
+- Ujednolicono aktywny numer hotfixu i cache PWA na FIX126, razem z HTML, release.json, OneClick, Watcherem i Service Workerem.
+- Dodano nowy cache-buster MP4/VTT, aby wymusić pobranie aktualnego materiału.
+- Uzupełniono publicationGuard o FIX126.
+
+ZACHOWANO
+- Nazwę produktu NAUKA OD A DO Z — DLA WSZYSTKICH.
+- Wersję produktu 6.8.0.
+- Globalną politykę ilustracji technicznych FIX123.
+- Dźwięk filmu, opcjonalne napisy VTT i transkrypcję.
+- Istniejące dane, konta, migracje i binding D1 — bez zmian.
+- Sekrety Cloudflare/OpenAI i ustawienia projektu — bez zmian.
+
+TESTY
+- FIX126 regression runner: 27/27 PASS.
+- OneClick/Watcher exact local preflight: 62/62 unique scripts PASS.
+- Sitewide technical visuals contract: 10/10 PASS.
+- Native MP4 tag reader: 4/4 PASS.
+- Support video FIX9 contract: 9/9 PASS.
+- FIX83 manifest release contract: 5/5 PASS.
+
+BEZPIECZEŃSTWO PUBLIKACJI
+Naprawa nie pomija ani nie usuwa żadnej kontroli publikacyjnej. Zastępuje zależność testu od opcjonalnego programu systemowego parserem dostarczonym w projekcie. OneClick i Watcher nadal uruchamiają wszystkie testy przed publikacją i ewentualnymi migracjami. FIX126 nie zawiera nowych migracji D1.

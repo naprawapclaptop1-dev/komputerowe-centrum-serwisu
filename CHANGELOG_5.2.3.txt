@@ -1,0 +1,16 @@
+NAPRAWA PC — AKADEMIA SERWISU PRO 5.2.3
+ACCOUNT EXPERIENCE / REJESTRACJA I LOGOWANIE
+
+- Przebudowano sekcję konta do układu dwóch kolumn: korzyści konta oraz formularz.
+- Dodano widoczny stan API /api/session i przycisk ponownego sprawdzenia.
+- Dodano podgląd/ukrywanie hasła oraz kontrolę długości i zgodności powtórzenia.
+- Przycisk rejestracji jest oddzielony od wymaganej zgody i zajmuje pełną szerokość.
+- Komunikaty informacyjne nie są już stylizowane jak błędy.
+- Walidacja wskazuje konkretne pole, które wymaga poprawy.
+- Po rejestracji/logowaniu frontend ponownie sprawdza sesję, aby potwierdzić zapis cookie HttpOnly.
+- Duplikat adresu e-mail otrzymuje jednoznaczny kod ACCOUNT_EXISTS i przełącza formularz na logowanie.
+- Dodano lokalny test kont oparty o Node.js 24 i wbudowany node:sqlite.
+- Poprawiono service worker, aby buforował theme-523.css.
+- Zaktualizowano oba walidatory publikacji oraz zachowano poprawkę FIX3 return w watcherze.
+
+Nie dodano migracji D1. Migracje 0006 i 0007 pozostają tymi, które operator już zastosował.

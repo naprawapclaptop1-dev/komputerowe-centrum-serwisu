@@ -1,0 +1,62 @@
+NAUKA OD A DO Z — FIX163
+RAPORT ZMIAN WZGLĘDEM FIX162
+
+Liczba plików bazowych FIX162: 2038
+Liczba plików bieżących: 2049
+Dodane pliki: 11
+Zmodyfikowane pliki: 32
+Usunięte pliki: 0
+
+PLIKI DODANE:
+- CHANGELOG_6.8.0_FIX163.txt
+- FIX163_FILE_CHANGE_REPORT.txt
+- RAPORT_FIX163_TESTY.log
+- README_FIX163.txt
+- SHA256_FIX163_CHANGED_FILES.txt
+- USTAW_KLUCZ_GEMINI.cmd
+- WYKONAJ_TESTY_FIX163.cmd
+- scripts/configure-gemini-secret.js
+- scripts/run-tests-fix163.mjs
+- scripts/test-gemini-chat-fix163.mjs
+- scripts/test-gemini-cmd-setup-fix163.mjs
+
+PLIKI ZMODYFIKOWANE:
+- AUTO_PUBLISH_WATCHER.js
+- ONECLICK_AKADEMIA.js
+- RAPORT_FIX136_TESTY.log
+- RAPORT_FIX162_TESTY.log
+- URUCHOM_AKADEMIE.cmd
+- USTAW_KLUCZ_OPENAI.cmd
+- WEB_PUBLISH/assets/academy-master-curriculum-fix162.js
+- WEB_PUBLISH/assets/app.js
+- WEB_PUBLISH/assets/cloud-academy.js
+- WEB_PUBLISH/assets/global-academy-suite-fix60.js
+- WEB_PUBLISH/assets/style.css
+- WEB_PUBLISH/index.html
+- WEB_PUBLISH/release.json
+- WEB_PUBLISH/service-worker.js
+- functions/api/chat.js
+- scripts/configure-openai-secret.js
+- scripts/photo-catalog-publication-contract-fix115.cjs
+- scripts/run-tests-fix162.mjs
+- scripts/test-fix136-release-integration.mjs
+- scripts/test-fix136-top-photo-priority-and-home-preservation.mjs
+- scripts/test-fix147-publisher-lesson-count.mjs
+- scripts/test-fix148-master-technician-suite.mjs
+- scripts/test-fix149-advanced-training.mjs
+- scripts/test-fix150-publisher-release-scope.mjs
+- scripts/test-fix155-practical-suite.mjs
+- scripts/test-fix162-master-technician-curriculum.mjs
+- scripts/test-node-resolver-fix103.mjs
+- scripts/test-node-resolver-fix105.mjs
+- scripts/test-node-runtime-discovery-fix100.mjs
+- scripts/test-pages-function-residue-fix133.mjs
+- scripts/test-portable-sha256-fix127.mjs
+- scripts/test-publisher-photo-cache-guard-fix137.mjs
+
+PLIKI USUNIĘTE:
+(brak)
+
+Zachowano produkt 6.8.0, 35 widoków, 1083 lekcje, bibliotekę zdjęć, konta/OAuth, istniejący Pages project i D1; bez nowych tabel, migracji i widoków.
+Status testów lokalnych: PASS. Produkcyjna publikacja Cloudflare: niewykonana w ramach przygotowania ZIP.
+SHA256_FIX163_CHANGED_FILES.txt zawiera sumy SHA-256 wszystkich dodanych i zmodyfikowanych plików; sam manifest pomija własną sumę.

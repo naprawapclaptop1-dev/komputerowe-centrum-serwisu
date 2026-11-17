@@ -1,0 +1,35 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 / FIX181
+
+Zakres: Centrum Wdrożeń, Migracji i Odnowy Komputerów PRO.
+
+Dodano:
+- Szczegółową ścieżkę przygotowania i serwisowania obrazów Windows: Audit Mode, Sysprep /generalize, unattend.xml, WIM capture, DISM servicing, sterowniki offline oraz wdrożenie UEFI/GPT.
+- Procedury migracji USMT: plan migracji, przygotowanie ADK, ScanState, LoadState, typy magazynu, reguły XML i walidacja.
+- Procedury edukacyjne Apple Silicon/T2 DFU: kwalifikacja urządzenia, Revive kontra Restore, porty i sekwencje, kontrola po procedurze oraz ochrona danych.
+- Proces odnowy komputerów: weryfikacja dokumentów pochodzenia partii poleasingowej, grading wizualny, ekonomika uzysku/odrzutów całej partii, ewidencja i logistyka zużytych baterii, pakowanie i transport urządzeń, ochrona ESD, kontrola Autopilot/MDM, audyt Service Tag/SMBIOS oraz hasła BIOS/UEFI i Absolute Persistence.
+- Trzy przypadki serwisowe: niezgodność Service Tag/SMBIOS, szkoda transportowa i nieznana blokada hasła UEFI.
+- Projekty praktyczne: audyt partii laptopów poleasingowych oraz analiza opłacalności odnowienia sprzętu.
+- 28 lekcji, 84 pytań kontrolnych, 13 wieloetapowych przypadków, 9 projektów praktycznych, słownik 40 pojęć i egzamin 14 pytań.
+- Oddzielny zapis postępu FIX181, notatki, checklisty projektów, historia egzaminów oraz eksport raportu. Próg egzaminu: 80%.
+- Testy danych, tytułów i kontrola semantyczna powielonych zagadnień, integracji HTML/PWA, runtime, przechowywania postępów oraz regresji FIX176–FIX180.
+
+Korekty po audycie duplikatów:
+- Usunięto z FIX181 lekcję sanitization nośników, ponieważ baza zawierała już NVMe Sanitize/Secure Erase i bezpieczne przygotowanie dysku.
+- Usunięto ogólną lekcję burn-in/QC, ponieważ baza zawierała testy stabilności i odbiór jakościowy.
+- Usunięto nowy przypadek spuchniętej baterii, ponieważ baza zawierała już tę usterkę i procedury bezpieczeństwa baterii.
+- Usunięto przypadek szybkiego formatowania jako odrębny scenariusz, ponieważ dublował istniejące materiały sanitization.
+- Zamiast nich dodano pakowanie/transport z ochroną ESD, kontrolę blokad BIOS/UEFI/Absolute, przypadek rozbieżności Service Tag/SMBIOS, szkodę transportową i audyt partii sprzętu.
+- Nie dodano ponownie aktywacji Windows po wymianie płyty, ogólnego przyjęcia/odbioru sprzętu, diagnozy spuchniętej baterii ani kursu Autopilot/MDM w wielu wariantach. Lekcja o bateriach została ograniczona do ewidencji i łańcucha potwierdzenia odbioru zużytej partii; lekcja o ekonomice dotyczy uzysku/odrzutów partii, a nie kosztorysu pojedynczej naprawy; kontrola dokumentów dotyczy źródła/zwrotu leasingowego, a nie oceny stanu urządzenia.
+
+Zachowano:
+- Numer wersji produktu 6.8.0.
+- Dotychczasowy katalog 1083 lekcji, 155 wpisów awarii i 35 widoków aplikacji.
+- Dotychczasowe zakładki FIX179 i FIX180.
+- Istniejącą bazę D1, schemat, konta, postępy, Gemini, Cloudflare Pages, konfigurację Wrangler i bibliotekę zdjęć.
+- Nazwę aktywnego cache aplikacji i oddzielnego cache zdjęć.
+
+Nie wykonuje:
+- Rzeczywistych poleceń Sysprep, DISM, USMT, DFU, kasowania nośników ani testów sprzętu. Są to szkolenia i symulacje.
+- Automatycznej publikacji na Cloudflare z tej paczki.
+
+FIX181 nie dodaje nowej bazy, tabeli D1, migracji SQL ani osobnego widoku aplikacji. Dodaje 16. zakładkę do istniejącego panelu Akademii Mistrza Serwisu.

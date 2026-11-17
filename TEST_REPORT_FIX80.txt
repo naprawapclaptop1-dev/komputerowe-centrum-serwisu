@@ -1,0 +1,32 @@
+NAUKA OD A DO Z — RAPORT TESTÓW FIX80
+Data: 2026-11-06
+Wersja produktu: 6.8.0
+Środowisko: Node.js v22.16.0, Linux container
+
+Wynik pełnego runnera: 37/37 PASS, 0 FAIL.
+Nowy test FIX80: 10/10 PASS.
+Test zgodności watchera FIX32: PASS.
+Zaktualizowany kontrakt pokazu FIX8: PASS.
+Node --check: ONECLICK_AKADEMIA.js, AUTO_PUBLISH_WATCHER.js i scripts/homepage-showcase-guard.js — PASS.
+
+Zakres nowej poprawki:
+- Pokaz zawiera 6 odrębnych lokalnych ilustracji SVG.
+- Każda ilustracja ma osobny data-visual-unique.
+- Brak wymogu data-photo-lock dla ilustracji.
+- Powtórzone pliki, powtórzone identyfikatory, zewnętrzne URL, obrazy rastrowe i brakujące SVG są blokowane.
+- 13 zdjęć kafelków pozostaje osobno przypisanych i unikalnych.
+- OneClick oraz AUTO_PUBLISH_WATCHER korzystają ze wspólnego guardu.
+
+Wyniki kontroli historycznych:
+- globalna unikalność 13 fotografii FIX77: PASS (SHA-256 i pHash),
+- Service Worker FIX79: PASS,
+- moduły Global Academy FIX77: PASS,
+- kontrola składni: PASS,
+- audyt bezpieczeństwa: 0 critical / 0 high,
+- audyt migracji: pliki 0008 i 0009 nadal wymagają ręcznej analizy; SQL nie był uruchamiany przez testy.
+
+Ograniczenia:
+- Nie uruchomiono rzeczywistego wdrożenia Cloudflare Pages w tej sesji.
+- Nie wykonano migracji D1 ani zmiany sekretu OpenAI.
+- Należy powtórzyć WYKONAJ_TESTY_FIX80.cmd na Windows z Node.js 24.19.0.
+- Test przeglądarkowy Chrome/Edge na docelowym Windows pozostaje do wykonania.

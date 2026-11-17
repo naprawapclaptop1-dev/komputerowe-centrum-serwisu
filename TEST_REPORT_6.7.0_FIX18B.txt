@@ -1,0 +1,37 @@
+NAUKA OD A DO Z 6.7.0 FIX18B — RAPORT KONTROLI
+Data: 2026-11-03
+
+TESTY FUNKCJONALNE
+30 plikow testowych: 30 PASS, 0 FAIL.
+W tym osobny test diagnostyki OAuth: PASS.
+W tym test pelnego flow OAuth mockowanego: PASS.
+
+KONTROLA SKLADNI
+107 plikow JavaScript/MJS w projekcie (z wylaczeniem node_modules, dist i build): PASS.
+
+KONTROLA WWW
+35 arkuszy CSS — skladnia strukturalna poprawna.
+HTML: 556 unikalnych identyfikatorow, 0 duplikatow.
+98 lokalnych odwolan do zasobow, 0 brakujacych.
+
+OAUTH — ZAKRES POTWIERDZONY TESTAMI LOKALNYMI
+- Przyciski Google, Facebook, Microsoft, X, GitHub i Discord nie sa ukrywane.
+- Kazdy przycisk otrzymuje status zależny od bindingu D1, schematu i sekretow.
+- Endpoint statusu zwraca tylko nazwy brakujacych zmiennych, nigdy wartosci sekretow.
+- Schemat D1 jest sprawdzany pod katem wymaganych tabel, kolumn i ograniczen providerow.
+- Start/callback OAuth sa blokowane czytelnym bledem przy niepelnych migracjach.
+- Strona pokazuje callback URL i kopiuje go do schowka.
+- Dodano odczytowy skrypt CHECK_LOGOWANIA_OAUTH_FIX18B.cmd.
+
+OGRANICZENIA / NIE WYKONANO
+- Brak prawdziwego testu przekierowania i callbacku kont Google/Meta/Microsoft/X/GitHub/Discord.
+- Produkcyjny endpoint nie zostal zweryfikowany z tego srodowiska (brak rozwiazywania DNS do pages.dev).
+- Nie wykonano publikacji Cloudflare Pages ani migracji produkcyjnej D1.
+- Aktywacja dostawcy wymaga jego prawdziwego Client ID/Client Secret, poprawnego callback URL i nowego wdrozenia Pages.
+- Przyciski pozostaja widoczne, ale nieaktywne, dopoki API nie potwierdzi gotowej konfiguracji.
+
+STATUS WYDANIA
+release.json: 6.7.0-social-login-fix19-totp-20261103
+production_published: false
+
+Wniosek: lokalne testy kodu i diagnostyki przechodza. Nie jest to potwierdzenie dzialania logowania na produkcji.

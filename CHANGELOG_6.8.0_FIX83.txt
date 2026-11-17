@@ -1,0 +1,22 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 FIX83
+
+FIX83 — GLOBALNE ILUSTRACJE TEMATYCZNE I KONTROLA POWTÓREK
+
+- Naprawiono silnik wizualny po FIX77: przywrócono generowanie obrazów dla lekcji, kart, katalogów, galerii i filmów.
+- Dodano offline-owy generator tematycznych ilustracji dla GPU, VRAM, RAM, CPU, SSD/NVMe/HDD, BIOS, VRM, chłodzenia, matryc, portów, sieci, audio, baterii, ESD, pomiarów i Windows.
+- VRAM/GDDR jest rozpoznawany przed ogólnym RAM. Ilustracja VRAM pokazuje oddzielne kości pamięci GDDR/BGA na PCB — bez modułu DIMM/SO-DIMM.
+- RAM otrzymuje osobny rysunek modułu DIMM/SO-DIMM. CPU i GPU mają oddzielne sceny.
+- Dodano 54 pozycje w lokalnej galerii ilustracji technicznych, w tym osobne tematy VRAM, GDDR, RAM, CPU, GPU, NVMe, HDD, BIOS, VRM, USB-C, Wi-Fi i pomiarów.
+- Zastąpiono 10 lokalnych posterów filmów odrębnymi ilustracjami 1280×720: ESD, chłodzenie, RAM/SSD, zasilanie, matryca, Windows, Secure Boot, Wi-Fi/USB4, test końcowy i NPU. Karta filmu i odtwarzacz mają rozdzielone identyfikatory wizualne.
+- Każda lekcja i widok mają stabilny identyfikator grafiki (scope + ID + temat). Obrazy nie są współdzielone między różnymi kartami/widokami.
+- Każda procedura naprawy otrzymuje trzy różne ilustracje offline. Fotografie Openverse/Wikimedia pozostają opcjonalnym uzupełnieniem online i przechodzą dotychczasową kontrolę licencji oraz powtórek.
+- Dodano kontrolę DOM: ponownie użyty statyczny obraz jest zastępowany własną ilustracją pasującą do kontekstu; brakujący/błędny plik otrzymuje lokalny fallback.
+- Poprawiono nazwy alternatywne obrazów: ilustracje nie są już błędnie opisywane jako fotografie.
+
+Wersja produktu: 6.8.0 (bez zmiany).
+Migracje D1: brak. Zmiany sekretów: brak. Zmiany projektu Cloudflare: brak.
+Automatyczna publikacja produkcyjna podczas tworzenia pakietu: NIE.
+
+Testy szczegółowe: scripts/test-fix83-unique-visuals.mjs
+Raport podobieństwa wizualnego: qa/FIX83_VISUAL_AUDIT.txt
+Pełny zestaw: WYKONAJ_TESTY_FIX83.cmd

@@ -1,0 +1,8 @@
+/* FIX199 — model 3D geometrii płyty głównej. */
+#f196Stage{min-height:360px}
+#f197BoardCanvas{position:absolute;inset:0;width:100%;height:100%;min-height:360px;z-index:1;display:block;touch-action:none;cursor:grab;outline:none}
+#f197BoardCanvas.dragging{cursor:grabbing}
+#f197BoardCanvas:focus-visible{outline:2px solid #74d4ff;outline-offset:-3px}
+#f196Stage .f196-board3d{display:none}
+#f196Stage .f196-hotspot{z-index:4}
+@media(max-width:520px){#f196Stage{min-height:290px}#f197BoardCanvas{min-height:290px}}

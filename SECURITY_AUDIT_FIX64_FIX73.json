@@ -1,0 +1,9 @@
+{
+  "audit": "security-audit-fix51.mjs",
+  "scope": "WEB_PUBLISH source scan",
+  "scannedFiles": 260,
+  "critical": 0,
+  "high": 0,
+  "result": "PASS",
+  "note": "The source scan does not replace a live penetration test, dependency audit, Cloudflare configuration review or legal photo-license review."
+}

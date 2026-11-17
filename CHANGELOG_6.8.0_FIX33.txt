@@ -1,0 +1,28 @@
+NAUKA OD A DO Z 6.8.0 — FIX33
+Data: 2026-11-04
+Build: 6.8.0-social-login-fix33-home-refresh-selector-20261104
+
+PRZYCZYNA
+Watcher w kontroli zdalnych zasobów wymagał selektora CSS .np30-module-grid. Rzeczywisty plik WEB_PUBLISH/assets/home-refresh-fix30.css używa klasy .np640-module-grid. Przez tę rozbieżność remoteHomeRefreshValid pozostawał false, a watcher blokował uznanie wdrożenia za poprawne mimo zwracanego przez stały adres identyfikatora FIX32.
+
+ZMIANY
+- Dodano wspólny kontrakt scripts/home-refresh-guard-fix33.js.
+- Zmieniono kontrolę CSS na rzeczywiste selektory .np30-hero-visual, .np640-module-grid i .np30-module-photo.
+- Sprawdzane są także trzy markery silnika unikalnych zdjęć w JS.
+- Watcher wymaga HTTP OK dla obu plików i loguje osobno status HTTP, liczbę bajtów oraz szczegół błędu walidacji.
+- ONECLICK_AKADEMIA.js sprawdza te same klasy CSS lokalnie, przed migracjami i publikacją.
+- Zmieniono build ID, metadane API kont i namespace Service Workera na FIX33.
+- Dodano test test-watcher-home-refresh-fix33.mjs, który sprawdza prawdziwy CSS, JS oraz przypadki uszkodzonych zasobów.
+- Dodano WYKONAJ_TESTY_FIX33.cmd i CHECK_KONTA_FIX33.cmd.
+
+ZACHOWANIE
+- Wersja aplikacji pozostaje 6.8.0.
+- Zachowano istniejący projekt Cloudflare Pages, binding D1, sekret OpenAI, wszystkie migracje i funkcje platformy.
+- Nie wykonano żadnej migracji ani zapisu do produkcyjnej bazy podczas przygotowania FIX33.
+- Nie usunięto żadnego pliku względem FIX32.
+
+TESTY
+49/49 testów PASS; składnia 147 plików JS/MJS/CJS bez błędów; lokalna funkcja ONECLICK verifyWeb() PASS (1060 lekcji, 12 kart diagnostycznych).
+
+STATUS WDROŻENIA
+FIX33 nie został wdrożony w Cloudflare z tego środowiska. Log użytkownika potwierdza wysłanie poprzedniego deploymentu FIX32, lecz watcher przerwał procedurę na błędnym selektorze. Po rozpakowaniu FIX33 użytkownik powinien uruchomić zwykły URUCHOM_AKADEMIE.cmd.

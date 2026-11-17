@@ -1,0 +1,14 @@
+NAUKA OD A DO Z — DLA WSZYSTKICH 6.2.0 FIX5
+
+ZMIANY
+1. Każdy identyfikator usterki ma osobną fotografię online; silnik deduplikuje URL-e i nie przypisuje jednego zdjęcia do dwóch różnych usterek.
+2. Źródło, autor i licencja są wyświetlane przy zdjęciu. Wyszukiwanie korzysta z Openverse (CC0, CC BY, CC BY-SA, Public Domain) oraz 12 kuratorowanych zdjęć Pexels jako jednorazowych wpisów startowych.
+3. Pula zdjęć jest buforowana lokalnie w przeglądarce, a pobieranie odbywa się sekwencyjnie. Brakującego zdjęcia nie zastępuje powtórka.
+4. Biblioteka wideo rozdziela 10 krótkich filmów lokalnych od 9 dłuższych zewnętrznych szkoleń. Każde szkolenie pokazuje potwierdzony czas, poziom, język, zakres, efekt nauki i link do oryginału.
+5. Postęp oznaczenia obejrzenia szkoleń jest zapisywany lokalnie.
+6. Zachowano charakter edukacyjny, usunięcie zgłoszeń/zleceń, przyklejoną nawigację i powrót na górę.
+
+OGRANICZENIA
+- Zdjęcia Openverse wymagają połączenia z internetem przy pierwszym pobraniu. Liczba dostępnych fotografii zależy od wyników wyszukiwania i licencji; zdjęcie nie jest powielane w celu wypełnienia braków.
+- Dłuższe filmy są osadzone jako linki do materiałów zewnętrznych (Class Central / YouTube), a nie jako lokalne pliki. Większość jest po angielsku; platforma podaje polskie opisy.
+- Nie wykonano publikacji produkcyjnej Cloudflare ani testu fizycznych przyrządów.

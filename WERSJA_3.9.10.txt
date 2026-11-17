@@ -1,0 +1,12 @@
+NAPRAWA PC — AKADEMIA SERWISU PRO 3.9.10
+==========================================
+
+Konfiguracja klucza — poprawka GUI 3.9.10-GUI1
+Start: URUCHOM_AKADEMIE.cmd
+Pierwsze dodanie klucza: otwiera lokalną stronę 127.0.0.1 z polem type=password; normalne Ctrl+V działa.
+Zmiana/rotacja klucza: USTAW_KLUCZ_OPENAI.cmd otwiera to samo okno.
+Czat: OpenAI Responses API (primary) -> Cloudflare Workers AI (fallback).
+Sekret: Cloudflare Pages Secret OPENAI_API_KEY, environment production.
+Klucz jest przekazywany lokalnie do Wrangler przez stdin; nie trafia do plików, argumentów ani logów.
+Produkcja D1: istniejący UUID 6ac0a922-639c-43ee-ba33-5da14c25a533.
+Nowe migracje SQL: brak.

@@ -1,0 +1,16 @@
+NAUKA OD A DO Z — 6.8.0 FIX130
+DATA: 2026-11-13
+
+PRZYCZYNA BŁĘDU PUBLIKACJI
+Log z FIX129 potwierdzał upload do Cloudflare i poprawną walidację katalogu zdjęć (remotePhotoCatalogValid=true), ale Watcher odrzucał publikację przez academyFeaturesMissing=sitewideNoPeopleVisuals. Błędny test szukał znaczników hasHumanSubjectMetadata i NO_HUMAN_SUBJECT_RE w homepage-photo-prime-fix118.js albo JSON-ie polityki, choć oba należą do photo-catalog-fix115.js.
+
+NAPRAWA FIX130
+- Watcher pobiera osobno rzeczywisty runtime photo-catalog-fix115.js z cache-bustingiem.
+- Nowy wspólny kontrakt sprawdza hasHumanSubjectMetadata, NO_HUMAN_SUBJECT_RE oraz FIX129 w tym runtime.
+- Brak pliku, błąd HTTP lub brak któregokolwiek znacznika nadal blokuje publikację; nie ma osłabienia kontroli bezpieczeństwa zdjęć.
+- Diagnostyka pokazuje photoPolicyRuntimeHttp, photoPolicyFilterValid i photoPolicyFilterMissing.
+- OneClick i Watcher uruchamiają nowy pakiet testów FIX130.
+- Wersja produktu pozostaje 6.8.0; silnik i zasoby zdjęć pozostają FIX129; Service Worker cache bez zmian.
+
+BEZPIECZEŃSTWO I ZAKRES
+Nie dodano migracji D1, nie zmieniono danych, sekretów, bindingów ani ustawień Cloudflare. Zmiana dotyczy publikatora, Watchera, metadanych wydania i testów.

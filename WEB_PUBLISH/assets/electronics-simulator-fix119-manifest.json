@@ -1,0 +1,29 @@
+{
+  "name": "NAUKA OD A DO Z — FIX119 Electronics Simulators",
+  "hotfix": "FIX119",
+  "productVersion": "6.8.0",
+  "build": "6.8.0-fix119-electronics-simulators-20261110",
+  "entrypoints": [
+    "/assets/electronics-simulator-fix119.js?v=6.8.0-fix119",
+    "/assets/electronics-simulator-fix119.css?v=6.8.0-fix119",
+    "/assets/master-workshop-630-extension.js?v=6.8.0-fix119",
+    "/assets/global-academy-expansion-fix73.js?v=6.8.0-fix119"
+  ],
+  "features": [
+    "Global Academy tile-to-tab routing",
+    "Ohm law calculator",
+    "virtual multimeter",
+    "USB-C PD PDO/CC educational simulation",
+    "frequency-aware SVG oscilloscope",
+    "central laboratory launch panel"
+  ],
+  "dataChanges": {
+    "d1Migrations": 0,
+    "accountChanges": 0,
+    "cloudWrites": 0,
+    "photoCatalogChanged": false,
+    "photoLibraryCache": "academy-photo-library-fix118"
+  },
+  "serviceWorkerCache": "nauka-6.8.0-fix118-photo-library-20261110",
+  "tests": "../scripts/test-electronics-simulators-fix119.mjs"
+}

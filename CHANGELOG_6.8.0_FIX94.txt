@@ -1,0 +1,36 @@
+# CHANGELOG — NAUKA OD A DO Z 6.8.0 — FIX94
+
+## FIX94 — dopasowanie fotografii do tematu (2026-11-07)
+
+### Poprawione
+- Dodano rygorystyczne filtry tematyczne dla USB-C, RAM, VRAM, GPU, chłodzenia, PCB, multimetru, laptopów i lutowania.
+- Odrzucono niepowiązane obrazy mimo poprawnej licencji: porty transportowe, rozmyte światła, karty pamięci/nośniki w kategorii RAM oraz moduły DIMM w kategorii VRAM.
+- Dodano 7 ręcznie wybranych rekordów Wikimedia Commons z metadanymi autor/licencja/źródło: USB-C laptop port, Corsair DDR2 DIMM, Qimonda GDDR3, Samsung GDDR3, NASA soldering PCB, MSI RTX 3070, GPU cooler fan.
+- Zachowano 12 istniejących źródeł Pexels/Commons; cały manifest seedów zawiera 19 różnych asset URL-i.
+- Zmieniono kategorie trzech zdjęć hero oraz sześciu slajdów; poprawiono RAM i USB-C w opisach i alternatywnych tekstach.
+- Wymuszono pobieranie prawdziwego zdjęcia dla kafelka laboratorium lutowania, zamiast uznawania lokalnej wizualizacji AI za fotografię.
+- Dodano migrację przestrzeni lokalnej FIX94; poprzednie błędne przypisania FIX93 są pomijane, a stare wyczerpane kategorie można ponownie wyszukiwać.
+- Dodano test rzeczywistych kategorii elementów strony głównej, 19 seedów, licencji, filtrów, paginacji i ochrony przed SVG fallbackiem.
+
+### Publikacja i PWA
+- Dodano `assets/photo-catalog-fix94.js` oraz `assets/photo-catalog-fix94.css`.
+- Zmieniono cache Service Workera na `nauka-6.8.0-fix94-topic-verified-photo-20261107`.
+- OneClick i Auto-Watcher wymagają manifestu FIX94, 19 rekordów źródłowych, ścisłego dopasowania USB-C/RAM/VRAM i nowego cache.
+- Zachowano istniejący tryb Cloudflare Pages Direct Upload produkcyjny bez `--branch`/`--env`.
+
+### Zachowane
+- Wersja produktu `6.8.0`.
+- Istniejący projekt Cloudflare Pages i binding D1.
+- Sekret OpenAI po stronie Cloudflare.
+- Istniejące funkcje i migracje; żadnej migracji nie wykonano.
+
+### Weryfikacja
+- Pełna regresja FIX94: **138/138 PASS**.
+- Skrypty preflight OneClick: **41/41 PASS**.
+- Składnia JS/MJS/CJS: **301 plików, 0 błędów**.
+- JSON: **82 pliki, 0 błędów parsowania**.
+- HTML: **820 identyfikatorów, 820 unikalnych, 0 duplikatów**.
+- Audyt bezpieczeństwa: **330 plików, 0 krytycznych, 0 wysokich ustaleń**.
+- Audyt migracji: 17 plików; 0008 i 0009 wymagają ręcznego przeglądu; żadnego SQL nie uruchomiono.
+- Środowisko testowe: Node.js v22.16.0. Node.js v24.19.0 użytkownika nie został tu przetestowany.
+- Produkcyjny deployment Cloudflare: **nie wykonano**.

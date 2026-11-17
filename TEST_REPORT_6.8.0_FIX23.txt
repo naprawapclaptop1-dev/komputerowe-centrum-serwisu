@@ -1,0 +1,32 @@
+NAUKA OD A DO Z — RAPORT TESTÓW 6.8.0 FIX23
+Data: 2026-11-03
+
+ZAKRES POPRAWKI
+- Usunięto z nowej paczki integracje kopii Google Drive, Microsoft OneDrive i Dropbox.
+- Usunięto ich panel, pliki JS/CSS, Pages Functions/API, middleware, konfigurator OAuth i tabele migracyjne.
+- Zachowano lokalne kopie JSON, synchronizację kont/postępów Akademii oraz eksport produkcyjnej bazy D1 przed migracjami.
+- Dodano naprawę limitera: academy_account_rate_limits_v2.bucket_key jest PRIMARY KEY, a walidator sprawdza to przez PRAGMA table_info.
+- Historyczne tabele limitera pozostają nietknięte.
+
+WYNIKI KONTROLI ŹRÓDEŁ
+- Testy funkcjonalne: 37/37 PASS.
+- Kontrola składni JavaScript/MJS/CJS: 124/124 PASS.
+- Kontrola CSS: 36 arkuszy PASS.
+- Lokalne odwołania zasobów: 0 brakujących.
+- Test regresyjny braku zewnętrznych konektorów: PASS.
+- Test regresyjny klucza PRIMARY KEY limitera v2: PASS.
+- Kontrole publikatora/watcher: wymagają migracji 0014 i kopii D1 przed migracją.
+
+WAŻNE OGRANICZENIA
+- FIX23 jest przygotowanym pakietem lokalnym; nie został opublikowany w Cloudflare.
+- Produkcyjna witryna nie została zmieniona przez tę paczkę. Ostatni log FIX21 potwierdzał HTTP 503 ACCOUNT_OPERATION_FAILED podczas negatywnego testu logowania.
+- Migracja 0014_account_limiter_key_repair.sql nie została zastosowana w produkcji w ramach tego przygotowania.
+- Przed migracją publikator ma wykonać eksport istniejącej produkcyjnej bazy D1. Jeśli eksport się nie powiedzie lub będzie pusty, proces ma się zatrzymać.
+- Nie przeprowadzono testu na żywo z prawdziwym kontem użytkownika. Test negatywny używa wyłącznie domeny .invalid i nie tworzy konta.
+
+PLIKI DO URUCHOMIENIA
+1. WYKONAJ_TESTY_FIX23.cmd
+2. URUCHOM_AKADEMIE.cmd
+3. CHECK_KONTA_FIX23.cmd
+
+Wniosek: nowy pakiet nie zawiera konektorów Google Drive/OneDrive/Dropbox; lokalne kopie danych i zabezpieczenie kopii D1 przed migracjami pozostają. Naprawa limitera jest przygotowana i przetestowana lokalnie, ale wymaga bezpiecznej publikacji oraz kontroli produkcyjnej.

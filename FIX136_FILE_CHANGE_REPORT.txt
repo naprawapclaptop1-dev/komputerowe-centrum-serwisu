@@ -1,0 +1,33 @@
+NAUKA OD A DO Z — FIX136 — RAPORT ZMIAN
+
+BAZA: NAUKA_OD_A_DO_Z_6_8_0_FIX135_PELNY_PROJEKT.zip
+WYDANIE: 6.8.0 (bez zmiany wersji produktu), FIX136
+
+ZMIENIONE GŁÓWNE OBSZARY
+- WEB_PUBLISH/index.html: podłączenie paczki 18 lekcji, quiz CSS i nowe wersje runtime; liczniki 1078; zachowanie oryginalnego HTML sekcji #view-home.
+- WEB_PUBLISH/assets/photo-catalog-fix115.js: kolejka foto priorytetuje wyłącznie hero oraz aktywny slajd; odracza slajdy nieaktywne.
+- WEB_PUBLISH/assets/homepage-photo-prime-fix118.js: ładowanie top-first; karty niżej lazy/low.
+- WEB_PUBLISH/assets/academy-expanded-practice-fix136.js: 18 lekcji praktycznych.
+- WEB_PUBLISH/assets/learning-engine.js: interaktywny quiz i scenariusz ćwiczenia.
+- WEB_PUBLISH/assets/practice-quiz-fix136.css: styl ćwiczeń i quizów.
+- WEB_PUBLISH/assets/lesson-count-610.js: dynamiczny licznik.
+- WEB_PUBLISH/service-worker.js: cache FIX136, nowe zasoby dodane tylko raz, zachowany cache zdjęć FIX135.
+- WEB_PUBLISH/release.json: metadane FIX136 i informacja o braku publikacji produkcyjnej.
+- ONECLICK_AKADEMIA.js / AUTO_PUBLISH_WATCHER.js: test suite FIX136 i kontrola zasobów FIX136.
+- scripts/run-tests-fix136.mjs i trzy testy FIX136: kolejka zdjęć, niezmienność strony głównej, lekcje, integracja wydania.
+- Zaktualizowano stare kontrakty testowe odwołujące się do test suite FIX135, aby uruchamiały aktualną suite FIX136.
+
+NIE ZMIENIANO
+- Dolna część strony głównej i jej HTML.
+- Mapowanie 19 zdjęć modułów, manifest źródeł fotografii i biblioteka zdjęć FIX135.
+- Cache zdjęć academy-photo-library-fix135.
+- Powiązanie produkcyjnej bazy D1, AI, sekrety, konta i dane użytkowników.
+- Brak migracji D1 i migracji danych.
+- Brak modułu radia w Akademii.
+
+WERYFIKACJA
+- Pełna suite: 14/14 PASS.
+- Górna kolejka zdjęć + niezmienność całej sekcji home: 5/5 PASS.
+- Katalog lekcji i interaktywny quiz: 5/5 PASS.
+- Integracja OneClick/Watcher/cache: 20/20 PASS.
+- Produkcyjna publikacja: NIE WYKONANA.

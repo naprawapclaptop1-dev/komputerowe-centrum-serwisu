@@ -1,0 +1,14 @@
+NAUKA OD A DO Z 6.7.0 FIX18A — HOTFIX SERVICE WORKER / PWA CACHE
+Data: 2026-11-03
+
+1. Naprawiono bledna kontrole publikatora, ktora odrzucala poprawny Service Worker FIX18 jako stary cache FIX8.
+2. Przywrocono jawny znacznik rewizji mediow support-video-clean-fix9 w unikalnej nazwie cache FIX18A.
+3. Cache CORE jawnie obejmuje film MP4, plakat oraz napisy VTT.
+4. ONECLICK_AKADEMIA.js sprawdza rewizje cache i komplet trzech zasobow przed migracjami D1.
+5. AUTO_PUBLISH_WATCHER.js wykonuje taka sama kontrole przed wdrozeniem.
+6. Dodano test regresyjny scripts/test-pwa-cache-fix18a.mjs do lokalnego zestawu testow.
+7. Nie wylaczono zadnej kontroli publikacji. Endpointy /api/ pozostaja poza cache PWA.
+
+Build aplikacji pozostaje 6.7.0-social-login-fix18-20261102, poniewaz hotfix naprawia wyłącznie wersjonowanie cache i kontrolę publikacji; logowanie OAuth i schemat danych nie zmieniają się.
+
+Nie wykonano publikacji ani migracji produkcyjnej D1.

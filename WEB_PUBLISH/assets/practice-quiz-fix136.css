@@ -1,0 +1,19 @@
+/* FIX136 — interaktywny quiz i ćwiczenie warsztatowe w treści lekcji. */
+.az-practice-fix136{border:1px solid #2b5e86;background:linear-gradient(145deg,#0a1b31,#0c243c);border-radius:13px;padding:15px;margin:12px 0;color:#dcecff}
+.az-practice-fix136 h4{margin:0 0 8px;color:#7dd3fc;font-size:12px}
+.az-practice-fix136 p,.az-practice-fix136 li{color:#c3d5e8;font-size:11px;line-height:1.65}
+.az-practice-fix136 ul{margin:7px 0;padding-left:20px}
+.az-practice-fix136 .az-practice-accept{border-left:3px solid #32c6a0;background:#0d3040;padding:8px 10px;border-radius:0 8px 8px 0}
+.az-quiz-fix136{display:grid;gap:10px}
+.az-quiz-fix136 .az-quiz-status{position:sticky;top:8px;background:#0b263d;border:1px solid #245577;border-radius:9px;padding:9px 11px;color:#9eddfc;font-size:11px;font-weight:800}
+.az-quiz-fix136 .az-quiz-question{border:1px solid #254c69;border-radius:10px;padding:11px;background:#0a1e32}
+.az-quiz-fix136 .az-quiz-prompt{color:#e7f3ff;font-size:12px;font-weight:800;margin:0 0 9px}
+.az-quiz-fix136 .az-quiz-options{display:grid;gap:6px}
+.az-quiz-fix136 .az-quiz-option{width:100%;text-align:left;border:1px solid #315c7b;border-radius:8px;background:#112b44;color:#d8e9f8;padding:9px 11px;font-size:11px;cursor:pointer}
+.az-quiz-fix136 .az-quiz-option:hover:not(:disabled){border-color:#58b8eb;background:#163a59}
+.az-quiz-fix136 .az-quiz-option:disabled{cursor:default;opacity:1}
+.az-quiz-fix136 .az-quiz-option.is-correct{border-color:#26b98d;background:#103d38;color:#c9ffed}
+.az-quiz-fix136 .az-quiz-option.is-wrong{border-color:#e17b68;background:#46251f;color:#ffe2db}
+.az-quiz-fix136 .az-quiz-feedback{min-height:17px;margin:8px 0 0;color:#b7cfe1;font-size:10px;line-height:1.55}
+.az-quiz-fix136 .az-quiz-result{border:1px solid #2b6682;border-radius:9px;padding:10px 12px;background:#0c2d43;color:#e0f5ff;font-size:12px;font-weight:800}
+@media(max-width:640px){.az-practice-fix136{padding:12px}.az-quiz-fix136 .az-quiz-option{padding:10px}}

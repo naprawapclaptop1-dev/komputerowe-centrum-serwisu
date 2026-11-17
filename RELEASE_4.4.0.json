@@ -1,0 +1,25 @@
+{
+  "release": "4.4.0",
+  "build": "4.4.0-professional-electronics-lab-20261101",
+  "name": "Akademia Serwisu PRO — Professional Electronics Lab",
+  "default_view": "home",
+  "preserves_existing_pages_project": true,
+  "preserves_existing_d1_binding": true,
+  "destructive_database_migrations": false,
+  "new_features": [
+    "premium-cyan-blue-violet-neon-interface",
+    "wide-photo-assisted-workbench-home-dashboard",
+    "interactive-educational-motherboard-with-eight-hotspots",
+    "21-component-electronics-encyclopedia-with-search-and-filters",
+    "six-mode-educational-measurement-simulator",
+    "six-step-by-step-diagnostic-case-studies",
+    "seven-symptom-quick-diagnosis-planner",
+    "local-device-model-and-board-revision-register",
+    "five-question-service-technician-exam-with-explanations",
+    "local-service-workorder-cards-with-json-export",
+    "browser-local-learning-progress-and-data-storage",
+    "responsive-layout-and-reduced-motion-support",
+    "pre-publication-guard-for-lab-assets-and-stable-url",
+    "nine-practical-learning-paths-including-LGA-socket-USB-C-and-BIOS-EC-with-local-progress"
+  ]
+}

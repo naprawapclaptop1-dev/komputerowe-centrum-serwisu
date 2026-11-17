@@ -1,0 +1,29 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 / FIX194
+==========================================
+
+Zakres: ograniczenie logowania zewnętrznego do Google, Microsoft i Facebook.
+
+ZMIANY
+------
+- Interfejs rejestracji i konta pokazuje wyłącznie Google, Microsoft i Facebook.
+- Backend OAuth przyjmuje wyłącznie tych trzech dostawców.
+- Diagnostyka statusu i narzędzie kontroli produkcji raportują tylko trzy metody.
+- Usunięto z bieżącego opisu logowania X, GitHub i Discord.
+- Historyczne migracje i rekordy tożsamości nie są kasowane ani przebudowywane;
+  istniejące konta i dane D1 pozostają zachowane.
+- Sekrety OAuth nadal są odczytywane wyłącznie po stronie serwera.
+
+OGRANICZENIA
+------------
+- Samo ograniczenie dostawców nie konfiguruje Client ID/Client Secret.
+- Rzeczywiste logowanie wymaga poprawnych sekretów w Cloudflare Pages,
+  gotowego schematu D1 i testu callbacku na produkcyjnym adresie.
+- Nie wykonano publikacji produkcyjnej z tego środowiska.
+
+AUDYT ZAKRESU FIX187–FIX193
+--------------------------
+Dodano FIX187_193_EXISTING_MODULE_AUDIT.txt. Audyt wykazał, że Learning Coach,
+Warsztat Serwisowy, egzaminy, lokalne zlecenia/QC, katalog wiedzy i centrum postępów
+mają już odpowiedniki w wcześniejszych modułach FIX42/FIX44/FIX47/FIX63/FIX64/FIX155.
+Nie dodano duplikatów. Pełny interaktywny model 3D i izolowany sandbox malware nie
+zostały potwierdzone jako kompletne funkcje. Kolektor Windows wymaga testu na Windows.

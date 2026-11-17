@@ -1,0 +1,43 @@
+NAUKA OD A DO Z — FIX166 — RAPORT ZMIAN WZGLĘDEM PEŁNEGO FIX165
+
+Przyczyna: publikator odrzucał poprawny zapis env?.GEMINI_API_KEY, ponieważ wymagał literalnego env.GEMINI_API_KEY.
+
+ZMIENIONE PLIKI (10):
+- ONECLICK_AKADEMIA.js — warunek regex obsługujący optional chaining, walidacja metadanych FIX166, nowy banner publikatora.
+- AUTO_PUBLISH_WATCHER.js — ten sam kontrakt Gemini oraz metadane FIX166.
+- WEB_PUBLISH/release.json — metadane poprawki publikatora FIX166; runtime nadal FIX165.
+- scripts/run-tests-fix165.mjs — dołączony test FIX166, raport zapisuje się jako RAPORT_FIX166_TESTY.log.
+- scripts/test-fix150-publisher-release-scope.mjs — oczekuje nowej etykiety publikatora FIX166.
+- RAPORT_FIX136_TESTY.log — odświeżony przez pełny przebieg testów.
+- RAPORT_FIX162_TESTY.log — odświeżony przez pełny przebieg testów.
+- RAPORT_FIX163_TESTY.log — odświeżony przez pełny przebieg testów.
+- RAPORT_FIX164_TESTY.log — odświeżony przez pełny przebieg testów.
+- RAPORT_FIX165_TESTY.log — odświeżony przez pełny przebieg testów.
+
+DODANE PLIKI (7):
+- scripts/test-gemini-publisher-guard-fix166.mjs
+- WYKONAJ_TESTY_FIX166.cmd
+- RAPORT_FIX166_TESTY.log
+- README_FIX166.txt
+- CHANGELOG_6.8.0_FIX166.txt
+- FIX166_FILE_CHANGE_REPORT.txt
+- SHA256_FIX166_CHANGED_FILES.txt
+
+USUNIĘTE PLIKI: 0
+
+BEZ ZMIAN:
+- functions/api/chat.js oraz sekret GEMINI_API_KEY.
+- runtime strony FIX165 i cache Service Workera.
+- projekt Cloudflare Pages i istniejąca baza D1 naprawapc-orders.
+- 35 widoków, 1083 lekcje, 19 zdjęć; cache zdjęć FIX135.
+- brak nowych migracji D1.
+
+WYNIKI TESTÓW:
+- test-gemini-publisher-guard-fix166: 5/5 PASS.
+- testy Gemini FIX165: 6/6 PASS.
+- wklejanie CMD FIX164: 8/8 PASS.
+- bazowy zestaw regresji FIX136–FIX162: STATUS PASS.
+- składnia JS: PASS.
+- pełny run-tests-fix165.mjs: STATUS PASS.
+
+Publikacja produkcyjna nie została wykonana. Raport z testów: RAPORT_FIX166_TESTY.log.

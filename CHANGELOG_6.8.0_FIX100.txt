@@ -1,0 +1,36 @@
+NAUKA OD A DO Z — DLA WSZYSTKICH 6.8.0
+FIX100 — WINDOWS NODE.JS RUNTIME DISCOVERY
+Data: 2026-11-08
+
+NAPRAWIONO
+1. Główny launcher nie sprawdza już Node.js wyłącznie przez where.exe node.
+2. Dodano wspólny resolver sprawdzający PATH bieżącego procesu i zapisany PATH
+   Windows, lokalizacje instalatora oraz typowe menedżery wersji Node.js.
+3. Każdy znaleziony node.exe jest weryfikowany uruchomieniem --version.
+4. Wybrany katalog node.exe jest dodawany tymczasowo do PATH bieżącego CMD,
+   aby Node, npm i lokalny Wrangler były dostępne dla uruchamianych procesów.
+5. Ujednolicono wykrywanie Node w głównym uruchamiaczu, skrócie testów FIX99,
+   konfiguracji OpenAI i przygotowaniu Wrangler.
+6. Dodano SPRAWDZ_NODE_FIX100.cmd do diagnostyki ścieżki i wersji Node.
+7. Dodano WYKONAJ_TESTY_FIX100.cmd oraz testy regresji wykrywania Node.
+
+ZACHOWANO
+- Wersję produktu 6.8.0.
+- Runtime fotografii FIX99 i jego manifest, limity, kolejkę oraz cache PWA.
+- Istniejący projekt Cloudflare Pages i binding D1.
+- Istniejące sekrety i przepływ konfiguracji OpenAI.
+- Dotychczasowy zakres OneClick/Watcher; nie wyłączono bramek publikacji.
+- Nie wykonano migracji D1 ani zmian danych.
+
+TESTY W TYM ŚRODOWISKU
+- Poprzednia pełna regresja aplikacji: 132/132 PASS.
+- Nowe testy wykrywania Node: 11/11 PASS.
+- Łącznie: 143/143 PASS.
+- Kontrola składni JavaScript FIX99: 17/17 PASS.
+- Kontrola składni JavaScript FIX100: 4/4 PASS.
+- Wykonano na Node.js v22.16.0.
+
+DO POTWIERDZENIA NA WINDOWS
+Uruchomić SPRAWDZ_NODE_FIX100.cmd na Node.js v24.19.0, następnie
+WYKONAJ_TESTY_FIX100.cmd. Ten pakiet nie był wykonywany w Windows CMD ani
+Windows PowerShell 5.1 w środowisku przygotowania.

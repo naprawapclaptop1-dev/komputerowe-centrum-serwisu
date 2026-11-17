@@ -82,10 +82,10 @@ function Invoke-GhInteractive([string]$Executable,[string[]]$Arguments){
 }
 
 $Root=$PSScriptRoot
-$packageMarker=Join-Path $Root "FIX087_PACKAGE_MARKER.txt"
-if(!(Test-Path -LiteralPath $packageMarker -PathType Leaf)){throw "Brak markera FIX087 — publikator musi być uruchomiony z kompletnej paczki."}
+$packageMarker=Join-Path $Root "FIX088_PACKAGE_MARKER.txt"
+if(!(Test-Path -LiteralPath $packageMarker -PathType Leaf)){throw "Brak markera FIX088 — publikator musi być uruchomiony z kompletnej paczki."}
 $packageLines=Get-Content -LiteralPath $packageMarker
-if($packageLines -notcontains "PACKAGE=FIX087" -or $packageLines -notcontains "REPOSITORY=naprawapclaptop1-dev/komputerowe-centrum-serwisu"){throw "Marker FIX087 nie potwierdza właściwego pakietu / repozytorium."}
+if($packageLines -notcontains "PACKAGE=FIX088" -or $packageLines -notcontains "REPOSITORY=naprawapclaptop1-dev/komputerowe-centrum-serwisu"){throw "Marker FIX088 nie potwierdza właściwego pakietu / repozytorium."}
 $Repo="naprawapclaptop1-dev/komputerowe-centrum-serwisu"
 $LogDir=Join-Path $Root "dist\build-logs"
 New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
@@ -101,7 +101,7 @@ try {
   Set-Content -LiteralPath $RepoFile -Value $Repo -Encoding ASCII
   $ExpectedRepo="naprawapclaptop1-dev/komputerowe-centrum-serwisu"
   if($Repo -ne $ExpectedRepo){throw "Repozytorium nie należy do tego programu. Oczekiwano: $ExpectedRepo"}
-  $repoMeta=Invoke-RestMethod -Headers @{"User-Agent"="KCS-FIX087";Accept="application/vnd.github+json"} -Uri "https://api.github.com/repos/$Repo" -TimeoutSec 30
+  $repoMeta=Invoke-RestMethod -Headers @{"User-Agent"="KCS-FIX088";Accept="application/vnd.github+json"} -Uri "https://api.github.com/repos/$Repo" -TimeoutSec 30
   if($repoMeta.visibility -ne "public" -or [string]::IsNullOrWhiteSpace($repoMeta.default_branch)){throw "Repozytorium musi być publiczne i posiadać gałąź domyślną."}
   $Gh=Get-Command gh.exe -ErrorAction SilentlyContinue
   if(!$Gh){$Gh=Get-Command gh -ErrorAction SilentlyContinue}
@@ -134,7 +134,7 @@ try {
   $TagBase="https://github.com/$Repo/releases/download/$Tag/"
   $utf8NoBom=New-Object -TypeName System.Text.UTF8Encoding -ArgumentList $false
   foreach($ch in @("stable","beta")){
-    $manifest="<?xml version=`"1.0`" encoding=`"utf-8`"?><Update version=`"$Version`" channel=`"$ch`" region=`"global`" language=`"all`" architecture=`"any`" packageUrl=`"$($TagBase)$SetupName`" sha256=`"$SetupSha`"><Notes lang=`"pl`">Komputerowe Centrum Serwisu $Version — kanał $ch. FIX087: naprawa publikacji i globalna strona WWW.</Notes><Notes lang=`"en`">Computer Service Center $Version — $ch channel. FIX087: publishing repair and worldwide website.</Notes><Mirrors /></Update>"
+    $manifest="<?xml version=`"1.0`" encoding=`"utf-8`"?><Update version=`"$Version`" channel=`"$ch`" region=`"global`" language=`"all`" architecture=`"any`" packageUrl=`"$($TagBase)$SetupName`" sha256=`"$SetupSha`"><Notes lang=`"pl`">Komputerowe Centrum Serwisu $Version — kanał $ch. FIX088: naprawa publikacji i globalna strona WWW.</Notes><Notes lang=`"en`">Computer Service Center $Version — $ch channel. FIX088: publishing repair and worldwide website.</Notes><Mirrors /></Update>"
     [IO.File]::WriteAllText((Join-Path $Stage "manifest-$ch.xml"),$manifest,($utf8NoBom))
   }
   $published=(Get-Date).ToUniversalTime().ToString("o")
@@ -142,14 +142,14 @@ try {
   $catalog=@(
     [ordered]@{
       version=$Version;channel="stable";publishedUtc=$published
-      notes="Wydanie stabilne $Version — FIX087: aktualizator GitHub i bezpłatna strona WWW."
+      notes="Wydanie stabilne $Version — FIX088: aktualizator GitHub i bezpłatna strona WWW."
       packageUrl="$TagBase$SetupName";sha256=$SetupSha;signerThumbprint=""
       signatureStatus="Brak podpisu Authenticode; sprawdzanie SHA-256";sizeBytes=$SetupSize
       portableName=$PortableName;portableUrl="$TagBase$PortableName";portableSha256=$PortableSha;portableSizeBytes=$PortableSize
     },
     [ordered]@{
       version=$Version;channel="beta";publishedUtc=$published
-      notes="Kanał Beta $Version — FIX087: aktualizator GitHub i bezpłatna strona WWW."
+      notes="Kanał Beta $Version — FIX088: aktualizator GitHub i bezpłatna strona WWW."
       packageUrl="$TagBase$SetupName";sha256=$SetupSha;signerThumbprint=""
       signatureStatus="Brak podpisu Authenticode; sprawdzanie SHA-256";sizeBytes=$SetupSize
       portableName=$PortableName;portableUrl="$TagBase$PortableName";portableSha256=$PortableSha;portableSizeBytes=$PortableSize
@@ -183,7 +183,7 @@ try {
     $tagProbe=Invoke-GhCapture -Executable $GhPath -Arguments @("api","repos/$Repo/git/ref/tags/$Tag")
     if($tagProbe.ExitCode -eq 0){throw "Tag $Tag już istnieje bez wydania. Zgodnie z polityką nie używam ponownie istniejącego tagu. Wymagana jest inspekcja."}
     Write-Host "[RELEASE] Tworzę pierwsze wydanie jako szkic, dodając sześć sprawdzonych plików..."
-    $createArgs=@("release","create",$Tag)+$assets+@("--repo",$Repo,"--target",$repoMeta.default_branch,"--title","KOMPUTEROWE CENTRUM SERWISU $Version — FIX087","--notes","FIX087 — naprawa automatycznego logowania GitHub CLI, publikacji i bezpłatnej strony WWW dostępnej globalnie.`n`nInstalator i wersja przenośna są weryfikowane przez SHA-256. Wydanie utworzono ze świeżych plików po lokalnej kompilacji.","--draft")
+    $createArgs=@("release","create",$Tag)+$assets+@("--repo",$Repo,"--target",$repoMeta.default_branch,"--title","KOMPUTEROWE CENTRUM SERWISU $Version — FIX088","--notes","FIX088 — naprawa automatycznego logowania GitHub CLI, publikacji i bezpłatnej strony WWW dostępnej globalnie.`n`nInstalator i wersja przenośna są weryfikowane przez SHA-256. Wydanie utworzono ze świeżych plików po lokalnej kompilacji.","--draft")
     $createResult=Invoke-GhCapture -Executable $GhPath -Arguments $createArgs
     if($createResult.Output.Trim()){Write-Host $createResult.Output.TrimEnd()}
     if($createResult.ExitCode -ne 0){throw "GitHub nie utworzył szkicu wydania lub nie przesłał wszystkich plików: $($createResult.Output.Trim())"}

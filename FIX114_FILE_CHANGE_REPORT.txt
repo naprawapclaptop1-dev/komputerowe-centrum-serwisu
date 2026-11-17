@@ -1,0 +1,26 @@
+NAUKA OD A DO Z 6.8.0 — RAPORT ZMIAN FIX114
+
+ZMIENIONE PLIKI
+- AUTO_PUBLISH_WATCHER.js — przekazanie remoteRelease: localRelease zamiast niezdefiniowanego localReleaseMetadata; zachowany prefiks kontraktu FIX111 w nagłówku.
+- ONECLICK_AKADEMIA.js — wymaganie uruchomienia testu FIX114 przed publikacją i aktualny opis pipeline.
+- scripts/test-watcher-release-metadata-scope-fix114.mjs — nowy test zakresu zmiennej, kontraktu OneClick/Watcher oraz zachowania nagłówka FIX111.
+- scripts/run-tests-fix114.mjs — pełny runner regresji i składni.
+- WYKONAJ_TESTY_FIX114.cmd — launcher Windows korzystający z resolvera Node FIX105.
+- CHANGELOG_6.8.0_FIX114.txt oraz README_FIX114_WATCHER_RELEASE_SCOPE.txt — dokumentacja.
+- RAPORT_FIX114_TESTY.log — raport testów.
+
+NIE ZMIENIANO
+- WEB_PUBLISH/release.json i WEB_PUBLISH/service-worker.js.
+- Runtime zdjęć FIX111 i polityki licencji/unikalności.
+- Cache PWA FIX109.
+- Konfiguracji Cloudflare, wrangler.toml, bindingu ani migracji D1.
+- Kont, danych użytkowników ani postępów nauki.
+
+WYNIKI
+- 53/53 testy publikacyjne PASS.
+- 10/10 kontroli składni PASS.
+- Test FIX114: 5/5 PASS.
+- Środowisko testowe: Node.js v22.16.0.
+
+STATUS WDROŻENIA
+Poprawka jest przygotowana lokalnie. Nie wykonano publikacji produkcyjnej. W dostarczonym logu FIX113 wykonano kopię D1, a Wrangler zgłosił brak oczekujących migracji; Watcher zatrzymał się na błędzie zakresu zmiennej przed pierwszą synchronizacją.

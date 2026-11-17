@@ -1,0 +1,16 @@
+NAPRAWA PC — AKADEMIA SERWISU PRO 4.1.1 FIX
+
+WYKONANE KONTROLE LOKALNE
+[PASS] AUTO_PUBLISH_WATCHER.js — node --check
+[PASS] ONECLICK_AKADEMIA.js — node --check
+[PASS] functions/api/health.js — node --check
+[PASS] Zachowano WEB_PUBLISH/assets, WEB_PUBLISH/media, WEB_PUBLISH/Biblioteka, functions, migrations i seeds.
+[PASS] Publikator nadal wskazuje istniejący projekt naprawa-pc-akademia-serwisu-pro i gałąź main.
+[PASS] Publikator nadal używa istniejącego D1 ID 6ac0a922-639c-43ee-ba33-5da14c25a533.
+[PASS] Kontrola stabilnego adresu produkcyjnego odbywa się przed testami API.
+[PASS] Test globalnego licznika obsługuje health.globalVisits=true lub rzeczywisty poprawny wynik /api/visits z agregatami.
+
+NIE WYKONANO
+[INFO] Nie wykonano wdrożenia Cloudflare z tego środowiska. Wdrożenie wymaga lokalnego logowania Wrangler i lokalnego katalogu TOOLS_CLOUDFLARE.
+[INFO] Nie zmieniano ani nie usuwano danych D1, kont użytkowników, lekcji, materiałów ani sekretów.
+[INFO] Znacznik strony pozostaje 4.1.0; jest to poprawka publikatora/API do istniejącego builda 4.1.0, a nie przebudowa treści strony.

@@ -34,3 +34,5 @@ BEZPIECZEŃSTWO I WZNOWIENIE
 - Operacje na partycjach, rejestrze, rozruchu i przywracaniu systemu mogą zmienić dane. Przed nimi wykonaj kopię zapasową.
 
 Wersja aplikacji pozostaje 1.0.0.69. FIX087 naprawia test walidacyjny workflow Pages: testy używają teraz rekordów PSCustomObject, aby PowerShell 5.1 nie spłaszczał wyników i opisów kontroli.
+
+FIX088: testy uruchamiane przez CMD używają PSCustomObject zamiast zagnieżdżonych tablic.

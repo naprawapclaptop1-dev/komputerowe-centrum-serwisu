@@ -1,0 +1,13 @@
+NAUKA OD A DO Z 6.8.0 — CHANGELOG FIX210–FIX218
+================================================
+FIX210: eksport kopii istniejącej D1 przed migracją, manifest SHA-256; bez automatycznej migracji i bez tworzenia bazy.
+FIX211: historia bezpieczeństwa konta w addytywnej tabeli i endpointzie użytkownika; bez surowych adresów IP, UA i sekretów.
+FIX212: ogłoszenia klasowe i rozszerzone statystyki w istniejącym module klas online.
+FIX213: kolejka ponawiania synchronizacji po odzyskaniu sieci; stany ponad 360 KB są odrzucane z czytelnym komunikatem, nie zapętlane.
+FIX214: opcjonalny odczyt czujników przez WMI LibreHardwareMonitor/OpenHardwareMonitor; brak sensora nie tworzy danych fikcyjnych.
+FIX215: dodatkowa diagnostyka tylko do odczytu Windows (SFC verify-only, DISM ScanHealth, zdarzenia).
+FIX216: rozszerzony audyt izolacji Hyper-V bez uruchamiania maszyny.
+FIX217: 50 pytań w banku egzaminacyjnym; losowanie i ocena po stronie serwera.
+FIX218: agregaty analityczne w chronionym panelu administratora.
+Wersja produktu pozostaje 6.8.0. Zachowano pięciu dostawców OAuth: Google, Microsoft, Facebook, GitHub, Discord. X pozostaje wyłączony.
+Wymagane przed produkcją: zastosować migrację 0020, sprawdzić kopię D1, wykonać testy Windows/Hyper-V oraz prawdziwe OAuth i Cloudflare.

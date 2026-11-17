@@ -1,0 +1,52 @@
+NAUKA OD A DO Z — RAPORT ZMIAN FIX165
+Produkt: 6.8.0
+Baza porównawcza: pełny FIX164
+
+Dodane pliki: 6
+Zmodyfikowane pliki: 25
+Usunięte pliki: 0
+
+ZAKRES:
+- Szybka walidacja GEMINI_API_KEY przez GET metadanych modelu gemini-3.8-flash.
+- Stabilny endpoint Gemini Interactions API v1; stream=true, store=false.
+- Zachowanie ukrytego wklejania klucza CMD z FIX164.
+- Aktualizacja OneClick, Watcher, metadanych release, service workera, testów i dokumentacji.
+- Bez nowych baz, tabel, migracji D1 i bez usuniętych plików.
+
+PLIKI DODANE:
+  + CHANGELOG_6.8.0_FIX165.txt
+  + RAPORT_FIX165_TESTY.log
+  + README_FIX165.txt
+  + WYKONAJ_TESTY_FIX165.cmd
+  + scripts/run-tests-fix165.mjs
+  + scripts/test-gemini-fast-key-check-fix165.mjs
+
+PLIKI ZMODYFIKOWANE:
+  * AUTO_PUBLISH_WATCHER.js
+  * ONECLICK_AKADEMIA.js
+  * RAPORT_FIX136_TESTY.log
+  * RAPORT_FIX162_TESTY.log
+  * RAPORT_FIX163_TESTY.log
+  * RAPORT_FIX164_TESTY.log
+  * WEB_PUBLISH/index.html
+  * WEB_PUBLISH/release.json
+  * WEB_PUBLISH/service-worker.js
+  * functions/api/chat.js
+  * scripts/configure-gemini-secret.js
+  * scripts/photo-catalog-publication-contract-fix115.cjs
+  * scripts/test-fix136-release-integration.mjs
+  * scripts/test-fix136-top-photo-priority-and-home-preservation.mjs
+  * scripts/test-fix147-publisher-lesson-count.mjs
+  * scripts/test-fix148-master-technician-suite.mjs
+  * scripts/test-fix149-advanced-training.mjs
+  * scripts/test-fix150-publisher-release-scope.mjs
+  * scripts/test-fix155-practical-suite.mjs
+  * scripts/test-fix162-master-technician-curriculum.mjs
+  * scripts/test-gemini-chat-fix163.mjs
+  * scripts/test-gemini-cmd-setup-fix163.mjs
+  * scripts/test-pages-function-residue-fix133.mjs
+  * scripts/test-portable-sha256-fix127.mjs
+  * scripts/test-publisher-photo-cache-guard-fix137.mjs
+
+Kontrole zachowania: wersja 6.8.0, 35 widoków, 1083 lekcje, 19 wpisów zdjęć, istniejący Pages/D1.
+Status: regresja lokalna PASS; publikacja Cloudflare nie została wykonana.

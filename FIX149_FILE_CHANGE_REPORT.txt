@@ -1,0 +1,58 @@
+NAUKA OD A DO Z 6.8.0 — FIX149 FILE CHANGE REPORT
+
+BAZA
+- Pełny projekt FIX148; zachowano istniejącą Akademię i 35 widoków.
+- Wersja produktu pozostaje 6.8.0; aktywny hotfix FIX149.
+
+ZMIENIONE / DODANE PLIKI
+- WEB_PUBLISH/index.html — pięć nowych paneli i zakładek wewnątrz istniejącego view-academypro; dołączone zasoby FIX149; bez zmian w #view-home.
+- WEB_PUBLISH/assets/academy-master-extension-fix149.js — logika konkursu, model oscyloskopu syntetycznego, procedury bezpieczeństwa danych, katalog źródeł i generator samodzielnych pakietów HTML offline.
+- WEB_PUBLISH/assets/academy-master-extension-fix149.css — responsywny styl nowego rozszerzenia zgodny z istniejącym Centrum Mistrza PRO.
+- WEB_PUBLISH/service-worker.js — aktywny cache aplikacji FIX149; nowe JS/CSS w CORE; osobny cache zdjęć academy-photo-library-fix135 zachowany.
+- WEB_PUBLISH/release.json — latestHotfix FIX149, build/cache FIX149, metadane rozszerzenia i kontrakt 1083 lekcji.
+- ONECLICK_AKADEMIA.js — wymagane zasoby, identyfikatory, metadane FIX149 i walidacja braku migracji / nowych widoków.
+- AUTO_PUBLISH_WATCHER.js — walidacja FIX149 i zasobów PWA także po stronie zdalnej.
+- scripts/photo-catalog-publication-contract-fix115.cjs — FIX149 uznany jako aktywne wydanie zachowujące runtime fotografii FIX136.
+- scripts/run-tests-fix137.mjs — rozszerzony wymagany preflight o test FIX149; raport pod nazwą RAPORT_FIX149_TESTY.log.
+- scripts/test-fix149-advanced-training.mjs — 8 nowych testów kontraktu i regresji.
+- Testy FIX136/FIX137/FIX147/FIX148 — zaktualizowane do aktywnego cache i hotfixu FIX149, zachowując wcześniejsze testy regresyjne. RAPORT_FIX136_TESTY.log odświeżony przez pełny preflight.
+- CHANGELOG_6.8.0_FIX149.txt, README_FIX149.txt, FIX149_FILE_CHANGE_REPORT.txt, SHA256_FIX149_CHANGED_FILES.txt, RAPORT_FIX149_TESTY.log, WYKONAJ_TESTY_FIX149.cmd.
+
+NOWE FUNKCJE
+1. Konkurs serwisowy — 5 pytań, 120 sekund, feedback i ranking lokalny.
+2. Oscyloskop wirtualny — 4 rodzaje syntetycznych przebiegów oraz odczyty okres/Vpp/RMS.
+3. Bezpieczeństwo danych — 4 scenariusze, checklista 7 punktów i eksport JSON.
+4. Biblioteka dokumentacji — 12 oficjalnych portali i prywatne zakładki HTTPS.
+5. Offline PRO — generator samodzielnego pliku HTML z wybranymi pakietami, checklistami i notatkami.
+
+ZACHOWANE
+- #view-home: kontrolny SHA-256 identyczny z FIX148.
+- Widoki: 35, bez dodawania kolejnej trasy.
+- Lekcje: 1083, wraz z historycznym trzecim pakietem.
+- Zdjęcia: 19 unikalnych przypisań; lokalny HERO USB-C.
+- Wersja 6.8.0; projekt Cloudflare Pages; istniejący binding/baza D1 naprawapc-orders; konta i OAuth.
+- Brak migracji D1 i brak nowych sekretów.
+
+UWAGI
+- Ranking konkursu, checklisty i własne zakładki są lokalne w przeglądarce.
+- Oscyloskop generuje sygnały syntetyczne; nie odczytuje przyrządów ani sprzętu.
+- Centrum bezpieczeństwa danych jest checklistą; nie kopiuje ani nie odzyskuje danych.
+- Offline PRO tworzy osobny HTML bez sieciowych zależności; notatki w pliku nie synchronizują się z kontem.
+- Dokumentacja to zakładki do oficjalnych portali. Prawa do konkretnych dokumentów należy sprawdzić u źródła.
+
+WYNIKI
+- Pełny preflight scripts/run-tests-fix137.mjs: PASS (kod 0).
+- Runtime FIX136: 14/14 PASS.
+- Cache publikatora FIX137: 6/6 PASS.
+- HERO FIX144: 3/3 PASS.
+- Akademia FIX145: 7/7 PASS.
+- Guard widoków FIX146: 7/7 PASS.
+- Kontrakt 1083 lekcji FIX147: 3/3 PASS.
+- Centrum technika FIX148: 7/7 PASS.
+- Rozszerzenie treningowe FIX149: 8/8 PASS.
+- HOME view hash unchanged; count 35; photos 19/19.
+- Kontrola składni Node.js: PASS.
+- Integralność ZIP: PASS.
+
+STATUS WDROŻENIA
+Pakiet przygotowany i przetestowany lokalnie. Produkcyjna publikacja Cloudflare nie została wykonana.

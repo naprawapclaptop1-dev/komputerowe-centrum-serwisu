@@ -1,0 +1,42 @@
+NAUKA OD A DO Z – FIX176
+RAPORT ZAKRESU ZMIAN
+
+NOWE PLIKI
+- WEB_PUBLISH/assets/global-academy-fallback-fix176.css
+- scripts/test-fix176-global-academy-fallback.mjs
+- scripts/run-tests-fix176.mjs
+- WYKONAJ_TESTY_FIX176.cmd
+- README_FIX176.txt
+- CHANGELOG_6.8.0_FIX176.txt
+- FIX176_FILE_CHANGE_REPORT.txt
+- SHA256_FIX176_CHANGED_FILES.txt
+
+ZMIENIONE PLIKI APLIKACJI I PUBLIKACJI
+- WEB_PUBLISH/index.html – awaryjna zawartość view-globalacademy, bezpośrednie wejście z górnego menu, zachowane wejścia z pulpitu i menu bocznego.
+- WEB_PUBLISH/assets/global-academy-suite-fix60.js – przywracanie HTML fallback po błędzie dynamicznego montowania.
+- WEB_PUBLISH/service-worker.js – aktywny cache FIX176 i cache awaryjnego CSS.
+- WEB_PUBLISH/release.json – metadane FIX176 i nowy cache aplikacji; zachowany produkt 6.8.0.
+- ONECLICK_AKADEMIA.js – preflight FIX176 dla fallbacku, nawigacji i metadanych.
+- AUTO_PUBLISH_WATCHER.js – analogiczna kontrola lokalna i zgodność aktywnego wydania.
+
+ZMIENIONE TESTY / KONTRAKTY
+- scripts/photo-catalog-publication-contract-fix115.cjs
+- scripts/test-photo-publication-contract-fix131.mjs
+- scripts/test-portable-sha256-fix127.mjs
+- scripts/test-fix136-release-integration.mjs
+- scripts/test-fix136-top-photo-priority-and-home-preservation.mjs
+- scripts/test-fix147-publisher-lesson-count.mjs
+- scripts/test-fix148-master-technician-suite.mjs
+- scripts/test-fix149-advanced-training.mjs
+- scripts/test-fix150-publisher-release-scope.mjs
+- scripts/test-fix155-practical-suite.mjs
+- scripts/test-fix162-master-technician-curriculum.mjs
+- scripts/test-fix175-professional-academy.mjs
+- scripts/test-gemini-cmd-only-guard-fix167.mjs
+- scripts/test-gemini-publisher-guard-fix166.mjs
+- scripts/test-pages-function-residue-fix133.mjs
+- scripts/test-publisher-photo-cache-guard-fix137.mjs
+
+BRAK USUWANIA
+- Żaden istniejący widok, kurs, zdjęcie, konto, moduł ani baza D1 nie został celowo usunięty.
+- Nie dodano nowego widoku ani migracji D1.

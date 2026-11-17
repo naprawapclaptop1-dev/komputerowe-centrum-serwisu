@@ -1,0 +1,31 @@
+FIX103 — WINDOWS CMD NODE RESOLVER REWRITE
+Data: 2026-11-08
+
+1. Naprawiono błąd „The system cannot find the batch label specified - TRY_NODE”: aktywny resolver FIX103 nie używa CALL :TRY_NODE ani subroutyn etykietowanych w CMD.
+2. Naprawiono błąd „The input line is too long”: usunięto rozwijanie całego PATH w łańcuchu ENDLOCAL i nie modyfikuje się już PATH w CMD.
+3. Wykrywanie i sprawdzanie Node.js przeniesiono do osobnego skryptu PowerShell resolve-node-fix103.ps1; CMD odbiera krótkie pliki wynikowe.
+4. Weryfikacja sprawdza rzeczywiste uruchomienie node.exe --version oraz akceptuje Node.js 20+.
+5. Zachowano wybór pliku node.exe, ręczne wklejenie ścieżki i projektowy zapis NODE_EXE.path.
+6. Główny start, konfiguracja OpenAI, przygotowanie Wrangler, diagnostyka i testy używają wspólnego resolvera FIX103.
+7. Przy przygotowaniu Wrangler preferowany jest npm-cli.js z katalogu instalacji Node.js; sam Wrangler jest uruchamiany jawnie przez NODE_EXE.
+8. Dodano 13 testów FIX103 i podłączono je do lokalnego preflight OneClick oraz Watchera.
+9. Zaktualizowano historyczny test FIX102 tak, aby poprawnie akceptował zakończenia linii CRLF w plikach Windows CMD.
+
+WYNIKI
+- Poprzednia regresja FIX102: 168/168 PASS.
+- Nowe testy resolvera FIX103: 13/13 PASS.
+- Razem: 181/181 PASS.
+- Kontrola składni JavaScript: 6/6 PASS.
+- Walidacja JSON i kontrola archiwum: wykonane przed wydaniem.
+
+ZAKRES
+Produkt: 6.8.0 (bez zmiany numeru).
+Lokalny resolver Windows: FIX103.
+Publikator Pages: FIX101 (bez zmiany).
+Runtime zdjęć: FIX99 (bez zmiany).
+
+BEZPIECZEŃSTWO
+Nie zmieniono systemowego PATH, rejestru, sekretów, bazy D1 ani danych użytkowników. Nie wykonano deployu Cloudflare Pages ani migracji D1.
+
+OGRANICZENIA
+Testy uruchomiono w Linux na Node.js v22.16.0. Windows CMD/PowerShell 5.1 oraz rzeczywista instalacja Node.js 24.19.0 na komputerze użytkownika nie były dostępne do testu. FIX103 usuwa obie wykazane przyczyny błędów statycznie i ma zostać potwierdzony poleceniem SPRAWDZ_NODE_FIX103.cmd na Windows.

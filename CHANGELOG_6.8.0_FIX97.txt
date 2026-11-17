@@ -1,0 +1,44 @@
+NAUKA OD A DO Z — 6.8.0 FIX97
+Data: 2026-11-07
+
+NAPRAWA BLOKADY PUBLIKACJI ZDJĘĆ
+
+PRZYCZYNA
+Lokalny walidator OneClick pozostawał przy historycznej regule FIX77:
+13 zdjęć miało być przypisanych wyłącznie do kafelków 19 modułów. FIX96
+zmienił faktyczny układ strony na 3 fotografie banera + 6 zdjęć pokazu
+slajdów + 4 zdjęcia wybranych kafelków. Walidator błędnie traktował cztery
+zdjęcia modułów jako niekompletny zestaw i zatrzymywał proces przed dalszą
+publikacją. Dodatkowo zdalna kontrola HTML liczyła atrybuty wrapperów jako
+osobne przydziały fotografii.
+
+ZMIANY FIX97
+1. Dodano wspólny walidator scripts/homepage-static-photo-contract-fix97.cjs.
+2. OneClick weryfikuje 13 rzeczywistych elementów IMG w układzie 3 + 6 + 4.
+3. Nadal wymagane są 19 kafelków modułów i 6 kart z ilustracjami technicznymi.
+4. Każde z 13 zdjęć musi mieć dokładnie jeden identyfikator i lokalny plik.
+5. Walidator porównuje sumę SHA-256 każdego pliku z manifestem.
+6. Walidator oblicza globalny minimalny dystans pHash i wymaga progu >= 10.
+7. Auto-Watcher sprawdza ten sam układ w zdalnym HTML po wdrożeniu.
+8. Zdalne liczenie dotyczy znaczników IMG, nie powielonych atrybutów wrappera.
+9. Dodano 12 regresji pozytywnych i negatywnych.
+10. Zmieniono nazwę cache PWA na FIX97, aby klienci pobrali nowy shell strony.
+
+ZACHOWANO
+- Wersję produktu 6.8.0.
+- Runtime katalogu zdjęć FIX96 i jego niezależny build tag.
+- 13 fotografii lokalnych, 19 kafelków i 6 modułów z ilustracjami.
+- Reguły licencyjne, filtrowanie tematyczne, SHA-256 i pHash.
+- Istniejący projekt Cloudflare Pages, binding D1 i strukturę bazy.
+- Dane użytkowników, konta i postęp nauki.
+
+TESTY
+- Pełna regresja FIX96 i wcześniejszych wydań: 157/157 PASS.
+- Nowe testy walidatora FIX97: 12/12 PASS.
+- Łącznie: 169/169 PASS.
+
+UWAGA O WDROŻENIU
+Pakiet FIX97 naprawia blokadę lokalnego walidatora publikacji.
+Nie wykonano produkcyjnego deployu Cloudflare Pages ani migracji D1 podczas
+budowania tego pakietu. OneClick nadal wykonuje własny backup i kontrolę D1
+w swoim normalnym, późniejszym etapie procesu.

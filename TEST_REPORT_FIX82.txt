@@ -1,0 +1,23 @@
+NAUKA OD A DO Z — RAPORT TESTÓW FIX82
+
+Wynik: 39/39 PASS
+- Bazowy zestaw FIX80: 37/37 PASS
+- Regresja produkcyjnego Direct Upload FIX81: 7/7 PASS
+- Nowa regresja markera Global Academy FIX82: 6/6 PASS
+
+Test FIX82 potwierdza:
+1. użycie rzeczywistego identyfikatora npaFix70CertificatesV1;
+2. obecność wszystkich wymaganych markerów FIX64–FIX73 w aktualnym runtime;
+3. odrzucenie runtime bez markera egzaminów FIX70;
+4. odrzucenie runtime bez bindCert;
+5. użycie wspólnego kontraktu przez watcher i raportowanie braków;
+6. zachowanie braku nowych migracji D1, braku automatycznego uploadu danych klienta
+   oraz braku sekretu OpenAI w przeglądarce.
+
+Środowisko: Node.js v22.16.0, Linux container.
+Kontrola składni: AUTO_PUBLISH_WATCHER.js, ONECLICK_AKADEMIA.js oraz helper FIX82 PASS.
+ZIP: sprawdzony testem integralności.
+
+Nie wykonano wdrożenia produkcyjnego, migracji D1 ani zmian sekretów.
+Wymagane ponowne uruchomienie WYKONAJ_TESTY_FIX82.cmd na Windows / Node 24.19.0,
+a następnie OneClick w celu potwierdzenia zdalnych modułów na stałym adresie.

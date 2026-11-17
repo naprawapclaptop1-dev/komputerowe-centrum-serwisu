@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+'use strict';
+const fs=require('fs'),path=require('path');
+const root=path.join(__dirname,'..'),web=path.join(root,'WEB_PUBLISH'),assets=path.join(web,'assets');
+const html=fs.readFileSync(path.join(web,'index.html'),'utf8');
+const css=fs.readFileSync(path.join(assets,'theme-630.css'),'utf8');
+const nav=fs.readFileSync(path.join(assets,'scroll-navigation-630.js'),'utf8');
+const art=fs.readFileSync(path.join(assets,'lesson-art.js'),'utf8');
+const app=fs.readFileSync(path.join(assets,'app.js'),'utf8');
+const sw=fs.readFileSync(path.join(web,'service-worker.js'),'utf8');
+const release=JSON.parse(fs.readFileSync(path.join(web,'release.json'),'utf8'));
+for(const marker of ['assets/theme-630.css','assets/scroll-navigation-630.js','np630-photo-hero','media/laptop-board-inspection.jpg']) if(!html.includes(marker)) throw Error(`Brak w HTML: ${marker}`);
+for(const marker of ['position:fixed!important','top:0!important','--np630-header-height','#np630BackTop']) if(!css.includes(marker)) throw Error(`Brak stałej nawigacji: ${marker}`);
+for(const marker of ['ResizeObserver','scrollY > 360','Wróć na górę strony','window.scrollTo({top:0']) if(!nav.includes(marker)) throw Error(`Brak zachowania powrotu na górę: ${marker}`);
+for(const marker of ['media/ram-m2-installation-detail.jpg','media/motherboard-multimeter-test.jpg','media/gpu-cpu-cooling.jpg','media/laptop-screen-hinge.jpg','localFirst: true','images.pexels.com','function localRepairPhotos']) if(!art.includes(marker)) throw Error(`Brak katalogu zdjęć: ${marker}`);
+if(/data:image\/svg\+xml/i.test(art)) throw Error('Silnik zdjęć nadal zwraca syntetyczne SVG.');
+for(const marker of ['Zdjęcie warsztatowe','Fotografia ze stanowiska serwisowego']) if(!app.includes(marker)) throw Error(`Brak opisu zdjęć: ${marker}`);
+for(const marker of ['theme-630.css','scroll-navigation-630.js','/media/ram-ssd-installation.jpg','/media/motherboard-multimeter-test.jpg','/media/photo-sources-online.json']) if(!sw.includes(marker)) throw Error(`Service Worker nie buforuje ${marker}`);
+if(!sw.includes('caches.match(request, {ignoreSearch:true})')) throw Error('Service Worker nie znajduje wersjonowanych zasobów po cache bustingu.');
+if(!release.features.includes('fixed-always-visible-top-navigation')||!release.features.includes('real-workshop-photo-thumbnails-for-lessons-tools-methods-components-and-repairs')||!release.features.includes('online-first-topic-matched-real-photography-from-pexels')) throw Error('Brak funkcji FIX3 w release.json');
+console.log('PASS: fixed header, adaptive height, back-to-top, local-first photo library, online enhancement, SVG-free thumbnail engine, offline cache and release metadata.');

@@ -1,0 +1,38 @@
+TEST REPORT — NAPRAWA PC AKADEMIA SERWISU PRO 5.0.1
+NAVIGATION & SIDEBAR FIX
+
+ROOT CAUSE
+The app event initializer attempted to bind an event to the absent optional element #startDiagnosis without a null guard. That TypeError interrupted bindEvents(), so event handlers registered later (including the quick procedures list) were never attached.
+
+FIXES
+- Guarded event registration for optional elements so one missing control cannot abort the rest of bindEvents().
+- Added a capture-phase navigation fallback for #openAllRepairs and [data-open-repair].
+- Added public, guarded bridges ACADEMY_SHOW_VIEW and ACADEMY_OPEN_REPAIR.
+- The repairs route refreshes the list before display.
+- Added a mobile sidebar close button.
+- Aligned responsive breakpoint with the existing 900px mobile navigation breakpoint.
+- Made the sidebar sticky below the topbar on desktop, independently scrollable, and corrected its viewport height.
+- Quick repair titles wrap to two lines; full procedure button is visually prominent and keyboard accessible.
+- Updated the service worker cache and asset query versions to 5.0.1.
+- Both publication validation stages now verify the repaired controls and sidebar rules.
+
+AUTOMATED CHECKS
+PASS: node --check on all 47 JavaScript/MJS files.
+PASS: all JSON files parse.
+PASS: all CSS stylesheets parse using tinycss2; no CSS parse errors.
+PASS: 183 unique static HTML IDs; no duplicates.
+PASS: 48 local HTML asset references resolve.
+PASS: all seven quick procedure IDs exist in the Academy repair data.
+PASS: no direct unguarded addEventListener call remains for optional element selectors.
+PASS: delegated click simulation routes "Pokaż wszystkie naprawy" to the repairs view.
+PASS: delegated click simulation calls the repair bridge for FAULT-01.
+PASS: both ONECLICK_AKADEMIA.js and AUTO_PUBLISH_WATCHER.js check the navigation fix.
+PASS: version, release metadata, asset cache-busting and service-worker cache are aligned at 5.0.1.
+PASS: CMD/BAT files have no UTF-8 BOM and use CRLF line endings.
+PASS: ZIP integrity checked after packaging.
+
+LIMITATION
+A full browser UI automation run against localhost/file URLs was blocked by the current validation sandbox policy. The delegated navigation behavior was tested using a Node-based DOM simulation. Cloudflare production deployment was not performed from this environment; production must be verified after the local publisher is run.
+
+DATABASE
+No D1 migration was added for this navigation fix. Existing Pages project, database binding, data and local Cloudflare tools must be preserved when merging the update.

@@ -1,0 +1,27 @@
+{
+  "product": "NAUKA OD A DO Z — DLA WSZYSTKICH",
+  "productVersion": "6.8.0",
+  "hotfix": "FIX79",
+  "build": "6.8.0-fix79-pwa-cache-20261106",
+  "baseHotfix": "FIX78",
+  "serviceWorker": "WEB_PUBLISH/service-worker.js",
+  "cacheName": "nauka-od-a-do-z-6.8.0-fix79-pwa-cache-20261106",
+  "cacheEntries": 491,
+  "cacheMissingFiles": 0,
+  "cacheDuplicateExactUrls": 0,
+  "requiredSupportMedia": [
+    "/media/videos/akademia-dlaczego-warto-wspierac.mp4",
+    "/media/video_posters/akademia-wsparcie-poster.jpg",
+    "/media/videos/akademia-dlaczego-warto-wspierac.vtt"
+  ],
+  "testRunner": "scripts/run-tests-fix79.mjs",
+  "windowsRunner": "WYKONAJ_TESTY_FIX79.cmd",
+  "mainTestScripts": "34/34 PASS",
+  "serviceWorkerRegressionAssertions": "8/8 PASS",
+  "d1Migrations": [],
+  "openAiSecretChanged": false,
+  "cloudflareProjectChanged": false,
+  "productionDeploymentPerformed": false,
+  "testEnvironment": "Node.js v22.16.0, Linux container",
+  "windowsNode24Validation": "pending"
+}

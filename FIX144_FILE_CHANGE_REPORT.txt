@@ -1,0 +1,25 @@
+NAUKA OD A DO Z 6.8.0 — RAPORT ZMIAN FIX144
+
+ZMIENIONE PLIKI
+- WEB_PUBLISH/assets/photo-uniqueness-fix77.js — dodano lokalne zdjęcie HERO USB-C do allowlisty rastrów akceptowanych przez globalny audyt FIX77.
+- scripts/test-fix142-local-usbc-hero-photo.mjs — rozszerzono test o kontrolę allowlisty FIX77 (4/4).
+- scripts/test-fix144-hero-allowlist.mjs — nowy test regresyjny przyczyny zastępowania zdjęcia HERO fallbackiem (3/3).
+- scripts/run-tests-fix137.mjs — test FIX144 jest obowiązkową częścią preflightu publikacji.
+- ONECLICK_AKADEMIA.js — OneClick zatrzymuje publikację, jeśli lokalne zdjęcie HERO nie znajduje się na allowliście FIX77.
+- CHANGELOG_6.8.0_FIX144.txt, README_FIX144.txt, RAPORT_FIX144_TESTY.log — dokumentacja i raport.
+
+NIE ZMIENIONO
+- WEB_PUBLISH/index.html, CSS, układu strony, menu, kursów i pozostałych sekcji.
+- 19 przypisań zdjęć modułów i manifestu zdjęć.
+- lokalnego zdjęcia HERO ani jego fallbacku SVG.
+- wersji produktu 6.8.0, release.json, Service Workera i cache zdjęć.
+- konfiguracji Cloudflare, projektu Pages, bindingu D1, migracji, kont i sekretów.
+
+WYNIKI
+- FIX142 HERO PHOTO: 4/4 PASS.
+- FIX144 HERO ALLOWLIST: 3/3 PASS.
+- Pełny preflight FIX137 (w tym runtime FIX136, cache FIX137 i FIX144): STATUS PASS.
+- Integralność ZIP sprawdzona po spakowaniu.
+
+WDROŻENIE
+Poprawka jest przygotowana w ZIP. Publikacja produkcyjna nie została wykonana w tym środowisku; należy uruchomić dotychczasowy START_FIX105 na komputerze z zalogowanym kontem Cloudflare.

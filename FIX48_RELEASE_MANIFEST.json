@@ -1,0 +1,24 @@
+{
+  "product": "NAUKA OD A DO Z — DLA WSZYSTKICH",
+  "appVersion": "6.8.0",
+  "applicationBuild": "6.8.0-social-login-fix47-master-control-center-20261104",
+  "patch": "FIX48",
+  "patchName": "PUBLICATION_GUARD_TDZ_HOTFIX",
+  "scope": "Auto-Publish Watcher / OneClick preflight only",
+  "rootCause": "swCacheName was referenced by the FIX47 release guard before its const declaration in verifyLocalRelease().",
+  "fix": "Parse CACHE_NAME immediately after reading service-worker.js; require a regression test in the watcher and OneClick preflight.",
+  "tests": {
+    "syntax": {"passed": 197, "total": 197},
+    "regression": {"passed": 73, "total": 73},
+    "localVerifyWeb": "PASS"
+  },
+  "testEnvironment": {"node": "v22.16.0", "targetWindowsNode": "v24.19.0 (not tested in this session)"},
+  "production": {
+    "cloudflarePagesDeploy": false,
+    "d1Backup": false,
+    "d1Migration": false,
+    "d1Writes": false,
+    "secretChanges": false
+  },
+  "preserves": ["All FIX47 project files", "Existing app build ID", "Existing D1 binding and migrations", "Existing OpenAI secret configuration"]
+}

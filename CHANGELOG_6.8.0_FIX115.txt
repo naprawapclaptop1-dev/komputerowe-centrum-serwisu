@@ -1,0 +1,42 @@
+NAUKA OD A DO Z — CHANGELOG
+Produkt: 6.8.0
+Poprawka: FIX115
+Data: 2026-11-09
+
+1. ŚCISŁA WERYFIKACJA FOTOGRAFII
+- Dodano blokadę materiałów niebędących fotografiami: diagramów, schematów, flowchartów, infografik, screenshotów, plakatów, ikon, clip-art i grafik wektorowych.
+- Certyfikacja/szkolenia wymagają jednocześnie kontekstu edukacyjnego, osób oraz rzeczywistego sprzętu komputerowego lub elektronicznego.
+- Dodano kontrolę tematu dla dokładnego docelowego slotu, w tym kursów oraz sześciu specjalizacji.
+- Kontrola odbywa się przed przydziałem zdjęcia i ponownie bezpośrednio przed wyświetleniem.
+
+2. MIGRACJA STARYCH PRZYPISAŃ
+- Dodano nowy magazyn przypisań academyPhotoCatalogAssignmentsFix115.
+- Przywracane przypisania FIX111/FIX109/FIX108 są ponownie sprawdzane pod kątem typu medium, kategorii, slotu, licencji i unikalności.
+- Nieprawidłowe przypisania są zwalniane, a zarezerwowane zdjęcie startowe wraca do właściwego kafelka.
+- Zachowano wspólny dzienny licznik dostawców; nie resetowano limitu Openverse.
+
+3. UKŁAD „SPECJALIZACJE SERWISOWE PRO”
+- Dodano home-specialist-photo-layout-fix115.css.
+- Zdjęcia mają ograniczone wymiary, object-fit: cover, overflow hidden i nie mogą rozszerzać się poza kartę.
+- Dodano ograniczenia szerokości kart, tekstów i responsywnego układu 3/2/1 kolumny.
+- Nowy arkusz jest ładowany po wcześniejszych arkuszach zdjęć i znajduje się w CORE Service Workera.
+
+4. PUBLIKACJA I METADANE
+- OneClick i Auto-Watcher sprawdzają kontrakt FIX115.
+- release.json i manifest zdjęć deklarują spójny runtime FIX115 oraz nowy namespace przypisań.
+- Zachowano wersję produktu 6.8.0 i nazwę istniejącej bazy D1.
+- Zachowano znany cache PWA FIX109, bez wymuszania pełnego resetu offline.
+- Nie dodano migracji SQL ani nowej bazy.
+
+5. TESTY
+- 37/37 kuratorowanych źródeł startowych przechodzi nową politykę zdjęć.
+- 21/21 slotów strony głównej ma unikalne, tematycznie przypisane zdjęcie startowe.
+- Przykładowe diagramy/flowcharty/schematy są odrzucane jako fotografie.
+- OneClick: 50/50 testów aktywnego preflight.
+- Auto-Watcher: 52/52 testów aktywnego preflight.
+- Pełny raport znajduje się w FIX115_FULL_TESTS.log.
+
+OGRANICZENIA
+- Nie wykonano publikacji Cloudflare Pages w ramach budowania tej paczki.
+- Nie wykonano wizualnej weryfikacji strony na docelowym Windows/Chrome po wdrożeniu.
+- Jeżeli legalne i tematycznie zgodne zdjęcie nie jest dostępne, pozostaje podpisana ilustracja techniczna; nie jest ona liczona jako fotografia.

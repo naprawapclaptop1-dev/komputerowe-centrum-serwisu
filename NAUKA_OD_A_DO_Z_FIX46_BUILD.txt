@@ -1,0 +1,8 @@
+NAUKA OD A DO Z 6.8.0 FIX46
+Build: 6.8.0-social-login-fix47-master-control-center-20261104
+Typ: hotfix strażników publikacji
+Poprawka: case-insensitive FIX44 local runtime contract
+Testy: 70/70 PASS; składnia: 193/193 PASS
+Produkcja: nie wdrożono
+D1: bez zmian; bez migracji
+OpenAI secret: bez zmian

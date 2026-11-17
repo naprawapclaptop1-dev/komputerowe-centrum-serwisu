@@ -1,0 +1,32 @@
+NAUKA OD A DO Z 6.8.0 — AUDYT WDROŻENIA FIX220–FIX228
+
+ZAKRES KODU
+- FIX220: skrypt smoke po wdrożeniu; wymaga NAUKA_SMOKE_URL i działa wyłącznie na jawnie wskazanym środowisku.
+- FIX221: state API z expectedRevision, tokenem zapisu i warunkowym D1 batch; konflikt 409 zachowuje stan lokalny. Migracja 0021.
+- FIX222: CRUD administratora dla dodatkowych pytań, migracja 0022, wbudowane 50 pytań zachowane i mieszane z pytaniami custom w losowaniu serwerowym.
+- FIX223: raport bezpieczeństwa konta wyklucza dane sekretne.
+- FIX224: PowerShell monitor dostępnych namespace'ów WMI; wymaga dostawcy sensorów w docelowym Windows.
+- FIX225: parser GLB 2.0: jeden bufor BIN, lokalny import bez fetch, geometria trójkątna, limity wielkości i hierarchii; nie pełna zgodność glTF/CAD.
+- FIX226: menedżer Hyper-V z kontrolą vNIC/usług integracji/Secure Boot/dysków/punktu kontrolnego; audyt nie gwarantuje absolutnej izolacji.
+- FIX227: link weryfikacyjny dla certyfikatów; bez QR.
+- FIX228: agregaty administracyjne bez zwracania indywidualnych danych.
+
+WERYFIKACJA LOKALNA
+- Testy JS kontraktowe i parsera GLB (8/8, w tym cykle i indeksy poza buforem).
+- Składnia JavaScript/Node.
+- Migracje 0021 i 0022 w lokalnym SQLite (`scripts/test-fix221-222-migrations.py`).
+- Test rewizji CAS: pierwszy zapis przechodzi, stara rewizja jest odrzucana.
+- Kontrola sumy i integralności archiwum.
+
+NIEZWERYFIKOWANE ŚRODOWISKA ZEWNĘTRZNE
+- Cloudflare Pages production, produkcyjne migracje D1 i live smoke.
+- Prawdziwe logowanie u pięciu dostawców OAuth.
+- Windows z providerem sensorów i odczytem czujników.
+- Hyper-V na fizycznym hoście docelowym.
+
+CACHE
+- Nie zmieniono CACHE_NAME nauka-6.8.0-fix176-global-academy-rescue-and-master-launch-20261115.
+- Nie zmieniono PHOTO_CACHE_NAME academy-photo-library-fix135.
+- Nie utworzono nowej bazy D1.
+
+FIX229: cache-busting zasobu weryfikacji certyfikatów w HTML i PWA; OneClick oraz Auto-Watcher kontrolują zgodność wersji. Produkcyjny deploy pozostaje niezweryfikowany.

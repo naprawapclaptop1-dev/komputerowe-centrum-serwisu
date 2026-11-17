@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const publisher = fs.readFileSync(path.join(root, 'ONECLICK_AKADEMIA.js'), 'utf8');
+const accountApi = fs.readFileSync(path.join(root, 'functions/api/session.js'), 'utf8');
+const sessionManagementApi = fs.readFileSync(path.join(root, 'functions/api/auth/sessions.js'), 'utf8');
+assert.ok(accountApi.includes('accountSchemaStatus'));
+assert.ok(accountApi.includes("validateEmailAndPassword(body, 'login')"));
+assert.ok(accountApi.includes("validateEmailAndPassword(body, 'register')"));
+assert.ok(sessionManagementApi.includes('onRequestDelete'));
+assert.ok(publisher.includes("const accountLoginApi = path.join(FUNCTIONS,'api','session.js')"));
+assert.ok(publisher.includes('const accountSessionRuntime = fs.readFileSync(accountLoginApi'));
+assert.ok(publisher.includes("const sessionApi = path.join(FUNCTIONS,'api','auth','sessions.js')"));
+console.log('PASS: publikator sprawdza rejestrację/logowanie w functions/api/session.js.');
+console.log('PASS: zarządzanie aktywnymi sesjami nadal jest osobno sprawdzane w functions/api/auth/sessions.js.');

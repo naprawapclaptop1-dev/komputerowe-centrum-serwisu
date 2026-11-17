@@ -1,0 +1,46 @@
+NAUKA OD A DO Z — CHANGELOG 6.4.0 FIX15
+ULTIMATE SERVICE ACADEMY
+============================================================
+
+NOWE FUNKCJE
+
+- Dodano osobny widok Laboratoria PRO z podnawigacją.
+- Dodano cztery prowadzone scenariusze diagnostyki PCB i zasilania.
+- Dodano lokalny, tylko-do-odczytu inspektor BIOS/UEFI: SHA-256, znaczniki,
+  porównanie bajtowe i kopia źródłowego pliku.
+- Dodano analizę nagłówków obrazów dysków z rozpoznawaniem MBR/GPT.
+- Dodano analizator tekstowych logów Windows i wzorców BSOD.
+- Dodano porównywarkę ręcznie wprowadzanych parametrów kompatybilności.
+- Dodano kalkulator IPv4/CIDR i checklistę diagnostyki sieci.
+- Dodano 12-punktową listę kontroli jakości po naprawie.
+- Dodano generator kontekstu dla istniejącego Repair Master AI.
+- Dodano lokalną bibliotekę dokumentów IndexedDB z limitem typów i rozmiaru.
+- Dodano 10 egzaminów specjalistycznych po 4 pytania z wyjaśnieniami.
+- Dodano lokalny eksport/import rekordów nowych laboratoriów.
+- Dodano bezpieczny podgląd statyczny na 127.0.0.1:8765; API/POST są
+  odcięte, a skrypt obsługuje lokalne pliki i żądania Range dla wideo.
+
+ZGODNOŚĆ I OCHRONA
+
+- Zachowano wcześniejsze moduły FIX12, FIX13 i FIX14 oraz 1060 lekcji.
+- Zaktualizowano metadane wydania do 6.4.0 FIX15.
+- Zaktualizowano service worker i cache PWA; nazwa cache zawiera zarówno
+  nową rewizję FIX15, jak i historyczny identyfikator FIX9 potrzebny
+  starszym testom zgodności.
+- Zaktualizowano lokalną bramkę publikacji i watcher o sprawdzenie nowego
+  skryptu, CSS i wymaganych elementów interfejsu.
+- Nie przywrócono publicznych formularzy zleceń serwisowych.
+- Nie dodano skanowania sieci, dostępu do fizycznych dysków, programowania
+  BIOS ani automatycznego sterowania urządzeniami.
+- Nie zmieniono produkcyjnej bazy D1 i nie wykonano publikacji.
+
+WYNIKI TESTÓW
+
+- 19/19 skryptów testowych PASS.
+- 90 plików JavaScript przechodzi node --check.
+- 33 pliki CSS przechodzą parser PostCSS.
+- 546 identyfikatorów HTML, bez duplikatów.
+- 95 lokalnych odwołań HTML, bez brakujących plików.
+- Test E2E Chromium i testy na fizycznym sprzęcie nie zostały wykonane.
+
+Build: 6.4.0-ultimate-service-academy-fix15-20261102

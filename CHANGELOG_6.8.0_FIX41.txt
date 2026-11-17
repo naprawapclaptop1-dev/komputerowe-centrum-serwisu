@@ -1,0 +1,35 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 FIX41
+======================================
+Data przygotowania: 2026-11-04
+
+DODANO
+- Akademię Serwisanta PRO jako 11-częściowy panel w istniejącym Centrum Nauki.
+- Konfigurator PC: kontrola socketu, płyty, generacji RAM, GPU i budżetu PSU.
+- Fault Generator PRO: losowe przypadki diagnostyczne, procedury, odpowiedzi,
+  wyjaśnienia i punktację.
+- Atlas płyty EDU z Board ID, rewizją, wyborem komponentu i warstwy.
+- Symulator pomiarów edukacyjnych z napięciem, rezystancją, ciągłością,
+  przebiegiem oscyloskopu i modelem zasilacza.
+- Blokadę ćwiczeń rezystancji/ciągłości przy stanie obwodu oznaczonym jako zasilony.
+- Repair Challenge z limitem czasu i progiem zaliczenia.
+- Checklistę BIOS/UEFI tylko do odczytu.
+- Trenera SMD/BGA z listą kontroli procesu.
+- Knowledge Center z wyszukiwaniem lokalnych lekcji, usterek, metod, komponentów
+  i modeli.
+- Nauczyciela lokalnego z przygotowaniem kontekstu i ręcznym przekazaniem do czatu.
+- Centrum postępów ucznia, XP, poziom i historię nowej aktywności.
+- Zapis stanu FIX41 z limitami kolekcji oraz normalizacją odczytywanych danych.
+- Osobny test regresji Akademii Serwisanta oraz skrypt WYKONAJ_TESTY_FIX41.cmd.
+
+ZINTEGROWANO
+- Bez usuwania wcześniejszych widoków połączono skróty do PCB 3D, schematów,
+  laboratorium elektroniki, BIOS, kursów, egzaminów, komponentów i raportów.
+- Zaktualizowano numer kompilacji w HTML, release.json i API statusu.
+- Zaktualizowano cache Service Workera o nowe pliki JS/CSS i identyfikator FIX41.
+- Rozszerzono wymagania One-click publisher i Auto Publish Watcher.
+- Zachowano historyczne kontrakty FIX40 i wcześniejsze funkcje.
+
+BEZ ZMIAN
+- Wersja produktu pozostaje 6.8.0.
+- Nie usunięto plików z FIX40.
+- Nie wykonano wdrożenia produkcyjnego ani migracji D1.

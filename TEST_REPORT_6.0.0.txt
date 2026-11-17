@@ -1,0 +1,20 @@
+TEST REPORT — AKADEMIA SERWISU PRO 6.0.0
+
+ZALICZONE KONTROLE LOKALNE:
+- 1000 lekcji w ACADEMY_DATA po załadowaniu wszystkich pakietów; 200 nowych ID ULTIMATE-001..200; 1000 unikalnych ID.
+- Lokalny Repair Master: tryb free-local-library, testowe zapytanie zwróciło 4 źródła i odpowiedź.
+- Katalog urządzeń: 33 producentów.
+- HTML: 310 identyfikatorów, brak duplikatów.
+- Wszystkie 24 odwołania skryptów i lokalne odwołania HTML: bez brakujących plików.
+- CSS 6.0.0: 142 reguły, 0 błędów parsera.
+- ONECLICK_AKADEMIA.js verifyWeb: PASS.
+- AUTO_PUBLISH_WATCHER.js verifyLocalRelease: PASS.
+- JavaScript głównych modułów: node --check PASS.
+- Service Worker zawiera zasoby 6.0.0.
+- Brak nowych migracji SQL.
+
+NIE WYKONANO:
+- Nie uruchomiono publikacji Cloudflare w tej sesji.
+- Nie wykonano testu e2e na produkcyjnym koncie ani testu rejestracji na produkcyjnej bazie.
+- Panel administratora wymaga skonfigurowanego sekretu ADMIN_REVIEW_TOKEN.
+- Model PCB jest wizualizacją edukacyjną, nie dokładnym BoardView konkretnej płyty.

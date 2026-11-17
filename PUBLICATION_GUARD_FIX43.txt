@@ -1,0 +1,32 @@
+PUBLICATION GUARD — FIX43
+=========================
+Release: 6.8.0
+Build: 6.8.0-social-login-fix43-knowledge-feedback-20261104
+
+WYMAGANE ZASOBY
+- WEB_PUBLISH/assets/knowledge-suite-fix43.js
+- WEB_PUBLISH/assets/knowledge-suite-fix43.css
+- WEB_PUBLISH/index.html: #view-fix43 i #view-feedback
+- WEB_PUBLISH/service-worker.js: oba zasoby i namespace FIX43
+- functions/api/site-feedback.js
+- functions/api/admin/site-feedback.js
+- migrations/0017_site_feedback_fix43.sql
+- scripts/test-knowledge-suite-fix43.mjs
+- scripts/test-site-feedback-fix43-runtime.mjs
+
+BLOKADY
+- Build musi byc identyczny w HTML, release.json i functions/api/auth/status.js.
+- OneClick wymaga nowego runtime/CSS, kontraktow opinii i addytywnej migracji.
+- Watcher wymaga FIX43 w HTML oraz sprawdzenia zdalnego JS, CSS i Service Workera.
+- Brak zasobu, niezgodny build lub test regresji blokuje publikacje.
+- D1 kopia zapasowa musi powstac przed jakakolwiek migracja produkcyjna.
+- Endpoint opinii wymaga jawnej zgody i same-origin.
+- Skrzynka administratora wymaga checkAdmin.
+
+STATUS TEGO ARCHIWUM
+- Lokalny verifyWeb(): PASS.
+- 187 kontroli skladni: PASS.
+- 66/66 skryptow testowych: PASS.
+- Produkcyjny deploy: NIE WYKONANO.
+- Produkcyjna migracja D1 0017: NIE WYKONANO.
+- Nie ustawiono zadnych sekretow ani nie zmieniono bindingow produkcyjnych.

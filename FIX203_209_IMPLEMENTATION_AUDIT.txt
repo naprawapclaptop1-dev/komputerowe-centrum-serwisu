@@ -1,0 +1,51 @@
+NAUKA OD A DO Z 6.8.0 — AUDYT WDROŻENIA FIX203–FIX209
+=====================================================
+
+PODSTAWA
+- Pakiet wejściowy: NAUKA_OD_A_DO_Z_6_8_0_FIX202_KOMPLET.zip.
+- Wersja produktu nie została zwiększona: 6.8.0.
+- Zachowano istniejący projekt Pages, nazwę historycznego cache PWA, binding DB, wcześniejsze dane, logowanie e-mail/hasło, 2FA i dostawców OAuth Google/Microsoft/Facebook/GitHub/Discord. X nadal jest wyłączony.
+- Nie tworzono nowej bazy D1 ani nowego głównego widoku platformy.
+
+FIX203 — KLASA ONLINE
+- Rzeczywiste endpointy /api/classroom zapisują zdarzenia membership i attendance w istniejącym academy_events.
+- Nauczyciel widzi członków z kodu zaproszenia, także bez przekazanych zadań. Uczeń widzi tylko swój zakres danych. Zapis obecności jest tylko dla właściciela klasy.
+- Ograniczenie migracyjne: członkowie starych klas nie mają automatycznie odtworzonych eventów membership; ponowne użycie kodu zaproszenia zapisuje członkostwo.
+
+FIX204 — D1 CHUNK SYNC
+- Addytywna migracja 0018 tworzy academy_user_state_chunks; tabela istniejąca academy_user_state pozostaje dla małych wpisów.
+- Synchronizacja front-end ma nadal 16 aktywnych kluczy, do 360 000 znaków na klucz w 12 porcjach po 30 000 znaków.
+- JSON jest składany i walidowany przed batchem D1. Eksport i usuwanie konta obejmują porcje.
+- Migracja pliku SQL jest w pakiecie, ale nie została zastosowana do produkcyjnego D1 w tej sesji.
+
+FIX205 — OCENA MIGAWKI SPRZĘTOWEJ
+- Funkcja czysto regułowa analizuje wybrane HealthStatus dysków i zdarzenia WHEA / Disk / Storage / NVMe / Display.
+- Brak danych jest jawny; nie ma syntetycznych temperatur i automatycznego wyniku zdrowia.
+- Nie jest to antywirus, live monitoring, pełny SMART parser ani certyfikowana diagnoza.
+
+FIX206 — WEBGL
+- Scena istniejącej geometrii polygonów renderuje się przez WebGL2 (GLSL ES 3.00) lub WebGL1 (GLSL ES 1.00); pozostaje Canvas 2D jako fallback, gdy WebGL nie jest dostępny.
+- Testy sprawdzają shader paths i geometrię. To nadal edukacyjny model wielokątowy, nie model CAD/producenta.
+
+FIX207 — HYPER-V / STATIC TRIAGE
+- Dodano odczytowy audyt konfiguracji VM, który weryfikuje jej stan, sieć, usługi integracji, VHDX, Secure Boot, checkpoint i brak automatycznego startu.
+- Bramka startu FIX200 ponownie sprawdza kilka kluczowych ustawień przed uruchomieniem.
+- Statyczna analiza pliku liczy SHA-256, sprawdza Authenticode, Zone.Identifier i nagłówek. Nie wykonuje i nie wysyła pliku, nie wydaje werdyktu malware.
+- PowerShell i Hyper-V nie zostały uruchomione na rzeczywistym Windows w tej sesji.
+
+FIX208 — EXAM SERVER SIDE
+- Addytywna migracja 0019 tworzy academy_exam_attempts i academy_certificates.
+- Serwer losuje 10 z 20 pytań, zapisuje klucz w D1, zwraca przeglądarce pytania bez odpowiedzi, przydziela 20 minut i ocenia z progiem 70%.
+- Przesłanie score przez klienta jest odrzucone. Stare certyfikaty są prezentowane jako legacy / niezweryfikowane przez nowy egzamin.
+- Migracja nie została zastosowana do produkcyjnego D1 w tej sesji.
+
+FIX209 — ADMIN HEALTH
+- Nowy endpoint i panel chronione istniejącym ADMIN_REVIEW_TOKEN.
+- Odczyt statusu D1, tabel, obecności GEMINI_API_KEY i par Client ID/Secret dla pięciu dostawców OAuth.
+- Odpowiedź nie zawiera sekretów ani danych kont. Endpoint nie raportuje statusu ostatniego deployu i nie wykonuje deployu.
+
+WYNIKI I OGRANICZENIA
+- Testy JavaScript i kontraktowe uruchamiane są przez scripts/run-tests-fix209.mjs.
+- Testy PowerShell/Hyper-V są statycznymi testami zawartości plików, nie wykonaniem na Windows.
+- Testy OAuth są regresją lokalną; nie przeprowadzono logowań z realnymi Client ID/Secret.
+- Nie wykonano publikacji Cloudflare i nie zastosowano migracji D1 produkcyjnie. Publikator powinien wykonać kopię DB i zastosować migracje addytywne przed deployem.

@@ -1,0 +1,54 @@
+NAUKA OD A DO Z 6.8.0 — FIX28
+AUDYT JAKOŚCI, KATALOGU I CENTRUM PRAKTYKI
+Data: 2026-11-03
+
+ZAKRES FIX28
+- Zachowano wersję aplikacji 6.8.0; nowy build: 6.8.0-social-login-fix28-quality-audit-20261103.
+- Zaktualizowano wspólny identyfikator wydania w release.json, HTML, API status, publikatorze, watcherze i Service Workerze.
+- Dodano osobny test integralności pełnego katalogu 1060 lekcji.
+- Dodano wersjonowanie cache FIX28 dla wszystkich siedmiu skryptów danych lekcji.
+- Usunięto stare etykiety testowe sugerujące, że bieżące wydanie nadal jest FIX19B/FIX25.
+- Historyczne pliki WYKONAJ_TESTY_FIX*.cmd przekierowują do jednego aktualnego runnera FIX28; URUCHOM_NAUKE_OD_A_DO_Z.cmd jest aliasem URUCHOM_AKADEMIE.cmd.
+- Ujednolicono metadane liczby plików składniowych JavaScript/MJS/CJS z raportem audytu (133).
+
+NAPRAWA POWTÓRZEŃ W KATALOGU
+- Rozróżniono 10 kolidujących tytułów PL; nie usuwano żadnej lekcji ani identyfikatora.
+- Rozróżniono 4 kolidujące tytuły EN.
+- Zastąpiono 53 identyczne polskie sekwencje procedur treścią dopasowaną do konkretnej lekcji (wcześniejsza poprawka katalogu zachowana w FIX28).
+- Zastąpiono 414 powielonych angielskich sekwencji kroków treścią kontekstową dla danego tematu.
+- Spersonalizowano 3551 powtarzających się pojedynczych kroków PL i 1936 kroków EN, dodając nazwę tematu i numer kroku.
+- Zindywidualizowano 200 powielonych bloków weryfikacji oraz 200 powielonych bloków diagnozy.
+- Naprawiono powielone pola symptomsEn/bodyEn w zestawach LATEST/PRO31.
+- Zachowano wspólne ostrzeżenia BHP, ponieważ ta sama zasada bezpieczeństwa powinna być powtarzana w różnych lekcjach.
+- Powtórzenia tytułów między różnymi kolekcjami (lekcje, tematy, artykuły i podręcznik) pozostają celowymi odwołaniami do tego samego zagadnienia na różnych poziomach nauki.
+
+CENTRUM PRAKTYKI PRO — ZACHOWANE I UTWARDZONE
+- 10 zakładek praktycznych, 8 elementów PCB, 5 scenariuszy napraw, 6 ścieżek specjalistycznych i 36 lekcji.
+- Dodano brakujący egzamin MacBook i zachowano egzamin bazowy PCB.
+- Walidacja importu/eksportu JSON, bezpieczne identyfikatory, daty, wyniki i statusy instruktora.
+- Ochrona CSV przed formułami arkusza.
+- Pomiary rezystancji/ciągłości wymagają jawnego stanu odłączenia zasilania.
+- Biblioteka lokalnych PDF/PNG/JPEG/WEBP z limitem rozmiaru i walidacją metadanych.
+- AI Mentor nie wysyła treści automatycznie; użytkownik ręcznie wysyła przygotowany kontekst.
+
+ZACHOWANE OGRANICZENIA
+- Nie dodano Google Drive, OneDrive, Dropbox ani automatycznego uploadu.
+- Kopia D1 przed migracją pozostaje częścią publikatora Cloudflare.
+- Schematics Center nie parsuje natywnych .brd/.fz; obsługuje PDF i obrazy.
+- Virtual Electronics Bench to zestaw kalkulatorów edukacyjnych, nie pełny silnik SPICE.
+- Studio instruktora jest lokalne, bez systemu wieloużytkownikowego.
+- Tłumaczenie EN jest niepełne: 709/1060 lekcji ma co najmniej cztery kroki EN; brakujące treści bezpiecznie wracają do polskiej treści.
+- FIX28 nie został opublikowany na Cloudflare.
+
+TESTY
+- 43/43 skryptów testowych PASS.
+- 133 pliki JS/MJS/CJS bez błędów składni.
+- 37 arkuszy CSS przechodzi kontrolę strukturalną.
+- 648 unikalnych identyfikatorów HTML.
+- 101 lokalnych odwołań src/href/poster; 0 brakujących.
+- 175 nagłówków i 198 długich akapitów HTML bez powtórzeń.
+- Katalog: 1060 lekcji; 0 duplikatów ID/tytułów PL/EN, 0 identycznych pełnych sekwencji steps/stepsEn, 0 powtórzonych diagnoz i procedur weryfikacji.
+- ZIP CRC sprawdzany po utworzeniu archiwum.
+
+STATUS
+Lokalnie przetestowane. Nie wykonano wdrożenia, migracji ani zmian w produkcyjnej bazie D1 w ramach FIX28.

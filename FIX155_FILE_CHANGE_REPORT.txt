@@ -1,0 +1,50 @@
+RAPORT ZMIAN PLIKÓW — FIX155
+Punkt odniesienia: NAUKA_OD_A_DO_Z_6_8_0_FIX150_NAPRAWA_PUBLIKATORA_PELNY.zip
+Wersja produktu: 6.8.0
+
+PODSUMOWANIE PORÓWNANIA
+- Pliki w bazowym FIX150: 2013
+- Pliki w katalogu FIX155: 2023 (przed dodaniem tego raportu i manifestu; liczba archiwalna rośnie o te dokumenty)
+- Nowe pliki funkcjonalne/dokumentacyjne/testowe wykryte względem FIX150: 10
+- Zmienione pliki istniejące względem FIX150: 16
+- Usunięte pliki: 0
+
+NOWE PLIKI
+- CHANGELOG_6.8.0_FIX155.txt
+- README_FIX155.txt
+- FIX155_MODULES_HTML.txt
+- WEB_PUBLISH/assets/academy-practical-core-fix155.js
+- WEB_PUBLISH/assets/academy-practical-suite-fix155.js
+- WEB_PUBLISH/assets/academy-practical-suite-fix155.css
+- scripts/test-fix155-practical-suite.mjs
+- scripts/run-tests-fix155.mjs
+- WYKONAJ_TESTY_FIX155.cmd
+- RAPORT_FIX155_TESTY.log
+
+ZMIENIONE PLIKI
+- WEB_PUBLISH/index.html — osiem nowych paneli w istniejącym #view-academypro; 35 widoków zachowanych.
+- WEB_PUBLISH/release.json — aktywny FIX155, metadane modułów i cache aplikacji; wersja produktu 6.8.0.
+- WEB_PUBLISH/service-worker.js — pre-cache nowych assetów i cache aplikacji FIX155; osobny cache zdjęć FIX135 zachowany.
+- ONECLICK_AKADEMIA.js — walidacja lokalnych zasobów/kontraktów FIX155 i pełny preflight.
+- AUTO_PUBLISH_WATCHER.js — walidacja lokalnych i zdalnych zasobów FIX155.
+- scripts/photo-catalog-publication-contract-fix115.cjs — zgodność kontraktu katalogu zdjęć z aktywnym runtime.
+- scripts/test-fix136-release-integration.mjs — dostosowanie kontraktu integracyjnego do bieżącego wydania.
+- scripts/test-fix136-top-photo-priority-and-home-preservation.mjs — test zachowania HOME i nowego cache.
+- scripts/test-fix147-publisher-lesson-count.mjs — zachowanie historycznego kontraktu 1083 lekcji przy runtime FIX155.
+- scripts/test-fix148-master-technician-suite.mjs — regresja FIX148 pod aktywnym FIX155.
+- scripts/test-fix149-advanced-training.mjs — regresja FIX149 i nowy cache FIX155.
+- scripts/test-fix150-publisher-release-scope.mjs — regresja poprawki zakresu zmiennej publikatora.
+- scripts/test-pages-function-residue-fix133.mjs — sprawdzenie preflight FIX155 i zachowania wcześniejszej ochrony.
+- scripts/test-portable-sha256-fix127.mjs — sprawdzenie uruchamiania wspólnego runnera FIX155.
+- scripts/test-publisher-photo-cache-guard-fix137.mjs — akceptacja cache aplikacji FIX155 i zachowanie cache zdjęć FIX135.
+- RAPORT_FIX136_TESTY.log — odświeżony raport bazowej integracji w ramach uruchomienia regresji.
+
+ZACHOWANE KONTRAKTY
+- 35 widoków, 1083 lekcje i 19 pozycji katalogu zdjęć.
+- Widok główny HOME oraz osobny cache zdjęć academy-photo-library-fix135.
+- Produkt 6.8.0.
+- Istniejący projekt Pages naprawa-pc-akademia-serwisu-pro i baza D1 naprawapc-orders.
+- Bez nowych tras, baz D1, migracji, sekretów i zmian kont/OAuth.
+
+UWAGA O TESTACH
+Wykonano pełny zestaw lokalny zakończony STATUS: PASS oraz kontrolę struktury HTML (967 unikalnych ID, bez duplikatów). Nie oznacza to zdalnej publikacji ani pełnego testu interakcji w prawdziwej przeglądarce.

@@ -1,0 +1,61 @@
+RAPORT TESTÓW — NAUKA OD A DO Z 6.8.0 FIX36
+===========================================
+Build: 6.8.0-social-login-fix36-support-community-center-20261104
+Data przygotowania: 2026-11-04
+
+WYNIK GŁÓWNY
+------------
+54 skrypty testowe / 54 PASS / 0 FAIL.
+Pełny log: TEST_LOG_6.8.0_FIX36.txt
+
+NOWE TESTY FIX36
+----------------
+scripts/test-support-community-fix36.mjs
+- kontrakt sześciu addytywnych tabel D1;
+- propozycje, status moderacji, głosy i cofnięcie głosu;
+- zgoda i odwołanie publicznego podziękowania;
+- koszty z dowodem HTTPS;
+- szkice i publikowanie ogłoszeń;
+- licznik nieprzeczytanych;
+- elementy HTML, CSS, PWA, publisher i watcher.
+
+scripts/test-support-community-runtime-fix36.mjs
+- wykonuje migracje 0001–0016 na prawdziwej lokalnej SQLite;
+- weryfikuje, że propozycja pozostaje prywatna do moderacji;
+- moderator zatwierdza pomysł, konto głosuje i cofa głos;
+- przypadek serwisowy trafia do istniejącej kolejki wiedzy jako pending;
+- API mine=1 pokazuje własne zgłoszenia, a anonimowy dostęp jest odrzucany;
+- podziękowanie wymaga wyraźnej zgody i można je usunąć;
+- koszt szkicowy nie jest publiczny; HTTP dowodu jest odrzucane, HTTPS pozwala
+  opublikować pozycję;
+- ogłoszenie pozostaje szkicem do publikacji, po publikacji jest nieprzeczytane,
+  a następnie można oznaczyć je jako przeczytane;
+- obcy Origin i błędny token administratora są odrzucane.
+
+KONTROLE STATYCZNE
+------------------
+JavaScript / MJS / CJS: 164 pliki, 0 błędów node --check.
+CSS: 40 plików, 0 błędów tinycss2.
+HTML: 704 ID, 704 unikalne, 0 duplikatów.
+Lokalne odwołania HTML: 127 sprawdzonych, 0 brakujących.
+Widoki: 26 odrębnych ekranów, zakładka wsparcia ma osobne granice.
+Lokalny ONECLICK verifyWeb(): PASS; rozpoznano 1060 lekcji i 12 kart
+Diagnostyki.
+Service Worker: oba nowe zasoby CSS/JS i nowy namespace cache uwzględnione.
+
+PORÓWNANIE Z FIX35
+------------------
+Bazowy ZIP FIX35: 666 wpisów.
+Pliki bazowe brakujące w FIX36: 0.
+Nowe pliki źródłowe/projektowe: 13.
+Zmienione istniejące pliki: 32.
+Usunięte pliki: 0.
+
+ŚRODOWISKO I OGRANICZENIA
+-------------------------
+Node.js v22.16.0 w środowisku przygotowania.
+SQLite runtime test: lokalna baza in-memory; nie jest to produkcyjna D1.
+Nie wykonano testu E2E w prawdziwej przeglądarce.
+Nie wykonano publikacji Cloudflare.
+Nie wykonano migracji 0016 na produkcyjnej bazie.
+Node.js v24.19.0 na komputerze użytkownika nie był dostępny do uruchomienia.

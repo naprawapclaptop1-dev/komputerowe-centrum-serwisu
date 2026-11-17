@@ -1,0 +1,249 @@
+{
+  "version": "6.8.0-fix51",
+  "build": "6.8.0-fix51-visual-academy-pro-20261105",
+  "assets": [
+    {
+      "id": "01-motherboard-map",
+      "title": "Mapa płyty głównej ATX / laptop",
+      "category": "board",
+      "description": "Rozpoznawanie stref płyty: CPU, RAM, VRM, PCIe, M.2, chipset i I/O.",
+      "src": "assets/artwork-fix51/01-motherboard-map.svg",
+      "keywords": [
+        "płyta główna",
+        "motherboard",
+        "boardview",
+        "cpu",
+        "ram"
+      ]
+    },
+    {
+      "id": "02-power-vrm",
+      "title": "Sekcja zasilania VRM — blok funkcjonalny",
+      "category": "power",
+      "description": "Przepływ energii i rola zabezpieczeń, MOSFET-ów, kontrolera PWM, cewek i szyn.",
+      "src": "assets/artwork-fix51/02-power-vrm.svg",
+      "keywords": [
+        "vrm",
+        "zasilanie",
+        "mosfet",
+        "cewka",
+        "przetwornica"
+      ]
+    },
+    {
+      "id": "03-laptop-exploded",
+      "title": "Laptop — widok warstwowy i podzespoły",
+      "category": "laptop",
+      "description": "Schemat warstwowy obudowy, matrycy, płyty, chłodzenia, baterii, SSD i zawiasów.",
+      "src": "assets/artwork-fix51/03-laptop-exploded.svg",
+      "keywords": [
+        "laptop",
+        "demontaż",
+        "exploded",
+        "zawiasy"
+      ]
+    },
+    {
+      "id": "04-ram-ddr4-ddr5",
+      "title": "RAM DDR4 i DDR5 — porównanie",
+      "category": "ram",
+      "description": "Różnice generacji, napięć nominalnych i architektury modułów pamięci.",
+      "src": "assets/artwork-fix51/04-ram-ddr4-ddr5.svg",
+      "keywords": [
+        "ram",
+        "ddr4",
+        "ddr5",
+        "pamięć"
+      ]
+    },
+    {
+      "id": "05-ssd-sata-nvme",
+      "title": "SATA, M.2 i NVMe — mapa pojęć",
+      "category": "storage",
+      "description": "Rozdzielenie formatu M.2, interfejsu SATA i protokołu NVMe.",
+      "src": "assets/artwork-fix51/05-ssd-sata-nvme.svg",
+      "keywords": [
+        "ssd",
+        "nvme",
+        "sata",
+        "m2",
+        "dysk"
+      ]
+    },
+    {
+      "id": "06-multimeter-guide",
+      "title": "Multimetr cyfrowy — porty i funkcje",
+      "category": "meter",
+      "description": "Rozmieszczenie portów COM, V/Ω i podstawowych trybów pomiarowych.",
+      "src": "assets/artwork-fix51/06-multimeter-guide.svg",
+      "keywords": [
+        "multimetr",
+        "pomiar",
+        "rezystancja",
+        "napięcie"
+      ]
+    },
+    {
+      "id": "07-oscilloscope-guide",
+      "title": "Oscyloskop — przebieg i skale",
+      "category": "meter",
+      "description": "Siatka przebiegu, amplituda, podstawa czasu i wyzwalanie.",
+      "src": "assets/artwork-fix51/07-oscilloscope-guide.svg",
+      "keywords": [
+        "oscyloskop",
+        "sygnał",
+        "pomiar"
+      ]
+    },
+    {
+      "id": "08-cooling-flow",
+      "title": "Układ chłodzenia — przepływ energii",
+      "category": "cooling",
+      "description": "Droga ciepła od CPU/GPU przez pastę, heatpipe i radiator do strumienia powietrza.",
+      "src": "assets/artwork-fix51/08-cooling-flow.svg",
+      "keywords": [
+        "chłodzenie",
+        "fan",
+        "temperatura",
+        "heatpipe"
+      ]
+    },
+    {
+      "id": "09-display-chain",
+      "title": "Tor obrazu laptopa — eDP i podświetlenie",
+      "category": "display",
+      "description": "Zależności między GPU, taśmą eDP, panelem LCD, zawiasem i zasilaniem LED.",
+      "src": "assets/artwork-fix51/09-display-chain.svg",
+      "keywords": [
+        "matryca",
+        "ekran",
+        "edp",
+        "display",
+        "zawias"
+      ]
+    },
+    {
+      "id": "10-bios-boot",
+      "title": "BIOS / UEFI — sekwencja rozruchu",
+      "category": "board",
+      "description": "Uproszczony przepływ zasilania, EC, SPI firmware, POST i bootloadera.",
+      "src": "assets/artwork-fix51/10-bios-boot.svg",
+      "keywords": [
+        "bios",
+        "uefi",
+        "spi",
+        "boot"
+      ]
+    },
+    {
+      "id": "11-usbc-pd",
+      "title": "USB-C Power Delivery — negocjacja",
+      "category": "port",
+      "description": "Ogólny schemat Source/Sink, linie CC, profile PDO/PPS i zabezpieczenia.",
+      "src": "assets/artwork-fix51/11-usbc-pd.svg",
+      "keywords": [
+        "usb-c",
+        "power delivery",
+        "pd",
+        "port"
+      ]
+    },
+    {
+      "id": "12-esd-safety",
+      "title": "Stanowisko ESD i bezpieczna praca",
+      "category": "safety",
+      "description": "Przygotowanie stanowiska, opaska i mata ESD, odłączenie zasilania i ochrona części.",
+      "src": "assets/artwork-fix51/12-esd-safety.svg",
+      "keywords": [
+        "esd",
+        "bezpieczeństwo",
+        "bhp"
+      ]
+    },
+    {
+      "id": "13-gpu-layout",
+      "title": "Karta graficzna — GPU, VRAM i VRM",
+      "category": "gpu",
+      "description": "Poglądowa mapa głównych bloków GPU, pamięci VRAM, sekcji zasilania i chłodzenia.",
+      "src": "assets/artwork-fix51/13-gpu-layout.svg",
+      "keywords": [
+        "gpu",
+        "vram",
+        "grafika",
+        "karta graficzna"
+      ]
+    },
+    {
+      "id": "14-smart-drive",
+      "title": "Diagnostyka dysku — SMART i powierzchnia",
+      "category": "storage",
+      "description": "Kolejność zabezpieczenia danych, odczytu SMART i bezpiecznych testów nośnika.",
+      "src": "assets/artwork-fix51/14-smart-drive.svg",
+      "keywords": [
+        "smart",
+        "dysk",
+        "hdd",
+        "ssd",
+        "odzyskiwanie danych"
+      ]
+    },
+    {
+      "id": "15-wifi-network",
+      "title": "Sieć Wi-Fi — ścieżka diagnostyczna",
+      "category": "network",
+      "description": "Rozdzielenie problemów operatora, routera, pasma radiowego, sterownika i klienta.",
+      "src": "assets/artwork-fix51/15-wifi-network.svg",
+      "keywords": [
+        "wifi",
+        "router",
+        "sieć",
+        "network",
+        "ethernet"
+      ]
+    },
+    {
+      "id": "16-diagnostic-flow",
+      "title": "Diagnostyka krok po kroku — metoda",
+      "category": "diagnostics",
+      "description": "Metodyczne przejście od objawu przez wywiad i pomiary do testu potwierdzającego.",
+      "src": "assets/artwork-fix51/16-diagnostic-flow.svg",
+      "keywords": [
+        "diagnostyka",
+        "procedura",
+        "flow",
+        "usterka"
+      ]
+    },
+    {
+      "id": "17-audio-circuit",
+      "title": "Tor audio — wejście, kodek i wyjście",
+      "category": "audio",
+      "description": "Uproszczony tor wejściowy i wyjściowy dźwięku w laptopie.",
+      "src": "assets/artwork-fix51/17-audio-circuit.svg",
+      "keywords": [
+        "audio",
+        "dźwięk",
+        "kodek",
+        "speaker"
+      ]
+    },
+    {
+      "id": "18-connector-pinout",
+      "title": "Złącza i grupy sygnałów — schemat",
+      "category": "port",
+      "description": "Poglądowa ilustracja grup sygnałów zasilania, danych i konfiguracji złącza.",
+      "src": "assets/artwork-fix51/18-connector-pinout.svg",
+      "keywords": [
+        "usb",
+        "złącze",
+        "pinout",
+        "port"
+      ]
+    }
+  ],
+  "notes": [
+    "Ilustracje są autorskimi schematami edukacyjnymi SVG.",
+    "Oznaczenia są poglądowe; nie zastępują dokumentacji serwisowej dla konkretnego modelu i rewizji.",
+    "Nie są schematami producentów ani rzeczywistymi boardview."
+  ]
+}

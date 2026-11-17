@@ -1,0 +1,2 @@
+NAPRAWA PC — AKADEMIA SERWISU PRO 3.9.3
+Pełna przebudowa ramy aplikacji i układu nawigacji zgodna z referencją użytkownika.

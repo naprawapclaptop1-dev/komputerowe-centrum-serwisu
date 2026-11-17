@@ -1,0 +1,33 @@
+NAUKA OD A DO Z — DLA WSZYSTKICH
+CHANGELOG FIX128
+Data: 2026-11-11
+Produkt: 6.8.0 (bez zmiany wersji produktu)
+
+PRZYCZYNA
+FIX127 pomyślnie przechodził lokalne kontrole, ale końcowa walidacja stałego adresu produkcyjnego zgłaszała remoteGlobalAcademyFix77Valid=false. Watcher nadal oczekiwał starego fotograficznego układu strony FIX77 (13 foto-slotów/data-photo-unique), mimo że FIX122/FIX123 zastąpiły stronę główną 36 lokalnymi ilustracjami SVG i wprowadziły globalny zakaz widocznych ludzi i dłoni.
+
+NAPRAWY
+1. Usunięto zależność zdalnej walidacji od historycznych 13 fotografii strony głównej.
+2. Zachowano sprawdzanie zgodności Global Academy: 19 modułów pulpitu, 6 rozszerzeń oraz 203 unikalne ilustracje SVG lekcji.
+3. Dodano zdalny test manifestu i runtime FIX122: dokładnie 36 unikalnych lokalnych SVG, zgodne identyfikatory i ścieżki, data-photo-ignore=true, data-photo-eligible=false i kontrola dostępności wszystkich zasobów.
+4. Dodano zdalny test FIX123: peopleVisible=false, handsVisible=false, wyłączone zewnętrzne źródła fotografii oraz wyłączony cache zdjęć.
+5. Połączono te kontrole w remoteSitewideTechVisualsValid i dodano je do warunku powodzenia końcowej weryfikacji Watchera.
+6. OneClick i Watcher uruchamiają scripts/test-watcher-live-tech-visual-contract-fix128.mjs przed publikacją.
+7. Zachowano zgodność historycznego prefiksu nagłówka Watchera wymaganego przez FIX86 i dodano FIX128 do release.json publicationGuard.
+8. Zaktualizowano metadane wydania i dokumentację. Service Worker pozostaje na cache FIX127, ponieważ FIX128 nie zmienia klientowych zasobów JS/CSS/mediów.
+
+ZACHOWANO
+- Nazwę NAUKA OD A DO Z — DLA WSZYSTKICH.
+- Wersję produktu 6.8.0.
+- Aktualną politykę bez osób i dłoni FIX123 oraz 36 ilustracji SVG FIX122.
+- 203 ilustracje lekcji i sześć rozszerzeń Global Academy.
+- Stały projekt Cloudflare Pages, binding i istniejącą bazę D1.
+- Sekrety OpenAI/Cloudflare, lokalną konfigurację Wrangler, konta i dane użytkowników.
+- Film FIX127, napisy VTT, transkrypcję i cache PWA FIX127.
+
+TESTY
+- FIX128 regression suite: 29/29 PASS.
+- OneClick/Watcher preflight: 64/64 unikalne skrypty PASS.
+- Test FIX128 zdalnego kontraktu technicznych grafik: 8/8 PASS.
+- Kontrola składni obu publikatorów: PASS.
+- Nie wykonywano produkcyjnej publikacji ani migracji D1 w ramach budowania FIX128.

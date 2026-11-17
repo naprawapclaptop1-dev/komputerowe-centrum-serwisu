@@ -1,0 +1,21 @@
+{
+  "release": "4.2.0",
+  "build": "4.2.0-workshop-lab-20261101",
+  "name": "Akademia Serwisu PRO — Laboratorium serwisowe",
+  "default_view": "home",
+  "preserves_existing_pages_project": true,
+  "preserves_existing_d1_binding": true,
+  "destructive_database_migrations": false,
+  "new_features": [
+    "workshop-laboratory-homepage",
+    "motherboard-and-pcb-repair-paths",
+    "smd-bga-soldering-path",
+    "gpu-vram-vrm-repair-path",
+    "cpu-socket-lga-repair-path",
+    "power-short-circuit-diagnostics-path",
+    "laptop-repair-path",
+    "interactive-component-search-shortcuts",
+    "workshop-tools-stations",
+    "industrial-workshop-application-theme"
+  ]
+}

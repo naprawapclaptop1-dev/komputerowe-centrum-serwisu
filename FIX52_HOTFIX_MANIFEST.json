@@ -1,0 +1,31 @@
+{
+  "product": "NAUKA OD A DO Z — DLA WSZYSTKICH",
+  "productVersion": "6.8.0",
+  "baseRelease": "FIX51 VISUAL ACADEMY PRO",
+  "hotfix": "FIX52",
+  "kind": "preflight-test-hotfix",
+  "runtimeBuildUnchanged": "6.8.0-fix51-visual-academy-pro-20261105",
+  "productionPublished": false,
+  "d1MigrationExecuted": false,
+  "changes": [
+    "Corrected test string from localne plakaty lekcji to lokalne plakaty lekcji",
+    "Verified runtime poster paths against the release manifest",
+    "Moved publicContract declaration before its first assertion",
+    "Corrected visual asset count in documentation to 33",
+    "Updated legacy runner consistency test to validate FIX52 wrapper forwarding to current FIX51 runner"
+  ],
+  "verification": {
+    "nodeRuntime": "v22.16.0",
+    "syntax": "221/221 PASS",
+    "javascriptTests": "28/28 PASS",
+    "moduleTests": "53/53 PASS",
+    "regression": "81/81 PASS",
+    "visualAcademy": "7/7 PASS",
+    "releaseContract": "PASS",
+    "previewServer": "PASS",
+    "securityAudit": "243 files; 0 critical; 0 high",
+    "migrationAudit": "17 SQL files; 2 require manual review; none executed",
+    "windowsNode2419": "pending user environment",
+    "chromeEdgeGui": "pending manual verification"
+  }
+}

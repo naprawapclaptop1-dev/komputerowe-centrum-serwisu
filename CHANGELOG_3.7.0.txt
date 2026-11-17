@@ -1,0 +1,30 @@
+AKADEMIA SERWISU PRO 3.7.0 — LISTA ZMIAN
+Data: 31.10.2026
+
+NOWE / POPRAWIONE
+[GRAPHICS] Każdy rekord lekcji, karty naprawy, narzędzia, metody, komponentu i filmu ma unikalną ilustrację SVG generowaną deterministycznie z ID i tematu. Nie są już wielokrotnie wykorzystywane te same 5–6 zdjęć jako miniatury.
+[GRAPHICS] Galeria zawiera 12 różnych rzeczywistych zdjęć; sześć powielonych kadrów usunięto; miniatury w katalogach mają indywidualne motywy sprzętowe.
+[CHAT] Dodano bezpłatny lokalny asystent wiedzy — bez płatnego API, klucza, tokenu modelu ani abonamentu.
+[CHAT] Wyszukiwanie obejmuje lokalne karty usterek, 409 lekcji, materiały od podstaw, tematy, artykuły, podręcznik, checklisty, narzędzia serwisowe, metody, komponenty i słownik (2829 rekordów).
+[CHAT] Odpowiedzi prezentują dopasowane materiały, objawy, możliwe przyczyny, kroki diagnostyczne, rozwiązania i ostrzeżenia. Pokazują źródła w Akademii, które można otworzyć bezpośrednio.
+[CHAT] Kontekst ostatnich wiadomości w obrębie rozmowy; rozmowy lokalne zapisują się w przeglądarce. Po dobrowolnej zgodzie importer może synchronizować je do istniejącej bazy.
+[CHAT] Asystent jawnie opisuje ograniczenia: to wyszukiwanie i porządkowanie wiedzy, nie generatywny LLM, nie potwierdzona diagnoza i nie automatyczne przeszukiwanie całego Internetu.
+[PRIVACY] Prywatne rozmowy nie są używane do treningu modelu. Wspólna wiedza wymaga praw, licencji i moderacji.
+[AUTO] Auto-publisher działa w trybie statycznym, jeśli brak lokalnego wrangler.jsonc: wdraża wyłącznie WEB_PUBLISH do istniejącego projektu Pages. Nie tworzy bazy ani nowego projektu.
+[AUTO] Jeśli istniejący wrangler.jsonc jest obecny, watcher zachowuje tryb pełny i monitoruje funkcje API. Nie nadpisuje konfiguracji użytkownika.
+
+ZACHOWANE Z POPRZEDNICH WYDAŃ
+- Stały projekt naprawa-pc-akademia-serwisu-pro, konto 4ddfc3803a4f0c4457ccae083f18b975, gałąź main i domena naprawa-pc-akademia-serwisu-pro.pages.dev.
+- Biblioteka, katalog, encyklopedia, multimedia, statystyki lokalne, prawa i moderacja.
+- Brak odnośników do panelu Cloudflare w interfejsie użytkownika.
+
+OGRANICZENIA
+- Tryb lokalny jest bezpłatny i działa bez serwera, ale nie ma zdolności generatywnego LLM; dobiera i porządkuje istniejące materiały.
+- Globalna synchronizacja, konta i wiedza społeczności wymagają działających Pages Functions i istniejącej konfiguracji D1. Gdy wrangler.jsonc nie ma, działa bezpieczny tryb statyczny i chat lokalny.
+- Żadne odpowiedzi czatu nie są automatycznie dodawane do wspólnej bazy. Zgłoszenia użytkowników wymagają osobnej zgody i moderacji.
+
+[MEDIA] Okładki 10 filmów są generowane oddzielnie dla każdego filmu; nie współdzielą tych samych teł zdjęciowych.
+[CHAT] Wyłączono nieużywany endpoint serwerowego modelu; czat jest lokalny i bezpłatny.
+
+[PRIVACY] Panel praw i prywatności zaktualizowano do modelu lokalnego czatu; pytania nie opuszczają przeglądarki.
+[CHAT] Usunięto z pakietu opcjonalny konfigurator AI Search, ponieważ bezpłatny czat nie wymaga zewnętrznego indeksu ani płatnej usługi.

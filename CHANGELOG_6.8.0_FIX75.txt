@@ -1,0 +1,32 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 FIX75
+Data: 2026-11-06
+Wersja produktu: 6.8.0 (bez zmiany numeru produktu)
+
+FIX75 — ZDJĘCIA W KAŻDYM KAFELKU I SPECJALIZACJE AKADEMII
+- Uzupełniono wszystkie 13 głównych kafelków na stronie głównej o 13 różnych lokalnych obrazów JPG — 12 fotografii warsztatowych i 1 fotorealistyczna wizualizacja AI.
+- Wykorzystano 12 istniejących zdjęć lokalnych oraz jedną nową fotorealistyczną wizualizację AI stanowiska hot-air, zapisaną w WEB_PUBLISH/media i oznaczoną jako AI.
+- Usunięto z siatki głównej 10 grafik SVG pełniących rolę miniaturek; ilustracje techniczne nadal pozostają wewnątrz lekcji i atlasów.
+- Dodano sześć ścieżek specjalistycznych: naprawa laptopów, BIOS/UEFI, dyski i odzyskiwanie danych, Windows 7–11, sieci/routery oraz CPU/GPU/RAM. Skróty prowadzą do istniejących widoków aplikacji.
+- Rozszerzono Visual Academy o 13. obraz (12 fotografii i 1 wizualizację AI) oraz powiększanie galerii (lightbox), podpisy, licznik, klawisze Escape/strzałek oraz powrót fokusu.
+- Dodano responsywny układ specjalizacji i galerii dla telefonów i komputerów.
+- Rozszerzono pakiet offline Global Academy o FIX75 oraz wszystkie 13 zdjęć głównych kafelków.
+- Zmieniono klucz cache Service Workera, dodano pre-cache CSS/JS/manifestu FIX75 i nowego zdjęcia.
+- Dodano kontrolę FIX75 do OneClick i AUTO_PUBLISH_WATCHER; watcher sprawdza także nowe zasoby po publikacji.
+- Dodano test regresyjny 8/8 PASS, runner WYKONAJ_TESTY_FIX75.cmd (cały zestaw 24/24 PASS), podgląd PODGLAD_FIX75.cmd, manifest, raport i log.
+
+ZACHOWANO
+- D1, migracje SQL, dane użytkowników, dotychczasową konfigurację Wrangler oraz sekret OPENAI_API_KEY — bez zmian.
+- Numer produktu 6.8.0. Nie dodano migracji.
+- Dotychczasowe moduły, lekcje, schematy i ilustracje techniczne.
+
+STATUS
+- Wdrożenie produkcyjne nie zostało wykonane w ramach przygotowania FIX75.
+- Testy lokalne uruchomiono w środowisku Node.js kontenera; wymagane jest uruchomienie runnera na Windows Node.js 24.19.0 i sprawdzenie Chrome/Edge.
+
+FIX76 — POPRAWKA BRAMKI ZDJĘĆ PUBLIKACJI (2026-11-06)
+- Naprawiono historyczną kontrolę FIX39 w ONECLICK_AKADEMIA.js, która oczekiwała 22 globalnie unikalnych obrazów.
+- Zachowano 22 sloty zdjęciowe, 6 różnych zdjęć pokazu slajdów i 13 różnych zdjęć 13 głównych modułów.
+- Unikalność jest sprawdzana osobno dla pokazu slajdów i kart; ponowne użycie obrazu pomiędzy sekcjami strony jest dozwolone.
+- Dodano test regresyjny FIX76 do OneClick oraz AUTO_PUBLISH_WATCHER.
+- Dodano WYKONAJ_TESTY_FIX76.cmd i raport FIX76.
+- Wersja produktu 6.8.0 bez zmian; D1, migracje, sekret OpenAI i konfiguracja Wrangler bez zmian.

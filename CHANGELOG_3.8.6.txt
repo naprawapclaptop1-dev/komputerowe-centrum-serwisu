@@ -1,0 +1,11 @@
+NAPRAWA PC — AKADEMIA SERWISU PRO 3.8.6
+
+- Usunięto wszystkie pytania interaktywne o numer i zgodę na wybór D1.
+- Automatyczne rozpoznawanie preferowanej bazy po UUID wybranym wcześniej przez użytkownika.
+- Weryfikacja sygnatur tabel learning_* lub academy_*; blokada przy wielu kandydatach albo braku pewnej bazy.
+- Automatyczne dopisanie bindingu DB do lokalnego pliku Wrangler z kopią .bak.
+- Automatyczny pełny eksport D1 do BACKUPS_D1 przed migracjami; brak poprawnej kopii blokuje migracje.
+- Kontrola WEB_PUBLISH i Pages Functions przed zmianami w bazie.
+- Migracje wykonywane bez pytań w trybie CI; istniejące tabele pozostają.
+- Obserwator i publikacja Wrangler działają bez interaktywnych promptów.
+- Zachowano zasadę: bez losowego wyboru, bez tworzenia nowej bazy i bez nowego projektu Pages.

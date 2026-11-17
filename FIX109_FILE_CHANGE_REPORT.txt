@@ -1,0 +1,24 @@
+FIX109 — RAPORT PLIKÓW I ZAKRESU
+
+Główne pliki runtime/publikacji:
+- WEB_PUBLISH/assets/photo-catalog-fix109.js — globalna kolejka fotografii,
+  retry dostawców i rozszerzone rozpoznawanie slotów.
+- WEB_PUBLISH/assets/photo-catalog-fix109.css — style statusów/zdjęć FIX109.
+- WEB_PUBLISH/index.html — odwołania do runtime i CSS FIX109.
+- WEB_PUBLISH/media/photo-sources-online.json — polityka pełnego katalogu,
+  metadane providerów, selektory, zakres kolejkowania.
+- WEB_PUBLISH/release.json — metadane wydania i bramki FIX109.
+- WEB_PUBLISH/service-worker.js — cache PWA FIX109.
+- ONECLICK_AKADEMIA.js — weryfikacja release/runtime/manifestu FIX109.
+- AUTO_PUBLISH_WATCHER.js — kontrola i zdalna weryfikacja zasobów FIX109.
+
+Testy:
+- scripts/test-oneclick-release-scope-fix109.mjs
+- scripts/test-photo-provider-recovery-fix109.mjs
+- scripts/test-full-catalog-photo-queue-fix109.mjs
+- scripts/run-tests-fix109.mjs
+- skorygowane asercje testów historycznych, aby weryfikowały aktualny
+  build tag i wspólną politykę pełnej kolejki.
+
+Szczegółowe wyniki znajdują się w FIX109_FULL_TESTS.log.
+Status produkcji: NIE OPUBLIKOWANO (productionPublished=false).

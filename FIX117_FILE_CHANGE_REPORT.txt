@@ -1,0 +1,32 @@
+NAUKA OD A DO Z 6.8.0 — RAPORT ZMIAN FIX117
+
+Główna przyczyna
+FIX116 ustawiało src zdjęcia i podpis w DOM, ale nie rejestrowało kompletnego rekordu w mapie assignments silnika katalogu. Kiedy uruchamiała się kolejka FIX115, slot nadal wyglądał na nieprzypisany. Jeżeli wyszukiwanie dostawcy nie zwróciło nowego wyniku, runtime mógł przywrócić SVG fallback mimo prawidłowego zdjęcia ustawionego przez bootstrap.
+
+Zmiana naprawcza
+1. Bootstrap `WEB_PUBLISH/assets/homepage-photo-prime-fix116.js` eksportuje kompletne rekordy 21 zdjęć wraz z seedId, providerId, URL, stroną źródłową, autorem, licencją, kategorią i metadanymi tematu.
+2. `WEB_PUBLISH/assets/photo-catalog-fix115.js` rewaliduje rekordy i rejestruje je w `assignments`, `assignmentState` oraz globalnej rezerwacji identyfikatorów, źródeł i adresów. Rejestracja następuje przed uruchomieniem kolejki.
+3. Kolejka sprawdza istniejące przypisanie i wykorzystuje je przed ponownym wyszukiwaniem lub przywróceniem SVG.
+4. `WEB_PUBLISH/index.html`, `service-worker.js`, `release.json` i `media/photo-sources-online.json` wskazują aktywny FIX117. Cache PWA FIX109 pozostaje bez resetu.
+5. `ONECLICK_AKADEMIA.js` oraz `AUTO_PUBLISH_WATCHER.js` blokują publikację, jeżeli bootstrap nie dostarcza 21 rekordów lub katalog nie importuje i nie zapisuje ich w Mapie przypisań.
+6. Dodano test `scripts/test-homepage-photo-prime-registration-fix117.mjs`, który sprawdza 21 rejestracji, trwały stan, rezerwację unikalności i pięć kart nadal pokazywanych jako SVG.
+
+Zakres zachowany
+- Produkt: 6.8.0 (bez zmiany numeru produktu).
+- Istniejący projekt Cloudflare Pages.
+- Istniejąca baza D1 i binding.
+- Bez nowych migracji SQL.
+- Bez resetu kont, postępów nauki ani danych użytkownika.
+- Bez resetu cache PWA FIX109.
+- Limit Openverse 180 zapytań dziennie i niezależny fallback Wikimedia.
+- Zasada licencji, autorów, źródeł oraz globalnej unikalności zdjęć.
+- SVG pozostaje oznaczoną ilustracją awaryjną dla faktycznego błędu/braku fotografii.
+
+Wynik testów w środowisku roboczym Node.js v22.16.0
+- Pełny preflight: 54/54 testy PASS.
+- Składnia JavaScript: 6/6 PASS.
+- Manifesty JSON: 2/2 PASS.
+- Test rejestracji zdjęć: 21/21 rekordów.
+- Test integracyjny strony: 6/6 PASS.
+
+Nie wykonano publikacji produkcyjnej, nie wykonano migracji D1 i nie przeprowadzono końcowego testu wizualnego w przeglądarce użytkownika. Wersja Node w środowisku testowym to v22.16.0; lokalny system użytkownika korzysta z v26.13.0 i powinien uruchomić WYKONAJ_TESTY_FIX117.cmd przed publikacją.

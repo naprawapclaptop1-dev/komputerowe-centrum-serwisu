@@ -1,0 +1,27 @@
+AKADEMIA SERWISU PRO 3.9.10 — GRAFICZNE WKLEJANIE KLUCZA OPENAI
+================================================================
+
+Nie wklejaj klucza do czarnego okna CMD.
+
+Pierwsze uruchomienie:
+1. Uruchom URUCHOM_AKADEMIE.cmd.
+2. Jeśli sekret OPENAI_API_KEY nie istnieje, program otworzy lokalne okno przeglądarki.
+3. Kliknij pole „Klucz API OpenAI” i wklej Ctrl+V.
+4. Kliknij „Zapisz klucz w Cloudflare”.
+5. Poczekaj na komunikat „Gotowe”. CMD przejdzie do publikacji.
+
+Jeżeli chcesz wymienić istniejący klucz:
+1. Uruchom USTAW_KLUCZ_OPENAI.cmd.
+2. Otworzy się to samo lokalne okno i możesz wkleić nowy klucz Ctrl+V.
+3. Po zapisaniu CMD uruchomi standardową procedurę Akademii.
+
+Bezpieczeństwo:
+- formularz działa lokalnie wyłącznie pod adresem 127.0.0.1 na losowym porcie;
+- klucz nie jest umieszczany w URL, plikach projektu ani logach;
+- klucz trafia do Wrangler przez stdin i jest zapisywany jako Cloudflare Pages Secret OPENAI_API_KEY w środowisku production;
+- archiwum nie zawiera klucza;
+- nie wysyłaj klucza w wiadomości ani zrzucie ekranu.
+
+Jeśli przeglądarka nie otworzy się automatycznie, adres formularza pojawi się w CMD. Skopiuj ten lokalny adres do paska przeglądarki na tym samym komputerze.
+
+Wymagania: Node.js, istniejące logowanie Wrangler do właściwego konta Cloudflare oraz zachowany katalog TOOLS_CLOUDFLARE z lokalnym Wrangler.

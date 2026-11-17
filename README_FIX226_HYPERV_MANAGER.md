@@ -1,0 +1,3 @@
+# FIX226 — zarządzanie istniejącym laboratorium Hyper-V
+
+`ZARZADZANIE_LABORATORIUM_FIX226.cmd` domyślnie wykonuje wyłącznie audyt. Skrypt PowerShell oferuje audyt, zatrzymanie, punkt kontrolny, przywrócenie punktu bazowego, eksport i start wybranej maszyny. Operacje modyfikujące środowisko wymagają administratora, używają `ShouldProcess` i wymagają potwierdzenia. Przed startem skrypt sprawdza brak vNIC, wyłączone usługi integracji, Secure Boot, pliki dysków i punkt bazowy. To narzędzie administracji Hyper-V, a nie gwarancja pełnej izolacji ani certyfikowany sandbox malware. Test docelowy wymaga Windows/Hyper-V.

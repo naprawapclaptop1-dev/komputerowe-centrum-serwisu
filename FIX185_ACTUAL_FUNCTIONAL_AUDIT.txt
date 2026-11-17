@@ -1,0 +1,8 @@
+AUDYT FAKTYCZNEGO DZIAŁANIA FIX185
+Zweryfikowano HTML, CSS, JS, Service Worker, release.json, OneClick i Auto Publish Watcher.
+Uruchomiono rzeczywisty runtime FIX185 w deterministycznym, kontrolowanym DOM.
+Sprawdzono 20 lekcji, 60 pytań, notatki, quiz, 15 scenariuszy przypadków, checklisty 10 projektów, egzamin 20-pytaniowy, 40 haseł słownika oraz 8 narzędzi ETW/AER/Storage/PCB/Firmware/wave/random/evidence.
+Zweryfikowano zapisy historii narzędzi, raport Before/After, idempotencję punktów egzaminu i normalizację niepoprawnych danych localStorage.
+Postępy FIX179–FIX184 zachowano bajt w bajt; FIX185 używa oddzielnego klucza localStorage.
+Runtime nie wykonuje poleceń, nie wykonuje fetch, nie komunikuje się z urządzeniami, dyskami ani firmware.
+Wynik: PASS w środowisku testowym. To nie potwierdza publikacji online ani pomiarów rzeczywistego sprzętu.

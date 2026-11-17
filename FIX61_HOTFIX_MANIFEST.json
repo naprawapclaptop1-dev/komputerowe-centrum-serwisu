@@ -1,0 +1,97 @@
+{
+  "product": "NAUKA OD A DO Z — DLA WSZYSTKICH",
+  "productVersion": "6.8.0",
+  "applicationBuild": "6.8.0-fix51-visual-academy-pro-20261105",
+  "hotfix": "FIX61_VIEW_GUARD_HOTFIX",
+  "base": "FIX54–FIX60_GLOBAL_ACADEMY_PRO",
+  "date": "2026-11-05",
+  "rootCause": "Stary strażnik wymagał dokładnie 33 widoków; nowa zakładka #view-globalacademy rozszerzyła prawidłowy układ do 34.",
+  "viewContract": {
+    "legacyViewsPreserved": 33,
+    "approvedExtensionViews": [
+      "view-globalacademy"
+    ],
+    "expectedTotalViews": 34,
+    "allIdsUnique": true,
+    "navigationRequired": "data-view=\"globalacademy\""
+  },
+  "changes": [
+    "scripts/support-view-guard-fix35.js",
+    "scripts/test-support-view-guard-fix35.js",
+    "scripts/test-support-page-expansion-fix35.js",
+    "scripts/test-support-community-fix36.mjs",
+    "scripts/test-view-count-fix61.mjs",
+    "ONECLICK_AKADEMIA.js",
+    "AUTO_PUBLISH_WATCHER.js",
+    "WYKONAJ_TESTY_FIX60.cmd",
+    "WYKONAJ_TESTY_FIX61.cmd",
+    "README_FIX61_VIEW_GUARD_HOTFIX.txt",
+    "CHANGELOG_6.8.0_FIX61.txt"
+  ],
+  "verification": {
+    "syntax": "228/228 PASS",
+    "testExecutions": "94/94 PASS",
+    "fix61ViewGuard": "5/5 PASS",
+    "securityAudit": {
+      "files": 251,
+      "critical": 0,
+      "high": 0
+    },
+    "visualAssetsHttp": "45/45 PASS",
+    "migrationAudit": {
+      "files": 17,
+      "manualReview": [
+        "0008_social_login_x_github.sql",
+        "0009_discord_social_login.sql"
+      ],
+      "sqlExecuted": false
+    }
+  },
+  "safety": {
+    "productionPublished": false,
+    "d1MigrationsExecuted": false,
+    "openaiSecretChanged": false,
+    "cloudflareProjectChanged": false,
+    "productVersionChanged": false
+  },
+  "runtime": {
+    "tested": "Node.js v22.16.0",
+    "targetUserRuntime": "Node.js v24.19.0 — pending local confirmation"
+  },
+  "views": [
+    "view-home",
+    "view-repairs",
+    "view-courses",
+    "view-knowledge",
+    "view-components",
+    "view-tools",
+    "view-methods",
+    "view-diagnostics",
+    "view-media",
+    "view-library",
+    "view-checklists",
+    "view-pdfsearch",
+    "view-online",
+    "view-cloudchat",
+    "view-community",
+    "view-account",
+    "view-support",
+    "view-legal",
+    "view-labplus",
+    "view-repairmaster",
+    "view-ultimate3d",
+    "view-admin",
+    "view-measurementpro",
+    "view-masterworkshop",
+    "view-modelcenter",
+    "view-practicepro",
+    "view-learnpro",
+    "view-fix43",
+    "view-feedback",
+    "view-fix44",
+    "view-fix45",
+    "view-fix47",
+    "view-fix49",
+    "view-globalacademy"
+  ]
+}

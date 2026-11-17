@@ -1,0 +1,33 @@
+NAUKA OD A DO Z — DLA WSZYSTKICH 6.2.0 FIX7
+NAPRAWA POWTARZANYCH ZDJEC I ROZBUDOWA AKADEMII
+
+CO ZMIENIONO
+1. Service Worker otrzymal nowa nazwe cache FIX7. Poprzedni cache FIX6 jest usuwany przy aktywacji nowej wersji. Rejestracja Service Workera korzysta z updateViaCache=none i wywoluje update(), aby stara wersja lesson-art.js nie pozostawala w przegladarce.
+2. Baza usterek uzywa dedykowanego silnika Openverse + Wikimedia Commons. Nie pobiera miniaturek z 12-elementowej puli Pexels do kart usterek.
+3. Kazdy identyfikator usterki ma do 3 zdjec w szczegolach i jedno zdjecie w liscie. Zdjecia sa rezerwowane globalnie, nie tylko w ramach jednej karty.
+4. Deduplikacja uwzglednia ID dostawcy, strone zrodlowa, znormalizowany URL miniatury, URL oryginalu i 64-bitowy difference hash obrazu. Kandydat, ktorego obrazu nie da sie zweryfikowac przez CORS, nie jest akceptowany.
+5. Licencje CC0, Public Domain Mark, CC BY, CC BY-SA i CC BY-ND sa dopuszczane; warianty NC sa odrzucane. Podpis fotografii pokazuje autora, strone zrodlowa i link licencji (jesli dostawca go przekazuje).
+6. Brak odpowiedniej fotografii pozostaje widocznym pustym slotem. System nie podmienia go zdjeciem z innej naprawy.
+7. Pobieranie jest progresywne. Po wejściu do Bazy usterek zostaw kartę otwartą, aby kolejka mogła pobierać materiały. Status pokazuje licznik. W razie przerwania użyj przycisku Wznów pobieranie zdjęć.
+8. Publiczne API i limity CORS/rate limitów dostawców mają wpływ na to, ile zdjęć będzie dostępnych w danym momencie. Paczka nie zawiera obietnicy, że 465 zdjęć pobierze się od razu w czasie instalacji.
+
+NOWE STUDIO PRAKTYCZNE PRO
+- 12 kart atlasu podzespolow i ukladow.
+- 12 interaktywnych przypadkow diagnostycznych.
+- Symulowany oscyloskop: przebieg, czestotliwosc, amplituda i offset.
+- Symulowany zasilacz: napiecie, limit pradu, obciazenie i moc.
+- Check-listy treningowe SMD/THT, BGA, socket LGA i BIOS/SPI/EC.
+- Lokalna analiza wlasnego zdjecia PCB: znaczniki i eksport notatek JSON.
+- Egzamin 10 pytan z puli, prog 80%, wynik lokalny bez akredytacji.
+
+BEZPIECZENSTWO I ZAKRES
+Symulatory nie steruja fizycznymi przyrzadami. Podglad UVC i interfejsy Web Serial/WebUSB z istniejacego laboratorium pozostaja ograniczone do zadeklarowanych mozliwosci. Platforma pozostaje edukacyjna; nie przywracano zgloszen ani kart zlecen serwisowych.
+
+TESTY
+Test unikalnych zdjec uruchamia symulowane odpowiedzi API i sprawdza 155 ID x 3 obrazy, w tym kandydatow o tym samym obrazie pod innym URL. Nie jest to test live-download z publicznego Openverse. Publikacja produkcyjna nie byla wykonana podczas budowania paczki.
+
+DODATKOWA KONTROLA PUBLIKACJI FIX7
+Watcher przed zaakceptowaniem stalego adresu pobiera opublikowane pliki lesson-art.js oraz advanced-learning-studio-620.js z parametrami bez cache i sprawdza znaczniki silnika dHash oraz funkcje studia. Stara strona HTML z nowym numerem wydania, ale starym skryptem JS nie zostanie uznana za poprawna. Test: scripts/test-fix7-published-assets.js.
+
+WYNIKI WALIDACJI PLIKU
+77 plikow JS/MJS sprawdzonych przez node --check; 367 ID HTML bez duplikatow; zero brakujacych lokalnych odwolан HTML; 27 arkuszy CSS bez bledow parsera. Szczegoly oraz ograniczenia testu fotografii opisuje TEST_REPORT_FIX7.txt.

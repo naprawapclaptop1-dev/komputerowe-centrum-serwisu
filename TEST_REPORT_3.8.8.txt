@@ -1,0 +1,11 @@
+TEST REPORT — AKADEMIA SERWISU PRO 3.8.8
+
+Kontrole statyczne:
+- app.js: składnia JavaScript sprawdzona przez node --check.
+- contentModal i toast przenoszone do BODY przed inicjalizacją interfejsu.
+- Modal otrzymuje klasę repair-procedure-modal wyłącznie dla procedur napraw.
+- Otwieranie i zamykanie dodaje/usuwa body.modal-open.
+- HTML zawiera theme-380.css i oznaczenie 3.8.8.
+- Konfiguracja Wrangler, migracje D1, funkcje Pages i dane Akademii nie zostały zmienione.
+
+Test produkcyjny Cloudflare nie jest wykonywany w tym wydaniu.

@@ -1,0 +1,32 @@
+# CHANGELOG — 6.8.0 FIX47
+
+## Dodano
+- Nowy niezależny widok Master Control Center z 10 obszarami roboczymi.
+- Audyt DOM/nawigacji/etykiet i ograniczony audyt zasobów samej witryny.
+- Kolejkę opinii administratora przez istniejące API FIX43, bez nowej migracji D1.
+- Katalog projektów praktycznych i lokalne wyniki ukończenia.
+- Wstępny kalkulator socket/RAM/PSU z marginesem 25% oraz komunikatami o niepełnych danych.
+- Lokalnego, regułowego Learning Coacha.
+- Lokalny rejestr zleceń bez pól danych osobowych klienta.
+- Indywidualne plany nauki i grupy szkoleniowe przechowujące wyłącznie liczebność.
+- Kontrolę metadanych wydania, cache PWA i zasobów.
+- Exportowalną checklistę Production Guardian.
+- Skrypt pełnych testów Windows oraz diagnostykę statusu kont.
+
+## Poprawiono
+- Odporność uruchomienia panelu przy zablokowanym `localStorage`.
+- Obsługę przycisku przejścia do skrzynki opinii.
+- Ograniczone równoległe sprawdzanie lokalnych assetów.
+- Kontrakt OneClick i Auto-Publish Watcher dla FIX47.
+- Nazwę cache PWA: aktualny prefiks FIX47, wymagane historyczne znaczniki FIX46–FIX28 i zachowane zasoby offline.
+- Historyczne testy build ID i 32-widokowego układu.
+
+## Zachowano
+- Wszystkie pliki źródłowe FIX46 (788 plików); niczego z bazy nie usunięto.
+- Wszystkie wcześniejsze moduły, zasoby i migracje.
+
+## Nie wykonano
+- Nie wdrożono do Cloudflare Pages.
+- Nie wykonano migracji ani zapisów do D1.
+- Nie zmieniano sekretu OPENAI_API_KEY.
+- Nie wykonano rollbacku ani testów fizycznego sprzętu.

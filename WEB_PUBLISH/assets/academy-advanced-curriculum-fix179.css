@@ -1,0 +1,72 @@
+/* FIX179 — Advanced expert curriculum, case studies, glossary and private notes. */
+.a179-shell{display:grid;gap:16px;margin-top:8px}
+.a179-intro{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding:17px;border:1px solid rgba(81,197,233,.28);border-radius:15px;background:linear-gradient(125deg,rgba(7,37,62,.95),rgba(8,26,48,.92));}
+.a179-intro h4{margin:5px 0 7px;color:#f2f9ff;font-size:18px}
+.a179-intro p{margin:0;max-width:850px;color:#a9c4db;font-size:11px;line-height:1.7}
+.a179-kpis{display:grid;grid-template-columns:repeat(2,minmax(110px,1fr));gap:8px;flex:0 0 240px}
+.a179-kpi{padding:10px;border:1px solid rgba(99,171,211,.2);border-radius:10px;background:rgba(4,19,36,.75);text-align:center}
+.a179-kpi b{display:block;color:#73dcfa;font-size:19px}
+.a179-kpi span{display:block;margin-top:3px;color:#91b2cb;font-size:9px}
+.a179-progress{height:9px;margin-top:12px;overflow:hidden;border:1px solid rgba(84,178,216,.2);border-radius:999px;background:#06182a}
+.a179-progress i{display:block;width:0;height:100%;border-radius:999px;background:linear-gradient(90deg,#13a8c8,#5fe2b3);transition:width .25s ease}
+.a179-status{min-height:18px;margin:5px 0 0;color:#80cde4;font-size:10px;line-height:1.5}
+.a179-filterbar{display:grid;grid-template-columns:minmax(190px,1.4fr) minmax(180px,1fr) minmax(150px,.8fr) auto;gap:9px;padding:12px;border:1px solid rgba(100,169,211,.19);border-radius:12px;background:rgba(5,22,39,.67)}
+.a179-filterbar label{display:grid;gap:5px;color:#b8d0e5;font-size:10px;font-weight:800}
+.a179-filterbar input,.a179-filterbar select{width:100%;min-width:0;padding:9px 10px;border:1px solid rgba(104,174,220,.3);border-radius:9px;background:#071b30;color:#e6f4ff;font:inherit;font-size:11px}
+.a179-main-grid{display:grid;grid-template-columns:minmax(245px,.72fr) minmax(0,1.65fr);gap:13px;align-items:start}
+.a179-lesson-grid{display:grid;gap:8px;max-height:790px;overflow:auto;padding-right:4px}
+.a179-lesson-card{display:grid;gap:6px;width:100%;padding:12px;border:1px solid rgba(102,170,212,.2);border-radius:11px;background:rgba(5,22,39,.8);color:#c8dced;text-align:left;cursor:pointer;transition:border-color .15s,background .15s}
+.a179-lesson-card:hover,.a179-lesson-card.active{border-color:rgba(74,207,239,.72);background:linear-gradient(130deg,rgba(10,65,93,.92),rgba(6,28,48,.94));}
+.a179-lesson-card strong{color:#f2f8ff;font-size:11px;line-height:1.45}
+.a179-lesson-card>span:not(.a179-lesson-meta){color:#a7c0d6;font-size:10px;line-height:1.55}
+.a179-lesson-card em{color:#72d7f0;font-size:9px;font-style:normal;font-weight:950;letter-spacing:.06em}
+.a179-lesson-meta{color:#70cce9;font-size:9px;font-weight:900;letter-spacing:.055em;text-transform:uppercase}
+.a179-detail{min-width:0;padding:16px;border:1px solid rgba(100,169,211,.22);border-radius:14px;background:linear-gradient(145deg,rgba(7,27,47,.92),rgba(8,34,56,.78))}
+.a179-detail-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}
+.a179-detail-head h4{margin:6px 0;color:#f2f9ff;font-size:19px;line-height:1.3}
+.a179-detail-head p{margin:0;color:#a9c4db;font-size:11px;line-height:1.65}
+.a179-lesson-status{flex:0 0 auto;padding:6px 8px;border:1px solid rgba(88,203,185,.24);border-radius:8px;background:rgba(9,76,65,.2);color:#81e1c5;font-size:8px;font-weight:950;letter-spacing:.06em}
+.a179-content-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(210px,.75fr);gap:13px}
+.a179-detail h5{margin:16px 0 8px;color:#83dff6;font-size:11px;font-weight:950;letter-spacing:.07em;text-transform:uppercase}
+.a179-detail section>h5:first-child{margin-top:4px}
+.a179-detail ul,.a179-detail ol{margin:0;padding-left:20px;color:#bfd2e3;font-size:11px;line-height:1.75}
+.a179-detail li{padding:2px 0}
+.a179-theory{margin:0 0 9px;color:#c4d7e8;font-size:11px;line-height:1.75}
+.a179-cautions{padding:11px 12px 11px 29px;border:1px solid rgba(231,176,99,.23);border-radius:10px;background:rgba(92,61,16,.16);color:#decda9!important}
+.a179-note-box{align-self:start;padding:12px;border:1px solid rgba(102,166,207,.2);border-radius:11px;background:rgba(3,17,31,.58)}
+.a179-note-box h5{margin-top:0}
+.a179-note-box textarea{width:100%;min-height:175px;padding:10px;border:1px solid rgba(104,174,220,.3);border-radius:9px;background:#06182b;color:#e5f4ff;font:inherit;font-size:11px;line-height:1.6;resize:vertical}
+.a179-note-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+.a179-note-actions .a168-btn{font-size:9px}
+.a179-quiz{margin-top:15px;padding-top:12px;border-top:1px solid rgba(101,165,203,.2)}
+.a179-quiz h5{margin-top:0}
+.a179-question{min-width:0;margin:10px 0;padding:11px;border:1px solid rgba(99,161,203,.18);border-radius:10px;background:rgba(3,17,31,.52)}
+.a179-question legend{padding:0 5px;color:#e0f0fc;font-size:11px;font-weight:850;line-height:1.55}
+.a179-question label{display:flex!important;grid-template-columns:none!important;align-items:flex-start;gap:8px!important;margin:7px 0 0!important;padding:8px;border:1px solid rgba(99,162,203,.12);border-radius:8px;background:rgba(7,29,48,.55);color:#bcd2e5!important;font-size:10px!important;font-weight:550!important;line-height:1.55}
+.a179-question input{flex:0 0 auto;margin-top:2px;accent-color:#39c6e9}
+.a179-quiz-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:10px}
+.a179-quiz-actions span{color:#9dc1d8;font-size:10px}
+.a179-explain{margin:8px 0 0;padding:9px 10px;border-radius:8px;font-size:10px;line-height:1.6}
+.a179-explain.good{border:1px solid rgba(74,211,163,.32);background:rgba(11,86,64,.22);color:#a7ecd1}
+.a179-explain.bad{border:1px solid rgba(238,157,108,.3);background:rgba(93,48,25,.2);color:#f0c4a9}
+.a179-section{margin-top:18px;padding-top:16px;border-top:1px solid rgba(103,162,201,.2)}
+.a179-section-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:12px}
+.a179-section-head h4{margin:4px 0;color:#f0f8ff;font-size:18px}
+.a179-section-head p{margin:0;color:#a7c2d9;font-size:11px;line-height:1.6}
+.a179-case-card{padding:15px;border:1px solid rgba(100,169,211,.22);border-radius:13px;background:rgba(5,23,41,.76)}
+.a179-case-card>label{display:grid;gap:6px;color:#c2d7e8;font-size:10px;font-weight:850}
+.a179-case-card select{width:100%;padding:10px;border:1px solid rgba(104,174,220,.3);border-radius:9px;background:#071b30;color:#e6f4ff;font:inherit;font-size:11px}
+.a179-case-body{margin-top:13px}
+.a179-case-body h4{margin:6px 0;color:#f1f8ff;font-size:15px;line-height:1.4}
+.a179-case-symptom{padding:12px;border-left:3px solid #4ac8eb;border-radius:8px;background:rgba(15,56,83,.42);color:#c4d9e9;font-size:11px;line-height:1.7}
+.a179-case-stage{display:grid!important;gap:7px!important;margin:11px 0!important;padding:12px;border:1px solid rgba(101,164,205,.18);border-radius:10px;background:rgba(4,19,34,.5);color:#c5d9e9!important}
+.a179-case-stage b{color:#77d8f1;font-size:10px;letter-spacing:.06em;text-transform:uppercase}
+.a179-case-stage span{font-size:11px;line-height:1.55}
+.a179-case-stage select{width:100%;padding:9px;border:1px solid rgba(104,174,220,.3);border-radius:8px;background:#071b30;color:#e6f4ff;font:inherit;font-size:10px}
+.a179-glossary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
+.a179-glossary-item{display:grid;gap:4px;padding:10px;border:1px solid rgba(101,166,207,.18);border-radius:9px;background:rgba(5,22,39,.7)}
+.a179-glossary-item b{color:#7edaf0;font-size:10px}
+.a179-glossary-item span{color:#b9cfe1;font-size:10px;line-height:1.55}
+.a179-footer-note{margin-top:11px;color:#839fb6;font-size:9px;line-height:1.65}
+@media(max-width:980px){.a179-filterbar{grid-template-columns:1fr 1fr}.a179-main-grid{grid-template-columns:1fr}.a179-lesson-grid{grid-template-columns:repeat(2,minmax(0,1fr));max-height:450px}.a179-content-grid{grid-template-columns:1fr}.a179-note-box textarea{min-height:120px}}
+@media(max-width:620px){.a179-intro,.a179-section-head{flex-direction:column}.a179-kpis{flex:1;width:100%}.a179-filterbar{grid-template-columns:1fr}.a179-lesson-grid{grid-template-columns:1fr;max-height:340px}.a179-detail{padding:12px}.a179-detail-head{flex-direction:column}.a179-glossary{grid-template-columns:1fr}.a179-quiz-actions{align-items:flex-start;flex-direction:column}}

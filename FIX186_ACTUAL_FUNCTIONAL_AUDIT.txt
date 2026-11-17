@@ -1,0 +1,65 @@
+FIX186 — AUDYT: CO JEST FAKTYCZNIE ZAIMPLEMENTOWANE
+====================================================
+
+A. FUNKCJE OBECNE W KODZIE
+--------------------------
+1. Import CSV z obsługą cytowanych pól i separatora przecinek/średnik.
+2. Import XML zawierającego zdarzenia Event (w tym eksport tracerpt / Event XML).
+3. Import JSON z tablicą zdarzeń lub polami events/items/records.
+4. Import TXT z rozpoznawaniem wzorców Event ID, Provider, daty i poziomu.
+5. Normalizacja zdarzeń i regułowa klasyfikacja WHEA/PCIe, Storage, GPU/Display.
+6. Statystyki kategorii, dostawców, poziomów i lista wyróżnionych zdarzeń.
+7. Jawne odrzucanie surowych ETL i EVTX przez importer przeglądarkowy.
+8. Generator przypadków Gemini przez istniejący same-origin /api/chat; walidacja zakresu
+   komputerów stacjonarnych/laptopów i normalizacja schematu.
+9. Oddzielny zapis postępów FIX186; zabezpieczony odczyt wadliwego JSON localStorage.
+10. Egzamin praktyczny: kolejność kroków, wybór hipotezy i ocena kompletności raportu.
+11. Ręczne oznaczanie obszarów PCB na płótnie i eksport obrazu PNG oraz metadanych JSON.
+12. Opcjonalna analiza wizualna PCB przez Gemini po osobnej zgodzie; kompresja obrazu,
+    ograniczenie formatu/rozmiaru, wynik z adnotacjami i eksportem.
+13. Backend PCB: same-origin, istniejąca D1 dla limitowania zapytań, klucz Gemini
+    po stronie serwera, jawna zgoda, ograniczenie formatu i wymiarów odpowiedzi.
+14. Weryfikacja pliku firmware: SHA-256 po stronie przeglądarki do limitu z metadanych;
+    Windows collector: Get-FileHash, Get-AuthenticodeSignature i opcjonalny SignTool.
+15. Kolektor Windows: WPR, tracerpt, StorDiag -collectEtw, Get-WinEvent i EVTX export.
+16. OneClick i watcher sprawdzają obecność nowego panelu, metadanych, endpointu, testów
+    i zasobów; watcher ma próbę endpointu z consent=false, bez przesyłania zdjęcia.
+
+B. CO JEST SYMULACJĄ / REGUŁOWĄ ANALIZĄ
+--------------------------------------
+- Kategoryzacja zdarzeń WHEA/PCIe/Storage/GPU jest regułowa, nie jest modelem ML.
+- Generowanie przypadków korzysta z Gemini, ale wymaga istniejącego sekretu, API,
+  limitów i właściwej konfiguracji na serwerze.
+- Wynik AI PCB jest obserwacją widocznych cech, nie weryfikacją elektryczną.
+- Egzamin jest rubryką edukacyjną, nie formalnym egzaminem kwalifikacyjnym.
+- Nie ma fizycznego pomiaru oscyloskopem z przeglądarki ani sterowania sprzętem.
+- Firmware checker nie weryfikuje ogólnie podpisu payloadu każdej kapsuły UEFI.
+
+C. NIE JEST ZAIMPLEMENTOWANE / NIE WOLNO TEGO DEKLAROWAĆ
+-------------------------------------------------------
+- Bezpośredni parser binarnych ETL i EVTX w przeglądarce.
+- Automatyczna naprawa Windows, systemu plików, dysku lub sterownika.
+- Flashowanie BIOS/UEFI/EC albo zapis do pamięci firmware.
+- Rzeczywiste odczyty PCIe/AER, napięć, sygnałów, StorPort lub urządzeń bez eksportu.
+- Potwierdzanie zwarć, przerw, napięć lub wad wewnętrznych PCB na podstawie zdjęcia.
+- Pełna analiza kryptograficznego payloadu każdej kapsuły UEFI.
+- Zapis surowych logów lub obrazów PCB w D1/localStorage.
+- Synchronizacja postępów FIX186 do konta/D1; postęp panelu FIX186 jest lokalny.
+- Potwierdzona publikacja produkcyjna — wymaga logu START_FIX105.log.
+
+D. POTWIERDZENIE TESTAMI
+------------------------
+- Test parserów, klasyfikacji, importu i zakresu AI: w scripts/test-fix186-practical-lab.mjs.
+- Testy endpointu PCB i zgody: scripts/test-fix186-pcb-analysis-api.mjs.
+- Pełny zestaw: scripts/run-tests-fix186.mjs.
+- Wynik uruchomiony w środowisku budującym: FIX186_FULL_TESTS.log.
+- Windows PowerShell nie był dostępny w środowisku budującym (Linux); kolektor wymaga
+  oddzielnego wykonania na Windows 10/11. Nie oznaczono go jako runtime-tested.
+
+
+FIX194 — OGRANICZENIE LOGOWANIA ZEWNĘTRZNEGO
+- Bieżący interfejs i backend OAuth obsługują wyłącznie Google, Microsoft i Facebook.
+- X, GitHub i Discord nie są dostępne jako przyciski ani dostawcy statusu/start OAuth.
+- Historyczne migracje i rekordy D1 nie są usuwane.
+- Test kontraktu FIX194: 9/9 PASS.
+- Nie potwierdzono produkcyjnego callbacku; wymagane są sekrety dostawców i test na Pages.

@@ -1,0 +1,25 @@
+{
+  "app": "NAUKA OD A DO Z",
+  "version": "6.8.0",
+  "fix": "FIX47",
+  "build": "6.8.0-social-login-fix47-master-control-center-20261104",
+  "base_archive": "NAUKA_OD_A_DO_Z_6_8_0_FIX46_PUBLICATION_GUARD_HOTFIX.zip",
+  "base_files_preserved": 788,
+  "removed_files": 0,
+  "test_scripts_total": 72,
+  "test_scripts_passed": 72,
+  "test_scripts_failed": 0,
+  "syntax_files_checked": 196,
+  "syntax_failures": 0,
+  "fix47_assertions_passed": 24,
+  "html_view_count": 32,
+  "production_deployed": false,
+  "d1_migrations_executed": false,
+  "browser_e2e_executed": false,
+  "limits": [
+    "No production deploy",
+    "No D1 mutation",
+    "No physical device control",
+    "Static/HEAD QA is not full browser E2E"
+  ]
+}

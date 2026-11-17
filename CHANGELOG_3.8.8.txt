@@ -1,0 +1,9 @@
+NAPRAWA PC — AKADEMIA SERWISU PRO 3.8.8
+
+- Naprawiono modal przycinany przez overflow kontenera main-area: contentModal i toast są przenoszone bezpośrednio do BODY.
+- Okno procedury jest ograniczone do wymiarów viewportu i ma własny przewijany obszar.
+- Przebudowano nagłówek procedury, cel diagnostyki, panel ilustracji i nawigację sekcji.
+- Zwiększono czytelność typografii, odstępy, kontrast i responsywność kart diagnostycznych.
+- Poprawiono układ przy wąskich ekranach i obsługę przewijania poziomego nawigacji.
+- Zaktualizowano oznaczenie wersji interfejsu do 3.8.8.
+- Nie zmieniono danych, migracji, D1, Wrangler, Pages Functions ani automatycznego publikatora.

@@ -1,0 +1,23 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 / FIX109
+Data: 2026-11-09
+
+[FIX109] Pełny katalog zdjęć — wszystkie widoki i galerie
+- Wyłączono ograniczenie kolejki wyłącznie do aktywnego widoku.
+- Kolejka początkowa obejmuje wszystkie podłączone obrazy kwalifikujące się
+  do katalogu, także ukryte i poza viewportem.
+- Utrzymano priorytet aktywnej zakładki, a następnie strony głównej i innych
+  widoków, bez blokowania kolejnych zakładek.
+- Zmiana widoku nie usuwa ukrytych pozycji; retry i processor nie filtrują
+  już elementów do aktywnego widoku.
+- Dodano obsługę obrazów w hero, diagnostyce, okładkach wideo, galerii,
+  kafelkach warsztatowych i materiałach powiązanych.
+- MutationObserver i skan okresowy obsługują nowo renderowane elementy.
+- Naprawiono parsowanie Retry-After i ponawianie tymczasowych błędów Commons.
+- Zachowano odrębne cooldowny Openverse i Commons, limity API, licencje,
+  zgodność tematyczną i globalną unikalność zdjęć.
+- Zmieniono namespace runtime, zapisów i cache na FIX109 z migracją danych
+  FIX106/FIX108.
+- Zaktualizowano OneClick, Watcher, release.json, manifest źródeł, HTML i PWA.
+- Dodano testy kontraktów FIX109 oraz skrót WYKONAJ_TESTY_FIX109.cmd.
+
+Nie zmieniono numeru wydania produktu (6.8.0). Nie wykonano publikacji produkcyjnej.

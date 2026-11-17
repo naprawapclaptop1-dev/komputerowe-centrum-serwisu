@@ -1,0 +1,52 @@
+{
+  "suite": "GLOBAL ACADEMY PRO — EXPANSION",
+  "fixSeries": ["FIX64", "FIX65", "FIX66", "FIX67", "FIX68", "FIX69", "FIX70", "FIX71", "FIX72", "FIX73"],
+  "productVersion": "6.8.0",
+  "build": "6.8.0-fix73-global-academy-expansion-20261106",
+  "baseBuild": "6.8.0-fix51-visual-academy-pro-20261105",
+  "runtime": "assets/global-academy-expansion-fix73.js",
+  "stylesheet": "assets/global-academy-expansion-fix73.css",
+  "integration": {
+    "view": "view-globalacademy",
+    "baseRuntime": "assets/global-academy-suite-fix60.js",
+    "additionalTabs": 10,
+    "addedTopLevelViews": 0
+  },
+  "modules": [
+    {"fix":"FIX64","id":"control","name":"Production Control Center","status":"local-read-only checks; Cloudflare publish remains watcher-controlled"},
+    {"fix":"FIX65","id":"explorer","name":"Layered 2.5D Hardware Explorer","status":"interactive CSS layered explainer; not a manufacturer CAD model"},
+    {"fix":"FIX66","id":"ai","name":"AI Repair Expert","status":"explicit POST to existing /api/chat; no secret in browser; suggestions require technician verification"},
+    {"fix":"FIX67","id":"devices","name":"Hardware Intelligence Database","status":"existing local catalog plus local technician notes; not a complete OEM/SKU database"},
+    {"fix":"FIX68","id":"jobs","name":"Service Workshop Manager","status":"local-only service cards with JSON export/import and print; no client data upload"},
+    {"fix":"FIX69","id":"training","name":"Master Training Academy","status":"local learning paths and progress"},
+    {"fix":"FIX70","id":"cert","name":"Professional Examination Center","status":"local quiz and printable practice proof; not accredited certification"},
+    {"fix":"FIX71","id":"media","name":"Global Media Center","status":"local photo gallery and existing source-linked video catalogue"},
+    {"fix":"FIX72","id":"community","name":"Global Community","status":"local-only question board; not public or cross-device synchronized"},
+    {"fix":"FIX73","id":"offline","name":"Smart Offline and Backup","status":"explicit Cache Storage package plus manual JSON backup/import; no automatic cloud synchronization"}
+  ],
+  "storage": {
+    "localOnly": [
+      "npaFix67DeviceNotesV1", "npaFix68ServiceJobsV1", "npaFix69LearningPathV1",
+      "npaFix70CertificatesV1", "npaFix72LocalCommunityV1", "npaFix73SyncMetaV1"
+    ],
+    "newD1Migrations": false,
+    "automaticCustomerDataUpload": false,
+    "crossDeviceCloudSync": false,
+    "openAiSecretInClient": false
+  },
+  "externalIntegrations": {
+    "aiEndpoint": "/api/chat",
+    "aiMethod": "POST",
+    "aiUserInitiated": true,
+    "modelsEndpoint": "/api/models",
+    "productionDeploy": "AUTO_PUBLISH_WATCHER.js"
+  },
+  "limitations": [
+    "FIX65 is an interactive layered 2.5D visual explainer, not a measured 3D model of a specific device.",
+    "FIX67 contains the existing model catalogue and local user notes; manufacturer SKU, board revision and parts compatibility require independent verification.",
+    "FIX68 records are stored in the current browser profile only; do not enter personal customer data.",
+    "FIX70 proofs are local practice records and are not accredited certificates.",
+    "FIX72 posts stay on this device and are not published to other users.",
+    "FIX73 uses browser Cache Storage and manual JSON transfer; automatic cloud sync is not enabled."
+  ]
+}

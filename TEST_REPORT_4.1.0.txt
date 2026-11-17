@@ -1,0 +1,14 @@
+TEST REPORT — AKADEMIA SERWISU PRO 4.1.0
+
+PASS: ZIP wejściowy 4.0.0 — test CRC.
+PASS: ONECLICK_AKADEMIA.js — node --check.
+PASS: AUTO_PUBLISH_WATCHER.js — node --check.
+PASS: WEB_PUBLISH/assets/app.js — node --check.
+PASS: WEB_PUBLISH/assets/academy-expansion.js — node --check.
+PASS: index.html zawiera academy-build 4.1.0-neon-academy-redesign-20261101.
+PASS: index.html ładuje theme-410.css.
+PASS: watcher dopuszcza rozszerzenia .js i .ts i limituje pliki API do 25 MiB.
+PASS: zachowano katalog functions oraz WEB_PUBLISH i dane kursów.
+NOT RUN: Cloudflare Pages deploy (wymaga konta/tokena w środowisku użytkownika).
+NOT RUN: test przeglądarkowy na produkcyjnej domenie.
+NOT RUN: migracje D1 — nie były potrzebne do tych zmian i nie zostały uruchomione.

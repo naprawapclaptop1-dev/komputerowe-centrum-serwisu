@@ -1,0 +1,23 @@
+AUDYT ISTNIEJĄCE VS NOWE — FIX183
+
+BAZA PORÓWNAWCZA
+- Katalog główny: 1083 lekcje.
+- Katalog przypadków/usterek: 155 pozycji.
+- Poprzednie moduły FIX179–FIX182: sprawdzono tytuły lekcji, przypadków i projektów oraz hasła słownika.
+
+ISTNIEJĄCE — NIE POWIELANO
+- Ogólna diagnostyka Wi-Fi, sieci, USB i sterowników.
+- Ogólna diagnostyka zasilania i ogólnych problemów z baterią.
+- Ogólny Data Recovery LAB, obrazowanie, SMART i partycje.
+- Podstawowa diagnostyka chłodzenia i temperatur.
+- Tematy z Linux/UEFI/OEM/BMC/ChromeOS z FIX182.
+
+DODANE JAKO WĄSKIE UZUPEŁNIENIE
+- WWAN: warstwy MBIM/MBN, SIM/eSIM/APN, netsh mbn i wznowienie modemu.
+- UPS: enumeracja HID, telemetria, Windows/NUT, obciążenie w W/VA i scenariusz shutdown.
+- SAS/EDSFF: HBA, expander, PHY/CRC, backplane, formaty E1.S/E3.S.
+- Custom loop: kolejność napełniania/odpowietrzania, leak-test i kontrola po serwisie.
+- Odzyskiwanie: write blocker, GNU ddrescue mapfile, wznowienie sesji, źródło/cel i hash obrazu.
+
+AUDYT TYTUŁÓW
+Szczegółowy wynik podobieństwa tytułów i najbliższe wcześniejsze pozycje znajdują się w FIX183_DUPLICATE_AUDIT.txt. Próg automatycznego alarmu: 0.55. To audyt tytułów i haseł, nie matematyczny dowód pełnej równoważności semantycznej.

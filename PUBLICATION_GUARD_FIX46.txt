@@ -1,0 +1,40 @@
+PUBLICATION GUARD — NAUKA OD A DO Z FIX46
+========================================
+
+WYMAGANE KONTROLE LOKALNE
+- release.json, meta academy-build i functions/api/auth/status.js muszą wskazywać:
+  6.8.0-social-login-fix47-master-control-center-20261104.
+- AUTO_PUBLISH_WATCHER.js musi wczytać service-worker.js przed pierwszym użyciem
+  zmiennej sw (FIX45 TDZ regression guard).
+- Lokalna kontrola FIX44 musi normalizować nazwy modułów bez rozróżniania
+  wielkości liter, zachowując wszystkie 16 wymaganych tokenów i 5 klas CSS.
+- OneClick i watcher muszą wymagać
+  scripts/test-watcher-fix44-case-contract-fix46.mjs.
+- Service Worker musi zawierać nowy znacznik cache
+  fix46-publication-guard-20261104.
+- Kontrola zdalna po wdrożeniu musi wymagać nowego znacznika cache oraz assetów
+  FIX44 i FIX45; nie wolno uznawać samego HTTP 200 za kompletne wdrożenie.
+
+TESTY
+- Uruchom WYKONAJ_TESTY_FIX46.cmd.
+- Skrypt sprawdza składnię wszystkich JS/MJS/CJS i wykonuje wszystkie testy.
+- Wynik przygotowawczy: 193/193 kontroli składni, 70/70 skryptów testowych.
+- Lokalny ONECLICK verifyWeb(): PASS.
+
+BEZPIECZEŃSTWO
+- Nie zmieniono OPENAI_API_KEY.
+- Nie zmieniono bindingu produkcyjnej D1.
+- Nie dodano migracji D1.
+- Nie wykonano kopii ani zapisu do produkcyjnej D1 przez tę poprawkę.
+- Nie wykonano publikacji Cloudflare Pages.
+- Nie uruchomiono poleceń usuwających, aktualizujących ani tworzących zasoby
+  produkcyjne.
+
+PRZED WDROŻENIEM
+1. Wykonać kopię folderu projektu.
+2. Zweryfikować konto Cloudflare i właściwy projekt Pages.
+3. Potwierdzić binding D1 i dostępność aktualnego backupu.
+4. Uruchomić lokalny runner FIX46.
+5. Dopiero po sprawdzeniu raportu świadomie uruchomić publikator.
+6. Po wdrożeniu zweryfikować build ID, assety FIX44/FIX45, Service Worker,
+   logowanie i główne widoki w rzeczywistej przeglądarce.

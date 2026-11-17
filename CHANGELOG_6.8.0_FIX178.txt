@@ -1,0 +1,26 @@
+NAUKA OD A DO Z — FIX178
+Data: 2026-11-16
+
+Zakres: naprawa wewnętrznej walidacji odpowiedzi publikatora po wdrożeniu.
+
+NAPRAWIONE
+- AUTO_PUBLISH_WATCHER.js deklarował dziewięć odpowiedzi w grupie Promise.all,
+  ale wykonywał tylko osiem zapytań. Brakująca odpowiedź
+  remotePhotoPolicyRuntimeResponse pozostawała undefined, a późniejsze
+  wywołanie .text() przerywało weryfikację stałej domeny.
+- Przywrócono pojedyncze pobranie photo-catalog-fix115.js w grupie FIX129.
+- Treść skryptu jest odczytywana z response.clone(), aby oryginalna odpowiedź
+  mogła zostać użyta dalej przez kontrakt FIX115 bez ponownego pobierania.
+- Późniejsza walidacja FIX115 korzysta z tego samego response i tej samej treści.
+- Dodano test FIX178 i podłączono go do preflight OneClick oraz Watchera.
+
+ZACHOWANO
+- Wersja produktu 6.8.0 i metadane wydania FIX176.
+- FIX177: przekazanie 19-slotowej biblioteki zdjęć do kontraktu FIX176.
+- Istniejący projekt Cloudflare Pages, binding D1, dane, sekret Gemini i katalog zdjęć.
+- Bez nowych migracji D1, bez resetu danych, bez nowej bazy i bez zmian runtime strony.
+
+TESTY
+- Pełna regresja FIX176 i FIX177.
+- FIX178 WATCHER RESPONSE WIRING: 4/4 PASS.
+- Kontrola składni AUTO_PUBLISH_WATCHER.js i ONECLICK_AKADEMIA.js.

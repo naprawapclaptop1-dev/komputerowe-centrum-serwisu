@@ -1,0 +1,12 @@
+{
+  "version": "3.8.9",
+  "package": "full",
+  "files_total": 213,
+  "javascript_files": 35,
+  "web_publish_files": 104,
+  "pages_functions_files": 15,
+  "migrations_files": 3,
+  "d1_database_id": "6ac0a922-639c-43ee-ba33-5da14c25a533",
+  "ui_assets_version": "3.8.9",
+  "changes": "modal layout, responsive UI, cache busting, release labels; no D1 migration changes"
+}

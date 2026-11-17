@@ -1,0 +1,19 @@
+FIX62 — MIGRATION INVENTORY COMPATIBILITY HOTFIX
+================================================
+
+- Naprawiono test FIX60, który wymagał dokładnie 17 plików SQL i blokował istniejący projekt z 19 plikami.
+- Zachowano 17 bazowych migracji.
+- Dopuszczono wyłącznie dwie znane migracje historyczne: 0004_customer_requests.sql oraz 0014_account_limiter_key_repair_and_cloud_backup.sql — tylko wtedy, gdy występują razem.
+- Nieznane migracje, brakujące bazowe pliki, częściowa para dodatków i duplikaty są nadal odrzucane.
+- Dodano test wariantów 17/19, test brakujących, nieznanych, częściowych i zduplikowanych nazw.
+- Dodano kontrolę nowego testu do AUTO_PUBLISH_WATCHER.js i ONECLICK_AKADEMIA.js.
+- Dodano WYKONAJ_TESTY_FIX62.cmd.
+- Bez zmian numeru produktu 6.8.0, schematu D1, sekretów i kodu API.
+
+
+INTEGRACJA Z PEŁNYM ARCHIWUM
+----------------------------
+- FIX62 został scalony z pełnym archiwum FIX54–FIX60 + FIX61; użytkownik otrzymuje całość, a nie samą łatkę.
+- WYKONAJ_TESTY_FIX62.cmd zachowuje historyczny znacznik łańcucha WYKONAJ_TESTY_FIX47.cmd wymagany przez test zgodności FIX39, a jednocześnie uruchamia pełną regresję FIX61/FIX60/FIX53/FIX52/FIX51 i testy FIX62.
+- Nie zmieniono żadnego pliku SQL; dostarczone archiwum zawiera 17 bazowych migracji. Walidator dopuszcza wariant 19 plików tylko z dokładnie zatwierdzoną parą dodatkową.
+- Pełna weryfikacja po scaleniu: 230 plików JS/MJS/CJS, 87 skryptów testowych i 7 dodatkowych audytów/kontraktów — wszystkie zakończone kodem 0.

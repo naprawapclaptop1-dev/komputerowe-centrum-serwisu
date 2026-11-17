@@ -1,0 +1,6 @@
+NAUKA OD A DO Z — DLA WSZYSTKICH
+Wersja: 6.2.0 FIX12 — WARSZTAT MISTRZA PRO
+Data: 02.11.2026
+Nowy moduł: atlas napraw, symulator usterek, egzaminy, kalkulatory,
+dekoder SMD/EIA-96, dziennik przypadków ze zdjęciami, notatki i kopia JSON.
+Wszystkie dotychczasowe moduły pozostają w pakiecie.

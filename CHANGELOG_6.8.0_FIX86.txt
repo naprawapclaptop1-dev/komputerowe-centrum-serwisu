@@ -1,0 +1,50 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 FIX86
+Data: 2026-11-06
+
+CEL
+Naprawa produkcyjnego deploymentu istniejącego projektu Cloudflare Pages
+w trybie Direct Upload. Log użytkownika potwierdził, że FIX85 przekazywał
+--branch "main", przez co Wrangler tworzył deploymenty preview z adresami
+hash.pages.dev, podczas gdy stały adres produkcyjny pozostawał na FIX51.
+
+ZMIANY
+1. Dodano scripts/pages-production-direct-upload-fix86.cjs.
+   Buduje komendę wrangler pages deploy bez --branch i bez --env.
+   Walidator blokuje przypadkowe skierowanie Direct Upload do Preview.
+2. AUTO_PUBLISH_WATCHER.js używa nowego helpera, a Production Branch
+   odczytaną z Cloudflare traktuje jako potwierdzenie konfiguracji projektu,
+   nie jako argument --branch w poleceniu deploymentu.
+3. Zachowano pages-production-branch-fix85.cjs jako historyczny helper.
+   Test FIX85 potwierdza, że nie jest on już aktywną ścieżką produkcji.
+4. Naprawiono kontrolę manifestu FIX83. Watcher weryfikuje istniejący schemat:
+   kategorie vram/ram i pole vramRule, w którym GDDR/BGA jest oddzielone
+   od DIMM/SO-DIMM. Usunięto błędne odwołanie do nieistniejącego visualPolicy.
+5. Dodano jawny marker academy-hotfix=FIX86 i pola latestHotfix,
+   latestHotfixBuild, visualHotfix, deploymentMode w release.json.
+   Historyczny build bazowy FIX51 pozostaje zachowany dla zgodności kontraktów.
+6. OneClick i Auto-Watcher uruchamiają nowe testy przed publikacją.
+7. Dodano WYKONAJ_TESTY_FIX86.cmd i pełny runner FIX86.
+
+BEZPIECZEŃSTWO
+- Nazwa istniejącego projektu Pages pozostaje bez zmian.
+- Direct Upload production pomija --branch oraz --env; nie jest tworzony preview.
+- Nie utworzono nowego projektu Pages ani nowej bazy D1.
+- Nie dodano migracji D1 i nie zmieniono danych.
+- Nie zmieniano OPENAI_API_KEY ani innych sekretów.
+- Nie wykonano z tego środowiska rzeczywistej publikacji w Cloudflare.
+
+WERSJA PRODUKTU
+6.8.0 (bez zmiany wersji produktu); identyfikator poprawki FIX86.
+FIX83 pozostaje numerem poprawki odpowiedzialnej za unikalne grafiki i VRAM/RAM.
+
+TESTY I WERYFIKACJA
+Uruchomiono scripts/run-tests-fix86.mjs w lokalnym środowisku Node.js.
+scripts/run-tests-fix86.mjs: 72/72 PASS (59 bazowych FIX85 + 8 Direct Upload + 5 manifest/release).
+Środowisko testowe używa Node.js v22.16.0; log użytkownika wskazuje v24.19.0.
+Zalecane jest ponowne uruchomienie WYKONAJ_TESTY_FIX86.cmd na komputerze użytkownika.
+
+WAŻNE
+W logu FIX85 trzy deploymenty otrzymały unikalne adresy hash.pages.dev.
+Stały adres nadal raportował build FIX51. To oznaczało publikację Preview,
+a nie dowód aktualizacji produkcji. FIX86 naprawia komendę; publikacja musi
+zostać potwierdzona przez stały adres pages.dev i markery FIX86/FIX83.

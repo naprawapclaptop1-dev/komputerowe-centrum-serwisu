@@ -1,0 +1,20 @@
+NAUKA OD A DO Z — FIX119
+Data: 2026-11-10
+Produkt: 6.8.0 (bez zmiany bazowej wersji produktu)
+
+NAPRAWY
+1. Naprawiono routing kafelków Global Academy: zdarzenie data-gax-open jest obsługiwane przed ogólnym data-nav, a wskazana zakładka jest otwierana po przełączeniu widoku.
+2. Dodano wspólny silnik FIX119 dla obliczeń oscyloskopu i przebiegu SVG; okres jest liczony jako 1000/f (ms), Vpp jako 2*A.
+3. Oscyloskop renderuje przebieg zależny od częstotliwości, amplitudy i rodzaju sygnału; stałe okno widoku wynosi 2 ms.
+4. Dodano brakujący symulator edukacyjny USB-C PD: wybór PDO, orientacja CC1/CC2, usterki CC, limit źródła oraz przewodu 3A/5A z E-Markerem. Nie jest to odczyt sprzętowy.
+5. Zintegrowano wejście do istniejącego prawa Ohma, multimetru, sekwencji zasilania, laboratorium usterek i pozostałych ćwiczeń.
+6. Wzmocniono kontrolę wymaganych elementów DOM w termowizji, mikroskopie, trenerze lutowania, schemacie blokowym, laboratorium usterek i sekwencji zasilania.
+7. Poprawiono model USB-C PD: 5 A jest dostępne przy profilach 5/9/15/20 V, gdy źródło i przewód E-Marker obsługują 5 A; 20 V × 5 A daje 100 W.
+8. Dodano ochronę przed brakującymi elementami DOM przed przypinaniem/wykonywaniem aktualizacji oscyloskopu.
+9. Dodano zasoby FIX119 do Service Workera z dokładnym dopasowaniem adresu przed fallbackiem ignoreSearch, żeby starszy wpis cache nie zasłaniał nowego assetu.
+10. Zachowano przestrzeń nazw cache zdjęć i katalog zdjęć FIX118; brak migracji D1 i zmian kont/użytkowników.
+
+TESTY
+- Nowy test symulatorów FIX119: 14 kontroli.
+- Zachowane testy regresyjne platformy w scripts/run-tests-fix119.mjs.
+- Rzeczywista publikacja produkcyjna nie została wykonana.

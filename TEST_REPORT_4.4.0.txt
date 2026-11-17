@@ -1,0 +1,14 @@
+NAPRAWA PC — AKADEMIA SERWISU PRO 4.4.0 / TEST REPORT
+
+Kontrole wykonane lokalnie w pakiecie: 
+- [PASS] JavaScript syntax: labplus-engine.js
+- [PASS] JavaScript syntax: ONECLICK_AKADEMIA.js
+- [PASS] JavaScript syntax: AUTO_PUBLISH_WATCHER.js
+- [PASS] HTML contains view-home and view-labplus.
+- [PASS] HTML contains quick diagnosis, PCB, meter, parts, casebook, training, model register, exam and workorder sections.
+- [PASS] HTML loads theme-440.css and labplus-engine.js.
+- [PASS] No destructive D1 migration added.
+- [PASS] Existing functions, migrations, seeds, course data and library assets retained in project tree.
+
+Wynik nie potwierdza jeszcze publikacji na Cloudflare ani testu w przeglądarce użytkownika.
+Weryfikacja online odbywa się po uruchomieniu lokalnego URUCHOM_AKADEMIE.cmd w środowisku użytkownika.

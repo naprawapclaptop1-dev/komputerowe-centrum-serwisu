@@ -1,0 +1,22 @@
+AKADEMIA SERWISU PRO 5.3.0 — ULTRA CYBER LAB
+
+WYGLĄD I PULPIT
+- Nowa warstwa wizualna: głębsze panele, glassmorphism, poprawione odstępy, czytelniejsze hierarchie i responsywne układy.
+- Nowy Ultra Command Center z mapą elementów PCB, statystykami globalnymi, skrótami i checklistą przebiegu naprawy.
+- Pulpit można porządkować strzałkami i zapisywać kolejność widgetów lokalnie.
+- Zegar i metryki odświeżają się na ekranie; nowe widgety odczytują istniejący panel statystyk, nie tworzą osobnego licznika.
+
+KONTO I SPOŁECZNOŚĆ
+- Czytelniejszy onboarding konta; ukrywanie nieaktywnych przycisków OAuth.
+- Nowy panel społeczności z szybkimi filtrami producentów opartymi na istniejącym katalogu modeli.
+- Zachowano istniejący backend kont, moderację modeli, społeczność i bazę danych.
+
+PERSONALIZACJA
+- Pięć skórek opisanych jako Cyber Blue, Cyber Purple, Matrix Green, Arctic Cyan i Titanium Amber.
+- Zachowane ustawienia pełnego/spokojnego/braku animacji, preferencja reduced-motion i pełny ekran.
+
+DANE I WDROŻENIE
+- Brak nowych migracji D1.
+- Nie zmieniono identyfikatora projektu Pages ani bindingu D1.
+- Zachowano istniejące lekcje (800), modele, statystyki globalne, film wsparcia i poprzednie moduły.
+- Nowa mapa PCB jest ilustracją edukacyjną, nie dokładnym boardview ani pomiarem fizycznego komputera.

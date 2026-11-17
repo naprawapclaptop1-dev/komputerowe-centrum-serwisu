@@ -1,0 +1,46 @@
+NAUKA OD A DO Z — DLA WSZYSTKICH
+FIX6 — POPRAWKA BRAMKI PUBLIKACJI
+Data: 2026-11-02
+
+PRZYCZYNA BŁĘDU
+ONECLICK_AKADEMIA.js oraz AUTO_PUBLISH_WATCHER.js sprawdzały nieistniejący znacznik
+uniqueRepairPhotoEngineVersion. Rzeczywisty silnik WEB_PUBLISH/assets/lesson-art.js
+udostępniał wersję jako api.uniquePhotoEngineVersion. Przez rozbieżność nazwy
+publikator zatrzymywał się na etapie kontroli plików WWW, mimo obecności silnika,
+źródeł zdjęć, filtrów licencji i katalogu fotografii.
+
+WYKONANE ZMIANY
+- Ujednolicono walidację ONECLICK_AKADEMIA.js z rzeczywistym API uniquePhotoEngineVersion.
+- Ujednolicono walidację AUTO_PUBLISH_WATCHER.js z tym samym API.
+- Dodano test regresyjny wykrywający powrót starej nazwy znacznika.
+- Zaktualizowano test mostka sprzętowego, który nadal wymagał identyfikatora FIX5.
+- Ustawiono academy-build i release.json na 6.2.0-publish-guard-fix6-20261102.
+- Zmieniono cache Service Workera na FIX6 i wersje zapytań zasobów, aby wymusić pobranie nowych plików.
+- Zachowano dotychczasowy katalog edukacyjny, fotografie, filmy, API, D1, kursy i moduły.
+- Nie dodano zleceń serwisowych ani formularzy klientów.
+- Nie zmieniano sekretu OpenAI, konta Cloudflare, projektu Pages ani bindingu D1.
+
+WYNIKI TESTÓW
+PASS — test-cloudflare-pages-d1.js
+PASS — test-lab-hardware-bridge-630.js
+PASS — test-learning-scope-online-photos-fix4.js
+PASS — test-nauka-od-a-do-z-brand.js
+PASS — test-release-620-contract.js
+PASS — test-sticky-photo-ui-630.js
+PASS — test-support-page-contract-620.js
+PASS — test-unique-repair-photos-long-videos-fix5.js
+PASS — test-watcher-release-guard.js
+PASS — test-wrangler-production-d1.js
+PASS — test-email-account-local.mjs
+PASS — test-hybrid-chat.mjs
+PASS — test-openai-key-setup.mjs (10/10)
+PASS — składnia 75 plików JS/MJS
+PASS — 366 identyfikatorów HTML, bez duplikatów
+PASS — brak brakujących lokalnych odwołań
+PASS — release.json i photo-sources-online.json są poprawnymi JSON
+
+OGRANICZENIA WERYFIKACJI
+Nie uruchomiono publikacji na koncie Cloudflare użytkownika. Nie wykonano migracji
+produkcyjnej D1. Test 155 unikalnych fotografii używa kontrolowanego/mockowanego API;
+rzeczywista liczba dostępnych fotografii zależy od odpowiedzi Openverse i limitów
+usługi. Zewnętrzne filmy pozostają linkami do stron wydawców.

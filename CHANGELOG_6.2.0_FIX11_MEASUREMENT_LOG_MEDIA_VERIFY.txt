@@ -1,0 +1,22 @@
+NAUKA OD A DO Z — DLA WSZYSTKICH 6.2.0 FIX11
+
+NAPRAWIONE
+1. Kontrola opublikowanego filmu wsparcia nie polega już na HEAD + Content-Length. Watcher wykonuje GET z Range, sprawdza Content-Range/Content-Length i w razie potrzeby odczytuje maksymalnie około 1 MiB.
+2. Watcher weryfikuje dodatkowo rzeczywisty kod JavaScript nowego dziennika pomiarów na stałym adresie Pages.
+3. Kontrola lokalnego wydania wymaga obu plików nowego modułu.
+
+DODANE — DZIENNIK POMIARÓW SERWISOWYCH
+1. Wpis pomiaru jest przypisany do typu urządzenia, producenta, modelu, Board ID i rewizji PCB.
+2. Zapisywany jest punkt pomiarowy, tryb miernika, jednostka, stan zasilania, odczyt, zakres referencyjny i źródło dokumentacji.
+3. Pomiar rezystancji, ciągłości i test diody są blokowane, jeżeli źródła zasilania nie są odłączone i odizolowane.
+4. Porównanie z zakresem działa tylko wtedy, gdy użytkownik poda obie granice i źródło odniesienia. Moduł nie zgaduje napięć ani nie łączy się z fizycznym miernikiem.
+5. Historia jest lokalna, mieści do 500 wpisów, ma wyszukiwanie, usuwanie, czyszczenie i eksport CSV.
+6. Dziennik jest dopuszczony do kopii postępu JSON przez jawny allow-list; tokeny, hasła i dane kont pozostają wykluczone.
+
+ZACHOWANO
+- 1060 lekcji, 155 kart napraw, istniejące kursy, schematy, atlas, laboratoria, konta i społeczność.
+- Istniejący projekt Cloudflare Pages i binding D1; brak migracji D1.
+- FIX10: eksport i bezpieczne scalanie kopii postępów.
+
+UWAGA
+To wydanie nie oznacza wykonania wdrożenia produkcyjnego. Najpierw należy uruchomić testy lokalne i dopiero potem publikator.

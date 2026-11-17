@@ -1,0 +1,49 @@
+NAUKA OD A DO Z — RAPORT TESTÓW FIX98
+=====================================
+
+Zakres wydania
+--------------
+Produkt: 6.8.0
+Hotfix publikatora: FIX98
+Runtime fotografii: FIX98
+
+Co uzupełniono
+--------------
+- 15 brakujących slotów fotografii w siatce 19 modułów strony głównej.
+- 6 slotów zdjęć w sekcji Specjalizacje serwisowe PRO.
+- Łącznie 21 nowych slotów, z 21 odrębnymi źródłami fotografii.
+- Manifest zawiera 37 kuratorowanych źródeł ze stroną autora, kategorią,
+  adresem zdjęcia i odnośnikiem licencyjnym.
+- Zachowano 13 istniejących zdjęć lokalnych FIX96: 3 baner, 6 slajdów,
+  4 kafelki. Żaden z tych plików nie został zastąpiony.
+
+Wyniki testów
+-------------
+- Poprzednia regresja FIX97: 170/170 PASS.
+- Pokrycie 19 modułów / 6 specjalizacji: 15/15 PASS.
+- Integracyjny dobór wszystkich 21 zdjęć: 3/3 PASS.
+- Łącznie: 188/188 PASS.
+- Node.js środowiska budowania: v22.16.0.
+- Składnia JS/CJS/MJS, Service Workera i parsowanie JSON: PASS.
+
+Uwagi o fotografiach
+--------------------
+21 nowych fotografii korzysta ze zdalnych adresów CDN wyselekcjonowanych
+źródeł Pexels i Wikimedia Commons. Nie są fizycznie dołączone do ZIP-a,
+ponieważ środowisko budowania nie miało połączenia z CDN. Przeglądarka
+potrzebuje Internetu, aby je pobrać. Jeśli źródło jest niedostępne,
+pozostaje jawnie podpisana ilustracja techniczna fallback. Istniejące
+13 fotografii lokalnych zachowuje obsługę offline.
+
+Publikacja / baza danych
+-----------------------
+- Nie wdrożono pakietu na Cloudflare Pages.
+- Nie wykonywano SQL ani migracji D1.
+- Nie zmieniano istniejącego bindingu ani danych użytkowników.
+- Testy wykonano w środowisku Node.js v22.16.0; Windows Node.js v24.19.0
+  użytkownika nie był dostępny do bezpośredniego uruchomienia tutaj.
+
+Pliki dowodowe
+--------------
+Pełny log: FIX98_FULL_TESTS.log
+Test lokalny Windows: WYKONAJ_TESTY_FIX98.cmd

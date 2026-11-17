@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 350" role="img" aria-labelledby="t d">
+<title id="t">LABORATORIUM</title><desc id="d">Przebiegi i pomiary</desc>
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="hsl(252 58% 17%)"/><stop offset="1" stop-color="#071326"/></linearGradient><radialGradient id="glow"><stop stop-color="hsl(307 90% 65% / .26)"/><stop offset="1" stop-color="#061426" stop-opacity="0"/></radialGradient></defs>
+<rect width="500" height="350" rx="24" fill="url(#bg)"/><circle cx="405" cy="80" r="190" fill="url(#glow)"/>
+<g fill="none" stroke="hsl(307 88% 72%)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M65 175h55l26-72 40 145 42-118 35 75 28-30h142"/><path d="M64 90h370M64 260h370M110 60v220M210 60v220M310 60v220" stroke-dasharray="5 9"/><circle cx="186" cy="248" r="7"/><circle cx="263" cy="205" r="7"/></g>
+<path d="M35 295h430" stroke="hsl(252 75% 65% / .5)" stroke-width="2"/><text x="38" y="45" fill="#a7f5ef" font-family="Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="3">NAUKA OD A DO Z / PRO</text><text x="38" y="327" fill="#effbff" font-family="Arial,sans-serif" font-size="18" font-weight="700">OSCILLOSCOPE</text></svg>

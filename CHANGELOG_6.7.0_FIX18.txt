@@ -1,0 +1,28 @@
+NAUKA OD A DO Z 6.7.0 FIX18 — ZMIANY
+
+1. Rozszerzono logowanie OAuth o X i GitHub; zachowano Google, Facebook i Microsoft.
+2. Dodano PKCE S256 i state dla X/GitHub; tokeny są wymieniane przez Pages Functions.
+3. Dodano API połączonych tożsamości: lista i odłączanie z ochroną ostatniej metody logowania.
+4. Dodano limit uruchomień OAuth na podstawie skrótu adresu klienta; źródłowy IP nie jest zapisywany przez ten limiter.
+5. Dodano migrację 0008 rozszerzającą CHECK constraint bez kasowania istniejących tożsamości i stanów OAuth.
+6. Dodano ekran połączonych metod logowania oraz pięć przycisków dostawców.
+7. Naprawiono błąd publikatora: wersja release.json i academy-build muszą być identyczne; usunięto błędny test prefixu 6.5.0.
+8. Dodano przewodnik konfiguracji aplikacji i sekretów OAuth.
+
+Ograniczenia: wymagane client ID i sekrety dostawców; nie wykonano testów z prawdziwymi kontami OAuth, nie opublikowano zmian i nie zastosowano migracji D1.
+
+- Dodano Discord OAuth2 (identify) jako szóstego dostawcę logowania.
+- Dodano migrację 0009, która zachowuje wszystkie istniejące tożsamości i stany OAuth.
+- Dodano panel aktywnych sesji oraz możliwość wylogowania pozostałych urządzeń.
+- Zabezpieczono odpinanie dostawcy atomowym warunkiem SQL, by nie usunąć ostatniej metody logowania w równoległych żądaniach.
+- Naprawiono kontrolę academy-build: walidator porównuje teraz dokładnie meta academy-build z release.json i zatrzymuje się przed migracjami przy niezgodności.
+
+FIX18 uzupełnienie bezpieczeństwa rejestracji: akceptacja regulaminu i polityki prywatności jest wymagana dla rejestracji/logowania społecznościowego bez aktywnej sesji; wersja i data akceptacji są zapisywane w profilu (migracja 0010). Łączenie dostawcy z istniejącym profilem wymaga, aby pierwotna sesja nadal była aktywna przy callbacku.
+FIX18 zakres X ograniczono do users.read — aplikacja pobiera wyłącznie identyfikator i nazwę konta; nie żąda dostępu do wpisów.
+FIX18: checkbox akceptacji zasad jest pamiętany lokalnie dla aktualnej wersji zasad, ale serwer ponownie weryfikuje flagę w jednorazowym stanie OAuth. Zmiana wersji zasad wymusza ponowną akceptację.
+
+## Dodatkowa poprawka kompletności paczki
+- Dodano PRZYGOTUJ_WRANGLER_FIX18.cmd z przypiętą wersją Wrangler 4.156.0.
+- Launchery URUCHOM_AKADEMIE, URUCHOM_NAUKE_OD_A_DO_Z, USTAW_KLUCZ_OPENAI oraz konfigurator OAuth automatycznie przygotowują brakujący lokalny Wrangler.
+- Instalacja wymaga Node.js/npm i Internetu; nie wykonuje deploy ani migracji D1.
+- Dodano test test-wrangler-bootstrap-fix18.mjs.

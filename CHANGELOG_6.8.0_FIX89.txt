@@ -1,0 +1,39 @@
+NAUKA OD A DO Z — DLA WSZYSTKICH
+CHANGELOG 6.8.0 — FIX89
+Data: 2026-11-06
+
+PRZYCZYNA
+Log z uruchomienia OneClick na Node.js v24.19.0 zatrzymał się na teście
+scripts/test-pages-production-direct-upload-fix86.mjs. Test sprawdzał nagłówek
+AUTO_PUBLISH_WATCHER.js, oczekując starego tekstu FIX87, podczas gdy aktywny
+Watcher's header miał już numer FIX88. Błąd występował przed backupem/migracją D1
+oraz przed publikacją i nie oznaczał problemu z samym Direct Upload.
+
+ZMIANY
+1. Kontrakt testu FIX86 odczytuje latestHotfix z WEB_PUBLISH/release.json i sprawdza
+   zgodność nagłówka Watchera zamiast wymagać literalnego FIX87.
+2. Historyczny test FIX85 porównuje etykietę OneClick z aktualnym latestHotfix.
+3. OneClick i Auto-Watcher zostały zsynchronizowane z FIX89.
+4. Watcher dynamicznie weryfikuje latestHotfix oraz latestHotfixBuild z lokalnego
+   release.json na stałym adresie produkcyjnym.
+5. HTML i release.json deklarują FIX89; historyczne markery FIX86–FIX88 pozostają.
+6. Dodano test test-hotfix-header-consistency-fix89.mjs i podłączono go do OneClick
+   oraz Auto-Watchera przed publikacją.
+7. Dodano pełny runner scripts/run-tests-fix89.mjs i WYKONAJ_TESTY_FIX89.cmd.
+
+TESTY
+- 92/92 testy bazowego pakietu FIX88 PASS.
+- 4/4 nowe testy FIX89 PASS.
+- 96/96 łącznie PASS na Node.js v22.16.0.
+
+NIE ZMIENIANO
+- wersji produktu 6.8.0;
+- danych i schematu istniejącej bazy D1;
+- migracji SQL ani sekretu OPENAI_API_KEY;
+- nazwy istniejącego projektu Cloudflare Pages;
+- reguły Direct Upload: produkcyjne polecenie nadal nie przekazuje --branch ani --env.
+
+UWAGA
+Nie wykonano deploymentu produkcyjnego. Po rozpakowaniu uruchom WYKONAJ_TESTY_FIX89.cmd
+na Node.js v24.19.0, a następnie URUCHOM_AKADEMIE.cmd. Sukces wymaga sprawdzenia
+stałej domeny produkcyjnej, nie tylko unikalnego URL deploymentu.

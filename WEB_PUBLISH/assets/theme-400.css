@@ -1,0 +1,92 @@
+
+/* NAPRAWA PC — AKADEMIA SERWISU PRO 4.0 / neon workshop interface */
+:root{
+ --ink:#e8f5ff;--muted:#9ab5cc;--faint:#6f91ad;--line:#16466c;--paper:#04101f;--white:#071a2d;
+ --forest:#06182b;--forest-2:#0a2944;--mint:#13d9ff;--mint-soft:#062b49;--amber:#ffbf38;--amber-soft:#35270a;
+ --lilac:#1d1b4a;--peach:#3b1b3b;--sand:#102e49;--danger:#ff627b;--danger-soft:#351622;
+ --shadow:0 12px 34px rgba(0,0,0,.42);--radius:15px
+}
+html{background:#020914}
+body{background:radial-gradient(ellipse at 50% -15%,#0b3156 0,#06182b 42%,#020914 100%);color:#e8f5ff}
+.topbar{background:linear-gradient(180deg,#06182b 0%,#04111f 100%);border-bottom:1px solid #087ac1;box-shadow:0 5px 30px #00aaff20}
+.topbar-brand-copy .brand-name,.brand-name{color:#f4fbff}
+.brand-mark{background:linear-gradient(145deg,#08cfff,#075bba);color:white;box-shadow:0 0 20px #00aaff8a}
+.top-primary-nav .nav-item.active,.nav-item.active{background:linear-gradient(120deg,#0875d1,#06c7ef);color:white;box-shadow:0 0 22px #00aaff70,inset 0 0 0 1px #9beaff}
+.nav-item{color:#c6e4fa}
+.nav-item:hover{background:#0c3455;color:#fff}
+.sidebar{background:linear-gradient(180deg,#061a2e,#04101e);border-right:1px solid #0c5c8f;box-shadow:8px 0 28px #0005}
+.sidebar-label{color:#27d8ff}
+.sidebar-note,.stat-card,.course-card,.doc-card,.tool-card,.method-card,.device-card,.visitor-stat,.diagnostic-feature-card,.section-panel,.course-toolbar,.subtabs,.filter-toolbar,.results-meta{
+ background:linear-gradient(145deg,#09233b,#06172a)!important;border:1px solid #14517a!important;color:#eaf7ff;box-shadow:0 8px 22px #0003,inset 0 1px 0 #ffffff0a
+}
+h1,h2,h3,h4,strong,b{color:inherit}
+.view-section h1 span,.page-title-row h1 span{color:#12d7ff}
+.eyebrow,.sidebar-label,.course-meta,.muted,.course-card p,.doc-card p,.tool-card p,.method-card p{color:#9cc5df}
+button,.btn,.subtab,.component-tab{transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease,background .2s ease}
+.btn-primary,.course-more,.doc-download,.diagnostic-feature-button{background:linear-gradient(110deg,#0878d1,#06b9e8);color:white;border:1px solid #38d9ff;box-shadow:0 0 15px #00aaff45}
+.course-card{position:relative;overflow:hidden;border-radius:15px;animation:academyRise .45s both}
+.course-card:before,.stat-card:before{content:"";position:absolute;inset:0 auto 0 0;width:2px;background:linear-gradient(180deg,#00e5ff,#1263ff,#a855f7);opacity:.9}
+.course-card:hover,.tool-card:hover,.method-card:hover,.doc-card:hover,.diagnostic-feature-card:hover{transform:translateY(-5px);border-color:#16cfff!important;box-shadow:0 0 0 1px #16cfff55,0 12px 30px #00aaff26}
+.course-card-image{filter:saturate(1.12);border:1px solid #155b88}
+.course-card b{color:#effaff}
+.course-card p{color:#a8c7de}
+.subtabs{padding:7px;border-radius:13px}
+.subtab{background:#09233b;color:#b8d9ee;border:1px solid #174f75}
+.subtab.active{background:linear-gradient(110deg,#0868bc,#08bce9);color:white;border-color:#55e5ff;box-shadow:0 0 18px #00bfff65}
+.filter-search,.global-search-wrap,.diagnostic-filter-search{background:#031629;border:1px solid #17628f;color:#dff5ff;box-shadow:inset 0 0 12px #0005}
+input,select,textarea{background:#061b30!important;color:#e9f8ff!important;border:1px solid #17628f!important}
+input::placeholder{color:#759bb7}
+.course-lesson-figure img{border:1px solid #18aeea;box-shadow:0 0 24px #00aaff30}
+.az-course,.az-block,.az-course-banner,.az-context-card,.az-original-guide,.az-source-original{background:linear-gradient(145deg,#081f35,#061629)!important;border-color:#14527c!important;color:#e7f6ff}
+.az-course-banner{box-shadow:0 0 24px #00aaff20}
+.az-course-banner h2,.az-block h3{color:#effaff}
+.az-letter{background:#073b62;color:#28dfff;border:1px solid #0e9bd2;box-shadow:0 0 12px #00aaff35}
+.az-outline a,.az-source{background:#09233a;border:1px solid #174f74;color:#cdeaff}
+.az-task{background:#09233a;border:1px solid #174f74;color:#dff3ff}
+.az-warning-block,.lesson-safety-note{background:#2b1c12!important;border-color:#a66b25!important;color:#ffe2ad}
+.az-quiz details,.az-original-guide{background:#09233a!important;border:1px solid #1a567d!important}
+.course-source-intro p,.az-block p,.az-block li{color:#c0d9ec}
+.modal{background:linear-gradient(160deg,#071c30,#04111f)!important;border:1px solid #087fc1!important;box-shadow:0 0 45px #00aaff25}
+.modal-header{background:#071c30;border-bottom:1px solid #14527c}
+.modal h2,.modal h3{color:#f0faff}
+.modal-close{background:#0a3150;color:#c9efff}
+.stat-card strong,.title-metric b{color:#20d8ff}
+.title-metric{background:linear-gradient(145deg,#092b48,#06182b);border:1px solid #126c9f;box-shadow:0 0 20px #00aaff22}
+.section-heading{border-bottom-color:#14527c}
+.safety-banner{background:#2a1b12;border:1px solid #9a6425;color:#ffe2b1}
+a{color:#44d9ff}
+@keyframes academyRise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes academyGlow{0%,100%{box-shadow:0 0 12px #00bfff20}50%{box-shadow:0 0 24px #00bfff45}}
+.topbar-brand{animation:academyGlow 5s ease-in-out infinite}
+.course-card:nth-child(3n+1){animation-delay:.03s}.course-card:nth-child(3n+2){animation-delay:.08s}.course-card:nth-child(3n){animation-delay:.13s}
+.academy-lesson-video{margin:22px 0;padding:16px;border:1px solid #087fc1;border-radius:14px;background:linear-gradient(145deg,#08233b,#041323);box-shadow:0 0 24px #00aaff20}
+.academy-video-head{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.academy-video-head span{font-size:10px;letter-spacing:.16em;color:#20d9ff;font-weight:800}
+.academy-video-head b{font-size:17px;color:#f0fbff}
+.academy-lesson-video video{display:block;width:100%;max-height:520px;background:#000;border-radius:10px;border:1px solid #1c77a9}
+.academy-lesson-video p{font-size:12px;color:#9ec5df;margin:9px 0 0}
+@media(max-width:850px){.topbar{background:#041426}.app-shell{background:#041426}.sidebar{box-shadow:0 10px 30px #0008}.course-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.course-grid{grid-template-columns:1fr}.page-title-row{gap:14px}.academy-lesson-video{padding:10px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+
+.academy4-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:24px;align-items:center;position:relative;overflow:hidden;padding:28px;margin:0 0 18px;border:1px solid #087fc1;border-radius:19px;background:linear-gradient(110deg,#06182c 0%,#092c4a 55%,#041323 100%);box-shadow:0 0 30px #00aaff20}
+.academy4-hero:after{content:"";position:absolute;inset:-70% -20%;background:linear-gradient(115deg,transparent 44%,#13d9ff0c 49%,transparent 54%);animation:academySweep 8s linear infinite;pointer-events:none}
+.academy4-kicker{font-size:10px;font-weight:850;letter-spacing:.19em;color:#18d8ff}
+.academy4-hero h1{font-size:clamp(27px,3.2vw,43px);line-height:1.08;margin:12px 0;color:#f1fbff}
+.academy4-hero h1 span{color:#16d8ff}
+.academy4-hero p{max-width:720px;color:#b4d0e4;font-size:14px}
+.academy4-hero-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:20px}
+.academy4-hero-actions>span{font-size:11px;color:#8fb8d4}
+.academy4-hero-art{position:relative;min-height:190px;border-radius:15px;overflow:hidden;border:1px solid #1689c6;box-shadow:0 0 25px #00aaff25}
+.academy4-hero-art img{width:100%;height:100%;min-height:190px;max-height:240px;object-fit:cover;display:block;filter:saturate(1.15) contrast(1.04)}
+.academy4-floating-tag{position:absolute;right:14px;top:14px;padding:9px 12px;border:1px solid #25dfff;border-radius:10px;background:#031a2ddd;color:#26dcff;font-size:10px;letter-spacing:.14em;box-shadow:0 0 18px #00bfff55}
+.academy4-floating-tag b{color:white;font-size:13px}
+.academy4-paths{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:9px;margin:0 0 22px}
+.academy4-paths button{min-width:0;text-align:left;padding:13px 12px;border:1px solid #12628e;border-radius:13px;background:linear-gradient(150deg,#092844,#041629);color:#effaff;box-shadow:0 6px 16px #0003;display:flex;flex-direction:column;gap:6px;transition:.2s}
+.academy4-paths button:hover{transform:translateY(-4px);border-color:#1cddff;box-shadow:0 0 22px #00bfff45}
+.academy4-paths button span{font-size:10px;color:#18d9ff;font-weight:900;letter-spacing:.12em}
+.academy4-paths button b{font-size:13px}
+.academy4-paths button small{font-size:10px;line-height:1.35;color:#8fb6d1}
+@keyframes academySweep{from{transform:translateX(-20%)}to{transform:translateX(20%)}}
+@media(max-width:1150px){.academy4-paths{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:760px){.academy4-hero{grid-template-columns:1fr;padding:18px}.academy4-hero-art{min-height:150px}.academy4-hero-art img{min-height:150px}.academy4-paths{grid-template-columns:repeat(2,minmax(0,1fr))}}

@@ -1,0 +1,23 @@
+AUDYT: CO BYŁO JUŻ W PROJEKCIE, A CO DODAJE FIX181
+ISTNIAŁO PRZED FIX181:
+- Główna Akademia: 1083 lekcje i 155 opisów przypadków usterek.
+- Ogólne Windows Deployment Center — centrum/checklisty przygotowania wdrożenia; nie znaleziono kompletnej ścieżki capture/servicing/deploy WIM.
+- Akademia Apple Mac — istniejący kurs ogólny i ścieżka serwisowa; nie znaleziono szczegółowej procedury DFU Revive/Restore w zasobach sprawdzonych dla FIX180.
+- FIX180 zawierał już lekcję aktywacji Windows po wymianie płyty; FIX181 nie dodaje drugiego kursu aktywacyjnego.
+- Baza zawierała już diagnozę/bezpieczną obsługę baterii, przypadek spuchniętej baterii oraz ogólne przyjęcie/odbiór sprzętu; FIX181 ogranicza nową lekcję baterii do ewidencji i śledzenia przekazania zużytych ogniw, a nową kontrolę przyjęcia do pochodzenia/dokumentów partii poleasingowej.
+- Baza zawierała już NVMe Sanitize/Secure Erase, bezpieczne przygotowanie dysku i testy stabilności/odbioru; FIX181 usuwa z nowego modułu powielające je lekcje sanitization oraz burn-in.
+- Egzamin Mistrza Serwisu — istniał ogólny egzamin wieloetapowy; FIX181 dodaje osobny test wiedzy dotyczący nowych specjalizacji, nie kopiuje poprzedniego egzaminu.
+- FIX179 i FIX180 — pozostają w projekcie, ich pliki i klucze postępu nie są zastępowane.
+
+DODANE FAKTYCZNIE W FIX181:
+- Procedury obrazowania Windows: Audit Mode, Sysprep, unattend.xml, capture/servicing WIM, sterowniki offline i wdrażanie UEFI/GPT.
+- USMT: plan migracji, ScanState, LoadState, typy magazynu, XML scope i walidacja danych/uprawnień.
+- Mac Apple Silicon/T2: kwalifikacja modelu do DFU, Revive kontra Restore, procedura połączenia i ochrona danych.
+- Odnowa PC: grading wizualny, weryfikacja dokumentów pochodzenia partii, ekonomika uzysku/odrzutów całej partii, ewidencja zużytych baterii i potwierdzenie odbioru, pakowanie/transport ESD, Autopilot/MDM, audyt Service Tag/SMBIOS i blokady firmware.
+- Trzy unikalne przypadki: rozbieżność Service Tag/SMBIOS, uszkodzenie w transporcie i nieznana blokada hasła UEFI.
+- Nowa zakładka FIX181, 28 lekcji, 13 scenariuszy, 9 projektów, 40 terminów, 84 pytania i egzamin 14 pytań.
+
+OGRANICZENIA:
+- To są materiały i symulowane ćwiczenia edukacyjne; aplikacja nie wykonuje Sysprep, DISM, USMT, DFU ani operacji kasowania danych na sprzęcie.
+- Wynik egzaminu jest wewnętrznym wynikiem szkoleniowym, nie państwowym certyfikatem.
+- Postęp FIX181 jest oddzielny od postępów FIX179/FIX180 i profilu bazowego.

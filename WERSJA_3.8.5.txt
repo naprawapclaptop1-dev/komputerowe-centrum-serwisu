@@ -1,0 +1,5 @@
+NAPRAWA PC — AKADEMIA SERWISU PRO 3.8.5
+Poprawa potwierdzenia wyboru istniejącej bazy D1: 1 = TAK, 0 = NIE.
+Nie wymaga już wpisywania długiej frazy; zachowana jest możliwość wpisania DODAJ AKADEMIE.
+Przy błędnym potwierdzeniu pyta ponownie do 3 razy, zachowując wybór bazy.
+Jeden punkt startowy: URUCHOM_AKADEMIE.cmd.

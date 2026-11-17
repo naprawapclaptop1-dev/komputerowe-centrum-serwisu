@@ -1,0 +1,16 @@
+NAUKA OD A DO Z 6.8.0 — FIX133
+Data: 2026-11-13
+
+- Naprawiono nieudaną kontrolę FIX132 na komputerach, na których aktualizacja ZIP-em była rozpakowywana na istniejący katalog projektu.
+- Przyczyną był pozostały po FIX131 plik functions/_photo-proxy-fix131.mjs. Nowy plik .js był już obecny, ale stary .mjs zostawał w folderze i blokował test rozszerzeń Pages Functions.
+- Dodano bezpieczne sprzątanie scripts/cleanup-pages-function-residue-fix133.mjs. Dokładnie wskazany stary helper jest przenoszony, a nie kasowany, do BACKUPS_FIX133/LEGACY_PAGES_FUNCTIONS.
+- Sprzątanie działa wyłącznie, gdy istnieje nowy helper .js i aktywna trasa functions/media/photos/[id].js importuje ten helper. W przeciwnym wypadku plik pozostaje nietknięty, a testy zatrzymują publikację.
+- Dodano testy idempotencji, zachowania bajtów kopii, braku aktywnego helpera i nieprawidłowego importu.
+- OneClick i Watcher uruchamiają scripts/run-tests-fix133.mjs przed publikacją/skanem Functions.
+- Zachowano zgodność starszego polecenia WYKONAJ_TESTY_FIX132.cmd — przekierowuje do testów FIX133.
+- Wydanie i cache PWA oznaczono FIX133; numer wersji produktu pozostaje 6.8.0.
+- Silnik fotografii, 19 przypisań zdjęć, allowlista FIX131, endpoint /media/photos/{id}.jpg i cache fotografii FIX131 pozostają bez zmian.
+- Bez zmian schematu D1, bez migracji i bez usuwania danych użytkowników.
+
+Weryfikacja: scripts/run-tests-fix133.mjs — 15/15 skryptów PASS.
+Wdrożenie produkcyjne: nie było uruchamiane z tego środowiska. Testy lokalne PASS nie są potwierdzeniem publikacji na stałej domenie.

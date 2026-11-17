@@ -1,0 +1,28 @@
+NAUKA OD A DO Z — DLA WSZYSTKICH
+FIX8 — POKAZ SLAJDÓW I CENTRUM NAUKI
+Data: 02.11.2026
+
+ZMIANY STRONY GŁÓWNEJ
+- Pokaz slajdów z 6 różnymi fotografiami online z Pexels.
+- Każdy slajd ma osobny opis, temat, link do odpowiedniego modułu i podpis źródła/autorów.
+- Jeżeli fotografia online nie załaduje się, wykorzystywany jest odrębny lokalny plik zapasowy.
+- Sterowanie: poprzedni/następny, kropki, automatyczna zmiana, pauza/wznowienie, licznik i pasek postępu.
+- Automatyczny pokaz zatrzymuje się przy najechaniu, fokusie i ukryciu karty; respektuje prefers-reduced-motion.
+- Dodano 12-kafelkowe Centrum nauki praktycznej prowadzące do istniejących modułów kursów, diagnostyki, atlasu elementów, PCB/BoardView, laboratorium, biblioteki, checklist, katalogu modeli, galerii, mapy wiedzy i czatu edukacyjnego.
+- Dodano dzienny plan nauki 3-etapowy, zapisywany lokalnie w przeglądarce. Dane planu nie są wysyłane do D1/API.
+
+ZACHOWANE ZASADY
+- Platforma pozostaje edukacyjna. Nie dodano formularzy przyjmowania zleceń serwisowych.
+- Istniejące kursy, laboratoria, egzaminy, zdjęcia, filmy, logowanie i integracje nie zostały celowo usunięte.
+- Pokaz na stronie głównej używa sześciu odrębnych URL fotografii. Nie zmienia to algorytmu unikalności fotografii w bazie 155 napraw.
+
+KONTROLE
+- test-homepage-showcase-fix8.js
+- pełny zestaw scripts/test-*.js i scripts/test-*.mjs
+- kontrola składni JavaScript, identyfikatorów HTML i lokalnych zasobów
+- kontrola integralności archiwum ZIP
+
+OGRANICZENIA WERYFIKACJI
+- Testy statyczne nie potwierdzają, że Pexels będzie dostępny w każdej przeglądarce/sieci.
+- Nie wykonywano publikacji produkcyjnej Cloudflare ani migracji D1.
+- Nie przeprowadzono testów na fizycznym sprzęcie.

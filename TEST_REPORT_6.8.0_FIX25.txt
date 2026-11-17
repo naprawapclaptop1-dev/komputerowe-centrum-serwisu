@@ -1,0 +1,50 @@
+NAUKA OD A DO Z 6.8.0 FIX25 — RAPORT TESTÓW
+Data: 2026-11-03
+
+PODSUMOWANIE TESTÓW
+- Testy JavaScript: 23/23 PASS.
+- Testy MJS: 17/17 PASS.
+- Łącznie: 40/40 testów PASS.
+- Kontrola składni JS/MJS/CJS: 128 plików, 0 błędów.
+- CSS PostCSS: 36 arkuszy, PASS.
+- HTML: 590 unikalnych identyfikatorów, 0 duplikatów.
+- Lokalne odwołania src/href/poster: 99 sprawdzonych, 0 brakujących.
+- Test symulujący limit Cloudflare PBKDF2: 6 operacji, maksymalnie 100000 iteracji, PASS.
+
+USTALONA PRZYCZYNA BŁĘDU PRODUKCYJNEGO
+Log FIX24 zwracał HTTP 503 na etapie login-password-kdf. Kod session.js i reset.js żądał PBKDF2 z 210000 iteracji. Cloudflare Workers WebCrypto odrzuca wartości powyżej 100000 iteracji jako NotSupportedError. To wyjaśnia, dlaczego błąd występował przed porównaniem hasła, również przy fikcyjnym adresie .invalid.
+
+ZAKRES POPRAWKI FIX25
+- Dodano wspólny moduł functions/_password-kdf.js.
+- Rejestracja, logowanie i reset hasła używają PBKDF2-HMAC-SHA-256 z 100000 iteracji.
+- Nowe sole mają wersjonowany format pbkdf2-sha256$100000$ oraz 16 bajtów losowej soli.
+- Test negatywny nieistniejącego konta zwraca HTTP 401 LOGIN_FAILED zamiast HTTP 503.
+- Rejestracja testowa: HTTP 201.
+- Logowanie prawidłowym hasłem: HTTP 200.
+- Reset hasła testowym tokenem: HTTP 200.
+- Logowanie po resecie: HTTP 200.
+- Stara niewersjonowana sól nie uruchamia niedozwolonego KDF; odpowiedź pozostaje ogólnym HTTP 401, bez ujawniania istnienia konta.
+- Testy nie użyły prawdziwego e-maila, hasła ani konta produkcyjnego.
+
+ZGODNOŚĆ I BEZPIECZEŃSTWO
+- Publikator i watcher sprawdzają wspólny KDF, limit 100000 i reset hasła.
+- Zachowano limitowanie prób V3, OAuth, 2FA, potwierdzanie e-mail, postępy nauki, 1060 lekcji i pozostałe moduły.
+- Nie dodano migracji D1 dla KDF. Wcześniejsza migracja 0015 limitera V3 pozostaje wymagana.
+- Nie ma integracji Google Drive, Microsoft OneDrive ani Dropbox.
+- Kopia D1 przed ewentualnymi migracjami w publikatorze pozostaje aktywna.
+
+WAŻNE O STARYCH HASHACH
+Wcześniejszy format soli był niewersjonowany i był tworzony przez kod żądający 210000 iteracji. Jeśli w bazie istnieją hashe utworzone poza Cloudflare w tym formacie, Worker nie może ich zweryfikować przez WebCrypto. Takie konto wymaga resetu hasła. Rekord konta i sesje nie są kasowane przez tę poprawkę. Reset ustawia nowy format FIX25. Działanie resetu przez e-mail wymaga skonfigurowanej usługi Resend.
+
+OGRANICZENIA WERYFIKACJI
+- Testy wykonano lokalnie na Node.js v22.16.0; komputer użytkownika ma w logach Node.js v24.19.0.
+- Test Cloudflare został zasymulowany przez wrapper WebCrypto odrzucający PBKDF2 >100000; nie był to request do produkcyjnego Cloudflare.
+- Nie wykonano publikacji FIX25 ani nie zmieniano produkcyjnej bazy D1 w tej sesji.
+- Rzeczywiste logowanie i e-mail resetu trzeba sprawdzić po publikacji.
+- 100000 iteracji jest zgodnością z limitem Workers, nie docelowym maksimum odporności KDF; dalsza poprawa wymaga KDF obsługiwanego w tym runtime i zweryfikowanego pod jego limity.
+
+IDENTYFIKATOR
+Wersja aplikacji: 6.8.0
+Build: 6.8.0-social-login-fix25-cloudflare-pbkdf2-100k-20261103
+Migracja nowa: brak
+Ostatnia wdrożona wersja według dostarczonego logu: FIX24.

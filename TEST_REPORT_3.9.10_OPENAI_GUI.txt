@@ -1,0 +1,74 @@
+TAP version 13
+# [OK] Uruchomiono lokalne, bezpieczne okno wprowadzania klucza OpenAI.
+# [INFO] Wklej klucz w oknie przeglądarki; nie wpisuj go do CMD.
+# [INFO] Adres formularza lokalnego: http://127.0.0.1:44401/
+# Otwórz lokalny formularz: http://127.0.0.1:44401/
+# Subtest: akceptuje formaty kluczy projektowych i serwisowych OpenAI
+ok 1 - akceptuje formaty kluczy projektowych i serwisowych OpenAI
+  ---
+  duration_ms: 0.953343
+  type: 'test'
+  ...
+# Subtest: odrzuca puste, zbyt krótkie i niepoprawne klucze
+ok 2 - odrzuca puste, zbyt krótkie i niepoprawne klucze
+  ---
+  duration_ms: 0.155075
+  type: 'test'
+  ...
+# Subtest: rozpoznaje istniejący sekret z JSON Wrangler
+ok 3 - rozpoznaje istniejący sekret z JSON Wrangler
+  ---
+  duration_ms: 0.353535
+  type: 'test'
+  ...
+# Subtest: redaguje wartość sekretu z komunikatów procesu
+ok 4 - redaguje wartość sekretu z komunikatów procesu
+  ---
+  duration_ms: 0.133923
+  type: 'test'
+  ...
+# Subtest: HTML ma pole hasła z normalnym wklejaniem i bez usług zewnętrznych
+ok 5 - HTML ma pole hasła z normalnym wklejaniem i bez usług zewnętrznych
+  ---
+  duration_ms: 1.140626
+  type: 'test'
+  ...
+# Subtest: główny CMD otwiera graficzny konfigurator przed publikacją
+ok 6 - główny CMD otwiera graficzny konfigurator przed publikacją
+  ---
+  duration_ms: 0.196277
+  type: 'test'
+  ...
+# Subtest: sekret jest przekazywany Wranglerowi przez stdin, a nie argument lub plik
+ok 7 - sekret jest przekazywany Wranglerowi przez stdin, a nie argument lub plik
+  ---
+  duration_ms: 0.402739
+  type: 'test'
+  ...
+# Subtest: lokalny formularz waliduje token i zwraca stronę bez cache
+ok 8 - lokalny formularz waliduje token i zwraca stronę bez cache
+  ---
+  duration_ms: 1338.386742
+  type: 'test'
+  ...
+# Subtest: zmiana klucza nie tworzy pliku z kluczem
+ok 9 - zmiana klucza nie tworzy pliku z kluczem
+  ---
+  duration_ms: 0.646368
+  type: 'test'
+  ...
+# Subtest: pełny przebieg: strona lokalna przyjmuje wklejony klucz i zapisuje sekret przez Wrangler stdin
+ok 10 - pełny przebieg: strona lokalna przyjmuje wklejony klucz i zapisuje sekret przez Wrangler stdin
+  ---
+  duration_ms: 1573.380443
+  type: 'test'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2971.24089

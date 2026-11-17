@@ -1,0 +1,42 @@
+NAUKA OD A DO Z — DLA WSZYSTKICH 6.8.0 — FIX150
+NAPRAWA PUBLIKATORA: ZAKRES ZMIENNEJ W KONTROLI WYDANIA FIX149
+
+PROBLEM
+Start FIX105 dochodził do kroku 5/7, po czym ONECLICK_AKADEMIA.js kończył pracę błędem:
+ReferenceError: RELEASE is not defined
+w funkcji verifyWeb() podczas kontroli metadanych rozszerzenia FIX149.
+
+PRZYCZYNA
+Warunek porównywał fix149Extension.productVersion z identyfikatorem RELEASE, którego nie zadeklarowano w tym pliku. W tej samej funkcji istnieje już prawidłowa zmienna releaseVersion odczytana z WEB_PUBLISH/release.json.
+
+NAPRAWA
+- Zastąpiono niezadeklarowane RELEASE zmienną releaseVersion.
+- Zaktualizowano nagłówek OneClick: PUBLISHER FIX150 / WEBSITE RELEASE 6.8.0 / RUNTIME FIX149.
+- Dodano test regresyjny scripts/test-fix150-publisher-release-scope.mjs (3/3).
+- Test FIX150 dołączono do pełnego preflightu publikatora i obserwatora przez wspólny runner.
+- Raport pełnych testów jest zapisywany jako RAPORT_FIX150_TESTY.log.
+
+ZACHOWANE
+- Wersja produktu: 6.8.0.
+- Wersja publicznej strony i jej cache: FIX149; nie ma potrzeby zmiany zawartości strony ani Service Workera.
+- Istniejący projekt Cloudflare Pages: naprawa-pc-akademia-serwisu-pro.
+- Istniejąca baza D1: naprawapc-orders, binding DB bez zmian.
+- Konta, OAuth, klucze/sekrety, migracje i konfiguracja Wrangler bez zmian.
+- Liczba widoków: 35; liczba lekcji: 1083; HOME i zdjęcia bez zmian.
+- Nie utworzono nowego projektu Pages ani nowej bazy D1.
+
+TESTY
+- Test zakresu zmiennej publikatora FIX150: 3/3 PASS.
+- Kontrakt licznika lekcji FIX149: PASS.
+- Pełny zestaw regresyjny: wynik zapisany w RAPORT_FIX150_TESTY.log.
+- Kontrola składni Node.js: PASS.
+- Test integralności ZIP: dołączony przy przygotowaniu paczki.
+
+URUCHOMIENIE
+1. Wykonaj kopię katalogu G:\AKADEMIA_SERWISU_PRO.
+2. Rozpakuj cały ZIP FIX150 do katalogu projektu, zastępując pliki zgodnie z dotychczasową procedurą.
+3. Uruchom dotychczasowy START_FIX105.
+4. Publikator powinien przejść przez verifyWeb i kontynuować wymagane kontrole. Jeżeli pojawi się kolejny błąd, zachowaj cały nowy log.
+
+UWAGA
+Ta poprawka usuwa błąd programistyczny przed publikacją. Nie wykonuje publikacji zdalnej w momencie budowania paczki.

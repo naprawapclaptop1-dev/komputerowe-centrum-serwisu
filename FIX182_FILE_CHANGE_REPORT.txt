@@ -1,0 +1,36 @@
+FIX182 — RAPORT ZMIAN PLIKÓW
+Porównanie SHA-256 względem kompletnej paczki FIX181.
+Pliki bazowe: 2141
+Pliki obecne po FIX182: 2152
+Nowe pliki: 11
+Pliki usunięte: 0
+Zmienione pliki bazowe: 9
+
+NOWE PLIKI:
++ CHANGELOG_6.8.0_FIX182.txt
++ FIX182_DUPLICATE_AUDIT.txt
++ FIX182_EXISTING_VS_ADDED_AUDIT.txt
++ FIX182_FILE_CHANGE_REPORT.txt
++ FIX182_FULL_TESTS.log
++ README_FIX182.txt
++ WEB_PUBLISH/assets/academy-specialist-systems-fix182.css
++ WEB_PUBLISH/assets/academy-specialist-systems-fix182.js
++ WYKONAJ_TESTY_FIX182.cmd
++ scripts/run-tests-fix182.mjs
++ scripts/test-fix182-specialist-systems.mjs
+
+ZMIENIONE PLIKI BAZOWE:
+* AUTO_PUBLISH_WATCHER.js
+* ONECLICK_AKADEMIA.js
+* WEB_PUBLISH/index.html
+* WEB_PUBLISH/release.json
+* WEB_PUBLISH/service-worker.js
+* scripts/test-fix136-release-integration.mjs
+* scripts/test-fix175-professional-academy.mjs
+* scripts/test-fix180-system-diagnostics.mjs
+* scripts/test-fix181-deployment-migration-refurb.mjs
+
+USUNIĘTE PLIKI:
+brak
+
+Wniosek: pliki bazowe zachowano; brak usunięć. Zmiany dotyczą wyłącznie panelu FIX182, integracji jego zasobów i aktualizacji testów zgodności. Nie zmieniono numeru wersji 6.8.0 ani nie wykonano migracji D1. Dane konfiguracyjne użytkownika pozostają poza zakresem tej paczki.

@@ -1,0 +1,28 @@
+/* FIX119 — unified, responsive electronics simulator and laboratory launch panel. */
+.gax-electronics-workspace{display:grid;gap:18px}
+.gax-electronics-grid{align-items:stretch}
+.gax-electronics-grid>.gax-card{min-width:0}
+.gax-electronics-grid h3,.gax-pd-card h3,.gax-launch-card h3{margin:0 0 12px;color:#e8f5ff;font-size:1.08rem}
+.gax-electronics-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}
+.gax-electronics-card-head p{margin:5px 0 0;color:#a9bfd0;line-height:1.55}
+.gax-sim-badge{flex:0 0 auto;border:1px solid rgba(70,214,208,.38);border-radius:999px;padding:6px 10px;color:#71e5d4;background:rgba(22,144,153,.12);font-size:.72rem;font-weight:800;letter-spacing:.07em}
+.gax-pd-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.gax-pd-controls .gax-field{min-width:0}
+.gax-pd-controls input,.gax-pd-controls select{width:100%;min-width:0}
+.gax-pd-result{margin-top:15px;padding:15px 17px;border:1px solid rgba(99,164,203,.28);border-radius:12px;background:rgba(4,20,35,.62);color:#dceeff;line-height:1.55}
+.gax-pd-result b{display:block;margin-bottom:5px;font-size:1rem;color:#c4f7ec}
+.gax-pd-result p{margin:6px 0}
+.gax-pd-result small{color:#9db8cb}
+.gax-pd-result[data-state="ok"]{border-color:rgba(67,214,161,.5)}
+.gax-pd-result[data-state="warning"]{border-color:rgba(245,182,76,.55)}
+.gax-pd-result[data-state="error"]{border-color:rgba(255,111,118,.55)}
+.gax-pd-result[data-state="error"] b{color:#ffb4b8}
+.gax-pd-warning{color:#ffd78c!important}
+.gax-launch-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.gax-launch-button{display:flex;min-height:91px;flex-direction:column;justify-content:center;gap:6px;border:1px solid rgba(88,158,205,.28);border-radius:11px;padding:13px 14px;text-align:left;color:#e7f4ff;background:linear-gradient(145deg,rgba(17,52,77,.9),rgba(7,24,42,.94));cursor:pointer;transition:border-color .16s ease,transform .16s ease,background .16s ease}
+.gax-launch-button:hover,.gax-launch-button:focus-visible{border-color:#58d8e0;background:linear-gradient(145deg,rgba(20,77,104,.94),rgba(8,33,54,.98));transform:translateY(-1px);outline:none}
+.gax-launch-button b{font-size:.9rem;line-height:1.25}
+.gax-launch-button small{color:#a8c2d4;font-size:.77rem;line-height:1.4}
+.n63-scope-timebase{display:block;margin:8px 2px 4px;color:#a8c9db;font-size:.78rem}
+@media(max-width:980px){.gax-launch-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.gax-pd-controls{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.gax-pd-controls,.gax-launch-grid{grid-template-columns:1fr}.gax-electronics-card-head{flex-direction:column;align-items:flex-start}.gax-launch-button{min-height:76px}.gax-pd-card .gax-actions{align-items:stretch}.gax-pd-card .gax-actions button{width:100%}}

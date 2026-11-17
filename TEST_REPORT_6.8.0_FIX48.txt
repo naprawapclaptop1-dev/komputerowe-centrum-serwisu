@@ -1,0 +1,34 @@
+NAUKA OD A DO Z 6.8.0 — FIX48 PUBLICATION GUARD HOTFIX
+====================================================
+
+STATUS: PASS — pełny lokalny zestaw regresji.
+
+Przyczyna zgłoszona przez użytkownika:
+AUTO_PUBLISH_WATCHER.js zgłaszał `Cannot access 'swCacheName' before initialization` podczas verifyLocalRelease(), ponieważ kontrola kontraktu FIX47 używała tej zmiennej przed jej deklaracją.
+
+Naprawa:
+- odczyt CACHE_NAME z WEB_PUBLISH/service-worker.js przeniesiono bezpośrednio za deklarację `sw`;
+- `swCacheMatch` oraz `swCacheName` są deklarowane jeden raz przed pierwszą kontrolą FIX47;
+- dodano scripts/test-watcher-cache-name-tdz-fix48.mjs;
+- watcher oraz OneClick wymagają obecności testu FIX48 przed dalszymi etapami;
+- pełny runner historyczny został zachowany; WYKONAJ_TESTY_FIX48.cmd deleguje do WYKONAJ_TESTY_FIX47.cmd, które uruchamia wszystkie testy.
+
+Wyniki wykonane w środowisku bieżącej sesji:
+- Node.js v22.16.0;
+- składnia JS/MJS/CJS: 197/197 PASS;
+- testy regresji scripts/test-*.js i scripts/test-*.mjs: 73/73 PASS;
+- test FIX45 Service Worker TDZ: PASS;
+- test FIX47 kontraktu publikacji: PASS;
+- test FIX48 swCacheName TDZ: PASS;
+- test OneClick verifyWeb lokalny: PASS (bez Cloudflare, D1 i migracji).
+
+Zakres zachowany:
+- publiczny build WWW pozostaje 6.8.0-social-login-fix47-master-control-center-20261104;
+- brak zmian HTML, assetów front-end, Service Workera, cache PWA i release.json;
+- brak zmian API statusu kont, sekretów, konfiguracji Wrangler i migracji D1.
+
+Ograniczenia:
+- nie uruchomiono ONECLICK_AKADEMIA.js ani AUTO_PUBLISH_WATCHER.js w trybie publikacji;
+- nie wykonano deployu Cloudflare Pages;
+- nie wykonano exportu, migracji ani zapisu do produkcyjnej D1;
+- nie potwierdzono uruchomienia na docelowym Windows/Node.js v24.19.0 — użytkownik powinien uruchomić WYKONAJ_TESTY_FIX48.cmd przed publikacją.

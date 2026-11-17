@@ -1,0 +1,39 @@
+NAUKA OD A DO Z — RAPORT TESTÓW FIX87
+Data: 2026-11-06
+Środowisko: Node.js v22.16.0
+Wynik: 84/84 PASS, 0 FAIL
+
+Zakres testów
+- Pełna regresja historyczna FIX80–FIX86: PASS.
+- Kontrakty publikacji Cloudflare Direct Upload i guardy Preview: PASS.
+- Kontrakt manifestu FIX83, rozdzielenie VRAM/RAM i wydania FIX87: PASS.
+- Nowe testy FIX87 layoutu, kolejności inicjalizacji, unikalności ilustracji i składni: 12/12 PASS.
+- Łączny runner: scripts/run-tests-fix87.mjs — 84/84 PASS.
+
+Wyniki szczegółowe
+37/37 bazowy FIX80
+5/5 historyczny kontrakt FIX81
+6/6 FIX82
+9/9 FIX83
+3/3 FIX84
+8/8 FIX85
+8/8 FIX86 Direct Upload
+5/5 manifest/release
+12/12 nowe testy FIX87
+Łącznie: 84/84 PASS.
+
+Dodatkowa kontrola składni wykonana osobno:
+- ONECLICK_AKADEMIA.js — PASS
+- AUTO_PUBLISH_WATCHER.js — PASS
+- WEB_PUBLISH/assets/lesson-art.js — PASS
+- WEB_PUBLISH/assets/app.js — PASS
+- WEB_PUBLISH/assets/visual-uniqueness-fix83.js — PASS
+- WEB_PUBLISH/service-worker.js — PASS
+- scripts/test-repair-photo-layout-fix87.mjs — PASS
+- WEB_PUBLISH/release.json — poprawny JSON
+
+Ograniczenia / nierozwiązany zakres
+- Manifest WEB_PUBLISH/media/photo-sources-online.json deklaruje photosPerRepair: 0. W dostarczonym zrzucie widoczny był status 0/465 pobranych unikalnych fotografii. FIX87 nie dodaje 465 fotografii zewnętrznych; zapewnia 620 odrębnych ilustracji technicznych SVG dla 155 kart i szczegółów.
+- Nie wykonano produkcyjnego deploymentu Cloudflare w tej sesji.
+- Testy uruchomiono w Node.js 22.16.0, nie na komputerze użytkownika z Node.js 24.19.0.
+- Nie wykonano zmian D1 ani sekretów.

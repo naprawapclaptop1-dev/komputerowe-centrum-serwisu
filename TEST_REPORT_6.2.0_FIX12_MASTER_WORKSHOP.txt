@@ -1,0 +1,58 @@
+NAUKA OD A DO Z — RAPORT TESTÓW 6.2.0 FIX12
+WARSZTAT MISTRZA PRO
+Data: 02.11.2026
+
+WYNIK
+20/20 skryptów testowych projektu: PASS.
+88/88 plików JS/MJS/CJS: składnia poprawna (node --check).
+31/31 arkuszy CSS: parser bez błędów.
+WEB_PUBLISH/index.html: 443 identyfikatory ID, bez duplikatów.
+Lokalne odwołania src/href w HTML: 130 sprawdzonych, 0 brakujących.
+
+TESTY FUNKCJONALNE FIX12
+PASS — atlas 10 dziedzin / 30 tematów; tematy zawierają opis, procedurę,
+       wyposażenie i uwagi bezpieczeństwa.
+PASS — 8 symulacji diagnostycznych × 3 decyzje, jedna prawidłowa odpowiedź
+       na etap oraz informacja zwrotna.
+PASS — 3 egzaminy × 8 pytań = 24 pytania; walidacja indeksów odpowiedzi
+       i wyjaśnień.
+PASS — dekoder SMD 3/4 cyfry, zapis R i EIA-96; nieznane kody nie są zgadywane.
+PASS — kalkulatory i formularze modułu mają punkty montażowe w HTML.
+PASS — dziennik przypadków korzysta z IndexedDB; zdjęcia są ograniczane
+       i kompresowane; dane pozostają lokalne w przeglądarce.
+PASS — import kopii waliduje identyfikatory i scala postęp bez kasowania
+       wcześniejszych wpisów; własne notatki i egzaminy są filtrowane.
+PASS — 10 działów ma przypisane lokalne zdjęcie, film MP4, plakat i napisy VTT.
+PASS — pliki CSS, JS i HTML FIX12 są podłączone do nawigacji oraz PWA cache.
+PASS — watcher ma bramkę wymagającą nowego widoku, JS i CSS FIX12 pod stałym
+       adresem produkcyjnym.
+
+TESTY ZACHOWANIA WCZEŚNIEJSZYCH FUNKCJI
+PASS — testy kopii postępu FIX10.
+PASS — testy dziennika pomiarów FIX11 i walidacji warunków pomiaru.
+PASS — testy filmu wsparcia i sprawdzania MP4 przez GET/Range.
+PASS — testy galerii zdjęć, katalogu napraw, centrum nauki, kont, czatu AI,
+       statystyk, katalogu modeli, PWA i konfiguracji Wrangler/D1.
+PASS — test unikalnych zdjęć wykonał się na MOCK API ONLY: 465/465 różnych
+       wyników syntetycznych dla 155 kart napraw. Nie oznacza to pobrania
+       465 zdjęć na żywo podczas pakowania.
+
+NIEZALICZONE / NIEPOTWIERDZONE
+- Test E2E w prawdziwym Chromium nie został zaliczony. Chromium zawieszał się
+  w środowisku budowania nawet na prostej stronie data:; nie uznaję tego za
+  błąd aplikacji ani nie wpisuję PASS dla testu przeglądarkowego.
+- Nie sprawdzono zachowania na fizycznym sprzęcie ani na telefonie.
+- Nie wykonano wdrożenia Cloudflare Pages w ramach przygotowania FIX12.
+- Nie wykonano migracji ani zapisu do produkcyjnej bazy D1.
+- Nie potwierdzono nowego numeru build pod stałym adresem Pages.
+
+BEZPIECZEŃSTWO DANYCH
+- Pliki wrangler credentials, .env, .dev.vars, klucze prywatne i certyfikaty
+  nie są dołączone do paczki.
+- W przygotowaniu FIX12 nie zmodyfikowano produkcyjnej bazy D1.
+- Dziennik przypadków, zdjęcia, notatki i wyniki testów warsztatu nie są
+  wysyłane na serwer; są przechowywane lokalnie w profilu przeglądarki.
+- Certyfikat egzaminacyjny jest lokalnym potwierdzeniem wyniku, nie dokumentem
+  państwowym ani akredytowanym.
+
+KONIEC RAPORTU

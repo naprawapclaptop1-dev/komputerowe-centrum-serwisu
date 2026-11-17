@@ -1,0 +1,11 @@
+/* FIX198 — lokalny podgląd raportu sprzętowego z kolektora Windows. */
+.a198-hardware-panel{margin:16px 0;padding:16px;border:1px solid rgba(81,169,225,.3);border-radius:14px;background:rgba(8,26,47,.7)}
+.a198-hardware-panel input[type=file]{max-width:100%;padding:10px;border:1px solid rgba(105,180,230,.3);border-radius:9px;background:#0a2038;color:#eaf5ff}
+.a198-hardware-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:8px;margin:12px 0}
+.a198-hardware-metrics article{padding:10px;border:1px solid rgba(105,180,230,.2);border-radius:9px;background:rgba(20,55,88,.5)}
+.a198-hardware-metrics small{display:block;color:#a9c3d8}.a198-hardware-metrics b{display:block;margin-top:4px;color:#f0f8ff;overflow-wrap:anywhere}
+#a198HardwareDetails details{margin:9px 0;padding:10px;border:1px solid rgba(105,180,230,.18);border-radius:9px}#a198HardwareDetails summary{cursor:pointer;font-weight:750;color:#a9dfff}
+.a198-table-wrap{overflow:auto;max-width:100%;margin-top:10px}.a198-table-wrap table{width:100%;border-collapse:collapse;min-width:450px}.a198-table-wrap th,.a198-table-wrap td{padding:7px;border-bottom:1px solid rgba(125,170,205,.16);text-align:left;vertical-align:top;font-size:.83rem}.a198-table-wrap td{max-width:390px;overflow-wrap:anywhere;color:#d4e3f1}
+.a198-limitations{margin-top:12px;padding:12px;border-left:3px solid #d5a64c;background:rgba(153,110,33,.1)}
+/* FIX205 — jawna ocena regułowa bez fikcyjnego procentowego health score. */
+.a205-risk-card{margin:12px 0;padding:14px;border:1px solid rgba(120,180,220,.3);border-radius:12px;background:rgba(13,35,58,.72)}.a205-risk-card.critical{border-color:rgba(255,90,90,.65)}.a205-risk-card.warning{border-color:rgba(242,179,72,.6)}.a205-risk-card h4{margin:0 0 8px}.a205-risk-counts{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px}.a205-risk-card li{margin:7px 0}.a205-risk-card li span{display:block;color:#b4c9da}.a205-risk-card p{font-size:.82rem;color:#a8bfd2;margin-bottom:0}

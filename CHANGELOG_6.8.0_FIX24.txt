@@ -1,0 +1,29 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 FIX24
+DATA: 2026-11-03
+
+- Po nieudanym teście logowania FIX23 (HTTP 503 ACCOUNT_OPERATION_FAILED) dodano niezależny limiter V3.
+- Nowa addytywna migracja 0015_account_limiter_v3.sql tworzy academy_account_rate_limits_v3 z pojedynczym PRIMARY KEY(bucket_key) NOT NULL.
+- functions/_lib.js kieruje rateLimit() do tabeli V3.
+- functions/_account-schema.js i functions/_oauth.js walidują dokładny pojedynczy klucz główny V3.
+- functions/api/session.js dodaje diagnostykę etapów logowania bez logowania danych uwierzytelniających.
+- functions/api/session.js i functions/api/auth/status.js raportują nazwę aktywnej tabeli limitera.
+- Publikator i watcher wymagają migracji 0015, sprawdzają limiter V3 i bezpieczną próbę negatywną.
+- Poprawiono test guardu watchera, aby osobno sprawdzał obecność wszystkich migracji 0013, 0014 i 0015.
+- Usunięto duplikat pola loginStageDiagnostics z kontroli wydania.
+- Zachowano dotychczasowe konta, hashe haseł, sesje i dane nauki.
+- Bez integracji Google Drive, OneDrive i Dropbox. Zachowano lokalny backup JSON oraz eksport D1 przed migracjami.
+- Numer wersji aplikacji pozostaje 6.8.0; FIX24 jest hotfixem.
+
+WERYFIKACJA LOKALNA
+- 23/23 testy JavaScript: PASS.
+- 15/15 testów MJS: PASS.
+- 126 plików JS/MJS/CJS: kontrola składni PASS.
+- 36 arkuszy CSS: kontrola strukturalna PASS.
+- 590 unikalnych ID HTML.
+- 99 lokalnych odwołań, 0 brakujących zasobów.
+- Regresja SQLite: limiter V3, wadliwy klucz złożony V2 pozostaje nietknięty, istniejące konto ze starszym krótszym hasłem loguje się, nieprawidłowe dane zwracają 401.
+- Regresja diagnostyki: błąd D1 otrzymuje etap i krótką referencję; odpowiedź nie zawiera e-maila ani hasła.
+- Kontrola ZIP CRC po spakowaniu.
+
+OGRANICZENIE
+Nie wykonano publikacji FIX24 ani migracji produkcyjnej D1 w tej sesji. Poprzedni log potwierdza FIX23 na produkcji, z HTTP 503. Naprawę produkcyjną należy potwierdzić po uruchomieniu FIX24 i przejściu testu negatywnego .invalid do HTTP 401.

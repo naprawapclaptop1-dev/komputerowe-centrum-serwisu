@@ -1,0 +1,44 @@
+NAUKA OD A DO Z — DLA WSZYSTKICH — RAPORT ZMIAN FIX124
+
+Zmienione pliki (37 razem, łącznie z listą SHA-256):
+- CHANGELOG_6.8.0_FIX124.txt
+- WYKONAJ_TESTY_FIX124.cmd
+- AUTO_PUBLISH_WATCHER.js
+- RAPORT_FIX124_TESTY.log
+- ONECLICK_AKADEMIA.js
+- FIX124_FILE_CHANGE_REPORT.txt
+- README_FIX124_INSTALL.txt
+- WEB_PUBLISH/release.json
+- WEB_PUBLISH/index.html
+- WEB_PUBLISH/service-worker.js
+- scripts/photo-catalog-publication-contract-fix115.cjs
+- scripts/test-photo-method-renderer-fix106.mjs
+- scripts/test-photo-provider-recovery-fix111.mjs
+- scripts/test-photo-provider-recovery-fix109.mjs
+- scripts/test-master-academy-asset-version-fix121.mjs
+- scripts/test-homepage-photo-library-fix118.mjs
+- scripts/test-homepage-photo-prime-registration-fix117.mjs
+- scripts/test-electronics-simulators-fix119.mjs
+- scripts/test-home-module-photo-coverage-fix99.mjs
+- scripts/test-hotfix-header-consistency-fix94.mjs
+- scripts/test-oneclick-release-scope-fix115.mjs
+- scripts/test-photo-catalog-fix94.mjs
+- scripts/test-homepage-photo-prime-fix116.mjs
+- scripts/test-homepage-photo-layout-fix96.mjs
+- scripts/test-homepage-tech-only-fix122.mjs
+- scripts/test-service-worker-fix79.mjs
+- scripts/test-fix110-service-worker-publication-guard.mjs
+- scripts/test-node-runtime-discovery-fix101.mjs
+- scripts/test-repair-photo-layout-fix87.mjs
+- scripts/run-tests-fix124.mjs
+- scripts/test-photo-provider-recovery-fix108.mjs
+- scripts/test-support-video-fix124.mjs
+- scripts/test-sitewide-tech-visuals-fix123.mjs
+- scripts/test-oneclick-release-scope-fix111.mjs
+- WEB_PUBLISH/assets/sitewide-tech-visuals-fix123.json
+- WEB_PUBLISH/media/videos/akademia-dlaczego-warto-wspierac.mp4
+
+Nie zmieniono: migracji SQL, danych D1, bindingu Pages, sekretów, kluczy, lokalnych plików wrangler/.env/.dev.vars ani ustawień konta.
+Nie wykonano publikacji produkcyjnej.
+
+DYSTRYBUCJA: FIX124 jest przekazywany jako PEŁNY PROJEKT ZIP, nie jako patch. Archiwum obejmuje cały katalog projektu.

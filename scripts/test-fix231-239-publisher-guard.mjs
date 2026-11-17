@@ -1,0 +1,15 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const one=fs.readFileSync('ONECLICK_AKADEMIA.js','utf8');
+const watcher=fs.readFileSync('AUTO_PUBLISH_WATCHER.js','utf8');
+const release=JSON.parse(fs.readFileSync('WEB_PUBLISH/release.json','utf8'));
+const files=['migrations/0023_platform_experience_fix231_239.sql','functions/_notifications.js','functions/_webpush.js','functions/api/notifications.js','functions/api/guardians.js','functions/api/content-reports.js','functions/api/admin/content-reports.js','WEB_PUBLISH/assets/platform-enhancements-fix231-239.js','WEB_PUBLISH/assets/platform-enhancements-fix231-239.css','scripts/post-deploy-smoke-fix239.mjs','scripts/audit-content-quality-fix236.mjs','scripts/test-fix231-239-platform.mjs','scripts/test-fix232-web-push.mjs','scripts/test-fix239-post-deploy-smoke-contract.mjs','scripts/test-fix231-239-migration.py','scripts/run-tests-fix220-239.mjs','TESTY_FIX220_FIX239.cmd','README_FIX231_DATA_EXPORT.md','README_FIX232_NOTIFICATIONS.md','README_FIX233_LOCALIZATION.md','README_FIX234_ACCESSIBILITY.md','README_FIX235_BACKUP_RESTORE.md','README_FIX236_CONTENT_QUALITY.md','README_FIX237_GUARDIAN_PORTAL.md','README_FIX238_OFFLINE.md','README_FIX239_POST_DEPLOY_TESTS.md','CHANGELOG_6.8.0_FIX231_239.txt','FIX231_239_IMPLEMENTATION_AUDIT.txt'];
+for(const f of files)assert.ok(fs.existsSync(f),`brak ${f}`);
+for(const [name,source]of [['OneClick',one],['Watcher',watcher]])assert.ok(source.includes('academyFix231to239')&&source.includes('platform-enhancements-fix231-239.js')&&source.includes('migrations/0023_platform_experience_fix231_239.sql'),`${name} nie kontroluje FIX231–FIX239`);
+assert.equal(release.academyFix231to239?.hotfix,'FIX231–FIX239');
+assert.equal(release.academyFix231to239?.productVersion,'6.8.0');
+assert.equal(release.academyFix231to239?.productionDeployPerformed,false);
+console.log('[PASS] dokumentacja, migracja, API, interfejs i testy FIX231–FIX239');
+console.log('[PASS] oba publikatory wymagają migracji, assetów i metadanych FIX231–FIX239');
+console.log('[PASS] wersja produktu 6.8.0 i status produkcyjny nie są fałszowane');
+console.log('FIX231–FIX239 PUBLISHER GUARD: 3/3 PASS');

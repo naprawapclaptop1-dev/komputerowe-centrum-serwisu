@@ -1,0 +1,98 @@
+{
+  "schema": "npa-photo-uniqueness-fix77-v1",
+  "productVersion": "6.8.0",
+  "hotfix": "FIX77",
+  "policy": "global-single-assignment",
+  "rule": "Każdy statyczny plik fotograficzny ma dokładnie jeden przydział w całej platformie: banerze głównym, slajdach lub wybranych kafelkach strony głównej. Galerie i lekcje nie powielają tych plików.",
+  "exactDuplicateCheck": "SHA-256",
+  "visualSimilarityCheck": "pHash DCT 64-bit",
+  "minimumHammingDistance": 10,
+  "measuredMinimumHammingDistance": 24,
+  "photos": [
+    {
+      "id": "home-card-01",
+      "path": "media/usb-c-power-delivery-diagnostic.jpg",
+      "sha256": "e212f9bb1d97e025f2e99f9b575e2946f1cfd3d3afeb3ac953bf0271f877ee0e",
+      "perceptualHash": "110011001110101111000101010010101100010101000011001010111011000"
+    },
+    {
+      "id": "home-card-02",
+      "path": "media/gpu-cpu-cooling.jpg",
+      "sha256": "53d14ad67c37e954c4042e64749e33cd7f9c82666cc2bb8c6e52877f41a858bd",
+      "perceptualHash": "111011110000101101111000101100011110000001010001100000010111101"
+    },
+    {
+      "id": "home-card-03",
+      "path": "media/ram-m2-installation-detail.jpg",
+      "sha256": "c3e31b9b8e5199255ffd43ffa86bf604f4e93c42b58f319deef360e006bbeaa0",
+      "perceptualHash": "111110000100101101111000000011101101100011000111010110110100000"
+    },
+    {
+      "id": "home-card-04",
+      "path": "media/laptop-board-inspection.jpg",
+      "sha256": "81b45710923d2bff6c310f41fe779139fec5c9e58c28a0e5039ae6fe9426b200",
+      "perceptualHash": "101011000010100101011111101100000110110000010111001010001011110"
+    },
+    {
+      "id": "home-card-05",
+      "path": "media/motherboard-multimeter-test.jpg",
+      "sha256": "c6e3f7c01738550bed42c7b4bfd6b59f72577f7aa94ae509841c3c38bf5e310b",
+      "perceptualHash": "001010011110001100000110111101101000011010010010101000110011111"
+    },
+    {
+      "id": "home-card-06",
+      "path": "media/master-workshop-hotair-fix75.jpg",
+      "sha256": "abbd32cfe5e0078b8b6c382d9111492b20b465276e053090c63a3495b4c498ef",
+      "perceptualHash": "101010001110110001111010010100101010011111101010010001010011000"
+    },
+    {
+      "id": "home-card-07",
+      "path": "media/laptop-hinge-display-repair.jpg",
+      "sha256": "0b6bac6d5f386ce461bb5a691e6c2731443d1dd007392e34e54935d7dc0c9093",
+      "perceptualHash": "111111100010001011001000101111101001110110000011000000010010111"
+    },
+    {
+      "id": "home-card-08",
+      "path": "media/ram-ssd-installation.jpg",
+      "sha256": "496678e8f08baf493c07d69a22727abab3fca2bc4cf96324800062a1b3457b5f",
+      "perceptualHash": "000111000000101111010010110011101010100111011101101110000010010"
+    },
+    {
+      "id": "home-card-09",
+      "path": "media/workbench-motherboard-inspection.jpg",
+      "sha256": "c00e328ff48748a149ce0219d4280792baa8c8c717d4cf32f1083661d7d04abc",
+      "perceptualHash": "101110110001100000001111110110010110000010101111011100000110010"
+    },
+    {
+      "id": "home-card-10",
+      "path": "media/laptop-screen-hinge.jpg",
+      "sha256": "087b04d5e20bc3e53011d9fc00732e4fe1df840074479799cfeb7a85da4dfe9a",
+      "perceptualHash": "001101000110010011001101110101001001101100110101010011101001100"
+    },
+    {
+      "id": "home-card-11",
+      "path": "media/cooling-cleaning.jpg",
+      "sha256": "4be6d28f0235bb6346fa7570c69aa4994ab7e27ecc837ca39497f1fb68542b56",
+      "perceptualHash": "101101100011011100100100001101000100100111111011101011001001000"
+    },
+    {
+      "id": "home-card-12",
+      "path": "media/laptop-cooling-fan-cleaning.jpg",
+      "sha256": "8757afac6ca33010da3f236335224a5e001774f4711f8ccbc510205d600cad59",
+      "perceptualHash": "000101111011010101111011111010100100000000000101110100110001011"
+    },
+    {
+      "id": "home-card-13",
+      "path": "media/motherboard-multimeter-probing.jpg",
+      "sha256": "bd5a8133331f6536f56c7880a4da3e0f8dfbcefab4b43400677d3a7bdc73efeb",
+      "perceptualHash": "011110110100110000011110100100111000000001011001111100011101010"
+    }
+  ],
+  "layoutHotfix": "FIX96_HOME_LOCAL_PHOTOGRAPHY",
+  "layoutSlots": {
+    "hero": 3,
+    "showcaseSlides": 6,
+    "homeModuleCards": 4,
+    "totalUniqueLocalPhotos": 13
+  }
+}

@@ -1,0 +1,5 @@
+NAPRAWA PC — AKADEMIA SERWISU PRO 3.8.3
+Naprawa identyfikacji istniejącej bazy D1 na podstawie produkcyjnego bindingu Pages API.
+Obsługa wrangler.toml, wrangler.json i wrangler.jsonc.
+Jeden punkt startowy: URUCHOM_AKADEMIE.cmd.
+Nie tworzy nowej bazy ani projektu.

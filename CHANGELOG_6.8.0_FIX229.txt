@@ -1,0 +1,8 @@
+NAUKA OD A DO Z 6.8.0 — FIX229
+
+- Naprawiono unieważnianie pamięci podręcznej interfejsu weryfikacji certyfikatów.
+- Zsynchronizowano wersję URL skryptu w HTML, Service Worker i zdalnej kontroli Auto-Watchera.
+- Rozszerzono strażnik publikacji o test FIX229.
+- Dodano test regresyjny starego i nowego URL.
+- Zachowano historyczne nazwy cache PWA oraz cache biblioteki zdjęć.
+- Bez zmian numeru produktu, schematu D1, sekretów i dostawców OAuth.

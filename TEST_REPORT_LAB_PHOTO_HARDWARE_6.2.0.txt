@@ -1,0 +1,36 @@
+NAUKA OD A DO Z — LAB PHOTO + HARDWARE BRIDGE 6.2.0
+====================================================
+Build: 6.2.0-lab-photo-hardware-20261102
+
+ZAKRES
+- Galeria foto-first w module Laboratorium PCB.
+- Fotografie Commons: mikroskopowe uszkodzenie PCB (CC0 1.0), lutowanie SMD
+  pod mikroskopem (CC BY-SA 2.0), warsztat (CC BY-SA 2.0), test PCB zasilacza
+  (CC BY 2.0), mikrofotografia PCB (CC0 1.0). Linki/licencje widoczne w UI.
+- Dawny wektorowy model edukacyjny został schowany w rozwijanej sekcji pomocniczej.
+- Podgląd kamery UVC przez getUserMedia.
+- Web Serial: wybór portu i surowy odczyt strumienia, bez wysyłania komend.
+- WebUSB: wybór urządzenia po VID/PID; bez udawania, że sam wybór oznacza sterownik.
+- Ochrona: brak automatycznego OUTP ON, brak nieznanych komend do zasilaczy.
+- LAN/SCPI/VISA jawnie oznaczone jako wymagające osobnego mostka Windows.
+- Publisher, watcher i Service Worker kontrolują nowe pliki i build.
+
+WYNIKI
+PASS — test-lab-hardware-bridge-630.js
+PASS — test-release-620-contract.js
+PASS — test-watcher-release-guard.js
+PASS — test-wrangler-production-d1.js
+PASS — test-cloudflare-pages-d1.js
+PASS — test-openai-key-setup.mjs (10/10)
+PASS — test-email-account-local.mjs
+PASS — test-hybrid-chat.mjs
+PASS — składnia 69 plików JS/MJS
+PASS — HTML parse; 383 ID; brak duplikatów ID
+PASS — lokalne src/href w HTML; brak brakujących zasobów
+
+OGRANICZENIA / NIE WYKONANO
+- Nie przeprowadzono fizycznego testu na urządzeniu użytkownika; brak podłączonych
+  mikroskopów, zasilaczy, mierników i oscyloskopów w środowisku testowym.
+- Web Serial i WebUSB wymagają aktualnego Chrome/Edge, HTTPS i zgody użytkownika.
+- Pełna obsługa przyrządu wymaga profilu protokołu konkretnej marki/modelu.
+- Nie uruchomiono publikacji Cloudflare ani migracji D1.

@@ -1,0 +1,14 @@
+/* FIX201 — panel nauczyciela wyliczany z rzeczywistych prac/ocen D1. */
+.a162-teacher-dashboard{margin:14px 0;padding:16px;border:1px solid rgba(96,170,230,.28);border-radius:15px;background:rgba(9,26,47,.58)}
+.a162-teacher-dashboard[hidden]{display:none}
+.a162-teacher-dashboard-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.a162-teacher-dashboard-head h4{margin:0}
+.a162-teacher-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:9px;margin:12px 0}
+.a162-teacher-metrics article{padding:11px;border:1px solid rgba(110,170,225,.2);border-radius:10px;background:rgba(15,45,75,.58)}
+.a162-teacher-metrics small{display:block;color:#a9c2d8}.a162-teacher-metrics b{display:block;margin-top:5px;font-size:1.25rem;color:#e8f5ff}
+.a162-teacher-roster h5{margin:12px 0 8px}.a162-teacher-table-wrap{overflow-x:auto}.a162-teacher-table{width:100%;border-collapse:collapse;min-width:490px}.a162-teacher-table th,.a162-teacher-table td{padding:8px;text-align:left;border-bottom:1px solid rgba(110,170,225,.16)}.a162-teacher-table th{color:#92c8ef;font-size:.82rem}
+@media(max-width:600px){.a162-teacher-dashboard{padding:12px}.a162-teacher-dashboard-head{align-items:stretch}.a162-teacher-dashboard-head .a162-btn{width:100%}}
+/* FIX203 — ewidencja członkostwa i obecności w klasie online. */
+.a162-attendance-date{display:inline-flex;align-items:center;gap:10px;margin:8px 0;color:#bcd6e9;font-size:.9rem}.a162-attendance-date input,.a162-teacher-table select{padding:7px 9px;border:1px solid rgba(120,180,230,.35);border-radius:8px;background:#102a43;color:#edf7ff;max-width:100%}.a162-teacher-table select{min-width:150px}
+/* FIX208 — egzamin z losowanymi pytaniami i autorytatywną oceną backendu. */
+.a162-exam-session{margin:14px 0;padding:14px;border:1px solid rgba(100,180,235,.28);border-radius:12px;background:rgba(8,24,42,.72)}.a162-exam-session[hidden]{display:none}.a162-exam-toolbar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px;color:#b8d8ef}.a162-exam-toolbar b{font-size:1.25rem;color:#ffe08a}.a162-exam-question{margin:12px 0;padding:12px;border:1px solid rgba(110,170,220,.22);border-radius:10px}.a162-exam-question legend{padding:0 6px;font-weight:700}.a162-exam-question label{display:flex;gap:8px;align-items:flex-start;padding:6px 0;cursor:pointer}.a162-exam-question input{margin-top:3px}

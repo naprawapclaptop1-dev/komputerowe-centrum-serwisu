@@ -1,0 +1,6 @@
+SYNTAX REPORT FIX64–FIX73
+Node.js: 22.16.0
+JS/MJS/CJS: 236 — wszystkie `node --check` PASS
+CSS: 51 — nawiasy klamrowe zbilansowane
+JSON/webmanifest: 57 — JSON.parse PASS
+Test: scripts/test-syntax-fix64-fix73.mjs

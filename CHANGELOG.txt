@@ -1,3 +1,10 @@
+FIX088 — poprawka błędu startowego odziedziczonego testu FIX085.
+- Główny CMD nadal uruchamiał CHECK_FIX085_GIT_CLONE_LONGPATHS.ps1 z zagnieżdżonymi tablicami wyników; PowerShell 5.1 mógł spłaszczać te struktury i generować fałszywe błędy.
+- Przepisano testy FIX085 na PSCustomObject z jawnymi polami Passed i Name.
+- Nowy główny CMD pokazuje dokładny etap i kod błędu walidacji, odróżniając go od brakującego ZIP.
+- Dodano testy FIX088 i nowy manifest SHA-256; repozytorium i działająca strona pozostają bez zmian.
+- Wersja aplikacji pozostaje 1.0.0.69.
+
 FIX087 — naprawa fałszywego odrzucania testów workflow dispatch.
 - Zastąpiono zagnieżdżone tablice wyników testów obiektami PSCustomObject z polami Passed i Name, zgodnymi z Windows PowerShell 5.1.
 - Każda kontrola raportuje własny opis; nie występuje spłaszczanie wyników ani puste opisy [FAIL].

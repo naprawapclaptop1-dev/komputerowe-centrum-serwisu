@@ -1,0 +1,19 @@
+NAUKA OD A DO Z 6.8.0 — FIX150 FILE CHANGE REPORT
+
+BAZA: pełny projekt FIX149, nie starszy projekt.
+
+ZMIENIONE PLIKI
+- ONECLICK_AKADEMIA.js — naprawiony odwołanie do zmiennej wersji produktu; nagłówek wskazuje Publisher FIX150 i runtime FIX149.
+- scripts/run-tests-fix137.mjs — dołączony test FIX150, raport zmieniony na RAPORT_FIX150_TESTY.log. Zachowano dotychczasową nazwę runnera, bo uruchamiają go istniejące mechanizmy OneClick i Watcher.
+- scripts/test-fix147-publisher-lesson-count.mjs — dodatkowa asercja zapobiegająca ponownemu użyciu RELEASE bez zakresu.
+
+DODANE PLIKI
+- scripts/test-fix150-publisher-release-scope.mjs — test regresyjny zakresu zmiennej (3 asercje).
+- CHANGELOG_6.8.0_FIX150.txt — opis problemu, poprawki i zachowanych zasobów.
+- README_FIX150.txt — instrukcja aktualizacji.
+- WYKONAJ_TESTY_FIX150.cmd — lokalny test pełnej regresji.
+- RAPORT_FIX150_TESTY.log — wynik pełnego zestawu testów.
+- SHA256_FIX150_CHANGED_FILES.txt — kontrolne sumy plików poprawki.
+
+BRAK ZMIAN
+Nie zmieniono WEB_PUBLISH, Service Workera, release.json, migracji D1, wrangler.toml, sekretów, OAuth, ani plików kont. Zachowano istniejący projekt Pages i bazę naprawapc-orders. Nie wykonano publikacji zdalnej.

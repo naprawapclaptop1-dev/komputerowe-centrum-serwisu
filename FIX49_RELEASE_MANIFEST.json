@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "release": "6.8.0",
+  "fix": "FIX49",
+  "build": "6.8.0-social-login-fix49-ultimate-quality-20261104",
+  "assetVersion": "6.8.0-fix49",
+  "cacheMarker": "fix49-ultimate-quality-20261104",
+  "viewId": "view-fix49",
+  "assets": {
+    "runtime": "ultimate-quality-fix49.js",
+    "styles": "ultimate-quality-fix49.css"
+  },
+  "requiredRuntimeTokens": [
+    "NP_NAUKA_FIX49",
+    "runBrowserSmoke",
+    "getErrorLog",
+    "analyzeMigrationSql",
+    "runSecurityAudit",
+    "buildDiagnosticBundle",
+    "createStagingPlan",
+    "createRollbackPlan",
+    "runReleaseGate",
+    "createPracticeRoom"
+  ],
+  "requiredStyleTokens": [
+    ".f49-page-head",
+    ".f49-tabs",
+    ".f49-grid",
+    ".f49-status",
+    ".f49-check"
+  ],
+  "requiredFiles": [
+    "scripts/release-contract-fix49.cjs",
+    "scripts/security-audit-core-fix49.cjs",
+    "scripts/migration-audit-core-fix49.cjs",
+    "scripts/test-ultimate-quality-fix49.mjs",
+    "scripts/test-release-contract-fix49.mjs",
+    "scripts/security-audit-fix49.mjs",
+    "scripts/migration-audit-fix49.mjs",
+    "scripts/diagnostic-bundle-fix49.mjs",
+    "scripts/run-browser-e2e-fix49.mjs",
+    "WEB_PUBLISH/release-contract-fix49.json",
+    "scripts/test-watcher-service-worker-tdz-fix45.mjs",
+    "scripts/test-watcher-cache-name-tdz-fix48.mjs",
+    "ONECLICK_AKADEMIA.js",
+    "AUTO_PUBLISH_WATCHER.js",
+    "functions/api/auth/status.js",
+    "scripts/pending-migration-guard-fix49.cjs",
+    "scripts/test-pending-migration-guard-fix49.mjs",
+    "README_FIX49_ULTIMATE_QUALITY_CENTER.txt",
+    "CHANGELOG_6.8.0_FIX49.txt",
+    "TEST_REPORT_6.8.0_FIX49.txt",
+    "TEST_LOG_6.8.0_FIX49.txt",
+    "SYNTAX_LOG_6.8.0_FIX49.txt",
+    "PUBLICATION_GUARD_FIX49.txt",
+    "WYKONAJ_TESTY_FIX49.cmd",
+    "CHECK_KONTA_FIX49.cmd",
+    "SECURITY_AUDIT_FIX49.json",
+    "MIGRATION_AUDIT_FIX49.json",
+    "DIAGNOSTIC_BUNDLE_FIX49.json"
+  ]
+}

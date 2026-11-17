@@ -1,0 +1,6 @@
+4.1.1 FIX — publikacja i licznik globalnych odwiedzin
+- Najpierw weryfikowana jest treść stałego adresu produkcyjnego; adres preview nie wystarcza do uznania wdrożenia za udane.
+- Test licznika najpierw sprawdza /api/health, a przy braku pola globalVisits sprawdza rzeczywisty endpoint /api/visits i komplet agregatów.
+- Ujednolicono komunikaty publikatora i commit message z linią 4.1.0.
+- Endpoint /api/health raportuje wersję 4.1.0.
+- Zachowano istniejącą bazę D1, projekt Pages, konta, lekcje, materiały i konfigurację AI.

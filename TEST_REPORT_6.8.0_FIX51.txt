@@ -1,0 +1,31 @@
+NAUKA OD A DO Z — RAPORT TESTÓW FIX51
+Build: 6.8.0-fix51-visual-academy-pro-20261105
+Data: 2026-11-05
+
+WYNIKI
+- Testy regresyjne Node: 81/81 PASS, 0 FAIL.
+- Kontrola składni Node --check: 221/221 PASS, 0 FAIL.
+- Test nowej biblioteki i Visual Academy: 7/7 PASS.
+- Test lokalnego serwera HTTP: PASS — HTML, JS, CSS, SVG, JSON, JPG, HEAD, 404 i próba wyjścia poza katalog.
+- Test kontraktu wydania FIX51: PASS — 12 fotografii + 3 plakaty lekcji + 18 ilustracji = 33 zasoby.
+- Lokalne fotografie JPG: 12/12 poprawnie zdekodowanych.
+- Lokalne plakaty lekcji JPG: 3/3 poprawnie zdekodowanych.
+- Ilustracje SVG: 18/18 poprawnie wyrenderowanych.
+- Hotspoty, atlas warstwowy laptopa, quiz obrazkowy i lokalny suwak porównania przed/po: objęte testem źródłowym i składni.
+- Weryfikacja lokalnego OneClick verifyWeb(): PASS.
+- Audyt bezpieczeństwa: 243 pliki przeskanowane, 0 ustaleń krytycznych, 0 wysokich.
+- Audyt migracji: 17 plików SQL przejrzanych; 2 wymagają ręcznej oceny.
+
+ŚRODOWISKO
+- Runtime użyty w kontenerze: Node.js v22.16.0.
+- Projekt docelowo powinien być ponownie przetestowany na Windows 10/11 z Node.js v24.19.0.
+- WYKONAJ_TESTY_FIX51.cmd przygotowano dla Windows, lecz nie uruchomiono go w środowisku Windows.
+
+OGRANICZENIA TESTÓW
+- Nie zaliczono ręcznego testu GUI w Chrome/Edge. Próba uruchomienia Chromium headless zawiesiła się w środowisku kontenera.
+- Lokalny HTTP, testy plików i formatów przeszły; nie zastępują ręcznej akceptacji widoku strony w przeglądarce na Windows.
+- Nie wykonano publikacji produkcyjnej, nie wykonano migracji D1, nie zmieniono OpenAI/OAuth ani sekretów.
+- Licencje 12 zdjęć i 3 plakatów odziedziczonych z FIX49/FIX50 nie zostały niezależnie potwierdzone. Należy sprawdzić je przed publiczną/komercyjną publikacją.
+
+WNIOSEK
+FIX51 jest przygotowany jako lokalny kandydat do wydania. Testy kodu, zasobów, kontraktu i serwera lokalnego przechodzą. Przed publikacją należy uruchomić runner na docelowym Windows/Node 24.19.0, ręcznie potwierdzić wygląd i działanie interfejsu w Chrome i Edge oraz zweryfikować licencje odziedziczonych grafik.

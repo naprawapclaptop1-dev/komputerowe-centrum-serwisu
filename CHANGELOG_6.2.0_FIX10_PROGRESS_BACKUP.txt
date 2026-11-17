@@ -1,0 +1,17 @@
+NAUKA OD A DO Z 6.2.0 — FIX10
+
+DODANO
+- Panel kopii postępu nauki i notatek w sekcji Moje konto.
+- Eksport lokalnych danych edukacyjnych do pliku JSON.
+- Import kopii z łączeniem list i scalaniem obiektów bez kasowania istniejących wpisów.
+- Walidację schematu, typów danych i limitu 5 MB.
+- Awaryjne przywracanie poprzednich wartości localStorage po błędzie zapisu.
+- Jawna lista dozwolonych kluczy; kopia nie obejmuje haseł, tokenów, kont ani rozmów AI.
+- Nowa rewizja pamięci PWA oraz kontrola zasobów w AUTO_PUBLISH_WATCHER.
+
+ZMIENIONE
+- Identyfikator builda: 6.2.0-support-video-clean-fix9-progress-backup-fix10-20261102.
+- Zachowano istniejące moduły i dane D1; nie wykonywano wdrożenia produkcyjnego ani migracji bazy.
+
+UWAGA
+- Import jest scalaniem: tablice łączone są bez duplikatów, a wartości w konfliktach obiektów z pliku kopii są stosowane dla tego samego pola.

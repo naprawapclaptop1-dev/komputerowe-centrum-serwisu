@@ -1,0 +1,19 @@
+NAPRAWA PC — AKADEMIA SERWISU PRO 4.3.0
+NEON ELECTRONICS ACADEMY
+
+Nowy wygląd pulpitu inspirowany zaakceptowanym projektem: głęboki granat, elektryczny błękit, neonowy turkus, fiolet i magenta.
+
+Najważniejsze zmiany:
+- rozszerzono pulpit na całą dostępną szerokość ekranu;
+- dodano 11 skrótów do obszarów napraw: PCB, CPU/Socket, GPU/VRAM, RAM, BGA, SMD, Hot Air, pomiary, laptopy, zasilanie i części;
+- dodano panel lokalnej lekcji wideo z uruchomieniem istniejącego odtwarzacza Akademii;
+- dodano interaktywną mapę poglądową płyty głównej z przyciskami CPU, VRM, BIOS, EC i RAM, które otwierają wyszukiwanie encyklopedii;
+- dodano panel postępów i osiągnięć, którego procent jest połączony z istniejącym zapisem postępów;
+- dodano pasek szybkich narzędzi: warsztat, encyklopedia, pomiary, baza usterek i AI;
+- rozszerzono kontrolę przed publikacją i kontrolę stałego adresu, aby wymagały nowego interfejsu 4.3.0.
+
+Zachowano istniejące API, bazę D1, migracje, materiały, lekcje, filmy, logowanie i moduły aplikacji. Nie dodano migracji ani operacji kasujących dane.
+
+Ważne: mapa płyty jest poglądowa; układ elementów musi być weryfikowany na schemacie/boardview konkretnego modelu i rewizji PCB.
+
+Testy wykonane lokalnie: składnia JavaScript, integralność ZIP, odwołania do zasobów lokalnych, znaczniki HTML, 11 skrótów, 5 punktów PCB i pliki wideo/plansz. Publikację produkcyjną należy wykonać z lokalnego komputera użytkownika, gdzie znajdują się jego narzędzia Wrangler i konfiguracja Cloudflare.

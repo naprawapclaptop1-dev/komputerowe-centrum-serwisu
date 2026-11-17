@@ -1,0 +1,79 @@
+{
+  "suite": "GLOBAL ACADEMY PRO",
+  "releaseSeries": [
+    "FIX54",
+    "FIX55",
+    "FIX56",
+    "FIX57",
+    "FIX58",
+    "FIX59",
+    "FIX60"
+  ],
+  "productVersion": "6.8.0",
+  "baseBuild": "6.8.0-fix51-visual-academy-pro-20261105",
+  "packageName": "NAUKA_OD_A_DO_Z_6_8_0_FIX51_FIX54_FIX60_GLOBAL_ACADEMY_PRO",
+  "publicationStatus": "local-ready-not-deployed",
+  "modules": {
+    "FIX54": "Quality, security and safe release monitoring",
+    "FIX55": "Photo, illustration and source-linked video catalogue",
+    "FIX56": "AI symptom analysis through existing server API",
+    "FIX57": "Device family and model catalogue",
+    "FIX58": "Local-first service workshop records",
+    "FIX59": "Local learning exams and non-accredited exercise receipt",
+    "FIX60": "Offline Cache Storage packs and local backup"
+  },
+  "assets": {
+    "photos": 12,
+    "posters": 3,
+    "technicalIllustrations": 30,
+    "inheritedFix51Illustrations": 18,
+    "newFix54Illustrations": 12,
+    "totalVisualFiles": 45,
+    "externalVideoCatalogueEntries": 12
+  },
+  "validation": {
+    "testScriptsRun": 16,
+    "testScriptFailures": 0,
+    "newSuiteAssertions": 10,
+    "visualAssetsHttp": "45/45 HTTP 200",
+    "visualAssetsHttpAssertions": 2,
+    "productionBranchGuardAssertions": 3,
+    "legacyPhotoAssertions": 8,
+    "visualAcademyAssertions": 7,
+    "watcher53Assertions": 6,
+    "fix49QualityAssertions": 14,
+    "javascriptFilesSyntaxChecked": 220,
+    "cssFilesChecked": 50,
+    "jsonErrors": 0,
+    "cssBraceErrors": 0,
+    "securityCriticalFindings": 0,
+    "securityHighFindings": 0,
+    "securityFilesScanned": 250,
+    "migrationSqlFilesReviewed": 17,
+    "migrationsNeedingManualReview": 2
+  },
+  "safety": {
+    "newD1Migrations": false,
+    "d1SqlExecuted": false,
+    "openAISecretsChanged": false,
+    "openAIKeyExposedInBrowser": false,
+    "automaticCustomerDataUpload": false,
+    "crossDeviceSync": false,
+    "hardwareWrites": false,
+    "firmwareFlashing": false,
+    "diskWrites": false,
+    "routerConfigurationChanges": false,
+    "certificateAccredited": false,
+    "inheritedPhotoLicenseVerified": false,
+    "productionBranchMustBeConfirmed": true,
+    "productionDeployed": false,
+    "productionBranchConfirmationFile": "CLOUDFLARE_PRODUCTION_BRANCH_CONFIRMED.txt (placeholder; user must fill after Cloudflare dashboard check)"
+  },
+  "testEnvironment": {
+    "node": "22.16.0",
+    "targetNode": "24.19.0",
+    "windowsBrowserE2E": false
+  },
+  "productionBranchConfirmationFile": "CLOUDFLARE_PRODUCTION_BRANCH_CONFIRMED.txt (awaryjny fallback; FIX63 najpierw odczytuje production_branch z Cloudflare Pages API)",
+  "productionBranchDiscovery": "Cloudflare Pages API z istniejącego uwierzytelnienia Wrangler; brak zgadywania main"
+}

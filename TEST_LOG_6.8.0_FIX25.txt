@@ -1,0 +1,313 @@
+
+===== TEST scripts/test-account-security-fix19.js =====
+PASS: six-provider OAuth UI, TOTP enrollment/challenge/recovery, email verification, Resend password reset, migrations and offline assets.
+
+===== TEST scripts/test-cloudflare-pages-d1.js =====
+OK: binding Pages, odczyt tabel, automatyczny wybór unikalnej bazy Akademii/modułu nauki, blokada niejednoznaczności i starego UUID.
+
+===== TEST scripts/test-fix16-static-quality.js =====
+PASS: CSS strukturalnie poprawny (36 plików).
+PASS: HTML ma 590 unikalnych ID; 99 lokalnych odwołań, brakujących: 0.
+PASS: release 6.8.0 FIX25 jest oznaczony jako nieopublikowany, zasoby FIX16/FIX17 są w cache PWA.
+
+===== TEST scripts/test-fix7-published-assets.js =====
+PASS: watcher downloads real published photo engine
+PASS: watcher checks remote dHash policy
+PASS: watcher downloads real published learning studio
+PASS: watcher blocks stable URL on stale assets
+PASS: HTML points to FIX7 photo engine
+PASS: PWA cache includes FIX7 photo engine and studio
+PASS: PWA cache has current FIX17 namespace and support video asset
+PASS: homepage slideshow script and CSS are cached
+PASS: published asset freshness guard photo engine FIX7 + homepage FIX8.
+
+===== TEST scripts/test-homepage-showcase-fix8.js =====
+PASS: FIX8 homepage slideshow (6 unique online images), 12 linked learning modules, accessible controls, daily learning plan, PWA cache and publish guards; education-only page.
+
+===== TEST scripts/test-lab-hardware-bridge-630.js =====
+PASS: galeria foto, UVC, Web Serial, WebUSB, bezpieczeństwo, cache i bramki wydania
+
+===== TEST scripts/test-learning-scope-online-photos-fix4.js =====
+PASS: platforma jest edukacyjna — brak formularzy/kart/zleceń; laboratoria i ćwiczenia pozostają; 12 prawdziwych zdjęć Pexels ładuje się online jako pierwsze; lokalne pliki są tylko awaryjne; API i publikator blokują powrót modułu zleceń i synchronizacji.
+
+===== TEST scripts/test-master-academy-fix14.js =====
+[PASS] FIX14 legacy functionality preserved: 31 components, 17 replacement families, 10 learning paths, 5 labs, local work orders and backups
+[PASS] FIX17 release metadata, unique HTML IDs, all ten subpanels, assets and PWA cache
+[PASS] 10 specialist exams × 4 questions, 12 QC checks, 4 PCB diagnostic pathways, 8 network checks
+[PASS] IPv4/CIDR calculator: valid subnet math and invalid input rejection
+[PASS] BIOS read-only inspector, disk image header scan, Windows text log analyzer and local document library contracts
+[PASS] no upload requests, raw physical-disk access, active network scan, BIOS flashing or real device output control
+[PASS] publisher/watcher require FIX15 assets and stable release guard before publication
+
+===== TEST scripts/test-master-academy-fix16.js =====
+PASS: FIX16 legacy module and current release metadata, eight panels, security contract and PWA caching
+PASS: code catalogue normalization/search, measurement range evaluation and case validation
+PASS: six specialist academies, six adaptive trainer questions, encrypted backup contract
+PASS: no uploads, device I/O, physical-disk access, BIOS flashing or automatic cloud actions
+
+===== TEST scripts/test-master-center-fix17.js =====
+PASS: FIX17 release metadata, 8 tabs, PWA caching and publisher/watcher checks
+PASS: pure API, 10 power sequence stages, 4 practical scenarios, CSV parsing including quoted delimiters
+PASS: diagnostic triage for power, POST and storage; work-card validation and limits
+PASS: PowerShell Windows inventory is read-only, omits serial/account/network identifiers, and is imported through a strict allow-list
+PASS: no network upload, firmware flashing or direct browser device I/O
+
+===== TEST scripts/test-master-workshop-fix12.js =====
+PASS | import postępu filtruje nieznane ID, usuwa duplikaty i łączy wyniki bez utraty danych
+PASS | atlas 10 dziedzin / 30 tematów z procedurami i ostrzeżeniami
+PASS | 8 symulacji diagnostycznych × 3 decyzje, jedna prawidłowa odpowiedź na etap
+PASS | 3 egzaminy × 8 pytań, wyjaśnienia i próg zaliczenia w module
+PASS | dekoder SMD 3/4 cyfry, R i EIA-96 bez zgadywania nieznanych kodów
+PASS | nawigacja, widok, arkusz stylów, skrypt oraz cache PWA FIX12
+PASS | 10 dziedzin ma własne zdjęcie, film MP4, plakat i napisy z lokalnej biblioteki
+PASS | dziennik ze zdjęciami w IndexedDB, edytor lokalnych materiałów i kopia JSON
+
+===== TEST scripts/test-measurement-log-fix11.js =====
+PASS | pomiary zapisują się lokalnie i są przypisane do modelu / Board ID / rewizji
+PASS | pomiar Ω/ciągłości/test diody wymaga odłączonych i odizolowanych źródeł zasilania
+PASS | zakres referencyjny waliduje wartości i nie zgaduje parametrów
+PASS | klasyfikacja w zakresie / poza zakresem / brak referencji
+PASS | CSV UTF-8 z nagłówkiem BOM, usuwanie wpisu i czyszczenie
+
+===== TEST scripts/test-nauka-od-a-do-z-brand.js =====
+PASS: nazwa, 6 ścieżek nauki, PWA, release guard, watcher i cache
+
+===== TEST scripts/test-progress-backup-fix10.js =====
+PASS | import rollback restores old values after storage error
+PASS | export whitelist excludes auth token
+PASS | import merges arrays without duplicates
+PASS | import merges nested progress objects
+PASS | invalid JSON, schema and data types rejected
+PASS | unknown keys ignored
+PASS | 18 allow-listed learning-data keys
+
+===== TEST scripts/test-public-media-check.js =====
+PASS | public media check uses GET + Range, accepts total Content-Range / Content-Length
+PASS | wrong MIME type, HTTP errors and media at or below 1,000,000 bytes are rejected; bounded stream fallback works
+
+===== TEST scripts/test-release-630-contract.js =====
+PASS: build meta, release.json, publisher, watcher, moduły edukacyjne, brak publicznych zleceń, 12 źródeł zdjęć online i PWA cache są zgodne z 6.8.0 FIX19B (z zachowaniem modułów FIX16)
+
+===== TEST scripts/test-static-preview.js =====
+PASS: lokalny podgląd serwuje stronę oraz JS/CSS modułu FIX17.
+PASS: HEAD i statyczne zasoby FIX17 działają.
+PASS: /api jest jawnie odcięte, POST odrzucony, próba traversal blokowana.
+
+===== TEST scripts/test-sticky-photo-ui-630.js =====
+PASS: fixed header, adaptive height, back-to-top, remote-first photo library, local fallback, SVG-free thumbnail engine, offline cache and release metadata.
+
+===== TEST scripts/test-support-page-contract-620.js =====
+[PASS] Nagłówek wsparcia toleruje nazwę Akademii lub platformy.
+[PASS] HTML odwołuje się do filmu i polskich napisów.
+[PASS] Plik MP4 istnieje i nie jest pusty.
+[PASS] Plik VTT istnieje i zawiera napisy.
+[PASS] Napisy wyjaśniają dobrowolność wsparcia i zawierają zakończenie.
+[PASS] Sekcja wsparcia zawiera supportWhyTitle.
+[PASS] Sekcja wsparcia zawiera supportImpact.
+[PASS] Sekcja wsparcia zawiera supportImpactTitle.
+[PASS] Sekcja wsparcia zawiera supportFaq.
+[PASS] ONECLICK sprawdza elastyczny nagłówek i fizyczny plik filmu.
+[PASS] Watcher akceptuje aktualną nazwę platformy.
+[PASS] Service Worker uwzględnia film wsparcia w cache offline.
+
+PASS: kompletny kontrakt strony wsparcia 6.2.0.
+[PASS] Odtwarzacz FIX9 nie wymusza napisów na obrazie; transkrypcja jest pod filmem.
+
+===== TEST scripts/test-support-video-fix9.js =====
+PASS: rebuilt support video MP4, six-scene visual version, optional captions, transcript, no duplicate/blank old player, and FIX17 PWA cache namespace.
+
+===== TEST scripts/test-unique-repair-photos-long-videos-fix7.js =====
+[PHOTO FIX7] 465/465 distinct photos for 155/155 repairs.
+PASS: MOCK API ONLY — 155 repair IDs × 3 unique, hash-verified images = 465; no URL/source/hash reuse; 12 long videos with unique covers; practical learning studio; education-only scope.
+
+===== TEST scripts/test-watcher-release-guard.js =====
+[PASS] Brak niezadeklarowanego indexHtml.
+[PASS] Kontrola mapy wiedzy korzysta z html.
+[PASS] Bramka rozpoznaje 1060 lekcji, także po zmianie białych znaków i cudzysłowów.
+[PASS] Wszystkie ID kont, modeli, statystyk i wsparcia istnieją.
+[PASS] Liczby producentów i modeli są zgodne (33 / 150).
+[PASS] Diagnostyka raportuje nazwy brakujących funkcji zamiast samego academyFeatures=false.
+[PASS] Stary klucz kart zleceń jest blokowany przez API synchronizacji i watcher.
+[PASS] FIX12: watcher wymaga aktywnego widoku i rzeczywistych zasobów JS/CSS na stałym adresie.
+[PASS] FIX25: watcher sprawdza migracje 0013–0015, limiter v3 i bezpieczną próbę negatywną; integracje chmurowe są usunięte.
+
+===== TEST scripts/test-wrangler-production-d1.js =====
+PASS: brakujacy env.production D1 zostaje dodany
+PASS: root i production maja zgodne ID
+PASS: inne ustawienia i bindingi zostaja zachowane
+PASS: operacja jest idempotentna
+PASS: konflikt innego ID blokuje wdrozenie
+PASS: JSON/JSONC i TOML sa obslugiwane
+
+===== TEST scripts/test-account-runtime-fix25.mjs =====
+(node:32504) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: brak migracji 0015 jest jawnie wykrywany przed logowaniem (ACCOUNT_SCHEMA_NOT_READY).
+PASS: migracja 0015 jest idempotentna; wadliwe tabele historyczne pozostają nietknięte, a limiter v3 ma pojedynczy PRIMARY KEY(bucket_key).
+PASS: limiter zapisuje do academy_account_rate_limits_v3 i atomowo zwiększa licznik.
+PASS: integracje Google Drive/OneDrive/Dropbox usunięte z Akademii.
+PASS: istniejące konto z hasłem krótszym niż 12 znaków loguje się i otrzymuje sesję.
+PASS: błędne dane zwracają HTTP 401; nowa rejestracja nadal odrzuca krótkie hasło.
+PASS: release FIX25 jest nieopublikowany; publikator wymaga migracji 0015 i kopiuje D1 przed migracją; integracje dysków chmurowych są nieobecne.
+
+===== TEST scripts/test-account-stage-diagnostics-fix25.mjs =====
+(node:32515) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+[ACCOUNT_OPERATION_FAILED] 637EF854 login-rate-limit-ip Error synthetic D1 read failure
+PASS: D1 limiter fault is tagged with login-rate-limit-ip and returns a short reference without email/password.
+
+===== TEST scripts/test-configure-oauth-wizard-fix18.mjs =====
+PASS: formularz konfiguracji obsługuje sześciu providerów i odrzuca niepełne/niebezpieczne wartości.
+PASS: lokalny formularz używa tokenu jednorazowego, CSP i nie przechowuje sekretów w plikach.
+PASS: Discord, panel sesji, zgoda, 2FA, migracja e-mail 0012 i lokalna konfiguracja Resend są uwzględnione.
+
+===== TEST scripts/test-email-account-fix19.mjs =====
+(node:32537) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: email verification and password reset use Resend server-side, hashed one-use tokens, expiry and rate limits.
+PASS: reset revokes all sessions, unknown addresses receive the same response, and provider secrets never enter the browser.
+
+===== TEST scripts/test-email-account-local.mjs =====
+(node:32548) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: schema, register 201, HttpOnly session, login 200, duplicate 409.
+
+===== TEST scripts/test-fix25-limiter-status-contract.mjs =====
+PASS: /api/session, /api/auth/status, publisher, watcher and production checker agree on limiter V3/build FIX25; migration is additive and release remains unpublished.
+
+===== TEST scripts/test-hybrid-chat.mjs =====
+PASS | status nie ujawnia klucza
+PASS | OpenAI Responses API jako główny model
+PASS | Cloudflare Workers AI jako fallback po błędzie OpenAI
+PASS | fallback po przerwaniu strumienia + reset częściowego tekstu
+PASS | bez dostawców API zwracany jest jawny HTTP 503
+
+===== TEST scripts/test-js-syntax-fix19b.mjs =====
+PASS: składnia JavaScript/MJS/CJS poprawna (128 plików).
+
+===== TEST scripts/test-no-external-cloud-backup-fix23.mjs =====
+PASS: Google Drive, OneDrive and Dropbox backup connectors are absent from UI, PWA, API and migration.
+PASS: local JSON backup and D1 backup-before-migration safeguards remain.
+PASS: limiter-v3 migration keeps bucket_key as the single PRIMARY KEY.
+
+===== TEST scripts/test-oauth-diagnostics-fix18b.mjs =====
+(node:33499) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: status OAuth sprawdza binding D1, kolumny i ograniczenia sześciu dostawców oraz schemat 2FA.
+PASS: API pokazuje brakujące nazwy sekretów, nigdy ich wartości.
+PASS: start OAuth blokuje się czytelnym kodem przed SQL przy niepełnych migracjach.
+PASS: wszystkie przyciski logowania pozostają widoczne i mają diagnostyczny status.
+PASS: callback URL jest wyświetlany i można go skopiować.
+
+===== TEST scripts/test-openai-key-setup.mjs =====
+[OK] Uruchomiono lokalne, bezpieczne okno wprowadzania klucza OpenAI.
+[INFO] Wklej klucz w oknie przeglądarki; nie wpisuj go do CMD.
+[INFO] Adres formularza lokalnego: http://127.0.0.1:42935/
+Otwórz lokalny formularz: http://127.0.0.1:42935/
+TAP version 13
+# Subtest: akceptuje formaty kluczy projektowych i serwisowych OpenAI
+ok 1 - akceptuje formaty kluczy projektowych i serwisowych OpenAI
+  ---
+  duration_ms: 1.944945
+  type: 'test'
+  ...
+# Subtest: odrzuca puste, zbyt krótkie i niepoprawne klucze
+ok 2 - odrzuca puste, zbyt krótkie i niepoprawne klucze
+  ---
+  duration_ms: 0.365256
+  type: 'test'
+  ...
+# Subtest: rozpoznaje istniejący sekret z JSON Wrangler
+ok 3 - rozpoznaje istniejący sekret z JSON Wrangler
+  ---
+  duration_ms: 0.344445
+  type: 'test'
+  ...
+# Subtest: redaguje wartość sekretu z komunikatów procesu
+ok 4 - redaguje wartość sekretu z komunikatów procesu
+  ---
+  duration_ms: 0.165058
+  type: 'test'
+  ...
+# Subtest: HTML ma pole hasła z normalnym wklejaniem i bez usług zewnętrznych
+ok 5 - HTML ma pole hasła z normalnym wklejaniem i bez usług zewnętrznych
+  ---
+  duration_ms: 2.056036
+  type: 'test'
+  ...
+# Subtest: główny CMD otwiera graficzny konfigurator przed publikacją
+ok 6 - główny CMD otwiera graficzny konfigurator przed publikacją
+  ---
+  duration_ms: 0.378063
+  type: 'test'
+  ...
+# Subtest: sekret jest przekazywany Wranglerowi przez stdin, a nie argument lub plik
+ok 7 - sekret jest przekazywany Wranglerowi przez stdin, a nie argument lub plik
+  ---
+  duration_ms: 0.508685
+  type: 'test'
+  ...
+# Subtest: lokalny formularz waliduje token i zwraca stronę bez cache
+ok 8 - lokalny formularz waliduje token i zwraca stronę bez cache
+  ---
+  duration_ms: 1381.83819
+  type: 'test'
+  ...
+# Subtest: zmiana klucza nie tworzy pliku z kluczem
+ok 9 - zmiana klucza nie tworzy pliku z kluczem
+  ---
+  duration_ms: 0.606272
+  type: 'test'
+  ...
+# Subtest: pełny przebieg: strona lokalna przyjmuje wklejony klucz i zapisuje sekret przez Wrangler stdin
+ok 10 - pełny przebieg: strona lokalna przyjmuje wklejony klucz i zapisuje sekret przez Wrangler stdin
+  ---
+  duration_ms: 1690.33335
+  type: 'test'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3088.576692
+
+===== TEST scripts/test-password-kdf-cloudflare-cap-fix25.mjs =====
+(node:33556) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: Cloudflare WebCrypto cap simulated; 6 PBKDF2 operations, max 100000 iterations.
+PASS: negative login is HTTP 401 (not 503), registration/login/reset share the versioned 100k KDF.
+PASS: legacy unversioned hashes fail closed with generic 401; no account enumeration or credential logging.
+
+===== TEST scripts/test-publisher-session-runtime-path-fix21.mjs =====
+PASS: publikator sprawdza rejestrację/logowanie w functions/api/session.js.
+PASS: zarządzanie aktywnymi sesjami nadal jest osobno sprawdzane w functions/api/auth/sessions.js.
+
+===== TEST scripts/test-pwa-cache-fix18a.mjs =====
+PASS: Service Worker cache is uniquely versioned for FIX25 and retains support-video-clean-fix9 marker.
+PASS: MP4, poster and VTT are all in the offline CORE cache.
+PASS: API is not cached and old app cache namespaces are cleaned on activation.
+PASS: one-click publisher and watcher enforce the same semantic PWA cache guard before deployment.
+
+===== TEST scripts/test-social-login-fix18.mjs =====
+(node:33589) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: migracje 0008/0009, sześciu providerów i zachowanie stanów OAuth.
+PASS: status OAuth, przekierowania, PKCE/state i bezpieczne cookie dla wszystkich dostawców.
+PASS: brak sekretów oznacza nieaktywny provider; nie ma fikcyjnej aktywacji.
+PASS: pełny callback Discord tworzy konto, zapisuje subject oraz datę/wersję akceptacji zasad.
+PASS: łączenie dostawcy jest blokowane po wygaśnięciu pierwotnej sesji.
+PASS: rejestracja społecznościowa wymaga akceptacji zasad; data i wersja są zapisywane w profilu.
+PASS: ostatniej metody logowania nie można odłączyć.
+PASS: panel sesji rozpoznaje bieżącą sesję i usuwa tylko inne urządzenia.
+PASS: walidator dokładnie porównuje academy-build; usunięto błąd niezdefiniowanej zmiennej github.
+
+===== TEST scripts/test-totp-fix19.mjs =====
+PASS: RFC 6238 TOTP vectors, ±30s window, AES-GCM at-rest encryption, invalid-key rejection, recovery codes, and HttpOnly SameSite=Lax challenge cookie for OAuth redirect compatibility.
+
+===== TEST scripts/test-wrangler-bootstrap-fix18.mjs =====
+PASS: pinned Wrangler bootstrap, five launcher integrations, and no implicit deploy/migration.
+PASS_COUNT=40 FAIL=0

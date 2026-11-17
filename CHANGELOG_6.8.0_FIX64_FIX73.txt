@@ -1,0 +1,42 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 FIX64–FIX73
+Data przygotowania: 2026-11-06
+Numer produktu pozostaje: 6.8.0
+
+NOWE FUNKCJE
+FIX64 — lokalny Production Control Center z kontrolą widoków, manifestów i zasobów.
+FIX65 — interaktywny atlas warstwowy laptopa 2.5D, wybór komponentów i linki do diagramów.
+FIX66 — AI Repair Expert oparty o istniejące /api/chat, wyłącznie po świadomym POST i zgodzie użytkownika.
+FIX67 — wyszukiwarka istniejącego katalogu modeli oraz lokalne notatki techniczne.
+FIX68 — lokalne karty napraw, statusy, druk, import/eksport JSON.
+FIX69 — lokalne ścieżki szkoleniowe i postępy.
+FIX70 — losowy egzamin 10 pytań, próg ćwiczenia i lokalny wydruk wyniku.
+FIX71 — galeria fotografii i katalog źródeł edukacyjnych.
+FIX72 — lokalna tablica pytań.
+FIX73 — ręczny pakiet offline, Cache Storage i import/eksport kopii JSON.
+
+INTEGRACJA / BEZPIECZEŃSTWO
+- 10 dodatkowych zakładek wewnątrz istniejącego #view-globalacademy; brak nowych widoków najwyższego poziomu.
+- Dodano runtime, CSS i manifest FIX73 do index.html i Service Workera.
+- Zmieniono klucz cache PWA, aby wymusić odświeżenie po aktualizacji.
+- Dodano kontrolę po stronie Cloudflare Watchera dla JS/CSS/manifestu FIX73.
+- Dodano preflight FIX73 do OneClick i Watchera.
+- Dodano kontrolę składni 236 JS/MJS/CJS, 51 CSS i 57 JSON/webmanifest.
+- Zachowano wersję produktu 6.8.0.
+- Bez nowych migracji D1, bez zmiany OPENAI_API_KEY, bez wdrożenia produkcyjnego.
+
+OGRANICZENIA OPISANE W UI I MANIFEŚCIE
+- Atlas 2.5D nie jest skanem CAD urządzenia.
+- Baza modeli nie potwierdza OEM/SKU/FRU i kompatybilności części.
+- Karty warsztatu i Community są lokalne; nie przechowują danych osobowych klientów.
+- Egzamin daje lokalne potwierdzenie ćwiczenia, nie certyfikat akredytowany.
+- Offline to Cache Storage i ręczny transfer JSON, nie automatyczny cloud sync.
+
+
+FIX74 — WINDOWS FILE URL ROOT FIX (2026-11-06)
+- Naprawiono test-syntax-fix64-fix73.mjs: ROOT jest wyznaczany przez
+  fileURLToPath(import.meta.url), a nie URL.pathname.
+- Dodano test-syntax-root-fix74.mjs, który uruchamia kontroler z katalogu
+  wynikającego z położenia pliku i sprawdza obecność WEB_PUBLISH oraz migrations.
+- Test FIX74 jest wymagany przez OneClick i AUTO_PUBLISH_WATCHER.
+- Dodano pełny runner WYKONAJ_TESTY_FIX74.cmd i raporty FIX74.
+- Wersja produktu pozostaje 6.8.0; nie dodano migracji SQL ani zmian sekretów.

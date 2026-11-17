@@ -1,0 +1,36 @@
+{
+  "product": "NAUKA OD A DO Z — DLA WSZYSTKICH",
+  "productVersion": "6.8.0",
+  "hotfix": "FIX81",
+  "baseHotfix": "FIX80",
+  "build": "6.8.0-fix51-visual-academy-pro-20261105",
+  "deploymentTarget": {
+    "provider": "Cloudflare Pages",
+    "project": "naprawa-pc-akademia-serwisu-pro",
+    "accountId": "4ddfc3803a4f0c4457ccae083f18b975",
+    "projectMode": "Direct Upload",
+    "productionBranchVerified": true,
+    "productionBranch": "main",
+    "productionCommand": "wrangler pages deploy WEB_PUBLISH --project-name naprawa-pc-akademia-serwisu-pro --commit-dirty --commit-message ...",
+    "branchFlagPassed": false,
+    "previewEnvironmentPassed": false,
+    "productionUrl": "https://naprawa-pc-akademia-serwisu-pro.pages.dev"
+  },
+  "problem": "Wrangler pages deploy was passed --branch main; for this Direct Upload project this created a branch/preview deployment and left the stable production hostname on the previous build.",
+  "fix": "Use Direct Upload production command without --branch; continue verifying stable production URL and required remote content after deployment.",
+  "regressionGuard": "scripts/test-pages-production-direct-upload-fix81.mjs",
+  "testRunner": "scripts/run-tests-fix81.mjs",
+  "windowsRunner": "WYKONAJ_TESTY_FIX81.cmd",
+  "tests": {
+    "baseFix80Suite": "37/37 PASS",
+    "fix81DirectUploadAssertions": "7/7 PASS",
+    "combined": "38/38 PASS"
+  },
+  "productVersionChanged": false,
+  "d1Migrations": [],
+  "openAiSecretChanged": false,
+  "cloudflareProjectChanged": false,
+  "productionDeploymentPerformedByPackageBuild": false,
+  "testEnvironment": "Node.js v22.16.0, Linux container",
+  "windowsNode24Validation": "pending"
+}

@@ -1,0 +1,28 @@
+NAUKA OD A DO Z — FIX51 PACKAGE INFO
+
+Produkt: 6.8.0
+Poprawka: FIX51 VISUAL ACADEMY PRO
+Build: 6.8.0-fix51-visual-academy-pro-20261105
+
+Pakiet zawiera kompletny projekt źródłowy na podstawie FIX50, kod WEB_PUBLISH, funkcje API, skrypty diagnostyczne i publikacyjne, bibliotekę zdjęć i ilustracji, testy, manifest, changelog oraz dokumentację.
+
+Nowe zasoby wizualne: 12 lokalnych fotografii + 3 lokalne plakaty lekcji + 18 autorskich diagramów SVG = 33 zasoby.
+Nowe interakcje: atlas z hotspotami, atlas warstwowy laptopa, quiz obrazkowy, porównanie zdjęć przed/po, multimetr, oscyloskop i kreator diagnostyki.
+
+Pakiet nie wykonuje publikacji produkcyjnej i nie uruchamia migracji D1. Zachowuje oddzielny kontrakt historycznego FIX50.
+
+Wyniki testów i ograniczenia środowiska są w TEST_REPORT_6.8.0_FIX51.txt oraz DIAGNOSTIC_BUNDLE_FIX51.json.
+Przed wydaniem publicznym należy uruchomić WYKONAJ_TESTY_FIX51.cmd na Windows 10/11 z Node.js v24.19.0, wykonać ręczny test Chrome/Edge i potwierdzić licencje 12 zdjęć oraz 3 plakatów odziedziczonych z wcześniejszej paczki.
+
+
+HOTFIX FIX52 (2026-11-05)
+- Poprawiono literówkę asercji testu plakatów i kolejność deklaracji publicContract w teście kontraktu.
+- Dodano WYKONAJ_TESTY_FIX52.cmd oraz dokumentację FIX52.
+- Publiczny runtime build FIX51 i wersja produktu 6.8.0 pozostają bez zmian; hotfix obejmuje testy preflight.
+
+
+HOTFIX FIX53 (2026-11-05)
+- Naprawiono błąd obserwatora publikacji: lista kontrolna zawiera 33 zasoby (12 zdjęć + 3 plakaty + 18 ilustracji), a kod błędnie wymagał 30 wyników kontroli.
+- Weryfikacja używa teraz dokładnej liczby ścieżek i liczby odpowiedzi; każda brakująca odpowiedź nadal blokuje potwierdzenie publikacji.
+- Dodano diagnostykę liczby zasobów i nazw brakujących plików oraz test regresyjny FIX53.
+- Wersja produktu 6.8.0 i runtime build FIX51 pozostają bez zmian; nie wykonano wdrożenia ani migracji D1.

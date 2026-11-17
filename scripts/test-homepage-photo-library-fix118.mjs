@@ -1,0 +1,25 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const read=p=>fs.readFileSync(path.join(ROOT,p),'utf8');
+const html=read('WEB_PUBLISH/index.html'), sw=read('WEB_PUBLISH/service-worker.js');
+const prime=read('WEB_PUBLISH/assets/homepage-photo-prime-fix118.js');
+const runtime=read('WEB_PUBLISH/assets/photo-catalog-fix115.js');
+const tech=read('WEB_PUBLISH/assets/homepage-tech-only-fix122.js');
+const manifest=JSON.parse(read('WEB_PUBLISH/media/photo-sources-online.json'));
+const library=JSON.parse(read('WEB_PUBLISH/media/home-photo-library-fix118.json'));
+const release=JSON.parse(read('WEB_PUBLISH/release.json'));
+const one=read('ONECLICK_AKADEMIA.js'), watcher=read('AUTO_PUBLISH_WATCHER.js');
+const start=html.indexOf('id="view-home"'), end=html.indexOf('id="view-',start+20), home=html.slice(start,end>start?end:undefined);
+const tags=[...home.matchAll(/<img\b[^>]*>/gi)].map(m=>m[0]);
+const checks=[];function check(name,fn){fn();checks.push(name);console.log(`[PASS] ${name}`);}
+check('wydanie FIX127 zachowuje produkt 6.8.0 i aktywuje cache techniczny; cache fotografii jest wyłączony',()=>{assert.equal(release.release,'6.8.0');assert.equal(release.latestHotfix,'FIX128');assert.equal(release.fix118_local_photo_library.cacheName,'disabled-by-FIX123');assert.equal(release.fix118_local_photo_library.homepageEnabled,false);assert.equal(release.fix118_local_photo_library.photoSlots,0);assert.equal(release.fix118_local_photo_library.serviceWorkerCacheName,'nauka-6.8.0-fix127-portable-sha256-20261111');assert.equal(release.fix118_local_photo_library.d1Migrations,'none');assert.equal(release.fix118_local_photo_library.dataMigrations,'none');});
+check('36 homepage image slots are local and excluded from remote photo assignment',()=>{assert.equal(tags.length,36);for(const tag of tags){assert.match(tag,/src="assets\/artwork-fix(?:77|51)\/[^\"]+\.svg"/);assert.match(tag,/data-photo-ignore="true"/);assert.match(tag,/data-photo-eligible="false"/);}});
+check('legacy prime skips locked homepage SVGs before assigning manifest photo URLs',()=>{assert.ok(prime.includes('FIX122 homepage technical-visual lock'));assert.ok(prime.includes("img.dataset.photoIgnore === 'true'"));assert.ok(prime.includes("img.dataset.photoEligible === 'false'"));assert.ok(runtime.includes('img.dataset.techVisualId) return false'));});
+check('homepage guard runs before legacy photo engines and watches source mutations',()=>{assert.ok(html.indexOf('homepage-tech-only-fix122.js')<html.indexOf('visual-uniqueness-fix83.js'));assert.ok(html.indexOf('homepage-tech-only-fix122.js')<html.indexOf('homepage-photo-prime-fix118.js'));assert.ok(tech.includes('MutationObserver'));});
+check('legacy photo cache is retired and remote images are replaced by local technical SVGs',()=>{assert.ok(!sw.includes('const PHOTO_LIBRARY_CACHE_NAME'));assert.ok(sw.includes("const CACHE_NAME = 'nauka-6.8.0-fix127-portable-sha256-20261111'"));assert.ok(sw.includes('sitewide-tech-visuals-fix123.js?v=6.8.0-fix123'));assert.ok(sw.includes("request.destination === 'image'"));assert.equal(sw.match(/const\s+CACHE_NAME\s*=/g)?.length,1);assert.equal(tags.filter(t=>/src="https?:/i.test(t)).length,0);});
+check('old photo-source manifest and its 21 library records remain intact for compatibility',()=>{assert.equal(Object.keys(manifest.homepageSlotSeedMap).length,21);assert.equal(library.entries.length,21);assert.equal(library.uniqueSeeds,21);assert.equal(library.uniqueAssets,21);assert.ok(home.includes('id="photoLibraryFix118"'));assert.ok(home.includes('Grafiki lokalne — tryb offline'));});
+check('OneClick and Watcher require FIX122 no-people policy and new regression test',()=>{assert.ok(one.includes("releaseJson.latestHotfix !== 'FIX128'"));assert.ok(one.includes('scripts/test-homepage-tech-only-fix122.mjs'));assert.ok(watcher.includes('scripts/test-homepage-tech-only-fix122.mjs'));assert.ok(watcher.includes('homepagePhotoFirstRenderFix?.registeredAssignments === 0'));});
+console.log(`FIX118 LEGACY CATALOG / FIX122 HOMEPAGE POLICY: ${checks.length}/${checks.length} PASS`);

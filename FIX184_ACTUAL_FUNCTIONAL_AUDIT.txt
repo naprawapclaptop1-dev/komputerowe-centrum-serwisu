@@ -1,0 +1,8 @@
+AUDYT FAKTYCZNEGO DZIAŁANIA FIX184
+Zweryfikowano HTML, CSS, JS, Service Worker, release.json, OneClick i Auto Publish Watcher.
+Uruchomiono rzeczywisty runtime panelu w deterministycznym, kontrolowanym DOM.
+Sprawdzono: 20 lekcji, quizy, notatki, zapis postępu, 3-etapowy przypadek, checklistę projektu, egzamin 20-pytaniowy, słownik, drzewo AD, generator PowerShell tylko do odczytu, ścieżki WinDbg, kwalifikację zdalną i kalkulator integralności sygnału.
+Potwierdzono, że runtime nie wykonuje poleceń, nie wykonuje fetch i nie łączy się ze sprzętem/urządzeniami.
+FIX179–FIX182: testowe wartości postępów pozostały bajt w bajt niezmienione.
+Sprawdzono także normalizację uszkodzonego strukturalnie zapisu localStorage bez awarii panelu i bez utraty punktów.
+Wynik: PASS w środowisku testowym. To nie jest potwierdzenie publikacji online ani pomiaru rzeczywistego sprzętu.

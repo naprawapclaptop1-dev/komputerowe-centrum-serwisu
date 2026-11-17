@@ -1,0 +1,25 @@
+{
+  "product": "NAUKA OD A DO Z — DLA WSZYSTKICH",
+  "productVersion": "6.8.0",
+  "hotfix": "FIX76",
+  "date": "2026-11-06",
+  "scope": "publication-photo-uniqueness-guard",
+  "rootCause": "Legacy FIX39 gate required all 22 locked image slots to be globally unique, while FIX75 intentionally reuses local photos between hero, showcase and module sections.",
+  "guardContract": {
+    "lockedImageSlots": 22,
+    "showcaseSlides": 6,
+    "uniqueShowcaseImages": 6,
+    "mainModuleCards": 13,
+    "uniqueMainModuleImages": 13,
+    "crossSectionImageReuseAllowed": true
+  },
+  "regressionTest": "scripts/test-home-photo-guard-fix76.mjs",
+  "oneClickPreflight": true,
+  "autoPublishWatcherPreflight": true,
+  "databaseMigrationsAdded": false,
+  "d1SqlExecuted": false,
+  "openAiSecretChanged": false,
+  "wranglerConfigurationChanged": false,
+  "productionDeploymentPerformed": false,
+  "windowsNode2419RetestRequired": true
+}

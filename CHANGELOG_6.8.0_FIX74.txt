@@ -1,0 +1,22 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 FIX74
+=========================================
+
+Naprawa: test-syntax-fix64-fix73.mjs budował ROOT z URL.pathname. Na Windows
+URL.pathname zawiera prefiks /G:/..., który path.resolve mógł potraktować jako
+część kolejnej ścieżki, dając błędny katalog G:\G:\AKADEMIA_SERWISU_PRO.
+
+Zmiany:
+- użycie node:url fileURLToPath(import.meta.url) do uzyskania natywnej ścieżki;
+- wyznaczenie katalogu scripts i katalogu projektu względem położenia pliku;
+- nowy test test-syntax-root-fix74.mjs uruchamia checker z lokalizacji pliku;
+- dodanie testu FIX74 do ONECLICK_AKADEMIA.js i AUTO_PUBLISH_WATCHER.js;
+- nowy pełny runner WYKONAJ_TESTY_FIX74.cmd.
+
+Bez zmian:
+- wersja produktu pozostaje 6.8.0;
+- brak zmian w sekretach OpenAI, Wrangler i konfiguracji Cloudflare;
+- bez zmian w migracjach SQL i bez wykonywania SQL;
+- bez usuwania wcześniejszych widoków ani modułów.
+
+Ograniczenie: poprawka ścieżki nie rozwiązuje niezależnej blokady wykrywania
+production_branch Cloudflare, jeśli API/poświadczenia nie zwrócą tej wartości.

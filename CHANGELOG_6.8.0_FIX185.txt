@@ -1,0 +1,42 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 FIX185
+Data: 2026-11-16
+Nazwa: Centrum Diagnostyki Najwyższego Poziomu
+
+NOWE SPECJALIZACJE
+1. Windows Performance — WPR/WPA, ETW, CPU Ready Time, hard faults, Disk/File I/O i analiza rozruchu.
+2. PCIe Protocol — AER, hierarchia Root Port/Endpoint, Link Training, ASPM, timeouty i retransmisje.
+3. Windows Storage Stack — Storport, miniport, StorNVMe, StorDiag, reset/recovery i analiza kolejek.
+4. PCB Failure Analysis — pad cratering, delaminacja, barrel crack, CAF, microsection oraz ESD handling.
+5. Firmware Security — UEFI UpdateCapsule, ESRT, CHID, podpisy payloadu, anti-rollback i NIST Protect/Detect/Recover.
+
+ZAWARTOŚĆ
+- 20 nowych lekcji, po 4 w każdej specjalizacji.
+- 60 pytań kontrolnych z wyjaśnieniami.
+- 15 wieloetapowych przypadków diagnostycznych.
+- 10 projektów praktycznych z checklistami.
+- 40 terminów słownika bez dokładnych duplikatów FIX179-FIX184.
+- Egzamin 20-pytaniowy, próg zaliczenia 80%.
+- 8 narzędzi edukacyjnych: selektory scenariuszy ETW, AER, Storage, PCB i firmware; syntetyczna fala; losowanie przypadku; raport Before/After.
+- Notatki, postępy, historia narzędzi i egzaminów, eksport raportu.
+
+INTEGRACJA I ZACHOWANIE BAZY
+- Nowa 20. zakładka istniejącej Akademii; bez dodawania nowego widoku (pozostaje 35 widoków).
+- Nowe pliki JS/CSS podłączone do istniejącego HTML i Service Workera.
+- OneClick i AUTO_PUBLISH_WATCHER sprawdzają pliki, metadane, panel, 20 zakładek oraz PWA przed publikacją i w walidacji zdalnej.
+- Produkt pozostaje w wersji 6.8.0; nowy numer poprawki to FIX185.
+- Bez nowej bazy D1, nowych tabel, migracji, zmiany danych, kluczy Gemini, konfiguracji Cloudflare ani projektu Pages.
+- Postępy FIX185 są przechowywane w osobnym kluczu localStorage: nauka-od-a-do-z-fix185-performance-firmware-v1.
+- Postępy FIX179-FIX184 pozostają rozdzielone i nietknięte.
+- Symulatory są edukacyjne; nie wykonują poleceń, nie łączą się z urządzeniami, siecią, dyskami ani firmware.
+
+TESTY
+- Nowy test struktury i treści FIX185.
+- Audyt duplikatów względem 1083 lekcji, 155 przypadków katalogu oraz modułów FIX179-FIX184.
+- Test rzeczywistego renderowania panelu w kontrolowanym DOM.
+- Test quizu, notatek, przypadków, projektów, egzaminu, wszystkich 8 narzędzi i zapisu postępów.
+- Test odporności na nieprawidłowy typ danych localStorage.
+- Pełna regresja FIX176-FIX185 jest uruchamiana przez scripts/run-tests-fix185.mjs.
+- Wyniki lokalne znajdują się w FIX185_FULL_TESTS.log.
+
+OGRANICZENIA
+Lokalne testy PASS nie potwierdzają publikacji produkcyjnej. Publikację FIX185 należy potwierdzić nowym logiem START_FIX105.log z maszyny właściciela projektu.

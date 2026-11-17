@@ -1,0 +1,36 @@
+NAUKA OD A DO Z — DLA WSZYSTKICH
+CHANGELOG 6.8.0 / FIX163
+
+1. Zastąpiono aktywny backend czatu AI integracją Google Gemini Interactions API.
+2. Ustawiono domyślny model gemini-3.8-flash i strumieniowanie odpowiedzi.
+3. Dodano jednorazową konfigurację sekretu GEMINI_API_KEY wyłącznie w CMD. Wprowadzanie jest ukryte.
+4. CMD pokazuje oficjalny adres Google AI Studio: https://aistudio.google.com/api-keys. Link służy do utworzenia/skopiowania klucza; klucz wkleja się wyłącznie do CMD.
+5. Klucz jest weryfikowany przed zapisaniem i przekazywany Wranglerowi przez stdin jako Cloudflare Pages Production Secret. Nie jest zapisywany do pliku, argumentów procesu, konfiguracji ani logów.
+6. Kolejne uruchomienia pomijają pytanie, gdy GEMINI_API_KEY już istnieje. Dodano USTAW_KLUCZ_GEMINI.cmd do bezpiecznej wymiany klucza.
+7. Stary skrót USTAW_KLUCZ_OPENAI.cmd i stary konfigurator zachowano jako warstwę zgodności przekierowującą do Gemini; aktywny czat nie korzysta z OpenAI ani Workers AI.
+8. Dodano serwerową blokadę zakresu: tylko nauka, diagnostyka, naprawa, konserwacja i konfiguracja komputerów stacjonarnych/laptopów. Naprawa innych urządzeń i tematy poza serwisem PC są blokowane przed wywołaniem Gemini.
+9. Tematy Wi-Fi/router/DHCP/DNS dopuszczane są tylko w kontekście diagnostyki połączenia PC/laptopa.
+10. Wspólny endpoint /api/chat obsługuje główny czat, nauczyciela Akademii i diagnostykę AI; nie dodano oddzielnego dostawcy ani fallbacku.
+11. Żądania Gemini używają store:false. Historia platformy zachowuje dotychczasowe zasady zgody i istniejący D1.
+12. Zaktualizowano OneClick, Watcher, Service Worker, release.json, teksty strony i testy regresyjne.
+13. Zaktualizowano historyczne testy resolvera Node, które nadal oczekiwały konfiguratora OpenAI.
+
+ZACHOWANO
+- Produkt 6.8.0.
+- Projekt Cloudflare Pages: naprawa-pc-akademia-serwisu-pro.
+- Istniejącą bazę D1 naprawapc-orders; bez nowych tabel i migracji.
+- Konta, OAuth, 35 widoków, 1083 lekcje, bibliotekę zdjęć i cache zdjęć FIX135.
+- Nie wykonano automatycznego usunięcia nieużywanego sekretu OPENAI_API_KEY.
+
+TESTY
+- Regresja bazowa FIX136–FIX162: PASS.
+- Konfigurator Gemini/CMD: 5/5 PASS.
+- Czat Gemini / zakres tematyczny: 7/7 PASS.
+- Resolver Node FIX105: 13/13 PASS.
+- Resolver zgodności FIX103: 16/16 PASS.
+- Odkrywanie Node FIX100: 11/11 PASS.
+- Cały runner FIX163: STATUS: PASS.
+
+OGRANICZENIA
+- Klucz musi zostać wklejony przez użytkownika na swoim komputerze; nie jest częścią ZIP.
+- Nie wykonano publikacji produkcyjnej Cloudflare ani pełnego E2E Chromium.

@@ -1,0 +1,31 @@
+NAUKA OD A DO Z — 6.8.0 FIX27
+CENTRUM PRAKTYKI PRO
+Data: 2026-11-03
+
+NOWE FUNKCJE
+- Dodano nawigację i widok Centrum Praktyki PRO.
+- Dodano PCB Repair Master Lab: 8 opisanych elementów, plan kontroli, dziennik pomiarów i eksport CSV.
+- Dodano Real Repair Challenge: 5 scenariuszy diagnostycznych ocenianych krok po kroku.
+- Dodano Schematic Center: lokalny podgląd PDF/PNG/JPEG/WEBP, markery, notatki i IndexedDB.
+- Dodano Virtual Electronics Bench: kalkulator Ohma, dzielnik napięcia, RC i syntetyczny oscylogram.
+- Dodano AI Technician Mentor: przygotowanie kontekstu do istniejącego czatu AI z ręcznym wysłaniem.
+- Dodano 6 akademii specjalistycznych i 36 etapów nauki: MacBook/Apple Silicon, GPU, Server/RAID/ECC, monitory, USB-C/PD, ATX.
+- Dodano Exam Center: 6 zestawów po 4 pytania, próg 75%, lokalna historia.
+- Dodano Technician Portfolio: JSON i wydruk.
+- Dodano Instructor Studio: lokalne zadania, rubryki ocen, import/eksport.
+- Dodano Knowledge Search Pro.
+- Dodano lokalny eksport/import postępów FIX27.
+
+INTEGRACJA
+- Dodano zasoby CSS/JS do strony oraz Service Workera.
+- Dodano bramki FIX27 do ONECLICK_AKADEMIA.js i AUTO_PUBLISH_WATCHER.js.
+- Dodano testy funkcjonalne i testy kalkulatorów.
+- Zaktualizowano academy-build, release.json, /api/auth/status i kontrolę kont.
+- Zachowano aplikację 6.8.0 i istniejące kursy/moduły.
+- Nie dodano zewnętrznych konektorów chmurowych ani migracji D1.
+
+OGRANICZENIA
+- Symulator jest edukacyjny, nie steruje sprzętem.
+- Dokumenty i postępy pozostają lokalne; pliki IndexedDB trzeba kopiować osobno.
+- Instructor Studio jest lokalne i nie zapewnia kont/roli/synchronizacji wielu użytkowników.
+- Testy lokalne nie zastępują testu przeglądarkowego i testu po publikacji.

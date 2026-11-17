@@ -1,0 +1,21 @@
+NAUKA OD A DO Z — RAPORT FIX75
+
+Zakres: lokalne zdjęcia wszystkich kafelków Akademii, specjalizacje, galeria z powiększaniem, cache offline i bramki publikacji.
+
+Wynik: 24/24 testy pełnego runnera zaliczone; nowy test regresyjny FIX75: 8/8 PASS.
+Środowisko testowe: Node.js v22.16.0 w Linux kontenerze.
+
+Kontrole FIX75 (test regresyjny):
+- 13/13 głównych kafelków ma unikalny lokalny obraz JPG: 12 fotografii i 1 oznaczoną wizualizację AI.
+- Wszystkie pliki zdjęć istnieją i mają niezerową zawartość.
+- Galeria Visual Academy zawiera 13 lokalnych obrazów: 12 zdjęć i 1 wizualizację AI.
+- 6 ścieżek specjalistycznych prowadzi do istniejących widoków.
+- Lightbox ma podpisy, liczbę zdjęć, poprzednie/następne, Escape, strzałki i obsługę fokusu.
+- Service Worker i pakiet offline uwzględniają nowe zasoby.
+- Lokalny serwer HTTP sprawdza odpowiedzi i MIME dla zdjęć, CSS, JS, manifestu oraz ochronę przed path traversal.
+
+Cały zestaw testów uruchomiono po przygotowaniu FIX75; szczegółowy log znajduje się w FIX75_FULL_TEST_RUN.log.
+
+Ograniczenia środowiska: testy wykonano w kontenerze Linux z wersją Node.js widoczną w logu, a nie na komputerze Windows użytkownika. Należy ponownie uruchomić WYKONAJ_TESTY_FIX75.cmd w Windows Node.js 24.19.0 i sprawdzić renderowanie oraz obsługę lightboxa w Chrome/Edge. Playwright E2E nie został uruchomiony w tym środowisku.
+
+Wdrożenie produkcyjne: NIE wykonano. Migracje D1 i sekret OpenAI: BEZ ZMIAN.

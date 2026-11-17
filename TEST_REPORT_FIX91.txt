@@ -1,0 +1,41 @@
+NAUKA OD A DO Z — RAPORT TESTÓW FIX91
+Produkt: 6.8.0
+Hotfix: FIX91
+Data: 2026-11-07
+
+WYNIK: 124/124 PASS
+
+Podział:
+- Historyczne testy regresyjne FIX80–FIX90: 110/110 PASS.
+- Nowe testy katalogu zdjęć FIX91: 14/14 PASS.
+- Łączny runner: scripts/run-tests-fix91.mjs.
+
+Zakres nowych testów FIX91:
+1. Spójność metadanych release.json, manifestu zdjęć i wersji 6.8.0.
+2. Kolejność ładowania runtime katalogu przed app.js i nowy cache Service Workera.
+3. Jawny numer strony i parametry wyszukiwania Openverse.
+4. Trzy warianty fraz wyszukiwania oraz zgodność limitów w release.json.
+5. Oddzielna klasyfikacja VRAM/GDDR/HBM i RAM DIMM/SO-DIMM.
+6. Odrzucanie niekomercyjnych, nieprawidłowych, generycznych BGA-only i niepasujących fotografii.
+7. Parsowanie metadanych Wikimedia Commons: opis, kategorie, autor i licencja.
+8. Paginacja Openverse i przechodzenie do kolejnych fraz.
+9. Zapisywanie i przywracanie strony, queryIndex i niewykorzystanych zdjęć po odświeżeniu.
+10. Bezpośredni test strony 3.
+11. Wznawianie wyczerpanej kategorii.
+12. Jawne raportowanie błędów źródła i niezaliczanie SVG jako zdjęcia.
+13. Podłączenie regresji do OneClick i Auto-Watchera.
+14. Składnia runtime, OneClick i Watchera.
+
+WERYFIKACJA LIVE API (PUNKTOWA, 2026-11-07)
+- Openverse zwraca wyniki dla szerszych fraz kategorii (np. motherboard, RAM memory, video card, CPU processor chip, laptop display, computer fan); bardzo szczegółowe frazy naprawcze zwracają znacznie mniej wyników.
+- Dla fraz GDDR/VRAM Openverse może zwracać zero; Wikimedia Commons zwróciło zdjęcia identyfikowane jako GDDR3 i karty z pamięcią GDDR. Dlatego VRAM ma odrębne zapytania Commons i rygorystyczny filtr metadanych.
+- To jest punktowa walidacja odpowiedzi API, nie pobranie i ręczna kontrola 1836 fotografii.
+
+ŚRODOWISKO
+- Node.js: v22.16.0 (środowisko testowe).
+- Użytkownik zgłasza Node.js v24.19.0; nie wykonano tutaj testu pod tą wersją.
+- Brak rzeczywistego deploymentu produkcyjnego Cloudflare w ramach tego raportu.
+- Brak nowych migracji D1.
+
+WYNIK KOŃCOWY
+Wszystkie testy automatyczne przeszły. Nie stanowi to potwierdzenia, że wszystkie sloty na stronie są już wypełnione fotografiami: dynamiczne pobieranie rozpocznie się po publikacji FIX91 i wymaga sieci oraz dostępnych, zgodnie licencjonowanych wyników. Ilustracja SVG pozostaje wyłącznie oznaczonym fallbackiem.

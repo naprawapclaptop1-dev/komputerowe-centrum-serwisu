@@ -1,0 +1,17 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 / FIX231–FIX239
+
+FIX231 — rozszerzenie eksportu danych i porządkowania konta o bezpieczeństwo, dostawców bez tokenów, egzaminy, certyfikaty, powiadomienia, relacje opiekunów i zgłoszenia treści.
+FIX232 — skrzynka D1, preferencje kategorii, Web Push VAPID ES256/AES128GCM, opcjonalny e-mail po weryfikacji adresu, allowlista hostów push i generator kluczy lokalnych.
+FIX233 — przełączanie języka PL/EN w nowych panelach i integracja z istniejącym przełącznikiem materiałów; historyczne widoki nie są wszystkie w pełni przetłumaczone.
+FIX234 — lokalne ustawienia dostępności: font, kontrast, linki i ograniczenie animacji; widoczny fokus klawiatury.
+FIX235 — kopia D1 z manifestem SHA-256, lokalna kontrola odtworzenia SQLite oraz odtwarzanie zdalne tylko do staging/test/dev.
+FIX236 — zgłaszanie jakości materiałów, moderacja administratora i automatyczny audyt ID/lokalnych zasobów.
+FIX237 — dwustronna zgoda na dostęp opiekuna, jednorazowe zaproszenia i ograniczony raport zbiorczy.
+FIX238 — lokalne tekstowe kopie aktualnych materiałów w IndexedDB z bezpiecznym oczyszczaniem treści.
+FIX239 — smoke test po wdrożeniu dla zasobów, D1, OAuth i chronionych endpointów.
+
+Migracja addytywna: 0023_platform_experience_fix231_239.sql.
+Zachowano produkt 6.8.0, istniejące konta, D1 binding, sekrety, cache PWA i 35 głównych widoków.
+Nie wykonano zdalnej migracji, publikacji Cloudflare ani rzeczywistych wysyłek Push/e-mail.
+
+DOPRACOWANIE REGRESYJNE: wypisanie Web Push usuwa wyłącznie subskrypcję bieżącej przeglądarki i nie wyłącza Push na pozostałych urządzeniach. Naprawiono także powielony identyfikator HTML panelu zgłaszania materiałów.

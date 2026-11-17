@@ -1,0 +1,27 @@
+TEST REPORT — AKADEMIA SERWISU PRO 5.0.0 / NEON MOTION ACADEMY
+
+KONTROLE STATYCZNE
+- HTML: znacznik academy-build 5.0.0-neon-motion-academy-20261101.
+- 31 lokalnych odwołań do assetów w index.html; brak brakujących plików.
+- 0 zduplikowanych identyfikatorów HTML.
+- JavaScript: składnia neon-motion.js, service-worker.js, ONECLICK_AKADEMIA.js i AUTO_PUBLISH_WATCHER.js — PASS.
+- CSS theme-500.css: kontrola nawiasów — PASS.
+- PWA: manifest JSON, cache 5.0.0, motyw i silnik ruchu w CORE — PASS.
+- URUCHOM_AKADEMIE.cmd: ASCII, CRLF, brak BOM — PASS.
+- Brak zmian schematu D1 i brak nowych migracji.
+
+TESTY INTERAKCJI W CHROMIUM
+- 5 skórek: Neon, Violet, Matrix, Arctic, Titanium — PASS.
+- 3 tryby ruchu: pełny, spokojny, wyłączony — PASS.
+- Tworzenie/usuwanie animowanego tła PCB przy zmianie trybu — PASS.
+- Panel ustawień, zamykanie i ponowne otwieranie — PASS.
+- Lokalny zapis preferencji — PASS.
+- Tryb skupienia: ukrycie/przywrócenie bocznego menu — PASS.
+- Pełny ekran: włączenie i wyłączenie — PASS.
+- prefers-reduced-motion: domyślne wyłączenie animacji — PASS.
+- Układ mobilny 390 px: brak poziomego przepełnienia — PASS.
+- Poprzednie 8 paneli Service Center, sekwencja zasilania, PD, odzyskiwanie, ESD, magazyn, zadania, znaczniki PCB — PASS.
+- Brak błędów JavaScript w teście modułu NEON MOTION.
+
+WYNIK
+Wszystkie kontrole lokalne zaliczone. Nie przeprowadzono wdrożenia produkcyjnego Cloudflare z tej maszyny. Ustawienia wyglądu pozostają lokalne w przeglądarce. Nie wykonano migracji ani zapisu do produkcyjnej bazy D1.

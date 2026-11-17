@@ -1,0 +1,18 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 FIX84
+
+FIX84 — NAPRAWA CRYPTO.CREATEHASH W ONECLICK I AUTO-WATCHER
+
+- Naprawiono przerwanie kontroli publikacji w verifyWeb() z powodu TypeError: crypto.createHash is not a function.
+- Dodano jawny import const crypto = require('node:crypto') w ONECLICK_AKADEMIA.js.
+- Dodano ten sam jawny import w AUTO_PUBLISH_WATCHER.js, ponieważ obserwator wykonywał identyczną kontrolę SHA-256 posterów.
+- Kontrola sum posterów nadal używa SHA-256 i porównuje pliki lokalne z manifestem FIX83; zmieniło się wyłącznie źródło API kryptograficznego.
+- Przywrócono dokładny historyczny znacznik `6.8.0 FIX79`, wymagany przez starsze testy zgodności OneClick.
+- Poprawiono historyczną kontrolę precache FIX51, aby akceptowała prawidłowe ścieżki plików z parametrem wersji `?v=...`; zapobiegało to fałszywemu zgłoszeniu braku trzech istniejących posterów FIX83.
+- Nie zmieniono identyfikatorów projektu Pages, bindingu D1, sekretów, schematu danych ani konfiguracji produkcyjnej.
+- Dodano test regresyjny scripts/test-fix84-node-crypto.mjs oraz runner WYKONAJ_TESTY_FIX84.cmd; rozszerzono historyczny test kontraktów, aby rozpoznawał nowy niezależny runner.
+
+Wersja produktu: 6.8.0 (bez zmiany).
+Migracje D1: brak. Zmiany sekretów: brak.
+Publikacja produkcyjna: NIE została uruchomiona podczas przygotowania poprawki.
+
+Testy: scripts/run-tests-fix84.mjs (48 testów bazowych FIX83 + 2 testy regresyjne SHA-256).

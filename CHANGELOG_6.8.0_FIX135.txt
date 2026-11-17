@@ -1,0 +1,48 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 FIX135
+Data: 2026-11-13
+
+CEL
+Naprawa brakujących fotografii w dolnej części strony głównej. Górny baner miał już prawdziwe zdjęcia, ale część z 19 głównych kart modułów nadal korzystała z ilustracji zastępczych.
+
+ZMIANY
+- Dodano jednoznaczne, unikalne przypisanie 19 wyselekcjonowanych fotografii sprzętu do 19 identyfikatorów obrazów głównych kart modułów.
+- Każdy slot HTML otrzymuje jawny atrybut data-photo-kind zgodny z kategorią przypisanego zdjęcia. Usuwa to poleganie na zbyt szerokim wnioskowaniu kategorii z tytułu karty.
+- Zmieniono mapę właścicieli seedów w katalogu zdjęć: fotografie przypisane do kart głównych nie mogą zostać zajęte przez inne karty ani metody.
+- Rozszerzono dozwolone słownictwo techniczne dla kart kursów, checklist, wiedzy i urządzeń (m.in. GDDR, VRAM, RAM, DIMM, Ethernet, BIOS, chłodzenie, multimetr, USB).
+- Zaktualizowano manifest źródeł, bibliotekę offline, runtime pierwszego renderu, katalog zdjęć, Service Workera, metadane wydania, OneClick i Watchera.
+- Sześć kart specjalistycznych nadal korzysta z dynamicznego dopasowania tematycznego; 19 głównych kart ma własne, statycznie przypisane zdjęcia.
+- Zachowano filtr metadanych odrzucający zdjęcia ludzi, twarzy, dłoni i materiałów niebędących fotografiami.
+- Zachowano lokalne ilustracje SVG wyłącznie jako oznaczony fallback, gdy fotografia jest niedostępna.
+- Usunięto powielony blok walidacji dodany w trakcie aktualizacji OneClick/Watchera.
+
+PRZYPISANIA
+1. Wirtualny warsztat — multimetr
+2. Atlas podzespołów — pamięć RAM SO-DIMM
+3. Schematy i BoardView — płyta główna
+4. Elektronika i lutowanie — makrofotografia PCB
+5. Biblioteka techniczna — dyski i pamięć masowa
+6. Diagnostyka krok po kroku — chłodzenie GPU
+7. Pełna ścieżka nauki — podzespoły PC/GPU
+8. Ćwiczenia i checklisty — pamięć VRAM
+9. Modele i numery płyt — płyta główna z układami
+10. Materiały i szkolenia — CPU/RAM
+11. Mapa wiedzy — moduł RAM DIMM
+12. Asystent edukacyjny — pamięć VRAM
+13. Warsztat Mistrza — układy BIOS/EPROM
+14. Fault Lab — karta graficzna
+15. LabPlus — złącze USB-C
+16. BoardView 3D — płyta główna i mikroukłady
+17. Centrum modeli i sieci — przełącznik Ethernet
+18. Laboratorium laptopów — płyta główna laptopa
+19. Dodatkowy moduł sieciowy — przewody Ethernet i switch
+
+TESTY
+- Zestaw regresyjny FIX135: 17/17 skryptów PASS na Node.js v22.16.0.
+- Test pokrycia kart: 11/11 kontroli PASS (19/19 slotów, 19 unikalnych seedów, zgodność kategorii, źródeł, licencji, cache i proxy).
+- Kontrola składni OneClick i Watchera: PASS.
+- Kontrola JSON manifestów i metadanych wydania: PASS.
+
+ZAKRES I OGRANICZENIA
+- Wersja produktu pozostaje 6.8.0; FIX135 jest poprawką.
+- Nie dodano migracji D1, nie zmieniano kont, sekretów ani istniejącej konfiguracji Cloudflare.
+- W tym środowisku nie wykonano produkcyjnego wdrożenia ani testu rzeczywistego pobrania zdjęć z internetu. Po publikacji Watcher ma zweryfikować obrazy HTTP i ich typ MIME.

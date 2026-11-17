@@ -1,0 +1,25 @@
+NAUKA OD A DO Z — CHANGELOG FIX50
+Build: 6.8.0-fix50-photo-reliability-20261105
+Data: 2026-11-05
+
+NAPRAWY
+- Naprawiono zależność renderowania zdjęć online od odczytu pikseli canvas.
+- CORS-tainted canvas nie oznacza już, że prawidłowo załadowany IMG jest nieważny.
+- Każda usterka otrzymuje trzy różne lokalne fotografie natychmiast, zanim wystartuje kolejka online.
+- Karty listy i szczegółów używają local-first fallback.
+- Przy błędzie zdalnej fotografii wraca lokalny obraz, zamiast ukrytej/pustej miniatury.
+- Tryb offline pozostawia obrazy lokalne i nie odpytuje Openverse/Wikimedia.
+- Pre-cache Service Workera zawiera 12 lokalnych zdjęć warsztatowych.
+- Ujednolicono build ID release.json / HTML / API statusu.
+- Dodano kontrakt wydania FIX50, test pokrycia fotografii, skrypt uruchomieniowy i raporty.
+
+ZACHOWANO
+- Funkcje, konta, istniejącą konfigurację OpenAI i Cloudflare.
+- Historyczny moduł i manifest FIX49.
+- Katalog kursów i pozostałe moduły akademii.
+- Dotychczasowe migracje i dane D1.
+
+NIE WYKONANO
+- Publikacji produkcyjnej.
+- Migracji D1.
+- Operacji na sekretach.

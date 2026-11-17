@@ -1,0 +1,28 @@
+NAUKA OD A DO Z — DLA WSZYSTKICH 6.8.0
+FIX113 — KOREKTA TESTU PROXY NODE.JS 26
+Data: 2026-11-09
+
+PRZYCZYNA
+FIX112 dodawał test, który ustawia proxy URL z portem 99999. Node.js 26 odrzuca taki URL podczas inicjalizacji globalnego agenta HTTP, zanim test HTTP zostanie uruchomiony. Błąd występował w teście regresji, a nie w Cloudflare ani D1.
+
+NAPRAWIONE
+1. Zastąpiono nieprawidłowy proxy URL poprawnym składniowo, lecz niedostępnym endpointem 127.0.0.1:65534.
+2. Dodano NO_PROXY/no_proxy dla localhost i 127.0.0.1.
+3. Zachowano NODE_USE_ENV_PROXY=1, aby sprawdzać zachowanie Node z aktywną obsługą proxy.
+4. Lokalny test HTTP używa agent:false, dzięki czemu połączenie do własnego serwera nie korzysta z zewnętrznego proxy.
+5. OneClick i Watcher wskazują nowy test FIX113.
+6. Dodano WYKONAJ_TESTY_FIX113.cmd, run-tests-fix113.mjs i RAPORT_FIX113_TESTY.log.
+
+ZACHOWANE
+- Wersja produktu 6.8.0.
+- Runtime zdjęć FIX111 i kolejka aktywnego widoku.
+- Cache PWA FIX109 i kontrakt publikatora FIX110.
+- Istniejący projekt Cloudflare Pages, binding i baza D1.
+- Migracje, konta, postępy nauki i dane użytkowników.
+
+OGRANICZENIA
+- Nie wykonano publikacji produkcyjnej ani migracji D1.
+- Test lokalny musi zostać uruchomiony na komputerze użytkownika z Node.js 26.13.0, aby potwierdzić identyczne środowisko Windows.
+
+WYNIK TESTÓW W ŚRODOWISKU ROBOCZYM
+Node.js v22.16.0: 52/52 regresje publikacyjne PASS; 9/9 kontroli składni PASS. Node.js v26.13.0 nie był dostępny w środowisku roboczym; dołączony launcher Windows uruchamia ten sam test na runtime użytkownika.

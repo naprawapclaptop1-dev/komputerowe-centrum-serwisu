@@ -1,0 +1,12 @@
+FIX63 — CLOUDFLARE PRODUCTION BRANCH DISCOVERY
+
++ Dodano automatyczny odczyt production_branch z oficjalnego Cloudflare Pages API.
++ Używane jest istniejące CLOUDFLARE_API_TOKEN lub oauth_token z profilu Wrangler.
++ Gałąź produkcyjna jest ustalana dynamicznie; nie ma założenia, że zawsze jest to main.
++ Dodano walidację nazwy gałęzi i zgodności ręcznego potwierdzenia z Cloudflare.
++ Token uwierzytelniający nie jest wypisywany ani kopiowany do plików projektu.
++ Zachowano bezpieczny ręczny fallback i blokadę publikacji przy braku potwierdzenia.
++ Dodano testy symulujące API, brak tokenu, HTTP 403, brak production_branch i niezgodny projekt.
++ Dodano WYKONAJ_TESTY_FIX63.cmd oraz automatyczny preflight obserwatora.
+
+Wersja produktu pozostaje 6.8.0. FIX63 naprawia kontrolę publikacji; nie zmienia schematu D1 ani sekretu OpenAI.

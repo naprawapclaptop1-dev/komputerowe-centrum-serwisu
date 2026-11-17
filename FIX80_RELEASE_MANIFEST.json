@@ -1,0 +1,41 @@
+{
+  "product": "NAUKA OD A DO Z — DLA WSZYSTKICH",
+  "productVersion": "6.8.0",
+  "hotfix": "FIX80",
+  "build": "6.8.0-fix80-homepage-showcase-svg-guard-20261106",
+  "baseHotfix": "FIX79",
+  "problem": "Watcher expected data-photo-lock on each slideshow image although FIX77 slideshow uses unique local SVG illustrations.",
+  "showcase": {
+    "slides": 6,
+    "uniqueSvgAssets": 6,
+    "uniqueVisualIds": 6,
+    "rasterPhotosInSlides": 0,
+    "requiredAttribute": "data-visual-unique",
+    "legacyPhotoLockRequired": false,
+    "localAssetPattern": "WEB_PUBLISH/assets/artwork-fix77/slide-NN.svg"
+  },
+  "photoPolicy": {
+    "uniqueDashboardPhotos": 13,
+    "singleAssignment": true,
+    "sha256AndPHashChecksPreserved": true,
+    "photoLocksNotUsedForSvgIllustrations": true
+  },
+  "sharedGuard": "scripts/homepage-showcase-guard.js",
+  "integratedIn": [
+    "ONECLICK_AKADEMIA.js",
+    "AUTO_PUBLISH_WATCHER.js"
+  ],
+  "testRunner": "scripts/run-tests-fix80.mjs",
+  "windowsRunner": "WYKONAJ_TESTY_FIX80.cmd",
+  "tests": {
+    "suite": "37/37 PASS",
+    "fix80Regression": "10/10 PASS"
+  },
+  "productVersionChanged": false,
+  "d1Migrations": [],
+  "openAiSecretChanged": false,
+  "cloudflareProjectChanged": false,
+  "productionDeploymentPerformed": false,
+  "testEnvironment": "Node.js v22.16.0, Linux container",
+  "windowsNode24Validation": "pending"
+}

@@ -1,0 +1,52 @@
+{
+  "release": "FIX50",
+  "build": "6.8.0-fix50-photo-reliability-20261105",
+  "date": "2026-11-05",
+  "base_archive": "NAUKA_OD_A_DO_Z_6_8_0_FIX49_ULTIMATE_QUALITY_KNOWLEDGE_CENTER.zip",
+  "base_archive_files_preserved": 834,
+  "new_or_updated_files": 19,
+  "removed_base_files": 0,
+  "node_version": "v22.16.0",
+  "regression_tests": {
+    "passed": 78,
+    "failed": 0
+  },
+  "syntax_files": {
+    "passed": 212,
+    "failed": 0
+  },
+  "photo_tests": {
+    "passed": 8,
+    "failed": 0
+  },
+  "repair_cards_tested": 155,
+  "photo_slots_tested": 465,
+  "local_jpg_assets": 12,
+  "security": {
+    "source_files_scanned": 232,
+    "critical": 0,
+    "high": 0
+  },
+  "migrations": {
+    "files": 17,
+    "manual_review": [
+      "0008_social_login_x_github.sql",
+      "0009_discord_social_login.sql"
+    ],
+    "executed": false
+  },
+  "production_published": false,
+  "d1_migration_executed": false,
+  "browser_e2e_executed": false,
+  "new_files_added": 22,
+  "base_files_modified": 59,
+  "total_project_files": 856,
+  "full_test_run": {
+    "passed": 78,
+    "failed": 0,
+    "scripts": [
+      "scripts/test-*.js",
+      "scripts/test-*.mjs"
+    ]
+  }
+}

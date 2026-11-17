@@ -1,0 +1,41 @@
+TEST REPORT — NAUKA OD A DO Z / AKADEMIA SERWISU PRO
+Hotfix: FIX96 — lokalne fotografie strony głównej
+Data: 2026-11-07
+
+WYNIK
+157/157 PASS
+
+ZAKRES TESTÓW
+- FIX94 i historyczna regresja projektu: 138/138 PASS.
+- Kontrakt walidacji publikacji FIX95/FIX96: 9/9 PASS.
+- Nowy test układu fotografii strony głównej FIX96: 10/10 PASS.
+- Razem: 157/157 PASS.
+
+CO POPRAWIONO
+- Główny baner: 3 lokalne fotografie JPEG.
+- Pokaz slajdów: 6 różnych lokalnych fotografii JPEG.
+- Wybrane kafelki modułów: 4 kolejne lokalne fotografie JPEG.
+- Łącznie 13 lokalnych fotografii bez powtarzania pliku ani identyfikatora.
+- Każdy plik sprawdzany przez SHA-256 względem manifestu unikalności.
+- Licznik raportuje zdekodowane zdjęcia lokalne oraz online osobno; SVG nie są liczone jako fotografie.
+- Service Worker otrzymał ścieżki zdjęć i nowy klucz cache FIX96.
+- Runtime katalogu i CSS wskazują photo-catalog-fix96.js/css.
+
+KONTROLE TECHNICZNE
+- node --check: główne pliki JS/MJS/CJS — PASS.
+- JSON: release.json, photo-sources-online.json, photo-uniqueness-manifest-fix77.json — PASS.
+- Test kompletności manifestu / sum SHA-256 zdjęć — PASS.
+- Test duplikatów fotografii między sekcjami — PASS.
+- Audyt zmian względem archiwum FIX94: 16 plików dodanych, 28 zmienionych, 0 usuniętych.
+
+WERSJA I DANE
+- Wersja produktu pozostaje 6.8.0.
+- Hotfix: FIX96.
+- Nie zmieniono schematu D1 ani rekordów użytkowników/postępu nauki.
+- Nie wykonano migracji D1.
+
+WAŻNE — STATUS PUBLIKACJI
+To kompletne archiwum źródeł po poprawce. Nie wykonano wdrożenia na Cloudflare Pages. Aby zobaczyć zdjęcia na publicznej stronie, trzeba opublikować folder WEB_PUBLISH z tego pakietu. Samo pobranie ZIP nie zmienia witryny produkcyjnej.
+
+ŚRODOWISKO TESTOWE
+Node.js v22.16.0. Testy na Windows z Node v24.19.0 nie były wykonywane w tym środowisku.

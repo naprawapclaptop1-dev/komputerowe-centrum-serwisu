@@ -1,0 +1,25 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 FIX80
+Data: 2026-11-06
+
+Problem:
+- AUTO_PUBLISH_WATCHER zatrzymywał się z komunikatem: „Slajd 1 nie ma źródła zdjęcia lub unikalnego data-photo-lock”.
+- Aktualny pokaz FIX77 składa się z ilustracji edukacyjnych SVG, nie z fotografii. Dawny guard FIX32 wymagał jednak atrybutu data-photo-lock dla każdego slajdu.
+
+Zmiany:
+- Zaktualizowano wspólny guard scripts/homepage-showcase-guard.js.
+- Walidacja wymaga dokładnie 6 lokalnych plików assets/artwork-fix77/slide-NN.svg.
+- Każdy slajd ma unikalny identyfikator data-visual-unique="home-slide-NN".
+- Weryfikowane są: istnienie pliku, podpis SVG, lokalna ścieżka, unikalność źródła i identyfikatora.
+- Odrzucane są rasterowe zdjęcia, zewnętrzne URL, brakujące pliki i duplikaty.
+- OneClick wykonuje ten sam guard przed kolejnymi etapami.
+- AUTO_PUBLISH_WATCHER korzysta z tego samego guardu.
+- Zaktualizowano testy historyczne FIX8/FIX32 i dodano test regresyjny FIX80.
+- Dodano run-tests-fix80.mjs oraz WYKONAJ_TESTY_FIX80.cmd.
+- Poprawiono tekst sekcji pokazu: slajdy są określane jako ilustracje edukacyjne.
+
+Zachowano:
+- Wersję produktu 6.8.0.
+- 13 unikalnych fotografii przydzielonych pojedynczo do 13 kafelków.
+- Sześć unikalnych ilustracji SVG w pokazie.
+- Globalną kontrolę SHA-256/pHash FIX77.
+- Istniejący projekt Pages, D1 i sekret OpenAI. Brak nowych migracji.

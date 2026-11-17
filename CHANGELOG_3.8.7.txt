@@ -1,0 +1,21 @@
+AKADEMIA SERWISU PRO 3.8.7 — FIX PRODUKCYJNEGO BINDINGU D1
+
+Problem z 3.8.6:
+- wrangler.toml zawierał [[d1_databases]] na poziomie głównym.
+- Pages production używa env.production; bindingi na poziomie głównym nie są dziedziczone przez env.production.
+- Wrangler zgłaszał ostrzeżenie o braku env.production.d1_databases, a /api/health zwracało HTTP 503 database=false.
+
+Naprawa:
+- Zachowuje istniejący binding DB na poziomie głównym.
+- Dodaje ten sam binding DB z tym samym UUID do [[env.production.d1_databases]].
+- Dla JSON/JSONC dodaje env.production.d1_databases.
+- Zachowuje pozostałe ustawienia środowiska i inne bindingi.
+- Blokuje zapis, jeśli produkcyjny binding DB wskazuje inny UUID lub jest powielony.
+- AUTO-PUBLISH sprawdza konfigurację produkcyjną przed przesłaniem wdrożenia; nie publikuje, jeżeli binding jest nieobecny lub ma inne ID.
+- Migracje 0001–0003 z 3.8.6 pozostają już zastosowane; naprawa nie zmienia ich SQL.
+
+Docelowe D1 potwierdzone w logu użytkownika:
+- naprawapc-orders
+- 6ac0a922-639c-43ee-ba33-5da14c25a533
+
+Nie tworzy nowej bazy i nie usuwa istniejących tabel.

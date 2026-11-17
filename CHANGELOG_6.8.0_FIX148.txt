@@ -1,0 +1,46 @@
+NAUKA OD A DO Z — DLA WSZYSTKICH 6.8.0 — FIX148
+CENTRUM TECHNIKA / 7 NOWYCH MODUŁÓW PRAKTYCZNYCH
+
+ZAKRES
+FIX148 rozszerza istniejący widok Centrum Mistrza PRO (view-academypro). Nie dodaje nowej trasy ani nie przebudowuje strony głównej.
+
+NOWE MODUŁY
+1. BOARDVIEW PRO — demonstracyjna plansza elementów PCB z wyszukiwaniem, wyborem oznaczeń, opisem roli, bezpieczną kolejnością weryfikacji i przejściem do istniejącego PCB 3D. Plansza jest jawnie oznaczona jako edukacyjna; nie udaje BoardView konkretnego modelu ani pinoutu.
+2. SYMULATOR SERWISU — pięć scenariuszy: przyjęcie urządzenia, brak obrazu, USB-C/ładowanie, ryzyko danych i przegrzewanie. Krokowy przebieg, zapis ukończonych ćwiczeń lokalnie.
+3. PC COMPATIBILITY MASTER — rozszerzona kontrola socketu, generacji RAM, długości GPU, wysokości chłodzenia, budżetu mocy, złączy zasilania i zgodności trybu M.2.
+4. DOKUMENTACJA SERWISOWA — formularz raportu, podgląd, lokalne zapisy, eksport JSON i druk/Zapisz jako PDF przez przeglądarkę.
+5. AKADEMIA NAUCZYCIELA — tworzenie lokalnych szkiców lekcji: cel, materiały, kroki, pytanie i odpowiedzi. Szkice nie są automatycznie publikowane do wspólnego katalogu.
+6. BAZA USTEREK PRO — 18 przypadków referencyjnych, wyszukiwarka, filtr kategorii, opis bezpiecznej kolejności kontroli oraz własne wpisy lokalne.
+7. LABORATORIUM LUTOWANIA — siedmioetapowa checklista ESD, przygotowania stanowiska, doboru materiałów, ćwiczenia na płytce treningowej i kontroli optycznej oraz mini-sprawdzian.
+
+INTEGRACJA I ZACHOWANIE
+- Moduły działają jako zakładki wewnątrz istniejącego Centrum Mistrza PRO.
+- Liczba widoków pozostaje 35; nie dodano nowego view.
+- Dodano dwa zasoby WWW: academy-pro-modules-fix148.js oraz academy-pro-modules-fix148.css.
+- Oba zasoby są uwzględnione w Service Worker CORE.
+- Nowy namespace cache aplikacji: nauka-6.8.0-fix148-master-technician-suite-20261114.
+- Istniejący cache fotografii academy-photo-library-fix135 pozostaje bez zmian.
+- Dane nowego centrum są lokalne (localStorage); dostępne eksporty JSON i wydruk raportu.
+- Nie dodano migracji D1, tabel, bindingów ani nowych sekretów.
+- Nie zmieniono istniejących kont, OAuth, lekcji, 19 przypisań zdjęć ani głównego widoku strony.
+- Wersja produktu pozostaje 6.8.0; aktywny hotfix: FIX148.
+
+BEZPIECZEŃSTWO I OGRANICZENIA
+- Symulatory nie sterują sprzętem i nie wykonują rzeczywistych pomiarów.
+- Plansza BOARDVIEW jest poglądowa, nie jest schematem/pinoutem konkretnego urządzenia.
+- Kontroler kompatybilności jest kontrolą podstawowych pól; końcową zgodność należy potwierdzić z instrukcją/QVL producenta.
+- Raporty, szkice, własne usterki i postęp lutowania zapisują się w przeglądarce tego urządzenia; eksportuj kopię przed zmianą przeglądarki/profilu.
+- Nie wpisuj haseł, kluczy BitLocker, danych płatniczych ani zbędnych danych osobowych.
+- Wyniki egzaminów i potwierdzenia pozostają edukacyjne, nie są akredytowanym certyfikatem zawodowym.
+
+TESTY
+- Pełny preflight scripts/run-tests-fix137.mjs: PASS.
+- Regresja runtime FIX136: 14/14 PASS.
+- Kontrakt zdjęć FIX137: 6/6 PASS.
+- HERO USB-C FIX144: 3/3 PASS.
+- Centrum Mistrza FIX145: 7/7 PASS.
+- Guard widoków FIX146: 7/7 PASS.
+- Kontrakt 1083 lekcji / FIX148 release: 3/3 PASS.
+- Nowy zestaw FIX148: 7/7 PASS.
+- Kontrole składni Node.js: PASS.
+- Publikacja produkcyjna Cloudflare nie została wykonana w tym pakiecie.

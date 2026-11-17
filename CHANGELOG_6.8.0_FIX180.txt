@@ -1,0 +1,31 @@
+NAUKA OD A DO Z — CHANGELOG FIX180
+Produkt: 6.8.0 (wersja bez zmiany)
+
+DODANO
+- Nowy panel „Diagnostyka systemowa FIX180” w istniejącym widoku Akademii.
+- 15 unikalnych lekcji z diagnostyki Windows/sterowników/śladów wydajności i energii.
+- 45 pytań kontrolnych z odpowiedziami i wyjaśnieniami.
+- 13 nowych wieloetapowych przypadków serwisowych.
+- 10 projektów praktycznych z listami zadań.
+- 28 pojęć słownika.
+- Wyszukiwarkę, filtry poziomu/kategorii, notatki oraz eksport raportu i kopii postępów.
+- Integrację punktów z istniejącym profilem i dziennikiem; osobny magazyn FIX180.
+
+AUDYT ANTYDUPLIKACYJNY
+- Porównano tytuły z 1083 pozycjami istniejącego katalogu oraz 155 wpisami generatora.
+- Brak identycznych tytułów i brak tytułów powyżej progu podobieństwa 0.55.
+- Szczegółowe najbliższe dopasowania: FIX180_DUPLICATE_AUDIT.txt.
+- Nie dodano kolejnych ogólnych kursów BIOS, RAM, GPU, VRM, NVMe, chłodzenia,
+  naprawy Windows ani raportowania serwisowego — te obszary są już w Akademii.
+
+ZACHOWANO
+- 6.8.0, istniejący widok, wszystkie wcześniejsze kursy i funkcje.
+- D1 bez migracji/tabel, konfigurację Cloudflare i publikatora.
+- FIX179 oraz jego klucz postępów.
+- Nazwę istniejącego cache PWA i cache zdjęć.
+
+TESTY
+- Pełna regresja FIX176–FIX179.
+- Audyt katalogu 1083 lekcji/155 awarii.
+- Kontrola 15 lekcji, 45 pytań, 13 przypadków, 10 projektów, 28 haseł.
+- Kontrola HTML, unikalnych ID, CSS, service workera i składni JS.

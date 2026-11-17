@@ -1,0 +1,48 @@
+NAUKA OD A DO Z — RAPORT FIX74
+===============================
+Data: 2026-11-06
+Wersja produktu: 6.8.0 (bez zmiany)
+Zakres: poprawka ścieżki ROOT w teście składni FIX64–FIX73.
+
+PRZYCZYNA
+---------
+Test składni wykorzystywał new URL(import.meta.url).pathname. Na Windows
+URL.pathname nie jest natywną ścieżką systemową i zawiera prefiks dysku
+w postaci /G:/..., co doprowadziło do próby skanowania G:\G:\AKADEMIA_SERWISU_PRO.
+
+NAPRAWA
+-------
+- import { fileURLToPath } from 'node:url';
+- SCRIPT_FILE = fileURLToPath(import.meta.url);
+- SCRIPT_DIR = path.dirname(SCRIPT_FILE);
+- ROOT = path.resolve(SCRIPT_DIR, '..');
+- dodano test-syntax-root-fix74.mjs;
+- wymagany test FIX74 dodano do OneClick i Watchera;
+- dodano WYKONAJ_TESTY_FIX74.cmd.
+
+WYNIKI
+------
+23/23 skryptów preflight: PASS
+237 JS/MJS/CJS: kontrola składni PASS
+51 CSS: kontrola bilansu klamer PASS
+59 JSON/webmanifest: parsowanie PASS
+45/45 wcześniejszych zasobów wizualnych przez HTTP: PASS
+9/9 zasobów rozszerzenia FIX64–FIX73 przez HTTP: PASS
+Audyt bezpieczeństwa: 0 critical, 0 high
+Test migracji: 0008 i 0009 nadal wymagają ręcznej oceny; SQL nie wykonano.
+
+OGRANICZENIA
+------------
+Testy uruchomiono w środowisku przygotowania na Node.js 22.16.0.
+Nie wykonano testu na Windows z Node.js 24.19.0 ani ręcznego Chrome/Edge E2E.
+Nie wykonano zapytania live do Cloudflare Pages API ani wdrożenia produkcyjnego.
+FIX74 usuwa błąd G:\G:\...; nie zgaduje gałęzi produkcyjnej i nie omija
+bramki Cloudflare Production Branch.
+
+BEZ ZMIAN
+---------
+- sekret OPENAI_API_KEY;
+- konfiguracja Wrangler i istniejący projekt Pages;
+- baza D1 i wszystkie migracje SQL;
+- treść modułów FIX64–FIX73 i 34 dotychczasowe widoki;
+- wersja produktu 6.8.0.

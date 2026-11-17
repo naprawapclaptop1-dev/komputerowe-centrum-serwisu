@@ -1,0 +1,17 @@
+NAUKA OD A DO Z 6.8.0 — FIX131
+Data: 2026-11-13
+
+- Naprawiono dostarczanie 19 kuratorowanych zdjęć strony głównej przez same-origin Cloudflare Pages Function `/media/photos/{id}.jpg`.
+- Przeglądarka nie odpytuje bezpośrednio domen images.pexels.com / thumb.wikimedia.org / upload.wikimedia.org dla tych 19 slotów.
+- Proxy ma zamkniętą listę dozwolonych identyfikatorów i hostów; nie przyjmuje dowolnego URL.
+- Poprawiono cache zdjęć Service Worker i namespace PWA do FIX131.
+- Etykiety kredytów nie deklarują już zdjęcia online przed poprawnym zdekodowaniem rastra; po błędzie pozostaje opisany SVG fallback.
+- Dodano testy proxy, MIME, blokowania nieznanych ID i cache offline.
+- Zachowano filtry metadanych, przypisanie autorów i licencji.
+- Brak migracji D1, zmian kont, haseł, sekretów i ustawień Cloudflare.
+
+Weryfikacja: skrypt scripts/run-tests-fix131.mjs.
+
+Dodatkowa walidacja po analizie zrzutów ekranu:
+- Test porównuje teraz wszystkie 19 adresów sourceAsset z zamkniętą listą serwerową proxy; niedopasowany lub brakujący wpis blokuje wynik PASS.
+- Pełny zestaw FIX131: 13/13 skryptów PASS.

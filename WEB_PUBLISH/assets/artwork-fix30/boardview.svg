@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 350" role="img" aria-labelledby="t d">
+<title id="t">MAPA PCB</title><desc id="d">Warstwy, ścieżki i punkty pomiarowe</desc>
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="hsl(223 58% 17%)"/><stop offset="1" stop-color="#071326"/></linearGradient><radialGradient id="glow"><stop stop-color="hsl(278 90% 65% / .26)"/><stop offset="1" stop-color="#061426" stop-opacity="0"/></radialGradient></defs>
+<rect width="500" height="350" rx="24" fill="url(#bg)"/><circle cx="405" cy="80" r="190" fill="url(#glow)"/>
+<g fill="none" stroke="hsl(278 88% 72%)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><rect x="104" y="70" width="300" height="190" rx="16"/><rect x="205" y="115" width="92" height="74" rx="8"/><path d="M140 105h55v34h10m92 0h64v-30h28M140 220h64v-32m92 0h50v42h55M250 115V88h-48M250 189v36h-52"/><circle cx="140" cy="105" r="7"/><circle cx="380" cy="109" r="7"/><circle cx="385" cy="230" r="7"/></g>
+<path d="M35 295h430" stroke="hsl(223 75% 65% / .5)" stroke-width="2"/><text x="38" y="45" fill="#a7f5ef" font-family="Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="3">NAUKA OD A DO Z / PRO</text><text x="38" y="327" fill="#effbff" font-family="Arial,sans-serif" font-size="18" font-weight="700">LAYERS / NETS</text></svg>

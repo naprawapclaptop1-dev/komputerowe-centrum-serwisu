@@ -1,0 +1,46 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 FIX46
+======================================
+
+TYP WYDANIA
+-----------
+FIX46 jest poprawką strażników publikacji i testów kontraktowych. Nie dodaje
+nowego ekranu ani nie usuwa funkcjonalności użytkownika. Zachowuje moduł
+Professional Repair & Quality Center FIX45 oraz wszystkie starsze moduły.
+
+PRZYCZYNA BŁĘDU Z LOGU WINDOWS
+------------------------------
+W AUTO_PUBLISH_WATCHER.js lokalna kontrola kontraktu FIX44 używała
+fix44Runtime.includes(token), czyli porównania wrażliwego na wielkość liter.
+W kodzie modułu „3D Electronics Explorer” występuje zapis małymi literami
+„3d electronics explorer”. OneClick i kontrola zdalna normalizowały tekst,
+ale lokalny watcher tego nie robił. Dlatego proces zatrzymywał się komunikatem:
+„FIX44: kontrakt funkcji i stylów niekompletny.”
+
+WYKONANE ZMIANY
+---------------
+- Lokalny watcher normalizuje runtime i wymagane nazwy modułów przez
+  toLowerCase() przed porównaniem.
+- Zachowano pełną listę 16 wymaganych etykiet FIX44 oraz pięć selektorów CSS.
+- Dodano scripts/test-watcher-fix44-case-contract-fix46.mjs.
+- Watcher i OneClick wymagają obecności nowego testu przed publikacją.
+- Kontrola lokalna, kontrola zdalna i OneClick wymagają znacznika cache PWA
+  fix46-publication-guard-20261104.
+- Zaktualizowano release.json, meta academy-build i functions/api/auth/status.js.
+- Zmieniono nazwę cache PWA, nie usuwając z niego zasobów poprzednich modułów.
+- Wszystkie starsze WYKONAJ_TESTY_*.cmd przekazują do bieżącego runnera FIX46.
+  Starsze CHECK_KONTA_FIX*.cmd przekazują do bieżącej kontroli FIX46.
+
+WERSJA
+------
+Numer produktu: 6.8.0
+Poprawka: FIX46
+Build: 6.8.0-social-login-fix47-master-control-center-20261104
+
+ZACHOWANIE I BEZPIECZEŃSTWO
+--------------------------
+- Zachowano 779 plików z archiwum FIX45; dodano 3 pliki funkcjonalne/testowe
+  oraz dokumentację FIX46.
+- Nie zmieniono sekretu OPENAI_API_KEY.
+- Nie zmieniono schematu D1 ani bindingu Cloudflare Pages.
+- Nie uruchomiono Wranglera, kopii D1, migracji ani publikacji produkcyjnej.
+- Poprawka nie wykonuje żadnych operacji na danych produkcyjnych.

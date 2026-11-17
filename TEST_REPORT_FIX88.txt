@@ -1,0 +1,19 @@
+NAUKA OD A DO Z — RAPORT TESTÓW FIX88
+Produkt: 6.8.0
+Hotfix: FIX88
+Środowisko: Node.js v22.16.0
+Wynik: 92/92 PASS
+
+Zakres:
+- Pełna regresja zachowanych testów FIX80–FIX87: 84/84 PASS.
+- Nowa regresja wspólnego walidatora FIX83: 8/8 PASS.
+- Walidator potwierdza aktywny URL visual-uniqueness-fix83.js?v=6.8.0-fix87
+  przez jawne pole release.json visualRuntimeBuildTag.
+- OneClick i Auto-Watcher korzystają z tego samego helpera.
+- Negatywne przypadki (brak assetu, zły URL, błędna reguła VRAM, runtime bez GDDR/BGA)
+  prawidłowo blokują walidację.
+
+Ograniczenia:
+- Nie wykonano deploymentu Cloudflare Pages.
+- Nie przetestowano uruchomienia na Node.js v24.19.0.
+- Nie zmieniono bazy D1 ani sekretów.

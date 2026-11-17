@@ -1,0 +1,36 @@
+NAUKA OD A DO Z — RAPORT TESTÓW FIX89
+Produkt: 6.8.0
+Hotfix: FIX89
+Środowisko: Node.js v22.16.0
+Wynik: 96/96 PASS
+
+PRZYCZYNA POPRZEDNIEGO ZATRZYMANIA
+Log z Node.js v24.19.0 zatrzymywał publikację w teście:
+scripts/test-pages-production-direct-upload-fix86.mjs
+Test oczekiwał, że AUTO_PUBLISH_WATCHER.js zaczyna się od nagłówka FIX87,
+podczas gdy rzeczywisty, bieżący nagłówek wskazywał FIX88. Był to nieaktualny
+kontrakt testu, a nie błąd polecenia Direct Upload.
+
+ZMIANY FIX89
+- Test Direct Upload odczytuje aktualny numer hotfixu z WEB_PUBLISH/release.json.
+- Test historycznej gałęzi FIX85 porównuje numer OneClick z release.json.
+- OneClick, Auto-Watcher, HTML i metadane wydania wskazują FIX89.
+- Watcher sprawdza opublikowany hotfix i build na podstawie lokalnego release.json,
+  zamiast zawierać zahardkodowany numer FIX88.
+- Nowy test spójności nagłówków jest uruchamiany przez OneClick i Auto-Watcher.
+- Dodano WYKONAJ_TESTY_FIX89.cmd oraz scripts/run-tests-fix89.mjs.
+- Zachowano numer produktu 6.8.0 i wszystkie dotychczasowe funkcje FIX80–FIX88.
+
+WYNIKI
+- Pełny łańcuch regresji FIX80–FIX88: 92/92 PASS.
+- Nowe testy FIX89 spójności wydania: 4/4 PASS.
+- Łącznie: 96/96 PASS.
+- Dodatkowo testy bezpośrednie Direct Upload FIX86: 8/8 PASS.
+- Test historycznego helpera FIX85: 8/8 PASS.
+
+OGRANICZENIA
+- Test wykonano w środowisku Node.js v22.16.0. Na komputerze użytkownika działa
+  Node.js v24.19.0; należy uruchomić WYKONAJ_TESTY_FIX89.cmd również tam.
+- Nie wykonano publikacji Cloudflare Pages.
+- Nie zmieniono bazy D1, migracji ani sekretów Cloudflare.
+- Produkcyjny sukces nadal wymaga potwierdzenia stałego adresu Pages przez Watchera.

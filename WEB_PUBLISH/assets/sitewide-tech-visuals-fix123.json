@@ -1,0 +1,282 @@
+{
+  "schema": "npa-sitewide-technical-visual-policy-v1",
+  "productVersion": "6.8.0",
+  "hotfix": "FIX123",
+  "build": "6.8.0-fix123-sitewide-tech-only-no-people-20261111",
+  "productName": "NAUKA OD A DO Z — DLA WSZYSTKICH",
+  "policy": "SITEWIDE_NO_VISIBLE_PEOPLE_OR_HANDS",
+  "peopleVisible": false,
+  "handsVisible": false,
+  "externalPhotoProvidersEnabled": false,
+  "externalImageSourcesEnabled": false,
+  "externalPhotoCacheEnabled": false,
+  "blockedProviders": [
+    "api.openverse.org",
+    "commons.wikimedia.org",
+    "images.pexels.com",
+    "upload.wikimedia.org",
+    "thumb.wikimedia.org",
+    "all cross-origin IMG URLs"
+  ],
+  "fallback": "Local SVGs in assets/artwork-fix77/lesson-01.svg through lesson-14.svg, selected by topic.",
+  "localMedia": "13 existing photo filename aliases now contain technical illustrations; support and course posters are technical-only; local slides and video backgrounds are schematic.",
+  "audioPolicy": "Support MP4 remux changed container title metadata only; packet hashes for audio and video streams are identical.",
+  "subtitlePolicy": "Existing subtitle files retained; support narration transcript updated only to correct project name.",
+  "noDataMigration": true,
+  "noD1Migration": true,
+  "noCloudflareAccountChanges": true,
+  "noSecretsChanged": true,
+  "pwaCache": "nauka-6.8.0-fix127-portable-sha256-20261111",
+  "legacyPhotoCacheRemovedOnActivate": true,
+  "visualAssets": [
+    {
+      "path": "media/cooling-cleaning.jpg",
+      "sha256": "1b1f0f37739cda46eafaef6082324335e858bbcd842db97d5bc27bcd557e8bc0",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "path": "media/gpu-cpu-cooling.jpg",
+      "sha256": "247f60c6bfe3c8ca9c68d13384cb6791ec4a2a997639a0e1ef0f697c502a4a1e",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "path": "media/laptop-board-inspection.jpg",
+      "sha256": "19730ea523707675f64d318bb7ebe2650fb54208aad480653a65117065c17842",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "path": "media/laptop-cooling-fan-cleaning.jpg",
+      "sha256": "632fb0507497deb3d15b86a1652c8265928d083cee98e646465f2812402aef1b",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "path": "media/laptop-hinge-display-repair.jpg",
+      "sha256": "f746383b76362557786c7b511d2e17b61410e2decd3aea283adb43b8100af72e",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "path": "media/laptop-screen-hinge.jpg",
+      "sha256": "41b16fc7ce853f6683a7431dd0a9b297822482e777b5f0c64fe701c632b4164f",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "path": "media/master-workshop-hotair-fix75.jpg",
+      "sha256": "43045d57e143292b67e2c76f674178e80525e9d6f4e8a7a1f7654f7b2fbeb7a6",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "path": "media/motherboard-multimeter-probing.jpg",
+      "sha256": "2f3dc2ea3aff741bd5b1ce6fed2da3984807f7dadfd260c0b87f78e633e3efe8",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "path": "media/motherboard-multimeter-test.jpg",
+      "sha256": "35c88771e536c193aa2d89275f0a4dc3434b281f9d49c513ba36c1e0f69f62c8",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "path": "media/ram-m2-installation-detail.jpg",
+      "sha256": "67e648ef0eb2eec970f35dfa5446239af6dddf716ba2c5ff366d4a760f24fdb4",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "path": "media/ram-ssd-installation.jpg",
+      "sha256": "ea398675e98aa17bb82f63bc87c7836f0410285406d92779efdd21b3b1f2a31e",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "path": "media/usb-c-power-delivery-diagnostic.jpg",
+      "sha256": "71a57250a219cedc2df1d9cb845675392bb09b9691b16c7f50bd5d989ef70b2c",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "path": "media/video_posters/LOCAL-COOL.jpg",
+      "sha256": "1656167591de7a07a640c995bf3c012e529288608ca3f6801c3e9c701a7b7168",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "media/video_posters/LOCAL-DISPLAY.jpg",
+      "sha256": "9338e1c65751d2fdda15d577c094e977d33e034149274a470f55669bcc29fd01",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "media/video_posters/LOCAL-ESD.jpg",
+      "sha256": "61984bb42cd2fcb86c99bac611a4c085265dc34d2c3da1a752337db72c56db17",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "media/video_posters/LOCAL-NPU.jpg",
+      "sha256": "e413e84cefacd2d7686a71cf5c9610879131a1a8114ad1719b0ad5923ff354e1",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "media/video_posters/LOCAL-POSTTEST.jpg",
+      "sha256": "19f6d3fd2724752cf45735fafebc45d35ca41a1feb2a9ed226a978873ea8d3ca",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "media/video_posters/LOCAL-POWER.jpg",
+      "sha256": "f37a3d5825bf1fc10ee25037501692142310d7fe05f7c1bf7f17697b88d19f91",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "media/video_posters/LOCAL-RAMSSD.jpg",
+      "sha256": "2dce22d6dae481602c2bfd561e58a4e219a6e159d99d006ad7c3bd8a5833b4e9",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "media/video_posters/LOCAL-SECUREBOOT.jpg",
+      "sha256": "807ee6617aab8f2c0693e54401268d53ac6babbb7fce1d7966103925353cad86",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "media/video_posters/LOCAL-WIFIUSB4.jpg",
+      "sha256": "e5dca82827befba993a23b3ae88d99e04459d2f332390078bf99aca889160d18",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "media/video_posters/LOCAL-WIN26.jpg",
+      "sha256": "9e6641e208cad734e657f03c01977e7b8b9a96a60b33d4adba51de7af3f2bea8",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "media/video_posters/akademia-wsparcie-poster.jpg",
+      "sha256": "959f6d27ffd3e7f3a6d34191c7209bea09fd731fcdd19b855f77b2cfec7a6d06",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "media/video_slides_fix9/scene-01.png",
+      "sha256": "367d4784efc6f75cc601e49972dd05fbbfa95db619fb00d5213553fa00022245",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "media/video_slides_fix9/scene-02.png",
+      "sha256": "d885d1d0afeac9bf13636b91b11b89c5806ad9fa78e5761396d9fae8246ba8c0",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "media/video_slides_fix9/scene-03.png",
+      "sha256": "4a46075c28a36cff017c119f63420aaa9fee60e890223c4da4732b5c72325781",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "media/video_slides_fix9/scene-04.png",
+      "sha256": "12c1795bc71a881d0581d326238f0f8fa7e9acc970b4dda027b6aa7ad2b2bf68",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "media/video_slides_fix9/scene-05.png",
+      "sha256": "185653222974e88f51aa82e68d13ab569714c54e09d7ed5ffc2728406f6f6863",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "media/video_slides_fix9/scene-06.png",
+      "sha256": "1986eb854a179811a977e8488a37eb1afa434a35a742dd06953dd69e9c94a14c",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "media/workbench-motherboard-inspection.jpg",
+      "sha256": "ebcbfe48a143de217fd49e1717bdc7ef9335afb7316fdffa1760e0e5d5d7a45b",
+      "width": 1600,
+      "height": 900
+    }
+  ],
+  "videoAssets": [
+    {
+      "path": "media/videos/akademia-dlaczego-warto-wspierac.mp4",
+      "sha256": "cdf3f63405b388bb040619ecf42127e644280a88b30d0d961fd8a8fc8c0c8b2a",
+      "title": "NAUKA OD A DO Z — DLA WSZYSTKICH",
+      "hasAudio": true,
+      "bytes": 1171095
+    },
+    {
+      "path": "media/videos/film_01_bhp_esd_i_przygotowanie.mp4",
+      "sha256": "41c5a92f5cb93b5917d7df0a7c5de0daae3f40c86503a4dba26973daad6ee18f",
+      "title": "BHP I OCHRONA ESD",
+      "hasAudio": true
+    },
+    {
+      "path": "media/videos/film_02_czyszczenie_chlodzenia.mp4",
+      "sha256": "b942a8f56cd15635db3e020b8f28de9116a3e7213e6f3f3d38c7104a900fb963",
+      "title": "CZYSZCZENIE CHŁODZENIA",
+      "hasAudio": true
+    },
+    {
+      "path": "media/videos/film_03_wymiana_ram_i_nvme.mp4",
+      "sha256": "1f3cc4407b5075e1b1947dcee9b2f521a148aab10b256c8ae942af18c245c54f",
+      "title": "RAM I NVMe",
+      "hasAudio": true
+    },
+    {
+      "path": "media/videos/film_04_pc_nie_wlacza_sie_diagnostyka.mp4",
+      "sha256": "698822e860e91fe2e5667a8a1040c486daec024a020e94e106d2629a9e47d139",
+      "title": "DIAGNOSTYKA BRAKU STARTU",
+      "hasAudio": true
+    },
+    {
+      "path": "media/videos/film_05_laptop_czarny_ekran_matryca.mp4",
+      "sha256": "2797d80db3fc8184e2ec1e22e4feb2263177c96ac2efb44cf08299b7951ae05b",
+      "title": "CZARNY EKRAN LAPTOPA",
+      "hasAudio": true
+    },
+    {
+      "path": "media/videos/film_06_windows_11_26h2_serwis.mp4",
+      "sha256": "84c89da0924e7252aae3e484799e34e0d80c2a4046211e0345d349f91bced8bf",
+      "title": "WINDOWS 11 • SERWIS",
+      "hasAudio": true
+    },
+    {
+      "path": "media/videos/film_07_secure_boot_bitlocker_2026.mp4",
+      "sha256": "92e8685bd126b13532180d88a9542512d5997db3c492b84a6a4eebb779c133c4",
+      "title": "SECURE BOOT I BITLOCKER",
+      "hasAudio": true
+    },
+    {
+      "path": "media/videos/film_08_wifi7_usb4_thunderbolt5.mp4",
+      "sha256": "f694c21f07821b0951fa35a87c0e0caefdf8588ee88ec2906bafd80dd7d5ca77",
+      "title": "WI-FI 7 / USB4 / THUNDERBOLT 5",
+      "hasAudio": true
+    },
+    {
+      "path": "media/videos/film_09_test_koncowy_po_naprawie.mp4",
+      "sha256": "2a1bb3fcabb97c022492c7719e0b9199833a1b1eaf3fc1300632a9891753b1c7",
+      "title": "TEST KOŃCOWY PO NAPRAWIE",
+      "hasAudio": true
+    },
+    {
+      "path": "media/videos/film_10_npu_ai_pc_diagnostyka.mp4",
+      "sha256": "d647773a52d86518d9a8486f47a694b911fefd2d36ec8f3970a479befd725f27",
+      "title": "NPU / AI PC",
+      "hasAudio": true
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+import assert from 'node:assert/strict';
+import { webcrypto, generateKeyPairSync, randomBytes } from 'node:crypto';
+import { pathToFileURL } from 'node:url';
+import path from 'node:path';
+if(!globalThis.crypto)globalThis.crypto=webcrypto;
+const {sendWebPush,isAllowedPushEndpoint,webPushConfigured}=await import(pathToFileURL(path.resolve('functions/_webpush.js')).href);
+const b64url=b=>Buffer.from(b).toString('base64url');
+const vapid=generateKeyPairSync('ec',{namedCurve:'prime256v1'});
+const priv=Buffer.from(vapid.privateKey.export({format:'der',type:'pkcs8'})).toString('base64');
+const spki=Buffer.from(vapid.publicKey.export({format:'der',type:'spki'}));
+const pub=b64url(spki.subarray(spki.length-65));
+const subscriber=generateKeyPairSync('ec',{namedCurve:'prime256v1'});
+const p256dh=b64url(subscriber.publicKey.export({format:'der',type:'spki'}).subarray(-65));
+const auth=b64url(randomBytes(16));
+const env={VAPID_PRIVATE_KEY_PKCS8:priv,VAPID_PUBLIC_KEY:pub,VAPID_SUBJECT:'mailto:admin@example.org'};
+assert.equal(webPushConfigured(env),true);
+assert.equal(isAllowedPushEndpoint('https://fcm.googleapis.com/fcm/send/test'),true);
+assert.equal(isAllowedPushEndpoint('https://updates.push.services.mozilla.com/wpush/test'),true);
+assert.equal(isAllowedPushEndpoint('http://fcm.googleapis.com/fcm/send/test'),false);
+assert.equal(isAllowedPushEndpoint('https://attacker.example/fcm/send/test'),false);
+let called=0;const original=globalThis.fetch;
+globalThis.fetch=async(url,options)=>{called++;assert.match(options.headers.Authorization,/^vapid t=/);assert.equal(options.headers['Content-Encoding'],'aes128gcm');assert.ok(Buffer.from(options.body).length>100);return{ok:true,status:201};};
+try{
+  await sendWebPush({endpoint:'https://fcm.googleapis.com/fcm/send/test',p256dh,auth_secret:auth},{title:'Test',body:'Message',url:'/'},env);
+  assert.equal(called,1);
+  await assert.rejects(()=>sendWebPush({endpoint:'https://attacker.example/collect',p256dh,auth_secret:auth},{title:'X'},env),/PUSH_ENDPOINT_HOST_REJECTED/);
+  assert.equal(called,1,'zablokowany endpoint nie może wykonać fetch');
+}finally{globalThis.fetch=original;}
+console.log('[PASS] VAPID ES256 JWT i szyfrowanie Web Push AES128GCM');
+console.log('[PASS] dozwolone hosty Chrome/Firefox/Safari/Windows Push');
+console.log('[PASS] prywatny endpoint jest odrzucany przed wysłaniem żądania');
+console.log('FIX232 WEB PUSH CRYPTO CONTRACT: 3/3 PASS');

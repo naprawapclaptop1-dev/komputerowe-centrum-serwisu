@@ -1,0 +1,33 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const require = createRequire(import.meta.url);
+const { HOME_REFRESH_CSS_MARKERS, PHOTO_UNIQUENESS_JS_MARKERS, verifyHomeRefreshAssets } = require(path.join(root, 'scripts', 'home-refresh-guard-fix33.js'));
+const css = fs.readFileSync(path.join(root, 'WEB_PUBLISH', 'assets', 'home-refresh-fix30.css'), 'utf8');
+const photoJs = fs.readFileSync(path.join(root, 'WEB_PUBLISH', 'assets', 'photo-unique-thumbnails-fix30.js'), 'utf8');
+const html = fs.readFileSync(path.join(root, 'WEB_PUBLISH', 'index.html'), 'utf8');
+const watcher = fs.readFileSync(path.join(root, 'AUTO_PUBLISH_WATCHER.js'), 'utf8');
+const publisher = fs.readFileSync(path.join(root, 'ONECLICK_AKADEMIA.js'), 'utf8');
+const release = JSON.parse(fs.readFileSync(path.join(root, 'WEB_PUBLISH', 'release.json'), 'utf8'));
+const sw = fs.readFileSync(path.join(root, 'WEB_PUBLISH', 'service-worker.js'), 'utf8');
+
+assert.deepEqual(verifyHomeRefreshAssets(css, photoJs), { cssMarkers: 3, photoJsMarkers: 3 });
+assert.ok(HOME_REFRESH_CSS_MARKERS.includes('.np640-module-grid'));
+assert.ok(!HOME_REFRESH_CSS_MARKERS.includes('.np30-module-grid'), 'Guard must not require a selector absent from the real stylesheet');
+assert.throws(() => verifyHomeRefreshAssets(css.replace(/\.np640-module-grid/g, '.missing-grid'), photoJs), /np640-module-grid/);
+assert.throws(() => verifyHomeRefreshAssets(css, photoJs.replace('NP_PHOTO_UNIQUENESS_FIX30', 'REMOVED')), /NP_PHOTO_UNIQUENESS_FIX30/);
+assert.throws(() => verifyHomeRefreshAssets(null, photoJs), /wymaga treści CSS/);
+assert.match(watcher, /verifyHomeRefreshAssets\(remoteHomeRefreshCss,\s*remoteUniquePhotoJs\)/);
+assert.match(watcher, /homeCssHttp=\$\{homeRefreshResponse\.status\}/);
+assert.match(watcher, /photoJsHttp=\$\{uniquePhotoResponse\.status\}/);
+assert.ok(!watcher.includes("remoteHomeRefreshCss.includes('.np30-module-grid')"));
+assert.ok(html.includes('assets/home-refresh-fix30.css?v=6.8.0-fix30'));
+assert.ok(html.includes('assets/photo-unique-thumbnails-fix30.js?v=6.8.0-fix30'));
+assert.ok(publisher.includes("homeRefreshCss.includes('.np640-module-grid')"));
+assert.equal(release.build, '6.8.0-fix51-visual-academy-pro-20261105');
+assert.ok(sw.includes('fix39-support-community-guard-20261104'));
+console.log('PASS: zdalny guard FIX33 używa rzeczywistych selektorów CSS, waliduje oba zasoby i raportuje osobne statusy HTTP.');

@@ -1,0 +1,12 @@
+NAUKA OD A DO Z — PRODUCT 6.8.0 — FIX200
+Data: 2026-11-17
+
+DODANO
+- Przygotowanie odizolowanej maszyny wirtualnej Hyper-V generacji 2, z lokalnym VHDX, bez przełącznika sieciowego i bez kart sieciowych.
+- Kontrola braku kart sieciowych i wszystkich aktywnych usług integracji host–gość przed startem, standardowy punkt kontrolny maszyny wyłączonej przed uruchomieniem, automatyczny start wyłączony, maszyna pozostaje wyłączona po utworzeniu.
+- Skrypt usuwania konfiguracji VM zachowuje plik VHDX domyślnie; usunięcie plików wymaga jawnego przełącznika -DeleteFiles.
+
+OGRANICZENIA I BEZPIECZEŃSTWO
+- Skrypty wymagają Windows z rolą/funkcją Hyper-V, modułem Hyper-V PowerShell i uprawnieniami administratora.
+- W tym wydaniu nie utworzono ani nie uruchomiono VM na komputerze użytkownika. Wykonano testy statyczne kontraktu skryptów.
+- Brak karty sieciowej nie stanowi gwarancji absolutnej izolacji. Nie uruchamiać rzeczywistego malware bez osobnej, zatwierdzonej procedury bezpieczeństwa.

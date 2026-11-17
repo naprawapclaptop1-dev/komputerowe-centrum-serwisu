@@ -1,0 +1,11 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 FIX82
+
+- Naprawiono fałszywie negatywną zdalną kontrolę Global Academy FIX64–FIX73.
+- Walidator zamiast literalnego "FIX70" sprawdza rzeczywisty identyfikator
+  modułu certyfikacji: npaFix70CertificatesV1.
+- Wspólna lista wymaganych markerów znajduje się w
+  scripts/global-academy-expansion-contract-fix82.cjs.
+- Watcher raportuje brakujące markery w polu globalExpansionMissingMarkers.
+- Dodano test regresyjny i podłączono go do OneClick oraz AUTO-PUBLISH-WATCHER.
+- Nie zmieniono produktu 6.8.0, bazowego identyfikatora build FIX51, HTML strony,
+  obrazów, Service Workera, D1, migracji, klucza OpenAI ani ustawień Cloudflare.

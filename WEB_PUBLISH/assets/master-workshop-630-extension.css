@@ -1,0 +1,78 @@
+
+/* FIX13 — Master Electronics & Repair Academy */
+#nwmMasterWorkshop .n63-chip{display:inline-flex;align-items:center;border:1px solid rgba(81,207,224,.35);border-radius:999px;padding:7px 11px;color:#91e3ee;background:rgba(27,111,138,.13);font-size:.72rem;font-weight:800}
+#nwmMasterWorkshop .n63-muted{color:#9db5c9;font-size:.78rem;line-height:1.55}
+#nwmMasterWorkshop .n63-lab-top{display:flex;justify-content:space-between;align-items:end;gap:14px;margin:14px 0}
+#nwmMasterWorkshop .n63-lab-top label{display:grid;gap:7px;max-width:420px;flex:1}
+#nwmMasterWorkshop .n63-lab-workspace{min-width:0}
+#nwmMasterWorkshop .n63-card{padding:18px;border:1px solid rgba(100,181,220,.2);border-radius:15px;background:rgba(3,17,32,.68);color:#e3f2ff}
+#nwmMasterWorkshop .n63-card h3{margin:0 0 8px;font-size:1.12rem}
+#nwmMasterWorkshop .n63-card h4{margin:15px 0 6px;color:#7fe0eb}
+#nwmMasterWorkshop .n63-card p,#nwmMasterWorkshop .n63-card li{color:#b8ccdc;line-height:1.65;font-size:.84rem}
+#nwmMasterWorkshop .n63-card ol{padding-left:22px}
+#nwmMasterWorkshop .n63-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:16px 0}
+#nwmMasterWorkshop .n63-controls label{display:grid;gap:8px}
+#nwmMasterWorkshop .n63-controls output{color:#79deec;font-size:.78rem;font-weight:800}
+#nwmMasterWorkshop .n63-scope{border:1px solid rgba(81,169,209,.25);border-radius:12px;overflow:hidden;background:#061321}
+#nwmMasterWorkshop .n63-scope svg{display:block;width:100%;height:auto;min-height:135px}
+#nwmMasterWorkshop .n63-readouts{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+#nwmMasterWorkshop .n63-readouts span{padding:8px 11px;border:1px solid rgba(103,173,208,.18);border-radius:9px;background:rgba(29,83,119,.2);color:#b6cadc;font-size:.75rem}
+#nwmMasterWorkshop .n63-readouts b{color:#86e5e8}
+#nwmMasterWorkshop .n63-warning{margin:14px 0;padding:12px 14px;border:1px solid rgba(233,180,90,.25);border-radius:11px;background:rgba(104,73,24,.15);color:#f2d69d;font-size:.78rem;line-height:1.6}
+#nwmMasterWorkshop .n63-thermal{position:relative;min-height:230px;margin:16px 0;border:1px solid rgba(103,173,208,.25);border-radius:14px;overflow:hidden;background:radial-gradient(ellipse at 22% 46%,rgba(42,213,137,.85),transparent 26%),radial-gradient(ellipse at 56% 40%,rgba(238,215,61,.78),transparent 22%),radial-gradient(ellipse at 80% 60%,rgba(72,158,232,.65),transparent 24%),linear-gradient(135deg,#172b45,#091629)}
+#nwmMasterWorkshop .n63-thermal[data-scene="blocked"]{background:radial-gradient(ellipse at 52% 50%,rgba(255,58,37,.98),transparent 28%),radial-gradient(ellipse at 24% 35%,rgba(255,178,38,.88),transparent 25%),radial-gradient(ellipse at 82% 68%,rgba(255,105,30,.8),transparent 24%),linear-gradient(135deg,#392239,#091629)}
+#nwmMasterWorkshop .n63-thermal[data-scene="hotspot"]{background:radial-gradient(ellipse at 48% 72%,rgba(255,35,23,1),transparent 21%),radial-gradient(ellipse at 25% 28%,rgba(58,169,220,.7),transparent 28%),radial-gradient(ellipse at 80% 28%,rgba(238,190,44,.62),transparent 26%),linear-gradient(135deg,#192a42,#091629)}
+#nwmMasterWorkshop .n63-thermal span{position:absolute;padding:5px 8px;border-radius:7px;background:rgba(0,0,0,.45);color:#fff;font-size:.7rem;font-weight:900}#nwmMasterWorkshop .n63-thermal span:nth-child(1){left:18%;top:40%}#nwmMasterWorkshop .n63-thermal span:nth-child(2){left:48%;top:24%}#nwmMasterWorkshop .n63-thermal span:nth-child(3){left:67%;top:60%}#nwmMasterWorkshop .n63-thermal span:nth-child(4){left:74%;top:30%}
+#nwmMasterWorkshop .n63-micro-view{height:340px;margin:15px 0;display:flex;align-items:center;justify-content:center;overflow:auto;border:1px dashed rgba(104,175,213,.35);border-radius:12px;background:repeating-linear-gradient(45deg,#081625,#081625 10px,#0d2034 10px,#0d2034 20px);color:#a8bfd1}
+#nwmMasterWorkshop .n63-micro-view img{max-width:100%;max-height:100%;object-fit:contain;transform-origin:center center}
+#nwmMasterWorkshop .n63-schematic-flow{display:flex;align-items:center;gap:8px;overflow-x:auto;padding:18px 2px}
+#nwmMasterWorkshop .n63-schematic-node{min-width:116px;display:grid;gap:6px;padding:14px 10px;border:1px solid rgba(83,203,219,.3);border-radius:11px;background:rgba(19,85,119,.23);color:#d9f1ff;cursor:pointer}
+#nwmMasterWorkshop .n63-schematic-node b{color:#7de2e5;font-size:.76rem}.n63-schematic-node span{font-size:.7rem}#nwmMasterWorkshop .n63-schematic-node.active{border-color:#68e5d5;background:rgba(39,145,145,.28)}#nwmMasterWorkshop .n63-flow-arrow{color:#78d9ea;font-size:1.3rem}
+#nwmMasterWorkshop .n63-detail{padding:14px;border:1px solid rgba(100,181,220,.2);border-radius:10px;background:rgba(4,26,43,.7)}
+#nwmMasterWorkshop .n63-filter-row{display:grid;grid-template-columns:1fr minmax(210px,.4fr);gap:10px;margin:14px 0}
+#nwmMasterWorkshop .n63-components-layout{display:grid;grid-template-columns:minmax(230px,.8fr) minmax(0,1.2fr);gap:14px}
+#nwmMasterWorkshop .n63-component-list{display:grid;gap:7px;max-height:640px;overflow:auto}
+#nwmMasterWorkshop .n63-component-item{display:grid;gap:4px;text-align:left;padding:11px;border:1px solid rgba(110,169,203,.2);border-radius:10px;background:rgba(4,19,34,.7);color:#dceeff;cursor:pointer}
+#nwmMasterWorkshop .n63-component-item b{font-size:.8rem}.n63-component-item small{color:#78d7e5;font-size:.68rem}.n63-component-item span{color:#aebfd0;font-size:.72rem;line-height:1.4}#nwmMasterWorkshop .n63-component-item.active{border-color:#63d9dd;background:rgba(32,109,130,.24)}
+#nwmMasterWorkshop .n63-component-detail{position:sticky;top:14px;align-self:start;min-height:250px}
+#nwmMasterWorkshop .n63-kicker{color:#78d8e9;font-size:.68rem;font-weight:900;letter-spacing:.08em}
+#nwmMasterWorkshop .n63-diagnosis-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:16px;border:1px solid rgba(98,175,211,.18);border-radius:14px;background:rgba(3,18,34,.55)}
+#nwmMasterWorkshop .n63-diagnosis-form label,#nwmMasterWorkshop .n63-part-form label{display:grid;gap:6px;color:#c6d9e7;font-size:.78rem;font-weight:700}
+#nwmMasterWorkshop .n63-diagnosis-form .n63-wide{grid-column:1/-1}
+#nwmMasterWorkshop .n63-diagnosis-result{margin-top:16px;padding:18px;border:1px solid rgba(87,198,210,.25);border-radius:14px;background:rgba(3,18,34,.67)}
+#nwmMasterWorkshop .n63-result-head h3{margin:7px 0}.n63-result-head p{color:#afc5d8}
+#nwmMasterWorkshop .n63-columns{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(230px,.7fr);gap:18px}
+#nwmMasterWorkshop .n63-columns li{margin:7px 0;color:#c3d5e3;line-height:1.55;font-size:.82rem}
+#nwmMasterWorkshop .n63-columns aside{padding:13px;border:1px solid rgba(230,183,92,.2);border-radius:11px;background:rgba(105,69,23,.1)}
+#nwmMasterWorkshop .n63-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+#nwmMasterWorkshop .n63-path-layout{display:grid;grid-template-columns:minmax(230px,.8fr) minmax(0,1.2fr);gap:14px}
+#nwmMasterWorkshop .n63-path-grid{display:grid;gap:8px;align-content:start}
+#nwmMasterWorkshop .n63-path-card{display:grid;gap:5px;padding:12px;text-align:left;border:1px solid rgba(100,173,209,.2);border-radius:11px;background:rgba(3,18,34,.65);color:#e0f0ff;cursor:pointer}
+#nwmMasterWorkshop .n63-path-card.active{border-color:#60d5df;background:rgba(24,89,117,.25)}
+#nwmMasterWorkshop .n63-path-card>span{color:#80dce9;font-size:.66rem;font-weight:850}.n63-path-card b{font-size:.82rem}.n63-path-card small{color:#a9bed0;line-height:1.4}.n63-path-card strong{font-size:.69rem;color:#91d9d4}
+#nwmMasterWorkshop .n63-path-card i{height:6px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}.n63-path-card i em{display:block;height:100%;background:linear-gradient(90deg,#40d8b9,#65baff)}
+#nwmMasterWorkshop .n63-task-list{display:grid;gap:8px;margin:16px 0}.n63-task-list label{display:flex;gap:10px;align-items:flex-start;padding:11px;border:1px solid rgba(101,169,207,.17);border-radius:9px;background:rgba(4,20,37,.6);color:#c8d9e7;font-size:.8rem;line-height:1.5}.n63-task-list input{margin-top:3px;accent-color:#50d9ce}
+#nwmMasterWorkshop .n63-path-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-top:12px;border-top:1px solid rgba(110,170,203,.15)}
+#nwmMasterWorkshop .n63-quiz{margin-top:16px;padding:15px;border:1px solid rgba(103,179,214,.2);border-radius:11px;background:rgba(3,16,30,.75)}
+#nwmMasterWorkshop .n63-answer-list{display:grid;gap:8px;margin:12px 0}.n63-answer-list button{padding:11px;text-align:left;border:1px solid rgba(104,176,213,.24);border-radius:9px;background:#0b263b;color:#e7f4ff;cursor:pointer}.n63-answer-list button:disabled{opacity:.8}.n63-answer-list button.correct{border-color:#51d69f;background:rgba(23,118,77,.25)}.n63-answer-list button.incorrect{border-color:#ee8585;background:rgba(127,44,48,.25)}
+#nwmMasterWorkshop .n63-cert-success{padding:16px;border:1px solid rgba(75,212,157,.3);border-radius:11px;background:rgba(18,113,78,.13)}.n63-cert-success>b{display:block;font-size:1.1rem;color:#81e8d8;margin:12px 0}
+#nwmMasterWorkshop .n63-record-list{display:grid;gap:8px;margin:13px 0}.n63-record{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:13px;border:1px solid rgba(100,174,211,.2);border-radius:11px;background:rgba(4,19,34,.72)}.n63-record h4{margin:5px 0}.n63-record p{color:#b3c7d7;line-height:1.5}.n63-record small{display:block;color:#a5bacb;font-size:.7rem;margin-top:5px}.n63-record-actions{display:grid;gap:7px;min-width:150px}.n63-record-actions label{display:grid;gap:4px;color:#9bb5c9;font-size:.68rem}
+#nwmMasterWorkshop .n63-section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:23px 0 10px}.n63-section-head h3{margin:0}.n63-section-head p{margin:3px 0;color:#a8bdce;font-size:.75rem}
+#nwmMasterWorkshop .n63-part-form{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) auto;gap:9px;align-items:end;padding:13px;border:1px solid rgba(102,171,207,.18);border-radius:12px;background:rgba(3,18,34,.55)}
+#nwmMasterWorkshop .n63-table-wrap{overflow:auto;margin-top:10px;border:1px solid rgba(100,173,206,.2);border-radius:11px}.n63-table{width:100%;border-collapse:collapse;min-width:620px}.n63-table th,.n63-table td{padding:10px;text-align:left;border-bottom:1px solid rgba(100,173,206,.13);font-size:.76rem;color:#c6d8e5}.n63-table th{color:#7ed9e9}.n63-table button{margin:2px;padding:5px 8px;border:1px solid rgba(107,173,208,.25);border-radius:6px;background:rgba(20,72,103,.3);color:#dcf1ff;cursor:pointer}
+#nwmMasterWorkshop .n63-verify-form{display:flex;gap:10px;align-items:end;max-width:650px;margin:16px 0}.n63-verify-form label{flex:1;display:grid;gap:6px;color:#c6d9e7;font-size:.78rem}.n63-verify-ok{padding:13px;border:1px solid rgba(73,210,151,.3);border-radius:10px;background:rgba(18,114,77,.14);color:#b5f0d4}
+#nwmMasterWorkshop .n63-backup-card{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-top:20px;padding:16px;border:1px solid rgba(102,179,212,.22);border-radius:13px;background:rgba(3,18,34,.65)}.n63-backup-card h3{margin:0 0 5px}.n63-backup-card p{max-width:670px;color:#b3c7d7;font-size:.78rem;line-height:1.5}.n63-file-button{display:inline-flex;align-items:center;margin:6px 7px 0 0;cursor:pointer}
+#nwmMasterWorkshop .n63-empty{padding:16px;border:1px dashed rgba(106,174,211,.25);border-radius:10px;color:#a7bdcf;text-align:center}
+@media(max-width:980px){#nwmMasterWorkshop .n63-components-layout,#nwmMasterWorkshop .n63-path-layout{grid-template-columns:1fr}#nwmMasterWorkshop .n63-component-detail{position:static}#nwmMasterWorkshop .n63-part-form{grid-template-columns:repeat(2,minmax(0,1fr))}#nwmMasterWorkshop .n63-part-form button{grid-column:1/-1}}
+@media(max-width:650px){#nwmMasterWorkshop .n63-controls,#nwmMasterWorkshop .n63-filter-row,#nwmMasterWorkshop .n63-diagnosis-form,#nwmMasterWorkshop .n63-columns{grid-template-columns:1fr}#nwmMasterWorkshop .n63-diagnosis-form .n63-wide{grid-column:1}#nwmMasterWorkshop .n63-lab-top,#nwmMasterWorkshop .n63-section-head,#nwmMasterWorkshop .n63-backup-card{display:grid;align-items:start}#nwmMasterWorkshop .n63-part-form{grid-template-columns:1fr}#nwmMasterWorkshop .n63-part-form button{grid-column:1}#nwmMasterWorkshop .n63-record{grid-template-columns:1fr}#nwmMasterWorkshop .n63-record-actions{grid-template-columns:repeat(2,minmax(0,1fr))}#nwmMasterWorkshop .n63-verify-form{display:grid}#nwmMasterWorkshop .n63-schematic-flow{justify-content:flex-start}#nwmMasterWorkshop .n63-micro-view{height:250px}}
+
+/* FIX14 — trainer, replacement decision support and local XP. */
+#nwmMasterWorkshop .n63-solder-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(240px,.8fr);gap:14px;margin:14px 0}
+#nwmMasterWorkshop .n63-solder-step{display:flex;gap:10px;align-items:flex-start;padding:11px;margin:8px 0;border:1px solid rgba(102,174,211,.2);border-radius:10px;background:rgba(4,20,37,.58);color:#cbddec;font-size:.8rem;line-height:1.5}
+#nwmMasterWorkshop .n63-solder-step input{margin-top:3px;accent-color:#55d9c8}#nwmMasterWorkshop .n63-solder-step b{color:#72dce4;margin-right:5px}
+#nwmMasterWorkshop .n63-xp-panel{display:grid;gap:10px;margin:14px 0 18px;padding:15px;border:1px solid rgba(81,205,195,.3);border-radius:13px;background:linear-gradient(115deg,rgba(12,76,91,.3),rgba(12,28,49,.72))}
+#nwmMasterWorkshop .n63-xp-panel>div:first-child{display:grid;gap:5px}#nwmMasterWorkshop .n63-xp-panel b{font-size:1rem;color:#e5fbff}#nwmMasterWorkshop .n63-xp-panel p{margin:0;color:#a8c4d5;font-size:.74rem}
+#nwmMasterWorkshop .n63-xp-track{height:9px;overflow:hidden;border-radius:999px;background:rgba(255,255,255,.1)}#nwmMasterWorkshop .n63-xp-track i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#4bd3a9,#5bbdff);transition:width .25s ease}
+#nwmMasterWorkshop [data-nwm-panel="replacement"] .n63-component-detail{position:sticky;top:14px}
+@media(max-width:900px){#nwmMasterWorkshop .n63-solder-grid{grid-template-columns:1fr}}
+@media(max-width:650px){#nwmMasterWorkshop .n63-xp-panel{padding:12px}#nwmMasterWorkshop [data-nwm-panel="replacement"] .n63-component-detail{position:static}}

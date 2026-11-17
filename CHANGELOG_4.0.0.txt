@@ -1,0 +1,40 @@
+AKADEMIA SERWISU PRO 4.0.0 — ROZSZERZONA SZKOŁA NAPRAW
+======================================================
+
+Baza i kompatybilność
+- Rozbudowa istniejącego projektu 3.9.10; bez tworzenia osobnej strony.
+- Zachowano istniejące 409 lekcji, 337 materiałów od podstaw, 158 tematów,
+  80 artykułów, 11 rozdziałów, bibliotekę PDF/DOCX/XLSX, filmy, funkcje
+  logowania, czatu, konta, społeczności i integrację Cloudflare.
+- Dodano 80 szczegółowych lekcji praktycznych LAB4-001…LAB4-080.
+- Łącznie: 489 lekcji serwisowych oraz 1 075 pozycji w pięciu zakładkach kursów.
+- Nie zmieniono schematu D1, UUID bazy ani migracji produkcyjnych.
+
+Nowy program praktyczny
+- Płyty główne, zwarcia, sekwencje startowe, VRM, MOSFET, gniazda DC-IN,
+  USB-C, HDMI/DP, ścieżki i pola PCB.
+- Sockety LGA, prostowanie pinów, diagnostyka CPU i platform BGA.
+- GPU, VRAM/GDDR, testy pamięci, reballing, sekcje zasilania i PCIe.
+- RAM DDR4/DDR5, sloty DIMM/SO-DIMM i XMP/EXPO.
+- Hot Air, lutownice, SMD/THT, plecionka, topniki, mostki, profile termiczne.
+- Mikroskopy stereoskopowe, kamera 4K, multimetr, zasilacz laboratoryjny,
+  oscyloskop, mierniki USB-C i termowizja.
+- Zasilacze, baterie, chłodzenie, SSD/HDD, BIOS/SPI, Windows, monitory,
+  sieci i dokumentacja serwisowa.
+
+Lekcja zawiera opis, objawy, tok diagnostyczny, możliwe rozwiązania,
+test końcowy, ostrzeżenia i checklistę kroków A–Z. Wybrane tematy mają
+dołączone lokalne filmy MP4 z napisami dostępne w archiwum.
+
+Interfejs
+- Dodano neonowy motyw warsztatowy 4.0 z granatowym tłem, turkusowymi
+  akcentami, animacjami kart, podświetleniami i responsywnym układem.
+- Dodano odtwarzacz lokalnych filmów w kartach wybranych lekcji.
+- Liczniki kursów aktualizują się z danych po uruchomieniu aplikacji.
+
+Bezpieczeństwo treści
+- Instrukcje reworku BGA, pomiarów i zasilania zawierają ostrzeżenia.
+- Nie podano uniwersalnych temperatur, napięć ani pinoutów; wymagane jest
+  odniesienie do dokumentacji dokładnego modelu i rewizji.
+- Materiały szkoleniowe nie zastępują dokumentacji producenta ani praktyki
+  pod nadzorem przy pracach wysokiego ryzyka.

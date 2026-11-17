@@ -1,0 +1,15 @@
+NAPRAWA PC — AKADEMIA SERWISU PRO 4.1.0
+Data pakietu: 2026-11-01
+
+POPRAWKI
+- Poprawiono zgodność kontroli wersji ONECLICK_AKADEMIA.js: build 4.1.0.
+- AUTO_PUBLISH_WATCHER.js rozpoznaje wydanie 4.1.0.
+- Kontrola Pages Functions dopuszcza pliki .js i .ts; limit pojedynczego pliku wynosi 25 MiB zamiast niestandardowego limitu 1 MiB.
+- Zachowano kontrolę typów plików, linków symbolicznych i rozmiaru zasobów WWW.
+- Dodano theme-410.css: responsywną warstwę interfejsu, animacje, neonowe panele, stany hover i układ mobilny.
+- Zachowano istniejące moduły, dane kursów, pliki mediów, funkcje Pages, konfigurację Wrangler i identyfikator D1.
+- Nie wykonano publikacji ani migracji produkcyjnej w ramach przygotowania tego ZIP.
+
+WAŻNE
+Jeżeli functions/api/admin/requests.ts przekracza 25 MiB, publikacja nadal zostanie zablokowana.
+Po wdrożeniu sprawdź log Wrangler i stronę produkcyjną. Sama kontrola składni nie jest testem end-to-end.

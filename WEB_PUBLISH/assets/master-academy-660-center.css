@@ -1,0 +1,58 @@
+/* NAUKA OD A DO Z 6.6.0 FIX17 — MASTER SERVICE CENTER */
+#nwmMasterWorkshop .n66-pane{padding:16px 0;animation:n66-in .18s ease-out}
+#nwmMasterWorkshop .n66-pane[hidden]{display:none!important}
+#nwmMasterWorkshop .n66-head{padding:20px;border:1px solid rgba(78,184,223,.24);border-radius:16px;background:linear-gradient(130deg,rgba(10,49,75,.92),rgba(22,25,63,.82));margin:12px 0 16px}
+#nwmMasterWorkshop .n66-head>span{color:#71d6f4;font-size:.68rem;font-weight:900;letter-spacing:.13em}
+#nwmMasterWorkshop .n66-head h3{margin:8px 0;color:#f0f8ff;font-size:clamp(1.2rem,2.8vw,1.8rem)}
+#nwmMasterWorkshop .n66-head p,#nwmMasterWorkshop .n66-note{color:#b7ccdc;font-size:.8rem;line-height:1.65;margin:7px 0}
+#nwmMasterWorkshop .n66-card{padding:16px;margin:12px 0;border:1px solid rgba(104,174,211,.22);border-radius:14px;background:rgba(5,20,36,.74);color:#e7f3fb}
+#nwmMasterWorkshop .n66-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:10px 0}
+#nwmMasterWorkshop .n66-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+#nwmMasterWorkshop .n66-grid .wide{grid-column:1/-1}
+#nwmMasterWorkshop .n66-grid label,#nwmMasterWorkshop .n66-card>label,#nwmMasterWorkshop .n66-toolbar label{display:grid;gap:6px;color:#c7dcea;font-size:.75rem;font-weight:700}
+#nwmMasterWorkshop .n66-grid input,#nwmMasterWorkshop .n66-grid select,#nwmMasterWorkshop .n66-grid textarea,#nwmMasterWorkshop .n66-card input[type=file],#nwmMasterWorkshop .n66-toolbar input,#nwmMasterWorkshop .n66-toolbar select,#nwmMasterWorkshop .n66-toolbar label select,#nwmMasterWorkshop .n66-stage input,#nwmMasterWorkshop .n66-stage select,#nwmMasterWorkshop .n66-order-head+* select{width:100%;min-width:0;box-sizing:border-box;border:1px solid rgba(105,178,210,.28);border-radius:9px;background:#071a2b;color:#e7f3fb;padding:10px;font:inherit;font-size:.8rem}
+#nwmMasterWorkshop .n66-grid textarea{min-height:76px;resize:vertical}
+#nwmMasterWorkshop .n66-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 0}
+#nwmMasterWorkshop .n66-actions.wide{grid-column:1/-1}
+#nwmMasterWorkshop .n66-toolbar{display:flex;align-items:end;gap:9px;flex-wrap:wrap;margin:12px 0}
+#nwmMasterWorkshop .n66-toolbar>*{flex:1 1 180px}
+#nwmMasterWorkshop .n66-toolbar button{flex:0 0 auto}
+#nwmMasterWorkshop .n66-stage-list{display:grid;gap:10px;margin:14px 0}
+#nwmMasterWorkshop .n66-stage{padding:13px;border:1px solid rgba(98,171,211,.2);border-radius:12px;background:rgba(8,35,55,.62)}
+#nwmMasterWorkshop .n66-stage-title{display:flex;gap:10px;align-items:center;color:#f1f8ff}
+#nwmMasterWorkshop .n66-stage-title>span{color:#75d8f5;font-weight:900;font-size:.8rem}
+#nwmMasterWorkshop .n66-stage p{color:#b7ccdc;font-size:.76rem;line-height:1.55}
+#nwmMasterWorkshop .n66-stage .n66-grid{margin:8px 0 0}
+#nwmMasterWorkshop .n66-result{padding:13px;margin:12px 0;border:1px solid rgba(89,186,220,.25);border-radius:11px;background:rgba(16,70,97,.19);color:#deeff9;font-size:.8rem;line-height:1.6;overflow-wrap:anywhere}
+#nwmMasterWorkshop .n66-result.good{border-color:rgba(76,207,154,.38);background:rgba(14,111,72,.17)}
+#nwmMasterWorkshop .n66-result.bad{border-color:rgba(231,128,135,.38);background:rgba(125,39,51,.18)}
+#nwmMasterWorkshop .n66-result h4{margin:8px 0;color:#f3f9ff}
+#nwmMasterWorkshop .n66-list{display:grid;gap:9px;margin:12px 0}
+#nwmMasterWorkshop .n66-record{padding:13px;border:1px solid rgba(104,174,211,.2);border-radius:11px;background:rgba(5,22,39,.7);color:#e1edf7;overflow-wrap:anywhere}
+#nwmMasterWorkshop .n66-record p{margin:6px 0;color:#bfd2df;font-size:.78rem;line-height:1.55}
+#nwmMasterWorkshop .n66-record small{display:block;margin:5px 0;color:#9eb8ca;font-size:.69rem;line-height:1.5}
+#nwmMasterWorkshop .n66-pill{display:inline-block;padding:4px 8px;border-radius:99px;background:rgba(40,135,175,.2);border:1px solid rgba(106,205,239,.24);color:#9de4fb;font-size:.65rem;font-weight:800}
+#nwmMasterWorkshop .n66-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:12px 0}
+#nwmMasterWorkshop .n66-stat{padding:12px;border:1px solid rgba(101,177,211,.2);border-radius:11px;background:rgba(7,31,51,.72);min-width:0}
+#nwmMasterWorkshop .n66-stat b{display:block;color:#f2f8ff;font-size:1.03rem;overflow-wrap:anywhere}
+#nwmMasterWorkshop .n66-stat span{display:block;color:#9eb8ca;font-size:.68rem;margin-top:4px}
+#nwmMasterWorkshop .n66-wave-chart{min-height:250px;margin-top:12px;padding:8px;border:1px solid rgba(101,177,211,.19);border-radius:12px;background:#06192a;overflow:hidden}
+#nwmMasterWorkshop .n66-wave-chart svg{display:block;width:100%;height:auto}
+#nwmMasterWorkshop .n66-options{display:grid;gap:8px;margin:12px 0}
+#nwmMasterWorkshop .n66-options button,#nwmMasterWorkshop .n66-scenario-card{padding:12px;text-align:left;border:1px solid rgba(108,177,212,.25);border-radius:10px;background:#0a263a;color:#e4f4ff;cursor:pointer}
+#nwmMasterWorkshop .n66-options button:disabled{opacity:.86}
+#nwmMasterWorkshop .n66-options button.correct{border-color:#55d99f;background:rgba(24,124,82,.25)}
+#nwmMasterWorkshop .n66-options button.incorrect{border-color:#e57c88;background:rgba(126,40,50,.22)}
+#nwmMasterWorkshop .n66-scenario-card{min-height:88px}
+#nwmMasterWorkshop .n66-scenario-card b,#nwmMasterWorkshop .n66-scenario-card small{display:block}
+#nwmMasterWorkshop .n66-scenario-card small{margin-top:6px;color:#a8c4d5;font-size:.69rem}
+#nwmMasterWorkshop .n66-check{display:flex!important;align-items:center;gap:9px}
+#nwmMasterWorkshop .n66-check input{width:auto!important}
+#nwmMasterWorkshop .n66-order-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+#nwmMasterWorkshop .n66-status{position:sticky;bottom:8px;z-index:3;margin:16px 0 5px;padding:9px 12px;border-radius:9px;border:1px solid rgba(92,177,210,.18);background:rgba(3,17,31,.93);color:#9fc5d8;font-size:.7rem;backdrop-filter:blur(10px)}
+#nwmMasterWorkshop .n66-status[data-kind="error"]{color:#ffc1c6;border-color:rgba(232,115,127,.4)}
+#nwmMasterWorkshop .n66-file-label{display:inline-flex;align-items:center;cursor:pointer}
+#nwmMasterWorkshop .nwm-danger{border:1px solid rgba(237,114,125,.4);border-radius:9px;background:rgba(140,45,55,.2);color:#ffd2d5;padding:10px 13px;cursor:pointer}
+@keyframes n66-in{from{opacity:.55;transform:translateY(3px)}to{opacity:1;transform:none}}
+@media(max-width:700px){#nwmMasterWorkshop .n66-grid.two{grid-template-columns:1fr}#nwmMasterWorkshop .n66-grid .wide,#nwmMasterWorkshop .n66-actions.wide{grid-column:1}#nwmMasterWorkshop .n66-stats{grid-template-columns:repeat(2,minmax(0,1fr))}#nwmMasterWorkshop .n66-toolbar>*{flex:1 1 100%}#nwmMasterWorkshop .n66-head{padding:14px}}
+@media(prefers-reduced-motion:reduce){#nwmMasterWorkshop .n66-pane{animation:none}}

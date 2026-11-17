@@ -1,0 +1,9 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 FIX105
+
+- Naprawiono przekazywanie katalogu projektu do Windows PowerShell: usunięto końcowy separator z argumentu Root.
+- Jawnie przekazywane są pełne ścieżki NodePathFile i VersionFile.
+- PowerShell zapisuje i weryfikuje odczyt obu plików wynikowych.
+- CMD odczytuje pliki wynikowe przez FOR /F i podaje osobne komunikaty diagnostyczne.
+- Stare entrypointy FIX103/FIX104 przekierowują do aktualnego resolvera FIX105.
+- Dodano testy kontraktu i skrót testowy FIX105.
+- Bez zmian w wersji produktu, runtime zdjęć, Cloudflare Pages, sekretach ani D1.

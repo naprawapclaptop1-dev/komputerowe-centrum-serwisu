@@ -1,0 +1,9 @@
+NAPRAWA PC — AKADEMIA SERWISU PRO 3.8.0
+Projekt Cloudflare Pages: naprawa-pc-akademia-serwisu-pro
+Konto: 4ddfc3803a4f0c4457ccae083f18b975
+Gałąź: main
+Stały adres: https://naprawa-pc-akademia-serwisu-pro.pages.dev
+Jeden plik startowy: URUCHOM_AKADEMIE.cmd
+Globalny licznik: Pages Functions + istniejąca baza D1 naprawa-pc-akademia-db
+Nowa baza: NIE
+Nowy projekt Pages: NIE

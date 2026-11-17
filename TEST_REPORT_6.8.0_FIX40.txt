@@ -1,0 +1,68 @@
+RAPORT TESTÓW — NAUKA OD A DO Z 6.8.0 FIX40
+===========================================
+Data: 2026-11-04
+Build: 6.8.0-social-login-fix40-learning-center-20261104
+
+WYNIK KOŃCOWY
+-------------
+62/62 skryptów testowych PASS, 0 FAIL.
+Dodatkowe node --check dla kluczowych plików FIX40, Service Workera,
+OneClick, Watchera oraz endpointu statusu konta: PASS.
+
+KONTROLE SZCZEGÓŁOWE
+--------------------
+- JavaScript/MJS/CJS: 178 plików, 0 błędów składni.
+- CSS: 41 plików, kontrola strukturalna PASS.
+- HTML: 753 atrybuty ID, 753 unikalne wartości, 0 duplikatów.
+- Lokalne verifyWeb() z OneClick: PASS; build FIX40, 1060 lekcji i 12 kart
+  diagnostycznych; test bez połączenia z Cloudflare, bez dostępu do D1.
+- FIX40: siedem modułów, obecność UI/runtime/CSS, integracja z PWA, kontrola
+  wersji wydania i bramki publikacji: PASS.
+- Zakładki: scalenie legacy academyBookmarks z danymi FIX40 bez utraty wpisów.
+- Pakiet offline z rzeczywistych danych: 1060 lekcji, 155 przypadków, 147 procedur,
+  292 komponenty, modele i metadane 30 dokumentów; JSON 3 512 826 B (około 3,35 MiB),
+  poniżej limitu importu 25 MB. Walidacja JSON, ochrona pól prototypowych i
+  zachowanie zagnieżdżonych list procedur/testów: PASS.
+- Dokumenty: 30 wpisów indeksu oraz 30 fizycznych plików źródłowych istnieje;
+  ścieżki są ograniczone do WEB_PUBLISH/Biblioteka; brak brakujących plików.
+- Atlas: lokalne Board ID/revizje przechodzą eksport/import; zachowują status
+  niezweryfikowany.
+- Symulator: brak wybranej odpowiedzi nie może zostać zaliczony.
+- Egzaminy: niekompletne podejście jest odrzucane; 75% to próg zaliczenia;
+  powtórne wysłanie jest blokowane.
+- QR: test bitów formatu PASS; dodatkowo niezależny test dekodowania obrazu
+  wygenerowanego kodu QR odczytał tekst AZ40ABCDEF012345.
+- Service Worker: obsługa cache biblioteki /Biblioteka/ zapisana dopiero po
+  prawidłowej odpowiedzi; nowe pliki FIX40 w cache; API wyłączone z cache.
+- OneClick i Auto Publish Watcher: wymagają widoku, funkcji, dokumentów,
+  Service Workera, zasobów i testu FIX40; bramka publikacji pozostaje aktywna.
+
+ZACHOWANIE PROJEKTU
+-------------------
+Porównano archiwum wejściowe FIX39 z katalogiem projektu po FIX40:
+- 715 plików źródłowych w archiwum FIX39; 726 plików w projekcie FIX40;
+- 11 dodanych plików; 0 usuniętych plików; 75 istniejących plików zmienionych
+  wyłącznie w celu integracji, wersjonowania, testów/runnerów i bramek publikacji;
+- zachowane wszystkie wcześniejsze katalogi/moduły;
+- dodano nowe zasoby, test i dokumentację FIX40;
+- zmienione pliki obejmują jedynie integrację nowego widoku, wersjonowanie,
+  Service Workera, strażniki publikacji i zgodność historycznych testów.
+
+ŚRODOWISKO I GRANICE WERYFIKACJI
+--------------------------------
+- Testy uruchomiono w środowisku przygotowawczym Node.js v22.16.0.
+- Node.js v24.19.0 na docelowym Windows użytkownika nie był testowany.
+- Nie wykonano automatycznego E2E w rzeczywistej przeglądarce.
+- Nie wykonano publikacji na Cloudflare Pages.
+- Nie wykonywano migracji D1 ani zmian produkcyjnego API/kont.
+
+UWAGI FUNKCJONALNE
+------------------
+- Wyszukiwanie lokalne korzysta z danych Akademii; pełna generatywna analiza
+  wymaga istniejącej konfiguracji czatu AI i świadomej akcji użytkownika.
+- PDF jest uzyskiwany przez drukowanie przeglądarki („Zapisz jako PDF”).
+- HTML offline zawiera kursy, przypadki, procedury, modele, komponenty oraz
+  metadane biblioteki. Same binarne PDF/DOCX cache'owane są osobno w PWA po
+  pierwszym pobraniu online na danym urządzeniu/przeglądarce.
+- Certyfikaty QR są osiągnięciami edukacyjnymi lokalnymi, bez podpisu
+  kryptograficznego i bez publicznej weryfikacji serwerowej.

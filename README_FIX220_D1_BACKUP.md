@@ -1,0 +1,3 @@
+# FIX220 — kontrola wydania i test po publikacji
+
+Produkt: 6.8.0. Przed publikacją wymagane są kompletne migracje, kopia istniejącej bazy D1 i lokalne testy pakietu. `scripts/post-deploy-smoke-fix220.mjs` wymaga jawnego `NAUKA_SMOKE_URL`; sprawdza stronę, zasoby, Service Worker, publiczny health endpoint i dokładny zestaw OAuth. Opcjonalny `NAUKA_SMOKE_COOKIE` włącza próbę chronionej sesji. Opcjonalny `NAUKA_SMOKE_ADMIN_TOKEN` dodatkowo testuje chroniony panel health i bank egzaminów; cookie i token nie są drukowane ani umieszczane w raporcie. Raport trafia do `reports/FIX220_POST_DEPLOY_SMOKE.json`. Sam test nie wykonuje publikacji ani rollbacku.

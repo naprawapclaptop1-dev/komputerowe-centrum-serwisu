@@ -1,0 +1,28 @@
+NAUKA OD A DO Z — RAPORT FIX100
+
+Problem:
+Główny URUCHOM_AKADEMIE.cmd wykrywał Node wyłącznie przez where.exe node.
+W danym oknie CMD Node nie był w PATH, mimo że mógł być zainstalowany i działać
+w innym terminalu albo przez menedżer wersji.
+
+Zmiana:
+Wspólny resolver RESOLVE_NODE_FIX100.cmd + scripts/resolve-node-fix100.ps1
+wyszukuje node.exe w PATH, rejestrze, standardowych katalogach Windows oraz
+lokalizacjach NVM/FNM/Volta/NVS/Scoop/Chocolatey. Każdy kandydat jest testowany
+przez --version. Ścieżka jest dopisywana tymczasowo do PATH danego CMD.
+
+Wyniki:
+- FIX99 regresja: 132/132 PASS
+- FIX100 testy Node.js: 11/11 PASS
+- Łącznie: 143/143 PASS
+- Składnia JavaScript FIX99: 17/17 PASS
+- Składnia JavaScript FIX100: 4/4 PASS
+
+Środowisko testowe: Node.js v22.16.0.
+Testy Windows PowerShell 5.1 / CMD: niewykonane w tym kontenerze.
+Należy potwierdzić lokalnie przez SPRAWDZ_NODE_FIX100.cmd i WYKONAJ_TESTY_FIX100.cmd.
+
+Nie wykonano publikacji Cloudflare Pages ani migracji D1.
+Wersja produktu: 6.8.0.
+Hotfix publikatora: FIX100.
+Runtime fotografii: FIX99 (bez zmian).

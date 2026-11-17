@@ -1,0 +1,25 @@
+NAUKA OD A DO Z — wersja produktu 6.8.0 — FIX197
+Naprawa kontroli publikacji i przywrócenie GitHub + Discord OAuth
+
+ZMIANY
+- Aktywny zestaw logowania zewnętrznego obejmuje Google, Microsoft, Facebook, GitHub i Discord.
+- Dodano GitHub i Discord do backendowej listy PROVIDERS oraz do diagnostyki brakujących sekretów.
+- Przywrócono konfigurację GITHUB_CLIENT_ID / GITHUB_CLIENT_SECRET i DISCORD_CLIENT_ID / DISCORD_CLIENT_SECRET.
+- Formularze konta i autora pokazują przyciski GitHub i Discord; status i komunikaty błędów obsługują wszystkich pięciu dostawców.
+- Łączenie i odłączanie metod konta obsługuje pięciu aktywnych dostawców. Istniejące rekordy historyczne X nie są kasowane, ale X nie jest przyjmowany jako nowy login ani oferowany w interfejsie.
+- Kontrola ONECLICK_AKADEMIA.js i AUTO_PUBLISH_WATCHER.js została ujednolicona z bieżącym zestawem pięciu dostawców. To usuwa przyczynę błędu z logu: wymóg sześciu OAuth i brakujących przycisków X/GitHub/Discord.
+- Zmieniono identyfikator cache assetu cloud-academy.js, aby przeglądarka pobrała poprawiony klient OAuth.
+- Zachowano logowanie e-mail/hasło, e-mail/Resend, 2FA/TOTP, D1, migracje i istniejące profile. Wersja produktu nadal 6.8.0.
+
+TESTY
+- Test kontraktu FIX197: pięciu aktywnych providerów, wykluczenie X, poprawne przyciski i mapowanie statusu.
+- Test konfiguratora sekretów: GitHub/Discord obecne, X odrzucony, walidacja par Client ID/Secret.
+- Test diagnostyki OAuth: D1, CHECK constraints, status bez ujawniania sekretów, pięć aktywnych providerów.
+- Test przepływów OAuth z mockami: start i callback Discord oraz GitHub, PKCE/state, cookie, tworzenie kont i zapisywanie identyfikatora dostawcy.
+- Test bezpieczeństwa kont: TOTP, recovery codes, e-mail i zarządzanie sesjami.
+- Testy FIX195/FIX196 oraz regresja FIX186 uruchamiane przez run-tests-fix197.mjs.
+
+OGRANICZENIA WDROŻENIA
+- Testy callbacków GitHub i Discord używają kontrolowanych odpowiedzi mock; nie potwierdzają jeszcze prawdziwego logowania na produkcyjnych aplikacjach dostawców.
+- Do aktywacji potrzebne są prawidłowe Client ID i Client Secret dla każdego dostawcy oraz zgodny redirect URI. Sekrety wpisuj wyłącznie w lokalnym konfiguratorze, nie w czacie ani w pliku projektu.
+- FIX197 przygotowuje pakiet i kontrole publikacji; nie wykonuje samodzielnie publikacji do Cloudflare ani nie tworzy sekretów OAuth.

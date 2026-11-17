@@ -1,0 +1,55 @@
+{
+  "name": "NAUKA OD A DO Z — GLOBAL ACADEMY PRO FIX63 FULL PROJECT",
+  "productVersion": "6.8.0",
+  "fixes": [
+    "FIX51",
+    "FIX54",
+    "FIX55",
+    "FIX56",
+    "FIX57",
+    "FIX58",
+    "FIX59",
+    "FIX60",
+    "FIX61",
+    "FIX62",
+    "FIX63"
+  ],
+  "fix63": "Automatyczny odczyt Production Branch z Cloudflare Pages API z istniejącego uwierzytelnienia Wrangler lub CLOUDFLARE_API_TOKEN; bez domyślnego main.",
+  "testSummary": {
+    "preflightScripts": 19,
+    "preflightPass": 19,
+    "branchApiTests": "5/5 PASS",
+    "branchGuardTests": "3/3 PASS",
+    "syntax": {
+      "jsMjsCjs": 232,
+      "css": 50,
+      "json": 54,
+      "errors": 0
+    }
+  },
+  "securityAudit": {
+    "critical": 0,
+    "high": 0
+  },
+  "database": {
+    "name": "naprawapc-orders",
+    "newDatabaseCreated": false,
+    "sqlExecutedDuringFix63": false,
+    "historicalMigrations": [
+      "0008_social_login_x_github.sql",
+      "0009_discord_social_login.sql"
+    ],
+    "historicalMigrationsStatus": "REVIEW; preserved"
+  },
+  "productionDeploymentPerformed": false,
+  "cloudflareApiLiveTestPerformed": false,
+  "fileCount": 982,
+  "branchConfirmationFallback": "CLOUDFLARE_PRODUCTION_BRANCH_CONFIRMED.txt",
+  "machineLocalFilesNotBundled": [
+    "wrangler.toml / wrangler.json(c)",
+    "TOOLS_CLOUDFLARE",
+    "BACKUPS_D1",
+    "user credentials and local secrets"
+  ],
+  "installationNote": "Scal pełny ZIP z istniejącym folderem projektu i zachowaj lokalne wrangler config, TOOLS_CLOUDFLARE, BACKUPS_D1 oraz uwierzytelnienie."
+}

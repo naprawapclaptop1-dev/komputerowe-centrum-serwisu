@@ -1,0 +1,19 @@
+NAPRAWA PC — AKADEMIA SERWISU PRO 5.0.0 / NEON MOTION ACADEMY
+
+WYGLĄD I ANIMACJE
+- Nowy ciemny interfejs o pełnej szerokości, neonowy motyw elektroniki.
+- Pięć skórek: Neon Blue/Cyan, Cyber Purple/Magenta, Matrix Green, Arctic Cyan, Titanium/Amber.
+- Animowane tło ścieżek PCB z impulsami, limitowanym DPR i pauzą w nieaktywnej karcie.
+- Animowane elementy stanowiska naprawczego, płyty, poświaty LED i skanowanie świetlne.
+- Delikatne podświetlenia zależne od kursora, efekty hover i przejścia sekcji.
+
+STEROWANIE I DOSTĘPNOŚĆ
+- Panel WYGLĄD z intensywnością: pełny, spokojny, wyłączony.
+- Obsługa prefers-reduced-motion; ustawienia zapisywane lokalnie.
+- Pełny ekran i tryb skupienia ukrywający boczną nawigację.
+- Fokus klawiatury, etykiety ARIA i brak automatycznego dźwięku.
+
+ZACHOWANIE PROJEKTU
+- Zachowano treść kursów, encyklopedię, laboratorium PRO, API, funkcje Pages, D1 i skrypty.
+- Nie dodano migracji ani zmian schematu D1.
+- Service Worker cache został podniesiony do 5.0.0 i obejmuje nowy CSS/JS.

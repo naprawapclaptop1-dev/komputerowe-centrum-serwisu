@@ -1,0 +1,61 @@
+/* AKADEMIA SERWISU PRO 3.9.4 — diagnostyka zgodna z docelowym wzorem 4x3 */
+:root{
+  --a394-bg:#041321;--a394-panel:#071c30;--a394-panel2:#09243b;--a394-line:#0c6aa6;
+  --a394-cyan:#20c6ff;--a394-text:#f0f8ff;--a394-muted:#a7bfd4;--a394-green:#00ad78;
+}
+html,body{background:var(--a394-bg);color:var(--a394-text)}
+.topbar{height:70px!important;min-height:70px!important;background:#030f1d!important;border-bottom:1px solid #12659c!important}
+.topbar-brand{flex-basis:204px!important;width:204px!important}
+.app-shell{grid-template-columns:204px minmax(0,1fr)!important;min-height:calc(100dvh - 70px)!important}
+.sidebar{width:auto!important;min-width:0!important;max-width:none!important;top:70px!important;height:calc(100dvh - 70px)!important}
+.main-area{min-width:0!important;width:100%!important;overflow:visible!important}
+.content-wrap{width:100%!important;max-width:none!important;padding:22px clamp(20px,2vw,34px) 48px!important}
+.view-section{min-height:calc(100dvh - 70px)!important;padding-bottom:48px!important}
+.view-section[hidden],.view-section:not(.active){display:none!important}
+
+/* Diagnostic page header and toolbar */
+.diagnostic-page-head{margin:0 0 18px}
+.diagnostic-breadcrumb{display:flex;align-items:center;gap:9px;margin:0 0 18px;color:#81a9c5;font-size:10px;font-weight:750;letter-spacing:.04em}
+.diagnostic-breadcrumb b{color:#27bfff;font-size:16px}
+.diagnostic-breadcrumb strong{color:#e6f5ff}
+.diagnostic-title-row{margin:0 0 18px!important;align-items:center}
+.diagnostic-title-row h1{font-size:clamp(27px,2.15vw,36px)!important;line-height:1.15!important}
+.diagnostic-title-row p{font-size:12px!important;max-width:820px!important}
+.diagnostic-filter-row{display:flex;align-items:center;gap:14px;margin:0 0 15px}
+.diagnostic-filter-search{display:flex;align-items:center;gap:9px;height:40px;max-width:530px;flex:1;background:#071c30;border:1px solid #145782;border-radius:10px;padding:0 13px;box-sizing:border-box}
+.diagnostic-filter-search:focus-within{border-color:#19bfff;box-shadow:0 0 0 3px #00aaff1b}
+.diagnostic-filter-search>span{color:#38c7ff;font-size:20px}
+.diagnostic-filter-search input{border:0;outline:0;background:transparent;color:#eef8ff;min-width:0;flex:1;font-size:12px}
+.diagnostic-filter-search input::placeholder{color:#7699b5}
+.diagnostic-result-count{color:#91b2ca;font-size:10px;font-weight:800;letter-spacing:.05em}
+
+/* Large photographic/technical cards in four columns, matching the requested reference. */
+.diagnostic-feature-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;align-items:stretch}
+.diagnostic-feature-card{min-width:0;overflow:hidden;border:1px solid #12669d;border-radius:16px;background:linear-gradient(155deg,#0a2741,#061a2d 82%);box-shadow:0 9px 26px #0005;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.diagnostic-feature-card:hover{transform:translateY(-3px);border-color:#16baff;box-shadow:0 15px 34px #0008,0 0 0 1px #08a9ee35}
+.diagnostic-feature-action{display:flex;width:100%;height:100%;min-width:0;flex-direction:column;text-align:left;padding:0;border:0;background:transparent;color:inherit}
+.diagnostic-feature-image{position:relative;display:block;width:100%;height:clamp(112px,9.2vw,150px);overflow:hidden;background:#06192b;border-bottom:1px solid #12669d}
+.diagnostic-feature-image img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .35s ease,filter .3s ease}
+.diagnostic-feature-card:hover .diagnostic-feature-image img{transform:scale(1.035);filter:saturate(1.12)}
+.diagnostic-feature-tag{position:absolute;top:11px;left:11px;display:inline-flex;align-items:center;min-height:23px;padding:3px 10px;border:1px solid #ffffff35;border-radius:999px;background:linear-gradient(135deg,#0878e9,#03a9cc);box-shadow:0 3px 12px #0007;color:#fff;font-size:9px;font-weight:900;letter-spacing:.045em}
+.diagnostic-feature-card:nth-child(3n) .diagnostic-feature-tag{background:linear-gradient(135deg,#00a86b,#08c59b)}
+.diagnostic-feature-card:nth-child(4n) .diagnostic-feature-tag{background:linear-gradient(135deg,#742de0,#a12bda)}
+.diagnostic-feature-card:nth-child(5n) .diagnostic-feature-tag{background:linear-gradient(135deg,#db6a07,#ff9b18)}
+.diagnostic-feature-copy{display:flex;flex:1;flex-direction:column;align-items:flex-start;gap:7px;padding:12px 13px 13px;min-width:0}
+.diagnostic-feature-title{display:block;width:100%;color:#f1f8ff;font-size:13px;font-weight:850;line-height:1.35;letter-spacing:-.012em}
+.diagnostic-feature-description{display:block;color:#a9c2d7;font-size:10.5px;line-height:1.5;min-height:46px}
+.diagnostic-feature-button{display:inline-flex;align-items:center;gap:7px;margin-top:auto;padding:7px 12px;border:1px solid #00c696;border-radius:999px;background:linear-gradient(110deg,#007f61,#00a979);color:#fff;font-size:10px;font-weight:850;box-shadow:0 5px 14px #00a87825}
+.diagnostic-feature-button b{font-size:13px}
+.diagnostic-feature-action:focus-visible{outline:3px solid #20c6ff;outline-offset:-4px}
+.diagnostic-feature-grid .empty-state{grid-column:1/-1;background:#071c30;border:1px dashed #1a668e;border-radius:13px;padding:24px;color:#b8d0e2}
+#view-diagnostics .compact-heading{margin:26px 0 12px}
+#view-diagnostics .warning-banner{margin-top:22px}
+
+/* Keep one vertical document scroll; module changes hide inactive sections. */
+html{scroll-behavior:auto;scroll-padding-top:78px}
+body{overflow-x:hidden!important;overflow-y:auto!important}
+.app-shell,.main-area,.content-wrap{overflow-x:clip!important;overflow-y:visible!important}
+@media(max-width:1450px){.diagnostic-feature-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:1080px){.diagnostic-feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.diagnostic-feature-image{height:145px}}
+@media(max-width:720px){.diagnostic-feature-grid{grid-template-columns:1fr;gap:11px}.diagnostic-feature-image{height:190px}.diagnostic-title-row{display:block}.diagnostic-title-row .title-metric{margin-top:12px}.diagnostic-filter-row{align-items:stretch;flex-direction:column}.diagnostic-filter-search{max-width:none;width:100%}.diagnostic-result-count{align-self:flex-end}}
+@media(prefers-reduced-motion:reduce){.diagnostic-feature-card,.diagnostic-feature-image img{transition:none!important}}

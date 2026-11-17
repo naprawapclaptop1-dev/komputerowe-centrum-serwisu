@@ -1,0 +1,10 @@
+AKADEMIA SERWISU PRO 3.8.9 — KOMPLETNA POPRAWKA INTERFEJSU
+
+- Przeniesienie modalnego okna procedury bezpośrednio pod BODY, poza kontener przycinający układ strony.
+- Pełnoekranowa, wyśrodkowana warstwa okna z poprawnym przewijaniem i limitem wysokości.
+- Czytelniejszy nagłówek procedury, cel diagnostyczny, ilustracja oraz sekcje.
+- Nawigacja sekcji przewijana poziomo bez obcinania.
+- Układ dwóch kolumn na szerokich ekranach i jednej kolumny na węższych.
+- Wersjonowanie adresów CSS/JS i jawne reguły cache dla strony startowej.
+- Widoczny numer 3.8.9 w tytule, pasku bocznym, stopce i oknie informacji.
+- Zachowano konfigurację produkcyjnego D1, migracje, dane, funkcje Pages i automat publikacji z wersji stabilnej 3.8.7.

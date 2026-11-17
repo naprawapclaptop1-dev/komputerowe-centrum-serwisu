@@ -1,0 +1,20 @@
+{
+  "id": "/?app=nauka-od-a-do-z",
+  "name": "NAUKA OD A DO Z — DLA WSZYSTKICH",
+  "short_name": "Nauka od A do Z",
+  "description": "Platforma edukacyjna dla każdego: od podstaw po zaawansowaną wiedzę, kursy, ćwiczenia, komputery, elektronikę, technikę i praktyczne umiejętności.",
+  "lang": "pl-PL",
+  "start_url": "/?view=home&source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#030816",
+  "theme_color": "#07162c",
+  "icons": [
+    {
+      "src": "/assets/pwa-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

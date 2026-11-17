@@ -1,0 +1,17 @@
+PUBLICATION GUARD — FIX51
+
+STATUS: LOCAL BUILD CANDIDATE / NOT PUBLISHED
+Build: 6.8.0-fix51-visual-academy-pro-20261105
+
+Wymagane przed publikacją:
+1. Uruchomić WYKONAJ_TESTY_FIX51.cmd na docelowym Windows 10/11 z Node.js 24.19.0.
+2. Otworzyć lokalny podgląd w Chrome i Edge; potwierdzić wszystkie zdjęcia, 18 ilustracji, responsywność i działanie kontrolek.
+3. Wykonać test PWA/offline po aktywacji Service Workera i sprawdzić brak pustych ilustracji po odłączeniu sieci.
+4. Operator ma sprawdzić treść techniczną plansz i dopasowanie do dokumentacji producenta. Plansze są edukacyjne, nie są boardview ani pinoutem serwisowym.
+5. Oddzielnie wykonać przegląd preview Cloudflare bez migracji produkcyjnej i bez zmiany sekretów.
+
+Zakaz automatycznej publikacji w tym pakiecie. Nie wykonano migracji D1, zapisów produkcyjnych, zmiany OpenAI ani konfiguracji OAuth.
+
+WYNIKI LOKALNE: 81/81 testów regresji, 221/221 kontroli składni, 12/12 zdjęć, 3/3 plakaty i 18/18 plansz zweryfikowane. Audyt bezpieczeństwa: 0 high/critical. Przed wdrożeniem pozostaje test na Windows/Node v24.19.0 i ręczna akceptacja Chrome/Edge.
+
+Przed publikacją sprawdź również licencje 12 odziedziczonych fotografii JPG i 3 plakatów lekcji. Ich pochodzenia/licencji nie udało się niezależnie potwierdzić w tej poprawce.

@@ -1,0 +1,43 @@
+PUBLICATION GUARD — NAUKA OD A DO Z FIX44
+=========================================
+
+Wymagany build:
+6.8.0-social-login-fix44-master-service-center-20261104
+
+Wymagane elementy lokalne:
+- WEB_PUBLISH/index.html: view-fix44 i data-view="fix44".
+- WEB_PUBLISH/assets/master-service-center-fix44.js.
+- WEB_PUBLISH/assets/master-service-center-fix44.css.
+- WEB_PUBLISH/assets/knowledge-updates-fix44.json z 64-znakowym SHA-256.
+- Service Worker: runtime, CSS i manifest FIX44 w CORE.
+- Cache PWA: build FIX44 oraz zachowane znaczniki wersji FIX28/FIX39/FIX40/FIX41/FIX42/FIX43.
+- functions/api/auth/status.js: ten sam identyfikator buildu.
+- ONECLICK_AKADEMIA.js: wymagane zasoby, funkcje i CSS FIX44.
+- AUTO_PUBLISH_WATCHER.js: kontrole lokalne i zdalne dla JS/CSS/manifestu FIX44.
+- scripts/test-master-service-center-fix44.mjs.
+- WYKONAJ_TESTY_FIX44.cmd.
+
+Warunki przed publikacją:
+1. Uruchomić WYKONAJ_TESTY_FIX44.cmd.
+2. Wymagać 67/67 testów i bezbłędnego skanu składni.
+3. Uruchomić lokalny ONECLICK verifyWeb() przez dedykowany test.
+4. Dopiero osobno sprawdzić dostępność assetów po wdrożeniu na adresie stabilnym.
+5. Wdrożenie produkcyjne nie może przejść, jeśli zdalny build, JS, CSS,
+   manifest lub cache Service Worker nie odpowiadają FIX44.
+6. Migracje D1 muszą być rozpatrywane niezależnie i nie mogą być uruchamiane
+   wyłącznie z powodu nowego ekranu FIX44.
+
+Status tego archiwum:
+- lokalna regresja: PASS;
+- lokalny verifyWeb: PASS;
+- deploy produkcyjny: NIE WYKONANO;
+- zdalny watcher: NIE URUCHAMIANO;
+- migracja D1: NIE WYKONANO;
+- produkcja pozostaje nienadpisana.
+
+Bezpieczne granice funkcjonalne:
+- BIOS: tylko odczyt/porównanie; brak flashowania.
+- Dyski: analiza nagłówków obrazu; brak zapisu i pełnego odzyskiwania.
+- Sieć: kalkulator i edukacja; brak skanowania routerów.
+- Sprzęt: brak nowych komend sterujących; most FIX43 tylko do odczytu.
+- Dane prywatne: pozostają lokalne, dopóki użytkownik ich jawnie nie eksportuje.

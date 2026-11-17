@@ -1,0 +1,2 @@
+NAPRAWA PC — AKADEMIA SERWISU PRO 3.9.4
+Pełne wydanie z nowym katalogiem Diagnostyki 4x3, wyszukiwarką i domyślną trasą Diagnostyka. Baza D1 i migracje bez zmian.

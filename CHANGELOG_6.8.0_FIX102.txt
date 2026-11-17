@@ -1,0 +1,34 @@
+NAUKA OD A DO Z — DLA WSZYSTKICH 6.8.0
+FIX102 — WINDOWS CMD STARTUP WINDOW GUARD
+Data: 2026-11-08
+
+PROBLEM
+- Skrót URUCHOM_NAUKE_OD_A_DO_Z.cmd był wyłącznie krótkim przekierowaniem do URUCHOM_AKADEMIE.cmd.
+- Jeżeli proces potomny kończył się błędem na bardzo wczesnym etapie lub CMD zwracał sterowanie przed pokazaniem wyniku, okno nadrzędne kończyło się bez własnego zatrzymania.
+- Komunikaty oraz kod zakończenia mogły zniknąć po około sekundzie, uniemożliwiając diagnostykę.
+
+NAPRAWIONO
+1. URUCHOM_NAUKE_OD_A_DO_Z.cmd jest teraz nadrzędnym strażnikiem startu.
+2. Główny URUCHOM_AKADEMIE.cmd uruchamia się w oddzielnym procesie cmd.exe /d /c. Awaria procesu potomnego nie zamyka nadrzędnego okna.
+3. Rodzic natychmiast przechwytuje kod zakończenia, wypisuje podsumowanie i zawsze czeka na klawisz przez PAUSE.
+4. Zapis startu, końca, lokalizacji projektu i kodu zakończenia trafia do LOGI/START_FIX102.log. Log nie zapisuje kluczy API ani tokenów.
+5. Dodano NPA_KEEP_CONSOLE. Główny skrypt zachowuje PAUSE przy uruchomieniu bezpośrednim, a przy starcie przez nadrzędny wrapper przekazuje zatrzymanie okna rodzicowi, bez podwójnego PAUSE.
+6. Dodano RESOLVE_NODE_FIX102.cmd jako zgodny wrapper do sprawdzonego resolvera FIX101.
+7. Dodano SPRAWDZ_NODE_FIX102.cmd, DIAGNOSTYKA_STARTU_FIX102.cmd oraz WYKONAJ_TESTY_FIX102.cmd. Wszystkie mają widoczne ścieżki sukcesu i błędu oraz zatrzymują okno.
+8. OneClick i Auto-Watcher uruchamiają test strażnika okna CMD przed publikacją.
+9. Zachowano wybór node.exe i NODE_EXE.path z FIX101. Nie zmieniamy systemowego PATH, rejestru ani instalacji Node.js.
+
+ZACHOWANO
+- Wersję produktu 6.8.0.
+- Metadane opublikowanego hotfixu FIX101 i runtime zdjęć FIX99. FIX102 jest poprawką lokalnego uruchamiacza Windows, nie zmienia runtime strony.
+- Istniejący projekt Cloudflare Pages, binding D1, sekrety i dane użytkowników.
+- Tryb Direct Upload i dotychczasowe bramki publikacji.
+- Bez automatycznego deployu i bez migracji D1.
+
+TESTY
+- Poprzednia pełna regresja FIX101: 156/156 PASS.
+- Nowe testy FIX102: 12/12 PASS.
+- Łącznie: 168/168 PASS.
+- Kontrola składni JavaScript: 5/5 PASS.
+- Testy wykonano w Linux na Node.js v22.16.0.
+- Windows CMD nie był dostępny w tym środowisku; zachowanie okna na Windows wymaga potwierdzenia przez uruchomienie nowego URUCHOM_NAUKE_OD_A_DO_Z.cmd.

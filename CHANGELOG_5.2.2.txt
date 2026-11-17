@@ -1,0 +1,21 @@
+NAPRAWA PC — AKADEMIA SERWISU PRO 5.2.2
+ULTRA SERVICE CENTER
+
+- 800 lekcji; zachowane wcześniejsze kursy i media.
+- Katalog 33 marek i 150 modeli referencyjnych, w tym Alienware, VAIO, Getac, NEC, Gateway, TUXEDO, SCHENKER/XMG, Eurocom i Star Labs.
+- Formularz kont e-mail/hasło i logowanie oparte o PBKDF2-HMAC-SHA256; stary profil pseudonimowy pozostaje obsługiwany.
+- Moderowane zgłoszenia dokładnych modeli i kart płyt do społeczności.
+- Rozszerzone globalne statystyki: wizyty, unikalne anonimowe sesje, odsłony dzienne/tygodniowe/miesięczne, aktywne profile, konta, postępy, otwarcia lekcji, odtworzenia wideo, ukończenia, naprawy i modele.
+- Rozszerzona sekcja wsparcia z filmem 33 s i polskimi napisami.
+- Poprawione walidatory publikacji: kontrolują zarówno główny arkusz skórek theme-500.css, jak i nowe dodatki theme-521.css.
+- Obserwator weryfikuje wszystkie nowe liczniki, producentów i modele przed publikacją.
+- Migracja 0007 tworzy globalny licznik unikalnych anonimowych identyfikatorów sesji z backfill z istniejących zapisów; dzienne agregaty wizyt i odsłon pozostają nienaruszone.
+
+UWAGA: e-mail nie jest weryfikowany, a reset hasła pocztą nie został skonfigurowany. Licznik oznacza sesje przeglądarki, nie zweryfikowane osoby.
+
+ROZSZERZENIE STRONY WSPARCIA
+- Sekcja wyjaśniająca, jak wsparcie pomaga utrzymywać bezpłatne lekcje, filmy, dokumentację, katalog modeli, laboratorium i dostępność serwisu.
+- Uczciwa informacja, że nie ma sztywnego procentowego podziału wpłat ani gwarancji określonej liczby publikacji.
+- Sekcja alternatywnej pomocy: zgłaszanie modeli i przypadków napraw, poprawianie treści oraz korzystanie z bezpłatnych lekcji.
+- FAQ o dobrowolności wpłat, dostępie do materiałów, przeznaczeniu wsparcia i bezpieczeństwie płatności.
+- Film 33 s z polską narracją, napisami VTT i nowym plakatem 16:9.

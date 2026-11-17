@@ -1,0 +1,40 @@
+/* FIX92 — real photographs, source credits and honest offline fallbacks. */
+.photo-catalog-fix90-status{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:10px 0 14px;padding:10px 14px;border:1px solid rgba(60,207,226,.28);border-radius:12px;background:linear-gradient(110deg,rgba(5,26,48,.96),rgba(14,26,64,.92));color:#bcecf5;font-size:11px;line-height:1.45;box-shadow:0 8px 28px rgba(0,0,0,.18)}
+.photo-catalog-fix90-status button{flex:0 0 auto;border:1px solid rgba(78,219,226,.5);border-radius:8px;padding:7px 11px;background:rgba(10,139,164,.2);color:#8ff5f1;font-size:10px;font-weight:800;cursor:pointer}
+.photo-catalog-fix90-status button:hover{background:rgba(10,139,164,.38)}
+.photo-credit-fix90{display:block;max-width:100%;padding:4px 7px;color:#a8c6d8;font-size:8px;line-height:1.35;overflow-wrap:anywhere;background:rgba(2,10,22,.78);border-top:1px solid rgba(93,190,216,.18)}
+.photo-credit-fix90 a{color:#80e9eb;text-decoration:underline;text-underline-offset:2px}
+.photo-credit-fix90 a:hover{color:#fff}
+.photo-fix90-online{object-fit:cover!important;object-position:center!important;background:#071a2d!important}
+.photo-fix90-offline-fallback{background:linear-gradient(135deg,#0b2037,#152b46)!important}
+.np640-slide>.photo-credit-fix90{position:absolute;z-index:4;right:12px;bottom:8px;max-width:48%;border:1px solid rgba(95,204,225,.2);border-radius:7px}
+.np630-photo-hero .photo-credit-fix90{font-size:7px}
+.np30-module-photo>.photo-credit-fix90{position:absolute;z-index:4;left:0;right:0;bottom:0;background:rgba(2,10,22,.72);border:0}
+.course-card>.photo-credit-fix90,.tool-card>.photo-credit-fix90,.method-card>.photo-credit-fix90{margin-top:-2px;border-radius:0 0 8px 8px}
+.course-lesson-figure>.photo-credit-fix90{margin-top:3px}
+.diagnostic-feature-image>.photo-credit-fix90{position:relative;margin-top:-2px}
+.repair-row-photo-wrap>.photo-credit-fix90,.repair-photo-stage>.photo-credit-fix90{display:block;padding:7px 9px}
+.repair-row-art.photo-fix90-online,.repair-photo-stage img.photo-fix90-online{object-fit:cover!important}
+.repair-row-art.photo-fix90-offline-fallback,.repair-photo-stage img.photo-fix90-offline-fallback{object-fit:contain!important}
+@media(max-width:640px){.photo-catalog-fix90-status{align-items:flex-start;flex-direction:column}.photo-catalog-fix90-status button{width:100%}.np640-slide>.photo-credit-fix90{max-width:75%;font-size:7px}}
+
+.photo-fallback-label-fix90{display:block;max-width:100%;padding:5px 7px;color:#d8c9a0;background:rgba(25,25,18,.82);border-top:1px solid rgba(216,201,160,.18);font-size:8px;font-weight:800;letter-spacing:.04em;line-height:1.35;overflow-wrap:anywhere}
+.photo-fallback-label-fix90[hidden]{display:none!important}
+.course-card .photo-credit-fix90,.course-card .photo-fallback-label-fix90,.tool-card .photo-credit-fix90,.tool-card .photo-fallback-label-fix90,.method-card .photo-credit-fix90,.method-card .photo-fallback-label-fix90{margin:0 -1px}
+.course-card-image,.catalog-card-art{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#071a2d}
+.diagnostic-feature-image img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.np30-module-photo img{width:100%;height:100%;object-fit:cover}
+
+/* FIX91: photo source status remains legible and image cards fill the frame. */
+.photo-catalog-fix90-status [data-fix90-status-text]{min-width:0;overflow-wrap:anywhere}
+.np640-slide>img,.np30-module-photo img,.diagnostic-feature-image img,.course-card-image,.course-lesson-figure img{display:block;width:100%;height:100%;min-width:0;object-fit:cover;object-position:center}
+.photo-fix90-online{object-fit:cover!important}
+
+/* FIX92: full-site photo queue keeps every loaded card eligible; home hero, slides and new modules receive first priority. */
+.photo-catalog-fix90-status{position:relative;z-index:3}
+.photo-catalog-fix90-status [data-fix90-status-text]{font-variant-numeric:tabular-nums}
+
+/* FIX96: do not let legacy visual guards obscure verified online photographs. */
+.photo-fix90-online{display:block!important;visibility:visible!important;opacity:1!important;object-fit:cover!important;object-position:center!important}
+#view-home .np630-photo-hero img.photo-fix90-online{z-index:0!important}
+#view-home .np640-slide>img.photo-fix90-online{z-index:-2!important;pointer-events:none}

@@ -1,0 +1,24 @@
+1
+00:00:00,000 --> 00:00:09,659
+Wi-Fi 7. MLO i 320 MHz działają tylko przy zgodności hosta, routera i regionu.
+
+2
+00:00:09,659 --> 00:00:19,318
+USB-C to kształt. Sprawdź protokół, obraz, ładowanie i dane portu hosta.
+
+3
+00:00:19,318 --> 00:00:28,977
+USB4 v2.0. Nie każdy komputer ma port o przepustowości 80 Gb/s.
+
+4
+00:00:28,977 --> 00:00:38,636
+Thunderbolt 5. Do 80 Gb/s i do 120 Gb/s Bandwidth Boost w określonym trybie.
+
+5
+00:00:38,636 --> 00:00:48,294
+Kabel i dock. Porównaj certyfikację, długość, firmware oraz wymagany tryb.
+
+6
+00:00:48,294 --> 00:00:57,953
+Test końcowy. Transfer, wyświetlanie, ładowanie, uśpienie i ponowne połączenie.
+

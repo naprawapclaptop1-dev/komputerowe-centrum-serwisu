@@ -1,0 +1,20 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 / FIX111
+Data: 09.11.2026
+
+[FIX111] Naprawa kolejki zdjęć i migracji przypisań fotografii
+
+- Wyłączono kosztowne pobieranie zdjęć z wszystkich ukrytych kart w tle.
+- Cały katalog jest nadal wykrywany i rejestrowany, lecz zdjęcia są pobierane progresywnie tylko dla aktywnej zakładki oraz elementów w pobliżu widoku.
+- Dodano ponowne kolejkowanie po zmianie zakładki, przewijaniu, zmianie rozmiaru okna i dodaniu kart przez JavaScript.
+- Zachowano limit Openverse (180 anonimowych żądań dziennie, odstęp 3,3 s) i niezależny fallback Wikimedia Commons.
+- Dodano migrację starych przypisań FIX109: zdjęcie zarezerwowane dla kafelka strony głównej jest zwalniane, jeżeli poprzednio przypisano je do innej karty.
+- Zarezerwowano 21 odrębnych zdjęć startowych dla 15 kafelków modułów i 6 kart specjalizacji.
+- Kontrakt publikacji sprawdza istnienie każdego zdjęcia startowego, jego kategorię, unikalność, HTML, manifest, runtime i Service Worker.
+- OneClick i Auto-Publish Watcher korzystają z kontraktu FIX111 przed migracjami D1.
+- Zachowano istniejący cache PWA FIX109, dane użytkowników, konto Cloudflare, Pages i binding istniejącej bazy D1.
+- Zachowano 147 metod serwisowych i powiązany renderer.
+- Dodano WYKONAJ_TESTY_FIX111.cmd, skrypt testowy i raport RAPORT_FIX111_TESTY.log.
+
+Wersja produktu pozostaje 6.8.0. Nie wykonano migracji D1 i nie twierdzi się, że wdrożenie produkcyjne zostało zakończone.
+
+Ograniczenie: fotografie dla kursów i innych dynamicznych kart są wyszukiwane stopniowo z licencjonowanych źródeł. Brak odpowiedniej fotografii lub niedostępność dostawcy może nadal pozostawić oznaczoną ilustrację zastępczą; testy lokalne nie zastępują weryfikacji obrazu na produkcyjnej stronie.

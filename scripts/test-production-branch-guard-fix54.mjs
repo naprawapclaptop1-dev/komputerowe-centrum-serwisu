@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+const watcher = fs.readFileSync(new URL('../AUTO_PUBLISH_WATCHER.js', import.meta.url), 'utf8');
+const fn = watcher.match(/async function verifyProjectBranch\(row\)\s*\{[\s\S]*?\n\}/)?.[0] || '';
+assert.ok(fn, 'brak async verifyProjectBranch');
+assert.match(fn, /resolveCloudflarePagesProductionBranch/, 'brak automatycznego odczytu gałęzi przez Pages API');
+assert.match(fn, /CLOUDFLARE_PRODUCTION_BRANCH_CONFIRMED\.txt/, 'musi istnieć awaryjne ręczne potwierdzenie gałęzi');
+assert.match(fn, /if\s*\(!branch\s*&&\s*manual\)/, 'ręczne potwierdzenie może być użyte tylko gdy API/Wrangler nie podały gałęzi');
+assert.match(fn, /BRANCH\s*=\s*branch/, 'wdrożenie musi użyć gałęzi zwróconej przez konfigurację projektu');
+assert.match(watcher, /await verifyProjectBranch\(found\)/, 'sprawdzenie gałęzi musi być zakończone przed deploy');
+assert.match(watcher, /scripts\/test-pages-branch-discovery-fix63\.mjs/, 'test odkrywania gałęzi musi być częścią preflight');
+assert.match(fs.readFileSync(new URL('../CLOUDFLARE_PRODUCTION_BRANCH_CONFIRMED.txt', import.meta.url), 'utf8'), /Pusty plik blokuje publikację/);
+console.log('[PASS] Production Branch jest automatycznie pobierana z konfiguracji Cloudflare Pages API.');
+console.log('[PASS] Gdy API i Wrangler nie ujawniają gałęzi, brak ręcznego potwierdzenia blokuje deploy.');
+console.log('[PASS] Ręczne potwierdzenie nie może być sprzeczne z wartością zwróconą przez Cloudflare.');
+console.log('PRODUCTION BRANCH GUARD FIX63: 3/3 PASS');

@@ -1,0 +1,65 @@
+NAUKA OD A DO Z 6.8.0 — AUDYT ZAKRESU FIX187–FIX193
+==================================================
+
+Audyt wykonano na dostarczonym archiwum FIX186. Celem było uniknięcie dodawania
+powielonych zakładek i funkcji, które już są obecne w projekcie.
+
+FIX187 — NAUCZYCIEL / COACH
+- Istnieje Learning Coach w Master Service Center FIX44 oraz lokalny Learning Coach
+  w Master Control Center FIX47.
+- Istnieje również istniejący endpoint Gemini /api/chat używany przez Akademię.
+- Ograniczenie: opis FIX44 jawnie określa Coach jako regułowy/lokalny, nie generatywny.
+- Nie deklarujemy pełnej adaptacji AI ani analizy całego profilu jako wdrożonej.
+
+FIX188 — WARSZTAT WIRTUALNY
+- Istnieje Realny Warsztat Serwisowy FIX42 i Master Service Center FIX44.
+- Istnieją ćwiczenia pomiarowe EDU, schematy/Boardview z plików użytkownika,
+  laboratorium i symulowane scenariusze.
+- Ograniczenie: nie potwierdzono pełnego interaktywnego modelu 3D rozbierania PC.
+
+FIX189 — DIAGNOSTYKA WINDOWS
+- FIX186 dodaje kolektor PowerShell WPR/StorDiag/EventLog, eksport XML/JSON/CSV,
+  kontrolę SHA-256 i raportowanie podpisów.
+- Ograniczenie: PowerShell nie został uruchomiony w tym środowisku Linux.
+  Nie ma potwierdzenia pomiarów czujników sprzętowych ani sterowania sprzętem.
+
+FIX190 — EGZAMINY MASTER
+- Istnieją egzaminy, lokalne certyfikaty, historia podejść, portfolio i egzaminy
+  praktyczne FIX186.
+- Certyfikaty są edukacyjne, lokalne; nie są akredytacją zawodową.
+
+FIX191 — CENTRUM SERWISOWE
+- Istnieją zlecenia lokalne, baza części, karty serwisowe, QC i raporty w modułach
+  FIX42/FIX44/FIX47 oraz FIX63/FIX64.
+- Dane modułów lokalnych nie są automatycznie równoznaczne z synchronizacją D1.
+
+FIX192 — ENCYKLOPEDIA / BEZPIECZEŃSTWO
+- Projekt ma istniejące katalogi wiedzy, lekcje i moduły diagnostyczne/firmware.
+- W dostarczonym archiwum nie potwierdzono odrębnego, kompletnego sandboxa malware
+  z izolowanym uruchamianiem próbek; nie należy deklarować takiej funkcji.
+
+FIX193 — POSTĘPY
+- Istnieją lokalne postępy, XP, ścieżki, historia egzaminów, certyfikaty, backup/import
+  i synchronizacja kont z odrębną zgodą.
+- Zachować istniejące klucze i dane; nie wykonywać resetu postępów.
+
+WYNIK
+-----
+Większość obszarów z listy FIX187–FIX193 jest już reprezentowana przez wcześniejsze
+moduły projektu. Ponowne dodanie ich jako nowych paneli spowodowałoby duplikację.
+Najbardziej konkretne potwierdzone zmiany wykonane w tym pakiecie dotyczą FIX194:
+wyłącznie Google, Microsoft i Facebook w bieżącym UI, statusie i starcie OAuth.
+
+Do pełnego domknięcia pozostały: rzeczywiste uruchomienie kolektora na Windows 10/11,
+walidacja brakujących elementów warsztatu 3D i sandboxa bezpieczeństwa oraz produkcyjny
+test OAuth z prawdziwymi sekretami dostawców. Tych czynności nie można potwierdzić
+na podstawie samego lokalnego pakietu w środowisku Linux.
+
+
+AKTUALIZACJA PO FIX194 — FIX195 (17.11.2026)
+-------------------------------------------
+- Dodano FIX195: interaktywny schemat 2D podzespołów PC w Centrum Mistrza PRO.
+- Dodano cztery scenariusze edukacyjnego laboratorium bezpieczeństwa.
+- FIX195 nie jest modelem 3D ani izolowanym sandboxem malware; ograniczenia są jawne.
+- Test kontraktu FIX195: 10/10 PASS; składnia JS: PASS.
+- Regresja FIX194: 9/9; FIX186: 13/13 + 7/7; runner FIX186: PASS.

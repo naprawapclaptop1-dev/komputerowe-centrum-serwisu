@@ -1,0 +1,36 @@
+NAUKA OD A DO Z — CHANGELOG FIX118
+Data: 2026-11-10
+Produkt: 6.8.0 (bez zmiany wersji produktu)
+
+NAPRAWA ZDJEC STRONY GLOWNEJ
+- Dodano statyczne src 21 unikalnych fotografii kuratorowanych do odpowiednich slotow strony glownej i sekcji specjalizacji.
+- Zachowano osobny lokalny SVG fallback dla kazdego slotu oraz oznaczenie fallbacku jako ilustracji.
+- Zachowano widoczna atrybucje autora, strony zrodla i licencji.
+- Dodano niezalezna rejestracje statycznych przypisan w glownym Photo Catalog, przed uruchomieniem kolejki wyszukiwania.
+
+LOKALNA BIBLIOTEKA PWA
+- Zmieniono cache aplikacji Service Worker na `nauka-6.8.0-fix118-photo-library-20261110`, aby przegladarka aktywowala nowe wydanie.
+- Dodano niezalezny Cache Storage `academy-photo-library-fix118`.
+- Service Worker zapisuje udane odpowiedzi obrazow z Pexels/Wikimedia (w tym odpowiedzi opaque dla <img>) i moze je ponownie podawac offline.
+- 21 slotow strony glownej jest ladowanych z niskim priorytetem, aby ich obrazy mogly zostac zapisane lokalnie.
+- Pamiec offline dziala na danej domenie i przegladarce po pierwszym udanym pobraniu; nie jest przenoszona w ZIP ani synchronizowana miedzy urzadzeniami.
+
+DIAGNOSTYKA I PUBLIKACJA
+- Dodano zwijany panel „Kontrola biblioteki zdjec” ze statusem 21 slotow, liczba fallbackow i licznikiem Cache Storage.
+- Dodano akcje ponowienia ladowania slotow pozostawionych na fallbacku.
+- OneClick i Auto-Watcher sprawdzaja FIX118, statyczne src, manifest biblioteki, cache Service Workera i test biblioteki zdjec.
+- Dodano test symulujacy zapis i ponowne odczytanie cross-origin opaque image w Cache Storage.
+
+ZACHOWANO
+- Wersje produktu 6.8.0.
+- Istniejacy projekt Cloudflare Pages i binding D1.
+- Brak nowych migracji D1 i brak zmian schematu danych.
+- Limit Openverse 180 zapytan dziennie i kolejke aktywnego widoku.
+- Poprzednie zdjecia lokalne, galerie, lekcje, narzedzia i prywatne zalaczniki.
+
+WERYFIKACJA
+- 53/53 testow regresji PASS.
+- 10/10 kontroli skladni PASS.
+- 3/3 manifesty JSON PASS.
+- ZIP jest tworzony osobno i przechodzi test integralnosci.
+- Publikacja produkcyjna i migracje D1 nie byly wykonywane przez budowe FIX118.

@@ -1,0 +1,39 @@
+NAUKA OD A DO Z — CHANGELOG FIX43
+================================
+Build: 6.8.0-social-login-fix43-knowledge-feedback-20261104
+Data przygotowania: 2026-11-04
+
+DODANO
+- Nowy widok Centrum Wiedzy FIX43 z dziesiecioma obszarami roboczymi.
+- Lokalny Board Doctor z jawna logika dopasowan; brak wyniku nie tworzy
+  wymyslonej diagnozy.
+- Power Sequence Analyzer z wykrywaniem pierwszego brakujacego sygnalu.
+- Opcjonalny odczyt telemetrii Web Serial; bez zapisu do urzadzenia.
+- Lokalna biblioteka dokumentow w IndexedDB.
+- Katalog komponentow edukacyjnych i wpisow wlasnych.
+- Dziennik dowodow naprawy oraz drukowalny raport.
+- Kontrola kompatybilnosci PC na podstawie danych podanych przez uzytkownika.
+- Lokalny graf wiedzy tworzony z zapisanych przypadkow i dokumentacji.
+- Zaszyfrowany eksport/import Offline PRO 2.0 (PBKDF2 + AES-256-GCM).
+- Przywracanie backupu czyści poprzedni magazyn IndexedDB przed odtworzeniem
+  dokumentow, aby nie pozostawiac osieroconych plikow.
+- Osobna zakladka ocen strony i zglaszania problemow.
+- Ocena 1–5, osobne pola „co dodac”, „co zmienic” i „co nie dziala”.
+- Lokalna historia opinii, eksport JSON i dobrowolna wysylka do API.
+- API opinii i chroniona kolejka administratora.
+- Addytywna migracja D1 0017.
+
+ZABEZPIECZENIA
+- Walidacja danych, limit rozmiaru i limit czestotliwosci opinii.
+- same-origin i jawna zgoda przed wysylka opinii.
+- Skrzynka administracyjna chroniona checkAdmin.
+- Ograniczenie Web Serial do odczytu; bez navigator.serial writer, WebUSB i HID.
+- Szyfrowanie kopii lokalnej z uwierzytelnieniem AES-GCM.
+- Zachowanie starszych widokow, modulow i cache PWA.
+- Aktualizacja OneClick, Watcher i starych launcherow testowych do FIX43.
+
+ZACHOWANIE
+- Wersja aplikacji: 6.8.0 (bez zmiany numeru wersji przy poprawce).
+- Wszystkie 744 pliki FIX42 zachowane.
+- 0 usunietych plikow; dodano 9 nowych plikow funkcjonalnych/testowych.
+- Produkcja i D1 pozostaja nietkniete.

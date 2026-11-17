@@ -1,0 +1,55 @@
+RAPORT ZMIAN PLIKÓW — FIX184
+
+BAZA PORÓWNAWCZA
+NAUKA_OD_A_DO_Z_6_8_0_FIX183_SPECJALIZACJE_SERWISOWE.zip
+Liczba plików w bazowym archiwum: 2164
+
+WYNIK PORÓWNANIA PO FIX184
+- Pliki bazowe zachowane: 2164/2164.
+- Brakujące pliki bazowe: 0.
+- Pliki bazowe zmienione celowo: 10.
+- Nowe pliki: 13 (9 plików FIX184 oraz 4 dokumenty wydania).
+- Pliki bazowe usunięte: 0.
+- Nieoczekiwane zmienione pliki bazowe: 0.
+
+10 CELOWO ZMIENIONYCH PLIKÓW
+1. ONECLICK_AKADEMIA.js — preflight FIX184 i wymaganie testów/assetów.
+2. AUTO_PUBLISH_WATCHER.js — lokalna i zdalna kontrola metadanych FIX184.
+3. WEB_PUBLISH/release.json — metadane FIX184, bez zmian wersji produktu i D1.
+4. WEB_PUBLISH/index.html — panel i nawigacja FIX184.
+5. WEB_PUBLISH/service-worker.js — zasoby FIX184 w istniejącym cache aplikacji.
+6. scripts/test-fix175-professional-academy.mjs — aktualna liczba zakładek.
+7. scripts/test-fix180-system-diagnostics.mjs — aktualna liczba zakładek.
+8. scripts/test-fix181-deployment-migration-refurb.mjs — aktualna liczba zakładek.
+9. scripts/test-fix182-specialist-systems.mjs — aktualna liczba zakładek.
+10. scripts/test-fix183-advanced-service-lab.mjs — aktualna liczba zakładek.
+
+13 NOWYCH PLIKÓW
+- WEB_PUBLISH/assets/academy-expert-diagnostics-fix184.js
+- WEB_PUBLISH/assets/academy-expert-diagnostics-fix184.css
+- scripts/test-fix184-expert-diagnostics.mjs
+- scripts/run-tests-fix184.mjs
+- WYKONAJ_TESTY_FIX184.cmd
+- FIX184_BUILD_SUMMARY.json
+- FIX184_DUPLICATE_AUDIT.txt
+- FIX184_ACTUAL_FUNCTIONAL_AUDIT.txt
+- FIX184_FULL_TESTS.log
+- CHANGELOG_6.8.0_FIX184.txt
+- README_FIX184.txt
+- FIX184_FILE_CHANGE_REPORT.txt
+- FIX184_EXISTING_VS_ADDED_AUDIT.txt
+
+ZACHOWANIE
+- Produkt 6.8.0.
+- 35 istniejących widoków.
+- Istniejąca D1 i schemat danych; brak migracji.
+- Istniejący projekt Cloudflare Pages i Gemini secret.
+- Istniejący identyfikator cache aplikacji i oddzielny cache zdjęć.
+- Poprzednie klucze postępu FIX179–FIX183; FIX184 ma własny klucz localStorage.
+- Pliki lokalne użytkownika/sekrety nie są umieszczane w ZIP.
+
+WERYFIKACJA
+Porównanie SHA-256 każdego pliku bazowego z ZIP FIX183:
+2164/2164 zachowanych; tylko 10 wskazanych plików ma planowaną zmianę.
+Wszystkie 13 nowych plików znajduje się w wykazie powyżej.
+Zero nieoczekiwanych zmian i zero usuniętych plików bazowych.

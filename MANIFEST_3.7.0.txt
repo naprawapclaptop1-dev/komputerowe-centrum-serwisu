@@ -1,0 +1,11 @@
+AKADEMIA SERWISU PRO 3.7.0 — MANIFEST
+
+Najważniejsze katalogi:
+- WEB_PUBLISH/ — jedyny katalog wysyłany na Cloudflare Pages.
+- WEB_PUBLISH/assets/ — aplikacja, baza wiedzy, unikalne grafiki, czat lokalny i statystyki.
+- WEB_PUBLISH/media/ — 12 różnych zdjęć, 10 filmów i pliki napisów.
+- functions/ — opcjonalny backend; będzie publikowany tylko wtedy, gdy użytkownik zachowa swój wrangler.jsonc.
+- migrations/, seeds/ — materiały do aktualizacji istniejącej bazy; nie tworzą nowej bazy.
+- AUTO_PUBLISH_WATCHER.js — watcher statyczny lub pełny zależnie od obecności istniejącej konfiguracji.
+
+W ZIP nie ma wrangler.jsonc, lokalnych tokenów ani node_modules. Zachowaj z własnego projektu TOOLS_CLOUDFLARE i wrangler.jsonc, jeśli istnieje.

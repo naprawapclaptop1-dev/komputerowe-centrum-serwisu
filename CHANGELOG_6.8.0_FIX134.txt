@@ -1,0 +1,32 @@
+NAUKA OD A DO Z — CHANGELOG 6.8.0 FIX134
+Data: 2026-11-13
+
+FIX134 — BEZPIECZNE PRZEKIEROWANIA PROXY ZDJĘĆ I KONTROLA WATCHERA
+
+1. Naprawa HTTP 502 w Cloudflare Pages Function
+- Usunięto nieobsługiwany w Cloudflare Workers tryb redirect: error.
+- Dodano redirect: manual i ręczną obsługę statusów 301/302/303/307/308.
+- Każdy docelowy URL jest sprawdzany: wyłącznie HTTPS, bez danych logowania, tylko hosty z zamkniętej allowlisty Pexels/Wikimedia.
+- Limit łańcucha przekierowań wynosi 4; pętle są wykrywane.
+- Odpowiedzi inne niż obsługiwane obrazy rastrowe nie są liczone jako zdjęcia ani zapisywane w cache.
+
+2. Diagnostyka
+- Błędy proxy zwracają X-Photo-Proxy-Fix oraz X-Photo-Error.
+- Watcher zapisuje host źródłowy/końcowy, status upstream, typ MIME, liczbę przekierowań i kod błędu.
+
+3. Poprawka kontraktu Watchera
+- Manifest photo-sources-online.json nadal jest sprawdzany jako FIX129.
+- home-photo-library-fix118.json jest sprawdzany jako FIX131, zgodnie z jego faktycznym polem hotfix.
+- Dodano oddzielne diagnostyki sitewidePolicyValid, homepagePolicyValid, homepageMarkupValid i liczby wpisów/unikalnych ID.
+
+4. Cache PWA
+- Uzgodniono deklarowaną nazwę cache biblioteki zdjęć z cache'em Service Workera FIX134.
+- Cache zdjęć offline FIX131 pozostaje osobnym cache'em.
+
+5. Testy
+- Dodano testy przekierowania do hosta allowlisty, blokady hosta obcego, wymuszenia HTTPS, odrzucania URL-i z loginem/hasłem, pętli, limitu czterech skoków, błędnego MIME i nagłówków diagnostycznych.
+- Pełny zestaw: 16/16 skryptów PASS w środowisku testowym Node v22.16.0.
+- Wymagana ponowna weryfikacja w środowisku użytkownika Node v26.13.0 oraz na domenie produkcyjnej.
+
+Wersja produktu pozostaje 6.8.0. Poprawka FIX134 nie zmienia schematu D1 ani nie dodaje migracji.
+Wdrożenie produkcyjne nie zostało wykonane przez autora tej paczki; wynik potwierdzi dopiero OneClick/Watcher po uruchomieniu na koncie Cloudflare użytkownika.

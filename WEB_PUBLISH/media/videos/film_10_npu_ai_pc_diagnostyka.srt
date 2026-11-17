@@ -1,0 +1,24 @@
+1
+00:00:00,000 --> 00:00:09,251
+CPU, GPU, NPU. Trzy rodzaje zasobów mogą wykonywać różne części zadania.
+
+2
+00:00:09,251 --> 00:00:18,503
+Menedżer zadań. Sprawdź, czy system wykrywa NPU i raportuje jego obciążenie.
+
+3
+00:00:18,503 --> 00:00:27,754
+Wymagania funkcji. 40+ TOPS dotyczy wielu funkcji Copilot+ — sprawdzaj osobno.
+
+4
+00:00:27,754 --> 00:00:37,005
+Sterowniki. Zweryfikuj OEM, architekturę i wersje runtime.
+
+5
+00:00:37,005 --> 00:00:46,257
+Test aplikacji. Zapisz czas, użycie CPU/GPU/NPU i pobór energii.
+
+6
+00:00:46,257 --> 00:00:55,508
+Wniosek. Sama obecność NPU nie gwarantuje zgodności każdej aplikacji AI.
+

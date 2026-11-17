@@ -1,0 +1,41 @@
+NAUKA OD A DO Z 6.8.0 — FIX147 FILE CHANGE REPORT
+
+PRZYCZYNA BŁĘDU Z LOGU FIX105
+Publisher OneClick i Auto-Watcher nadal wymagały lessonTotalBadge=1078, podczas gdy FIX145 poprawnie rozszerzył katalog o 5 lekcji (1083 łącznie). Blokada występowała przed etapem kopii/migracji D1 i publikacji.
+
+ZMIENIONE PLIKI
+- ONECLICK_AKADEMIA.js — wymaga aktywnego FIX147 i 1083 lekcji; log/return raportuje 1083; nadal wymaga trzeciego pakietu szkoleniowego.
+- AUTO_PUBLISH_WATCHER.js — walidacja lokalna i publiczna sprawdza 1083 lekcje; aktualny cache PWA FIX147.
+- WEB_PUBLISH/index.html — dodany znacznik academy-hotfix FIX147; treść kursów i layout bez modyfikacji.
+- WEB_PUBLISH/release.json — latestHotfix FIX147, build/cache, bieżący katalog 1083 (1078 + 5), bez zmiany wersji produktu.
+- WEB_PUBLISH/service-worker.js — rotacja CACHE_NAME do FIX147; PHOTO_CACHE_NAME academy-photo-library-fix135 pozostaje bez zmian.
+- scripts/photo-catalog-publication-contract-fix115.cjs — FIX147 zachowuje aktywny runtime zdjęć FIX136.
+- scripts/run-tests-fix137.mjs — nowy test FIX147 dodany do wymaganego preflight.
+- scripts/test-fix147-publisher-lesson-count.mjs — nowy test integracyjny Publisher/Watcher/HTML/release/cache i faktycznego runtime 1083 lekcji.
+- Zaktualizowano aktywne oczekiwania cache/release w testach integracyjnych FIX136/FIX137 i FIX133.
+- RAPORT_FIX136_TESTY.log oraz RAPORT_FIX137_TESTY.log — aktualne wyniki pełnego uruchomienia preflight.
+
+NOWE PLIKI
+- CHANGELOG_6.8.0_FIX147.txt
+- README_FIX147.txt
+- scripts/test-fix147-publisher-lesson-count.mjs
+- RAPORT_FIX147_TESTY.log
+
+WYNIKI
+- Pełny preflight FIX137 + FIX147: PASS.
+- Regresja FIX136: 14/14 PASS.
+- Cache publikatora FIX137: 6/6 PASS.
+- HERO USB-C FIX144: 3/3 PASS.
+- Centrum Mistrza PRO FIX145: 7/7 PASS.
+- Strażnik widoków FIX146: 7/7 PASS.
+- Kontrakt liczby lekcji FIX147: 3/3 PASS.
+- node --check: ONECLICK_AKADEMIA.js, AUTO_PUBLISH_WATCHER.js, WEB_PUBLISH/service-worker.js — PASS.
+- Runtime ACADEMY_DATA: 1083 unikalne ID lekcji.
+
+ZACHOWANE
+- Produkt 6.8.0; 1083 lekcje; 35 widoków; 19 przypisań zdjęć; PHOTO_CACHE_NAME FIX135.
+- Projekt Cloudflare Pages, istniejący binding i baza D1; brak nowych migracji D1.
+- Konta, OAuth, postępy i pozostałe moduły.
+
+STATUS
+Źródła i pakiet przechodzą lokalny preflight. Produkcyjna publikacja Cloudflare NIE została wykonana w tym środowisku.

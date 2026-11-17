@@ -1,0 +1,26 @@
+TEST REPORT 3.9.10 — OPENAI KEY VIA CMD
+======================================
+
+PASS | Składnia 40 plików JavaScript projektu.
+PASS | 7/7 testów konfiguratora klucza OpenAI.
+PASS | Walidacja kluczy projektowych i serwisowych OpenAI; odrzucenie pustych i niepoprawnych wartości.
+PASS | Wykrywanie istniejącego sekretu OPENAI_API_KEY.
+PASS | Sekret kierowany do Pages secret bulk przez stdin, bez pliku i bez argumentu procesu.
+PASS | Jawne wskazanie Pages environment production podczas listowania i zapisu sekretu.
+PASS | Test ukrytego wpisu potwierdza, że żaden znak klucza nie trafia do wyjścia terminala.
+PASS | Wartość klucza jest redagowana z komunikatów błędów.
+PASS | Główny URUCHOM_AKADEMIE.cmd konfiguruje sekret przed ONECLICK_AKADEMIA.js.
+PASS | Istniejący sekret pomija pytanie; ENTER pomija OpenAI i pozwala skorzystać z Workers AI.
+PASS | USTAW_KLUCZ_OPENAI.cmd obsługuje bezpieczną rotację sekretu.
+PASS | Makieta Wrangler potwierdziła ukryty wpis, zapis sekretu przez stdin do production i odczyt nazwy po zapisie.
+PASS | 5/5 migracji testowych SQLite; bez dodawania migracji do produkcyjnej D1.
+PASS | 131 identyfikatorów HTML unikalnych; 34 lokalne odwołania HTML do zasobów istnieją.
+PASS | Testy hybrydowego czatu: OpenAI primary, Cloudflare fallback po HTTP 429 i przerwanym strumieniu, brak ujawnienia sekretu w statusie.
+PASS | ZIP został utworzony i przechodzi test integralności.
+
+OGRANICZENIA TESTU
+------------------
+Nie wykonano połączenia do rzeczywistego konta Cloudflare ani zapisu sekretu właściciela; test zapisu używał makiety Wrangler i sztucznego klucza testowego.
+Nie użyto ani nie zażądano wartości klucza użytkownika.
+Po instalacji URUCHOM_AKADEMIE.cmd poprosi o klucz tylko wtedy, gdy Pages nie ma
+sekretu OPENAI_API_KEY w środowisku production. Wartość wpisywana jest ukryta.

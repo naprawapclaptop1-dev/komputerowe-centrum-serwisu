@@ -1,0 +1,7 @@
+3.9.4 — POPRAWIONY WIDOK DIAGNOSTYKI
+- Domyślne otwarcie Akademii w zakładce Diagnostyka (Pulpit pozostaje osobnym widokiem).
+- Katalog 12 dużych kart diagnostycznych wzorowany na przesłanym projekcie.
+- Każda karta ma odrębną ilustrację, kategorię, opis i otwiera istniejącą lekcję serwisową.
+- Wyszukiwarka kart BIOS/UEFI, Windows/WHEA, GPU, ARM, USB, USB-C, HDD/SSD, POST, bateria, RAM, chłodzenie i VRM.
+- Ujednolicony rozmiar nagłówka, nawigacji, kart i obrazów.
+- Nie zmieniono D1, wrangler.toml ani migracji.

@@ -1,0 +1,37 @@
+{
+  "release": "5.0.1",
+  "build": "5.0.1-neon-motion-navigation-fix-20261101",
+  "name": "Naprawa PC — Akademia Serwisu PRO / Neon Motion Academy",
+  "default_view": "home",
+  "ui": "neon-motion-electronics-academy",
+  "preserves_existing_pages_project": true,
+  "preserves_existing_d1_binding": true,
+  "destructive_database_migrations": false,
+  "appearance_preferences": "local-browser-storage-only",
+  "motion_accessibility": [
+    "full",
+    "calm",
+    "off",
+    "system-reduced-motion"
+  ],
+  "new_features": [
+    "five-color-academy-skins",
+    "animated-circuit-background-with-pause-and-dpr-cap",
+    "animated-motherboard-and-bench-visuals",
+    "pointer-responsive-card-highlights",
+    "scroll-reveal-transitions",
+    "full-screen-mode",
+    "focus-layout-mode",
+    "motion-intensity-settings",
+    "prefers-reduced-motion-support",
+    "offline-pwa-cache-for-new-theme-and-motion-engine",
+    "local-only-appearance-preferences"
+  ],
+  "bugfixes": [
+    "guarded-event-binding-when-optional-controls-are-absent",
+    "repair-shortcut-delegated-navigation-fallback",
+    "sidebar-viewport-height-and-scroll-fix",
+    "readable-two-line-quick-repair-labels",
+    "mobile-sidebar-close-control"
+  ]
+}

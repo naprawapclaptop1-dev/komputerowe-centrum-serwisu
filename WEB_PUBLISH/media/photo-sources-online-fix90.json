@@ -1,0 +1,204 @@
+{
+  "version": "6.8.0-fix90-photo-catalog-online-first",
+  "primary": "Topic-matched licensed photographs are assigned online-first from verified Pexels seed links, Openverse and Wikimedia Commons. SVG assets are fallback illustrations only.",
+  "fallback": "When a licensed source is offline, rate-limited, unsuitable or duplicated, keep the unique topic-specific SVG illustration and label it as an illustration; never claim it is a photograph.",
+  "license": {
+    "name": "Pexels License (seed set); Openverse CC0 / CC BY / CC BY-SA; Wikimedia Commons CC0 / CC BY / CC BY-SA",
+    "url": "https://www.pexels.com/license/",
+    "terms": "Photos are free to use; attribution is not required, but author and source links are included as courtesy."
+  },
+  "photos": [
+    {
+      "id": "pcb-microscope",
+      "topic": "Inspekcja płyty głównej pod mikroskopem",
+      "provider": "Pexels",
+      "author": "Tima Miroshnichenko",
+      "page": "https://www.pexels.com/photo/a-person-repairing-the-board-on-the-microscope-6755066/",
+      "asset": "https://images.pexels.com/photos/6755066/pexels-photo-6755066.jpeg?auto=compress&dpr=1&h=750&w=1260",
+      "category": "board",
+      "license": "Pexels License",
+      "licenseUrl": "https://www.pexels.com/license/"
+    },
+    {
+      "id": "motherboard-closeup",
+      "topic": "Zbliżenie płyty głównej i elementów PCB",
+      "provider": "Pexels",
+      "author": "Mikhail Nilov",
+      "page": "https://www.pexels.com/photo/close-up-photo-of-motherboard-9242892/",
+      "asset": "https://images.pexels.com/photos/9242892/pexels-photo-9242892.jpeg?auto=compress&dpr=1&h=750&w=1260",
+      "category": "board",
+      "license": "Pexels License",
+      "licenseUrl": "https://www.pexels.com/license/"
+    },
+    {
+      "id": "laptop-motherboard",
+      "topic": "Otwarty laptop i płyta główna",
+      "provider": "Pexels",
+      "author": "Alexey Demidov",
+      "page": "https://www.pexels.com/photo/opened-laptop-motherboard-close-up-view-32602486/",
+      "asset": "https://images.pexels.com/photos/32602486/pexels-photo-32602486/free-photo-of-opened-laptop-motherboard-close-up-view.jpeg?auto=compress&dpr=1&h=750&w=1260",
+      "category": "laptop",
+      "license": "Pexels License",
+      "licenseUrl": "https://www.pexels.com/license/"
+    },
+    {
+      "id": "laptop-repair-tools",
+      "topic": "Narzędzia do serwisu laptopa",
+      "provider": "Pexels",
+      "author": "Oelnbod",
+      "page": "https://www.pexels.com/photo/close-up-of-laptop-repair-with-tools-37821110/",
+      "asset": "https://images.pexels.com/photos/37821110/pexels-photo-37821110/free-photo-of-close-up-of-laptop-repair-with-tools.jpeg?auto=compress&dpr=1&h=750&w=1260",
+      "category": "port",
+      "license": "Pexels License",
+      "licenseUrl": "https://www.pexels.com/license/"
+    },
+    {
+      "id": "pc-hardware",
+      "topic": "Podzespoły komputera PC",
+      "provider": "Pexels",
+      "author": "Richard L",
+      "page": "https://www.pexels.com/photo/close-up-of-computer-hardware-components-for-high-performance-33792050/",
+      "asset": "https://images.pexels.com/photos/33792050/pexels-photo-33792050/free-photo-of-close-up-of-computer-hardware-components-for-high-performance.jpeg?auto=compress&dpr=1&h=750&w=1260",
+      "category": "gpu",
+      "license": "Pexels License",
+      "licenseUrl": "https://www.pexels.com/license/"
+    },
+    {
+      "id": "ram-modules",
+      "topic": "Moduły pamięci RAM",
+      "provider": "Pexels",
+      "author": "IT services EU",
+      "page": "https://www.pexels.com/photo/memory-cards-on-a-white-surface-7594824/",
+      "asset": "https://images.pexels.com/photos/7594824/pexels-photo-7594824.jpeg?auto=compress&dpr=1&h=750&w=1260",
+      "category": "ram",
+      "license": "Pexels License",
+      "licenseUrl": "https://www.pexels.com/license/"
+    },
+    {
+      "id": "data-storage",
+      "topic": "Nośniki danych i pamięci masowe",
+      "provider": "Pexels",
+      "author": "Andrey Matveev",
+      "page": "https://www.pexels.com/photo/modern-and-vintage-data-storage-solutions-35147150/",
+      "asset": "https://images.pexels.com/photos/35147150/pexels-photo-35147150/free-photo-of-modern-and-vintage-data-storage-solutions.jpeg?auto=compress&dpr=1&h=750&w=1260",
+      "category": "storage",
+      "license": "Pexels License",
+      "licenseUrl": "https://www.pexels.com/license/"
+    },
+    {
+      "id": "multimeter-pcb",
+      "topic": "Pomiar płyty głównej multimetrem",
+      "provider": "Pexels",
+      "author": "Bulat843",
+      "page": "https://www.pexels.com/photo/technician-repairing-circuit-board-with-multimeter-38264253/",
+      "asset": "https://images.pexels.com/photos/38264253/pexels-photo-38264253/free-photo-of-technician-repairing-circuit-board-with-multimeter.jpeg?auto=compress&dpr=1&h=750&w=1260",
+      "category": "meter",
+      "license": "Pexels License",
+      "licenseUrl": "https://www.pexels.com/license/"
+    },
+    {
+      "id": "multimeter-bench",
+      "topic": "Multimetr cyfrowy na stanowisku pomiarowym",
+      "provider": "Pexels",
+      "author": "IT services EU",
+      "page": "https://www.pexels.com/photo/digital-multimeter-7639432/",
+      "asset": "https://images.pexels.com/photos/7639432/pexels-photo-7639432.jpeg?auto=compress&dpr=1&h=750&w=1260",
+      "category": "meter",
+      "license": "Pexels License",
+      "licenseUrl": "https://www.pexels.com/license/"
+    },
+    {
+      "id": "electronics-measurement",
+      "topic": "Diagnostyka elektroniki multimetrem",
+      "provider": "Pexels",
+      "author": "Bulat843",
+      "page": "https://www.pexels.com/photo/technician-repairing-electronic-device-using-multimeter-33531809/",
+      "asset": "https://images.pexels.com/photos/33531809/pexels-photo-33531809/free-photo-of-technician-repairing-electronic-device-using-multimeter.jpeg?auto=compress&dpr=1&h=750&w=1260",
+      "category": "power",
+      "license": "Pexels License",
+      "licenseUrl": "https://www.pexels.com/license/"
+    },
+    {
+      "id": "team-learning",
+      "topic": "Praca serwisowa i diagnostyka elektroniki",
+      "provider": "Pexels",
+      "author": "Mikhail Nilov",
+      "page": "https://www.pexels.com/photo/man-and-woman-testing-a-motherboard-together-9242811/",
+      "asset": "https://images.pexels.com/photos/9242811/pexels-photo-9242811.jpeg?auto=compress&dpr=1&h=750&w=1260",
+      "category": "safety",
+      "license": "Pexels License",
+      "licenseUrl": "https://www.pexels.com/license/"
+    },
+    {
+      "id": "electronics-work",
+      "topic": "Praca serwisowa i diagnostyka elektroniki",
+      "provider": "Pexels",
+      "author": "Mikhail Nilov",
+      "page": "https://www.pexels.com/photo/a-man-working-with-electronics-9242264/",
+      "asset": "https://images.pexels.com/photos/9242264/pexels-photo-9242264.jpeg?auto=compress&cs=tinysrgb&dpr=1&h=750&w=1260",
+      "category": "board",
+      "license": "Pexels License",
+      "licenseUrl": "https://www.pexels.com/license/"
+    }
+  ],
+  "uniqueRepairPhotoPolicy": {
+    "uniqueKey": "repair ID plus image slot",
+    "photosPerRepair": 3,
+    "repairCardPhotos": 1,
+    "duplicateAcrossDifferentRepairs": false,
+    "duplicateAcrossSlotsForSameRepair": false,
+    "deduplication": [
+      "provider image ID",
+      "source landing page",
+      "normalized thumbnail URL",
+      "normalized original URL",
+      "64-bit difference hash when same-origin or CORS allows canvas access"
+    ],
+    "requirePerceptualHash": true,
+    "providers": [
+      "Openverse",
+      "Wikimedia Commons"
+    ],
+    "licenseFilter": [
+      "CC0",
+      "Public Domain Mark",
+      "CC BY",
+      "CC BY-SA",
+      "CC BY-ND"
+    ],
+    "commercialUseOnly": true,
+    "requiredAttribution": [
+      "creator",
+      "source page",
+      "license",
+      "license URL when supplied"
+    ],
+    "noDuplicateFallback": true,
+    "perceptualHashBestEffort": true,
+    "localFirst": false,
+    "offlineFallback": true,
+    "localFallbackMayRepeatAcrossDifferentRepairs": false,
+    "globalSingleAssignment": true,
+    "photosOnlyOnHomeCards": false,
+    "staticPhotoSlots": 13,
+    "duplicateVisualDistanceThreshold": 10,
+    "photoSlotScope": "global DOM photo slot ID; one provider ID, landing page and normalized URL can be assigned once per browser profile",
+    "visualFallbackType": "topic-specific SVG illustration, visibly labelled as illustration, never counted as a photograph"
+  },
+  "dynamicProvider": {
+    "name": "Openverse + Wikimedia Commons",
+    "primaryEndpoint": "https://api.openverse.org/v1/images/",
+    "fallbackEndpoint": "https://commons.wikimedia.org/w/api.php",
+    "documentation": "https://api.openverse.org/v1/ and https://www.mediawiki.org/wiki/API:Imageinfo",
+    "cors": true,
+    "searches": "FIX90 scans photo-capable home, diagnostic, repair, course, tool and method cards; it assigns unique online photos progressively and sequentially, validates commercial-compatible license metadata, author, page URL, file dimensions and load success. The API is rate-limited and never scraped.",
+    "enabled": true,
+    "disabledReason": "",
+    "licenseRules": "Openverse CC0, CC BY, CC BY-SA and PDM only; Wikimedia CC0, CC BY and CC BY-SA only; reject NonCommercial, missing author, missing landing page and unsafe HTTP URLs.",
+    "globalSingleAssignment": true,
+    "visibleOnlyProgressive": true,
+    "offlineFallback": "Unique, topic-specific SVG illustration with explicit offline label; it is not counted as a photograph."
+  },
+  "hotfix": "FIX90",
+  "onlinePhotoRuntime": "assets/photo-catalog-fix90.js?v=6.8.0-fix90"
+}

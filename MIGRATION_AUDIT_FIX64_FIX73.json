@@ -1,0 +1,18 @@
+{
+  "baseMigrationCount": 17,
+  "newMigrationsAdded": 0,
+  "sqlExecuted": false,
+  "reviewRequired": [
+    {
+      "file": "0008_social_login_x_github.sql",
+      "operations": ["RENAME TABLE", "DROP TABLE"],
+      "reason": "Potential integration breakage or destructive data removal; manual review required."
+    },
+    {
+      "file": "0009_discord_social_login.sql",
+      "operations": ["RENAME TABLE", "DROP TABLE"],
+      "reason": "Potential integration breakage or destructive data removal; manual review required."
+    }
+  ],
+  "result": "REVIEW_REQUIRED_BEFORE_MIGRATION"
+}

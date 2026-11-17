@@ -1,0 +1,44 @@
+NAUKA OD A DO Z — DLA WSZYSTKICH
+RAPORT ZMIAN FIX125
+Data: 2026-11-11
+Wersja produktu: 6.8.0
+
+ZMIENIONE KLUCZOWE PLIKI
+- WEB_PUBLISH/index.html — cache-busting MP4 i VTT FIX125; opis filmu zgodny z planszami technicznymi.
+- ONECLICK_AKADEMIA.js — wymagany adres FIX125 filmu, kontrola integralności pliku, transkrypcji, napisów i cache PWA.
+- AUTO_PUBLISH_WATCHER.js — lokalna i zdalna kontrola tego samego URL filmu oraz cache.
+- WEB_PUBLISH/service-worker.js — nowy cache PWA i precache filmu, plakatu oraz VTT.
+- WEB_PUBLISH/release.json — metadane FIX125, wspólny cache i jawna historia kontraktu FIX124/FIX125.
+- USTAW_KLUCZ_OPENAI.cmd — prawidłowa nazwa produktu w launcherze.
+- scripts/configure-openai-secret.js — prawidłowa nazwa produktu w oknie przeglądarkowym i komunikatach.
+- scripts/test-support-video-fix126-contract.mjs — kontrola kontraktu OneClick/Watcher/SW.
+- scripts/test-product-name-openai-setup-fix126.mjs — kontrola nazwy produktu.
+- scripts/test-home-learning-fix77.mjs — regresja zgodna z ilustracjami SVG FIX122/FIX123 i 203 ilustracjami lekcji.
+- scripts/test-oneclick-fix77.mjs — zgodność starych testów z nowym globalnym filtrem ilustracji.
+- scripts/test-homepage-showcase-fix8.js — kontrola sześciu lokalnych slajdów SVG.
+- scripts/test-fix83-manifest-contract-fix86.mjs — kontrakt najnowszego FIX125.
+- scripts/test-fix83-visual-library-guard-fix88.mjs — kontrakt najnowszego FIX125.
+- scripts/run-tests-fix125.mjs oraz WYKONAJ_TESTY_FIX125.cmd — pełny runner testów.
+
+DODANE DOKUMENTY
+- CHANGELOG_6.8.0_FIX125.txt
+- README_FIX125_PELNY_PROJEKT.txt
+- FIX125_FILE_CHANGE_REPORT.txt
+- RAPORT_FIX125_TESTY.log
+- RAPORT_FIX125_EXTENDED_PREFLIGHT.log
+
+TESTY
+26/26 — FIX125 regression runner PASS.
+61/61 — OneClick + Auto-Watcher preflight scripts PASS.
+JavaScript syntax checks — PASS.
+
+NIE ZMIENIANO
+- D1 migrations / schematu / danych.
+- Cloudflare account, Pages project lub binding.
+- Secretów OpenAI/Cloudflare.
+- Wersji produktu 6.8.0.
+- Istniejących kursów, kont i postępu nauki.
+- Globalnej polityki bez osób FIX123.
+
+STATUS PUBLIKACJI
+Tylko lokalne testy i symulacja kontroli. Nie wykonano publikacji produkcyjnej.

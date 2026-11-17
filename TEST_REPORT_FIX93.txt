@@ -1,0 +1,39 @@
+NAUKA OD A DO Z — TEST REPORT FIX93
+
+Wynik końcowy: 130/130 PASS, 0 FAIL
+Node.js: v22.16.0
+Produkt: 6.8.0
+Poprawka: FIX93
+Data: 2026-11-07
+
+Zakres zestawu:
+- 92/92 — pełny zestaw bazowy FIX88 i wcześniejsze kontrakty.
+- 5/5 — zgodność nagłówków, klucza cache PWA i metadanych FIX93.
+- 18/18 — katalog fotografii online, paginacja, zapis postępu, normalizacja licencji, kolejka, rozdzielenie VRAM/RAM.
+- 15/15 — zgodność ze starymi strażnikami FIX77/FIX83, rzeczywiste klasy podpisów DOM, odzyskiwanie ID slotu, obsługa błędu i oryginalnego URL, licznik zdekodowanych zdjęć.
+
+Najważniejsze testy FIX93:
+- Stara bramka FIX83 zachowuje przypisany obraz Openverse bez srcset.
+- Stara bramka FIX77 akceptuje przypisany obraz katalogu spoza historycznej puli 13 zdjęć.
+- Zwykły, nieprzypisany SVG nie jest traktowany jak fotografia.
+- Działają rzeczywiste klasy podpisów .photo-credit-fix90, .np640-photo-credit i figcaption bez wymaganego data-photo-credit-for.
+- Katalog odzyskuje brakujące photoId z wrappera.
+- Markery i handlery onload/onerror są ustawiane przed src.
+- Nie ma oddzielnego 24-sekundowego probe dla każdego zdjęcia.
+- Błąd miniatury uruchamia próbę oryginalnego URL przed fallbackiem.
+- Licznik uwzględnia wyłącznie rzeczywiście zdekodowane fotografie rastrowe.
+- OneClick i Auto-Watcher blokują publikację, jeśli stare strażniki nadal mogą podmieniać zdjęcia na SVG.
+
+Weryfikacja dodatkowa:
+- Składnia OneClick, Auto-Watchera i runtime zdjęć została sprawdzona przez testy FIX93.
+- Lokalny test OneClick verifyWeb(): PASS; stwierdzono zgodność cache FIX93, zasobów wsparcia i katalogu WWW.
+- Audyt bezpieczeństwa: 325 plików, 0 critical, 0 high.
+- Audyt migracji oznaczył 0008 i 0009 do ręcznego przeglądu (historyczne RENAME/DROP); SQL nie był wykonywany.
+- Walidacja JSON/webmanifest: 83/83 PASS.
+- Manifest release i Service Worker wskazują aktywny runtime FIX93.
+- Baza D1 i migracje nie były zmieniane ani wykonywane.
+- Nie wykonano wdrożenia produkcyjnego Cloudflare.
+- Nie wykonano testów na Node.js v24.19.0 użytkownika.
+- Nie wykonano przeglądarkowego testu E2E po wdrożeniu FIX93.
+
+Ważne: publiczna strona przed wdrożeniem FIX93 była sprawdzona w przeglądarce i 6/6 sprawdzonych elementów nadal było SVG. Wynik 130/130 potwierdza testy kodu i kontraktów; nie jest potwierdzeniem publikacji ani wyglądu strony produkcyjnej po wdrożeniu.

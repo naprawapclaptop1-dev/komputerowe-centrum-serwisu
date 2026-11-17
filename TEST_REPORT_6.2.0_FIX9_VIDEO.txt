@@ -1,0 +1,27 @@
+TEST REPORT — NAUKA OD A DO Z 6.2.0 FIX9
+
+FILM WSPARCIA
+PASS | MP4 H.264 1280x720 @ 30 fps
+PASS | AAC audio, duration 33.111 seconds
+PASS | MP4 container signature (ftyp)
+PASS | 6 distinct scene images and 1 separate poster image
+PASS | No blank panel in regenerated sampled frames
+PASS | Captions remain available but are not default
+PASS | Transcript displayed below player
+PASS | New Service Worker namespace and cache entry
+PASS | OneClick requires rebuilt MP4 > 1,000,000 bytes
+PASS | Watcher HEAD-checks published MP4 Content-Length > 1,000,000 bytes
+
+PROJECT TESTS
+PASS | 13 standalone Node checks (video, homepage, photos, release, sticky UI, support, hardware, watcher, Cloudflare/D1 config)
+PASS | 12 Node test subtests across email account, hybrid chat, OpenAI key setup
+PASS | 80 JavaScript/MJS syntax checks
+PASS | 369 HTML IDs, no duplicates
+PASS | 0 missing local HTML resources
+PASS | 28 CSS files, 0 parser errors
+PASS | ZIP integrity checked after packaging
+
+LIMITATIONS
+- Visual frame review performed by extracting representative frames from the MP4; no full browser E2E run in this environment.
+- Production deployment and production D1 migrations were not run.
+- Existing narration track was retained; its original wording still mentions the legacy name Akademia Serwisu PRO.

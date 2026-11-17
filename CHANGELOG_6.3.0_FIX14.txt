@@ -1,0 +1,39 @@
+NAUKA OD A DO Z — AKADEMIA SERWISU PRO
+CHANGELOG 6.3.0 FIX14 — MASTER ELECTRONICS & REPAIR ACADEMY
+Data wydania lokalnego: 02.11.2026
+
+ZACHOWANE FUNKCJE
+- Zachowano dotychczasową stronę, 1060 lekcji, materiały, konta i dotychczasowe moduły.
+- Zachowano Warsztat Mistrza FIX12 oraz wcześniejsze dodatki FIX13.
+- Zachowano zgodność importu wcześniejszej kopii JSON FIX13.
+- Zachowano istniejący binding D1; brak nowych migracji i zapisów do D1 w tym wydaniu.
+
+NOWE ROZSZERZENIA FIX14
+1. Piąte laboratorium edukacyjne — trener lutowania SMD/THT z pięcioetapową checklistą przygotowania, doboru narzędzi, parametrów według dokumentacji, pracy na płytce treningowej i kontroli jakości.
+2. Biblioteka kryteriów doboru/zamienności dla 17 rodzin podzespołów. Zawiera parametry do porównania i ryzyka. Nie deklaruje automatycznie, że jeden element zastępuje drugi.
+3. Pasek lokalnego XP i poziomów za ukończone zadania oraz lokalne certyfikaty.
+4. Eksport edukacyjnego schematu blokowego do SVG z wyraźnym oznaczeniem, że nie jest to schemat konkretnej płyty i nie zawiera pinów ani rzeczywistych wartości napięć.
+5. Odświeżona widoczna wersja 6.3.0 w panelu bocznym i stopce.
+6. Aktualizacja pamięci podręcznej PWA oraz bramki publikacji dla nowych zasobów FIX14.
+
+ZAKRES WCZEŚNIEJSZEGO WARSZTATU ZACHOWANY
+- Atlas: 10 dziedzin i 30 procedur.
+- Symulator: 8 przypadków po 3 decyzje.
+- Egzaminy: 3 zestawy po 8 pytań.
+- Kalkulatory elektroniki oraz dekoder SMD/EIA-96.
+- Dziennik przypadków z lokalnym zapisem i zdjęciami PRZED/PO.
+- 31 opisów komponentów.
+- 8 uporządkowanych kategorii diagnostycznych.
+- 10 ścieżek szkoleniowych po 5 etapów i 3 pytania kontrolne.
+- Wewnętrzne karty warsztatu, magazyn części, eksport CSV i wydruki.
+
+OGRANICZENIA I BEZPIECZEŃSTWO
+- Nowe dane Warsztatu Mistrza, w tym XP, postępy ścieżek, karty warsztatowe, magazyn i dziennik, są lokalne dla przeglądarki. Nie są synchronizowane z D1.
+- Biblioteka 17 rodzin części jest listą kryteriów do samodzielnego porównania. Nie jest automatyczną bazą zweryfikowanych zamienników.
+- Oscyloskop i termowizja pozostają symulacjami edukacyjnymi. Mikroskop wyświetla lokalnie wybrane zdjęcie. Trener lutowania nie steruje stacją.
+- Schemat SVG jest schematem blokowym do nauki, nie dokumentacją konkretnej płyty.
+- XP i certyfikat są lokalnym potwierdzeniem aktywności edukacyjnej, a nie publicznym rankingiem ani formalnym/akredytowanym świadectwem.
+- Moduł diagnostyczny porządkuje dane i przygotowuje kontekst dla istniejącego Repair Master AI. Sam nie jest nowym, autonomicznym modelem AI i nie może potwierdzić usterki bez pomiarów/dokumentacji.
+- Brak nowego formularza publicznego przyjmowania zleceń i brak sterowania fizycznym sprzętem.
+- W tej paczce nie wykonano publikacji produkcyjnej Cloudflare, migracji D1 ani zapisu do produkcyjnej bazy.
+- Testy przeglądarkowe E2E w prawdziwym Chromium nie zostały potwierdzone w tym środowisku.
