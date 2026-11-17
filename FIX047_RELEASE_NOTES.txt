@@ -1,0 +1,20 @@
+KOMPUTEROWE CENTRUM SERWISU
+FIX047 — NOWA NAZWA I REDESIGN INTERFEJSU
+
+Wersja produktu: 1.0.0.47
+Wersja pliku: 1.0.0.47
+
+- Zmieniono nazwę widoczną w aplikacji na KOMPUTEROWE CENTRUM SERWISU.
+- Ujednolicono tytuł okna, nagłówek, menu boczne, tekst zasobnika, raporty, komunikaty i instalator.
+- Zmieniono nazwy plików wynikowych Portable i instalatora na nazwę nowego produktu.
+- Przebudowano pulpit pod ekran szerokoformatowy: krótszy układ pionowy, czytelniejsze karty,
+  uproszczony panel migracji, skróty serwisowe oraz statusy systemu.
+- Naprawiono rysowanie zaznaczonej wartości w polach ComboBox, aby nie pozostawała biała.
+- Doprecyzowano trzy warianty wyglądu oraz spacing menu bocznego.
+- Odświeżono grafikę kreatora instalacji z nowym polskim oznaczeniem.
+- Zachowano 62 trasy modułów, trzy style, dziesięć palet, migrację, backup, raporty i integracje.
+- Zachowano AppId oraz katalogi danych użytkownika, aby aktualizacja nie powodowała utraty ustawień.
+- Nie zmieniono wewnętrznej ścieżki danych NaprawaPC ani identyfikatorów modułów.
+
+Weryfikacja statyczna i integralność archiwum: wykonana. Kompilacja Windows i instalator Inno Setup
+wymagają uruchomienia na komputerze z Windows; nie oznaczono ich jako zweryfikowanych.

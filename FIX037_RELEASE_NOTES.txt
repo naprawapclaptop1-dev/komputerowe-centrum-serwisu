@@ -1,0 +1,17 @@
+NAPRAWA PC — CENTRUM MIGRACJI I NAPRAW FIX042
+ProductVersion: 1.0.0.42
+
+FIXES
+- CS0165: VerifyPcMigrationPackage report local is initialized before short-circuit condition.
+- Missing package now returns a clear diagnostic.
+- CMD launch/build scripts use UTF-8 without BOM.
+- Product/FileVersion bumped to 1.0.0.42.
+- Added FIX042 regression checks.
+
+PRESERVED
+- Existing 61 module routes and migration page.
+- SHA-256 manifest, path validation, USB and SMB share workflows.
+- All ten themes and existing application data paths.
+
+BUILD
+Run BUILD_ALL.cmd from the extracted project folder. Build must create a fresh portable EXE, BUILD_ID stamp, then verified installer. Existing 1.0.0.35/1.0.0.36 binaries must not be reused.

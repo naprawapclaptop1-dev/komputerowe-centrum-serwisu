@@ -1,0 +1,11 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX077
+
+Naprawa logowania GitHub CLI w Windows PowerShell 5.1 i ochrony przed uruchomieniem ze starego katalogu:
+- Wyeliminowano przekazywanie stderr gh.exe przez pipeline 2>&1, który tworzył NativeCommandError w Windows PowerShell 5.1. Stdout i stderr są przechwytywane oddzielnie do tymczasowego pliku, a kod wyjścia jest odczytywany niezależnie.
+- Podczas interaktywnego gh auth login stdout (kod urządzenia i adres) pozostaje widoczny na bieżąco; stderr jest bezpiecznie przekierowany i wypisywany jako zwykły tekst po zakończeniu procesu.
+- CMD i publisher sprawdzają nazwę folderu KOMPUTEROWE_CENTRUM_SERWISU_FIX077. Uruchomienie skopiowanych plików z katalogu FIX057 lub innego starego katalogu jest blokowane z jednoznaczną instrukcją.
+- CMD informuje, że należy otworzyć https://github.com/login/device, wpisać kod pokazany lokalnie i nie zamykać okna CMD; po zatwierdzeniu gh sam kończy logowanie i automat kontynuuje działanie.
+- Zachowano jedno ZIP, jeden główny CMD, przypisane repozytorium oraz brak force push / --clobber.
+- Dodano regresyjny test FIX077 autoryzacji i identyfikacji katalogu.
+
+Wersja aplikacji desktopowej pozostaje 1.0.0.69. FIX077 dotyczy wyłącznie automatyzacji publikacji. Nie wykonano kompilacji Windows ani publikacji w tym środowisku.

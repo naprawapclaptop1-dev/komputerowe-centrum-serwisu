@@ -1,0 +1,24 @@
+NAPRAWA PC — CENTRUM MIGRACJI I NAPRAW
+FIX045 — CAŁKOWITA PRZEBUDOWA INTERFEJSU
+
+Wersja programu: 1.0.0.45
+Wersja pliku: 1.0.0.45
+
+ZMIANY WYGLĄDU
+- Przebudowano główne okno: kompaktowy nagłówek, wyszukiwane menu boczne podzielone na grupy i usunięty powielony pasek nawigacji u góry.
+- Przebudowano pulpit: szerokie karty procesora, pamięci, grafiki i dysków; główny pulpit migracji; panel ochrony danych i asystenta serwisowego; siatka sześciu najczęstszych działań oraz sekcja ostatnich czynności i informacji o płycie głównej.
+- Wspólne rysowanie kart i przycisków zapewnia trzy wyraźnie odmienne style: PROFESJONALNY, FUTURYSTYCZNY i SZKLANY.
+- Listy wyboru w całym programie otrzymały ciemny wygląd i własne rysowanie, aby usunąć białe kontrolki systemowe.
+- Ujednolicono typografię, odstępy oraz wygląd pól i przycisków na istniejących ekranach.
+- Dodano skrót Ctrl+K do szybkiego wyszukiwania modułów.
+
+ZACHOWANE ELEMENTY
+- Zachowano wszystkie 62 pozycje nawigacji i ich trasy stron.
+- Zachowano procesy migracji, format manifestu, kontrolę SHA-256 i ochronę przed dowiązaniami symbolicznymi.
+- Zachowano katalogi danych użytkownika, ustawienia, dzienniki i historię.
+- Zachowano dziesięć polskich palet kolorystycznych i zgodność z nazwami motywów zapisanymi przez starsze wersje.
+- Wybór stylu i palety jest odrębny i zapisywany w konfiguracji.
+- Weryfikacja pochodzenia pakietu obejmuje również bieżącą instrukcję, mapę modułów, wersję i dziennik zmian.
+
+UWAGA
+To jest pakiet źródłowy. Nie zawiera gotowego EXE ani instalatora potwierdzonego kompilacją Windows. Budowanie i kontrolę instalatora należy wykonać na Windows za pomocą BUILD_ALL.cmd.

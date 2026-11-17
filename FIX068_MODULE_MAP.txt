@@ -1,0 +1,6 @@
+FIX069 MODULE MAP
+1. URUCHOM_WSZYSTKO.cmd — jedyny przebieg build + publish.
+2. PUBLISH_GITHUB_RELEASES.ps1 — GitHub CLI auth, tworzenie/aktualizacja release, assety i kontrola API.
+3. GITHUB_REPOSITORY.txt — konfiguracja właściciel/repozytorium; tworzona przy pierwszym starcie.
+4. WindowsVersionSwitcherPRO.Modules.cs — URL GitHub latest/download, kontrola hostów i diagnostyka GitHub Releases.
+5. CHANGELOG.txt / VERSION.txt / FIX069_RELEASE_NOTES.txt — metadane wydania.

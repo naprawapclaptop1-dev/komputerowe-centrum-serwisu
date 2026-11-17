@@ -1,0 +1,17 @@
+KOMPUTEROWE CENTRUM SERWISU — MAPA FIX055
+
+RADIO:
+- BuildRadioBubbleWindow: tworzy niezależne okno radia.
+- CaptureRadioLayoutTree: zapamiętuje bazowe położenia i rozmiary wszystkich kontrolek.
+- ApplyRadioBubbleLayout: skaluje układ i czcionki do wymiarów okna.
+- ApplyDarkRadioComboThemes: ciemne listy stacji/krajów/języków/gatunków/kodeków.
+
+AKTUALIZACJE:
+- W nagłówku głównego okna stały przycisk AKTUALIZACJE.
+- W menu bocznym osobna grupa AKTUALIZACJE tuż po START.
+- W zasobniku skrót Aktualizacje globalne.
+- Wewnętrzna trasa pozostaje Aktualizator PRO, widoczna nazwa to Aktualizacje globalne.
+- Globalne kanały Stable/Beta i obsługa CDN z FIX054 pozostają aktywne.
+
+ZACHOWANE TRASY:
+- 65 pozycji menu / 65 tras.

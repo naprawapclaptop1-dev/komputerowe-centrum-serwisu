@@ -1,0 +1,30 @@
+FIX074 — MAPA MODUŁÓW
+
+PUNKT STARTOWY
+- URUCHOM_TYLKO_TEN_PLIK.cmd — jedyny plik CMD przeznaczony do ręcznego uruchomienia.
+
+AUTOMATYZACJA
+- BOOTSTRAP_BUILD_TOOLS.ps1 — GitHub CLI, Git, Inno Setup, PATH.
+- PUBLISH_GITHUB_SOURCE.ps1 — synchronizacja źródeł, konfiguracja darmowego GitHub Pages i uruchomienie workflow.
+- BUILD_ALL.cmd — kontrole źródeł, budowanie portable i instalatora.
+- PUBLISH_GITHUB_RELEASES.ps1 — pierwsze/kolejne wydanie z manifestami, katalogiem i sumami SHA-256.
+- VERIFY_PUBLIC_DEPLOYMENT.ps1 — publiczna weryfikacja Release, manifestów, pobierania, SHA-256 oraz strony.
+- INSTALL_PUBLISHED_BUILD.ps1 — instalacja i kontrola lokalnego EXE.
+
+STRONA GLOBALNA
+- README.md — publiczna informacja o projekcie i adresach.
+- website/index.html — treść i meta dane PL/EN.
+- website/styles.css — wygląd responsywny.
+- website/app.js — dynamiczna dostępność pobierania z GitHub Releases i sum SHA-256.
+- website/media/prezentacja.mp4 — oryginalny film prezentacyjny.
+- website/media/prezentacja.vtt, prezentacja-en.vtt — napisy PL/EN.
+- .github/workflows/deploy-pages.yml — publikacja GitHub Pages.
+
+KONTROLE
+- CHECK_FIX071_REPOSITORY_INPUT.ps1
+- CHECK_FIX072_UPDATE_ENDPOINTS.ps1
+- CHECK_FIX073_PUBLICATION_AND_SITE.ps1
+- CHECK_FIX074_PUBLICATION_AND_SITE.ps1
+- VERIFY_PUBLIC_DEPLOYMENT.ps1
+
+Wersja desktop: 1.0.0.69. FIX074 zmienia infrastrukturę publikacji i witrynę, a nie wersję produktu.

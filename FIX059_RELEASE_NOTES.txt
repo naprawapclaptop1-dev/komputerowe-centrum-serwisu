@@ -1,0 +1,16 @@
+KOMPUTEROWE CENTRUM SERWISU
+FIX059 — UJEDNOLICENIE WERSJI RUNTIME I TESTU REGRESJI
+
+Wersja programu: 1.0.0.59
+Wersja pliku: 1.0.0.59
+
+- Naprawiono rozjazd: test FIX058 oczekiwał ProgramVersion 1.0.0.57, podczas gdy runtime miał już 1.0.0.58.
+- Test FIX059 porównuje ProgramVersion z AssemblyVersion, AssemblyFileVersion i ExpectedVersion z VERIFY_PAYLOAD.ps1.
+- ProductVersion w raporcie kontroli integralności jest pobierany z ProgramVersion; usunięto starą stałą 1.0.0.53.
+- Synchronizowano AssemblyVersion, AssemblyFileVersion, Inno Setup, app.manifest, VERIFY_PAYLOAD.ps1 i skrypty CMD.
+- Zachowano automatyczny aktualizator bez ręcznych pól serwerowych, 65 tras, 3 style, 10 motywów oraz zabezpieczenia migracji.
+- Poprzednie wpisy historii i wydania pozostawiono bez zmian.
+
+Weryfikacja:
+- Kontrole statyczne zgodności wersji, list plików, kodowania skryptów i struktury źródeł zostały wykonane.
+- Kompilacja C# oraz Inno Setup wymaga uruchomienia BUILD_ALL.cmd w Windows i nie jest oznaczona jako zaliczona w tym archiwum.

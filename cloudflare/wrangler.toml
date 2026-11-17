@@ -1,0 +1,7 @@
+name = "kcs-rj2026-updates"
+compatibility_date = "2026-11-14"
+pages_build_output_dir = "./public"
+
+[[r2_buckets]]
+binding = "UPDATES"
+bucket_name = "kcs-rj2026-updates-store"

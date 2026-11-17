@@ -1,0 +1,20 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX072
+
+JEDYNY PUNKT STARTOWY:
+URUCHOM_TYLKO_TEN_PLIK.cmd
+
+Uruchom ten plik po rozpakowaniu całego ZIP-a do jednego folderu. Nie uruchamiaj etapów wewnętrznych osobno.
+
+GŁÓWNY CMD automatycznie uruchamia:
+1. CHECK_SOURCE.cmd — kontrolę kompletności źródeł i regresji.
+2. BUILD_PORTABLE.cmd — kompilację wersji przenośnej.
+3. BUILD_INSTALLER_MODERN.cmd — kompilację instalatora.
+4. VERIFY_BUILD.cmd — weryfikację wyników.
+5. PUBLISH_GITHUB_RELEASES.ps1 — bezpieczną publikację do przypisanego repozytorium.
+
+Repozytorium: naprawapclaptop1-dev/komputerowe-centrum-serwisu
+Log główny: dist\build-logs\00-JEDEN-START.log
+Log publikacji: dist\build-logs\01-github-publish.log
+Status: dist\build-logs\FULL_RELEASE.status
+
+FIX072: przy wejściu repozytorium akceptowany jest zarówno format owner/repo, jak i pełny adres GitHub. Wszystkie etapy pozostają uruchamiane przez jeden główny CMD.

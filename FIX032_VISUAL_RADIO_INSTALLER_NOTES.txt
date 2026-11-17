@@ -1,0 +1,32 @@
+NAPRAWA PC — FIX032 VISUAL / RADIO / INSTALLER HOTFIX
+ProductVersion: 1.0.0.32
+
+1. NEXUS VISUAL REDESIGN
+- Redesigned application chrome: new header hierarchy, stronger NEXUS accent, updated navigation, card surfaces and button treatment.
+- Rebuilt dashboard layout with system, backup, migration-readiness and assistant cards; live hardware panel; safe migration stages; six-column module hub.
+- Shared Card/Button/Label/Text/Combo/Check styling is applied through ApplyThemeRecursive to all lazily built module pages.
+- DesignVersion is FIX032. On first FIX032 launch the existing Aurora/Grafit/FIX030 setting migrates once to NEXUS ULTIMATE; user data paths remain unchanged.
+
+2. RADIO ONLINE — POLAND FIRST
+- Default country filter is Polska and request uses Radio Browser countrycode=PL.
+- Codec defaults to Wszystkie so MP3/AAC/other catalog entries are not hidden by the old MP3-only default.
+- One-click Polska and Świat buttons; country dropdown switches to other countries and then searches by country name.
+- Catalog metadata keeps Poland/World shortcuts after refresh.
+- Cached results are filtered to selected country; stale global results are not shown as Polish stations.
+- Existing playback, pause, stop, volume, VLC fallback, favorites and custom station management remain.
+- Radio Browser API supports countrycode in /json/stations/search and `url_resolved` stream addresses. Availability is community-maintained and not guaranteed.
+
+3. INSTALLER VISIBILITY
+- Added a mandatory NEXUS information page immediately after Welcome, listing program modules and Polish radio default.
+- Retained custom dark theme, wizard side art, small icon, risk acceptance page and modern Inno wizard.
+- Setup AppId is unchanged, so the installer updates the existing FIX029/FIX030 installation in place where the old AppId is present.
+- Installed executable file name remains NaprawaPC_WindowsVersionSwitcher.exe for upgrade compatibility; shortcut label and output installer name are branded NEXUS FIX032.
+
+4. LIMITS
+- This package includes source, resources and build scripts only. csc.exe and Inno Setup are not available in this environment, so Portable EXE and Setup EXE have not been compiled or runtime-tested here.
+- Build portable first, then modern installer; run XP installer only with the optional legacy compiler.
+
+PREVIEW ASSETS
+- NaprawaPC_AppIcon.png: new application icon preview.
+- InstallerWizardPreview.png: new installer welcome-side artwork preview.
+- InstallerSmallPreview.png: small wizard image preview.

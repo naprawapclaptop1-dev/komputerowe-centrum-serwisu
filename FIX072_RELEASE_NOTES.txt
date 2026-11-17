@@ -1,0 +1,14 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX072
+
+- Naprawiono spójność aktualizatora: jedynym aktywnym źródłem wydań jest publiczne repozytorium GitHub Releases.
+- Usunięto stare wskazania DNS/Cloudflare Pages/R2 z aktywnych ekranów i diagnostyki.
+- Jeden główny CMD automatycznie przypisuje repozytorium, przygotowuje narzędzia, buduje aplikację i instalator, publikuje wydanie, instaluje je lokalnie i weryfikuje wersję.
+- Repozytorium: naprawapclaptop1-dev/komputerowe-centrum-serwisu.
+- Nie nadpisuje istniejących tagów ani wydań. Każde kolejne wydanie musi mieć nowy tag.
+- GitHub CLI i Inno Setup są przygotowywane automatycznie przez WinGet, gdy ich brak. Przy pierwszym użyciu GitHub wymaga jednorazowej autoryzacji konta w przeglądarce.
+- Wersja produktu pozostaje 1.0.0.69; FIX072 jest poprawką infrastruktury i procesu aktualizacji, nie deklaracją nowej wersji EXE.
+- Nie wykonano kompilacji na Windows w środowisku przygotowawczym. Po uruchomieniu CMD na Windows zostanie wykonany pełny build, publikacja i instalacja.
+
+- Przy pierwszym uruchomieniu główny CMD sam otwiera jednorazowe logowanie GitHub w przeglądarce; nie pyta o nazwę repozytorium.
+- Po publikacji instalator jest uruchamiany automatycznie; Windows może pokazać standardowe potwierdzenie UAC.
+- Synchronizacja źródeł zachowuje istniejący README.md, POLITYKA_PUBLIKACJI.md i wcześniejsze reguły .gitignore.

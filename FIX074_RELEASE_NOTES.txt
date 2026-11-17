@@ -1,0 +1,22 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX074
+Wersja produktu: 1.0.0.69 (bez zmiany numeru produktu; poprawka infrastruktury publikacji i strony WWW)
+
+NAPRAWA PIERWSZEJ PUBLIKACJI
+- Uporządkowano jeden automatyczny przebieg: przygotowanie narzędzi, synchronizacja źródeł, budowanie, publikacja Release, kontrola publicznych adresów i instalacja.
+- Synchronizacja kodu nie zatrzymuje publikacji instalatora tylko dlatego, że GitHub Pages potrzebuje dłuższej chwili na konfigurację lub wdrożenie.
+- Pierwsze wydanie dodaje instalator, portable, manifest-stable.xml, manifest-beta.xml, releases.json i SHA256SUMS.txt.
+- Ostateczna kontrola sprawdza GitHub API, oba manifesty pod adresem tagowym i /releases/latest/download/, adresy pobierania EXE, katalog JSON, sumy SHA-256 i wszystkie zasoby witryny.
+- Ponowne uruchomienie tego samego CMD jest bezpieczne; opublikowane wydania nie są nadpisywane, a istniejące assety są pobierane i porównywane SHA-256.
+- Jeśli Release został opublikowany, ale Pages nie zakończyło wdrożenia, log wskazuje osobny etap; ponowne uruchomienie ponawia weryfikację bez usuwania wydania.
+
+BEZPŁATNA STRONA GLOBALNA
+- Rozbudowano stronę PL/EN o jasną informację o bezpłatnym dostępie na całym świecie.
+- Zachowano opis przeznaczenia, funkcji, wymagań, bezpieczeństwa, FAQ i oryginalny film prezentacyjny z napisami PL/EN.
+- Dynamiczne pobieranie weryfikuje dostępność instalatora, portable i SHA256SUMS.txt. Brak wydania jest oznaczany jako oczekiwanie, a przyciski pobierania pozostają wyłączone.
+- Dodano widoczny link do sum SHA-256 po opublikowaniu wydania.
+- Hosting: darmowy GitHub Pages dla publicznego repozytorium; strona dostępna globalnie pod adresem z README.
+
+WERSJA I PUBLIKACJA
+- Numer wersji produktu pozostaje 1.0.0.69, bo FIX074 nie zmienia kodu produktu ani interfejsu aplikacji desktopowej.
+- Repozytorium jest przypisane wyłącznie do naprawapclaptop1-dev/komputerowe-centrum-serwisu.
+- Nie wykonano kompilacji Windows ani publikacji w tym środowisku; te działania uruchamia jedyny główny CMD po autoryzacji właściciela repozytorium.

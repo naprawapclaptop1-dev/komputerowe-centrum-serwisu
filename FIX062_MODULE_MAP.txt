@@ -1,0 +1,30 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX062
+
+CLOUDFLARE
+- cloudflare/functions/updates/[[path]].js: dodano endpoint /updates/health.
+- PUBLISH_CLOUDFLARE_FREE.ps1: jawny --config wrangler.toml, kontrola deployment list Production, retry DNS/HTTPS, health check, manifesty, HEAD, Range.
+- URUCHOM_WSZYSTKO.cmd pozostaje jedynym punktem startowym.
+
+KLIENT AKTUALIZACJI
+- BuildUpdaterPage: przycisk TEST DNS / CLOUDFLARE i etykieta diagnostyczna.
+- TestCloudflareUpdateEndpoint: asynchroniczny test DNS, HTTPS, Pages Function i R2 binding.
+- DescribeCloudflareFailure: rozróżnia NameResolutionFailure, ConnectFailure/Timeout oraz HTTP 403/404/503 i inne kody HTTP.
+- CheckProgramUpdate: krótszy i precyzyjny komunikat DNS zamiast ogólnego błędu manifestu.
+
+WYGLĄD
+- NeonCardPanel: pełne czyszczenie tła, Opaque, podwójne buforowanie, wypełnienie alfa 255; narożniki dopasowują BackColor do rodzica.
+- PremiumButton: pełne nieprzezroczyste wypełnienia; najpierw czyści cały prostokąt kolorem rodzica, potem rysuje zaokrąglony przycisk.
+- LabelAt: jawne tło transparentne, AutoEllipsis i wyłączone znaczniki mnemonic.
+- Ekran aktualizacji: kolumna tekstów statusu kończy się przed przyciskami, nie zachodzi na ich obszar.
+- ApplyInterfaceStyle: pełne Invalidate(true) dla nagłówka, menu, treści i własnych kart po zmianie motywu.
+- ApplyThemeRecursive: CheckBox, RadioButton, GroupBox dostają tło rodzica.
+- Zachowane profile PROFESJONALNY / FUTURYSTYCZNY / SZKLANY.
+
+HISTORIA AKTUALIZACJI
+- Wpisy poprzedniego hostingu są oznaczane jako [ARCHIWUM — STARY SERWER].
+- Czyszczenie archiwum usuwa wyłącznie wpisy zawierające poprzedni URL, po potwierdzeniu.
+- Wpisy Cloudflare Stable/Beta pozostają nietknięte.
+
+WERSJE
+- Program / Assembly / FileVersion / Setup: 1.0.0.62.
+- Settings DesignVersion: FIX060 (zgodność zapisanych preferencji).

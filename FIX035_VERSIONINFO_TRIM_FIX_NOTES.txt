@@ -1,0 +1,20 @@
+NAPRAWA PC — FIX037 VERSIONINFO TRIM FIX
+ProductVersion: 1.0.0.37
+
+OBSERVED FIX034 FAILURE
+Inno Setup returned Successful compile and created the Setup EXE. The final verifier then reported:
+expected file version 1.0.0.34, got 1.0.0.34<spaces>
+The comparison failed because FileVersionInfo.FileVersion can expose a fixed-width PE string with trailing padding spaces.
+
+FIX037 CHANGE
+- VERIFY_PAYLOAD.ps1 keeps the raw FileVersion for diagnostics.
+- It compares rawFileVersion.Trim() with ExpectedVersion.Trim().
+- When both values parse as System.Version, it compares the parsed version objects.
+- Mismatch output prints raw and normalized values separately.
+- The same verifier is used for the application EXE and Inno Setup EXE, so the correction covers Portable, modern Setup and optional XP Setup.
+- Added a regression sample containing "1.0.0.37            " to CHECK_FIX037_REGRESSION.ps1.
+
+PROVENANCE
+The BUILD_ID source hash also includes the verifier, regression script, Portable builder, Modern/XP Setup builders, VERIFY_BUILD and CHECK_SOURCE. A change to this pipeline invalidates the old source stamp and forces a fresh Portable rebuild before packaging.
+
+No security check was removed: FIX, FileVersion, EXE SHA-256 and source SHA-256 remain mandatory.

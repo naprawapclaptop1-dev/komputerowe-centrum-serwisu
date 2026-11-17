@@ -1,0 +1,7 @@
+FIX076 — MAPA ZMIAN
+1. URUCHOM_TYLKO_TEN_PLIK.cmd — marker FIX076, ścieżka pakietu i informacja o automatycznym logowaniu.
+2. PUBLISH_GITHUB_SOURCE.ps1 — obsługa stderr i kodów wyjścia gh.exe/git.exe w PowerShell 5.1, automatyczne logowanie web/device, setup-git i kontrola praw zapisu.
+3. PUBLISH_GITHUB_RELEASES.ps1 — bezpieczna obsługa wywołań GitHub CLI podczas tworzenia i weryfikacji Release.
+4. CHECK_FIX076_GITHUB_AUTH.ps1 — regresyjne testy automatycznego uwierzytelniania.
+5. CHECK_SOURCE.cmd / CHECK_FIX075_PUBLICATION_AND_SITE.ps1 — dołączenie kontroli FIX076.
+6. .github/workflows/deploy-pages.yml — GitHub Pages checkout@v7.

@@ -1,0 +1,12 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX079
+
+Naprawa fałszywego komunikatu „Ten folder nie zawiera kompletnego pakietu FIX078”:
+- Zidentyfikowano kruchą zależność od polecenia FINDSTR /X i sposobu zakończenia linii w pliku tekstowym markera.
+- Usunięto FINDSTR z walidacji pakietu. Główny CMD uruchamia teraz VALIDATE_FIX079_PACKAGE.ps1.
+- Walidator PowerShell używa własnego $PSScriptRoot, czyta zarówno CRLF, jak i LF, sprawdza tożsamość programu/repozytorium i listę wymaganych plików.
+- ZIP ma pliki projektu bezpośrednio w katalogu głównym archiwum. Po wyodrębnieniu nie powstaje dodatkowy poziom katalogu projektu.
+- Główny CMD pozostaje jedynym punktem startowym; wszystkie pozostałe skrypty są wywoływane automatycznie.
+- Synchronizator źródeł i publikator Releases sprawdzają FIX079_PACKAGE_MARKER.txt, nie nazwę folderu nadrzędnego.
+- Nazwa katalogu docelowego może zawierać spacje, nawiasy i może być dowolna.
+- Wersja aplikacji pozostaje 1.0.0.69. FIX079 dotyczy walidacji paczki i automatyzacji.
+- W tym środowisku wykonano testy statyczne i kontrolę zawartości ZIP. Nie wykonano natywnego testu Windows ani publikacji GitHub.

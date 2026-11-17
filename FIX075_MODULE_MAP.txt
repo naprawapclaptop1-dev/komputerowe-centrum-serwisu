@@ -1,0 +1,16 @@
+FIX075 — MAPA ZMIAN
+
+URUCHOM_TYLKO_TEN_PLIK.cmd
+  Jedyny punkt wejścia; po błędzie synchronizacji pokazuje szczegółowy log.
+PUBLISH_GITHUB_SOURCE.ps1
+  Preflight repozytorium, autoryzacja, sprawdzenie prawa zapisu, synchronizacja źródeł, diagnostyka push i Pages.
+PUBLISH_GITHUB_RELEASES.ps1
+  Publikacja instalatora, portable, manifestów Stable/Beta, releases.json i SHA256SUMS bez nadpisywania wcześniejszych wydań.
+website/
+  Publiczna bezpłatna strona globalna PL/EN z opisem, filmem, napisami, wymaganiami i pobieraniem.
+.github/workflows/deploy-pages.yml
+  Automatyczne wdrożenie statycznej strony przez GitHub Pages.
+Wersja aplikacji: 1.0.0.69 (bez zmiany).
+
+CHECK_FIX075_PUBLICATION_AND_SITE.ps1
+  Statyczne kontrole jedynego CMD, diagnozowania synchronizacji, uprawnień GitHub i strony globalnej.

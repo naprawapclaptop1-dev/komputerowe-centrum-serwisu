@@ -1,0 +1,10 @@
+FIX079 — MAPA POPRAWKI
+
+URUCHOM_TYLKO_TEN_PLIK.cmd — jedyny punkt startowy; wykonuje preflight przez PowerShell.
+VALIDATE_FIX079_PACKAGE.ps1 — sprawdza marker, przypisane repozytorium i kompletność wymaganych plików, korzystając z PSScriptRoot; niezależny od nazwy folderu i formatu CRLF/LF.
+FIX079_PACKAGE_MARKER.txt — tekstowa tożsamość paczki i przypisanego repozytorium, zakończenia linii CRLF.
+PUBLISH_GITHUB_SOURCE.ps1 — sprawdza marker FIX079, synchronizuje źródła i uruchamia wdrażanie GitHub Pages.
+PUBLISH_GITHUB_RELEASES.ps1 — sprawdza marker FIX079 i publikuje komplet assetów bez nadpisywania opublikowanych wydań.
+CHECK_FIX079_PACKAGE_VALIDATION.ps1 — regresyjna kontrola nowego preflight.
+CHECK_SOURCE.cmd — uruchamia kontrolę FIX079 wraz z wcześniejszymi testami.
+CHANGELOG.txt — zapis zakresu poprawki FIX079.

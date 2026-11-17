@@ -1,0 +1,21 @@
+NAPRAWA PC - FIX033 COMPILER HOTFIX
+ProductVersion: 1.0.0.33
+
+ROOT CAUSE
+radioBubbleButton was instantiated as PremiumButton but its field was declared as System.Windows.Forms.Button.
+The compiler therefore resolved radioBubbleButton.AccentColor against the base Button type and reported CS1061.
+
+FIX
+Changed the field declaration to private PremiumButton radioBubbleButton;.
+No casting, reflection or removal of the accent styling is used. The custom gradient/hover style remains active.
+
+PRESERVED
+- NEXUS ULTIMATE full UI from FIX032.
+- Polish-first radio, module routes, hardware/service pages and migration workflows.
+- AppId, installed EXE name, user data paths and existing user theme selection.
+- Application icon and installer artwork.
+
+BUILD
+Run CHECK_SOURCE.cmd, CHECK_BUILD_TOOLS.cmd, BUILD_PORTABLE.cmd, then BUILD_INSTALLER_MODERN.cmd.
+If compiling the installer directly, the script rebuilds Portable first when its BUILD_ID is missing or stale.
+The Windows csc.exe/Inno Setup build must be confirmed on the target PC.

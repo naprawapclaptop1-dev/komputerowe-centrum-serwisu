@@ -1,0 +1,15 @@
+NAPRAWA PC — CENTRUM MIGRACJI I NAPRAW
+FIX046 — HOTFIX KOMPILACJI KART ETAPÓW MIGRACJI
+
+Wersja programu: 1.0.0.46
+AssemblyVersion: 1.0.0.46
+AssemblyFileVersion: 1.0.0.46
+
+- Naprawiono błąd CS1061 w WindowsVersionSwitcherPRO.cs: zmienna step była zadeklarowana jako Panel, mimo że kod używał właściwości InterfaceStyle klasy NeonCardPanel.
+- Zmieniono typ zmiennej na NeonCardPanel; właściwość InterfaceStyle jest teraz dostępna podczas kompilacji.
+- Dodano kontrolę regresji pilnującą poprawnego typu NeonCardPanel dla kart etapów migracji.
+- Zaktualizowano nazwę testu, mapę modułów, skrypty budowania, weryfikację i instalator do FIX046 / 1.0.0.46.
+- Zachowano trzy style interfejsu, dziesięć motywów, 62 trasy modułów, funkcje migracji i katalogi danych.
+- Pliki EXE z FIX045 nie są akceptowane jako FIX046.
+
+Kompilację należy wykonać lokalnie w systemie Windows przez BUILD_ALL.cmd.

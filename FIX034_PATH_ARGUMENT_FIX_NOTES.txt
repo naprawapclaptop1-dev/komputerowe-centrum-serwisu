@@ -1,0 +1,8 @@
+FIX034 PATH ARGUMENT HOTFIX
+
+Root cause: Windows cmd.exe %~dp0 expands to a path ending in a backslash. Passing it as a quoted native PowerShell argument ("%~dp0") can cause Windows command-line quote parsing to consume the closing quote. PowerShell then receives a malformed SourceRoot/adjacent argument and GetFullPath throws an illegal-path exception.
+
+Fix: pass -SourceRoot "%~dp0." in BUILD_PORTABLE.cmd, BUILD_INSTALLER_MODERN.cmd, BUILD_INSTALLER_XP.cmd and VERIFY_BUILD.cmd. The final dot is a valid path component and removes the trailing-backslash-before-quote hazard; Path.GetFullPath normalizes it to the source directory.
+The verifier now rejects empty paths explicitly and wraps GetFullPath failures with a parameter-specific diagnostic.
+
+Build: product version 1.0.0.34 / FIX034. NEXUS DesignVersion remains FIX032 to preserve the selected UI theme/preferences.

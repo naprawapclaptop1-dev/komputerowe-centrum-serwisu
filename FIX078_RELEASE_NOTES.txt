@@ -1,0 +1,11 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX078
+POPRAWKA PARSERA CMD I WALIDACJI PAKIETU
+
+- Usunięto wymóg, aby katalog nadrzędny nazywał się dokładnie KOMPUTEROWE_CENTRUM_SERWISU_FIX078.
+- Pakiet identyfikuje się przez FIX078_PACKAGE_MARKER.txt z nazwą programu i przypisanym repozytorium.
+- Główny CMD używa prostych, osobnych poleceń IF/GOTO zamiast złożonego jednoliniowego bloku IF, który mógł być błędnie parsowany przez CMD w ścieżkach z nawiasami.
+- Ujednolicono walidację markera w synchronizatorze źródeł i publikatorze Releases.
+- Dodano CHECK_FIX078_PACKAGE_VALIDATION.ps1 do automatycznej kontroli.
+- Nadal istnieje jeden punkt startowy: URUCHOM_TYLKO_TEN_PLIK.cmd.
+- Wersja aplikacji: 1.0.0.69 (bez zmiany).
+- Weryfikacja wykonana tutaj: integralność ZIP i kontrole statyczne. Nie wykonano testu na Windows ani publikacji.

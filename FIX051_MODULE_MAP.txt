@@ -1,0 +1,7 @@
+KOMPUTEROWE CENTRUM SERWISU — MAPA MODUŁÓW FIX051
+
+Liczba wpisów nawigacji: 62
+Liczba tras modułów: 62
+Style interfejsu: PROFESJONALNY, FUTURYSTYCZNY, SZKLANY
+Palety kolorów: 10
+Migracja: eksport, manifest, SHA-256, weryfikacja, import, ochrona punktów ponownej analizy.

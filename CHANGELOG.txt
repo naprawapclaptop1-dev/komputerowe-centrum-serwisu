@@ -1,0 +1,747 @@
+FIX072 — pełna automatyzacja jednego przebiegu i migracja aktualizatora do GitHub Releases.
+- Usunięto aktywne odwołania aktualizatora do Cloudflare Pages/R2; diagnostyka pokazuje HTTPS, GitHub API, assety, manifesty i SHA-256.
+- Jeden URUCHOM_TYLKO_TEN_PLIK.cmd automatycznie ustawia przypisane repozytorium, przygotowuje narzędzia, buduje EXE i instalator, synchronizuje źródła, publikuje wydanie, instaluje aplikację i uruchamia ją.
+- Repozytorium jest przypisane bez pytania: naprawapclaptop1-dev/komputerowe-centrum-serwisu.
+- Dodano automatyczne przygotowanie GitHub CLI, Git for Windows i Inno Setup przez WinGet; przy pierwszym przebiegu automat uruchamia jednokrotne logowanie GitHub w przeglądarce.
+- Synchronizacja źródeł zachowuje README.md, POLITYKA_PUBLIKACJI.md i istniejące reguły .gitignore.
+- Weryfikacja publiczna używa GitHub Releases API; manifesty wskazują adresy konkretnego tagu, a publikator nie nadpisuje tagów ani wydań.
+- Po publikacji instalator jest uruchamiany automatycznie; Windows może wymagać standardowego potwierdzenia UAC.
+- Zachowano dotychczasową wersję produktu 1.0.0.69; FIX072 dotyczy infrastruktury aktualizacji i procesu publikacji, nie deklaruje nowej wersji EXE.
+- Stare pliki Cloudflare pozostają wyłącznie jako archiwum historyczne i nie są używane przez aktywny przebieg.
+
+KOMPUTEROWE CENTRUM SERWISU — CHANGELOG
+
+FIX069 / 1.0.0.69 — naprawa kodowania i polecen CMD w URUCHOM_WSZYSTKO.cmd; czysty ASCII bez BOM, zakończenia CRLF, walidacja repozytorium owner/repo przed budowaniem. Szczegóły: FIX069_RELEASE_NOTES.txt.
+
+
+FIX068 / 1.0.0.68 — naprawa jednego przebiegu budowania i publikacji Cloudflare. Wrangler v4 instalowany lokalnie i ponownie używany; prywatny cache npm w folderze programu; OAuth potwierdzany przez whoami; jedyny punkt startowy URUCHOM_WSZYSTKO.cmd. Szczegóły: FIX068_RELEASE_NOTES.txt.
+
+FIX065 — PEŁNE CENTRUM AKTUALIZACJI, KATALOG WYDAŃ I COFANIE WERSJI
+- PowerShell normalizuje signerThumbprint właściwym wzorcem whitespace; dodano test przeciwko podwójnemu escape.\n- Dodano parser releases.json oparty na JavaScriptSerializer oraz wybieranie konkretnego wydania z katalogu.
+- Walidacja katalogu: wersja, Stable/Beta, host Cloudflare, EXE, SHA-256 i thumbprint certyfikatu.
+- Menedżer transferu: HTTP Range, wznawianie, 3 próby na źródło, limit KB/s, pomiar prędkości i ETA.
+- Ustawienia interwału 1–24 godz. i limitu transferu zapisują się i są odtwarzane przy kolejnym uruchomieniu.
+- Authenticode używa asynchronicznego odczytu stdout/stderr i rzeczywistego timeoutu.
+- Manifest główny musi wskazywać przypisany host Cloudflare; nieprawidłowy thumbprint jest odrzucany.
+- Publisher sprawdza signerThumbprint w publicznych manifestach i bieżących wpisach releases.json.
+- Przed instalacją wykonywana jest kopia plików aplikacji i ustawień; kontrolowane są SHA-256, wolne miejsce i limity rozmiaru.
+- Instalacja jest blokowana po nieudanej kopii; rollback przywraca poprzednie pliki po UAC i sprawdzeniu SHA-256.
+- Nieprzezroczyste pola wyboru/przyciski radiowe oraz gradientowe tło przycisków ograniczają prześwity w stylu SZKLANY.
+- Zachowano 65 tras, 3 style, 10 motywów, Cloudflare Pages/R2, jedno URUCHOM_WSZYSTKO.cmd i schemat ustawień FIX060.
+- Wersja programu i pliku: 1.0.0.65.
+
+FIX063 — POPRAWKA TESTU EKRANU AKTUALIZACJI I OBSŁUGI STAREGO EXE
+- Naprawiono fałszywy test UI: aktualny nagłówek to „CENTRUM AKTUALIZACJI GLOBALNYCH”, nie „CENTRUM AUTOMATYCZNYCH AKTUALIZACJI”.
+- Test sprawdza teraz rzeczywiste kontrolki w metodzie BuildUpdaterPage().
+- Wstępne odrzucenie starego EXE w BUILD_INSTALLER_MODERN.cmd nie wypisuje już czerwonego wyjątku PowerShell; zapisuje informację o przebudowie.
+- Stary FileVersion 1.0.0.62 pozostaje odrzucany; pakowany jest wyłącznie świeży plik 1.0.0.63 z BUILD_ID.
+- Zsynchronizowano ProgramVersion, assembly, FileVersion, Inno Setup, manifest, testy i skrypty.
+- Zachowano DesignVersion FIX060, 65 tras, 3 style, 10 motywów, Cloudflare Pages/R2 i URUCHOM_WSZYSTKO.cmd.
+- Wersja programu i pliku: 1.0.0.63.
+
+FIX062 — OPAQUE UI + DIAGNOSTYKA CLOUDFLARE
+- Poprawiono błąd składni C# w potwierdzeniu usuwania starej historii; test regresyjny pilnuje, by tekst nowej linii był zapisany jako \r\n.
+- Karty SZKLANY czyszczą cały obszar, są nieprzezroczyste i podwójnie buforowane; przyciski czyszczą własny prostokąt przed rysowaniem, a narożniki kart dopasowują się do tła strony.
+- Teksty etykiet aktualizatora nie nachodzą na przyciski; odświeżanie kontrolek po zmianie stylu nie pozostawia starych klatek.
+- Opakowane błędy NameResolutionFailure nadal są pokazywane jako konkretny problem DNS.
+- Naprawiono literał C# w oknie potwierdzenia czyszczenia historii; dodano test regresyjny chroniący przed surową nową linią w stringu.
+- Poszerzono klasyfikację błędów DNS także dla opakowanych komunikatów NameResolutionFailure.
+- Wzmocniono malowanie kart: czyszczenie całego obszaru, nieprzezroczyste wypełnienie, jawne transparentne etykiety potomne i pełne odświeżanie.
+- Regresja rozróżnia stary URL używany tylko do oznaczania archiwalnej historii od adresu aktywnego aktualizatora.
+- Naprawiono przezroczystości stylu SZKLANY: karty i przyciski mają pełne wypełnienie, pozostawiono szklisty połysk bez prześwitów.
+- Checkbox, RadioButton i GroupBox otrzymują jednolite tło rodzica.
+- Dodano TEST DNS / CLOUDFLARE oraz diagnostykę DNS / HTTPS / Pages Function / R2.
+- Aktualizator odróżnia brak rekordu DNS od problemów połączenia, błędów HTTP i braku bindingu R2.
+- Dodano endpoint /updates/health.
+- Publisher jawnie używa cloudflare/wrangler.toml, sprawdza wdrożenie produkcyjne Pages i czeka na DNS/HTTPS przed potwierdzeniem sukcesu.
+- Po publikacji ponownie sprawdzane są manifest Stable/Beta, SHA-256, HEAD i HTTP Range 206.
+- Zachowano jeden plik URUCHOM_WSZYSTKO.cmd oraz dotychczasową zgodność ustawień DesignVersion FIX060.
+- Wersja programu i pliku: 1.0.0.62.
+- Historia aktualizacji oznacza stare adresy poprzedniego hostingu jako ARCHIWUM; dodano czyszczenie tylko tych wpisów po potwierdzeniu.
+
+FIX061 — JEDEN CMD: BUDOWANIE + PUBLIKACJA CLOUDFLARE
+- Dodano URUCHOM_WSZYSTKO.cmd: jeden przebieg buduje Portable, instaluje, weryfikuje BUILD_ID, publikuje Cloudflare Pages/R2 i testuje publiczne manifesty oraz EXE.
+- Publikacja nie uruchomi się po nieudanym budowaniu.
+- Całość zapisuje jeden log 00-URUCHOM-Wszystko.log i status FULL_RELEASE.status.
+- Przepisano uruchamianie Wrangler przez System.Diagnostics.Process; stdout/stderr przechwytywane osobno, ostrzeżenia npm nie zatrzymują procesu przy ExitCode=0.
+- Każdy etap Wrangler kontroluje rzeczywisty kod wyjścia.
+- Przed wysłaniem pliku do R2 wymagane jest SETUP_BUILD_ID.txt oraz potwierdzenie wersji, SHA-256 i aktualnego skrótu źródeł.
+- Zrezygnowano z osobnego PUBLISH_CLOUDFLARE_FREE.cmd; użytkownik uruchamia wyłącznie URUCHOM_WSZYSTKO.cmd.
+- Zachowano 65 tras, 3 style, 10 motywów, powrót do pulpitu i format preferencji DesignVersion FIX060.
+- Wersja programu i pliku: 1.0.0.61.
+
+FIX060 — CLOUDFLARE FREE + POWRÓT DO PULPITU
+- Dodano stały przycisk PULPIT GŁÓWNY w bocznej nawigacji i skrót Ctrl+Home.
+- W oknie Radio Online dodano przycisk PULPIT; Escape/Ctrl+Home/X wracają do pulpitu.
+- Zmieniono wbudowany endpoint aktualizacji na Cloudflare Pages `kcs-rj2026-updates.pages.dev`.
+- Dodano Pages Function do obsługi manifestów, instalatorów EXE, HEAD i HTTP Range.
+- Dodano prywatny bucket Cloudflare R2 przez binding Pages Function oraz regułę _routes dla /updates/*.
+- Dodano skrypt publikacji Cloudflare Free: tworzenie projektu/bucketu, Pages deploy, generowanie manifestu, R2 upload i test HTTP 200/HEAD/Range 206.
+- Usunięto stary adres domeny firmowej z bieżącego runtime updatera i generatorów publikacji.
+- Wersja programu i pliku: 1.0.0.60.
+
+FIX059 — UJEDNOLICENIE WERSJI RUNTIME I TESTU REGRESJI
+- Naprawiono test FIX058, który oczekiwał runtime 1.0.0.57 przy kodzie 1.0.0.58.
+- Test FIX059 sprawdza ProgramVersion 1.0.0.59 i porównuje go z AssemblyVersion, AssemblyFileVersion oraz ExpectedVersion.
+- ProductVersion raportu kontroli integralności korzysta z ProgramVersion zamiast starej stałej 1.0.0.53.
+- Zsynchronizowano wersje aplikacji, PE, instalatora, manifestu i skryptów budowania.
+- Zachowano moduły, 65 tras, 3 style, 10 motywów i automatyczny aktualizator.
+- Wersja programu i pliku: 1.0.0.59.
+
+FIX058 — POPRAWKA TESTU REGRESJI AKTUALIZATORA
+- Zawężono kontrolę ręcznych pól serwerowych do widocznego ekranu aktualizatora i deklaracji kontrolek.
+- Usunięto fałszywy alarm po globalnym przeszukiwaniu całego modułu.
+- Wersja programu, pliku i instalatora: 1.0.0.58.
+
+FIX057 — AKTUALIZACJE AUTOMATYCZNE
+- Usunięto z ekranu użytkownika pola adresów manifestów, serwerów CDN i regionu/języka.
+- Wbudowano jeden oficjalny adres HTTPS z wyborem Stable/Beta; region i język są wykrywane z ustawień Windows.
+- Dodano sprawdzanie przy starcie i co 6 godzin oraz opcjonalne automatyczne pobieranie.
+- Dodano postęp, pauzę/wznowienie HTTP Range, zatrzymanie, historię i zachowanie częściowego pakietu.
+- Instalator jest weryfikowany SHA-256 i FileVersion także bezpośrednio przed uruchomieniem; UAC pozostaje wymagane.
+- Dodano automatyczne przygotowanie pakietu/manifestu po stronie wydawcy przez GENERATE_UPDATE_MANIFEST.ps1.
+- Domyślna instalacja wymaga potwierdzenia; automatyczna instalacja jest osobną opcją.
+- Adres serwera jest wbudowany, ale publikacja manifestu i instalatora na hostingu/CDN pozostaje wymaganym krokiem wydawcy.
+- Wersja programu i pliku: 1.0.0.57.
+
+FIX047 — KOMPUTEROWE CENTRUM SERWISU: nowa nazwa i przebudowa pulpitu
+- Ujednolicono nazwę produktu w aplikacji, raportach, zasobniku, instalatorze, skrótach i dokumentacji.
+
+FIX056 — GLOBALNY AKTUALIZATOR: STATUS, WZNOWIENIE I GENERATOR MANIFESTU
+- Ekran aktualizacji dopasowuje się do dostępnej szerokości i pokazuje stan „SERWER NIE SKONFIGUROWANY” zamiast pustego błędu.
+- Dodano postęp, pauzę, wznowienie HTTP Range, zatrzymanie z zachowaniem .part i historię.
+- Dodano kreator manifestu z pakietu, automatyczne SHA-256 i kopie CDN.
+- Dodano kopię oraz przywracanie plików konfiguracji przed aktualizacją.
+- Dodano skrypt GENERATE_UPDATE_MANIFEST.ps1 oraz instrukcję publikacji.
+- Wersja programu i pliku: 1.0.0.56.
+
+
+FIX055 — RESPONSYWNE RADIO I WIDOCZNE AKTUALIZACJE GLOBALNE
+- Okno radia jest zmienialne, dopasowuje rozmiar startowy do monitora i skaluje kontrolki oraz czcionki.
+- Listy stacji, kraju, języka, gatunku i kodeka używają ciemnego rysowania własnego.
+- Dodano stały przycisk AKTUALIZACJE, osobną grupę menu po Pulpicie i skrót w menu zasobnika.
+- Zmieniono widoczną nazwę modułu na „Aktualizacje globalne”, zachowując wewnętrzną trasę.
+- Zachowano 65 tras, trzy style, dziesięć palet, istniejące dane i wszystkie moduły.
+- Wersja programu i pliku: 1.0.0.55.
+
+
+FIX054 — GLOBALNY AKTUALIZATOR
+- Dodano wybór regionu i języka oraz automatyczne wykrywanie regionu użytkownika.
+- Dodano listę zapasowych manifestów HTTPS i kopii lustrzanych pakietu, z automatyczną próbą kolejnych serwerów.
+- Dodano filtrowanie manifestów po kanale, regionie, języku i architekturze.
+- Dodano TLS 1.2, limity czasu, zakaz DTD, kontrolę przekierowań HTTPS i pobieranie przez plik .part z kontrolą SHA-256.
+- Dodano instrukcję publikacji globalnej dystrybucji przez CDN; nie skonfigurowano fikcyjnego serwera.
+- Wersja programu i pliku: 1.0.0.54.
+
+
+FIX053 — POPRAWKA KODOWANIA TESTU POWERSHELL
+- Zmieniono wzorzec testu karty na zapis Unicode \u0142, aby parser PowerShell nie zależał od lokalnej strony kodowej.
+- Dodano UTF-8 BOM do wszystkich skryptów PowerShell dla Windows PowerShell 5.1.
+- Zaktualizowano test regresji, listę źródeł, mapę modułów, weryfikator i instalator do wersji 1.0.0.53.
+- Stare pliki EXE FIX052 i wcześniejsze pozostają nieakceptowane.
+
+
+FIX052 — ROZBUDOWA CENTRUM SERWISOWEGO
+- Dodano odczytowy wskaźnik stanu zdrowia komputera z pomiarami CPU/RAM/dysku/SMART i wyjaśnieniem ograniczeń.
+- Dodano lokalne profile komputerów, import XML z drugiego urządzenia i porównanie dwóch konfiguracji sprzętu/systemu.
+- Dodano spis zainstalowanych programów z rejestru Windows, filtrowanie oraz eksport CSV; nie są odczytywane klucze produktu.
+- Rozszerzono kartotekę zgłoszeń o telefon, e-mail, status, aktualizację istniejącego wpisu i usuwanie z potwierdzeniem.
+- Dodano skróty nowych modułów na pulpicie; zachowano istniejące moduły ratunkowe, sterowniki, bezpieczeństwo i kontrolę jakości.
+- Wersja programu i pliku: 1.0.0.52.
+
+
+FIX051 — POPRAWKA SKŁADNI CS1026
+- Naprawiono brakujący nawias zamykający w wywołaniu Card(...) w metodzie BuildModesPage().
+- Dodano kontrolę regresji dokładnie dla poprawionej deklaracji.
+- Sprawdzono pozostałe wywołania Card(...) pod kątem podobnego błędu.
+- Wersja programu i pliku: 1.0.0.51.
+
+
+FIX050 — POPRAWKA TESTU ZGODNOŚCI WERSJI
+- Naprawiono test regresji, który nadal oczekiwał wersji 1.0.0.48 przy wydaniu 1.0.0.49.
+- Zastąpiono przestarzały wzorzec kontrolą zgodności AssemblyVersion, AssemblyFileVersion i ExpectedVersion w weryfikatorze.
+- Dodano potwierdzenie bieżącego wydania 1.0.0.50.
+- Zaktualizowano skrypty, manifest, instalator, mapę modułów i weryfikator do FIX050.
+
+
+FIX049 — RAPORT SERWISOWY / STARA NAZWA
+- Zmieniono tytuł generowanego raportu HTML z „Naprawa PC - raport” na „Komputerowe Centrum Serwisu - raport serwisowy”.
+- Pozostawiono ścisły test regresji wykrywający starą nazwę w głównym źródle i module raportów; teraz nie znajduje już starego tytułu.
+- Dodano osobny test obecności nowego polskiego tytułu raportu.
+- Zaktualizowano wydanie, wersję pliku, instalator, Portable i weryfikator do 1.0.0.49.
+
+
+FIX048 — USUNIĘCIE POZOSTAŁEJ WIDOCZNEJ STAREJ NAZWY
+- Zmieniono etykietę „Kanał programu Naprawa PC” na „Kanał aktualizacji programu”.
+- Zmieniono domyślną wartość pola technika w raporcie na „Technik serwisu”.
+- Ujednolicono tytuł, nagłówek i raport w trybie zgodności oraz nazwę aplikacji HTA.
+- Zachowano wewnętrzne ścieżki danych i wpisy usuwające dawne skróty dla zgodności wstecznej.
+- Rozszerzono test regresji o kontrolę widocznych nazw w trybie podstawowym i awaryjnym.
+- Zaktualizowano metadane, manifest, weryfikator, instalator i skrypty do wersji 1.0.0.48.
+
+- Przebudowano pulpit, nagłówek, menu boczne, pola wyboru i układ kart pod szerokie ekrany.
+- Poprawiono rysowanie zaznaczonej wartości ComboBox w zamkniętym polu.
+- Zachowano dotychczasowy AppId, katalogi danych i wszystkie trasy modułów.
+- Dodano nową grafikę instalatora oraz wersję 1.0.0.47.
+
+KOMPUTEROWE CENTRUM SERWISU — DZIENNIK ZMIAN
+CHANGELOG
+
+FIX046 — CAŁKOWITA PRZEBUDOWA INTERFEJSU
+- Przebudowano główne okno, pulpit, grupowane menu i wspólny wygląd kart, przycisków oraz list wyboru.
+- Dodano wyszukiwarkę modułów i skrót Ctrl+K; zachowano 62 istniejące trasy, migrację i dziesięć palet.
+- Nowy układ powłoki programu z wyszukiwaniem i grupowaniem wszystkich modułów; usunięty powielony górny pasek nawigacyjny.
+- Nowy, responsywny pulpit z większymi kartami sprzętowymi, panelem migracji, ochroną danych, asystentem i uporządkowanymi działaniami.
+- Trzy odrębne style kart i przycisków: PROFESJONALNY, FUTURYSTYCZNY, SZKLANY.
+- Ciemne listy wyboru w całej aplikacji oraz spójniejsze typografie i odstępy.
+- Zachowane identyfikatory modułów, trasy, migracja, kopie, raporty, katalogi danych, ustawienia i dziesięć palet kolorystycznych.
+- Wersję programu i pliku podniesiono do 1.0.0.46.
+
+
+FIX044 — POPRAWKA TESTU WERSJI ZESTAWU
+- Test FIX043 błędnie oczekiwał 1.0.0.42, podczas gdy AssemblyInfo.cs zawierał 1.0.0.43.
+- Dodano osobne sprawdzanie AssemblyVersion i AssemblyFileVersion dla 1.0.0.44.
+- Zaktualizowano skrypty budowania, weryfikator, mapę modułów i nazwy wyników do FIX044.
+
+
+FIX043 — POWERSHELL UTF-8 / POLSKIE MOTYWY HOTFIX
+- Added UTF-8 BOM to PowerShell scripts so Windows PowerShell 5.1 reads Polish text correctly.
+- Made the SŁONECZNY regression expectation encoding-independent using Unicode code point U+0141.
+- Kept the complete ten-theme regression test active; updated source binding, module map and release identity.
+- ProductVersion / FileVersion advanced to 1.0.0.43.
+
+
+FIX042 — CMD BUILD PIPELINE HOTFIX
+- Added version-matched FIX042 module map required by source package checks.
+- Converted all Windows command scripts to CRLF line endings and ASCII-only batch text.
+- Removed `chcp 65001` from batch scripts to avoid parser/code-page fragmentation.
+- Updated source-bound regression check, product/FileVersion and build pipeline to FIX042 / 1.0.0.42.
+- Preserved Polish application interface, migration logic, modules, styles and user data paths.
+
+
+FIX041 — NAPRAWA PC — CENTRUM MIGRACJI I NAPRAW
+- Zmieniono nazwę produktu i widoczne nazwy interfejsu na polskie.
+- Dodano polskie nazwy wszystkich modułów oraz trzy niezależne układy wyglądu: KLASYCZNY, FUTURYSTYCZNY, SZKLANY.
+- Dodano osobne style rysowania kart i przycisków, zachowując dziesięć polskich palet kolorystycznych.
+- Zachowano identyfikator instalatora, katalogi danych, konfiguracji i routingu.
+- Podniesiono wersję produktu do 1.0.0.41.
+
+
+NAPRAWA PC — CENTRUM MIGRACJI I NAPRAW
+FIX041 — POLSKA NAZWA, INTERFEJS I WYGLĄD
+
+- Zmieniono nazwę produktu na NAPRAWA PC — CENTRUM MIGRACJI I NAPRAW we wszystkich bieżących elementach aplikacji, instalatora i pakietu.
+- Menu modułów, nagłówki, trzy układy wyglądu i dziesięć palet mają polskie nazwy; identyfikatory wewnętrzne tras pozostają bez zmian.
+- Trzy niezależne układy: KLASYCZNY, FUTURYSTYCZNY i SZKLANY; wybór jest zapisywany w konfiguracji.
+- Przyciski i karty otrzymały odmienne sposoby rysowania dla wybranego układu; przebudowano nagłówki i pulpit startowy.
+- Zmieniono nazwy plików Portable / instalatora i zasobu grafiki instalatora.
+- Zachowano AppId instalatora, ścieżki danych, ustawienia, moduły, zabezpieczenia migracji i funkcje poprzednich wydań.
+- ProduktVersion / FileVersion: 1.0.0.41.
+
+
+FIX041 — INSTALLER LAUNCH / RELEASE IDENTITY HOTFIX
+- Fixed START_SETUP.cmd expecting a stale FIX036 installer filename after the modern installer stage had produced FIX037.
+- Advanced current product, assembly and file version to 1.0.0.41 and aligned build scripts, launchers, installer names and verification checks.
+- Preserved all application modules, migration features, themes, AppId and user-data paths.
+
+
+FIX037 — MIGRATION COMPILER + CMD ENCODING HOTFIX
+- Fixed CS0165 in VerifyPcMigrationPackage by initializing report before the short-circuit directory check.
+- Added explicit missing-package diagnostic instead of reading an unassigned local variable.
+- Saved all CMD build/launcher scripts as UTF-8 without BOM to prevent the command interpreter treating the BOM as part of @echo.
+- Bumped ProductVersion / AssemblyVersion / FileVersion to 1.0.0.37.
+- Added FIX037 regression test and updated source-bound build checks.
+- Preserved existing migration engine, all existing module routes, themes and user-data paths.
+
+NAPRAWA PC — CENTRUM MIGRACJI I NAPRAW
+CHANGELOG
+
+FIX036 — PC MIGRATION CENTER / TEN THEMES / VERIFIED SOURCE
+- Added PC Migration PRO page for user-selected folder export/import between computers.
+- Migration packages preserve folder structure and include a SHA-256 manifest for every file.
+- Added manifest validation, duplicate/path-traversal rejection, file-size/hash checks and reparse-point traversal protection.
+- Supports removable drives and reachable SMB/network folders (Wi-Fi/LAN when a share is configured).
+- Bluetooth is documented as a transport for the finished package through Windows Nearby Sharing; direct Bluetooth file transfer is not claimed.
+- Added three polskie motywy kolorystyczne: RUBY, SOLAR and OCEAN (10 total).
+- Added FIX036 regression checks and source-bound build provenance.
+- Bumped product/FileVersion to 1.0.0.36; retained existing AppId, application data paths, prior module routes and FIX032 design preferences.
+- License note: migration copies user-selected files/configuration; it does not bypass vendor licensing or guarantee activation transfer.
+
+NAPRAWA PC — WINDOWS VERSION SWITCHER PRO
+CHANGELOG
+
+FIX035 — NORMALIZED PE FILEVERSION / VERIFIED INSTALLER
+- Fixed false STALE_OR_WRONG_EXE after successful Inno Setup compile: FileVersionInfo.FileVersion may be returned as a fixed-width string padded with trailing spaces.
+- Verifier compares the trimmed FileVersion and parsed System.Version; failure diagnostics include raw and normalized values.
+- Extended BUILD_ID source binding to include VERIFY_PAYLOAD.ps1, regression test and build/installer/verification CMD scripts.
+- Bumped ProductVersion / AssemblyVersion / FileVersion to 1.0.0.35 and renamed Portable/Setup outputs to FIX035.
+- Added CHECK_FIX035_REGRESSION.ps1 and updated CHECK_SOURCE.cmd.
+- Preserved FIX032 NEXUS DesignVersion, AppId, app-data paths, all modules, radio player, icon and installer artwork.
+
+FIX034 - VERIFIED SOURCE ROOT ARGUMENT / POWERSHELL PATH FIX
+- Fixed PowerShell path parsing: quoted %~dp0 ended in a backslash and could escape the closing quote in native process argument parsing.
+- All VERIFY_PAYLOAD calls now pass -SourceRoot "%~dp0." so the quoted argument ends in a dot, not a trailing backslash.
+- VERIFY_PAYLOAD.ps1 now validates EXE, source-root and stamp paths through Resolve-VerifiedPath and reports the exact invalid argument.
+- Added CHECK_FIX034_REGRESSION.ps1 to prevent reintroducing the unsafe SourceRoot argument.
+- Preserved PremiumButton radio styling, NEXUS design marker FIX032, AppId, app data paths, all existing modules, icon and installer artwork.
+- Bumped product/FileVersion to 1.0.0.34 / FIX034 and updated Portable, modern Setup, optional XP Setup, manifests and documentation.
+
+NAPRAWA PC - CENTRUM MIGRACJI I NAPRAW
+CHANGELOG
+
+NAPRAWA PC - CENTRUM MIGRACJI I NAPRAW
+CHANGELOG
+
+FIX033 - COMPILER HOTFIX: PREMIUM BUTTON STATIC TYPE
+- Fixed CS1061 at radioBubbleButton.AccentColor: the field is now declared as PremiumButton instead of System.Windows.Forms.Button.
+- The runtime object was already PremiumButton; the old base-class field type hid its AccentColor member from the C# compiler.
+- No visual redesign in this hotfix; the CENTRUM MIGRACJI I NAPRAW UI, radio, module routes, app icon, installer artwork and user data paths are retained.
+- Preserved DesignVersion FIX032 so the hotfix does not reset the existing theme or saved user preference.
+- Bumped product/FileVersion to 1.0.0.33 / FIX033; updated Portable, Setup, XP Setup, verification stamps, scripts and docs.
+- Kept existing Inno Setup AppId and installed EXE filename for in-place upgrade.
+
+NAPRAWA PC — CENTRUM MIGRACJI I NAPRAW
+CHANGELOG
+
+FIX032 — VERIFIED BUILD / NEXUS MIGRATION CONSOLE
+- Fixed stale installer payload root cause: BUILD_ALL never invokes Setup after failed Portable compile; each installer requires a current BUILD_ID.txt matching FileVersion 1.0.0.32, EXE SHA-256 and source SHA-256; modern Setup gets a separate SETUP_BUILD_ID.txt verifying the Setup EXE and installer source files.
+- Added PowerShell 2-compatible PE version / SHA-256 verifier and atomic build stamp.
+- Replaced repeated 52-module tile wall with a migration workbench dashboard, five hardware cards, AI panel, health panel, ten quick actions, tasks, recommendations and Polish radio shortcut.
+- Added horizontal top navigation while keeping the existing module sidebar and all existing routes.
+- Radio defaults to country Poland + Polish language; World clears the language filter so all world stations are available.
+- Added CentrumMigracjiHero.png to portable and installed application resources.
+- Improved Inno Setup finished-page text contrast and finished-page captions; same AppId, installed EXE name and legacy install folder retained.
+- Bumped product version to 1.0.0.32 / FIX032 and DesignVersion to FIX032.
+
+NAPRAWA PC — WINDOWS VERSION SWITCHER PRO
+CHANGELOG
+
+FIX031 — NEXUS VISUAL / RADIO POLAND-FIRST / INSTALLER UX
+- Reworked the whole app visual system: shell/header/sidebar, common cards, buttons, fields and module page theme.
+- Rebuilt main dashboard layout and module hub; preserved all existing module routes and page implementations.
+- Radio Online now opens with Poland selected and searches Radio Browser by countrycode=PL; one-click Polska/Świat filters and editable country selection added.
+- Default radio codec filter changed to Wszystkie so Polish stations are not hidden by MP3-only filtering.
+- Radio catalog offline cache now respects selected country filter.
+- Replaced installer wizard art and small icon; added a visible NEXUS information page before the responsibility warning.
+- Kept existing AppId, installed EXE name and data paths for in-place upgrade compatibility.
+- Bumped product version to 1.0.0.31 / FIX031.
+
+NAPRAWA PC — CENTRUM MIGRACJI I NAPRAW
+CHANGELOG
+
+FIX031 — CENTRUM MIGRACJI I NAPRAW FULL REDESIGN
+- Replaced the default Aurora PRO look with the new CENTRUM MIGRACJI I NAPRAW visual identity throughout the WinForms shell and shared controls.
+- Redesigned card surfaces, gradients, rounded corners, buttons, hover/focus states, navigation, header, brand area and radio bubble accents.
+- Added a new multi-resolution application icon and updated the executable resource build input.
+- Added new Inno Setup wizard brand bitmaps, NEXUS palette styling, app name, version, and Start/Desktop shortcut branding.
+- Preserved existing Inno Setup AppId and application data paths to support in-place update from FIX029.
+- Updated migration target/edition selectors and release metadata; Keep All remains dependent on the actual Windows Setup.
+- Preserved FIX029 modules and existing data/configuration.
+- Bumped product version to 1.0.0.31 / FIX031.
+
+NAPRAWA PC — WINDOWS VERSION SWITCHER PRO
+CHANGELOG
+
+FIX029 ULTIMATE MIGRATION & SERVICE
+- Added Migration Intelligence PRO: route advisory, target edition/architecture selections, TPM/Secure Boot/firmware/backup/Setup readiness context.
+- Added Backup & Recovery ULTIMATE: Backup.xml manifest inspection, missing-root detection, creation and verification of a separate SHA-256 file index in a background worker.
+- Added Hardware Intelligence PRO: CPU/RAM/GPU/monitor/BIOS/board/disk/PNP inventory; virtual adapters and unavailable sensor data are explicitly identified.
+- Added Windows Compatibility DB: persistent local XML database for applications, drivers, devices and technician notes; installed-app inventory and CSV export.
+- Added Universal Boot Repair: read-only BCD/ReAgentC/MountVol report, BCD export and confirmed WinRE restart; no automatic destructive boot repair.
+- Added Driver Download Center: official vendor support links and installed-device/driver inventory; no third-party bundles or silent driver install.
+- Added Service Report Designer: customer, device, ticket, technician and notes fields; local HTML report with print-to-PDF workflow.
+- Added Operation Recovery Center: operation history, configuration backup and recovery navigation; does not pretend every operation can be automatically reversed.
+- Extended Quality Control with the eight new modules and Compatibility DB path checks.
+- Retained FIX028 Build Manager, independent CMD build stages, existing modules, Aurora PRO visuals, branded icon, radio bubble, notification center and backup scheduler.
+- Bumped product version to 1.0.0.29 / FIX029. Existing design-version marker and settings.xml schema are preserved to avoid resetting the user's theme/configuration.
+
+NAPRAWA PC — WINDOWS VERSION SWITCHER PRO
+CHANGELOG
+
+FIX028 BUILD MANAGER + SERVICE TOOLS
+- Split build into independent Portable, modern Setup, optional XP Setup and verification scripts.
+- Added BUILD_MANAGER.cmd interactive menu and per-stage logs/status files.
+- BUILD_ALL now records each stage independently; optional missing Inno Setup 5 no longer fails the build.
+- C# and Inno outputs are first written to temporary paths; previous successful final artifacts are preserved on failure.
+- Added Wi-Fi Analyzer PRO (read-only netsh reports).
+- Added Driver Repository PRO (PnPUtil export, INF inventory, confirmed install).
+- Added Windows File Recovery wrapper for optional Microsoft winfr.exe with source/target safety checks.
+- Added App Compatibility Center with installed-app inventory and AppCompatFlags Layers report.
+- Added in-app Build Manager launch screen for source-package scripts.
+- Bumped product/file/installer version to FIX028 / 1.0.0.28.
+- Retained Aurora PRO, branded app icon, radio bubble, prior modules, UAC 740 fix and local user data.
+
+NAPRAWA PC — WINDOWS VERSION SWITCHER PRO
+CHANGELOG
+
+FIX028 ULTIMATE CONTROL CENTER
+- Added persistent Notification Center with INFO/WARN/ERROR history and tray balloon alerts.
+- Added Backup Scheduler PRO with daily/7-day schedule, external-volume safety checks, wbadmin image backup, SHA-256 file backup and completion notifications.
+- Scheduler runs only while the app is running and PC is awake; it does not create a Windows Task Scheduler job.
+- Added local heuristic Service Assistant for BSOD, disk, update, boot, driver, migration, radio and backup symptoms; no cloud upload or unattended repair.
+- Converted Windows Performance Center to asynchronous 5-second CPU/RAM monitor with 60-point GDI+ history graph and process inventory.
+- Extended Quality Control with new pages and persistent data-path checks.
+- Added icons for notification bell, backup calendar and local assistant using the current Aurora PRO GDI+ renderer.
+- Bumped product version to 1.0.0.28 / FIX028.
+- Retained all FIX026 modules, Radio Worldwide, app icon, tray menu, portable and installer variants, and UAC 740 fix.
+
+NAPRAWA PC — WINDOWS VERSION SWITCHER PRO
+CHANGELOG
+
+FIX026 APP ICON + SYSTEM TRAY
+- Added branded multi-resolution NaprawaPC.ico (16-256 px).
+- Embedded the application icon into the PE executable using csc /win32icon.
+- Set the main window and radio bubble window icons from the executable resource.
+- Added a notification-area tray icon with Open, Radio Online and Exit menu actions.
+- Added SetupIconFile and explicit Start/Desktop shortcut icon settings to modern and XP installers.
+- Added the icon file to installer payload and portable folder; output verification checks icon files.
+- Bumped product version to 1.0.0.26 / FIX026.
+- Preserved FIX025 modules, Aurora PRO UI, radio catalog, UAC runascurrentuser and prior backup/migration modules.
+
+NAPRAWA PC — WINDOWS VERSION SWITCHER PRO
+CHANGELOG
+
+FIX025 AURORA PRO VISUAL REDESIGN
+- Replaced text-symbol menu marks with custom GDI+ vector icons mapped to all navigation pages.
+- Added PremiumButton custom rendering: rounded corners, gradients, hover states, focus outline and action icons.
+- Redesigned NeonCardPanel with rounded gradient surfaces, accent rails and consistent heading colors.
+- Added Aurora PRO palette and one-time migration of legacy theme settings. Existing themes remain available.
+- Updated sidebar spacing, header, button styling, text contrast and radio bubble appearance.
+- Preserved existing page IDs, navigation routes, radio catalog/player, migration, backup and recovery modules.
+- Bumped product version to 1.0.0.25 / FIX025.
+
+NAPRAWA PC — WINDOWS VERSION SWITCHER PRO
+CHANGELOG
+
+FIX024 PORTABLE MODE SCOPE FIX
+- Fixed CS0103 in WindowsVersionSwitcherPRO.Modules.cs: portableMode is now a shared MainForm field.
+- Constructor assigns the shared field based on portable.mode beside the EXE.
+- Quality Control and startup logging now read the same portable/install state.
+- Bumped product version to 1.0.0.24 / FIX024; updated app, installer, portable and updater metadata.
+- Preserved all FIX023 radio, service, recovery, benchmark and quality-control modules.
+
+NAPRAWA PC — WINDOWS VERSION SWITCHER PRO
+CHANGELOG
+
+FIX024 ULTIMATE SERVICE / RADIO RELIABILITY
+- Improved radio HTTP probe to read a real sample of stream payload bytes and report content type and final URL.
+- Added one automatic alternate URL attempt for saved stations when WMP reports an error or stopped playback.
+- Persisted fallback URL for radio favourites and seeded Radio 357 with its two officially published stream URLs.
+- Added NVMe & SSD Doctor using Get-PhysicalDisk/Get-StorageReliabilityCounter and WMI fallback; missing telemetry is not reported as healthy.
+- Added PC Rescue Center with WinRE, BitLocker, recovery and repair tool status; restart requires two confirmations.
+- Added RAM Test PRO with module inventory, Windows Memory Diagnostic scheduling and event-log result reading.
+- Added Quality Control PRO with executable, version, data folder, tools, modules, WMP/VLC and optional radio API checks.
+- Added four sidebar pages and dashboard shortcuts in the existing FIX022 visual style.
+- Product version bumped to 1.0.0.24 / FIX024.
+- Preserved installer UAC runascurrentuser fix, portable mode, all existing modules and risk warning.
+
+NAPRAWA PC — WINDOWS VERSION SWITCHER PRO
+CHANGELOG
+
+FIX022 RADIO ONLINE WORLDWIDE
+- Replaced the single local station list as the only visible source with live worldwide Radio Browser catalogue search.
+- Added search by station name, country, language, genre/tag and codec; online-only filter; popular list and 50-item paging.
+- Added directory metadata for country/language/tag selectors and offline cache of last 250 results.
+- Added url_resolved playback selection, local stream probe and click-counter call on playback.
+- Added WMP playState/error status handling, MP3 default filter, optional launch in locally installed VLC.
+- Preserved user favourites and merged Radio 357 defaults without replacing custom stations.
+- Fixed undefined CSHARP compiler variable and added explicit Microsoft.CSharp/System.Web.Extensions references.
+- Bumped app/installers/updater to 1.0.0.22 / FIX022; retained UAC runascurrentuser and existing modules.
+
+NAPRAWA PC — WINDOWS VERSION SWITCHER PRO
+CHANGELOG
+
+FIX021 RADIO BUBBLE + SERVICE EXTENSION
+- Added floating radio bubble button available from the main window.
+- Added modeless topmost mini-player with play, pause, stop, volume, station presets and custom HTTP/HTTPS URLs.
+- Added Radio 357 official stream preset and backup URL; station list is stored locally in Data/Radio/stations.xml.
+- Added browser fallback when WMPlayer.OCX or a supported codec is not available.
+- Added clean COM player stop/release on application shutdown.
+- Added Windows Performance Center, Application Migration inventory/CSV, Security & Alert Center, Rollback Manager and CPU/RAM quick benchmark.
+- Added Microsoft.CSharp.dll build reference for late-bound Windows Media Player COM.
+- Bumped product version to 1.0.0.21 / FIX021.
+- Preserved FIX020 modules, existing design, warning gate and UAC runascurrentuser installer fix.
+
+NAPRAWA PC — WINDOWS VERSION SWITCHER PRO
+CHANGELOG
+
+FIX020 COMPLETE SUITE
+- Fixed dashboard hardware monitor startup: first read starts after form is shown and risk acknowledgement.
+- Added visible read status, last update time, WMI error feedback and 18-second slow-provider indication.
+- Made dashboard cards and shortcuts use available content width while retaining the FIX019 visual design.
+- Added Windows Migration Planner PRO with advisory staged routes and Keep All caveats.
+- Added System Image Recovery PRO with wbadmin catalog inspection and recovery guide.
+- Added Boot Manager PRO with BCD read/export and confirmed import.
+- Added Driver Compatibility Analyzer using PnP WMI and PnPUtil inventory.
+- Added Migration Task Center based on persistent activity history.
+- Added Windows License Center using SoftwareLicensingProduct and slmgr /xpr; no product key display.
+- Added Registry Backup PRO for selected hives and confirmed .reg import.
+- Added Network Recovery diagnostics and user-confirmed Winsock/TCP-IP reset.
+- Added Windows Update Center and Event Log Analyzer.
+- Added offline Windows image DISM CheckHealth/ScanHealth/RestoreHealth controls.
+- Bumped product version to 1.0.0.20 / FIX020.
+- Preserved UAC postinstall fix runascurrentuser, installer/portable packaging and all prior modules.
+
+NAPRAWA PC — WINDOWS VERSION SWITCHER PRO
+CHANGELOG
+
+FIX019 UAC 740 POSTINSTALL LAUNCH FIX
+- Fixed error 740 when the installer automatically launched the requireAdministrator application after setup.
+- Added Inno Setup runascurrentuser to [Run] postinstall entry in both modern and legacy installers.
+- The app inherits Setup's elevated credentials instead of being launched with the original non-elevated token.
+- Bumped product/file/installer version to 1.0.0.19 / FIX019.
+- Retained requireAdministrator in the app manifest and retained all FIX018 modules.
+
+NAPRAWA PC — WINDOWS VERSION SWITCHER PRO
+CHANGELOG
+
+FIX018 CONTROL CENTER
+- Added SHA-256 integrity baseline and compare workflow for the application EXE and available package files.
+- Added settings export/import with XML validation and an automatic pre-import configuration backup.
+- Added pre-migration readiness report with backup, Setup, free space, firmware, TPM, Secure Boot and selected route information.
+- Added partition/UEFI report with PowerShell Get-Disk GPT/MBR query and WMI fallback.
+- Added Windows tools availability report for DISM, SFC, CHKDSK, WBAdmin, PnPUtil, REAgentC, BCDBoot, DiskPart, ADK and WinPE.
+- Added new pages and dashboard shortcuts using the existing FIX017 visual design; no new theme was introduced.
+- Product version bumped to 1.0.0.18 / FIX018.
+- Preserved existing migration, backup/restore, bypass, USB, drivers, repair, BSOD, updater, hardware, disk health and service desk modules.
+
+NAPRAWA PC — WINDOWS VERSION SWITCHER PRO
+CHANGELOG
+
+FIX017 SERVICE SUITE / RESPONSIVE DASHBOARD
+- Added Hardware Monitor PRO page with WMI/ACPI readings for CPU, RAM, GPU, VRAM, firmware, motherboard, disks, TPM and Secure Boot.
+- Added five-second dashboard hardware refresh; unavailable sensor data are reported as unavailable, not fabricated.
+- Added Disk Health PRO with Win32_DiskDrive inventory and optional MSStorageDriver_FailurePredictStatus readings.
+- Added local Service Desk case register, XML persistence, case history and HTML/TXT reports.
+- Expanded service report with hardware inventory and firmware/security state.
+- Made dashboard cards and common WinForms controls scale to the available content width; app starts maximized.
+- Bumped product version to 1.0.0.17 / FIX017.
+- Preserved all FIX016 migration, backup, bypass, driver, repair, BSOD, updater and installer/portable modules.
+
+NAPRAWA PC - WINDOWS VERSION SWITCHER PRO
+CHANGELOG
+
+FIX016 RISK DISCLAIMER
+- Added a first-run responsibility warning; declining closes the application.
+- Added explicit confirmation before creating LabConfig on Windows 11 USB media.
+- Clarified that Windows Setup upgrades are performed at the user's own risk.
+- Both installers show a separate risk page and require checkbox acknowledgement.
+- Added risk disclaimer to README and portable documentation.
+- Uses x64compatible Inno Setup architecture identifier.
+- BUILD_ALL invokes VERIFY_BUILD.cmd after the build.
+
+NAPRAWA PC - WINDOWS VERSION SWITCHER PRO
+CHANGELOG
+
+FIX015 CMD / INSTALLER BUILD REPAIR
+- Saved all Windows batch scripts with standard CRLF line endings and ASCII-only commands.
+- Rewrote BUILD_INSTALLERS.cmd with separate detection for Inno Setup 7/6 and 5.6.1.
+- Prevented Inno Setup 6/7 from being used for the legacy XP installer.
+- Added INNO_MODERN_ISCC and INNO5_ISCC path overrides.
+- Added CHECK_BUILD_TOOLS.cmd and START_SETUP.cmd.
+- Made missing Inno Setup a clear prerequisite message; portable build remains available.
+- Removed unused repairCommandBox field to eliminate CS0169 warning.
+- Bumped application metadata to FIX015 / 1.0.0.15.
+- Preserved all FIX014 application modules and UI.
+
+NAPRAWA PC — WINDOWS VERSION SWITCHER PRO
+CHANGELOG
+
+FIX014 INSTALLER + PORTABLE
+- Dodano odrębny wariant portable EXE z danymi przechowywanymi obok programu w folderze Data.
+- Dodano instalator EXE przez Inno Setup 7/6 dla Windows 7 SP1 i nowszych.
+- Dodano opcjonalny instalator Legacy przez Inno Setup 5.6.1 dla Windows XP SP3.
+- Dodano BUILD_PORTABLE.cmd, BUILD_INSTALLERS.cmd, BUILD_ALL.cmd i START_PORTABLE.cmd.
+- Dodano AssemblyInfo z wersją produktu 1.0.0.14 i FileVersion 1.0.0.14.
+- Poprawiono etykiety okna oraz updatera z FIX012/1.0.0.12 na FIX014/1.0.0.14.
+- Instalator tworzy skróty i wpis deinstalacyjny, a odinstalowanie zachowuje ProgramData/AppData.
+- Zachowano wszystkie moduły FIX013.
+
+NAPRAWA PC — WINDOWS VERSION SWITCHER PRO
+CHANGELOG
+
+FIX013 CSTRING COMPILER FIX
+- Naprawiono wieloliniowy literał tekstowy MessageBox w module kopii profili przeglądarek.
+- Zastąpiono rzeczywiste znaki nowej linii sekwencjami C# \\r\\n.
+- Wykonano skan leksykalny źródła pod kątem nowych linii wewnątrz zwykłych literałów string/char.
+- Zachowano funkcje FIX012 bez zmian funkcjonalnych.
+
+FIX012 COMPLETE
+- Zachowano wszystkie moduły FIX011 oraz wygląd NaprawaPC PRO.
+- Dodano Centrum sterowników PRO: skan urządzeń z problemami, import/eksport INF, DISM injection do install.wim z kopią oryginału.
+- Dodano Centrum naprawy Windows: DISM, SFC, CHKDSK wybranego woluminu, reset Windows Update, punkt przywracania, przewodnik BCD/WinRE.
+- Dodano BSOD & Crash Analyzer: minidump, MEMORY.DMP, zdarzenia BugCheck/Kernel-Power/EventLog, raport TXT, integracja z WinDbg.
+- Dodano Aktualizator Stable/Beta oparty na własnym manifeście HTTPS, pobraniu paczki i weryfikacji SHA-256.
+- Dodano WinPE Rescue Builder dla ADK + WinPE Add-on z ostrzeżeniem o formatowaniu USB.
+- Dodano automatyczny eksport PDF przez Edge/Chrome headless z awaryjnym drukowaniem HTML.
+- Rozszerzono backup o opcjonalne profile Chrome/Edge/Firefox i Favorites/Saved Games.
+- Zaktualizowano katalog kompilacji Windows na podstawie Release Health Microsoft z 2026-11-10.
+- Dodano blokadę Keep All dla Windows 11 26H1 na istniejących komputerach, zgodnie z zakresem wydania Microsoft.
+- START i BUILD kompilują główny plik C# i nowy plik modułów.
+
+FIX011 COMPLETE
+- Pulpit, migracja, katalog, diagnostyka, backup/restore, USB, raporty, bypass W11, tryby i log.
+
+FIX010
+- Prawdziwy status backupu i trwały dziennik.
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX068 / 1.0.0.68
+- Zastąpiono aktywną publikację Cloudflare Pages/R2 mechanizmem GitHub Releases FREE.
+- Jeden URUCHOM_WSZYSTKO.cmd: konfiguracja repozytorium, build, logowanie GitHub CLI, publikacja i kontrola publicznych assetów.
+- Publikowane są instalator, manifesty Stable/Beta oraz releases.json z SHA-256 i rozmiarem.
+- Aktualizator pobiera manifesty i katalog z adresu GitHub Releases latest/download; kontrola URL dopuszcza zasoby GitHub.
+- Zachowano starsze pliki Cloudflare wyłącznie w archiwum źródłowym; nie są wywoływane przez nowy przebieg.
+- Wersja produktu zwiększona do 1.0.0.68; konfiguracja repozytorium nie zawiera tokena ani hasła.
+- Testy statyczne paczki i publikacji online należy zakończyć na Windows po podaniu repozytorium; nie deklaruje się publikacji bez autoryzacji.
+
+KOMPUTEROWE CENTRUM SERWISU — FIX070
+Poprawka bezpieczeństwa publikatora. Wersja aplikacji pozostaje 1.0.0.69, ponieważ kod aplikacji i instalator nadal mają metadane FIX069.
+
+- Repozytorium przypisane wyłącznie do tego programu: naprawapclaptop1-dev/komputerowe-centrum-serwisu.
+- Publikator nie używa --clobber ani uploadu do istniejącego wydania.
+- Jeśli tag lub wydanie v1.0.0.69 już istnieje, publikacja zostaje przerwana bez zmian.
+- Linki pakietów wskazują konkretny tag, a nie /releases/latest/download/.
+- Poprzednie wydania i assety nie są usuwane ani zastępowane.
+
+Weryfikacja: integralność ZIP PASS; kontrola statyczna publikatora PASS.
+Kompilacja Windows i publikacja online nie zostały wykonane w tym środowisku.
+
+FIX070 — JEDEN ZIP / JEDEN CMD: dodano URUCHOM_TYLKO_TEN_PLIK.cmd jako jedyny punkt wejścia dla użytkownika; repozytorium aplikacji jest ustawiane automatycznie; etapy pomocnicze są uruchamiane wewnętrznie; instrukcja uproszczona.
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX071
+- Walidator repozytorium przyjmuje owner/repo lub pełny adres https://github.com/owner/repo i normalizuje dane do owner/repo.
+- Ujednolicono jedyny punkt startowy na URUCHOM_TYLKO_TEN_PLIK.cmd; poprawiono kontrolę źródeł, regresję i spis plików źródłowych.
+- Repozytorium nadal jest przypisane do naprawapclaptop1-dev/komputerowe-centrum-serwisu; wersja aplikacji pozostaje 1.0.0.69.
+- Szczegóły: FIX071_RELEASE_NOTES.txt.
+
+KOMPUTEROWE CENTRUM SERWISU — FIX073 / 1.0.0.69
+- Naprawiono kompletny przepływ pierwszej publikacji GitHub Release: przygotowanie szkicu, weryfikacja assetów, publikacja jako Latest.
+- Rozszerzono Release o instalator, wersję przenośną, manifesty Stable/Beta, releases.json i SHA256SUMS.txt.
+- Dodano bezpieczne wznawianie niekompletnego szkicu; opublikowane wydania i assety nigdy nie są nadpisywane.
+- Rozszerzono kontrolę publicznego HTTP: GitHub API, manifest tagowy, endpoint latest/download, HEAD instalatora i wersji portable, SHA256SUMS.
+- Dodano bezpłatną stronę globalną PL/EN w GitHub Pages, z opisem przeznaczenia i modułów, filmem prezentacyjnym, wymaganiami, FAQ, SEO i pobieraniem.
+- Główny CMD automatycznie konfiguruje Pages, autoryzację workflow, synchronizuje źródła i witrynę, wdraża stronę oraz publikuje wydanie.
+- Produkt nadal ma wersję 1.0.0.69; FIX073 jest poprawką infrastruktury publikacji i strony internetowej.
+
+
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX074
+
+- Poprawiono automatyczną kolejność pierwszej publikacji i etapów sprawdzania.
+
+- Dodano zintegrowany test publicznego wydania, manifestów, instalatorów, SHA-256 i strony GitHub Pages.
+
+- Zmieniono obsługę brakującego wydania na stronie: ostrzeżenie bez aktywnego błędnego linku pobierania.
+
+- Dodano pobieranie SHA256SUMS.txt i bezpieczną weryfikację istniejących assetów bez nadpisywania.
+
+- Strona globalna PL/EN, film, napisy, funkcje, wymagania i pobieranie pozostają bezpłatne.
+
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX075
+- Główny CMD pokazuje szczegółowy log etapu synchronizacji, zamiast ukrywać rzeczywistą przyczynę pod ogólnym komunikatem.
+- Dodano wstępne sprawdzenie zalogowanego konta GitHub i prawa zapisu do repozytorium.
+- Diagnostyka git clone, robocopy, git add, commit i push zapisuje rzeczywiste komunikaty.
+- Dodano bezpieczną próbę fetch/rebase/push dla konfliktu równoległej zmiany gałęzi main; brak nadpisywania i force push.
+- Zachowano README.md i POLITYKA_PUBLIKACJI.md z istniejącego repozytorium.
+- Strona globalna pozostaje bezpłatna; wersja aplikacji pozostaje 1.0.0.69.
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX076
+
+Naprawa przyczyny błędu z logu FIX075:
+- Windows PowerShell 5.1 z $ErrorActionPreference=Stop traktował stderr programu gh.exe jako terminating ErrorRecord. Przez to gh auth status kończył cały skrypt zanim uruchomił automatyczne logowanie.
+- Dodano Invoke-NativeCapture oraz Invoke-NativeInteractive, które tymczasowo ustawiają ErrorActionPreference=Continue tylko na czas wywołania programu natywnego, zawsze odczytują $LASTEXITCODE i przywracają poprzednią wartość.
+- Przy braku sesji skrypt automatycznie uruchamia gh auth login --web --git-protocol https --hostname github.com --scopes repo,workflow. Użytkownik jednorazowo zatwierdza dostęp w przeglądarce; następnie ten sam przebieg kontynuuje synchronizację.
+- Po autoryzacji wykonywane jest gh auth setup-git, odczyt konta i kontrola permissions.push dla przypisanego repozytorium.
+- Wydawca GitHub Releases korzysta z identycznej bezpiecznej obsługi stderr i kodów wyjścia.
+- Główny CMD sprawdza marker FIX076, pokazuje rzeczywistą ścieżkę uruchomienia i informuje o jednorazowym logowaniu.
+- Dodano testy statyczne FIX076 i rejestrację ich w CHECK_SOURCE.cmd.
+- Zachowano zasadę: jeden ZIP, jeden CMD, jedno repozytorium dla tego programu; brak force push, --clobber i nadpisywania opublikowanych wydań.
+
+Wersja aplikacji desktopowej pozostaje 1.0.0.69. FIX076 dotyczy automatyzacji logowania i publikacji.
+Weryfikacja w tym środowisku: test ZIP i kontrole statyczne. Nie wykonano natywnego testu Windows PowerShell 5.1 ani publikacji GitHub.
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX077
+- Poprawiono obsługę stderr gh.exe w Windows PowerShell 5.1: komunikaty natywne nie przechodzą już przez 2>&1 i nie tworzą NativeCommandError przerywających zadanie.
+- Interaktywne logowanie urządzenia zachowuje widoczny kod i adres na stdout, a stderr przechwytuje oddzielnie; CMD wyraźnie informuje, aby zatwierdzić kod na github.com/login/device i nie zamykać okna.
+- Główny CMD oraz publisher wymagają rzeczywistego katalogu KOMPUTEROWE_CENTRUM_SERWISU_FIX077; uruchomienie w starym FIX057 zostaje zatrzymane.
+- Dodano CHECK_FIX077_AUTH_AND_ROOT.ps1 i włączono go do CHECK_SOURCE.cmd.
+- Wersja aplikacji pozostaje 1.0.0.69; FIX077 dotyczy procesu publikacji.
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX078
+Data: 2026-11-17
+
+- Usunięto kruchą blokadę opartą na nazwie folderu nadrzędnego. Pakiet jest identyfikowany jednoznacznym plikiem FIX078_PACKAGE_MARKER.txt i przypisanym repozytorium.
+- Główny CMD nie używa już jednoliniowych bloków IF z wieloma poleceniami przy kontroli folderu; walidacja markera odbywa się przez osobne polecenia i etykiety.
+- Poprawiono obsługę ścieżek zawierających spacje oraz nawiasy, takich jak „Nowy folder (7)”.
+- Synchronizator źródeł i publikator GitHub Releases weryfikują marker FIX078 zamiast nazwy folderu, dzięki czemu rozpakowanie do katalogu z inną nazwą nie powoduje fałszywego odrzucenia aktualnego pakietu.
+- Zachowano jeden punkt startowy: URUCHOM_TYLKO_TEN_PLIK.cmd.
+- Wersja aplikacji pozostaje 1.0.0.69; FIX078 dotyczy wyłącznie automatyzacji publikacji i stabilności CMD.
+- Nie wykonano kompilacji na Windows ani publikacji GitHub w tym środowisku.
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX079
+
+Naprawa fałszywego komunikatu „Ten folder nie zawiera kompletnego pakietu FIX078”:
+- Zidentyfikowano kruchą zależność od polecenia FINDSTR /X i sposobu zakończenia linii w pliku tekstowym markera.
+- Usunięto FINDSTR z walidacji pakietu. Główny CMD uruchamia teraz VALIDATE_FIX079_PACKAGE.ps1.
+- Walidator PowerShell używa własnego $PSScriptRoot, czyta zarówno CRLF, jak i LF, sprawdza tożsamość programu/repozytorium i listę wymaganych plików.
+- ZIP ma pliki projektu bezpośrednio w katalogu głównym archiwum. Po wyodrębnieniu nie powstaje dodatkowy poziom katalogu projektu.
+- Główny CMD pozostaje jedynym punktem startowym; wszystkie pozostałe skrypty są wywoływane automatycznie.
+- Synchronizator źródeł i publikator Releases sprawdzają FIX079_PACKAGE_MARKER.txt, nie nazwę folderu nadrzędnego.
+- Nazwa katalogu docelowego może zawierać spacje, nawiasy i może być dowolna.
+- Wersja aplikacji pozostaje 1.0.0.69. FIX079 dotyczy walidacji paczki i automatyzacji.
+- W tym środowisku wykonano testy statyczne i kontrolę zawartości ZIP. Nie wykonano natywnego testu Windows ani publikacji GitHub.
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX080
+
+CEL: naprawa błędów parsera Windows PowerShell 5.1 wynikających z plików UTF-8 bez BOM.
+
+ZMIANY:
+- Wszystkie skrypty PowerShell w paczce zapisano jako UTF-8 z BOM, zgodnie z odczytem Windows PowerShell 5.1.
+- Walidator przed startem synchronizacji sprawdza BOM każdego pliku PS1 i parsuje wszystkie skrypty przez System.Management.Automation.Language.Parser.
+- Błędy składni są wykrywane przed logowaniem, synchronizacją źródeł i publikacją.
+- Wydzielono nowe pliki VALIDATE_FIX080_PACKAGE.ps1 i CHECK_FIX080_PACKAGE_VALIDATION.ps1.
+- Główny punkt startowy pozostaje jeden: URUCHOM_TYLKO_TEN_PLIK.cmd.
+- Repozytorium pozostaje przypisane do naprawapclaptop1-dev/komputerowe-centrum-serwisu.
+- Wersja aplikacji pozostaje 1.0.0.69; FIX080 dotyczy kodowania i walidacji skryptów, nie zmienia wersji produktu.
+
+OGRANICZENIE TESTÓW: paczka i kodowanie zostały sprawdzone lokalnie; rzeczywiste parsowanie PowerShell 5.1 oraz publikacja muszą zostać potwierdzone na Windows.
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX081
+
+FIX080 zgłaszał stare pliki PS1 pozostawione w katalogu docelowym po rozpakowaniu do istniejącego folderu (np. FIX057). Przyczyną było rekurencyjne skanowanie wszystkich skryptów w folderze, niezależnie od tego, czy należały do nowego ZIP-a. FIX081 zastępuje to jawnym manifestem skryptów PowerShell zawartych w paczce. Każdy plik z manifestu jest sprawdzany pod kątem istnienia, UTF-8 BOM, SHA-256 i składni. Obce/pozostałe pliki PS1 w katalogu nie są traktowane jako część FIX081. Dodano kontrolę bezpieczeństwa ścieżek manifestu oraz testy regresyjne. Jeden CMD pozostaje jedynym punktem startowym. Wersja aplikacji pozostaje 1.0.0.69.
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX082
+
+NAPRAWA BŁĘDÓW PARSERA POWERSHELL: ZMIENNA PRZED DWUKROPKIEM
+- Naprawiono interpolację zmiennych PowerShell w tekstach, w których po nazwie zmiennej występował dwukropek: $Channel: -> ${Channel}:, $channel: -> ${channel}: oraz $dst: -> ${dst}:.
+- Poprawiono dokładnie błędy zgłoszone przez parser Windows PowerShell 5.1 w VERIFY_GLOBAL_UPDATE_SERVER.ps1, VERIFY_PUBLIC_DEPLOYMENT.ps1 i WindowsVersionSwitcherPRO_LegacyFallback.ps1.
+- Dodano CHECK_FIX082_INTERPOLATION.ps1 i podłączono go do CHECK_SOURCE.cmd, aby regresja była wykrywana przed publikacją.
+- Walidator FIX082 nadal sprawdza jawny manifest, UTF-8 BOM, SHA-256 i składnię każdego pakietowanego skryptu przez parser PowerShell.
+- Zachowano jeden ZIP, jeden punkt startowy CMD i przypisane repozytorium naprawapclaptop1-dev/komputerowe-centrum-serwisu.
+- Wersja aplikacji pozostaje 1.0.0.69; FIX082 dotyczy naprawy składni skryptów i walidacji, nie zmienia wersji produktu.
+- ZIP, BOM i SHA-256 sprawdzono w tym środowisku. Natywne parsowanie Windows PowerShell 5.1, kompilacja i publikacja GitHub wymagają uruchomienia na Windows.
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX083
+Data: 2026-11-17
+
+- Naprawiono uruchamianie gh.exe i git.exe z Windows PowerShell 5.1: procesy natywne są uruchamiane przez System.Diagnostics.ProcessStartInfo, a nie operator wywołania PowerShell.
+- stdout/stderr procesów nieinteraktywnych są przechwytywane osobno i odczytywane asynchronicznie; stderr nie staje się terminating NativeCommandError.
+- gh auth login --web działa w odziedziczonej konsoli; kod urządzenia i URL logowania pozostają widoczne, a skrypt czeka na wynik.
+- Po logowaniu automat ponownie sprawdza sesję i uprawnienia zapisu przed synchronizacją.
+- Dodano test regresyjny FIX083 dla uruchamiania procesów natywnych i logowania urządzenia.
+- Wersja aplikacji pozostaje 1.0.0.69; FIX083 poprawia automat publikacji i nie zmienia wersji produktu.
+
+- FIX083 walidator wymaga kompletnego manifestu skryptów PowerShell i testuje niezależnie uruchamianie procesów natywnych.

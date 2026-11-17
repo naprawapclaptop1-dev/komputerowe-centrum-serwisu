@@ -1,0 +1,11 @@
+NAPRAWA PC — CENTRUM MIGRACJI I NAPRAW
+FIX042 — INSTALLER LAUNCH / RELEASE IDENTITY HOTFIX
+
+ProductVersion: 1.0.0.42
+FileVersion: 1.0.0.42
+
+- Fixed START_SETUP.cmd checking for a FIX036 installer while the build stage generated a newer FIX037 filename.
+- Updated the complete current build pipeline, launchers, version metadata and installer output names to FIX042 / 1.0.0.42.
+- Kept the installer success/failure decision tied to the build stage exit code and verified output/build identity.
+- Retained all existing application modules, migration functionality, themes, user data paths and installer configuration.
+- This source package does not contain a Windows-built EXE; run BUILD_ALL.cmd on Windows to compile and verify the outputs.

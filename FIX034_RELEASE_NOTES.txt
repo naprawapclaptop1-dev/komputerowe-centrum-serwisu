@@ -1,0 +1,7 @@
+NAPRAWA PC - FIX034 VERIFIED BUILD PATH HOTFIX
+ProductVersion: 1.0.0.34
+DesignVersion: FIX032 (retained to preserve NEXUS user preferences)
+
+Fixed: quoted %~dp0 argument passed to PowerShell -SourceRoot; safe path resolver and regression test added.
+Retained: FIX033 PremiumButton radio compile-time type, all NEXUS modules, Polish-first radio, installer graphics, application icon, AppId and data locations.
+Distribution: Portable EXE + Modern Setup EXE + optional XP Setup EXE.

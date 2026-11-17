@@ -1,0 +1,5 @@
+NAPRAWA PC - FIX033 MODULE MAP
+Base: FIX032 NEXUS ULTIMATE
+Change: single compile-time field-type correction for radioBubbleButton.
+All FIX032 module routes, UI pages and service modules are retained.
+No feature or module was removed.

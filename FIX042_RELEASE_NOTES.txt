@@ -1,0 +1,18 @@
+NAPRAWA PC — CENTRUM MIGRACJI I NAPRAW
+FIX042 — CMD BUILD PIPELINE HOTFIX
+
+ProductVersion: 1.0.0.42
+FileVersion: 1.0.0.42
+
+- Fixed Windows CMD script line endings: all .cmd files now use CRLF.
+- Converted batch command files to ASCII-only text and removed code-page switching commands.
+- This prevents CMD from splitting or misreading commands on Polish Windows installations and paths containing spaces.
+- Updated the source regression checker to CHECK_FIX042_REGRESSION.ps1.
+- Updated the active build pipeline, Portable/installer output names, verification and startup scripts to FIX042 / 1.0.0.42.
+- Preserved Polish application UI, migration features, all modules, styles and user data locations.
+- Stale FIX041 executables are not accepted as FIX042.
+
+BUILD/RUN NOTES
+- Run BUILD_ALL.cmd from the extracted folder. All batch files are CRLF and ASCII-only.
+- Output logs are written under dist\build-logs.
+- The installer stage is gated by a fresh Portable EXE and a matching BUILD_ID.

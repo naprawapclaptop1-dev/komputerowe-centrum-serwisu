@@ -1,0 +1,24 @@
+KOMPUTEROWE CENTRUM SERWISU
+FIX055 — RESPONSYWNE RADIO I WIDOCZNE AKTUALIZACJE GLOBALNE
+
+Wersja programu: 1.0.0.55
+Wersja pliku: 1.0.0.55
+
+RADIO ONLINE:
+- Okno radia jest zmienialne i nie ma już stałego rozmiaru 620x740.
+- Rozmiar startowy jest dopasowany do obszaru roboczego monitora.
+- Kontrolki, rozmieszczenie i czcionki są przeliczane podczas zmiany rozmiaru.
+- Listy kraju, języka, gatunku, kodeka i stacji otrzymują ciemne rysowanie własne.
+- Radio pozostaje osobnym oknem; zapisane stacje i odtwarzanie są zachowane.
+
+AKTUALIZACJE GLOBALNE:
+- Stały przycisk AKTUALIZACJE w prawym górnym rogu nagłówka.
+- Grupa menu AKTUALIZACJE umieszczona bezpośrednio po Pulpicie.
+- Widoczna nazwa pozycji „Aktualizacje globalne”.
+- Skrót do aktualizacji w menu ikony zasobnika.
+- Zachowano globalny aktualizator Stable/Beta, regiony, języki, kopie HTTPS i SHA-256.
+
+ZACHOWANO:
+- 65 pozycji menu i 65 tras.
+- 3 style, 10 palet, wszystkie moduły i dotychczasowe ścieżki danych.
+- Globalna dystrybucja wymaga własnej domeny/CDN i prawdziwego manifestu.

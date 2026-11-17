@@ -1,0 +1,20 @@
+INSTRUKCJA — JEDEN ZIP / JEDEN CMD — FIX074
+
+1. Rozpakuj ZIP do jednego folderu (nie uruchamiaj programu bezpośrednio z archiwum).
+2. Kliknij dwukrotnie URUCHOM_TYLKO_TEN_PLIK.cmd.
+3. Przy pierwszym uruchomieniu zaloguj się do właściwego konta GitHub w otwartej przeglądarce i zatwierdź uprawnienia.
+4. Pozwól Windows zatwierdzić UAC dla instalatora, gdy pojawi się prośba.
+5. Poczekaj, aż CMD wyświetli PASS dla GitHub Release, manifestów, strony WWW i SHA-256.
+
+Nie wpisuj repozytorium. Program automatycznie korzysta wyłącznie z:
+naprawapclaptop1-dev/komputerowe-centrum-serwisu
+
+Publiczna strona: https://naprawapclaptop1-dev.github.io/komputerowe-centrum-serwisu/
+Repozytorium: https://github.com/naprawapclaptop1-dev/komputerowe-centrum-serwisu
+
+Jeśli ostatni test strony Pages nie powiedzie się, Release może już być opublikowany. Sprawdź GitHub Actions, a po zakończeniu wdrożenia uruchom ponownie TEN SAM CMD. Nie zmieniaj tagu ani nazwy repozytorium.
+
+Logi: dist\build-logs\00-AUTOMATYCZNY-START.log
+
+
+FIX081: walidacja obejmuje wyłącznie pliki PS1 z manifestu FIX081_POWERSHELL_MANIFEST.txt. Dodatkowe stare pliki PS1 pozostałe w folderze po poprzednich poprawkach nie blokują już startu. Mimo to zalecany jest osobny folder. Uruchamiaj wyłącznie główny CMD.

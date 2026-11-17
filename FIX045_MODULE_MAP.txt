@@ -1,0 +1,20 @@
+NAPRAWA PC — CENTRUM MIGRACJI I NAPRAW
+MAPA MODUŁÓW — FIX045
+
+PRZEBUDOWA INTERFEJSU
+- Nowa powłoka z jednym nagłówkiem i bez zdublowanego górnego paska nawigacji.
+- Menu podzielone na grupy, z wyszukiwaniem i skrótem Ctrl+K.
+- Pulpit z czterema szerokimi kartami sprzętowymi, panelem migracji, ochroną danych, asystentem i sześcioma skrótami.
+- Trzy style rysowania: PROFESJONALNY, FUTURYSTYCZNY, SZKLANY.
+- Ciemne listy wyboru oraz wspólny wygląd kart i przycisków na ekranach modułów.
+
+ZACHOWANE MODUŁY
+- 62 pozycje menu i 62 dotychczasowe trasy stron.
+- Migracja danych i systemu, kopie zapasowe, odzyskiwanie, instalacja i naprawa Windows.
+- Diagnostyka sprzętu, sterowników, dysków, pamięci, sieci i zgodności.
+- Obsługa klientów, raporty serwisowe, dziennik operacji, centrum zadań i powiadomienia.
+
+ZACHOWANE DANE I ZABEZPIECZENIA
+- Dotychczasowe katalogi danych i konfiguracji użytkownika.
+- Dziesięć polskich palet kolorystycznych i mapowanie nazw ze starszych wersji.
+- Format manifestu migracyjnego, kontrola SHA-256 i ochrona przed dowiązaniami symbolicznymi.

@@ -1,0 +1,5 @@
+KOMPUTEROWE CENTRUM SERWISU - FIX068
+Wersja: 1.0.0.68
+
+Wersja przechodzaca z publikacji Cloudflare na GitHub Releases FREE.
+Ten plik jest historycznym opisem FIX068; aktualna poprawka uruchomienia znajduje sie w FIX069_RELEASE_NOTES.txt.

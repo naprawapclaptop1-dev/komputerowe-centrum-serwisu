@@ -1,0 +1,9 @@
+FIX078 — MAPA POPRAWKI
+
+URUCHOM_TYLKO_TEN_PLIK.cmd — jedyny punkt startowy; waliduje FIX078_PACKAGE_MARKER.txt osobnymi poleceniami IF/GOTO i obsługuje ścieżki zawierające spacje/nawiasy.
+FIX078_PACKAGE_MARKER.txt — autorytatywny znacznik pakietu i repozytorium; nazwa folderu nadrzędnego nie jest wymagana.
+PUBLISH_GITHUB_SOURCE.ps1 — sprawdza marker FIX078 zamiast nazwy folderu.
+PUBLISH_GITHUB_RELEASES.ps1 — sprawdza marker FIX078 zamiast nazwy folderu.
+CHECK_FIX078_PACKAGE_VALIDATION.ps1 — test regresyjny markerów, CMD parsera i pojedynczego przepływu.
+CHECK_SOURCE.cmd — uruchamia aktualny test FIX078 wraz z testami wcześniejszych poprawek.
+CHANGELOG.txt — zapisuje zakres FIX078.

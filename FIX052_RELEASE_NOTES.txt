@@ -1,0 +1,26 @@
+KOMPUTEROWE CENTRUM SERWISU
+FIX052 — ROZBUDOWA CENTRUM SERWISOWEGO
+
+Wersja programu: 1.0.0.52
+Wersja pliku: 1.0.0.52
+
+NOWE MODUŁY:
+- Stan zdrowia komputera: odczyt obciążenia CPU, wykorzystania RAM, wolnego miejsca na dysku systemowym oraz statusu PredictFailure z WMI. Wskaźnik jest opisany jako heurystyczny, nie jako certyfikat sprawności.
+- Porównanie komputerów: lokalne profile sprzętu i systemu zapisywane w XML; możliwość importu profili z drugiego komputera, porównania z bieżącą konfiguracją, usunięcia profilu i eksportu raportu.
+- Spis programów i licencji: lokalny odczyt nazw, wersji i wydawców z rejestru Uninstall (widoki 32/64-bit i bieżący użytkownik), filtrowanie i eksport CSV. Moduł nie odczytuje kluczy produktu ani nie potwierdza ważności licencji aplikacji.
+
+ROZBUDOWA KARTOTEKI:
+- Dodano telefon, e-mail i status zgłoszenia.
+- Wybrany wpis można aktualizować zamiast tworzyć duplikat.
+- Dodano bezpieczne usuwanie z potwierdzeniem.
+- Stare pliki service-cases.xml pozostają zgodne; nowe pola są opcjonalne.
+
+PULPIT:
+- Dodano trzy skróty: Stan zdrowia PC, Porównanie komputerów, Spis programów.
+- Rozszerzono obszar szybkich działań i przesunięto podsumowanie niżej.
+
+ZACHOWANO:
+- Dotychczasowe 62 moduły i ich trasy; dodano 3 nowe pozycje (łącznie 65).
+- Centrum ratunkowe Windows, sterowniki, bezpieczeństwo i kontrolę jakości — wykorzystują istniejące moduły, nie kopie.
+- Trzy style interfejsu, dziesięć palet kolorystycznych, migrację, kopie, raporty i dotychczasowe ścieżki danych.
+- Wersja produktu i pliku: 1.0.0.52.

@@ -1,0 +1,21 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX068
+Wersja programu: 1.0.0.68
+
+NAPRAWA JEDNEGO PRZEBIEGU CMD / CLOUDFLARE FREE
+- URUCHOM_WSZYSTKO.cmd pozostaje jedynym punktem startowym: kontrola źródeł, budowanie EXE, instalator, weryfikacja, przygotowanie Wrangler, OAuth, publikacja Pages/R2 i testy publiczne.
+- Usunięto zależność publikacji od tymczasowego `npx --yes wrangler@latest`.
+- Wrangler v4 jest instalowany lokalnie w `.tools\wrangler` i ponownie wykorzystywany przy kolejnych uruchomieniach.
+- Ostrzeżenia npm o sprzątaniu cache nie są mylone z wynikiem procesu; o powodzeniu decyduje kod wyjścia i obecność lokalnego `wrangler.cmd`.
+- Po OAuth sesja jest weryfikowana przez `wrangler whoami`; jeśli sesja jest aktywna, publikacja jest kontynuowana nawet przy niezerowym kodzie samego procesu login.
+- Jeśli autoryzacja nie została zakończona, skrypt zatrzymuje się z jasną informacją i zachowuje log; ponowne uruchomienie tego samego CMD korzysta z zapisanej sesji.
+- Nie omija logowania, uprawnień Cloudflare ani kontroli produkcyjnego DNS/HTTPS/R2.
+
+ZACHOWANE
+- 65 istniejących tras, 3 style, 10 motywów i konfiguracja DesignVersion FIX060.
+- Dotychczasowy Cloudflare Pages, R2, manifesty, katalog wydań, kopie i rollback.
+- Wszystkie pliki źródłowe FIX065 jako historia oraz istniejące moduły programu.
+
+WERYFIKACJA
+- Zmieniono wersję produktu i instalatora na 1.0.0.68.
+- Dodano CHECK_FIX068_REGRESSION.ps1 na bazie testów FIX065.
+- Wymagane testy kompilacji, Inno Setup, OAuth i wdrożenia produkcyjnego muszą zostać wykonane w Windows na koncie właściciela Cloudflare.

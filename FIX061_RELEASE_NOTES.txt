@@ -1,0 +1,43 @@
+KOMPUTEROWE CENTRUM SERWISU
+FIX061 — JEDEN PRZEBIEG: BUDOWANIE + CLOUDFLARE
+
+Wersja programu: 1.0.0.61
+Wersja pliku: 1.0.0.61
+
+NAJWAŻNIEJSZA ZMIANA — JEDEN CMD
+- Dodano URUCHOM_WSZYSTKO.cmd.
+- Jeden plik CMD uruchamia kontrolę źródeł, buduje aplikację przenośną i nowoczesny instalator, weryfikuje BUILD_ID, następnie loguje do Cloudflare, przygotowuje Pages/R2, wdraża stronę i publikuje manifesty Stable/Beta oraz instalator.
+- Publikacja nie jest uruchamiana, jeżeli którykolwiek wymagany etap budowania nie zakończy się powodzeniem.
+- Cały przebieg zapisuje się do dist\build-logs\00-URUCHOM-Wszystko.log, a wynik końcowy do FULL_RELEASE.status.
+- Użytkownik uruchamia tylko URUCHOM_WSZYSTKO.cmd. Skrypt publikacji PowerShell działa wewnętrznie.
+
+POPRAWKA NPM / WRANGLER
+- Usunięto bezpośrednie wywołanie npx.cmd z przechwytywaniem stderr w potoku PowerShell.
+- Wrangler jest uruchamiany przez System.Diagnostics.Process; stdout i stderr są zbierane oddzielnie.
+- Ostrzeżenie `npm warn cleanup` jest wyświetlane jako diagnostyka, lecz nie zatrzymuje pracy, gdy proces zakończy się kodem 0.
+- O powodzeniu decyduje kod wyjścia procesu, a nie sam fakt pojawienia się tekstu na stderr.
+- Każdy etap Wrangler ma kontrolę kodu wyjścia i czytelny komunikat w logu.
+
+OCHRONA PRZED STARYM INSTALATOREM
+- Publikacja wymaga SETUP_BUILD_ID.txt.
+- Przed wysłaniem instalatora weryfikowane są FileVersion, SHA-256, FIX061 i skrót źródeł przez VERIFY_PAYLOAD.ps1.
+- Instalator o właściwej nazwie, ale ze starego wydania lub ze zmienionego źródła, nie zostanie opublikowany.
+
+CLOUDFLARE FREE
+- Pages: kcs-rj2026-updates.pages.dev.
+- R2: kcs-rj2026-updates-store.
+- Pages Function obsługuje manifesty, pliki EXE, HEAD oraz HTTP Range dla wznawiania pobierania.
+- R2 jest dostępny przez binding Pages Function; listing obiektów bucketu nie jest publiczny.
+- Wdrożenie wykorzystuje cloudflare/wrangler.toml i katalog functions.
+- Pierwsze uruchomienie wymaga zalogowania do Cloudflare przez Wrangler OAuth w przeglądarce.
+
+ZACHOWANE
+- 65 tras modułów, 3 style i 10 motywów.
+- Przyciski powrotu do pulpitu, skrót Ctrl+Home oraz powrót z okna radia.
+- Automatyczny aktualizator Stable/Beta, weryfikacja SHA-256 i FileVersion.
+- Dotychczasowy format ustawień DesignVersion FIX060 — nie wymuszamy resetu zapisanych preferencji użytkownika.
+
+WAŻNE
+- Projekt Pages i bucket R2 są konfigurowane automatycznie, ale muszą zostać utworzone na koncie Cloudflare użytkownika.
+- Nazwa projektu pages.dev musi być dostępna globalnie; jeśli jest zajęta, publikacja zatrzyma się z jasnym komunikatem.
+- EXE i instalator wymagają kompilacji Windows oraz Inno Setup na komputerze użytkownika.

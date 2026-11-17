@@ -1,0 +1,11 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX070
+Poprawka bezpieczeństwa publikatora. Wersja aplikacji pozostaje 1.0.0.69, ponieważ kod aplikacji i instalator nadal mają metadane FIX069.
+
+- Repozytorium przypisane wyłącznie do tego programu: naprawapclaptop1-dev/komputerowe-centrum-serwisu.
+- Publikator nie używa --clobber ani uploadu do istniejącego wydania.
+- Jeśli tag lub wydanie v1.0.0.69 już istnieje, publikacja zostaje przerwana bez zmian.
+- Linki pakietów wskazują konkretny tag, a nie /releases/latest/download/.
+- Poprzednie wydania i assety nie są usuwane ani zastępowane.
+
+Weryfikacja: integralność ZIP PASS; kontrola statyczna publikatora PASS.
+Kompilacja Windows i publikacja online nie zostały wykonane w tym środowisku.

@@ -1,0 +1,10 @@
+{
+  "name": "Komputerowe Centrum Serwisu",
+  "short_name": "Centrum Serwisu",
+  "description": "Bezpłatne narzędzie Windows do migracji, kopii, diagnostyki i naprawy.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#050b13",
+  "theme_color": "#071321",
+  "icons": [{"src":"./media/favicon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}

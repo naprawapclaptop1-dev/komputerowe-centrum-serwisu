@@ -1,0 +1,32 @@
+KOMPUTEROWE CENTRUM SERWISU
+FIX066 — CENTRUM OPERACYJNE PRO
+
+Wersja programu i pliku: 1.0.0.66
+Punkt startowy: URUCHOM_WSZYSTKO.cmd
+Punkt bazowy: FIX066 / 1.0.0.66
+
+NOWE FUNKCJE
+1. Centrum Operacyjne PRO w istniejącym ekranie Aktualizator PRO.
+2. Kopia lokalnego repozytorium GlobalUpdateServer z manifestem SHA-256 i metadanymi UTC.
+3. Weryfikacja pobranych instalatorów EXE: SHA-256, FileVersion i stan Authenticode.
+4. Raport gotowości wydania z wersją, kanałem, stanem katalogu, diagnostyką Cloudflare, podpisem i dostępnością rollbacku.
+5. Centralny folder raportów i logów aktualizacji.
+6. Bezpośredni przycisk ponownego testu publikacji i odświeżenia katalogu.
+
+ZACHOWANE
+- Wszystkie 65 dotychczasowych tras i modułów.
+- Trzy style, dziesięć motywów i zapis ustawień DesignVersion FIX060.
+- Oficjalny host Pages + R2, manifesty Stable/Beta, releases.json, wznawianie pobierania.
+- Kopie ustawień, kontrola podpisu, SHA-256 i mechanizm rollback.
+- Jeden punkt startowy URUCHOM_WSZYSTKO.cmd.
+
+BEZPIECZEŃSTWO
+- Kopia repozytorium dotyczy wyłącznie lokalnego GlobalUpdateServer; zdalny R2 pozostaje zdalny.
+- Raport gotowości wyraźnie odróżnia kontrolę lokalną od potwierdzenia wdrożenia produkcyjnego.
+- Brak automatycznego oznaczania publikacji jako PASS bez testów publicznego endpointu.
+
+TESTY
+- CHECK_FIX066_REGRESSION.ps1: kontrole regresji FIX066 plus nowe kontrole UI i funkcji.
+- CHECK_SOURCE.cmd uruchamia test FIX066.
+- VERIFY_PAYLOAD.ps1 wiąże nowy plik testowy z manifestem SHA-256 źródeł.
+- Kompilacja C# / Inno Setup i produkcyjna publikacja wymagają Windows 10/11 oraz zalogowanego środowiska Cloudflare.

@@ -1,0 +1,21 @@
+FIX032 — NEXUS ULTIMATE VERIFIED BUILD
+
+WHAT USER SHOULD SEE AFTER INSTALL:
+- Window title includes FIX032 NEXUS ULTIMATE, not FIX029.
+- The selected default design is NEXUS ULTIMATE. DesignVersion is FIX032.
+- A horizontal top navigation bar appears above the content; the full vertical module navigator remains at left.
+- The home page is no longer a large wall of repeated module buttons. It contains the live system strip, CPU/GPU/RAM/disk/sensors cards, a migration workbench with image, AI and health panels, 10 service shortcuts and a task/recommendation/Polish-radio footer.
+- A radio bubble starts with Poland + Polish language. The WORLD button resets language to all and allows countries worldwide.
+- The installer shows a dark NEXUS wizard with high-contrast completion text; icon and hero art are included.
+
+WHY FIX029 APPEARED AFTER A FIX031 INSTALL:
+BUILD_ALL previously called BUILD_INSTALLER_MODERN when the shared staging EXE merely existed, even if the preceding Portable compile failed. BUILD_INSTALLER_MODERN only rebuilt the payload when the EXE did not exist. Therefore a leftover FIX029 EXE could be packaged into a newly named FIX031 installer. FIX032 fixes this with a fresh build stamp and SHA-256 verification.
+
+CHECK:
+1. Run CHECK_SOURCE.cmd.
+2. Run BUILD_PORTABLE.cmd; it must print FileVersion 1.0.0.32 and a SHA-256 Build ID.
+3. Run VERIFY_BUILD.cmd /partial; both Portable and staging hash validations must PASS.
+4. Run BUILD_INSTALLER_MODERN.cmd; its log must say it embeds freshly verified FIX032 EXE.
+5. Install the new FIX032 Setup. The installed file is named NaprawaPC_WindowsVersionSwitcher.exe for upgrade compatibility, but its FileVersion and window title must report FIX032.
+
+FIX032 Dashboard: main page now displays the migration workbench, live metrics, service assistant, health status, 10 quick actions, task/recommendation cards and a built-in migration illustration.

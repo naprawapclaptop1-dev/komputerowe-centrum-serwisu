@@ -1,0 +1,7 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX072
+
+Jedyny punkt wejścia: URUCHOM_TYLKO_TEN_PLIK.cmd
+Automatyczne etapy: BOOTSTRAP_BUILD_TOOLS.ps1 -> BUILD_ALL.cmd -> PUBLISH_GITHUB_SOURCE.ps1 -> PUBLISH_GITHUB_RELEASES.ps1 -> INSTALL_PUBLISHED_BUILD.ps1. Pierwsze logowanie GitHub otwiera się samo w przeglądarce; repozytorium nie wymaga ręcznego wpisywania.
+Aktywny system aktualizacji: publiczne GitHub Releases w naprawapclaptop1-dev/komputerowe-centrum-serwisu.
+Synchronizacja źródeł zachowuje README.md, POLITYKA_PUBLIKACJI.md i istniejące reguły .gitignore. Instalator jest instalowany po weryfikacji wydania; może pojawić się standardowe okno UAC.
+Archiwum Cloudflare FIX067 jest historyczne i nie jest używane.

@@ -1,0 +1,13 @@
+NAPRAWA PC — CENTRUM MIGRACJI I NAPRAW
+FIX042 — THREE SELECTABLE INTERFACE STYLES
+
+ProductVersion: 1.0.0.42
+FileVersion: 1.0.0.42
+
+- Added three selectable interface shell styles: KLASYCZNY, FUTURYSTYCZNY and SZKLANY.
+- Added a dedicated selector in the top header, separate from the existing 10-color theme selector.
+- Style choice is saved in settings.xml and restored on next launch.
+- Each style changes the main shell proportions, sidebar width, header height, navigation sizing and typography.
+- Existing pages, operations, migration safeguards and the 10 color themes remain available.
+- PRO GLASS is a WinForms glass-inspired visual treatment; it does not claim native Windows backdrop blur.
+- Old FIX039 executables are not accepted as FIX042. Build fresh on Windows using BUILD_ALL.cmd.

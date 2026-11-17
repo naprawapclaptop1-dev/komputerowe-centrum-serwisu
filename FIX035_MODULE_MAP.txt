@@ -1,0 +1,5 @@
+NAPRAWA PC - FIX036 MODULE MAP
+Base: FIX033 CENTRUM MIGRACJI I NAPRAW + PremiumButton radio hotfix
+Change: verified SourceRoot path handoff to PowerShell; robust argument validation; build regression check.
+All FIX033 module routes, UI pages, service modules, radio and installer design are retained.
+NEXUS DesignVersion remains FIX032; ProductVersion is FIX036 / 1.0.0.36.

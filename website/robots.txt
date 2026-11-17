@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://naprawapclaptop1-dev.github.io/komputerowe-centrum-serwisu/sitemap.xml

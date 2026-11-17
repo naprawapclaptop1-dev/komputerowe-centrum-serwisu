@@ -1,0 +1,154 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>KOMPUTEROWE CENTRUM SERWISU | TRYB ZGODNOŚCI</title>
+<hta:application id="app" applicationname="Komputerowe Centrum Serwisu" border="thin" borderstyle="normal"
+ caption="yes" maximizebutton="yes" minimizebutton="yes" scroll="yes" singleinstance="yes" sysmenu="yes" windowstate="normal" />
+<style>
+body{font-family:Tahoma,Arial;background:#101827;color:#edf5ff;margin:18px}
+h1{font-size:22px;color:#55c9ff}
+.panel{background:#1d2b40;border:1px solid #31506c;padding:12px;margin:10px 0}
+select,input{font-size:14px;padding:5px;background:#0d1725;color:white;border:1px solid #468bb9}
+button{font-size:14px;padding:8px 12px;margin:4px;background:#176da7;color:white;border:1px solid #5bbcff}
+small{color:#ffc879}.wide{width:90%}
+</style>
+<script language="VBScript">
+Option Explicit
+Dim sh, fso, rootPath, osCaption, osVersion
+Sub Window_OnLoad
+ On Error Resume Next
+ Set sh=CreateObject("WScript.Shell")
+ Set fso=CreateObject("Scripting.FileSystemObject")
+ rootPath=sh.ExpandEnvironmentStrings("%TEMP%") & "\NaprawaPC_WindowsSwitcher"
+ If Not fso.FolderExists(rootPath) Then fso.CreateFolder(rootPath)
+ Dim svc,items,it
+ Set svc=GetObject("winmgmts:\\.\root\cimv2")
+ Set items=svc.ExecQuery("Select Caption,Version from Win32_OperatingSystem")
+ For Each it In items
+  osCaption=it.Caption: osVersion=it.Version
+ Next
+ document.getElementById("current").innerText=osCaption & " | " & osVersion
+ If Err.Number<>0 Then document.getElementById("current").innerText="Nie udało się odczytać systemu przez WMI."
+End Sub
+Function V(id)
+ V=document.getElementById(id).value
+End Function
+Sub MakePlan
+ Dim src,dst,msg,path,ts
+ src=osCaption: dst=V("target")
+ msg="Wykryto: " & src & vbCrLf & "Cel: Windows " & dst & vbCrLf & vbCrLf
+ If InStr(1,src,"XP",1)>0 Then
+  If dst="7" Then
+   msg=msg & "XP -> Windows 7: instalacja niestandardowa/czysta. Programy i ustawienia nie zostaną przeniesione."
+  Else
+   msg=msg & "XP -> Windows " & dst & ": brak wspieranej aktualizacji bezpośredniej. Kopia danych i czysta instalacja celu."
+  End If
+ ElseIf InStr(1,src,"Windows 7",1)>0 Then
+  If dst="10" Then
+   msg=msg & "Windows 7 SP1 -> Windows 10: możliwe uaktualnienie, jeśli zgodne są język, architektura, edycja i sterowniki. Sprawdź instalator."
+  ElseIf dst="11" Then
+   msg=msg & "Windows 7 -> Windows 11: planuj kopię i instalację czystą; nie zakładaj zachowania programów."
+  End If
+ ElseIf InStr(1,src,"Windows 8",1)>0 Then
+  If dst="10" Then
+   msg=msg & "Windows 8: najpierw przejdź do Windows 8.1 Update; następnie oceń ścieżkę do Windows 10."
+  Else
+   msg=msg & "Windows 8 -> Windows 11: zalecana kopia i czysta instalacja."
+  End If
+ ElseIf InStr(1,src,"Windows 10",1)>0 And dst="11" Then
+  msg=msg & "Windows 10 -> Windows 11: aktualizacja tylko po sprawdzeniu zgodności. Dla sprzętu niespełniającego wymagań użyj osobnej instrukcji obejścia."
+ Else
+  msg=msg & "Zweryfikuj dokładną ścieżkę, licencję, nośnik, język i architekturę. Nie zakładaj zachowania aplikacji."
+ End If
+ msg=msg & vbCrLf & vbCrLf & "Zawsze wykonaj kopię danych i przygotuj sterowniki."
+ path=rootPath & "\Plan_migracji.txt"
+ Set ts=fso.CreateTextFile(path,True,True):ts.Write msg:ts.Close
+ MsgBox msg & vbCrLf & "Plan zapisano: " & path,64,"Plan migracji"
+End Sub
+Sub OpenSource
+ Dim dst,url
+ dst=V("target"):url=""
+ If dst="10" Then url="https://www.microsoft.com/software-download/windows10"
+ If dst="11" Then url="https://www.microsoft.com/software-download/windows11"
+ If V("channel")<>"Stable / normalny" Then url="https://www.microsoft.com/windowsinsider"
+ If url="" Then
+  MsgBox "Dla XP/Vista/7/8/8.1 użyj własnego oryginalnego nośnika i licencji. Nie pobieraj ISO z nieznanych stron.",48,"Starszy Windows"
+ Else
+  sh.Run url,1,False
+ End If
+End Sub
+Sub CreateBypass
+ Dim path,ts,guide,g
+ path=rootPath & "\Windows11_Unsupported_Hardware_LabConfig.reg"
+ Set ts=fso.CreateTextFile(path,True,True)
+ ts.Write "Windows Registry Editor Version 5.00" & vbCrLf & vbCrLf
+ ts.Write "[HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig]" & vbCrLf
+ ts.Write """BypassTPMCheck""=dword:00000001" & vbCrLf
+ ts.Write """BypassSecureBootCheck""=dword:00000001" & vbCrLf
+ ts.Write """BypassRAMCheck""=dword:00000001" & vbCrLf
+ ts.Write """BypassCPUCheck""=dword:00000001" & vbCrLf
+ ts.Close
+ guide=rootPath & "\INSTRUKCJA_OBEJSCIA.txt"
+ Set g=fso.CreateTextFile(guide,True,True)
+ g.Write "Windows 11 - eksperymentalne obejście kontroli instalatora." & vbCrLf
+ g.Write "Microsoft nie wspiera takiej instalacji. Aktualizacje, w tym zabezpieczeń, nie są gwarantowane." & vbCrLf
+ g.Write "1. Zrób kopię danych i przygotuj USB z oficjalnego ISO." & vbCrLf
+ g.Write "2. Skopiuj plik REG na USB." & vbCrLf
+ g.Write "3. Uruchom komputer z USB, na ekranie instalatora naciśnij Shift+F10." & vbCrLf
+ g.Write "4. Wpisz regedit, wybierz Plik > Importuj i wskaż REG na USB (sprawdź literę dysku)." & vbCrLf
+ g.Write "5. Instalator nadal może odmówić działania. Metoda nie gwarantuje sukcesu." & vbCrLf
+ g.Close
+ MsgBox "Utworzono pliki:" & vbCrLf & path & vbCrLf & guide & vbCrLf & vbCrLf & "To nie daje wsparcia Microsoft ani gwarancji aktualizacji.",48,"Tryb eksperymentalny"
+End Sub
+Sub LaunchSetup
+ Dim path
+ path=Trim(V("setupPath"))
+ If path="" Then
+  MsgBox "Wpisz pełną ścieżkę do setup.exe, np. D:\setup.exe. W trybie Legacy nie ma okna wyboru pliku.",48,"Brak setup.exe"
+  Exit Sub
+ End If
+ If Not fso.FileExists(path) Then
+  MsgBox "Nie znaleziono pliku: " & path,16,"Błąd"
+  Exit Sub
+ End If
+ If MsgBox("Uruchomić Windows Setup?" & vbCrLf & "Sprawdź, czy instalator oferuje zachowanie danych i programów. W razie braku tej opcji anuluj, jeśli nie chcesz czystej instalacji.", vbYesNo+vbExclamation,"Potwierdź")=vbYes Then
+  sh.Run """" & path & """",1,False
+ End If
+End Sub
+Sub OpenFolder
+ sh.Run "explorer.exe """ & rootPath & """",1,False
+End Sub
+</script>
+</head>
+<body>
+<h1>KOMPUTEROWE CENTRUM SERWISU | CENTRUM MIGRACJI I NAPRAW</h1>
+<div class="panel">
+<b>TRYB LEGACY — Windows XP / Vista / starsze komputery</b><br>
+Wykryty system: <span id="current">wykrywanie...</span>
+</div>
+<div class="panel">
+<b>Wybierz system docelowy:</b><br>
+<select id="target">
+<option value="11">Windows 11</option><option value="10">Windows 10</option>
+<option value="8.1">Windows 8.1</option><option value="8">Windows 8</option><option value="7">Windows 7</option>
+</select>
+<b>Kanał:</b>
+<select id="channel">
+<option>Stable / normalny</option><option>Release Preview</option><option>Beta</option><option>Experimental (dawniej Dev/Canary)</option>
+</select><br><br>
+<button onclick="MakePlan">Pokaż plan migracji</button>
+<button onclick="OpenSource">Oficjalne źródła Windows</button>
+</div>
+<div class="panel">
+<b>Uruchom setup.exe z DVD / USB / zamontowanego obrazu:</b><br>
+<input id="setupPath" class="wide" value="D:\setup.exe">
+<button onclick="LaunchSetup">Uruchom instalator</button>
+</div>
+<div class="panel">
+<b>Windows 11 na sprzęcie nieobsługiwanym (eksperymentalne):</b><br>
+<button onclick="CreateBypass">Utwórz LabConfig.reg + instrukcję</button>
+<button onclick="OpenFolder">Otwórz folder plików</button><br><br>
+<small>Microsoft nie zaleca instalacji Windows 11 na urządzeniach niespełniających wymagań. Taki komputer nie jest wspierany, a aktualizacje nie są gwarantowane. Wykonaj kopię danych.</small>
+</div>
+</body>
+</html>

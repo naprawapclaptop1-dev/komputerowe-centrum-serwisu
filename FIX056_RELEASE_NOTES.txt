@@ -1,0 +1,30 @@
+KOMPUTEROWE CENTRUM SERWISU
+FIX056 — GLOBALNY AKTUALIZATOR / STATUS / WZNOWIENIE / GENERATOR MANIFESTU
+
+Wersja programu: 1.0.0.56
+Wersja pliku: 1.0.0.56
+
+EKRAN:
+- Panel aktualizacji dopasowuje szerokość do dostępnego obszaru strony.
+- Pusty adres manifestu pokazuje status „SERWER NIE SKONFIGUROWANY” i instrukcję zamiast okna błędu.
+- Dodano panel statusu, pasek postępu, historię zdarzeń i kontrolki pobierania.
+
+TRANSFER:
+- Transfer przez HttpWebRequest zapisuje dane do pliku .part.
+- Dodano pauzę, wznowienie, zatrzymanie i postęp w MB/procentach.
+- Wznowienie wykorzystuje HTTP Range, jeżeli serwer obsługuje żądania zakresowe. W przeciwnym razie może zacząć od początku.
+- SHA-256 jest sprawdzany przed zatwierdzeniem pobranego pakietu.
+- Nieudany transfer może pozostawić plik .part do kolejnej próby.
+
+PUBLIKACJA:
+- Dodano kreator manifestu z wybranego EXE/ZIP/MSI: wersja, Stable/Beta, publiczny URL HTTPS, kopie CDN i automatyczny SHA-256.
+- Dodano zewnętrzny skrypt GENERATE_UPDATE_MANIFEST.ps1.
+- Dodano historię lokalnych sprawdzeń i pobrań.
+- Dodano kopię settings.xml i update_channels.xml przed aktualizacją oraz przywracanie ostatniej kopii ustawień.
+- Dodano automatyczne sprawdzanie po otwarciu modułu (opcja w ustawieniach aktualizatora).
+
+OGRANICZENIA:
+- Program nie publikuje plików na hosting i nie ma skonfigurowanej domeny/CDN.
+- SHA-256 potwierdza zgodność pakietu z manifestem, nie zastępuje podpisu cyfrowego wydawcy.
+- Kopia ustawień nie cofa binarnej wersji EXE; rollback programu wymaga poprzedniego instalatora.
+- Wersja produktu i pliku: 1.0.0.56.

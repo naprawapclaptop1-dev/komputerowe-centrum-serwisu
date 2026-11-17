@@ -1,0 +1,12 @@
+KOMPUTEROWE CENTRUM SERWISU
+FIX049 — RAPORT SERWISOWY / STARA NAZWA
+
+ProductVersion: 1.0.0.49
+FileVersion: 1.0.0.49
+
+- Removed the last old visible product phrase from the generated HTML service report title.
+- Report title is now "Komputerowe Centrum Serwisu - raport serwisowy".
+- Kept the strict regression check for any "NAPRAWA PC" phrase in the primary application and module source; it now passes against the corrected report markup.
+- Added a precise regression assertion for the Polish HTML report title.
+- Updated release identity, assembly/file version, installer output names, portable output and source-bound verification to FIX049 / 1.0.0.49.
+- Preserved all 62 navigation routes, migration safeguards, three interface styles, ten color themes, and existing user data paths.

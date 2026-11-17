@@ -1,0 +1,13 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX066
+Wynik kontroli statycznej: PASS
+
+PASS | ProgramVersion / AssemblyVersion / AssemblyFileVersion / ExpectedVersion = 1.0.0.66
+PASS | CHECK_FIX066_REGRESSION.ps1 podłączony do CHECK_SOURCE.cmd i VERIFY_PAYLOAD.ps1
+PASS | Centrum Operacyjne PRO oraz nowe metody obecne w źródle
+PASS | Istniejący rollback, updater i DesignVersion FIX060 zachowane
+PASS | Jeden punkt startowy URUCHOM_WSZYSTKO.cmd zachowany
+PASS | UPDATE_MANIFEST_TEMPLATE.xml poprawny XML
+PASS | Liczba nawiasów klamrowych i okrągłych w obu plikach C# jest zbilansowana
+
+OGRANICZENIE
+W środowisku przygotowania nie ma kompilatora C# dla Windows, Windows PowerShell 5.1 ani Inno Setup. Nie wykonano kompilacji EXE, instalatora ani publikacji produkcyjnej Cloudflare. Te kontrole wykona URUCHOM_WSZYSTKO.cmd na Windows 10/11. Brak takiego testu nie jest oznaczany jako PASS.

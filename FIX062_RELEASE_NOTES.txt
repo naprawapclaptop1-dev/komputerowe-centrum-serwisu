@@ -1,0 +1,38 @@
+KOMPUTEROWE CENTRUM SERWISU
+FIX062 — OPAQUE UI + DIAGNOSTYKA CLOUDFLARE
+
+Wersja programu / pliku: 1.0.0.62
+
+AKTUALIZACJE GLOBALNE
+- Wdrożenie Pages używa jawnie cloudflare/wrangler.toml; konfiguracja Pages Functions i binding R2 UPDATES pochodzi z tego pliku.
+- Po wdrożeniu skrypt sprawdza obecność wdrożenia produkcyjnego Pages.
+- Dodano endpoint /updates/health do sprawdzania Pages Function i bindingu R2.
+- Po publikacji pakietu do R2 skrypt ponawia kontrole DNS/HTTPS (maksymalnie 36 prób) i nie oznacza wydania jako PASS, dopóki host nie działa.
+- Weryfikowane są manifesty Stable/Beta, SHA-256, HEAD instalatora oraz HTTP Range 206.
+- Ekran aplikacji rozróżnia problemy DNS, HTTPS, HTTP 403/404/503, Pages Function i bindingu R2.
+- Dodano przycisk TEST DNS / CLOUDFLARE.
+- Naprawiono obsługę ostrzeżeń npm na stderr: o sukcesie Wrangler decyduje kod wyjścia procesu, a nie sam tekst ostrzeżenia.
+
+WYGLĄD / PRZEŚWITY
+- Styl SZKLANY zachowuje gradient, zaokrąglenia, połysk i obramowanie, ale wypełnienia kart i przycisków są nieprzezroczyste.
+- Karty czyszczą cały obszar przed ponownym malowaniem i korzystają z podwójnego buforowania.
+- Przyciski czyszczą cały swój prostokąt kolorem rodzica, także poza zaokrąglonym wypełnieniem.
+- Tło narożników kart jest dopasowywane do tła strony także po zmianie motywu.
+- Etykiety statusu aktualizacji nie nachodzą na przyciski.
+- Checkboxy, RadioButton i GroupBox otrzymują jednolite tło rodzica.
+- Po zmianie stylu odświeżane są własne kontrolki, nagłówek, menu i treść.
+
+HISTORIA AKTUALIZACJI
+- Wpisy zawierające stary adres poprzedniego serwera są oznaczane jako [ARCHIWUM — STARY SERWER].
+- Przycisk USUŃ STARE WPISY SERWERA usuwa wyłącznie te wpisy, po potwierdzeniu.
+- Historia Cloudflare pozostaje zachowana.
+- Naprawiono literał C# w oknie potwierdzenia czyszczenia historii; test regresyjny chroni przed ponownym wstawieniem surowej nowej linii do tekstu.
+
+ZACHOWANO
+- 65 modułów, trzy style, dziesięć palet i nawigację PULPIT GŁÓWNY / Ctrl+Home.
+- Ustawienia użytkownika zachowują DesignVersion FIX060 — aktualizacja nie wymusza resetowania preferencji.
+- Jeden plik uruchomieniowy URUCHOM_WSZYSTKO.cmd.
+
+OGRANICZENIE
+- Serwer wymaga zalogowania na konto Cloudflare oraz rzeczywistego wdrożenia Pages/R2. Zmiana lokalnego kodu nie aktywuje publicznego hosta.
+- Nie udało się tutaj uruchomić kompilatora Windows ani Inno Setup. Kompilację EXE i instalatora musi potwierdzić URUCHOM_WSZYSTKO.cmd na komputerze Windows.

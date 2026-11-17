@@ -1,0 +1,19 @@
+KOMPUTEROWE CENTRUM SERWISU — MAPA MODUŁÓW FIX048
+Wersja produktu: 1.0.0.48
+
+Zachowane: 62 pozycje menu i ich dotychczasowe trasy, moduły migracji i kopii zapasowych,
+diagnostyka sprzętu, raporty, radio, harmonogramy, centrum serwisowe i konfiguracja.
+
+Zmiany interfejsu:
+- Pełna nazwa produktu w pasku tytułowym, nagłówku, menu bocznym, zasobniku i instalatorze.
+- Nowy, dwuwierszowy znak tekstowy w menu bocznym i pełna nazwa w głównym nagłówku.
+- Pulpit przebudowany pod rozdzielczości 16:9: krótszy nagłówek, karty sprzętowe,
+  obszar migracji, skróty serwisowe oraz dolny rząd statusów bez nadmiernego przewijania.
+- Pola wyboru rysują również zaznaczoną wartość w stanie zamkniętym, bez białego obszaru.
+- Trzy style wyglądu i dziesięć palet pozostają niezależnymi ustawieniami.
+
+Bezpieczeństwo i zgodność:
+- Dotychczasowy identyfikator instalatora i katalog danych NaprawaPC pozostają zachowane,
+  aby aktualizacja nie utraciła ustawień, historii, kopii, profili radia ani danych serwisu.
+- Wewnętrzne nazwy plików źródłowych mogą pozostać techniczne; nazwa widoczna dla użytkownika
+  to KOMPUTEROWE CENTRUM SERWISU.

@@ -1,0 +1,11 @@
+KOMPUTEROWE CENTRUM SERWISU - FIX069
+Wersja: 1.0.0.69
+
+NAPRAWA URUCHOMIENIA JEDNYM CMD
+- Przepisano URUCHOM_WSZYSTKO.cmd jako czysty plik ASCII bez BOM.
+- Przywrócono kompletne polecenia CMD i jawne zakończenia CRLF.
+- Dodano walidację formatu repozytorium owner/repo przed zapisem i budowaniem.
+- Zachowano istniejący proces BUILD_ALL oraz publikator GitHub Releases.
+- Nie usunięto archiwum Cloudflare ani wcześniejszych materiałów.
+
+Uwaga: publikacja wymaga Windows, GitHub CLI (gh), logowania użytkownika i publicznego repozytorium.

@@ -1,0 +1,13 @@
+dist/
+GlobalUpdateServer/
+*.log
+*.tmp
+*.new
+*.bak
+*.user
+*.pfx
+*.p12
+*.key
+*.pem
+.env
+.env.*

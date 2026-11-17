@@ -1,0 +1,18 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX081
+
+NAPRAWA WALIDACJI PO ROZPAKOWANIU DO STAREGO FOLDERU
+
+Problem:
+FIX080 rekurencyjnie skanował wszystkie pliki .ps1 w katalogu docelowym. Jeżeli nowy ZIP został rozpakowany do istniejącego folderu FIX057, pozostawały w nim stare skrypty regresyjne FIX033–FIX079 bez UTF-8 BOM. Walidator błędnie uznawał je za część FIX080 i blokował start.
+
+Zmiany FIX081:
+- Walidacja PowerShell używa jawnego manifestu plików dostarczonych w paczce FIX081.
+- Każdy plik wymieniony w manifeście jest sprawdzany pod kątem obecności, UTF-8 BOM, SHA-256 i składni PowerShell.
+- Niepowiązane pliki .ps1 pozostawione w starym folderze są ignorowane; nie należą do pakietu FIX081.
+- Ścieżki manifestu są sprawdzane pod kątem prób wyjścia poza katalog paczki.
+- Główny CMD i publikatory korzystają z markera FIX081.
+- Nadal obowiązuje jeden punkt startowy: URUCHOM_TYLKO_TEN_PLIK.cmd.
+- Repozytorium: naprawapclaptop1-dev/komputerowe-centrum-serwisu.
+- Wersja programu pozostaje 1.0.0.69.
+
+Testy wykonane w tym środowisku: kontrola ZIP, manifestu SHA-256, markerów, obecności plików i BOM wszystkich dostarczonych skryptów PowerShell. Natywne parsowanie Windows PowerShell 5.1 i publikacja GitHub wymagają uruchomienia na Windows.
