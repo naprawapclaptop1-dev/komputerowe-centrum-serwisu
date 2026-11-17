@@ -1,3 +1,18 @@
+FIX087 — naprawa fałszywego odrzucania testów workflow dispatch.
+- Zastąpiono zagnieżdżone tablice wyników testów obiektami PSCustomObject z polami Passed i Name, zgodnymi z Windows PowerShell 5.1.
+- Każda kontrola raportuje własny opis; nie występuje spłaszczanie wyników ani puste opisy [FAIL].
+- Dodano test regresyjny CHECK_FIX087_WORKFLOW_DISPATCH.ps1 i kontrolę spójności FIX087.
+- Zaktualizowano marker pakietu, walidator, manifest SHA-256, główny CMD, synchronizator, publikator wydań i znacznik strony.
+- Zachowano adres repozytorium, bezpłatną stronę GitHub Pages i wersję produktu 1.0.0.69.
+
+FIX086 — bezblokadowe uruchamianie wdrożenia GitHub Pages.
+- Naprawiono zatrzymanie synchronizacji po komunikacie „Darmowy GitHub Pages skonfigurowany”: wywołanie `gh workflow run` korzysta teraz z bezinterakcyjnego przechwycenia stdout/stderr i kodu wyjścia.
+- Błędy dispatch są pokazywane z pełną odpowiedzią GitHub CLI; znika ciche oczekiwanie na proces interaktywny.
+- Robocopy jest przechwytywany w tle, a szczegółowy raport pozostaje w logu `01-robocopy-source-sync.log`.
+- Git w tymczasowym klonie używa `core.autocrlf=false`, aby ograniczyć szum ostrzeżeń o LF/CRLF.
+- Workflow strony uruchamia się po zmianach `website/**` lub pliku workflow na gałęzi `main`, a także obsługuje ręczne dispatch.
+- Weryfikator publiczny sprawdza znacznik strony FIX086; instalator i wersja produktu pozostają 1.0.0.69.
+
 FIX072 — pełna automatyzacja jednego przebiegu i migracja aktualizatora do GitHub Releases.
 - Usunięto aktywne odwołania aktualizatora do Cloudflare Pages/R2; diagnostyka pokazuje HTTPS, GitHub API, assety, manifesty i SHA-256.
 - Jeden URUCHOM_TYLKO_TEN_PLIK.cmd automatycznie ustawia przypisane repozytorium, przygotowuje narzędzia, buduje EXE i instalator, synchronizuje źródła, publikuje wydanie, instaluje aplikację i uruchamia ją.

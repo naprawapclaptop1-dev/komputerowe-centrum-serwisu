@@ -1,0 +1,22 @@
+FIX086 — MAPA MODUŁÓW I ZMIAN
+
+GŁÓWNY START
+- URUCHOM_TYLKO_TEN_PLIK.cmd — jedyny punkt startowy; waliduje paczkę i uruchamia etapy 0/5–5/5.
+
+SYNCHRONIZACJA / STRONA
+- PUBLISH_GITHUB_SOURCE.ps1 — uwierzytelnia GH CLI, klonuje main z core.longpaths, synchronizuje źródła z wykluczeniem cache, konfiguruje GitHub Pages i wywołuje deploy workflow bez interaktywnego oczekiwania.
+- .github/workflows/deploy-pages.yml — wdraża website po zmianach website/**/workflow na main oraz po ręcznym dispatch.
+- website/ — strona globalna PL/EN, opis funkcji, film i napisy, materiały i bezpłatne pobieranie.
+
+WYDANIA / AKTUALIZACJE
+- BUILD_ALL.cmd — budowanie aplikacji, portable i instalatora.
+- PUBLISH_GITHUB_RELEASES.ps1 — publikacja GitHub Releases z manifestami i sumami, bez nadpisywania tagów/assets.
+- VERIFY_PUBLIC_DEPLOYMENT.ps1 — kontrola Release, manifestów, plików, strony i zasobów publicznych.
+- INSTALL_PUBLISHED_BUILD.ps1 — instalacja zweryfikowanego wydania.
+
+WALIDACJA
+- VALIDATE_FIX086_PACKAGE.ps1 — marker, pliki, BOM, SHA-256 i parser PowerShell 5.1.
+- CHECK_FIX086_PACKAGE_VALIDATION.ps1 — kontrole przypisanego repo, jednego CMD i wersji produktu.
+- CHECK_FIX086_WORKFLOW_DISPATCH.ps1 — kontrola bezinteraktywnego wywołania wdrożenia.
+
+Wersja produktu: 1.0.0.69 (bez zmian).

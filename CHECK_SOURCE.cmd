@@ -1,11 +1,11 @@
 @echo off
 setlocal EnableExtensions DisableDelayedExpansion
 chcp 65001 >nul
-title KOMPUTEROWE CENTRUM SERWISU FIX085 - KONTROLA PLIKOW ZRODLOWYCH
+title KOMPUTEROWE CENTRUM SERWISU FIX087 - KONTROLA PLIKOW ZRODLOWYCH
 pushd "%~dp0" >nul 2>&1
 if errorlevel 1 exit /b 2
 set "FAILED=0"
-for %%F in (URUCHOM_TYLKO_TEN_PLIK.cmd FIX085_PACKAGE_MARKER.txt FIX085_POWERSHELL_MANIFEST.txt VALIDATE_FIX085_PACKAGE.ps1 CHECK_FIX085_PACKAGE_VALIDATION.ps1 CHECK_FIX085_GIT_CLONE_LONGPATHS.ps1 CHECK_FIX083_INTERPOLATION.ps1 CHECK_FIX083_NATIVE_PROCESS.ps1 PUBLISH_GITHUB_SOURCE.ps1 PUBLISH_GITHUB_RELEASES.ps1 BOOTSTRAP_BUILD_TOOLS.ps1 BUILD_ALL.cmd VERIFY_PUBLIC_DEPLOYMENT.ps1 INSTALL_PUBLISHED_BUILD.ps1 VERIFY_GLOBAL_UPDATE_SERVER.ps1 CHECK_FIX076_GITHUB_AUTH.ps1 CHECK_FIX069_REGRESSION.ps1 website\index.html website\styles.css website\app.js website\sitemap.xml website\media\prezentacja-en.vtt .github\workflows\deploy-pages.yml) do (
+for %%F in (URUCHOM_TYLKO_TEN_PLIK.cmd FIX087_PACKAGE_MARKER.txt FIX087_POWERSHELL_MANIFEST.txt VALIDATE_FIX087_PACKAGE.ps1 CHECK_FIX087_PACKAGE_VALIDATION.ps1 CHECK_FIX087_WORKFLOW_DISPATCH.ps1 FIX087_RELEASE_NOTES.txt FIX087_MODULE_MAP.txt CHECK_FIX085_GIT_CLONE_LONGPATHS.ps1 CHECK_FIX083_INTERPOLATION.ps1 CHECK_FIX083_NATIVE_PROCESS.ps1 PUBLISH_GITHUB_SOURCE.ps1 PUBLISH_GITHUB_RELEASES.ps1 BOOTSTRAP_BUILD_TOOLS.ps1 BUILD_ALL.cmd VERIFY_PUBLIC_DEPLOYMENT.ps1 INSTALL_PUBLISHED_BUILD.ps1 VERIFY_GLOBAL_UPDATE_SERVER.ps1 CHECK_FIX076_GITHUB_AUTH.ps1 CHECK_FIX069_REGRESSION.ps1 website\index.html website\styles.css website\app.js website\sitemap.xml website\media\prezentacja-en.vtt .github\workflows\deploy-pages.yml) do (
   if exist "%~dp0%%F" (echo [PASS] %%F) else (echo [FAIL] %%F missing& set "FAILED=1")
 )
 findstr /c:"FIX069" "%~dp0WindowsVersionSwitcherPRO.cs" >nul
@@ -26,8 +26,10 @@ powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX0
 if errorlevel 1 (echo [FAIL] FIX075 publication and site checks.& set "FAILED=1") else echo [PASS] FIX075 publication and site checks
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX076_GITHUB_AUTH.ps1"
 if errorlevel 1 (echo [FAIL] GitHub authentication and native process checks.& set "FAILED=1") else echo [PASS] GitHub authentication and native process checks
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX085_PACKAGE_VALIDATION.ps1"
-if errorlevel 1 (echo [FAIL] FIX085 package validation test.& set "FAILED=1") else echo [PASS] FIX085 package validation test
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX087_PACKAGE_VALIDATION.ps1"
+if errorlevel 1 (echo [FAIL] FIX087 package validation test.& set "FAILED=1") else echo [PASS] FIX087 package validation test
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX087_WORKFLOW_DISPATCH.ps1"
+if errorlevel 1 (echo [FAIL] FIX087 workflow dispatch checks.& set "FAILED=1") else echo [PASS] FIX087 workflow dispatch checks
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX083_INTERPOLATION.ps1"
 if errorlevel 1 (echo [FAIL] FIX083 interpolation regression test.& set "FAILED=1") else echo [PASS] FIX083 interpolation regression test
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX083_NATIVE_PROCESS.ps1"

@@ -1,14 +1,14 @@
 @echo off
 setlocal EnableExtensions DisableDelayedExpansion
 chcp 65001 >nul
-title KOMPUTEROWE CENTRUM SERWISU - AUTOMATYCZNY START FIX085
+title KOMPUTEROWE CENTRUM SERWISU - AUTOMATYCZNY START FIX087
 set "ROOT=%~dp0"
 pushd "%ROOT%" >nul 2>&1
 if errorlevel 1 goto :path_fail
 
 rem Validate the extracted package with PowerShell. This handles CRLF/LF and paths with spaces/parentheses.
-if not exist "%ROOT%VALIDATE_FIX085_PACKAGE.ps1" goto :wrong_package
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%VALIDATE_FIX085_PACKAGE.ps1"
+if not exist "%ROOT%VALIDATE_FIX087_PACKAGE.ps1" goto :wrong_package
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%VALIDATE_FIX087_PACKAGE.ps1"
 set "RC=%ERRORLEVEL%"
 if not "%RC%"=="0" goto :wrong_package
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%CHECK_FIX084_CMD_ENCODING.ps1"
@@ -23,6 +23,12 @@ if not "%RC%"=="0" goto :wrong_package
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%CHECK_FIX085_GIT_CLONE_LONGPATHS.ps1"
 set "RC=%ERRORLEVEL%"
 if not "%RC%"=="0" goto :wrong_package
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%CHECK_FIX087_PACKAGE_VALIDATION.ps1"
+set "RC=%ERRORLEVEL%"
+if not "%RC%"=="0" goto :wrong_package
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%CHECK_FIX087_WORKFLOW_DISPATCH.ps1"
+set "RC=%ERRORLEVEL%"
+if not "%RC%"=="0" goto :wrong_package
 
 set "LOGDIR=%ROOT%dist\build-logs"
 if not exist "%LOGDIR%" mkdir "%LOGDIR%"
@@ -35,13 +41,13 @@ set "PAGEURL=https://naprawapclaptop1-dev.github.io/komputerowe-centrum-serwisu/
 if exist "%STATUS%" del /q "%STATUS%" >nul 2>&1
 if exist "%ROOT%PUBLICATION_VERIFICATION.status" del /q "%ROOT%PUBLICATION_VERIFICATION.status" >nul 2>&1
 >"%LOG%" echo ============================================================
->>"%LOG%" echo KOMPUTEROWE CENTRUM SERWISU - FIX085 AUTOMAT
->>"%LOG%" echo Pakiet: FIX085
+>>"%LOG%" echo KOMPUTEROWE CENTRUM SERWISU - FIX087 AUTOMAT
+>>"%LOG%" echo Pakiet: FIX087
 >>"%LOG%" echo Folder startowy: %ROOT%
 >>"%LOG%" echo Repozytorium: %GHREPO%
 >>"%LOG%" echo Data: %DATE% %TIME%
 echo ============================================================
-echo KOMPUTEROWE CENTRUM SERWISU - FIX085
+echo KOMPUTEROWE CENTRUM SERWISU - FIX087
 echo AUTOMATYCZNA NAPRAWA PUBLIKACJI + BEZPLATNA STRONA GLOBALNA
 echo ============================================================
 echo Repozytorium przypisane automatycznie: %GHREPO%
@@ -111,8 +117,8 @@ popd
 exit /b 0
 
 :wrong_package
-echo [BLAD] Ten folder nie zawiera kompletnego pakietu FIX085.
-echo Rozpakuj caly ZIP FIX085 i uruchom URUCHOM_TYLKO_TEN_PLIK.cmd z jego folderu.
+echo [BLAD] Ten folder nie zawiera kompletnego pakietu FIX087.
+echo Rozpakuj caly ZIP FIX087 i uruchom URUCHOM_TYLKO_TEN_PLIK.cmd z jego folderu.
 echo Nazwa folderu nadrzednego nie ma znaczenia. Szczegoly walidacji sa powyzej.
 pause
 popd

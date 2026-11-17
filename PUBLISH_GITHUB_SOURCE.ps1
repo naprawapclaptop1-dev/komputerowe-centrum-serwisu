@@ -6,7 +6,7 @@ $Root=$PSScriptRoot
 $LogDir=Join-Path $Root "dist\build-logs"
 New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
 $Log=Join-Path $LogDir "01-github-source-sync-and-pages.log"
-$Temp=Join-Path $env:TEMP ("KCS_FIX085_SourceSync_"+[guid]::NewGuid().ToString("N"))
+$Temp=Join-Path $env:TEMP ("KCS_FIX087_SourceSync_"+[guid]::NewGuid().ToString("N"))
 $PageUrl="https://naprawapclaptop1-dev.github.io/komputerowe-centrum-serwisu/"
 $PagesReady=$false
 $TranscriptStarted=$false
@@ -44,12 +44,14 @@ function Invoke-NativeCapture([string]$Executable,[string[]]$Arguments){
   $startInfo.CreateNoWindow=$true
   $startInfo.RedirectStandardOutput=$true
   $startInfo.RedirectStandardError=$true
+  $startInfo.RedirectStandardInput=$true
   $process=New-Object System.Diagnostics.Process
   $process.StartInfo=$startInfo
   $started=$false
   try{
     $started=$process.Start()
     if(!$started){throw "Nie można uruchomić procesu natywnego: $Executable"}
+    $process.StandardInput.Close()
     $stdoutTask=$process.StandardOutput.ReadToEndAsync()
     $stderrTask=$process.StandardError.ReadToEndAsync()
     $process.WaitForExit()
@@ -100,18 +102,18 @@ function Invoke-GitChecked([string[]]$GitArgs,[string]$Description){
 try {
   Start-Transcript -Path $Log -Force | Out-Null
   $TranscriptStarted=$true
-  Write-Host "[INFO] FIX085 source sync / quiet native stderr / marker-only package validation"
+  Write-Host "[INFO] FIX087 source sync / non-interactive Pages dispatch / marker-only package validation"
   Write-Host "[INFO] Folder projektu: $Root"
-  $markerPath=Join-Path $Root "FIX085_PACKAGE_MARKER.txt"
-  if(!(Test-Path -LiteralPath $markerPath -PathType Leaf)){throw "Brak markera FIX085. Uruchom CMD z kompletnego pakietu FIX085."}
+  $markerPath=Join-Path $Root "FIX087_PACKAGE_MARKER.txt"
+  if(!(Test-Path -LiteralPath $markerPath -PathType Leaf)){throw "Brak markera FIX087. Uruchom CMD z kompletnego pakietu FIX087."}
   $markerLines=Get-Content -LiteralPath $markerPath
-  if($markerLines -notcontains "PACKAGE=FIX085" -or $markerLines -notcontains "REPOSITORY=$Repo"){throw "Marker pakietu nie zgadza się z FIX085 lub przypisanym repozytorium."}
-  Write-Host "[PASS] Marker FIX085 i repozytorium potwierdzone. Folder nadrzędny: $Root"
+  if($markerLines -notcontains "PACKAGE=FIX087" -or $markerLines -notcontains "REPOSITORY=$Repo"){throw "Marker pakietu nie zgadza się z FIX087 lub przypisanym repozytorium."}
+  Write-Host "[PASS] Marker FIX087 i repozytorium potwierdzone. Folder nadrzędny: $Root"
   Write-Host "[INFO] Repozytorium: $Repo / galaz $Branch"
   $RepoFile=Join-Path $Root "GITHUB_REPOSITORY.txt"
   if(!(Test-Path -LiteralPath $RepoFile)){throw "Brak GITHUB_REPOSITORY.txt — uruchom wyłącznie URUCHOM_TYLKO_TEN_PLIK.cmd."}
   if((Get-Content -LiteralPath $RepoFile -Raw).Trim() -ne $Repo){throw "Repozytorium źródeł jest inne niż przypisane do tego programu."}
-  $repoMeta=Invoke-RestMethod -Headers @{"User-Agent"="KCS-FIX085";Accept="application/vnd.github+json"} -Uri "https://api.github.com/repos/$Repo" -TimeoutSec 30
+  $repoMeta=Invoke-RestMethod -Headers @{"User-Agent"="KCS-FIX087";Accept="application/vnd.github+json"} -Uri "https://api.github.com/repos/$Repo" -TimeoutSec 30
   if($repoMeta.visibility -ne "public" -or $repoMeta.default_branch -ne $Branch){throw "Repozytorium musi być publiczne i używać gałęzi main. visibility=$($repoMeta.visibility), default_branch=$($repoMeta.default_branch)."}
   $gh=Get-Command gh.exe -ErrorAction SilentlyContinue
   if(!$gh){$gh=Get-Command gh -ErrorAction SilentlyContinue}
@@ -172,15 +174,20 @@ try {
   if($uidResult.ExitCode -ne 0 -or !$uid){throw "Nie można odczytać identyfikatora konta GitHub: $($uidResult.Output.Trim())"}
   Invoke-GitChecked @("-C",$Temp,"config","user.email",($uid+"+"+$login+"@users.noreply.github.com")) "Nie udało się ustawić adresu autora commitu"
   Invoke-GitChecked @("-C",$Temp,"config","core.longpaths","true") "Nie udało się włączyć obsługi długich ścieżek"
+  Invoke-GitChecked @("-C",$Temp,"config","core.autocrlf","false") "Nie udało się ustawić stabilnego kodowania końców linii Git"
 
   $exclude=@("dist","GlobalUpdateServer","node_modules",".tools","bin","obj",".vs",".idea",".git")
   $xd=@(); foreach($name in $exclude){$xd+=@("/XD",(Join-Path $Root $name))}
   $xf=@("*.zip","*.7z","*.exe","*.dll","*.pdb","*.msi","*.log","*.tmp","*.new","*.pfx","*.p12","*.key","*.pem",".env",".env.*","README.md","POLITYKA_PUBLIKACJI.md")
   $robocopyArgs=@($Root,$Temp,"/E","/COPY:DAT","/DCOPY:DAT","/R:2","/W:2","/XJ","/FFT","/NP","/TEE","/LOG+:$(Join-Path $LogDir '01-robocopy-source-sync.log')","/XF")+$xf+$xd
   Write-Host "[COPY] Synchronizuję pliki projektu i witrynę; zachowuję README.md oraz POLITYKA_PUBLIKACJI.md z repozytorium."
-  $roboCode=Invoke-NativeInteractive -Executable $robocopy.Source -Arguments $robocopyArgs
-  if($roboCode -ge 8){throw "Robocopy nie zakończył synchronizacji (kod=$roboCode). Szczegóły: $(Join-Path $LogDir '01-robocopy-source-sync.log')"}
-  Write-Host "[PASS] Robocopy zakończył synchronizację (kod=$roboCode)."
+  $roboResult=Invoke-NativeCapture -Executable $robocopy.Source -Arguments $robocopyArgs
+  $roboCode=$roboResult.ExitCode
+  if($roboCode -ge 8){
+    if($roboResult.Output.Trim()){Write-Host $roboResult.Output.TrimEnd()}
+    throw "Robocopy nie zakończył synchronizacji (kod=$roboCode). Szczegóły: $(Join-Path $LogDir '01-robocopy-source-sync.log')"
+  }
+  Write-Host "[PASS] Robocopy zakończył synchronizację (kod=$roboCode). Szczegóły: $(Join-Path $LogDir '01-robocopy-source-sync.log')"
 
   $gitIgnore=Join-Path $Temp ".gitignore"
   $ignoreRules=@("dist/","GlobalUpdateServer/",".tools/","*.log","*.tmp","*.new","*.bak","*.user","*.pfx","*.p12","*.key","*.pem",".env",".env.*")
@@ -196,7 +203,7 @@ try {
   if($statusResult.ExitCode -ne 0){throw "git status nie powiódł się: $changes"}
   if($changes){
     Write-Host "[GIT] Tworzę commit źródeł, strony i workflow Pages."
-    Invoke-GitChecked @("-C",$Temp,"commit","-m","FIX085: repair CMD encoding, Pages provisioning and exclude local tool cache") "Nie udało się utworzyć commitu źródeł"
+    Invoke-GitChecked @("-C",$Temp,"commit","-m","FIX087: non-interactive Pages dispatch and cache-safe source sync") "Nie udało się utworzyć commitu źródeł"
     $pushResult=Invoke-NativeCapture -Executable $git.Source -Arguments @("-C",$Temp,"push","origin","HEAD:refs/heads/$Branch")
     $pushOut=$pushResult.Output; $pushCode=$pushResult.ExitCode
     if($pushOut.Trim()){Write-Host $pushOut.TrimEnd()}
@@ -251,9 +258,17 @@ try {
     throw ("Nie udało się utworzyć ani skonfigurować witryny GitHub Pages przy użyciu zalogowanego konta gh. " + $_.Exception.Message + " Wymagane: konto administratora repozytorium i token klasyczny z zakresem repo albo token fine-grained z Pages:write oraz Administration:write. Alternatywnie ustaw jednorazowo Settings > Pages > Build and deployment > Source: GitHub Actions.")
   }
   if($PagesReady){
-    $workflowCode=Invoke-NativeInteractive -Executable $gh.Source -Arguments @("workflow","run","deploy-pages.yml","--repo",$Repo,"--ref",$Branch)
-    if($workflowCode -eq 0){Write-Host "[PASS] Uruchomiono wdrożenie witryny GitHub Pages.";Set-Content -LiteralPath (Join-Path $Root "PAGES_DEPLOYMENT.status") -Value "TRIGGERED" -Encoding ASCII}
-    else {Write-Warning "Nie udało się ręcznie uruchomić workflow (gh exit=$workflowCode); push na main może już uruchomić workflow automatycznie. Sprawdź https://github.com/$Repo/actions"}
+    Write-Host "[PAGES] Uruchamiam workflow deploy-pages.yml bez interaktywnego procesu; przechwytuję stdout, stderr i kod wyjścia."
+    $workflowDispatchResult=Invoke-NativeCapture -Executable $gh.Source -Arguments @("workflow","run","deploy-pages.yml","--repo",$Repo,"--ref",$Branch)
+    if($workflowDispatchResult.Output.Trim()){Write-Host $workflowDispatchResult.Output.TrimEnd()}
+    if($workflowDispatchResult.ExitCode -ne 0){
+      $workflowListResult=Invoke-NativeCapture -Executable $gh.Source -Arguments @("workflow","list","--repo",$Repo,"--all")
+      $workflowListOutput=$workflowListResult.Output.Trim()
+      if($workflowListResult.Output.Trim()){Write-Host $workflowListResult.Output.TrimEnd()}
+      throw "Nie udało się uruchomić wdrożenia GitHub Pages bez interakcji (gh exit=$($workflowDispatchResult.ExitCode)). Odpowiedź gh: $($workflowDispatchResult.Output.Trim()). Lista workflow: $workflowListOutput"
+    }
+    Set-Content -LiteralPath (Join-Path $Root "PAGES_DEPLOYMENT.status") -Value "TRIGGERED" -Encoding ASCII
+    Write-Host "[PASS] Wysłano żądanie wdrożenia GitHub Pages; szczegółowy status będzie sprawdzony w kroku 4/5."
   }
   Set-Content -LiteralPath (Join-Path $Root "GITHUB_PAGES_URL.txt") -Value $PageUrl -Encoding ASCII
   Write-Host "[PASS] Etap synchronizacji źródeł zakończony."

@@ -1,4 +1,4 @@
-KOMPUTEROWE CENTRUM SERWISU — FIX074 / aplikacja 1.0.0.69
+KOMPUTEROWE CENTRUM SERWISU — FIX087 / aplikacja 1.0.0.69
 
 JEDEN ZIP / JEDEN CMD
 1. Rozpakuj cały ZIP do jednego folderu z prawem zapisu.
@@ -19,7 +19,7 @@ Repozytorium jest wpisane automatycznie. Nie wpisuj URL i nie zmieniaj repozytor
 
 STRONA DLA UŻYTKOWNIKÓW NA CAŁYM ŚWIECIE
 https://naprawapclaptop1-dev.github.io/komputerowe-centrum-serwisu/
-Strona jest przygotowana w języku polskim i angielskim. Wyjaśnia do czego służy program, opisuje moduły i wymagania, zawiera oryginalny film prezentacyjny z napisami, FAQ, instrukcję pobierania, instalator i wersję portable. Pobieranie ma być bezpłatne — bez abonamentu i płatnego konta. Hosting publicznej strony na GitHub Pages jest dostępny bez opłat w publicznym repozytorium na planie GitHub Free.
+Publiczna strona działa w języku polskim i angielskim. Wyjaśnia do czego służy program, opisuje moduły i wymagania, zawiera oryginalny film prezentacyjny z napisami, FAQ i instrukcję pobierania. Linki do instalatora i wersji portable staną się aktywne po opublikowaniu pierwszego wydania GitHub Releases. Pobieranie ma być bezpłatne — bez abonamentu i płatnego konta. Hosting publicznej strony na GitHub Pages jest dostępny bez opłat w publicznym repozytorium na planie GitHub Free.
 
 PIERWSZE URUCHOMIENIE
 Wymagane jest jednorazowe zalogowanie do GitHub w przeglądarce i zatwierdzenie uprawnień repo/workflow. Windows może poprosić o standardową zgodę UAC podczas instalacji. Nie zapisujemy tokena GitHub w kodzie ani w repozytorium.
@@ -33,4 +33,4 @@ BEZPIECZEŃSTWO I WZNOWIENIE
 - Po utworzeniu wydania, ale przed zakończeniem wdrożenia Pages, można bezpiecznie uruchomić ponownie ten sam CMD.
 - Operacje na partycjach, rejestrze, rozruchu i przywracaniu systemu mogą zmienić dane. Przed nimi wykonaj kopię zapasową.
 
-Wersja aplikacji pozostaje 1.0.0.69; FIX074 naprawia kolejność i kontrolę publikacji, aktualizator pierwszego wydania oraz witrynę WWW.
+Wersja aplikacji pozostaje 1.0.0.69. FIX087 naprawia test walidacyjny workflow Pages: testy używają teraz rekordów PSCustomObject, aby PowerShell 5.1 nie spłaszczał wyników i opisów kontroli.

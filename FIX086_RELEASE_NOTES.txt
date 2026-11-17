@@ -1,0 +1,14 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX086
+
+Naprawa zatrzymania procesu po komunikacie „Darmowy GitHub Pages skonfigurowany”.
+
+1. `gh workflow run deploy-pages.yml` jest uruchamiany przez `Invoke-NativeCapture`, a nie przez proces interaktywny.
+2. CMD pokazuje wynik stdout/stderr i kod wyjścia; błąd uruchomienia workflow nie znika bez śladu.
+3. Robocopy działa z przechwyconym wyjściem, a pełny raport zapisuje `01-robocopy-source-sync.log`.
+4. Git w tymczasowym klonie ma `core.autocrlf=false`, aby ograniczyć ostrzeżenia LF/CRLF.
+5. GitHub Pages workflow wdraża po zmianach `website/**` lub workflow na gałęzi main oraz obsługuje ręczne uruchomienie.
+6. Weryfikator publiczny sprawdza znacznik FIX086, pliki strony i zasoby HTTP.
+
+Repozytorium: naprawapclaptop1-dev/komputerowe-centrum-serwisu
+Wersja aplikacji: 1.0.0.69 (bez zmiany)
+FIX086 nie oznacza jeszcze opublikowania nowego instalatora; kompilację i publikację Release wykonuje główny CMD na Windows.
