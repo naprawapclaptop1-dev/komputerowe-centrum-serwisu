@@ -1,14 +1,26 @@
-﻿@echo off
+@echo off
 setlocal EnableExtensions DisableDelayedExpansion
 chcp 65001 >nul
-title KOMPUTEROWE CENTRUM SERWISU - AUTOMATYCZNY START FIX083
+title KOMPUTEROWE CENTRUM SERWISU - AUTOMATYCZNY START FIX085
 set "ROOT=%~dp0"
 pushd "%ROOT%" >nul 2>&1
 if errorlevel 1 goto :path_fail
 
 rem Validate the extracted package with PowerShell. This handles CRLF/LF and paths with spaces/parentheses.
-if not exist "%ROOT%VALIDATE_FIX083_PACKAGE.ps1" goto :wrong_package
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%VALIDATE_FIX083_PACKAGE.ps1"
+if not exist "%ROOT%VALIDATE_FIX085_PACKAGE.ps1" goto :wrong_package
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%VALIDATE_FIX085_PACKAGE.ps1"
+set "RC=%ERRORLEVEL%"
+if not "%RC%"=="0" goto :wrong_package
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%CHECK_FIX084_CMD_ENCODING.ps1"
+set "RC=%ERRORLEVEL%"
+if not "%RC%"=="0" goto :wrong_package
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%CHECK_FIX084_PAGES_CONFIGURATION.ps1"
+set "RC=%ERRORLEVEL%"
+if not "%RC%"=="0" goto :wrong_package
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%CHECK_FIX084_SOURCE_CACHE_EXCLUSIONS.ps1"
+set "RC=%ERRORLEVEL%"
+if not "%RC%"=="0" goto :wrong_package
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%CHECK_FIX085_GIT_CLONE_LONGPATHS.ps1"
 set "RC=%ERRORLEVEL%"
 if not "%RC%"=="0" goto :wrong_package
 
@@ -23,13 +35,13 @@ set "PAGEURL=https://naprawapclaptop1-dev.github.io/komputerowe-centrum-serwisu/
 if exist "%STATUS%" del /q "%STATUS%" >nul 2>&1
 if exist "%ROOT%PUBLICATION_VERIFICATION.status" del /q "%ROOT%PUBLICATION_VERIFICATION.status" >nul 2>&1
 >"%LOG%" echo ============================================================
->>"%LOG%" echo KOMPUTEROWE CENTRUM SERWISU - FIX083 AUTOMAT
->>"%LOG%" echo Pakiet: FIX083
+>>"%LOG%" echo KOMPUTEROWE CENTRUM SERWISU - FIX085 AUTOMAT
+>>"%LOG%" echo Pakiet: FIX085
 >>"%LOG%" echo Folder startowy: %ROOT%
 >>"%LOG%" echo Repozytorium: %GHREPO%
 >>"%LOG%" echo Data: %DATE% %TIME%
 echo ============================================================
-echo KOMPUTEROWE CENTRUM SERWISU - FIX083
+echo KOMPUTEROWE CENTRUM SERWISU - FIX085
 echo AUTOMATYCZNA NAPRAWA PUBLIKACJI + BEZPLATNA STRONA GLOBALNA
 echo ============================================================
 echo Repozytorium przypisane automatycznie: %GHREPO%
@@ -46,7 +58,13 @@ powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%BOOTSTRAP
 set "RC=%ERRORLEVEL%"
 if not "%RC%"=="0" goto :tools_fail
 if not exist "%LOGDIR%\TOOLS_PATHS.txt" goto :tools_fail
-for /f "usebackq tokens=1,* delims==" %%A in ("%LOGDIR%\TOOLS_PATHS.txt") do call :set_tool_path "%%A" "%%B"
+for /f "usebackq tokens=1,* delims==" %%A in ("%LOGDIR%\TOOLS_PATHS.txt") do (
+  if /I "%%A"=="GH" set "GH_EXE=%%B"
+  if /I "%%A"=="GIT" set "GIT_EXE=%%B"
+  if /I "%%A"=="ISCC" set "INNO_MODERN_ISCC=%%B"
+)
+if defined GH_EXE for %%G in ("%GH_EXE%") do set "PATH=%%~dpG;%PATH%"
+if defined GIT_EXE for %%G in ("%GIT_EXE%") do set "PATH=%%~dpG;%PATH%"
 
 echo.
 echo [1/5] Synchronizacja kodu i uruchomienie wdrazania bezplatnej strony WWW...
@@ -93,8 +111,8 @@ popd
 exit /b 0
 
 :wrong_package
-echo [BLAD] Ten folder nie zawiera kompletnego pakietu FIX083.
-echo Rozpakuj caly ZIP FIX083 i uruchom URUCHOM_TYLKO_TEN_PLIK.cmd z jego folderu.
+echo [BLAD] Ten folder nie zawiera kompletnego pakietu FIX085.
+echo Rozpakuj caly ZIP FIX085 i uruchom URUCHOM_TYLKO_TEN_PLIK.cmd z jego folderu.
 echo Nazwa folderu nadrzednego nie ma znaczenia. Szczegoly walidacji sa powyzej.
 pause
 popd
@@ -148,8 +166,3 @@ pause
 popd
 exit /b 1
 
-:set_tool_path
-if /i "%~1"=="GH" for %%G in ("%~2") do set "PATH=%PATH%;%%~dpG"
-if /i "%~1"=="GIT" for %%G in ("%~2") do set "PATH=%PATH%;%%~dpG"
-if /i "%~1"=="ISCC" set "INNO_MODERN_ISCC=%~2"
-exit /b 0

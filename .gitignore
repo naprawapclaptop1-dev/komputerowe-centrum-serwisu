@@ -1,5 +1,11 @@
+.tools/
 dist/
 GlobalUpdateServer/
+node_modules/
+bin/
+obj/
+.vs/
+.idea/
 *.log
 *.tmp
 *.new
@@ -11,4 +17,3 @@ GlobalUpdateServer/
 *.pem
 .env
 .env.*
-.tools/

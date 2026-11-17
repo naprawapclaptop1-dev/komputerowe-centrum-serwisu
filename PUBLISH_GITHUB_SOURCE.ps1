@@ -6,7 +6,7 @@ $Root=$PSScriptRoot
 $LogDir=Join-Path $Root "dist\build-logs"
 New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
 $Log=Join-Path $LogDir "01-github-source-sync-and-pages.log"
-$Temp=Join-Path $env:TEMP ("KCS_FIX083_SourceSync_"+[guid]::NewGuid().ToString("N"))
+$Temp=Join-Path $env:TEMP ("KCS_FIX085_SourceSync_"+[guid]::NewGuid().ToString("N"))
 $PageUrl="https://naprawapclaptop1-dev.github.io/komputerowe-centrum-serwisu/"
 $PagesReady=$false
 $TranscriptStarted=$false
@@ -100,18 +100,18 @@ function Invoke-GitChecked([string[]]$GitArgs,[string]$Description){
 try {
   Start-Transcript -Path $Log -Force | Out-Null
   $TranscriptStarted=$true
-  Write-Host "[INFO] FIX083 source sync / quiet native stderr / marker-only package validation"
+  Write-Host "[INFO] FIX085 source sync / quiet native stderr / marker-only package validation"
   Write-Host "[INFO] Folder projektu: $Root"
-  $markerPath=Join-Path $Root "FIX083_PACKAGE_MARKER.txt"
-  if(!(Test-Path -LiteralPath $markerPath -PathType Leaf)){throw "Brak markera FIX083. Uruchom CMD z kompletnego pakietu FIX083."}
+  $markerPath=Join-Path $Root "FIX085_PACKAGE_MARKER.txt"
+  if(!(Test-Path -LiteralPath $markerPath -PathType Leaf)){throw "Brak markera FIX085. Uruchom CMD z kompletnego pakietu FIX085."}
   $markerLines=Get-Content -LiteralPath $markerPath
-  if($markerLines -notcontains "PACKAGE=FIX083" -or $markerLines -notcontains "REPOSITORY=$Repo"){throw "Marker pakietu nie zgadza się z FIX083 lub przypisanym repozytorium."}
-  Write-Host "[PASS] Marker FIX083 i repozytorium potwierdzone. Folder nadrzędny: $Root"
+  if($markerLines -notcontains "PACKAGE=FIX085" -or $markerLines -notcontains "REPOSITORY=$Repo"){throw "Marker pakietu nie zgadza się z FIX085 lub przypisanym repozytorium."}
+  Write-Host "[PASS] Marker FIX085 i repozytorium potwierdzone. Folder nadrzędny: $Root"
   Write-Host "[INFO] Repozytorium: $Repo / galaz $Branch"
   $RepoFile=Join-Path $Root "GITHUB_REPOSITORY.txt"
   if(!(Test-Path -LiteralPath $RepoFile)){throw "Brak GITHUB_REPOSITORY.txt — uruchom wyłącznie URUCHOM_TYLKO_TEN_PLIK.cmd."}
   if((Get-Content -LiteralPath $RepoFile -Raw).Trim() -ne $Repo){throw "Repozytorium źródeł jest inne niż przypisane do tego programu."}
-  $repoMeta=Invoke-RestMethod -Headers @{"User-Agent"="KCS-FIX083";Accept="application/vnd.github+json"} -Uri "https://api.github.com/repos/$Repo" -TimeoutSec 30
+  $repoMeta=Invoke-RestMethod -Headers @{"User-Agent"="KCS-FIX085";Accept="application/vnd.github+json"} -Uri "https://api.github.com/repos/$Repo" -TimeoutSec 30
   if($repoMeta.visibility -ne "public" -or $repoMeta.default_branch -ne $Branch){throw "Repozytorium musi być publiczne i używać gałęzi main. visibility=$($repoMeta.visibility), default_branch=$($repoMeta.default_branch)."}
   $gh=Get-Command gh.exe -ErrorAction SilentlyContinue
   if(!$gh){$gh=Get-Command gh -ErrorAction SilentlyContinue}
@@ -162,8 +162,8 @@ try {
   }
   Write-Host "[PASS] Konto: $login; repozytorium ma potwierdzone uprawnienie zapisu."
 
-  Write-Host "[GITHUB] Klonuję bieżącą gałąź $Branch."
-  $cloneResult=Invoke-NativeCapture -Executable $git.Source -Arguments @("clone","--branch",$Branch,"--single-branch","https://github.com/$Repo.git",$Temp)
+  Write-Host "[GITHUB] Klonuję bieżącą gałąź $Branch z core.longpaths=true (bez cache .tools)."
+  $cloneResult=Invoke-NativeCapture -Executable $git.Source -Arguments @("-c","core.longpaths=true","clone","--branch",$Branch,"--single-branch","--no-tags","https://github.com/$Repo.git",$Temp)
   if($cloneResult.Output.Trim()){Write-Host $cloneResult.Output.TrimEnd()}
   if($cloneResult.ExitCode -ne 0){throw "git clone nie powiódł się (kod=$($cloneResult.ExitCode)): $($cloneResult.Output.Trim())"}
   Invoke-GitChecked @("-C",$Temp,"config","user.name",$login) "Nie udało się ustawić autora commitu"
@@ -173,7 +173,7 @@ try {
   Invoke-GitChecked @("-C",$Temp,"config","user.email",($uid+"+"+$login+"@users.noreply.github.com")) "Nie udało się ustawić adresu autora commitu"
   Invoke-GitChecked @("-C",$Temp,"config","core.longpaths","true") "Nie udało się włączyć obsługi długich ścieżek"
 
-  $exclude=@("dist","GlobalUpdateServer","node_modules","bin","obj",".vs",".idea",".git")
+  $exclude=@("dist","GlobalUpdateServer","node_modules",".tools","bin","obj",".vs",".idea",".git")
   $xd=@(); foreach($name in $exclude){$xd+=@("/XD",(Join-Path $Root $name))}
   $xf=@("*.zip","*.7z","*.exe","*.dll","*.pdb","*.msi","*.log","*.tmp","*.new","*.pfx","*.p12","*.key","*.pem",".env",".env.*","README.md","POLITYKA_PUBLIKACJI.md")
   $robocopyArgs=@($Root,$Temp,"/E","/COPY:DAT","/DCOPY:DAT","/R:2","/W:2","/XJ","/FFT","/NP","/TEE","/LOG+:$(Join-Path $LogDir '01-robocopy-source-sync.log')","/XF")+$xf+$xd
@@ -183,16 +183,20 @@ try {
   Write-Host "[PASS] Robocopy zakończył synchronizację (kod=$roboCode)."
 
   $gitIgnore=Join-Path $Temp ".gitignore"
-  $ignoreRules=@("dist/","GlobalUpdateServer/","*.log","*.tmp","*.new","*.bak","*.user","*.pfx","*.p12","*.key","*.pem",".env",".env.*")
+  $ignoreRules=@("dist/","GlobalUpdateServer/",".tools/","*.log","*.tmp","*.new","*.bak","*.user","*.pfx","*.p12","*.key","*.pem",".env",".env.*")
   if(Test-Path -LiteralPath $gitIgnore){$existingIgnore=Get-Content -LiteralPath $gitIgnore -ErrorAction SilentlyContinue;foreach($rule in $ignoreRules){if($existingIgnore -notcontains $rule){Add-Content -LiteralPath $gitIgnore -Value $rule -Encoding ASCII}}}
   else {$ignoreRules | Set-Content -LiteralPath $gitIgnore -Encoding ASCII}
+  # The previous run accidentally committed a local npm/Wrangler cache. Remove only its Git index entries;
+  # the user's original .tools folder is excluded from Robocopy and is never deleted.
+  $untrackCache=Invoke-NativeCapture -Executable $git.Source -Arguments @("-C",$Temp,"rm","-r","--cached","--ignore-unmatch",".tools")
+  if($untrackCache.ExitCode -ne 0){throw "Nie udało się usunąć lokalnego cache .tools z indeksu Git: $($untrackCache.Output.Trim())"}
   Invoke-GitChecked @("-C",$Temp,"add","-A") "git add zakończył się błędem"
   $statusResult=Invoke-NativeCapture -Executable $git.Source -Arguments @("-C",$Temp,"status","--porcelain")
   $changes=$statusResult.Output.Trim()
   if($statusResult.ExitCode -ne 0){throw "git status nie powiódł się: $changes"}
   if($changes){
     Write-Host "[GIT] Tworzę commit źródeł, strony i workflow Pages."
-    Invoke-GitChecked @("-C",$Temp,"commit","-m","FIX076: repair source sync diagnostics and global website deployment") "Nie udało się utworzyć commitu źródeł"
+    Invoke-GitChecked @("-C",$Temp,"commit","-m","FIX085: repair CMD encoding, Pages provisioning and exclude local tool cache") "Nie udało się utworzyć commitu źródeł"
     $pushResult=Invoke-NativeCapture -Executable $git.Source -Arguments @("-C",$Temp,"push","origin","HEAD:refs/heads/$Branch")
     $pushOut=$pushResult.Output; $pushCode=$pushResult.ExitCode
     if($pushOut.Trim()){Write-Host $pushOut.TrimEnd()}
@@ -219,7 +223,7 @@ try {
     $pagesRaw=$pagesResult.Output; $pagesExit=$pagesResult.ExitCode
     if($pagesExit -ne 0){
       Write-Host "[PAGES] Włączam bezpłatny GitHub Pages w trybie Actions."
-      $pagesResult=Invoke-NativeCapture -Executable $gh.Source -Arguments @("api","--method","POST","repos/$Repo/pages","-F","build_type=workflow")
+      $pagesResult=Invoke-NativeCapture -Executable $gh.Source -Arguments @("api","--method","POST","repos/$Repo/pages","-H","Accept: application/vnd.github+json","-H","X-GitHub-Api-Version: 2026-03-10","-f","build_type=workflow","-f","source[branch]=$Branch","-f","source[path]=/")
       $pagesRaw=$pagesResult.Output
       if($pagesResult.ExitCode -ne 0){
         $pagesCheckResult=Invoke-NativeCapture -Executable $gh.Source -Arguments @("api","repos/$Repo/pages")
@@ -229,7 +233,7 @@ try {
     } else {
       $pagesObject=$pagesRaw | ConvertFrom-Json
       if($pagesObject.build_type -ne "workflow"){
-        $pagesResult=Invoke-NativeCapture -Executable $gh.Source -Arguments @("api","--method","PUT","repos/$Repo/pages","-F","build_type=workflow")
+        $pagesResult=Invoke-NativeCapture -Executable $gh.Source -Arguments @("api","--method","PUT","repos/$Repo/pages","-H","Accept: application/vnd.github+json","-H","X-GitHub-Api-Version: 2026-03-10","-f","build_type=workflow","-f","source[branch]=$Branch","-f","source[path]=/")
         $pagesRaw=$pagesResult.Output
         if($pagesResult.ExitCode -ne 0){throw "Nie udało się ustawić Pages na GitHub Actions: $($pagesRaw.Trim())"}
       }
@@ -244,7 +248,7 @@ try {
     Write-Host "[PASS] Darmowy GitHub Pages skonfigurowany: $PageUrl"
   } catch {
     Set-Content -LiteralPath (Join-Path $Root "PAGES_DEPLOYMENT.status") -Value "PENDING" -Encoding ASCII
-    Write-Warning "Źródła są już w GitHub, ale konfiguracja Pages wymaga ponowienia: $($_.Exception.Message)"
+    throw ("Nie udało się utworzyć ani skonfigurować witryny GitHub Pages przy użyciu zalogowanego konta gh. " + $_.Exception.Message + " Wymagane: konto administratora repozytorium i token klasyczny z zakresem repo albo token fine-grained z Pages:write oraz Administration:write. Alternatywnie ustaw jednorazowo Settings > Pages > Build and deployment > Source: GitHub Actions.")
   }
   if($PagesReady){
     $workflowCode=Invoke-NativeInteractive -Executable $gh.Source -Arguments @("workflow","run","deploy-pages.yml","--repo",$Repo,"--ref",$Branch)
