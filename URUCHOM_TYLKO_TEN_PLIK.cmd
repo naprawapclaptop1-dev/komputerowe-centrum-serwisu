@@ -1,7 +1,7 @@
 @echo off
 setlocal EnableExtensions DisableDelayedExpansion
 chcp 65001 >nul
-title KOMPUTEROWE CENTRUM SERWISU - AUTOMATYCZNY START FIX091
+title KOMPUTEROWE CENTRUM SERWISU - AUTOMATYCZNY START FIX093
 set "ROOT=%~dp0"
 pushd "%ROOT%" >nul 2>&1
 if errorlevel 1 goto :path_fail
@@ -14,7 +14,7 @@ set "LOG=%LOGDIR%\00-AUTOMATYCZNY-START.log"
 set "STATUS=%LOGDIR%\FULL_RELEASE.status"
 set "RC=0"
 set "CHECKSTEP=initialization"
->"%LOG%" echo KOMPUTEROWE CENTRUM SERWISU FIX091
+>"%LOG%" echo KOMPUTEROWE CENTRUM SERWISU FIX093
 >>"%LOG%" echo Folder: %ROOT%
 >>"%LOG%" echo Repozytorium: %GHREPO%
 >>"%LOG%" echo Start: %DATE% %TIME%
@@ -22,7 +22,7 @@ if exist "%STATUS%" del /q "%STATUS%" >nul 2>&1
 if exist "%ROOT%PUBLICATION_VERIFICATION.status" del /q "%ROOT%PUBLICATION_VERIFICATION.status" >nul 2>&1
 >"%ROOT%GITHUB_REPOSITORY.txt" echo %GHREPO%
 echo ============================================================
-echo KOMPUTEROWE CENTRUM SERWISU - FIX091
+echo KOMPUTEROWE CENTRUM SERWISU - FIX093
 echo AUTOMATYCZNA BUDOWA + PUBLIKACJA + INSTALACJA
 echo ============================================================
 echo Repozytorium: %GHREPO%
@@ -32,7 +32,7 @@ echo Aktywny folder: %ROOT%
 echo.
 
 set "CHECKSTEP=walidacja pakietu"
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%VALIDATE_FIX091_PACKAGE.ps1" >>"%LOG%" 2>&1
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%VALIDATE_FIX093_PACKAGE.ps1" >>"%LOG%" 2>&1
 set "RC=%ERRORLEVEL%"
 if not "%RC%"=="0" goto :validation_fail
 
@@ -43,9 +43,9 @@ if not "%RC%"=="0" goto :validation_fail
 
 echo.
 echo [CLEAN] Bezpieczne czyszczenie starych plikow tymczasowych...
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%CLEAN_SAFE_TEMP.ps1" -ProjectRoot "%ROOT%"
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%CLEAN_SAFE_TEMP.ps1"
 set "CLEAN_RC=%ERRORLEVEL%"
-if not "%CLEAN_RC%"=="0" echo [WARN] Czyszczenie TEMP niepelne (kod=%CLEAN_RC%); nie blokuje budowy. Raport: dist\build-logs\SAFE_TEMP_CLEANUP.log.
+if not "%CLEAN_RC%"=="0" echo [WARN] Czyszczenie TEMP niepelne - kod %CLEAN_RC%; budowa bedzie kontynuowana bez usuwania plikow. Raport: dist\build-logs\SAFE_TEMP_CLEANUP.log.
 
 echo.
 echo [0/5] Automatyczne przygotowanie narzedzi...

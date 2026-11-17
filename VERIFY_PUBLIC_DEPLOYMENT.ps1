@@ -4,7 +4,7 @@ $Repo="naprawapclaptop1-dev/komputerowe-centrum-serwisu"
 $Version="1.0.0.69"
 $Tag="v$Version"
 $PageUrl="https://naprawapclaptop1-dev.github.io/komputerowe-centrum-serwisu/"
-$Headers=@{"User-Agent"="KCS-FIX091-PublicVerifier";Accept="application/vnd.github+json"}
+$Headers=@{"User-Agent"="KCS-FIX093-PublicVerifier";Accept="application/vnd.github+json"}
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
 $LogDir=Join-Path $PSScriptRoot "dist\build-logs"
 New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
@@ -73,12 +73,12 @@ try {
   for($i=1;$i -le $PageAttempts;$i++){
     try {
       $page=Invoke-WebRequest -UseBasicParsing -Headers @{"Cache-Control"="no-cache"} -Uri ($PageUrl+"?fix086="+[guid]::NewGuid().ToString("N")) -TimeoutSec 20
-      if($page.StatusCode -eq 200 -and $page.Content -match 'application-fix" content="FIX091' -and $page.Content -match 'Pobierz' -and $page.Content -match 'prezentacja.mp4'){$siteReady=$true;break}
+      if($page.StatusCode -eq 200 -and $page.Content -match 'application-fix" content="FIX093' -and $page.Content -match 'Pobierz' -and $page.Content -match 'prezentacja.mp4'){$siteReady=$true;break}
     } catch {}
     Start-Sleep -Seconds $PageDelaySeconds
   }
-  if(!$siteReady){throw "Wydanie GitHub działa, ale strona WWW nie potwierdziła HTTP 200 z oznaczeniem FIX091. Sprawdź https://github.com/$Repo/actions/workflows/deploy-pages.yml oraz Settings > Pages."}
-  Write-Host "[PASS] Strona WWW HTTP 200 i zawiera właściwą wersję FIX091."
+  if(!$siteReady){throw "Wydanie GitHub działa, ale strona WWW nie potwierdziła HTTP 200 z oznaczeniem FIX093. Sprawdź https://github.com/$Repo/actions/workflows/deploy-pages.yml oraz Settings > Pages."}
+  Write-Host "[PASS] Strona WWW HTTP 200 i zawiera właściwą wersję FIX093."
   foreach($relative in @("styles.css","app.js","media/centrum-serwisu.png","media/favicon.svg","media/prezentacja.mp4","media/prezentacja.vtt","media/prezentacja-en.vtt","site.webmanifest","sitemap.xml","robots.txt","404.html")){
     $url=$PageUrl+$relative
     $assetResponse=Invoke-WebRequest -UseBasicParsing -Method Head -Uri $url -TimeoutSec 45

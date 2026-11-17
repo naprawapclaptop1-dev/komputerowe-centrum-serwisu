@@ -1,4 +1,4 @@
-﻿FIX088 — poprawka błędu startowego odziedziczonego testu FIX085.
+FIX088 — poprawka błędu startowego odziedziczonego testu FIX085.
 - Główny CMD nadal uruchamiał CHECK_FIX085_GIT_CLONE_LONGPATHS.ps1 z zagnieżdżonymi tablicami wyników; PowerShell 5.1 mógł spłaszczać te struktury i generować fałszywe błędy.
 - Przepisano testy FIX085 na PSCustomObject z jawnymi polami Passed i Name.
 - Nowy główny CMD pokazuje dokładny etap i kod błędu walidacji, odróżniając go od brakującego ZIP.
@@ -809,7 +809,7 @@ FIX089 — 2026-11-17 — Naprawa blokady CHECK_SOURCE, budowy i publikacji; bez
 - Wersja produktu pozostaje 1.0.0.69.
 
 
-KOMPUTEROWE CENTRUM SERWISU — FIX091
+KOMPUTEROWE CENTRUM SERWISU — FIX092
 Data: 2026-11-17
 
 PRZYCZYNA I POPRAWKI
@@ -825,10 +825,10 @@ PRZYCZYNA I POPRAWKI
 PIPELINE
 Walidacja pakietu → CHECK_SOURCE (raz) → bezpieczne TEMP → narzędzia → synchronizacja źródeł/strony → budowanie EXE/portable/instalatora → GitHub Release z manifestami i SHA-256 → test publicznych URL → instalacja lokalna.
 
-Wersja produktu pozostaje 1.0.0.69. FIX091 jest poprawką automatyzacji; nie potwierdza jeszcze kompilacji lub publikacji na komputerze użytkownika.
+Wersja produktu pozostaje 1.0.0.69. FIX092 jest poprawką automatyzacji; nie potwierdza jeszcze kompilacji lub publikacji na komputerze użytkownika.
 
 
-KOMPUTEROWE CENTRUM SERWISU — FIX091
+KOMPUTEROWE CENTRUM SERWISU — FIX092
 Data: 2026-11-17
 
 PRZYCZYNA BŁĘDU FIX090
@@ -838,13 +838,44 @@ PRZYCZYNA BŁĘDU FIX090
 POPRAWKI
 - Przepisano test pipeline na czytelne deklaracje wieloliniowe i funkcję Add-Check z obiektami PSCustomObject.
 - Usunięto wadliwy nawias i ograniczono złożone wyrażenia w hashtable.
-- Zaktualizowano nazwy aktywnego testu, walidatora, markera i manifestu do FIX091.
+- Zaktualizowano nazwy aktywnego testu, walidatora, markera i manifestu do FIX092.
 - Walidator weryfikuje BOM, SHA-256 i parser PowerShell dla wszystkich skryptów wymienionych w manifeście.
 - Zachowano jeden ZIP i jeden punkt startowy CMD.
 - Zachowano bezpieczne czyszczenie TEMP; nie usuwa ono profili, ustawień, baz ani plików innych aplikacji poza starymi, odblokowanymi plikami .tmp/.temp w TEMP i własnymi, przeterminowanymi klonami synchronizacyjnymi KCS.
 - Nie zmieniono wersji programu i danych aplikacji.
 
 PIPELINE
-Walidacja FIX091 → CHECK_SOURCE raz → bezpieczne TEMP → przygotowanie narzędzi → synchronizacja kodu i strony → budowa EXE/portable/instalatora → publikacja Release i manifestów → test HTTP → instalacja.
+Walidacja FIX092 → CHECK_SOURCE raz → bezpieczne TEMP → przygotowanie narzędzi → synchronizacja kodu i strony → budowa EXE/portable/instalatora → publikacja Release i manifestów → test HTTP → instalacja.
 
-Wersja produktu pozostaje 1.0.0.69. FIX091 jest poprawką parsera walidatora; kompilacja i publikacja wymagają potwierdzenia na Windows użytkownika.
+Wersja produktu pozostaje 1.0.0.69. FIX092 jest poprawką parsera walidatora; kompilacja i publikacja wymagają potwierdzenia na Windows użytkownika.
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX092
+Data: 2026-11-17
+
+NAPRAWIONE
+- Usunięto parametr -ProjectRoot z wywołania CLEAN_SAFE_TEMP.ps1. Wcześniej CMD przekazywał %ROOT% zakończony ukośnikiem odwrotnym, który mógł uciekać znak zamykającego cudzysłowu w argumentach Windows i powodować „Niedozwolone znaki w ścieżce”.
+- CLEAN_SAFE_TEMP.ps1 sam ustala katalog pakietu przez $PSScriptRoot, potwierdza marker FIX092 i dopiero wtedy tworzy raport.
+- Inicjalizacyjne błędy czyszczenia są teraz terminujące; skrypt zwraca kod 2 i komunikat [FAIL], nigdy fałszywy [PASS]. Główny CMD traktuje niepowodzenie czyszczenia jako ostrzeżenie i kontynuuje budowę bez usuwania plików.
+- Dodano CHECK_FIX092_CLEANUP_PATH.ps1 i testy kolejności pipeline.
+- Czyszczenie pozostaje ograniczone do starych, nieużywanych plików .tmp/.temp w systemowych katalogach TEMP oraz przeterminowanych katalogów tymczasowych klonów tego programu. Nie usuwa ustawień, baz danych, profili, rejestru, dokumentów ani plików programów.
+
+PIPELINE
+Walidacja → CHECK_SOURCE raz → bezpieczne TEMP → przygotowanie narzędzi → synchronizacja źródeł i strony → kompilacja EXE/portable/instalatora → GitHub Release z manifestami i SHA-256 → test publiczny → instalacja lokalna.
+
+Wersja produktu pozostaje 1.0.0.69. FIX092 jest poprawką automatyzacji; nie potwierdza jeszcze kompilacji lub wydania na komputerze użytkownika.
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX093
+Data: 2026-11-17
+
+NAPRAWIONE
+- CHECK_FIX092_PIPELINE.ps1 błędnie odrzucał bezpieczny skrypt czyszczenia, ponieważ warunek szukał dowolnego komunikatu [PASS] zawierającego „cleanup complete”. Taki komunikat jest prawidłowy na ścieżce sukcesu.
+- Nowa kontrola analizuje osobno końcowy blok catch: wymaga komunikatu [FAIL], kodu exit 2 i braku [PASS] w obsłudze błędu. Jednocześnie potwierdza, że komunikat [PASS] znajduje się wyłącznie przed zewnętrznym catch.
+- Dodano osobny test CHECK_FIX093_CLEANUP_PATH.ps1, wpisano go do listy wymaganych plików CHECK_SOURCE.cmd i podłączono do bramki testów.
+- Zaktualizowano walidator, marker, manifest SHA-256, mapę modułów, changelog i identyfikatory aktywnego łańcucha.
+
+PIPELINE
+Walidacja → CHECK_SOURCE raz → bezpieczne TEMP → przygotowanie narzędzi → synchronizacja źródeł i strony → kompilacja EXE/portable/instalatora → GitHub Release → test publiczny → instalacja lokalna.
+
+Wersja produktu pozostaje 1.0.0.69. FIX093 naprawia bramkę testów; nie oznacza jeszcze, że kompilacja, pierwsze wydanie i instalacja zostały wykonane.
