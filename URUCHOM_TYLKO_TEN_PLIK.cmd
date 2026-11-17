@@ -1,73 +1,55 @@
 @echo off
 setlocal EnableExtensions DisableDelayedExpansion
 chcp 65001 >nul
-title KOMPUTEROWE CENTRUM SERWISU - AUTOMATYCZNY START FIX088
+title KOMPUTEROWE CENTRUM SERWISU - AUTOMATYCZNY START FIX091
 set "ROOT=%~dp0"
 pushd "%ROOT%" >nul 2>&1
 if errorlevel 1 goto :path_fail
-
-rem Validate the extracted package with PowerShell. This handles CRLF/LF and paths with spaces/parentheses.
-if not exist "%ROOT%VALIDATE_FIX088_PACKAGE.ps1" goto :wrong_package
-set "CHECKSTEP=package validator"
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%VALIDATE_FIX088_PACKAGE.ps1"
-set "RC=%ERRORLEVEL%"
-if not "%RC%"=="0" goto :validation_fail
-set "CHECKSTEP=CMD encoding"
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%CHECK_FIX084_CMD_ENCODING.ps1"
-set "RC=%ERRORLEVEL%"
-if not "%RC%"=="0" goto :validation_fail
-set "CHECKSTEP=GitHub Pages configuration"
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%CHECK_FIX084_PAGES_CONFIGURATION.ps1"
-set "RC=%ERRORLEVEL%"
-if not "%RC%"=="0" goto :validation_fail
-set "CHECKSTEP=source cache exclusions"
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%CHECK_FIX084_SOURCE_CACHE_EXCLUSIONS.ps1"
-set "RC=%ERRORLEVEL%"
-if not "%RC%"=="0" goto :validation_fail
-set "CHECKSTEP=FIX085 Git clone long-path regression"
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%CHECK_FIX085_GIT_CLONE_LONGPATHS.ps1"
-set "RC=%ERRORLEVEL%"
-if not "%RC%"=="0" goto :validation_fail
-set "CHECKSTEP=FIX088 package consistency"
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%CHECK_FIX088_PACKAGE_VALIDATION.ps1"
-set "RC=%ERRORLEVEL%"
-if not "%RC%"=="0" goto :validation_fail
-set "CHECKSTEP=FIX088 workflow dispatch"
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%CHECK_FIX088_WORKFLOW_DISPATCH.ps1"
-set "RC=%ERRORLEVEL%"
-if not "%RC%"=="0" goto :validation_fail
-
-set "LOGDIR=%ROOT%dist\build-logs"
-if not exist "%LOGDIR%" mkdir "%LOGDIR%"
-set "LOG=%LOGDIR%\00-AUTOMATYCZNY-START.log"
-set "STATUS=%LOGDIR%\FULL_RELEASE.status"
 set "GHREPO=naprawapclaptop1-dev/komputerowe-centrum-serwisu"
 set "GHURL=https://github.com/%GHREPO%"
 set "PAGEURL=https://naprawapclaptop1-dev.github.io/komputerowe-centrum-serwisu/"
->"%ROOT%GITHUB_REPOSITORY.txt" echo %GHREPO%
+set "LOGDIR=%ROOT%dist\build-logs"
+if not exist "%LOGDIR%" mkdir "%LOGDIR%" >nul 2>&1
+set "LOG=%LOGDIR%\00-AUTOMATYCZNY-START.log"
+set "STATUS=%LOGDIR%\FULL_RELEASE.status"
+set "RC=0"
+set "CHECKSTEP=initialization"
+>"%LOG%" echo KOMPUTEROWE CENTRUM SERWISU FIX091
+>>"%LOG%" echo Folder: %ROOT%
+>>"%LOG%" echo Repozytorium: %GHREPO%
+>>"%LOG%" echo Start: %DATE% %TIME%
 if exist "%STATUS%" del /q "%STATUS%" >nul 2>&1
 if exist "%ROOT%PUBLICATION_VERIFICATION.status" del /q "%ROOT%PUBLICATION_VERIFICATION.status" >nul 2>&1
->"%LOG%" echo ============================================================
->>"%LOG%" echo KOMPUTEROWE CENTRUM SERWISU - FIX088 AUTOMAT
->>"%LOG%" echo Pakiet: FIX088
->>"%LOG%" echo Folder startowy: %ROOT%
->>"%LOG%" echo Repozytorium: %GHREPO%
->>"%LOG%" echo Data: %DATE% %TIME%
+>"%ROOT%GITHUB_REPOSITORY.txt" echo %GHREPO%
 echo ============================================================
-echo KOMPUTEROWE CENTRUM SERWISU - FIX088
-echo AUTOMATYCZNA NAPRAWA PUBLIKACJI + BEZPLATNA STRONA GLOBALNA
+echo KOMPUTEROWE CENTRUM SERWISU - FIX091
+echo AUTOMATYCZNA BUDOWA + PUBLIKACJA + INSTALACJA
 echo ============================================================
-echo Repozytorium przypisane automatycznie: %GHREPO%
-echo Jedyny punkt startowy: ten plik CMD.
-echo Nie wpisuj adresu repozytorium i nie uruchamiaj innych skryptow.
-echo Folder aktywnego pakietu: %ROOT%
-echo Przy pierwszym uruchomieniu automat sam otworzy logowanie GitHub w przegladarce.
-echo Wpisz kod z CMD na stronie https://github.com/login/device i zatwierdz dostep.
-echo Nie zamykaj okna CMD - proces czeka na zatwierdzenie i sam bedzie kontynuowany.
+echo Repozytorium: %GHREPO%
+echo Strona globalna: %PAGEURL%
+echo Uruchamiaj tylko ten plik CMD. Nie wpisuj repozytorium recznie.
+echo Aktywny folder: %ROOT%
 echo.
 
+set "CHECKSTEP=walidacja pakietu"
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%VALIDATE_FIX091_PACKAGE.ps1" >>"%LOG%" 2>&1
+set "RC=%ERRORLEVEL%"
+if not "%RC%"=="0" goto :validation_fail
+
+set "CHECKSTEP=bramka testow CHECK_SOURCE"
+call "%ROOT%CHECK_SOURCE.cmd" /nopause >>"%LOG%" 2>&1
+set "RC=%ERRORLEVEL%"
+if not "%RC%"=="0" goto :validation_fail
+
+echo.
+echo [CLEAN] Bezpieczne czyszczenie starych plikow tymczasowych...
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%CLEAN_SAFE_TEMP.ps1" -ProjectRoot "%ROOT%"
+set "CLEAN_RC=%ERRORLEVEL%"
+if not "%CLEAN_RC%"=="0" echo [WARN] Czyszczenie TEMP niepelne (kod=%CLEAN_RC%); nie blokuje budowy. Raport: dist\build-logs\SAFE_TEMP_CLEANUP.log.
+
+echo.
 echo [0/5] Automatyczne przygotowanie narzedzi...
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%BOOTSTRAP_BUILD_TOOLS.ps1" >> "%LOG%" 2>&1
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%BOOTSTRAP_BUILD_TOOLS.ps1" >>"%LOG%" 2>&1
 set "RC=%ERRORLEVEL%"
 if not "%RC%"=="0" goto :tools_fail
 if not exist "%LOGDIR%\TOOLS_PATHS.txt" goto :tools_fail
@@ -80,109 +62,95 @@ if defined GH_EXE for %%G in ("%GH_EXE%") do set "PATH=%%~dpG;%PATH%"
 if defined GIT_EXE for %%G in ("%GIT_EXE%") do set "PATH=%%~dpG;%PATH%"
 
 echo.
-echo [1/5] Synchronizacja kodu i uruchomienie wdrazania bezplatnej strony WWW...
+echo [1/5] Synchronizacja kodu i strony WWW...
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%PUBLISH_GITHUB_SOURCE.ps1"
 set "RC=%ERRORLEVEL%"
 if not "%RC%"=="0" goto :source_fail
 
 echo.
-echo [2/5] Kontrola zrodel, kompilacja programu i instalatora...
-call "%ROOT%BUILD_ALL.cmd" /nopause >> "%LOG%" 2>&1
+echo [2/5] Kompilacja aplikacji, wersji portable i instalatora...
+call "%ROOT%BUILD_ALL.cmd" /nopause /skip-source-check >>"%LOG%" 2>&1
 set "RC=%ERRORLEVEL%"
 if not "%RC%"=="0" goto :build_fail
 
 echo.
-echo [3/5] Publikacja pierwszego / kolejnego wydania z instalatorem, portable i manifestami...
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%PUBLISH_GITHUB_RELEASES.ps1" -Channel both >> "%LOG%" 2>&1
+echo [3/5] Publikacja instalatora, portable, Stable/Beta, manifestow i SHA-256...
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%PUBLISH_GITHUB_RELEASES.ps1" -Channel both >>"%LOG%" 2>&1
 set "RC=%ERRORLEVEL%"
 if not "%RC%"=="0" goto :publish_fail
 
 echo.
-echo [4/5] Publiczny test pobierania, manifestow, SHA-256 i strony globalnej...
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%VERIFY_PUBLIC_DEPLOYMENT.ps1" >> "%LOG%" 2>&1
+echo [4/5] Publiczna weryfikacja strony, wydania, manifestow i pobierania...
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%VERIFY_PUBLIC_DEPLOYMENT.ps1" >>"%LOG%" 2>&1
 set "RC=%ERRORLEVEL%"
 if not "%RC%"=="0" goto :online_verify_fail
 
 echo.
-echo [5/5] Instalacja i lokalna kontrola nowej wersji...
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%INSTALL_PUBLISHED_BUILD.ps1" >> "%LOG%" 2>&1
+echo [5/5] Instalacja i kontrola lokalnej aplikacji...
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%INSTALL_PUBLISHED_BUILD.ps1" >>"%LOG%" 2>&1
 set "RC=%ERRORLEVEL%"
 if not "%RC%"=="0" goto :install_fail
 
 >"%STATUS%" echo PASS
->>"%LOG%" echo [PASS] Build, publikacja zrodel, strona, GitHub Release, weryfikacja HTTP i instalacja zakonczone.
+>>"%LOG%" echo [PASS] Build, release, manifesty, HTTP i instalacja zakonczone.
 echo.
-echo [PASS] ZAKONCZONO: aplikacja i bezplatna strona globalna zostaly zweryfikowane.
+echo [PASS] GOTOWE: aplikacja, instalator i strona zostaly zweryfikowane.
 echo Repozytorium: %GHURL%
-echo Strona na calym swiecie: %PAGEURL%
-echo Pobieranie: darmowe, bez abonamentu i konta platnego.
-echo Wersja aplikacji: 1.0.0.69
-echo Szczegoly: %LOG%
+echo Strona globalna: %PAGEURL%
+echo Wersja produktu: 1.0.0.69
+echo Log: %LOG%
 echo.
 pause
 popd
 exit /b 0
 
 :validation_fail
-echo [BLAD] Walidacja nie powiodla sie na etapie: %CHECKSTEP% (kod=%RC%). Szczegoly powyzej.
-echo Synchronizacja i kompilacja zostaly wstrzymane.
-pause
-popd
-exit /b 1
-
-:wrong_package
-echo [BLAD] Ten folder nie zawiera kompletnego pakietu FIX088.
-echo Rozpakuj caly ZIP FIX088 i uruchom URUCHOM_TYLKO_TEN_PLIK.cmd z jego folderu.
-echo Nazwa folderu nadrzednego nie ma znaczenia. Szczegoly walidacji sa powyzej.
-pause
-popd
-exit /b 1
-
-:path_fail
-echo [BLAD] Nie mozna ustawic katalogu roboczego pakietu.
-pause
-exit /b 1
-
+>>"%LOG%" echo [FAIL] Walidacja: %CHECKSTEP% kod=%RC%
+echo [BLAD] Walidacja nie przeszla: %CHECKSTEP% (kod=%RC%).
+powershell.exe -NoLogo -NoProfile -Command "Get-Content -LiteralPath '%LOG%' -Tail 100 | Out-Host"
+goto :end_fail
 :tools_fail
->"%STATUS%" echo FAIL_TOOLS
->>"%LOG%" echo [FAIL] Nie przygotowano narzedzi. Kod: %RC%
-echo [BLAD] Nie udalo sie automatycznie przygotowac narzedzi. Szczegoly: %LOG%
+>>"%LOG%" echo [FAIL] Przygotowanie narzedzi kod=%RC%
+echo [BLAD] Nie przygotowano narzedzi:
+powershell.exe -NoLogo -NoProfile -Command "Get-Content -LiteralPath '%LOG%' -Tail 100 | Out-Host"
 goto :end_fail
 :source_fail
->"%STATUS%" echo FAIL_SOURCE_SYNC
->>"%LOG%" echo [FAIL] Synchronizacja zrodel GitHub nie powiodla sie. Kod: %RC%
-echo [BLAD] Synchronizacja zrodel do GitHub nie powiodla sie.
-echo --- SZCZEGOLOWY LOG SYNCHRONIZACJI ---
-if exist "%LOGDIR%\01-github-source-sync-and-pages.log" powershell.exe -NoLogo -NoProfile -Command "$x=Get-Content -LiteralPath '%LOGDIR%\01-github-source-sync-and-pages.log' -Tail 100; $x | Tee-Object -FilePath '%LOG%' -Append | Out-Host"
-if not exist "%LOGDIR%\01-github-source-sync-and-pages.log" echo Brak szczegolowego logu 01-github-source-sync-and-pages.log.
-echo --- KONIEC SZCZEGOLOWEGO LOGU ---
-echo Pelny log: %LOG%
+>>"%LOG%" echo [FAIL] Synchronizacja zrodel kod=%RC%
+echo [BLAD] Synchronizacja zrodel nie powiodla sie:
+if exist "%LOGDIR%\01-github-source-sync-and-pages.log" powershell.exe -NoLogo -NoProfile -Command "Get-Content -LiteralPath '%LOGDIR%\01-github-source-sync-and-pages.log' -Tail 100 | Out-Host"
 goto :end_fail
 :build_fail
->"%STATUS%" echo FAIL_BUILD
->>"%LOG%" echo [FAIL] Budowanie nie powiodlo sie. Kod: %RC%
-echo [BLAD] Budowanie nie powiodlo sie. Szczegoly: %LOG%
+>>"%LOG%" echo [FAIL] Budowanie kod=%RC%
+echo [BLAD] Budowanie aplikacji lub instalatora nie powiodlo sie. Podsumowanie:
+if exist "%LOGDIR%\BUILD_SUMMARY.txt" type "%LOGDIR%\BUILD_SUMMARY.txt"
+echo --- PORTABLE ---
+if exist "%LOGDIR%\stage-portable-output.log" powershell.exe -NoLogo -NoProfile -Command "Get-Content -LiteralPath '%LOGDIR%\stage-portable-output.log' -Tail 80 | Out-Host"
+echo --- INSTALLER ---
+if exist "%LOGDIR%\stage-modern-output.log" powershell.exe -NoLogo -NoProfile -Command "Get-Content -LiteralPath '%LOGDIR%\stage-modern-output.log' -Tail 100 | Out-Host"
 goto :end_fail
 :publish_fail
->"%STATUS%" echo FAIL_PUBLISH
->>"%LOG%" echo [FAIL] Publikacja GitHub nie powiodla sie. Kod: %RC%
-echo [BLAD] Publikacja instalatora / manifestow nie powiodla sie. Szczegoly: %LOG%
-echo Pierwsze wydanie zostanie wznowione bez nadpisywania istniejacych plikow.
+>>"%LOG%" echo [FAIL] Publikacja GitHub Release kod=%RC%
+echo [BLAD] Publikacja GitHub Release nie powiodla sie:
+if exist "%LOGDIR%\02-github-publish.log" powershell.exe -NoLogo -NoProfile -Command "Get-Content -LiteralPath '%LOGDIR%\02-github-publish.log' -Tail 100 | Out-Host"
 goto :end_fail
 :online_verify_fail
->"%STATUS%" echo FAIL_ONLINE_VERIFY
->>"%LOG%" echo [FAIL] Publiczna weryfikacja nie powiodla sie. Kod: %RC%
-echo [BLAD] Wydanie moglo zostac opublikowane, ale nie wszystkie adresy / zasoby zwrocily HTTP 200.
-echo Szczegoly: %LOG%
-echo Sprawdz GitHub Actions i uruchom ponownie ten sam CMD po zakonczeniu wdrazania strony.
+>>"%LOG%" echo [FAIL] Weryfikacja publiczna kod=%RC%
+echo [BLAD] Weryfikacja strony lub plikow publicznych nie powiodla sie:
+if exist "%LOGDIR%\03-public-deployment-verification.log" powershell.exe -NoLogo -NoProfile -Command "Get-Content -LiteralPath '%LOGDIR%\03-public-deployment-verification.log' -Tail 100 | Out-Host"
 goto :end_fail
 :install_fail
->"%STATUS%" echo FAIL_INSTALL
->>"%LOG%" echo [FAIL] Instalacja po publikacji nie powiodla sie. Kod: %RC%
-echo [BLAD] Release i strona zostaly zweryfikowane, ale instalacja lokalna nie zakonczyla sie poprawnie. Szczegoly: %LOG%
+>>"%LOG%" echo [FAIL] Instalacja kod=%RC%
+echo [BLAD] Instalacja lokalna nie powiodla sie:
+powershell.exe -NoLogo -NoProfile -Command "Get-Content -LiteralPath '%LOG%' -Tail 100 | Out-Host"
 goto :end_fail
+:path_fail
+echo [BLAD] Nie mozna ustawic katalogu pakietu.
+pause
+exit /b 2
 :end_fail
+echo.
+echo Pelny log: %LOG%
+echo Okno CMD pozostaje otwarte. Nacisnij klawisz dopiero po przeczytaniu bledu.
 pause
 popd
 exit /b 1
-

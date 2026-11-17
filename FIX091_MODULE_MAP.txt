@@ -1,0 +1,15 @@
+FIX091 — MAPA MODUŁÓW
+Jedyny punkt startowy: URUCHOM_TYLKO_TEN_PLIK.cmd
+Walidator: VALIDATE_FIX091_PACKAGE.ps1
+Bramka źródeł wykonywana raz: CHECK_SOURCE.cmd
+Test kolejności pipeline: CHECK_FIX091_PIPELINE.ps1
+Test wdrożenia strony: CHECK_FIX091_PAGES_TRIGGER.ps1
+Bezpieczne czyszczenie: CLEAN_SAFE_TEMP.ps1
+Synchronizacja GitHub/Pages: PUBLISH_GITHUB_SOURCE.ps1
+Budowanie EXE/portable/instalatora: BUILD_ALL.cmd
+Publikacja Release i manifestów: PUBLISH_GITHUB_RELEASES.ps1
+Kontrola publicznych adresów: VERIFY_PUBLIC_DEPLOYMENT.ps1
+Instalacja: INSTALL_PUBLISHED_BUILD.ps1
+Repozytorium: naprawapclaptop1-dev/komputerowe-centrum-serwisu
+Strona: https://naprawapclaptop1-dev.github.io/komputerowe-centrum-serwisu/
+Wersja produktu: 1.0.0.69

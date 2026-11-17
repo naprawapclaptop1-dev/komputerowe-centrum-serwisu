@@ -1,6 +1,6 @@
 @echo off
 setlocal EnableExtensions EnableDelayedExpansion
-title KOMPUTEROWE CENTRUM SERWISU FIX069 - BUDOWANIE WSZYSTKICH ELEMENTOW
+title KOMPUTEROWE CENTRUM SERWISU FIX091 - BUDOWANIE WSZYSTKICH ELEMENTOW
 pushd "%~dp0"
 set "LOGDIR=%~dp0dist\build-logs"
 if not exist "%LOGDIR%" mkdir "%LOGDIR%"
@@ -19,10 +19,16 @@ echo ============================================================
 echo.
 
 echo [0/5] Kontrola pakietu zrodlowego...
-call "%~dp0CHECK_SOURCE.cmd" /nopause > "%LOGDIR%\stage-source-output.log" 2>&1
-set "S_RC=%ERRORLEVEL%"
-type "%LOGDIR%\stage-source-output.log"
-if "%S_RC%"=="0" (>>"%LOGDIR%\BUILD_SUMMARY.txt" echo [PASS] Source check) else (>>"%LOGDIR%\BUILD_SUMMARY.txt" echo [FAIL] Source check)
+if /i "%~2"=="/skip-source-check" (
+  set "S_RC=0"
+  echo [PASS] CHECK_SOURCE already completed by the single master CMD.
+  >>"%LOGDIR%\BUILD_SUMMARY.txt" echo [PASS] Source check completed by master launcher (not repeated).
+) else (
+  call "%~dp0CHECK_SOURCE.cmd" /nopause > "%LOGDIR%\stage-source-output.log" 2>&1
+  set "S_RC=!ERRORLEVEL!"
+  type "%LOGDIR%\stage-source-output.log"
+  if "!S_RC!"=="0" (>>"%LOGDIR%\BUILD_SUMMARY.txt" echo [PASS] Source check) else (>>"%LOGDIR%\BUILD_SUMMARY.txt" echo [FAIL] Source check)
+)
 
 echo.
 echo [1/5] Budowanie programu i wersji przenosnej...

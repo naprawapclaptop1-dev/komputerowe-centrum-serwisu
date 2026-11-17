@@ -1,0 +1,20 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX091
+Data: 2026-11-17
+
+PRZYCZYNA BŁĘDU FIX090
+- CHECK_FIX090_PIPELINE.ps1, linia 11, zawierał nadmiarowy nawias zamykający w deklaracji hashtable.
+- Windows PowerShell 5.1 zgłaszał: "The hash literal was incomplete" i przerywał walidację pakietu przed kontrolą źródeł, budowaniem i publikacją.
+
+POPRAWKI
+- Przepisano test pipeline na czytelne deklaracje wieloliniowe i funkcję Add-Check z obiektami PSCustomObject.
+- Usunięto wadliwy nawias i ograniczono złożone wyrażenia w hashtable.
+- Zaktualizowano nazwy aktywnego testu, walidatora, markera i manifestu do FIX091.
+- Walidator weryfikuje BOM, SHA-256 i parser PowerShell dla wszystkich skryptów wymienionych w manifeście.
+- Zachowano jeden ZIP i jeden punkt startowy CMD.
+- Zachowano bezpieczne czyszczenie TEMP; nie usuwa ono profili, ustawień, baz ani plików innych aplikacji poza starymi, odblokowanymi plikami .tmp/.temp w TEMP i własnymi, przeterminowanymi klonami synchronizacyjnymi KCS.
+- Nie zmieniono wersji programu i danych aplikacji.
+
+PIPELINE
+Walidacja FIX091 → CHECK_SOURCE raz → bezpieczne TEMP → przygotowanie narzędzi → synchronizacja kodu i strony → budowa EXE/portable/instalatora → publikacja Release i manifestów → test HTTP → instalacja.
+
+Wersja produktu pozostaje 1.0.0.69. FIX091 jest poprawką parsera walidatora; kompilacja i publikacja wymagają potwierdzenia na Windows użytkownika.

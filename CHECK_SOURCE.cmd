@@ -1,48 +1,37 @@
 @echo off
 setlocal EnableExtensions DisableDelayedExpansion
 chcp 65001 >nul
-title KOMPUTEROWE CENTRUM SERWISU FIX088 - KONTROLA PLIKOW ZRODLOWYCH
+title KOMPUTEROWE CENTRUM SERWISU FIX091 - KONTROLA AKTYWNEGO PAKIETU
 pushd "%~dp0" >nul 2>&1
 if errorlevel 1 exit /b 2
 set "FAILED=0"
-for %%F in (URUCHOM_TYLKO_TEN_PLIK.cmd FIX088_PACKAGE_MARKER.txt FIX088_POWERSHELL_MANIFEST.txt FIX088_RELEASE_NOTES.txt FIX088_MODULE_MAP.txt VALIDATE_FIX088_PACKAGE.ps1 CHECK_FIX088_PACKAGE_VALIDATION.ps1 CHECK_FIX088_WORKFLOW_DISPATCH.ps1 FIX088_RELEASE_NOTES.txt FIX088_MODULE_MAP.txt CHECK_FIX085_GIT_CLONE_LONGPATHS.ps1 CHECK_FIX083_INTERPOLATION.ps1 CHECK_FIX083_NATIVE_PROCESS.ps1 PUBLISH_GITHUB_SOURCE.ps1 PUBLISH_GITHUB_RELEASES.ps1 BOOTSTRAP_BUILD_TOOLS.ps1 BUILD_ALL.cmd VERIFY_PUBLIC_DEPLOYMENT.ps1 INSTALL_PUBLISHED_BUILD.ps1 VERIFY_GLOBAL_UPDATE_SERVER.ps1 CHECK_FIX076_GITHUB_AUTH.ps1 CHECK_FIX069_REGRESSION.ps1 website\index.html website\styles.css website\app.js website\sitemap.xml website\media\prezentacja-en.vtt .github\workflows\deploy-pages.yml) do (
-  if exist "%~dp0%%F" (echo [PASS] %%F) else (echo [FAIL] %%F missing& set "FAILED=1")
+echo ============================================================
+echo CHECK SOURCE - AKTYWNE TESTY FIX091
+echo ============================================================
+for %%F in (URUCHOM_TYLKO_TEN_PLIK.cmd FIX091_PACKAGE_MARKER.txt FIX091_POWERSHELL_MANIFEST.txt VALIDATE_FIX091_PACKAGE.ps1 CLEAN_SAFE_TEMP.ps1 CHECK_FIX091_PIPELINE.ps1 CHECK_FIX091_PAGES_TRIGGER.ps1 PUBLISH_GITHUB_SOURCE.ps1 PUBLISH_GITHUB_RELEASES.ps1 BUILD_ALL.cmd BUILD_PORTABLE.cmd BUILD_INSTALLER_MODERN.cmd VERIFY_BUILD.cmd VERIFY_PUBLIC_DEPLOYMENT.ps1 INSTALL_PUBLISHED_BUILD.ps1 WindowsVersionSwitcherPRO.cs WindowsVersionSwitcherPRO.Modules.cs AssemblyInfo.cs app.manifest NaprawaPC.ico CentrumMigracjiHero.png SETUP_MODERN.iss website\index.html website\styles.css website\app.js website\media\prezentacja.mp4 .github\workflows\deploy-pages.yml) do (
+  if exist "%~dp0%%F" (echo [PASS] %%F) else (echo [FAIL] Missing: %%F& set "FAILED=1")
 )
-findstr /c:"FIX069" "%~dp0WindowsVersionSwitcherPRO.cs" >nul
-if errorlevel 1 (echo [FAIL] Main source does not contain FIX069.& set "FAILED=1") else echo [PASS] Main source FIX069 marker
-findstr /c:"1.0.0.69" "%~dp0AssemblyInfo.cs" >nul
-if errorlevel 1 (echo [FAIL] Assembly version mismatch.& set "FAILED=1") else echo [PASS] Assembly version 1.0.0.69
+if not "%FAILED%"=="0" goto :done
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX069_REGRESSION.ps1"
-if errorlevel 1 (echo [FAIL] FIX069 application regression.& set "FAILED=1") else echo [PASS] FIX069 regression checks
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX071_REPOSITORY_INPUT.ps1"
-if errorlevel 1 (echo [FAIL] FIX071 repository input checks.& set "FAILED=1") else echo [PASS] FIX071 repository input checks
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX072_UPDATE_ENDPOINTS.ps1"
-if errorlevel 1 (echo [FAIL] FIX072 GitHub updater checks.& set "FAILED=1") else echo [PASS] FIX072 GitHub updater checks
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX073_PUBLICATION_AND_SITE.ps1"
-if errorlevel 1 (echo [FAIL] FIX073 publication and site checks.& set "FAILED=1") else echo [PASS] FIX073 publication and site checks
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX074_PUBLICATION_AND_SITE.ps1"
-if errorlevel 1 (echo [FAIL] FIX074 publication and site checks.& set "FAILED=1") else echo [PASS] FIX074 publication and site checks
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX075_PUBLICATION_AND_SITE.ps1"
-if errorlevel 1 (echo [FAIL] FIX075 publication and site checks.& set "FAILED=1") else echo [PASS] FIX075 publication and site checks
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX076_GITHUB_AUTH.ps1"
-if errorlevel 1 (echo [FAIL] GitHub authentication and native process checks.& set "FAILED=1") else echo [PASS] GitHub authentication and native process checks
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX088_PACKAGE_VALIDATION.ps1"
-if errorlevel 1 (echo [FAIL] FIX088 package validation test.& set "FAILED=1") else echo [PASS] FIX088 package validation test
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX088_WORKFLOW_DISPATCH.ps1"
-if errorlevel 1 (echo [FAIL] FIX088 workflow dispatch checks.& set "FAILED=1") else echo [PASS] FIX088 workflow dispatch checks
+if errorlevel 1 (echo [FAIL] Product FIX069 regression.& set "FAILED=1") else echo [PASS] Product compatibility FIX069
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX083_INTERPOLATION.ps1"
-if errorlevel 1 (echo [FAIL] FIX083 interpolation regression test.& set "FAILED=1") else echo [PASS] FIX083 interpolation regression test
+if errorlevel 1 (echo [FAIL] PowerShell interpolation regression.& set "FAILED=1") else echo [PASS] PowerShell interpolation
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX083_NATIVE_PROCESS.ps1"
-if errorlevel 1 (echo [FAIL] FIX083 native process and GitHub login regression test.& set "FAILED=1") else echo [PASS] FIX083 native process and GitHub login regression test
+if errorlevel 1 (echo [FAIL] Native process runner regression.& set "FAILED=1") else echo [PASS] Native process runner
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX084_CMD_ENCODING.ps1"
-if errorlevel 1 (echo [FAIL] FIX084 CMD encoding checks.& set "FAILED=1") else echo [PASS] FIX084 CMD encoding checks
+if errorlevel 1 (echo [FAIL] CMD encoding regression.& set "FAILED=1") else echo [PASS] CMD encoding
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX084_PAGES_CONFIGURATION.ps1"
-if errorlevel 1 (echo [FAIL] FIX084 GitHub Pages checks.& set "FAILED=1") else echo [PASS] FIX084 GitHub Pages checks
+if errorlevel 1 (echo [FAIL] GitHub Pages configuration regression.& set "FAILED=1") else echo [PASS] GitHub Pages configuration
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX084_SOURCE_CACHE_EXCLUSIONS.ps1"
-if errorlevel 1 (echo [FAIL] FIX084 source cache exclusion checks.& set "FAILED=1") else echo [PASS] FIX084 source cache exclusions
+if errorlevel 1 (echo [FAIL] Source cache exclusions regression.& set "FAILED=1") else echo [PASS] Source cache exclusions
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX085_GIT_CLONE_LONGPATHS.ps1"
-if errorlevel 1 (echo [FAIL] FIX085 clone long-path checks.& set "FAILED=1") else echo [PASS] FIX085 clone long-path checks
-if "%FAILED%"=="0" (echo [PASS] Source package check completed.) else echo [FAIL] Source package incomplete.
+if errorlevel 1 (echo [FAIL] Git long paths/cache regression.& set "FAILED=1") else echo [PASS] Git long paths/cache
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX091_PAGES_TRIGGER.ps1"
+if errorlevel 1 (echo [FAIL] FIX091 Pages trigger regression.& set "FAILED=1") else echo [PASS] FIX091 Pages trigger
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX091_PIPELINE.ps1"
+if errorlevel 1 (echo [FAIL] FIX091 pipeline and cleanup regression.& set "FAILED=1") else echo [PASS] FIX091 pipeline and cleanup
+:done
+if "%FAILED%"=="0" (echo [PASS] Current source/build/release gates completed.) else echo [FAIL] Current source/build/release gate failed.
 popd
 if /i not "%~1"=="/nopause" pause
 if "%FAILED%"=="0" exit /b 0

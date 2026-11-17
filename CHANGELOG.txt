@@ -1,4 +1,4 @@
-FIX088 — poprawka błędu startowego odziedziczonego testu FIX085.
+﻿FIX088 — poprawka błędu startowego odziedziczonego testu FIX085.
 - Główny CMD nadal uruchamiał CHECK_FIX085_GIT_CLONE_LONGPATHS.ps1 z zagnieżdżonymi tablicami wyników; PowerShell 5.1 mógł spłaszczać te struktury i generować fałszywe błędy.
 - Przepisano testy FIX085 na PSCustomObject z jawnymi polami Passed i Name.
 - Nowy główny CMD pokazuje dokładny etap i kod błędu walidacji, odróżniając go od brakującego ZIP.
@@ -789,3 +789,62 @@ FIX085 - naprawa klonowania GitHub z długimi ścieżkami i usunięcie cache .to
 - Utrzymano wykluczanie `.tools`, `dist`, `node_modules`, `bin`, `obj` i katalogów tymczasowych z synchronizacji.
 - Dodano `CHECK_FIX085_GIT_CLONE_LONGPATHS.ps1` i rozszerzono walidator oraz jedyny główny CMD.
 - Wersja produktu pozostaje 1.0.0.69; FIX085 jest poprawką procesu publikacji.
+
+
+FIX089 — 2026-11-17 — Naprawa blokady CHECK_SOURCE, budowy i publikacji; bezpieczne czyszczenie TEMP
+- Usunięto z bramki budowania przestarzałe testy FIX071–FIX076.
+- Przepisano aktywny test natywnego procesu na PSCustomObject dla PowerShell 5.1.
+- GitHub Pages wdraża się automatycznie po push do main; usunięto redundantny ręczny dispatch.
+- Dodano bezpieczne czyszczenie wyłącznie starych plików .tmp/.temp i klonów KCS.
+- CMD pokazuje BUILD_SUMMARY i logi awarii; okno pozostaje otwarte.
+- Wersja produktu pozostaje 1.0.0.69.
+
+
+FIX089 — 2026-11-17 — Naprawa blokady CHECK_SOURCE, budowy i publikacji; bezpieczne czyszczenie TEMP
+- Usunięto z bramki budowania przestarzałe testy FIX071–FIX076.
+- Przepisano aktywny test natywnego procesu na PSCustomObject dla PowerShell 5.1.
+- GitHub Pages wdraża się automatycznie po push do main; usunięto nadmiarowy ręczny dispatch.
+- Dodano bezpieczne czyszczenie wyłącznie starych plików .tmp/.temp i klonów KCS.
+- CMD pokazuje BUILD_SUMMARY i logi awarii; okno pozostaje otwarte.
+- Wersja produktu pozostaje 1.0.0.69.
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX091
+Data: 2026-11-17
+
+PRZYCZYNA I POPRAWKI
+- Główny CMD przeprowadza aktualną bramkę CHECK_SOURCE dokładnie jeden raz przed synchronizacją.
+- BUILD_ALL.cmd zachowuje samodzielną kontrolę źródeł przy ręcznym uruchomieniu, ale przy wywołaniu z głównego CMD przyjmuje /skip-source-check, aby nie powtarzać tych samych testów.
+- Czyszczenie TEMP jest widoczne w oknie CMD i zapisuje pełny raport do dist\build-logs\SAFE_TEMP_CLEANUP.log.
+- Usuwane są wyłącznie stare pliki .tmp/.temp (starsze niż 14 dni) w katalogach TEMP i ich podkatalogach i ich podkatalogach oraz przeterminowane katalogi klonów KCS_FIX*_SourceSync_* (starsze niż 24 godziny) utworzone przez ten program.
+- Przed usunięciem plik TEMP musi przejść próbę otwarcia bez współdzielenia; pliki zablokowane, systemowe, chronione i reparse points są pomijane.
+- Czyszczenie nie dotyka katalogów aplikacji, profili, AppData\Roaming, ProgramData, rejestru, baz, dokumentów, pobrań, node_modules, .tools, dist, logów ani istniejących instalatorów/portable.
+- Błędy czyszczenia są ostrzeżeniami i nie przerywają kompilacji; błąd budowania wyświetla BUILD_SUMMARY oraz logi etapów, a CMD pozostaje otwarty.
+- Publikacja strony korzysta z automatycznego triggera push na main; nie wykonuje redundantnego drugiego workflow_dispatch.
+
+PIPELINE
+Walidacja pakietu → CHECK_SOURCE (raz) → bezpieczne TEMP → narzędzia → synchronizacja źródeł/strony → budowanie EXE/portable/instalatora → GitHub Release z manifestami i SHA-256 → test publicznych URL → instalacja lokalna.
+
+Wersja produktu pozostaje 1.0.0.69. FIX091 jest poprawką automatyzacji; nie potwierdza jeszcze kompilacji lub publikacji na komputerze użytkownika.
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX091
+Data: 2026-11-17
+
+PRZYCZYNA BŁĘDU FIX090
+- CHECK_FIX090_PIPELINE.ps1, linia 11, zawierał nadmiarowy nawias zamykający w deklaracji hashtable.
+- Windows PowerShell 5.1 zgłaszał: "The hash literal was incomplete" i przerywał walidację pakietu przed kontrolą źródeł, budowaniem i publikacją.
+
+POPRAWKI
+- Przepisano test pipeline na czytelne deklaracje wieloliniowe i funkcję Add-Check z obiektami PSCustomObject.
+- Usunięto wadliwy nawias i ograniczono złożone wyrażenia w hashtable.
+- Zaktualizowano nazwy aktywnego testu, walidatora, markera i manifestu do FIX091.
+- Walidator weryfikuje BOM, SHA-256 i parser PowerShell dla wszystkich skryptów wymienionych w manifeście.
+- Zachowano jeden ZIP i jeden punkt startowy CMD.
+- Zachowano bezpieczne czyszczenie TEMP; nie usuwa ono profili, ustawień, baz ani plików innych aplikacji poza starymi, odblokowanymi plikami .tmp/.temp w TEMP i własnymi, przeterminowanymi klonami synchronizacyjnymi KCS.
+- Nie zmieniono wersji programu i danych aplikacji.
+
+PIPELINE
+Walidacja FIX091 → CHECK_SOURCE raz → bezpieczne TEMP → przygotowanie narzędzi → synchronizacja kodu i strony → budowa EXE/portable/instalatora → publikacja Release i manifestów → test HTTP → instalacja.
+
+Wersja produktu pozostaje 1.0.0.69. FIX091 jest poprawką parsera walidatora; kompilacja i publikacja wymagają potwierdzenia na Windows użytkownika.
