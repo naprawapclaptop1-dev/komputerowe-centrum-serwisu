@@ -1,5 +1,10 @@
 name: Publish public website
 on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'website/**'
+      - '.github/workflows/deploy-pages.yml'
   workflow_dispatch:
 permissions:
   contents: read
