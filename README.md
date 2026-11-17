@@ -5,15 +5,31 @@
 - Stały adres projektu: https://github.com/naprawapclaptop1-dev/komputerowe-centrum-serwisu
 - Kolejne aktualizacje tego programu trafiają do tego samego repozytorium.
 - Inne programy muszą mieć własne, odrębne repozytoria i własne adresy aktualizacji.
-- Każde wydanie ma własny tag i własne pliki instalacyjne.
+- Każde wydanie otrzymuje nowy, unikalny tag i własne pliki instalacyjne.
 - Nie wolno używać `--clobber`, usuwać wcześniejszych wydań ani zastępować plików z istniejących wydań.
-- Linki do plików aktualizacji muszą wskazywać konkretny tag wydania, nie ogólny adres innego programu.
+- Linki do aktualizacji wskazują konkretny tag wydania.
 
-## Stan repozytorium
+## Aktualny stan
 
-Repozytorium zostało utworzone jako osobny adres projektu. Kod i instalator FIX069 nie zostały jeszcze wgrane do GitHub, a wydanie GitHub Release nie zostało opublikowane. Nie należy traktować tego repozytorium jako źródła gotowego instalatora, dopóki nie pojawią się zweryfikowane pliki wydania.
+- Repozytorium jest publiczne.
+- Źródła programu, statyczna strona WWW, materiały wideo, napisy i workflow GitHub Actions zostały zsynchronizowane z repozytorium.
+- Workflow strony działa w trybie ręcznego uruchamiania po utworzeniu witryny GitHub Pages przez konto właściciela.
+- Pierwsza konfiguracja GitHub Pages nie została jeszcze potwierdzona.
+- Nie ma jeszcze opublikowanego GitHub Release ani załączonych instalatorów, wersji portable i manifestów. Repozytorium nie powinno być traktowane jako źródło gotowego instalatora do czasu opublikowania i zweryfikowania wydania.
 
-## Wydania
+## Pierwsze wdrożenie
 
-- FIX069 / 1.0.0.69: pakiet źródłowy przygotowany lokalnie; publikacja online wymaga kompilacji na Windows i autoryzacji GitHub CLI.
-- FIX070: poprawka zabezpieczenia publikatora przed nadpisywaniem istniejących wydań; wersja aplikacji pozostaje 1.0.0.69.
+Uruchom jedyny główny plik `URUCHOM_TYLKO_TEN_PLIK.cmd` z kompletnego pakietu projektu na Windows. Automat:
+1. Sprawdza autoryzację konta GitHub i uprawnienia zapisu.
+2. Synchronizuje źródła i stronę, wykluczając lokalny cache narzędzi `.tools/`.
+3. Tworzy/konfiguruje GitHub Pages dla gałęzi `main` i ścieżki `/` przy użyciu uwierzytelnionego konta właściciela.
+4. Ręcznie uruchamia workflow Pages po skonfigurowaniu witryny.
+5. Buduje instalator i wersję portable, tworzy manifesty Stable/Beta oraz plik SHA-256.
+6. Publikuje nowe wydanie i sprawdza publiczne adresy HTTP 200.
+
+Tworzenie witryny Pages wymaga uprawnień administratora repozytorium oraz tokenu z wymaganymi uprawnieniami. Jeśli GitHub odmówi operacji API, jednorazowo wybierz w repozytorium **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+
+## Wersja produktu
+
+- Wersja aplikacji pozostaje **1.0.0.69**.
+- FIX084 to poprawka automatyzacji publikacji, konfiguracji GitHub Pages, wykluczania lokalnego cache i obsługi CMD/PowerShell; nie jest zmianą numeru wersji produktu.
