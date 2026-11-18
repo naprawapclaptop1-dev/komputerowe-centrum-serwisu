@@ -1,0 +1,8 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX105
+
+- Naprawiono przejście BUILD_ALL.cmd po etapie synchronizacji źródeł.
+- Przepisano sterowanie etapami na etykiety i jawne GOTO; usunięto wielowierszowe bloki IF (...) z głównego menedżera budowania.
+- Zachowano kontrolę rzeczywistych kodów wyjścia kompilacji Portable, instalatora i weryfikacji wyników.
+- Nieudany etap blokuje kolejne wymagane etapy; opcjonalny instalator XP nie blokuje wydania.
+- Dodano CHECK_FIX105_BUILD_FLOW.ps1 do CHECK_SOURCE i walidacji kompletności pakietu.
+- Zachowano repozytorium, allowlistę publikacji, dane, ustawienia i wersję produktu 1.0.0.69.

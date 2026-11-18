@@ -961,3 +961,17 @@ KOMPUTEROWE CENTRUM SERWISU — FIX104
 - Osobny log dist/build-logs/02-build-all.log jest wyświetlany w CMD i dołączany do głównego logu automatycznego startu.
 - Worker sprawdza rzeczywisty kod wyjścia kompilatora/menedżera budowania i kieruje błędy do diagnostyki etapu budowania.
 - Dodano test regresji FIX104 i włączono go do CHECK_SOURCE.
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX105
+- Naprawiono błąd CMD „. was unexpected at this time.” w menedżerze BUILD_ALL.cmd.
+- Zastąpiono wielowierszowe bloki IF(...) przepływem opartym na etykietach GOTO, z jawną kontrolą kodów wyjścia.
+- Dodano CHECK_FIX105_BUILD_FLOW.ps1 do CHECK_SOURCE i walidacji pakietu.
+- Wersja produktu bez zmian: 1.0.0.69.
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX106
+- Naprawiono CHECK_FIX101_KEEP_OPEN.ps1: test trwałego okna CMD akceptuje aktualny numer FIX w tytule launchera zamiast wymagać nieaktualnego FIX104.
+- Zachowano sprawdzanie ComSpec /d /k, osobnego workera, kontroli pliku workera oraz braku rekurencji.
+- Nie pominięto żadnych testów CHECK_SOURCE.
+- Wersja produktu bez zmian: 1.0.0.69.

@@ -1,8 +1,8 @@
 @echo off
-rem FIX104 worker: runs inside the persistent cmd.exe /K host; build manager is isolated in a child cmd.exe.
+rem FIX105 worker: runs inside the persistent cmd.exe /K host; build manager is isolated in a child cmd.exe.
 setlocal EnableExtensions DisableDelayedExpansion
 chcp 65001 >nul
-title KOMPUTEROWE CENTRUM SERWISU - AUTOMATYCZNY START FIX104
+title KOMPUTEROWE CENTRUM SERWISU - AUTOMATYCZNY START FIX105
 set "ROOT=%~dp0"
 pushd "%ROOT%" >nul 2>&1
 if errorlevel 1 goto :path_fail
@@ -15,14 +15,14 @@ set "LOG=%LOGDIR%\00-AUTOMATYCZNY-START.log"
 set "STATUS=%LOGDIR%\FULL_RELEASE.status"
 set "RC=0"
 set "CHECKSTEP=initialization"
->"%LOG%" echo KOMPUTEROWE CENTRUM SERWISU FIX104
+>"%LOG%" echo KOMPUTEROWE CENTRUM SERWISU FIX105
 >>"%LOG%" echo Folder: %ROOT%
 >>"%LOG%" echo Repozytorium: %GHREPO%
 >>"%LOG%" echo Start: %DATE% %TIME%
 if exist "%STATUS%" del /q "%STATUS%" >nul 2>&1
 if exist "%ROOT%PUBLICATION_VERIFICATION.status" del /q "%ROOT%PUBLICATION_VERIFICATION.status" >nul 2>&1
 echo ============================================================
-echo KOMPUTEROWE CENTRUM SERWISU - FIX104
+echo KOMPUTEROWE CENTRUM SERWISU - FIX105
 echo AUTOMATYCZNA BUDOWA + PUBLIKACJA + INSTALACJA
 echo ============================================================
 echo Repozytorium: %GHREPO%
@@ -71,7 +71,7 @@ if not "%RC%"=="0" goto :source_fail
 
 echo.
 echo [2/5] Kompilacja aplikacji, wersji portable i instalatora...
-rem FIX104: isolate legacy batch build manager in a child CMD process.
+rem FIX105: isolate legacy batch build manager in a child CMD process.
 rem This prevents an EXIT issued by any nested build script from terminating this worker.
 set "BUILD_LOG=%LOGDIR%\02-build-all.log"
 if exist "%BUILD_LOG%" del /q "%BUILD_LOG%" >nul 2>&1

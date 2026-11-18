@@ -1,0 +1,8 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX106
+
+- Naprawiono regresję walidatora CHECK_FIX101_KEEP_OPEN.ps1: test nie wymaga już na sztywno tytułu okna FIX104.
+- Launcher jest sprawdzany pod kątem aktualnego tytułu KOMPUTEROWE CENTRUM SERWISU - FIX[n], uruchomienia osobnego workera oraz trwałego cmd.exe /d /k.
+- Zachowano kontrolę istnienia workera, brak rekurencyjnego wywołania oraz obsługę sukcesu i błędu.
+- Nie wyłączono ani nie pominięto żadnej bramki CHECK_SOURCE.
+- Zachowano repozytorium, konfigurację, allowlistę, dane i wersję produktu 1.0.0.69.
+- Walidacja PowerShell/CMD wymaga uruchomienia w Windows; w tym środowisku wykonano kontrolę statyczną i integralności archiwum.
