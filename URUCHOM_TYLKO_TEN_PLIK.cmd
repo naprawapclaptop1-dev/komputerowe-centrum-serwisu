@@ -8,7 +8,7 @@ if not exist "%KCS_WORKER%" (
   pause
   exit /b 2
 )
-start "KOMPUTEROWE CENTRUM SERWISU - FIX102" "%ComSpec%" /d /k ""%KCS_WORKER%""
+start "KOMPUTEROWE CENTRUM SERWISU - FIX104" "%ComSpec%" /d /k ""%KCS_WORKER%""
 if errorlevel 1 (
   echo [BLAD] Nie mozna uruchomic stalego okna CMD.
   pause

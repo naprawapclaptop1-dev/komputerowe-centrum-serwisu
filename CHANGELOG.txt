@@ -954,3 +954,10 @@ KOMPUTEROWE CENTRUM SERWISU — FIX103
 - Weryfikacja obejmuje powiązanie repozytorium, budowanie, publikację źródeł, publikację Release, kontrolę wdrożenia i instalację.
 - Nie zmieniono kodu produktu, ustawień repozytorium ani mechanizmu publikacji.
 - Wersja produktu bez zmian: 1.0.0.69.
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX104
+- Izolacja BUILD_ALL.cmd w procesie potomnym ComSpec /d /c, aby zakończenie dowolnego zagnieżdżonego skryptu wsadowego nie zamykało workera.
+- Osobny log dist/build-logs/02-build-all.log jest wyświetlany w CMD i dołączany do głównego logu automatycznego startu.
+- Worker sprawdza rzeczywisty kod wyjścia kompilatora/menedżera budowania i kieruje błędy do diagnostyki etapu budowania.
+- Dodano test regresji FIX104 i włączono go do CHECK_SOURCE.

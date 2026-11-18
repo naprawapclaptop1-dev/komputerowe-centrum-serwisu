@@ -34,6 +34,8 @@ powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX1
 if errorlevel 1 (echo [FAIL] Persistent CMD FIX101 regression.& set "FAILED=1") else echo [PASS] Persistent CMD FIX101
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX102_SOURCE_GATE.ps1"
 if errorlevel 1 (echo [FAIL] Source gate FIX102 regression.& set "FAILED=1") else echo [PASS] Source gate FIX102
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX104_BUILD_ISOLATION.ps1"
+if errorlevel 1 (echo [FAIL] FIX104 build isolation regression.& set "FAILED=1") else echo [PASS] FIX104 build isolation
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX100_CLEANUP_PATH.ps1"
 if errorlevel 1 (echo [FAIL] Package-local cleanup FIX100 regression.& set "FAILED=1") else echo [PASS] Package-local cleanup FIX100
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX100_SOURCE_SCOPE.ps1"

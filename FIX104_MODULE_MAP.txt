@@ -1,0 +1,7 @@
+﻿FIX104 MODULE MAP
+
+KCS_FIX101_WORKER.cmd — persistent worker; runs BUILD_ALL.cmd inside a child ComSpec process, captures output and verifies the true exit code.
+CHECK_FIX104_BUILD_ISOLATION.ps1 — regression test for process isolation, log visibility and exit-code handling.
+CHECK_SOURCE.cmd — invokes the FIX104 regression gate before any repository synchronization.
+FIX099_SOURCE_ALLOWLIST.txt — explicit source-publishing allowlist, extended for FIX104 files.
+VALIDATE_FIX100_PACKAGE.ps1 — package completeness requirements include FIX104 test and release documentation.

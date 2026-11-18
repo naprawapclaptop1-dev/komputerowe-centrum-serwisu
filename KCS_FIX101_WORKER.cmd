@@ -1,8 +1,8 @@
 @echo off
-rem FIX102 worker: runs inside the persistent cmd.exe /K host.
+rem FIX104 worker: runs inside the persistent cmd.exe /K host; build manager is isolated in a child cmd.exe.
 setlocal EnableExtensions DisableDelayedExpansion
 chcp 65001 >nul
-title KOMPUTEROWE CENTRUM SERWISU - AUTOMATYCZNY START FIX102
+title KOMPUTEROWE CENTRUM SERWISU - AUTOMATYCZNY START FIX104
 set "ROOT=%~dp0"
 pushd "%ROOT%" >nul 2>&1
 if errorlevel 1 goto :path_fail
@@ -15,14 +15,14 @@ set "LOG=%LOGDIR%\00-AUTOMATYCZNY-START.log"
 set "STATUS=%LOGDIR%\FULL_RELEASE.status"
 set "RC=0"
 set "CHECKSTEP=initialization"
->"%LOG%" echo KOMPUTEROWE CENTRUM SERWISU FIX102
+>"%LOG%" echo KOMPUTEROWE CENTRUM SERWISU FIX104
 >>"%LOG%" echo Folder: %ROOT%
 >>"%LOG%" echo Repozytorium: %GHREPO%
 >>"%LOG%" echo Start: %DATE% %TIME%
 if exist "%STATUS%" del /q "%STATUS%" >nul 2>&1
 if exist "%ROOT%PUBLICATION_VERIFICATION.status" del /q "%ROOT%PUBLICATION_VERIFICATION.status" >nul 2>&1
 echo ============================================================
-echo KOMPUTEROWE CENTRUM SERWISU - FIX102
+echo KOMPUTEROWE CENTRUM SERWISU - FIX104
 echo AUTOMATYCZNA BUDOWA + PUBLIKACJA + INSTALACJA
 echo ============================================================
 echo Repozytorium: %GHREPO%
@@ -71,8 +71,17 @@ if not "%RC%"=="0" goto :source_fail
 
 echo.
 echo [2/5] Kompilacja aplikacji, wersji portable i instalatora...
-call "%ROOT%BUILD_ALL.cmd" /nopause /skip-source-check >>"%LOG%" 2>&1
+rem FIX104: isolate legacy batch build manager in a child CMD process.
+rem This prevents an EXIT issued by any nested build script from terminating this worker.
+set "BUILD_LOG=%LOGDIR%\02-build-all.log"
+if exist "%BUILD_LOG%" del /q "%BUILD_LOG%" >nul 2>&1
+"%ComSpec%" /d /c ""%ROOT%BUILD_ALL.cmd" /nopause /skip-source-check" >"%BUILD_LOG%" 2>&1
 set "RC=%ERRORLEVEL%"
+if exist "%BUILD_LOG%" (
+  type "%BUILD_LOG%"
+  type "%BUILD_LOG%" >>"%LOG%"
+)
+>>"%LOG%" echo [INFO] BUILD_ALL child CMD exit code: %RC%
 if not "%RC%"=="0" goto :build_fail
 
 echo.
@@ -123,6 +132,8 @@ goto :end_fail
 :build_fail
 >>"%LOG%" echo [FAIL] Budowanie kod=%RC%
 echo [BLAD] Budowanie aplikacji lub instalatora nie powiodlo sie. Podsumowanie:
+if exist "%LOGDIR%\02-build-all.log" type "%LOGDIR%\02-build-all.log"
+if exist "%LOGDIR%\02-build-all.log" type "%LOGDIR%\02-build-all.log"
 if exist "%LOGDIR%\BUILD_SUMMARY.txt" type "%LOGDIR%\BUILD_SUMMARY.txt"
 echo --- PORTABLE ---
 if exist "%LOGDIR%\stage-portable-output.log" powershell.exe -NoLogo -NoProfile -Command "Get-Content -LiteralPath '%LOGDIR%\stage-portable-output.log' -Tail 80 | Out-Host"
