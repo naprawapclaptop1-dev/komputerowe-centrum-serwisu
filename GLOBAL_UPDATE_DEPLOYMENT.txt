@@ -7,4 +7,4 @@ GITHUB RELEASES — KOMPUTEROWE CENTRUM SERWISU
 5. Każdy tag i release jest tworzony tylko wtedy, gdy jeszcze nie istnieje. Bez --clobber i bez nadpisywania starych plików.
 
 Adres repozytorium: https://github.com/naprawapclaptop1-dev/komputerowe-centrum-serwisu
-Aktualizator klienta używa tagowych adresów paczek, a nie /releases/latest/download/.
+Aktualizator klienta używa niezmiennych adresów tagowych v1.0.0.69 dla manifestów i pakietów. Nie korzysta z aliasu /releases/latest/download/, który może wskazywać inne wydanie lub nie udostępniać assetu Beta.

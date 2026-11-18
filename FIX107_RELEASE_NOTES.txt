@@ -1,0 +1,10 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX107
+
+- Naprawiono źródło błędu 404 w aktualizatorze: klient nie używa już niejednoznacznego aliasu GitHub Releases /releases/latest/download/.
+- Manifest Stable, manifest Beta, katalog wydań i instalator są pobierane z przypisanego tagu produktu v1.0.0.69.
+- Diagnostyka GitHub sprawdza konkretny tag /releases/tags/v1.0.0.69, zamiast przypadkowego najnowszego wydania.
+- Diagnostyka rozróżnia brak tagu, szkic wydania, brak assetu oraz błędy HTTP/API.
+- Weryfikator publikacji sprawdza dokładne adresy assetów, które wykorzystuje klient.
+- Dodano CHECK_FIX107_UPDATER_ENDPOINTS.ps1; test jest obowiązkową bramką CHECK_SOURCE.
+- Zachowano wersję produktu 1.0.0.69, repozytorium, kanały Stable/Beta, dane, ustawienia i wygląd aplikacji.
+- Wykonano kontrole statyczne i integralności ZIP. Nie wykonano kompilacji Windows ani rzeczywistego testu HTTP na komputerze użytkownika.

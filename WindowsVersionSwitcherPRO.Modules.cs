@@ -78,8 +78,8 @@ namespace NaprawaPC.WindowsSwitcher
                 string repo="";
                 try{if(File.Exists(repoFile))repo=File.ReadAllText(repoFile).Trim();}catch{}
                 if(!Regex.IsMatch(repo??"",@"^[A-Za-z0-9_.-]{1,39}/[A-Za-z0-9_.-]{1,100}$"))
-                    return "https://github.com/REPOZYTORIUM_NIE_SKONFIGUROWANE/releases/latest/download/";
-                return "https://github.com/"+repo+"/releases/latest/download/";
+                    return "https://github.com/REPOZYTORIUM_NIE_SKONFIGUROWANE/releases/download/v"+ProgramVersion+"/";
+                return "https://github.com/"+repo+"/releases/download/v"+ProgramVersion+"/";
             }
         }
         private string OfficialUpdateBaseUrl { get { return GitHubReleaseBaseUrl; } }
@@ -1236,7 +1236,7 @@ namespace NaprawaPC.WindowsSwitcher
                 if(!File.Exists(repoFile))throw new InvalidDataException("Brak pliku GITHUB_REPOSITORY.txt. Zainstaluj najnowszą wersję z jednego pakietu serwisowego.");
                 string repo=File.ReadAllText(repoFile).Trim();
                 if(!String.Equals(repo,"naprawapclaptop1-dev/komputerowe-centrum-serwisu",StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Repozytorium aktualizacji nie jest przypisane do Komputerowego Centrum Serwisu.");
-                string api="https://api.github.com/repos/"+repo+"/releases/latest";
+                string api="https://api.github.com/repos/"+repo+"/releases/tags/v"+ProgramVersion;
                 HttpWebRequest request=(HttpWebRequest)WebRequest.Create(api);request.Method="GET";request.Timeout=20000;
                 request.UserAgent="KomputeroweCentrumSerwisu/"+ProgramVersion;request.Accept="application/vnd.github+json";
                 using(HttpWebResponse response=(HttpWebResponse)request.GetResponse())
@@ -1247,7 +1247,9 @@ namespace NaprawaPC.WindowsSwitcher
                     List<string> missing=new List<string>();foreach(string name in required)if(json.IndexOf(name,StringComparison.OrdinalIgnoreCase)<0)missing.Add(name);
                     if(missing.Count>0)throw new InvalidDataException("W najnowszym wydaniu GitHub brakuje assetów: "+String.Join(", ",missing.ToArray()));
                     string tag=ReadJsonStringProperty(json,"tag_name");
-                    e.Result="GitHub API OK | repozytorium: "+repo+" | wydanie: "+tag+" | instalator, manifesty Stable/Beta i releases.json obecne.";
+                    if(!String.Equals(tag,"v"+ProgramVersion,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("GitHub zwrócił nieoczekiwany tag wydania: "+tag);
+                    if(json.IndexOf("\"draft\": true",StringComparison.OrdinalIgnoreCase)>=0)throw new InvalidDataException("Wydanie v"+ProgramVersion+" nadal jest szkicem (draft).");
+                    e.Result="GitHub API OK | repozytorium: "+repo+" | wydanie: "+tag+" | assety Stable/Beta i pakiety obecne.";
                 }
             };
             updaterDiagnosticsWorker.RunWorkerCompleted+=delegate(object sender,RunWorkerCompletedEventArgs e)
@@ -1305,7 +1307,7 @@ namespace NaprawaPC.WindowsSwitcher
                         {
                             int status=(int)response.StatusCode;
                             if(status==503)return "GITHUB API HTTP 503 — usługa GitHub jest chwilowo niedostępna. Spróbuj ponownie później.";
-                            if(status==404)return "PIERWSZE WYDANIE NIE JEST JESZCZE PUBLICZNE LUB BRAKUJE PLIKU AKTUALIZACJI. Uruchom najnowszy pakiet FIX073 i wybierz URUCHOM_TYLKO_TEN_PLIK.cmd. Automat zbuduje program, opublikuje stronę WWW i pierwsze wydanie. Po publikacji ponów test.";
+                            if(status==404)return "BRAK WYDANIA v"+ProgramVersion+" LUB ASSETU AKTUALIZACJI. Sprawdź publiczny tag v"+ProgramVersion+" i jego pliki manifest-stable.xml / manifest-beta.xml.";
                             if(status==403)return "GITHUB HTTP 403 — limit zapytań API albo ograniczenie dostępu. Spróbuj ponownie później.";
                             return "GITHUB HTTP "+status+" — sprawdź publiczne repozytorium i dostęp do GitHub Releases.";
                         }

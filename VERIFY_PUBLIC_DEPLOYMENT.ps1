@@ -11,10 +11,11 @@ New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
 $Log=Join-Path $LogDir "03-public-deployment-verification.log"
 Start-Transcript -Path $Log -Force | Out-Null
 try {
-  $api="https://api.github.com/repos/$Repo/releases/latest"
+  $api="https://api.github.com/repos/$Repo/releases/tags/$Tag"
   Write-Host "[1/3] Sprawdzam publiczne wydanie GitHub Releases: $api"
   $release=Invoke-RestMethod -Headers $Headers -Uri $api -TimeoutSec 45
   if($release.tag_name -ne $Tag){throw "Oczekiwano $Tag, GitHub zwrócił $($release.tag_name)."}
+  if($release.draft){throw "Wydanie $Tag nadal jest szkicem (draft)."}
   if($release.draft -or $release.prerelease){throw "Najnowsze wydanie nie jest publicznym wydaniem stabilnym."}
   $required=@("KomputeroweCentrumSerwisu_FIX069_INSTALATOR.exe","KomputeroweCentrumSerwisu_FIX069_PORTABLE.exe","manifest-stable.xml","manifest-beta.xml","releases.json","SHA256SUMS.txt")
   $assets=@{}
@@ -36,11 +37,7 @@ try {
     $expectedPackage=$tagBase+"KomputeroweCentrumSerwisu_FIX069_INSTALATOR.exe"
     if($root.GetAttribute("packageUrl") -ne $expectedPackage){throw "Manifest $channel wskazuje nieprawidłowy pakiet."}
     if($root.GetAttribute("sha256") -notmatch '^[0-9a-fA-F]{64}$'){throw "Manifest $channel nie ma poprawnej sumy SHA-256."}
-    $latestUrl="https://github.com/$Repo/releases/latest/download/$manifestName"
-    $latestResponse=Invoke-WebRequest -UseBasicParsing -Headers $Headers -Uri $latestUrl -TimeoutSec 45
-    if($latestResponse.StatusCode -ne 200){throw "Adres latest/download dla $manifestName nie zwrócił HTTP 200."}
-    [xml]$latestDoc=$latestResponse.Content
-    if($latestDoc.DocumentElement.GetAttribute("sha256") -ne $root.GetAttribute("sha256")){throw "Manifest latest/download $channel różni się od manifestu tagowego."}
+    if($tagUrl -ne ($tagBase+$manifestName)){throw "Manifest $channel ma nieprawidłowy adres tagowy."}
     Write-Host "[PASS] Manifest ${channel}: HTTP 200, wersja, kanał, URL i SHA-256 zgodne."
   }
 

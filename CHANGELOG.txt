@@ -1,4 +1,11 @@
-﻿FIX100 — NAPRAWA STARTU CMD I WALIDACJI KATALOGU PAKIETU
+﻿FIX107 — NAPRAWA 404 AKTUALIZATORA GITHUB RELEASES
+- Usunięto zależność klienta od aliasu /releases/latest/download/; manifesty Stable/Beta i instalator korzystają z jawnego tagu v1.0.0.69.
+- Test GitHub Releases sprawdza konkretny tag produktu, status draft i komplet wymaganych assetów.
+- Weryfikatory publikacji sprawdzają dokładnie te adresy tagowe, z których korzysta aplikacja.
+- Dodano CHECK_FIX107_UPDATER_ENDPOINTS.ps1 jako obowiązkowy test regresyjny.
+- Zachowano wersję produktu 1.0.0.69 i istniejącą konfigurację.
+
+FIX100 — NAPRAWA STARTU CMD I WALIDACJI KATALOGU PAKIETU
 - Usunięto blokadę wymagającą nazwy folderu KCS_FIX099. Pakiet jest identyfikowany markerem i przypisanym repozytorium, więc może działać z katalogu, do którego użytkownik faktycznie rozpakował ZIP, np. KOMPUTEROWE_CENTRUM_SERWISU_FIX057.
 - Walidator, czyszczenie i publikator nadal odrzucają katalog główny dysku oraz punkty ponownej analizy; czyszczenie i publikacja pozostają ograniczone do zweryfikowanego pakietu i jawnej allowlisty.
 - Główny CMD używa jednego trwałego okna /K i CALL do workera, bez dodatkowego cmd.exe /C, co ogranicza miganie i utratę widocznego wyjścia.

@@ -25,7 +25,7 @@ PIERWSZE URUCHOMIENIE
 Wymagane jest jednorazowe zalogowanie do GitHub w przeglądarce i zatwierdzenie uprawnień repo/workflow. Windows może poprosić o standardową zgodę UAC podczas instalacji. Nie zapisujemy tokena GitHub w kodzie ani w repozytorium.
 
 NAPRAWA 404
-Manifesty nie są udostępniane z samego adresu repozytorium — muszą zostać dołączone jako assety do opublikowanego wydania. Główny automat publikuje oba manifesty, pliki EXE, releases.json i SHA256SUMS.txt, a następnie odpytuje dokładne adresy /releases/latest/download/. Jeżeli Release nie jest jeszcze dostępny lub strona Pages czeka na wdrożenie, etap weryfikacji zatrzyma instalację i zapisze szczegóły w dist\build-logs.
+Manifesty nie są udostępniane z samego adresu repozytorium — muszą zostać dołączone jako assety do opublikowanego wydania. Główny automat publikuje oba manifesty, pliki EXE, releases.json i SHA256SUMS.txt, a następnie odpytuje dokładne adresy assetów przypięte do tagu v1.0.0.69. Klient nie korzysta z aliasu /releases/latest/download/, aby Stable i Beta pobierały manifesty z tego samego, jawnie zweryfikowanego wydania. Jeżeli Release nie jest jeszcze dostępny lub strona Pages czeka na wdrożenie, etap weryfikacji zatrzyma instalację i zapisze szczegóły w dist\build-logs.
 
 BEZPIECZEŃSTWO I WZNOWIENIE
 - Opublikowane tagi i assety nie są nadpisywane ani kasowane.
