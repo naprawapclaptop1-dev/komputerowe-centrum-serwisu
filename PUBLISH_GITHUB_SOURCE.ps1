@@ -2,13 +2,18 @@
 $ProgressPreference="SilentlyContinue"
 $Repo="naprawapclaptop1-dev/komputerowe-centrum-serwisu"
 $Branch="main"
-$Root=$PSScriptRoot
+$Root=[IO.Path]::GetFullPath($PSScriptRoot)
+$RootPath=$Root.TrimEnd([IO.Path]::DirectorySeparatorChar,[IO.Path]::AltDirectorySeparatorChar)
+$VolumeRoot=[IO.Path]::GetPathRoot($RootPath).TrimEnd([IO.Path]::DirectorySeparatorChar,[IO.Path]::AltDirectorySeparatorChar)
+if([string]::Equals($RootPath,$VolumeRoot,[StringComparison]::OrdinalIgnoreCase)){throw "Publikacja zablokowana: katalog pakietu nie może być katalogiem głównym dysku."}
+$RootItem=Get-Item -LiteralPath $RootPath -Force -ErrorAction Stop
+if(($RootItem.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0){throw "Publikacja zablokowana: katalog pakietu jest punktem ponownej analizy."}
 $LogDir=Join-Path $Root "dist\build-logs"
 New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
 $Log=Join-Path $LogDir "01-github-source-sync-and-pages.log"
 $SyncTempRoot=Join-Path $Root "dist\source-sync-temp"
 New-Item -ItemType Directory -Force -Path $SyncTempRoot | Out-Null
-$Temp=Join-Path $SyncTempRoot ("KCS_FIX098_SourceSync_"+[guid]::NewGuid().ToString("N"))
+$Temp=Join-Path $SyncTempRoot ("KCS_FIX099_SourceSync_"+[guid]::NewGuid().ToString("N"))
 $PageUrl="https://naprawapclaptop1-dev.github.io/komputerowe-centrum-serwisu/"
 $PagesReady=$false
 $TranscriptStarted=$false
@@ -104,18 +109,18 @@ function Invoke-GitChecked([string[]]$GitArgs,[string]$Description){
 try {
   Start-Transcript -Path $Log -Force | Out-Null
   $TranscriptStarted=$true
-  Write-Host "[INFO] FIX098 source sync / push-trigger Pages deployment / safe package validation"
+  Write-Host "[INFO] FIX100 source sync / push-trigger Pages deployment / safe package validation"
   Write-Host "[INFO] Folder projektu: $Root"
-  $markerPath=Join-Path $Root "FIX098_PACKAGE_MARKER.txt"
-  if(!(Test-Path -LiteralPath $markerPath -PathType Leaf)){throw "Brak markera FIX098. Uruchom CMD z kompletnego pakietu FIX098."}
+  $markerPath=Join-Path $Root "FIX099_PACKAGE_MARKER.txt"
+  if(!(Test-Path -LiteralPath $markerPath -PathType Leaf)){throw "Brak markera FIX099. Uruchom CMD z kompletnego pakietu FIX099."}
   $markerLines=Get-Content -LiteralPath $markerPath
-  if($markerLines -notcontains "PACKAGE=FIX098" -or $markerLines -notcontains "REPOSITORY=$Repo"){throw "Marker pakietu nie zgadza się z FIX098 lub przypisanym repozytorium."}
-  Write-Host "[PASS] Marker FIX098 i repozytorium potwierdzone. Folder nadrzędny: $Root"
+  if($markerLines -notcontains "PACKAGE=FIX099" -or $markerLines -notcontains "REPOSITORY=$Repo"){throw "Marker pakietu nie zgadza się z FIX099 lub przypisanym repozytorium."}
+  Write-Host "[PASS] Marker FIX099 i repozytorium potwierdzone. Folder nadrzędny: $Root"
   Write-Host "[INFO] Repozytorium: $Repo / galaz $Branch"
   $RepoFile=Join-Path $Root "GITHUB_REPOSITORY.txt"
   if(!(Test-Path -LiteralPath $RepoFile)){throw "Brak GITHUB_REPOSITORY.txt — uruchom wyłącznie URUCHOM_TYLKO_TEN_PLIK.cmd."}
   if((Get-Content -LiteralPath $RepoFile -Raw).Trim() -ne $Repo){throw "Repozytorium źródeł jest inne niż przypisane do tego programu."}
-  $repoMeta=Invoke-RestMethod -Headers @{"User-Agent"="KCS-FIX098";Accept="application/vnd.github+json"} -Uri "https://api.github.com/repos/$Repo" -TimeoutSec 30
+  $repoMeta=Invoke-RestMethod -Headers @{"User-Agent"="KCS-FIX099";Accept="application/vnd.github+json"} -Uri "https://api.github.com/repos/$Repo" -TimeoutSec 30
   if($repoMeta.visibility -ne "public" -or $repoMeta.default_branch -ne $Branch){throw "Repozytorium musi być publiczne i używać gałęzi main. visibility=$($repoMeta.visibility), default_branch=$($repoMeta.default_branch)."}
   $gh=Get-Command gh.exe -ErrorAction SilentlyContinue
   if(!$gh){$gh=Get-Command gh -ErrorAction SilentlyContinue}
@@ -123,8 +128,6 @@ try {
   $git=Get-Command git.exe -ErrorAction SilentlyContinue
   if(!$git){$git=Get-Command git -ErrorAction SilentlyContinue}
   if(!$git){throw "Git for Windows (git.exe) nie jest dostępny w PATH po kroku 0/5."}
-  $robocopy=Get-Command robocopy.exe -ErrorAction SilentlyContinue
-  if(!$robocopy){throw "Nie znaleziono robocopy.exe w Windows System32."}
 
   Write-Host "[AUTH] Sprawdzam uwierzytelnienie GitHub CLI (bezpieczna obsługa stderr dla Windows PowerShell 5.1)."
   $authResult=Invoke-NativeCapture -Executable $gh.Source -Arguments @("auth","status","--hostname","github.com")
@@ -177,35 +180,51 @@ try {
   Invoke-GitChecked @("-C",$Temp,"config","user.email",($uid+"+"+$login+"@users.noreply.github.com")) "Nie udało się ustawić adresu autora commitu"
   Invoke-GitChecked @("-C",$Temp,"config","core.longpaths","true") "Nie udało się włączyć obsługi długich ścieżek"
   Invoke-GitChecked @("-C",$Temp,"config","core.autocrlf","false") "Nie udało się ustawić stabilnego kodowania końców linii Git"
+  # Remove only already-tracked .tools entries from the temporary clone index. The local package cache is never touched.
+  Invoke-GitChecked @("-C",$Temp,"rm","-r","--cached","--ignore-unmatch",".tools") "Nie udało się usunąć z indeksu Git wcześniej śledzonego cache .tools"
 
-  $exclude=@("dist","GlobalUpdateServer","node_modules",".tools","bin","obj",".vs",".idea",".git")
-  $xd=@(); foreach($name in $exclude){$xd+=@("/XD",(Join-Path $Root $name))}
-  $xf=@("*.zip","*.7z","*.exe","*.dll","*.pdb","*.msi","*.log","*.tmp","*.new","*.pfx","*.p12","*.key","*.pem",".env",".env.*","README.md","POLITYKA_PUBLIKACJI.md")
-  $robocopyArgs=@($Root,$Temp,"/E","/COPY:DAT","/DCOPY:DAT","/R:2","/W:2","/XJ","/FFT","/NP","/TEE","/LOG+:$(Join-Path $LogDir '01-robocopy-source-sync.log')","/XF")+$xf+$xd
-  Write-Host "[COPY] Synchronizuję pliki projektu i witrynę; zachowuję README.md oraz POLITYKA_PUBLIKACJI.md z repozytorium."
-  $roboResult=Invoke-NativeCapture -Executable $robocopy.Source -Arguments $robocopyArgs
-  $roboCode=$roboResult.ExitCode
-  if($roboCode -ge 8){
-    if($roboResult.Output.Trim()){Write-Host $roboResult.Output.TrimEnd()}
-    throw "Robocopy nie zakończył synchronizacji (kod=$roboCode). Szczegóły: $(Join-Path $LogDir '01-robocopy-source-sync.log')"
+  $allowlistPath=Join-Path $Root "FIX099_SOURCE_ALLOWLIST.txt"
+  if(!(Test-Path -LiteralPath $allowlistPath -PathType Leaf)){throw "Brak FIX099_SOURCE_ALLOWLIST.txt — publikacja została zablokowana."}
+  $rootPrefix=$Root.TrimEnd([IO.Path]::DirectorySeparatorChar,[IO.Path]::AltDirectorySeparatorChar)+[IO.Path]::DirectorySeparatorChar
+  $allowed=@(Get-Content -LiteralPath $allowlistPath -ErrorAction Stop | ForEach-Object {$_.Trim()} | Where-Object {$_ -and -not $_.StartsWith('#')})
+  if($allowed.Count -lt 20){throw "Lista dozwolonych plików jest niekompletna ($($allowed.Count))."}
+  $seenPaths=@{}
+  $gitPaths=New-Object 'System.Collections.Generic.List[string]'
+  Write-Host "[COPY] Kopiuję wyłącznie jawne ścieżki z FIX099_SOURCE_ALLOWLIST.txt (bez innych podkatalogów folderu)."
+  foreach($relative in $allowed){
+    if([IO.Path]::IsPathRooted($relative) -or $relative -match '(^|[\\/])\.\.([\\/]|$)' -or $relative.StartsWith('\\') -or $relative.Contains(':')){throw "Niebezpieczna ścieżka w allowliście: $relative"}
+    $normalized=$relative.Replace('/',[IO.Path]::DirectorySeparatorChar).Replace('\\',[IO.Path]::DirectorySeparatorChar)
+    $key=$normalized.ToLowerInvariant()
+    if($seenPaths.ContainsKey($key)){throw "Powtórzona ścieżka w allowliście: $relative"}
+    $seenPaths[$key]=$true
+    if($normalized -match '^(?i:WEB_PUBLISH|ARCHIWUM_CLOUDFLARE_FIX067)([\\/]|$)'){throw "Niedozwolony podkatalog w allowliście: $relative"}
+    $sourcePath=[IO.Path]::GetFullPath((Join-Path $Root $normalized))
+    if(!$sourcePath.StartsWith($rootPrefix,[StringComparison]::OrdinalIgnoreCase)){throw "Ścieżka źródłowa wykracza poza pakiet: $relative"}
+    if(!(Test-Path -LiteralPath $sourcePath -PathType Leaf)){throw "Brak wymaganego pliku z allowlisty: $relative"}
+    $sourceItem=Get-Item -LiteralPath $sourcePath -Force -ErrorAction Stop
+    if(($sourceItem.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0){throw "Dowiązanie/reparse point jest niedozwolone w źródle: $relative"}
+    $targetPath=[IO.Path]::GetFullPath((Join-Path $Temp $normalized))
+    $tempPrefix=$Temp.TrimEnd([IO.Path]::DirectorySeparatorChar,[IO.Path]::AltDirectorySeparatorChar)+[IO.Path]::DirectorySeparatorChar
+    if(!$targetPath.StartsWith($tempPrefix,[StringComparison]::OrdinalIgnoreCase)){throw "Ścieżka docelowa wykracza poza klon Git: $relative"}
+    $targetDir=Split-Path -Parent $targetPath
+    if(!(Test-Path -LiteralPath $targetDir -PathType Container)){New-Item -ItemType Directory -Force -Path $targetDir | Out-Null}
+    Copy-Item -LiteralPath $sourcePath -Destination $targetPath -Force -ErrorAction Stop
+    $gitPaths.Add($relative)
   }
-  Write-Host "[PASS] Robocopy zakończył synchronizację (kod=$roboCode). Szczegóły: $(Join-Path $LogDir '01-robocopy-source-sync.log')"
-
+  Write-Host ("[PASS] Skopiowano jawnie {0} plików; podkatalogi spoza allowlisty nie były odczytywane ani kopiowane." -f $gitPaths.Count)
   $gitIgnore=Join-Path $Temp ".gitignore"
   $ignoreRules=@("dist/","GlobalUpdateServer/",".tools/","*.log","*.tmp","*.new","*.bak","*.user","*.pfx","*.p12","*.key","*.pem",".env",".env.*")
   if(Test-Path -LiteralPath $gitIgnore){$existingIgnore=Get-Content -LiteralPath $gitIgnore -ErrorAction SilentlyContinue;foreach($rule in $ignoreRules){if($existingIgnore -notcontains $rule){Add-Content -LiteralPath $gitIgnore -Value $rule -Encoding ASCII}}}
   else {$ignoreRules | Set-Content -LiteralPath $gitIgnore -Encoding ASCII}
-  # The previous run accidentally committed a local npm/Wrangler cache. Remove only its Git index entries;
-  # the user's original .tools folder is excluded from Robocopy and is never deleted.
-  $untrackCache=Invoke-NativeCapture -Executable $git.Source -Arguments @("-C",$Temp,"rm","-r","--cached","--ignore-unmatch",".tools")
-  if($untrackCache.ExitCode -ne 0){throw "Nie udało się usunąć lokalnego cache .tools z indeksu Git: $($untrackCache.Output.Trim())"}
-  Invoke-GitChecked @("-C",$Temp,"add","-A") "git add zakończył się błędem"
+  # Stage only the paths listed in the approved package manifest.
+  $gitAddArgs=@("-C",$Temp,"add","--")+$gitPaths.ToArray()
+  Invoke-GitChecked $gitAddArgs "git add allowlist zakończył się błędem"
   $statusResult=Invoke-NativeCapture -Executable $git.Source -Arguments @("-C",$Temp,"status","--porcelain")
   $changes=$statusResult.Output.Trim()
   if($statusResult.ExitCode -ne 0){throw "git status nie powiódł się: $changes"}
   if($changes){
     Write-Host "[GIT] Tworzę commit źródeł, strony i workflow Pages."
-    Invoke-GitChecked @("-C",$Temp,"commit","-m","FIX098: package-local cleanup and push-trigger Pages deployment and cache-safe source sync") "Nie udało się utworzyć commitu źródeł"
+    Invoke-GitChecked @("-C",$Temp,"commit","-m","FIX100: marker-validated package root and persistent launcher") "Nie udało się utworzyć commitu źródeł"
     $pushResult=Invoke-NativeCapture -Executable $git.Source -Arguments @("-C",$Temp,"push","origin","HEAD:refs/heads/$Branch")
     $pushOut=$pushResult.Output; $pushCode=$pushResult.ExitCode
     if($pushOut.Trim()){Write-Host $pushOut.TrimEnd()}

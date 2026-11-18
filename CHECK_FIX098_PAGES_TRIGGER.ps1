@@ -10,4 +10,4 @@ $checks=@(
  [pscustomobject]@{Passed=[bool]($source.Contains('build_type=workflow') -and $source.Contains('source[branch]=$Branch') -and $source.Contains('source[path]=/'));Name='Pages source uses Actions, main and root'}
 )
 $failed=0;foreach($c in $checks){if($c.Passed){Write-Host ('[PASS] '+$c.Name)}else{Write-Host ('[FAIL] '+$c.Name);$failed++}}
-if($failed){throw ("$failed FIX098 Pages checks failed.")};Write-Host ('[PASS] FIX098 Pages checks: '+$checks.Count+'/'+$checks.Count)
+if($failed){throw ("$failed FIX099 Pages checks failed.")};Write-Host ('[PASS] FIX099 Pages checks: '+$checks.Count+'/'+$checks.Count)

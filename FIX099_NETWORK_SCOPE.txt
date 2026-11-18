@@ -1,0 +1,19 @@
+FIX099 — ZAKRES POŁĄCZEŃ I PUBLIKACJI
+
+Aktywna synchronizacja łączy się wyłącznie z GitHub API / github.com dla repozytorium:
+naprawapclaptop1-dev/komputerowe-centrum-serwisu. Repozytorium jest PUBLICZNE.
+
+WAŻNE ZABEZPIECZENIE: publikowane są wyłącznie ścieżki wymienione w FIX099_SOURCE_ALLOWLIST.txt.
+Lista obejmuje pliki źródłowe na poziomie głównym pakietu, website/** oraz dokładny workflow
+.github/workflows/deploy-pages.yml. Nie publikuje innych podkatalogów obecnych obok pakietu,
+w szczególności WEB_PUBLISH, ARCHIWUM_CLOUDFLARE_FIX067, katalogów użytkownika ani innych aplikacji.
+Do Git dodawane są tylko jawnie wymienione ścieżki; pliki poza listą nie są kopiowane ani staged.
+README.md i POLITYKA_PUBLIKACJI.md z repozytorium pozostają nietknięte.
+
+Pozostałe połączenia aktywnego przebiegu: GitHub Releases (po poprawnej kompilacji), GitHub Pages
+(odczyt/weryfikacja), WinGet tylko w celu pobrania brakujących narzędzi budowania.
+Nie znaleziono w aktywnym łańcuchu głównego CMD polecenia wysyłającego dane na nieznany serwer.
+Ta kontrola statyczna nie jest pełnym audytem systemu ani certyfikatem bezpieczeństwa.
+
+UWAGA: pliki, które były już wcześniej w publicznym repozytorium, nie znikają automatycznie.
+Ich ewentualne usunięcie z historii/publicznego repo wymaga osobnego przeglądu i decyzji.

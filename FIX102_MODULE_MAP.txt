@@ -1,0 +1,9 @@
+FIX102 MODULE MAP
+
+CHECK_FIX084_CMD_ENCODING.ps1 — validates tool PATH parsing in the worker.
+CHECK_FIX084_SOURCE_CACHE_EXCLUSIONS.ps1 — validates allowlist-only publishing and .tools exclusion.
+CHECK_FIX085_GIT_CLONE_LONGPATHS.ps1 — validates long-path clone, allowlist, and temporary-index cleanup.
+CHECK_FIX100_CLEANUP_PATH.ps1 — validates cleanup invocation in the persistent worker.
+PUBLISH_GITHUB_SOURCE.ps1 — removes tracked .tools entries from the temporary clone index only.
+CHECK_FIX102_SOURCE_GATE.ps1 — integrated FIX102 regression checks.
+CHECK_SOURCE.cmd — runs the new regression gate.

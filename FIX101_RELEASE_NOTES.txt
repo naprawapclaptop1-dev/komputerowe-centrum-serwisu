@@ -1,0 +1,9 @@
+﻿FIX101 — NAPRAWA BŁĘDU „The system cannot find the batch label specified - KCS_WORKER”
+
+- Usunięto rekurencyjne wywoływanie pliku URUCHOM_TYLKO_TEN_PLIK.cmd oraz skoki do etykiet w kolejnych instancjach tego samego pliku.
+- Główny plik startowy uruchamia osobny KCS_FIX101_WORKER.cmd w widocznym cmd.exe /d /k.
+- Po sukcesie lub błędzie worker wraca do trwałego wiersza poleceń; okno nie zamyka się automatycznie.
+- Dodano kontrolę obecności workera przed uruchomieniem oraz test regresyjny CHECK_FIX101_KEEP_OPEN.ps1.
+- Zachowano pipeline budowy, publikacji, instalacji, allowlistę źródeł, repozytorium i konfigurację aplikacji.
+- Wersja produktu pozostaje 1.0.0.69.
+

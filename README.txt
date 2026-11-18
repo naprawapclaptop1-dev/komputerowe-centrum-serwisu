@@ -1,7 +1,7 @@
-KOMPUTEROWE CENTRUM SERWISU — FIX087 / aplikacja 1.0.0.69
+﻿KOMPUTEROWE CENTRUM SERWISU — FIX100 / aplikacja 1.0.0.69
 
 JEDEN ZIP / JEDEN CMD
-1. Rozpakuj cały ZIP do jednego folderu z prawem zapisu.
+1. Rozpakuj cały ZIP do dowolnego folderu z prawem zapisu (nazwa folderu nie ma znaczenia).
 2. Uruchom wyłącznie URUCHOM_TYLKO_TEN_PLIK.cmd.
 3. Nie uruchamiaj pozostałych CMD/PS1 ręcznie — to etapy pomocnicze głównego automatu.
 
@@ -33,7 +33,7 @@ BEZPIECZEŃSTWO I WZNOWIENIE
 - Po utworzeniu wydania, ale przed zakończeniem wdrożenia Pages, można bezpiecznie uruchomić ponownie ten sam CMD.
 - Operacje na partycjach, rejestrze, rozruchu i przywracaniu systemu mogą zmienić dane. Przed nimi wykonaj kopię zapasową.
 
-Wersja aplikacji pozostaje 1.0.0.69. FIX087 naprawia test walidacyjny workflow Pages: testy używają teraz rekordów PSCustomObject, aby PowerShell 5.1 nie spłaszczał wyników i opisów kontroli.
+FIX100 usuwa blokadę nazwy folderu rozpakowania; marker pakietu i przypisane repozytorium nadal są obowiązkowo sprawdzane. Okno CMD pozostaje otwarte i uruchamia etapy w tym samym widocznym oknie. Wersja aplikacji pozostaje 1.0.0.69. FIX087 naprawia test walidacyjny workflow Pages: testy używają teraz rekordów PSCustomObject, aby PowerShell 5.1 nie spłaszczał wyników i opisów kontroli.
 
 FIX088: testy uruchamiane przez CMD używają PSCustomObject zamiast zagnieżdżonych tablic.
 

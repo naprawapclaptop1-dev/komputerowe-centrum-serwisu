@@ -9,6 +9,7 @@ foreach($name in $files){
   Write-Host ("[PASS] CMD UTF-8 without BOM: "+$name)
 }
 $launcher=Get-Content -LiteralPath (Join-Path $root 'URUCHOM_TYLKO_TEN_PLIK.cmd') -Raw
+$worker=Get-Content -LiteralPath (Join-Path $root 'KCS_FIX101_WORKER.cmd') -Raw
 if($launcher -match 'do call :set_tool_path' -or $launcher -match ':set_tool_path'){throw 'Launcher must not use nested CALL tool-path parsing.'}
-if($launcher -notmatch 'if defined GH_EXE for %%G' -or $launcher -notmatch 'if defined GIT_EXE for %%G'){throw 'Launcher must add GH/GIT folders to PATH with direct FOR parsing.'}
-Write-Host '[PASS] FIX084 CMD encoding and PATH parsing checks: 4/4'
+if($worker -notmatch 'if defined GH_EXE for %%G' -or $worker -notmatch 'if defined GIT_EXE for %%G'){throw 'Worker must add GH/GIT folders to PATH with direct FOR parsing after tool discovery.'}
+Write-Host '[PASS] FIX084 CMD encoding and worker PATH parsing checks: 4/4'

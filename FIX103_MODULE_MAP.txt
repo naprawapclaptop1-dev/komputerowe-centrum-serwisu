@@ -1,0 +1,6 @@
+﻿FIX103 MODULE MAP
+
+CHECK_FIX069_REGRESSION.ps1 — checks the split launcher/worker architecture and validates that the dedicated worker owns the full build, source publication, release publication, deployment verification, and install pipeline.
+URUCHOM_TYLKO_TEN_PLIK.cmd — persistent CMD launcher; starts KCS_FIX101_WORKER.cmd.
+KCS_FIX101_WORKER.cmd — full automation pipeline and repository binding.
+CHECK_SOURCE.cmd — invokes CHECK_FIX069_REGRESSION.ps1 as part of the source gate.

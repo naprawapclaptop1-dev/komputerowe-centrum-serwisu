@@ -1,0 +1,5 @@
+﻿FIX101 MODULE MAP
+- URUCHOM_TYLKO_TEN_PLIK.cmd: minimalny launcher otwierający trwałe okno cmd.exe /d /k.
+- KCS_FIX101_WORKER.cmd: pełny worker automatycznej walidacji, budowy, publikacji i instalacji.
+- CHECK_FIX101_KEEP_OPEN.ps1: test rozdzielenia launchera i workera oraz trwałości okna.
+- VALIDATE_FIX100_PACKAGE.ps1: walidacja obecności obu plików CMD i testu FIX101.

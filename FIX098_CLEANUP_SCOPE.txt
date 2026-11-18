@@ -1,4 +1,4 @@
-FIX098 — ZAKRES CZYSZCZENIA WYŁĄCZNIE W FOLDERZE PROGRAMU
+﻿FIX099 — ZAKRES CZYSZCZENIA WYŁĄCZNIE W FOLDERZE PROGRAMU
 
 CZYSZCZONE:
 - Wyłącznie stare pliki *.tmp i *.temp w dedykowanych katalogach pakietu: temp, tmp, dist\temp, dist\tmp, build\temp, build\tmp (domyślnie starsze niż 7 dni).

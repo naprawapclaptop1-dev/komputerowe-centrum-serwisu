@@ -8,14 +8,18 @@ $ProgressPreference = 'SilentlyContinue'
 
 try {
     $ProjectRoot = [IO.Path]::GetFullPath($PSScriptRoot).TrimEnd([IO.Path]::DirectorySeparatorChar, [IO.Path]::AltDirectorySeparatorChar)
-    $markerPath = Join-Path $ProjectRoot 'FIX098_PACKAGE_MARKER.txt'
-    if (-not (Test-Path -LiteralPath $markerPath -PathType Leaf)) { throw 'FIX098 package marker is missing.' }
-    if (@(Get-Content -LiteralPath $markerPath -ErrorAction Stop) -notcontains 'PACKAGE=FIX098') { throw 'Cleaner is not running from FIX098 package root.' }
+    $volumeRoot = [IO.Path]::GetPathRoot($ProjectRoot).TrimEnd([IO.Path]::DirectorySeparatorChar, [IO.Path]::AltDirectorySeparatorChar)
+    if ([string]::Equals($ProjectRoot, $volumeRoot, [StringComparison]::OrdinalIgnoreCase)) { throw 'Czyszczenie zablokowane: pakiet nie może działać z katalogu głównego dysku.' }
+    $markerPath = Join-Path $ProjectRoot 'FIX099_PACKAGE_MARKER.txt'
+    if (-not (Test-Path -LiteralPath $markerPath -PathType Leaf)) { throw 'FIX099 package marker is missing.' }
+    if (@(Get-Content -LiteralPath $markerPath -ErrorAction Stop) -notcontains 'PACKAGE=FIX099') { throw 'Cleaner is not running from a verified FIX099 package root.' }
+    $rootItem = Get-Item -LiteralPath $ProjectRoot -Force -ErrorAction Stop
+    if (($rootItem.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) { throw 'Czyszczenie zablokowane: katalog pakietu jest punktem ponownej analizy.' }
 
     $logDir = Join-Path $ProjectRoot 'dist\build-logs'
     New-Item -ItemType Directory -Force -Path $logDir -ErrorAction Stop | Out-Null
     $log = Join-Path $logDir 'SAFE_TEMP_CLEANUP.log'
-    "=== FIX098 PACKAGE-LOCAL CLEANUP $(Get-Date -Format o) ===" | Set-Content -LiteralPath $log -Encoding UTF8 -ErrorAction Stop
+    "=== FIX100 PACKAGE-LOCAL CLEANUP $(Get-Date -Format o) ===" | Set-Content -LiteralPath $log -Encoding UTF8 -ErrorAction Stop
 
     $removedFiles = 0
     $removedDirs = 0

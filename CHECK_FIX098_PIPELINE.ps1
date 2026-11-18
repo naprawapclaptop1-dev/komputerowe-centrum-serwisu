@@ -16,9 +16,9 @@ $checks=@(
  [pscustomobject]@{Passed=($installer.Contains('ISCC.exe') -and $installer.Contains('SETUP_MODERN.iss'));Name='Modern installer uses Inno Setup'},
  [pscustomobject]@{Passed=($release.Contains('manifest-stable.xml') -and $release.Contains('manifest-beta.xml') -and $release.Contains('SHA256SUMS.txt') -and $release -notmatch '--clobber');Name='Release contains both manifests and SHA256 without clobber'},
  [pscustomobject]@{Passed=($cmd.Contains('pause') -and $cmd.Contains('/d /k') -and $cmd.Contains('/d /c'));Name='Persistent CMD wraps the worker process'},
- [pscustomobject]@{Passed=($sourceGate.Contains('CHECK_FIX098_CLEANUP_PATH.ps1') -and $sourceGate.Contains('CHECK_FIX098_PIPELINE.ps1'));Name='Source gate runs active FIX098 tests'},
+ [pscustomobject]@{Passed=($sourceGate.Contains('CHECK_FIX099_CLEANUP_PATH.ps1') -and $sourceGate.Contains('CHECK_FIX099_PIPELINE.ps1'));Name='Source gate runs active FIX099 tests'},
  [pscustomobject]@{Passed=($clean.Contains('$ProjectRoot') -and $clean.Contains('allowedRelativeDirs') -and $clean -notmatch '\$env:(TEMP|TMP|WINDIR|LOCALAPPDATA|APPDATA)');Name='Cleaner is restricted to named package-local temp folders'},
  [pscustomobject]@{Passed=($source.Contains('dist\source-sync-temp') -and $source -notmatch '\$env:TEMP');Name='Git source-sync working clone is inside package, not system TEMP'}
 )
 $failed=0;foreach($c in $checks){if($c.Passed){Write-Host ('[PASS] '+$c.Name)}else{Write-Host ('[FAIL] '+$c.Name);$failed++}}
-if($failed){throw ("$failed FIX098 pipeline checks failed.")};Write-Host ('[PASS] FIX098 pipeline checks: '+$checks.Count+'/'+$checks.Count)
+if($failed){throw ("$failed FIX099 pipeline checks failed.")};Write-Host ('[PASS] FIX099 pipeline checks: '+$checks.Count+'/'+$checks.Count)

@@ -1,0 +1,10 @@
+FIX099 — CZYSZCZENIE WYŁĄCZNIE W FOLDERZE KCS_FIX099
+
+Czyszczenie działa tylko po potwierdzeniu FIX099_PACKAGE_MARKER.txt i nazwy folderu KCS_FIX099.
+Usuwane mogą być wyłącznie stare pliki *.tmp / *.temp wewnątrz dedykowanych katalogów pakietu:
+temp, tmp, dist\temp, dist\tmp, build\temp, build\tmp oraz stare katalogi synchronizacji
+w dist\source-sync-temp. Pliki muszą być odblokowane i nie mogą być dowiązaniami/reparse points.
+
+NIE DOTYKA: Windows TEMP, TEMP użytkownika, AppData, innych programów, profili, przeglądarek,
+Discord, Teams, sterowników GPU, dokumentów, haseł, ustawień, baz danych, źródeł, logów,
+wyników budowania, instalatorów, wersji portable, .tools i node_modules.

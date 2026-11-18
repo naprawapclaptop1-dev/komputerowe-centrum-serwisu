@@ -1,4 +1,4 @@
-KOMPUTEROWE CENTRUM SERWISU — FIX098
+﻿KOMPUTEROWE CENTRUM SERWISU — FIX099
 
 - Naprawiono zakres czyszczenia: skrypt operuje wyłącznie w katalogach tymczasowych wewnątrz folderu pakietu.
 - Usunięto czyszczenie %TEMP%, Windows\Temp, AppData, cache przeglądarek, komunikatorów i sterowników GPU.
@@ -6,4 +6,4 @@ KOMPUTEROWE CENTRUM SERWISU — FIX098
 - Dodano testy zakresu czyszczenia i granicy ścieżek.
 - Wersja produktu pozostaje 1.0.0.69.
 
-FIX098 nie potwierdza jeszcze kompilacji, publikacji ani instalacji Windows; te działania wymagają uruchomienia na komputerze użytkownika.
+FIX099 nie potwierdza jeszcze kompilacji, publikacji ani instalacji Windows; te działania wymagają uruchomienia na komputerze użytkownika.

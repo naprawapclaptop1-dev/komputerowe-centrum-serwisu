@@ -1,0 +1,7 @@
+﻿KOMPUTEROWE CENTRUM SERWISU — FIX103
+
+- Naprawiono regresję CHECK_FIX069_REGRESSION.ps1: wcześniejszy test błędnie oczekiwał etapów budowania i publikacji w URUCHOM_TYLKO_TEN_PLIK.cmd.
+- Test uwzględnia architekturę FIX101+: launcher przekazuje sterowanie do KCS_FIX101_WORKER.cmd, a worker wykonuje pełny pipeline.
+- Weryfikacja obejmuje powiązanie repozytorium, budowanie, publikację źródeł, publikację Release, kontrolę wdrożenia i instalację.
+- Nie zmieniono kodu produktu, ustawień repozytorium ani mechanizmu publikacji.
+- Wersja produktu bez zmian: 1.0.0.69.

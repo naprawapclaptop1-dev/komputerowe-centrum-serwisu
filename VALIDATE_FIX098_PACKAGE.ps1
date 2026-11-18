@@ -1,14 +1,14 @@
 ﻿$ErrorActionPreference='Stop'
 $root=[IO.Path]::GetFullPath($PSScriptRoot)
 $repo='naprawapclaptop1-dev/komputerowe-centrum-serwisu'
-$marker=Join-Path $root 'FIX098_PACKAGE_MARKER.txt'
-$manifest=Join-Path $root 'FIX098_POWERSHELL_MANIFEST.txt'
+$marker=Join-Path $root 'FIX099_PACKAGE_MARKER.txt'
+$manifest=Join-Path $root 'FIX099_POWERSHELL_MANIFEST.txt'
 try {
- if(!(Test-Path -LiteralPath $marker -PathType Leaf)){throw 'Missing FIX098 marker.'}
+ if(!(Test-Path -LiteralPath $marker -PathType Leaf)){throw 'Missing FIX099 marker.'}
  $ml=@(Get-Content -LiteralPath $marker -ErrorAction Stop)
- if($ml -notcontains 'PACKAGE=FIX098' -or $ml -notcontains ('REPOSITORY='+$repo) -or $ml -notcontains 'ENTRYPOINT=URUCHOM_TYLKO_TEN_PLIK.cmd'){throw 'Package marker does not match FIX098/repository/entrypoint.'}
- if(!(Test-Path -LiteralPath $manifest -PathType Leaf)){throw 'Missing FIX098 PowerShell manifest.'}
- $required=@('URUCHOM_TYLKO_TEN_PLIK.cmd','CHECK_SOURCE.cmd','FIX098_PACKAGE_MARKER.txt','FIX098_POWERSHELL_MANIFEST.txt','VALIDATE_FIX098_PACKAGE.ps1','CLEAN_SAFE_TEMP.ps1','CHECK_FIX098_KEEP_OPEN.ps1','CHECK_FIX098_PIPELINE.ps1','CHECK_FIX098_PAGES_TRIGGER.ps1','CHECK_FIX098_CLEANUP_PATH.ps1','FIX098_CLEANUP_SCOPE.txt','FIX098_NETWORK_SCOPE.txt','PUBLISH_GITHUB_SOURCE.ps1','PUBLISH_GITHUB_RELEASES.ps1','BUILD_ALL.cmd','BUILD_PORTABLE.cmd','BUILD_INSTALLER_MODERN.cmd','VERIFY_BUILD.cmd','VERIFY_PUBLIC_DEPLOYMENT.ps1','INSTALL_PUBLISHED_BUILD.ps1','WindowsVersionSwitcherPRO.cs','WindowsVersionSwitcherPRO.Modules.cs','AssemblyInfo.cs','VERSION.txt','SETUP_MODERN.iss','NaprawaPC.ico','CentrumMigracjiHero.png','website/index.html','website/styles.css','website/app.js','website/media/prezentacja.mp4','.github/workflows/deploy-pages.yml')
+ if($ml -notcontains 'PACKAGE=FIX099' -or $ml -notcontains ('REPOSITORY='+$repo) -or $ml -notcontains 'ENTRYPOINT=URUCHOM_TYLKO_TEN_PLIK.cmd'){throw 'Package marker does not match FIX099/repository/entrypoint.'}
+ if(!(Test-Path -LiteralPath $manifest -PathType Leaf)){throw 'Missing FIX099 PowerShell manifest.'}
+ $required=@('URUCHOM_TYLKO_TEN_PLIK.cmd','CHECK_SOURCE.cmd','FIX099_PACKAGE_MARKER.txt','FIX099_POWERSHELL_MANIFEST.txt','VALIDATE_FIX099_PACKAGE.ps1','CLEAN_SAFE_TEMP.ps1','CHECK_FIX099_KEEP_OPEN.ps1','CHECK_FIX099_PIPELINE.ps1','CHECK_FIX099_PAGES_TRIGGER.ps1','CHECK_FIX099_CLEANUP_PATH.ps1','FIX099_CLEANUP_SCOPE.txt','FIX099_NETWORK_SCOPE.txt','PUBLISH_GITHUB_SOURCE.ps1','PUBLISH_GITHUB_RELEASES.ps1','BUILD_ALL.cmd','BUILD_PORTABLE.cmd','BUILD_INSTALLER_MODERN.cmd','VERIFY_BUILD.cmd','VERIFY_PUBLIC_DEPLOYMENT.ps1','INSTALL_PUBLISHED_BUILD.ps1','WindowsVersionSwitcherPRO.cs','WindowsVersionSwitcherPRO.Modules.cs','AssemblyInfo.cs','VERSION.txt','SETUP_MODERN.iss','NaprawaPC.ico','CentrumMigracjiHero.png','website/index.html','website/styles.css','website/app.js','website/media/prezentacja.mp4','.github/workflows/deploy-pages.yml')
  $missing=@();foreach($rel in $required){$p=Join-Path $root $rel;if(!(Test-Path -LiteralPath $p -PathType Leaf)){ $missing+=$rel }elseif((Get-Item -LiteralPath $p).Length -le 0){$missing+=($rel+' (empty)')}}
  if($missing.Count){throw ('Required package files missing: '+($missing -join ', '))}
  foreach($n in @('URUCHOM_TYLKO_TEN_PLIK.cmd','CHECK_SOURCE.cmd')){$b=[IO.File]::ReadAllBytes((Join-Path $root $n));if($b.Length -lt 1 -or $b[0] -ne 64){throw ($n+' must be UTF-8/ASCII without BOM and start with @echo off.')}}
@@ -24,11 +24,11 @@ try {
   $tokens=$null;$errors=$null;[System.Management.Automation.Language.Parser]::ParseFile($path,[ref]$tokens,[ref]$errors)|Out-Null;if($errors){foreach($e in $errors){$bad+=($rel+':'+$e.Extent.StartLineNumber+' '+$e.Message)}}
  }
  if($bad.Count){throw ('Manifest/parser validation failed: '+($bad -join ' | '))}
- Write-Host '[PASS] FIX098 package complete.'
+ Write-Host '[PASS] FIX099 package complete.'
  Write-Host ('[PASS] Root: '+$root)
  Write-Host ('[PASS] Repository: '+$repo)
  Write-Host ('[PASS] Required files: '+$required.Count)
  Write-Host ('[PASS] PowerShell BOM + SHA-256 + parser: '+$rows.Count)
  Write-Host '[PASS] CMD files are BOM-free.'
  exit 0
-} catch {Write-Host ('[FAIL] FIX098 package validation: '+$_.Exception.Message);exit 1}
+} catch {Write-Host ('[FAIL] FIX099 package validation: '+$_.Exception.Message);exit 1}

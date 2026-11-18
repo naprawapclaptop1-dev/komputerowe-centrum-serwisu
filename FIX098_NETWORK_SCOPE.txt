@@ -1,4 +1,4 @@
-FIX098 — INFORMACJA O POŁĄCZENIACH SIECIOWYCH
+﻿FIX099 — INFORMACJA O POŁĄCZENIACH SIECIOWYCH
 
 GŁÓWNY CMD NIE WYSYŁA ZAWARTOŚCI CAŁEGO KOMPUTERA.
 
@@ -10,6 +10,6 @@ Operacje sieciowe przewidziane w aktywnym przebiegu:
 
 WAŻNE: repozytorium jest PUBLICZNE. Pliki projektu, które skrypt źródeł synchronizuje z folderu pakietu, stają się publicznie dostępne. Skrypt wyklucza znane typy sekretów (.pfx, .p12, .key, .pem, .env), pliki wykonywalne, archiwa i katalogi build/cache, ale przed publikacją należy nadal sprawdzić folder projektu i nie umieszczać w nim prywatnych dokumentów ani haseł.
 
-Nie znaleziono w aktywnym łańcuchu głównego CMD polecenia wysyłającego pliki do nieznanego serwera. W archiwum zachowano starszy katalog ARCHIWUM_CLOUDFLARE_FIX067; główny CMD FIX098 go nie uruchamia. Ta kontrola statyczna nie jest certyfikatem bezpieczeństwa ani pełnym audytem systemu Windows.
+Nie znaleziono w aktywnym łańcuchu głównego CMD polecenia wysyłającego pliki do nieznanego serwera. W archiwum zachowano starszy katalog ARCHIWUM_CLOUDFLARE_FIX067; główny CMD FIX099 go nie uruchamia. Ta kontrola statyczna nie jest certyfikatem bezpieczeństwa ani pełnym audytem systemu Windows.
 
-Czyszczenie i robocze pliki synchronizacji/kompilacji FIX098 pozostają wewnątrz folderu pakietu. Skrypt nie przeszukuje dysków komputera ani folderów osobistych.
+Czyszczenie i robocze pliki synchronizacji/kompilacji FIX099 pozostają wewnątrz folderu pakietu. Skrypt nie przeszukuje dysków komputera ani folderów osobistych.
