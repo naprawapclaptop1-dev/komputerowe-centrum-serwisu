@@ -25,13 +25,13 @@ public sealed class FanControlRow : INotifyPropertyChanged
     private double _percent;
     private bool _canControl;
     public FanControlRow(string hardware, string name, IControl control, bool canControl)
-    { Hardware = hardware; Name = name; _control = control; _percent = Math.Clamp(control.SoftwareValue, 0, 100); _canControl = canControl; }
+    { Hardware = hardware; Name = name; _control = control; _percent = Math.Clamp(control.SoftwareValue, 20, 100); _canControl = canControl; }
     public string Hardware { get; }
     public string Name { get; }
     public double Percent
     {
         get => _percent;
-        set { var next = Math.Clamp(value, 0, 100); if (Math.Abs(next - _percent) < 0.4) return; _percent = next; OnPropertyChanged(); try { if (_canControl) _control.SetSoftware((float)next); } catch { } }
+        set { var next = Math.Clamp(value, 20, 100); if (Math.Abs(next - _percent) < 0.4) return; _percent = next; OnPropertyChanged(); try { if (_canControl) _control.SetSoftware((float)next); } catch { } }
     }
     public bool CanControl
     {
