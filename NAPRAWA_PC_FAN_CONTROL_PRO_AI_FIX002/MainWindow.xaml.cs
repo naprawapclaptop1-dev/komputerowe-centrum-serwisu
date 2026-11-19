@@ -117,7 +117,7 @@ public partial class MainWindow : Window
         var dialog = new SaveFileDialog { Title = "Zapisz raport diagnostyczny", FileName = "NaprawaPC_FanControl_Raport_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt", Filter = "Raport tekstowy (*.txt)|*.txt" };
         if (dialog.ShowDialog(this) != true) return;
         var text = new StringBuilder();
-        text.AppendLine("NAPRAWA PC FAN CONTROL PRO AI 2.0.2 FIX004");
+        text.AppendLine("NAPRAWA PC FAN CONTROL PRO AI 2.0.3 FIX005");
         text.AppendLine("Data: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
         text.AppendLine(); text.AppendLine("=== CZUJNIKI ===");
         foreach (var s in Sensors) text.AppendLine($"{s.Category};{s.Hardware};{s.Name};{s.Value};{s.Status}");
