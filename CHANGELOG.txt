@@ -1,4 +1,21 @@
-﻿KOMPUTEROWE CENTRUM SERWISU — FIX118 — NAPRAWA TESTÓW STRONY I DOSTĘPNOŚĆ
+﻿KOMPUTEROWE CENTRUM SERWISU — FIX120 — NAPRAWA SKŁADNI POWERSHELL 5.1
+
+- Naprawiono błąd parsera w PUBLISH_GITHUB_RELEASES.ps1: zmienna tagu przed dwukropkiem jest teraz zapisana jako ${Tag}:.
+- Dodano test FIX120 parsujący rzeczywisty publikator oraz sprawdzający niepoprawny i poprawny zapis interpolacji.
+- Test FIX120 jest obowiązkowy w CHECK_SOURCE i walidacji pełnego pakietu.
+- Nie zmieniono kodu aplikacji, instalatora, logiki ochrony assetów ani wersji produktu 1.0.0.69.
+
+KOMPUTEROWE CENTRUM SERWISU — FIX119 — BEZPIECZNA OBSŁUGA JUŻ OPUBLIKOWANEGO WYDANIA
+
+- Naprawiono obsługę ponownego uruchomienia publikacji po tym, gdy publiczne wydanie v1.0.0.69 już istnieje. Automat nie próbuje podmieniać assetów publicznego wydania.
+- Jeśli lokalne pliki różnią się od publicznych, publikator pobiera porównanie GitHub tagu z gałęzią domyślną. Ponowne użycie istniejących assetów jest dozwolone wyłącznie wtedy, gdy tag jest przodkiem bieżącej gałęzi, komplet sześciu publicznych assetów istnieje, a wszystkie zmienione ścieżki należą do jawnej listy zmian strony WWW, testów, narzędzi publikacji lub dokumentacji.
+- Zmiana plików C#, AssemblyInfo, manifestu aplikacji, ikon, zasobów instalatora, skryptu budowania lub nieznanej ścieżki blokuje automatyczne pominięcie wydania. Nie ma automatycznego podbijania wersji ani nadpisywania assetów.
+- Dodano KCS_RELEASE_POLICY.ps1 z czystymi funkcjami polityki ponownego użycia publicznego wydania oraz dekodowania odpowiedzi HTTP.
+- Naprawiono weryfikator publicznego manifestu dla Windows PowerShell 5.1: odpowiedzi byte[] są dekodowane z UTF-8 przed parsowaniem XML i kontrolą SHA256SUMS.txt.
+- Dodano CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1 i włączono test do CHECK_SOURCE oraz walidatora pełnego pakietu.
+- Wersja produktu pozostaje 1.0.0.69; tag v1.0.0.69 i istniejące publiczne pliki zostają zachowane.
+
+KOMPUTEROWE CENTRUM SERWISU — FIX118 — NAPRAWA TESTÓW STRONY I DOSTĘPNOŚĆ
 - Naprawiono testy strony uruchamiane w Windows PowerShell 5.1: pliki HTML/JS/CSS są jawnie odczytywane jako UTF-8, a odwołania JavaScript zawierające `$()` są sprawdzane jako tekst literalny (bez interpolacji PowerShell).
 - Ulepszono menu mobilne: klawisz Escape zamyka menu i przywraca fokus do przycisku; kliknięcie poza menu również je zamyka. Stan `aria-expanded` i etykieta przycisku są aktualizowane przy każdej zmianie.
 - Dodano wyraźne ostrzeżenie, że zgłoszenia do publicznego repozytorium GitHub są publiczne, oraz wymagane potwierdzenie przed przygotowaniem szkicu. W szkicu ponownie wyświetlane jest ostrzeżenie o danych poufnych; nic nie jest wysyłane automatycznie.

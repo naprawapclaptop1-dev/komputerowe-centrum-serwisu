@@ -88,6 +88,7 @@ $packageMarker=Join-Path $Root "FIX099_PACKAGE_MARKER.txt"
 if(!(Test-Path -LiteralPath $packageMarker -PathType Leaf)){throw "Brak markera pakietu FIX099 — publikator musi być uruchomiony z kompletnego archiwum."}
 $packageLines=Get-Content -LiteralPath $packageMarker
 if($packageLines -notcontains "PACKAGE=FIX099" -or $packageLines -notcontains "REPOSITORY=naprawapclaptop1-dev/komputerowe-centrum-serwisu" -or $packageLines -notcontains "ENTRYPOINT=URUCHOM_TYLKO_TEN_PLIK.cmd"){throw "Marker pakietu nie potwierdza właściwego projektu / repozytorium / punktu startowego."}
+. (Join-Path $Root "KCS_RELEASE_POLICY.ps1")
 $Repo="naprawapclaptop1-dev/komputerowe-centrum-serwisu"
 $LogDir=Join-Path $Root "dist\build-logs"
 New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
@@ -221,28 +222,93 @@ try {
   }
 
   $requiredNames=@($SetupName,$PortableName,"manifest-stable.xml","manifest-beta.xml","releases.json","SHA256SUMS.txt")
-  foreach($assetPath in $assets){
-    $assetName=[IO.Path]::GetFileName($assetPath)
-    $expectedSize=(Get-Item -LiteralPath $assetPath).Length
-    $existing=@($releaseInfo.assets | Where-Object {$_.name -eq $assetName}) | Select-Object -First 1
-    if($existing){
-      if([long]$existing.size -ne [long]$expectedSize){throw "W wydaniu istnieje plik $assetName o innej wielkości. Bez nadpisywania — wymagany przegląd ręczny."}
-      $checkDir=Join-Path $Stage "existing-asset-check"
+  $reusePublishedRelease=$false
+  $publishedReleaseExactMatch=$false
+
+  # FIX119: a published product tag is never overwritten. If the local build differs,
+  # reuse the public assets only when GitHub confirms that every change since the tag
+  # is limited to website/tests/release tooling/documentation. Runtime/build inputs fail closed.
+  if($releaseExists -and !$releaseInfo.isDraft){
+    $publicMismatches=New-Object System.Collections.Generic.List[string]
+    $publicMissing=New-Object System.Collections.Generic.List[string]
+    $publicCheckRoot=Join-Path $Stage "existing-public-release-check"
+    New-Item -ItemType Directory -Force -Path $publicCheckRoot | Out-Null
+    $assetIndex=0
+    foreach($assetPath in $assets){
+      $assetName=[IO.Path]::GetFileName($assetPath)
+      $expectedSize=(Get-Item -LiteralPath $assetPath).Length
+      $existing=@($releaseInfo.assets | Where-Object {$_.name -eq $assetName}) | Select-Object -First 1
+      if(!$existing -or [long]$existing.size -le 0){
+        $publicMissing.Add($assetName)
+        continue
+      }
+      if([long]$existing.size -ne [long]$expectedSize){
+        $publicMismatches.Add(("{0}: public={1} B local={2} B" -f $assetName,[long]$existing.size,[long]$expectedSize))
+        $assetIndex++
+        continue
+      }
+      $checkDir=Join-Path $publicCheckRoot ("asset-{0:D2}" -f $assetIndex)
       New-Item -ItemType Directory -Force -Path $checkDir | Out-Null
       $downloadResult=Invoke-GhCapture -Executable $GhPath -Arguments @("release","download",$Tag,"--repo",$Repo,"--pattern",$assetName,"--dir",$checkDir)
-      if($downloadResult.ExitCode -ne 0){throw "Nie można pobrać istniejącego assetu $assetName do kontroli SHA-256. Nie nadpisuję żadnego assetu. $($downloadResult.Output.Trim())"}
+      if($downloadResult.ExitCode -ne 0){throw "Nie można pobrać publicznego assetu $assetName do kontroli SHA-256. Nie modyfikuję wydania. $($downloadResult.Output.Trim())"}
       $downloaded=Join-Path $checkDir $assetName
-      if(!(Test-Path -LiteralPath $downloaded -PathType Leaf)){throw "Brak pobranego assetu kontrolnego: $assetName"}
+      if(!(Test-Path -LiteralPath $downloaded -PathType Leaf)){throw "Brak pobranego publicznego assetu kontrolnego: $assetName"}
       $localHash=(Get-FileHash -LiteralPath $assetPath -Algorithm SHA256).Hash
       $remoteHash=(Get-FileHash -LiteralPath $downloaded -Algorithm SHA256).Hash
-      if($localHash -ne $remoteHash){throw "Asset $assetName różni się od bieżącego pliku. Nie nadpisuję wydania; utwórz nowy numer wersji produktu."}
-      Write-Host "[PASS] Asset istnieje, ma właściwy rozmiar i nie wymaga nadpisania: $assetName"
+      if($localHash -ne $remoteHash){$publicMismatches.Add(("{0}: SHA-256 publiczny={1} lokalny={2}" -f $assetName,$remoteHash,$localHash))}
+      else{Write-Host "[PASS] Publiczny asset ma identyczny rozmiar i SHA-256: $assetName"}
+      $assetIndex++
+    }
+    if($publicMissing.Count -gt 0){throw ("Opublikowane wydanie $Tag nie ma wymaganych assetów: "+($publicMissing -join ', ')+". Nie modyfikuję publicznego wydania.")}
+    if($publicMismatches.Count -gt 0){
+      Write-Host "[INFO] Lokalny build różni się od assetów już opublikowanego wydania ${Tag}:"
+      foreach($item in $publicMismatches){Write-Host ("[INFO] "+$item)}
+      $compareUri="https://api.github.com/repos/$Repo/compare/$Tag...$($repoMeta.default_branch)"
+      $compare=Invoke-RestMethod -Headers @{"User-Agent"="KCS-FIX119";Accept="application/vnd.github+json"} -Uri $compareUri -TimeoutSec 45
+      $changedPaths=@()
+      if($compare.files){$changedPaths=@($compare.files | ForEach-Object {[string]$_.filename})}
+      $tagIsAncestor=$false
+      if($compare.base_commit -and $compare.merge_base_commit){$tagIsAncestor=([string]$compare.base_commit.sha -eq [string]$compare.merge_base_commit.sha)}
+      Write-Host ("[INFO] GitHub Compare: status={0}; ahead={1}; behind={2}; changedFiles={3}; tagIsAncestor={4}" -f $compare.status,$compare.ahead_by,$compare.behind_by,$changedPaths.Count,$tagIsAncestor)
+      $safeReuse=Test-KcsReleaseIndependentChangeSet -Status ([string]$compare.status) -ChangedPaths $changedPaths -ReportedPathCount $changedPaths.Count -AssetsComplete $true -TagIsAncestor ([bool]$tagIsAncestor)
+      if(-not $safeReuse){
+        $changedSummary=if($changedPaths.Count){$changedPaths -join ', '}else{'brak pełnej listy zmian'}
+        throw ("Publiczne wydanie $Tag ma już własne assety i nie może być nadpisane. Zmiany od tagu zawierają pliki aplikacji/instalatora albo nie dają się bezpiecznie sklasyfikować. Nie zmieniam wersji produktu automatycznie. Zmiany: $changedSummary")
+      }
+      $reusePublishedRelease=$true
+      Write-Host "[PASS] Zmiany od $Tag dotyczą wyłącznie strony WWW, testów, narzędzi publikacji i dokumentacji."
+      Write-Host "[PASS] Pliki aplikacji i receptura instalatora nie zmieniły się względem opublikowanego tagu."
+      Write-Host "[SKIP] Zachowuję wszystkie sześć publicznych assetów $Tag; lokalne artefakty nie będą nadpisywać istniejącego wydania."
     } else {
-      if(!$releaseInfo.isDraft){throw "Opublikowane wydanie $Tag nie ma wymaganego assetu $assetName. Nie modyfikuję istniejącego wydania."}
-      Write-Host "[UPLOAD] Dodaję brakujący asset szkicu: $assetName"
-      $uploadResult=Invoke-GhCapture -Executable $GhPath -Arguments @("release","upload",$Tag,$assetPath,"--repo",$Repo)
-      if($uploadResult.Output.Trim()){Write-Host $uploadResult.Output.TrimEnd()}
-      if($uploadResult.ExitCode -ne 0){throw "Nie udało się przesłać assetu $assetName do szkicu ${Tag}: $($uploadResult.Output.Trim())"}
+      $publishedReleaseExactMatch=$true
+      Write-Host "[PASS] Wszystkie sześć lokalnych assetów jest identycznych z publicznym wydaniem $Tag."
+    }
+  }
+
+  if(!$reusePublishedRelease -and !$publishedReleaseExactMatch){
+    foreach($assetPath in $assets){
+      $assetName=[IO.Path]::GetFileName($assetPath)
+      $expectedSize=(Get-Item -LiteralPath $assetPath).Length
+      $existing=@($releaseInfo.assets | Where-Object {$_.name -eq $assetName}) | Select-Object -First 1
+      if($existing){
+        if([long]$existing.size -ne [long]$expectedSize){throw "W istniejącym szkicu wydania jest plik $assetName o innej wielkości. Bez automatycznego nadpisywania szkicu — wymagany przegląd ręczny."}
+        $checkDir=Join-Path $Stage "existing-asset-check"
+        New-Item -ItemType Directory -Force -Path $checkDir | Out-Null
+        $downloadResult=Invoke-GhCapture -Executable $GhPath -Arguments @("release","download",$Tag,"--repo",$Repo,"--pattern",$assetName,"--dir",$checkDir)
+        if($downloadResult.ExitCode -ne 0){throw "Nie można pobrać istniejącego assetu $assetName do kontroli SHA-256. Nie nadpisuję żadnego assetu. $($downloadResult.Output.Trim())"}
+        $downloaded=Join-Path $checkDir $assetName
+        if(!(Test-Path -LiteralPath $downloaded -PathType Leaf)){throw "Brak pobranego assetu kontrolnego: $assetName"}
+        $localHash=(Get-FileHash -LiteralPath $assetPath -Algorithm SHA256).Hash
+        $remoteHash=(Get-FileHash -LiteralPath $downloaded -Algorithm SHA256).Hash
+        if($localHash -ne $remoteHash){throw "Asset $assetName różni się od bieżącego pliku. Nie nadpisuję szkicu wydania; wymagany jest przegląd ręczny."}
+        Write-Host "[PASS] Asset szkicu istnieje, ma właściwy rozmiar i SHA-256: $assetName"
+      } else {
+        if(!$releaseInfo.isDraft){throw "Opublikowane wydanie $Tag nie ma wymaganego assetu $assetName. Nie modyfikuję istniejącego wydania."}
+        Write-Host "[UPLOAD] Dodaję brakujący asset szkicu: $assetName"
+        $uploadResult=Invoke-GhCapture -Executable $GhPath -Arguments @("release","upload",$Tag,$assetPath,"--repo",$Repo)
+        if($uploadResult.Output.Trim()){Write-Host $uploadResult.Output.TrimEnd()}
+        if($uploadResult.ExitCode -ne 0){throw "Nie udało się przesłać assetu $assetName do szkicu ${Tag}: $($uploadResult.Output.Trim())"}
+      }
     }
   }
   $releaseFinal=Invoke-GhCapture -Executable $GhPath -Arguments @("release","view",$Tag,"--repo",$Repo,"--json","isDraft,assets,url")
@@ -262,7 +328,7 @@ try {
   $verifyBeta=Invoke-GhCapture -Executable $verifyExe -Arguments @("-NoLogo","-NoProfile","-ExecutionPolicy","Bypass","-File",(Join-Path $Root "VERIFY_GLOBAL_UPDATE_SERVER.ps1"),"-Channel","beta")
   if($verifyBeta.Output.Trim()){Write-Host $verifyBeta.Output.TrimEnd()}
   if($verifyBeta.ExitCode -ne 0){throw "Publiczna weryfikacja kanału Beta nie powiodła się: $($verifyBeta.Output.Trim())"}
-  Write-Host "[PASS] GitHub Release $Tag publiczny; sześć assetów sprawdzonych; SHA256 instalatora=$SetupSha; portable=$PortableSha"
+  if($reusePublishedRelease){Write-Host "[PASS] GitHub Release $Tag pozostawiony bez zmian; publiczne assety Stable/Beta zostały ponownie zweryfikowane."}else{Write-Host "[PASS] GitHub Release $Tag publiczny; sześć assetów sprawdzonych; SHA256 instalatora=$SetupSha; portable=$PortableSha"}
   exit 0
 } catch {Write-Host "[FAIL] $($_.Exception.Message)"; exit 1}
 finally {Stop-Transcript | Out-Null}

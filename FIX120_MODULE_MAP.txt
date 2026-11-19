@@ -1,0 +1,13 @@
+﻿FIX120 — MAPA MODUŁÓW
+
+PUBLISH_GITHUB_RELEASES.ps1
+- Poprawia interpolację tagu w komunikacie diagnostycznym: ${Tag}:.
+- Nie zmienia logiki porównywania assetów ani bezpiecznego zachowania publicznego wydania.
+
+CHECK_FIX120_POWERSHELL_INTERPOLATION.ps1
+- Parsuje cały publikator PowerShell przez parser środowiska Windows PowerShell.
+- Potwierdza, że nie ma już nieujętej interpolacji $Tag:.
+- Odtwarza regresję: niepoprawny zapis ma błąd parsera, a ${Tag}: jest poprawny.
+
+CHECK_SOURCE.cmd / VALIDATE_FIX100_PACKAGE.ps1
+- Test FIX120 jest obowiązkowy przed budowaniem i publikacją.

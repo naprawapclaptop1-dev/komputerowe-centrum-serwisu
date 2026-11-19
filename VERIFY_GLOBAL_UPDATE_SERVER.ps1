@@ -27,7 +27,9 @@ $manifestName=if($Channel -eq "beta"){"manifest-beta.xml"}else{"manifest-stable.
 $manifestAsset=$assetMap[$manifestName]
 $manifest=Invoke-WebRequest -UseBasicParsing -Headers @{"User-Agent"="KCS-FIX073"} -Uri $manifestAsset.browser_download_url -TimeoutSec 45
 if($manifest.StatusCode -ne 200){throw "Manifest tagowy zwrócił HTTP $($manifest.StatusCode)."}
-[xml]$doc=$manifest.Content
+. (Join-Path $PSScriptRoot "KCS_RELEASE_POLICY.ps1")
+$manifestText=ConvertTo-KcsResponseText -Content $manifest.Content
+[xml]$doc=$manifestText
 if($doc.DocumentElement.Name -ne "Update"){throw "Manifest nie ma korzenia Update."}
 if($doc.DocumentElement.GetAttribute("version") -ne "1.0.0.69"){throw "Manifest ma nieprawidłową wersję."}
 if($doc.DocumentElement.GetAttribute("channel") -ne $Channel){throw "Manifest ma nieprawidłowy kanał."}
@@ -46,8 +48,8 @@ $portableUrl="https://github.com/$Repo/releases/download/$expectedTag/$portableN
 $portableHead=Invoke-WebRequest -UseBasicParsing -Method Head -Headers @{"User-Agent"="KCS-FIX073"} -Uri $portableUrl -TimeoutSec 60
 if($portableHead.StatusCode -ne 200){throw "Publiczna wersja przenośna zwróciła HTTP $($portableHead.StatusCode)."}
 $sumResponse=Invoke-WebRequest -UseBasicParsing -Headers @{"User-Agent"="KCS-FIX073"} -Uri $assetMap["SHA256SUMS.txt"].browser_download_url -TimeoutSec 45
-if($sumResponse.Content -notmatch [regex]::Escape($setupSha)){throw "SHA256SUMS.txt nie zawiera sumy instalatora z manifestu."}
-if($sumResponse.Content -notmatch [regex]::Escape($assetMap["KomputeroweCentrumSerwisu_FIX069_PORTABLE.exe"].name)){throw "SHA256SUMS.txt nie zawiera wpisu wersji portable."}
+if((ConvertTo-KcsResponseText -Content $sumResponse.Content) -notmatch [regex]::Escape($setupSha)){throw "SHA256SUMS.txt nie zawiera sumy instalatora z manifestu."}
+if((ConvertTo-KcsResponseText -Content $sumResponse.Content) -notmatch [regex]::Escape($assetMap["KomputeroweCentrumSerwisu_FIX069_PORTABLE.exe"].name)){throw "SHA256SUMS.txt nie zawiera wpisu wersji portable."}
 Write-Host "[PASS] GitHub API i publiczne wydanie: $($release.tag_name)"
 Write-Host "[PASS] Manifest ${Channel}: poprawny XML, kanał, tag i SHA-256."
 Write-Host "[PASS] /releases/download/$expectedTag/${manifestName}: HTTP 200 — dokładny adres używany przez klienta."
