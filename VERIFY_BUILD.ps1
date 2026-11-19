@@ -1,9 +1,19 @@
 ﻿[CmdletBinding()]
 param(
-    [string]$Root = $PSScriptRoot,
+    [string]$Root,
     [switch]$SelfTest
 )
 $ErrorActionPreference = 'Stop'
+
+# Resolve the default only after PowerShell has completed parameter binding.
+# Automatic script variables are read after parameter binding, not from a param default.
+# Resolve the final directory through the PowerShell filesystem provider.
+if ([string]::IsNullOrWhiteSpace($Root)) {
+    $Root = $PSScriptRoot
+}
+if ([string]::IsNullOrWhiteSpace($Root)) {
+    $Root = (Get-Location).ProviderPath
+}
 
 $script:RequiredOutputs = @(
     @{ Rel = 'dist/portable/KomputeroweCentrumSerwisu_FIX069_PORTABLE.exe'; Label = 'PORTABLE EXE' },
@@ -118,7 +128,7 @@ function Invoke-BuildVerification {
     if (Test-Path -LiteralPath $LogPath -PathType Leaf) {
         Remove-Item -LiteralPath $LogPath -Force
     }
-    Write-ReportLine $LogPath 'KOMPUTEROWE CENTRUM SERWISU FIX069 - RAPORT WERYFIKACJI FIX112'
+    Write-ReportLine $LogPath 'KOMPUTEROWE CENTRUM SERWISU FIX069 - RAPORT WERYFIKACJI FIX115'
     Write-ReportLine $LogPath ("Date: {0}" -f (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'))
     Write-ReportLine $LogPath ("Root: {0}" -f $RootPath)
     Write-ReportLine $LogPath '--- REQUIRED OUTPUT FILES ---'
@@ -188,6 +198,10 @@ function Invoke-BuildVerification {
 }
 
 function Invoke-Fix112SelfTest {
+    # Exercise the exact script-root resolution used by a no-argument CMD launch.
+    $scriptRootItem = Get-Item -LiteralPath $Root -Force -ErrorAction Stop
+    if (-not $scriptRootItem.PSIsContainer) { throw 'FIX115 script root is not a directory.' }
+    Write-Host ('[PASS] FIX115 script root resolved: ' + $scriptRootItem.FullName)
     $tempRoot = Join-Path ([IO.Path]::GetTempPath()) ('KCS_FIX112_SELFTEST_' + [Guid]::NewGuid().ToString('N'))
     $logDir = Join-Path $tempRoot 'dist/build-logs'
     $log = Join-Path $logDir '04-verification.log'
@@ -223,13 +237,25 @@ if ($SelfTest) {
 }
 
 try {
-    $resolvedRoot = [IO.Path]::GetFullPath($Root)
-    if (-not (Test-Path -LiteralPath $resolvedRoot -PathType Container)) { throw ("Package root not found: {0}" -f $resolvedRoot) }
+    if ([string]::IsNullOrWhiteSpace($Root)) {
+        throw 'Package root could not be determined from the verifier script or current directory.'
+    }
+    # Get-Item resolves a filesystem path through the PowerShell provider and
+    # returns the canonical FullName. Avoid the .NET path-normalization call, which
+    # raised an invalid-format exception in the user's Windows PowerShell 5.1 run.
+    $rootItem = Get-Item -LiteralPath $Root -Force -ErrorAction Stop
+    if (-not $rootItem.PSIsContainer) { throw ("Package root is not a directory: {0}" -f $Root) }
+    $resolvedRoot = $rootItem.FullName
     $resolvedLog = Join-Path $resolvedRoot 'dist/build-logs/04-verification.log'
     $result = Invoke-BuildVerification -RootPath $resolvedRoot -LogPath $resolvedLog
     exit $result
 }
 catch {
-    Write-Host ('[FAIL] FIX112 verification runner: ' + $_.Exception.Message)
+    $rootText = if ($null -eq $Root) { '<null>' } else { [string]$Root }
+    $rootLength = 0
+    if ($null -ne $Root) { $rootLength = $rootText.Length }
+    Write-Host ('[FAIL] FIX115 verification runner: ' + $_.Exception.Message)
+    Write-Host ('[DIAG] Root=[' + $rootText + '] Length=' + $rootLength)
+    Write-Host ('[DIAG] ScriptRoot=[' + $PSScriptRoot + '] CurrentDirectory=[' + (Get-Location).Path + ']')
     exit 2
 }

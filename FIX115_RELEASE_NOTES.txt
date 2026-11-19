@@ -1,0 +1,18 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX115
+
+Przyczyna błędu z logu FIX114:
+- `VERIFY_BUILD.ps1` nadal wykonywał `[IO.Path]::GetFullPath($Root)`.
+- Parametr `$Root` miał domyślną wartość `$PSScriptRoot` bezpośrednio w deklaracji `param()`, a wyjątek pojawiał się w operacji `GetFullPath($Root)`. Sam log potwierdza miejsce awarii, ale nie zawierał zrzutu wartości argumentu.
+- Poprzednie logi potwierdzają, że synchronizacja GitHub, kompilacja EXE portable i kompilacja instalatora działały; awaria występowała dopiero przy wejściu do weryfikatora.
+
+Zmiany:
+- Usunięto domyślną wartość `$PSScriptRoot` z deklaracji parametru. Katalog jest teraz ustalany dopiero po związaniu parametrów: najpierw `$PSScriptRoot`, następnie katalog bieżący jako awaryjny fallback.
+- Zastąpiono `[IO.Path]::GetFullPath($Root)` normalizacją przez `Get-Item -LiteralPath ...` i użyciem `DirectoryInfo.FullName`.
+- Dodano walidację, że ścieżka wskazuje katalog.
+- Przy błędzie runner raportuje surową wartość Root, długość Root, ScriptRoot i bieżący katalog.
+- Zaktualizowano test FIX114 i dodano `CHECK_FIX115_ROOT_INITIALIZATION.ps1`, który sprawdza kolejność inicjalizacji, brak wywołania GetFullPath oraz diagnostykę.
+- Nowy test jest obowiązkowy w `CHECK_SOURCE.cmd`, walidatorze pakietu, manifeście SHA-256 i jawnej allowliście publikacji.
+
+Zachowano pełną weryfikację wymaganych plików, FileVersion 1.0.0.69, BUILD_ID, SHA-256, tożsamości źródeł, wymagany nowoczesny instalator i opcjonalny status instalatora XP. Żadna kontrola nie została wyłączona.
+Wersja produktu pozostaje 1.0.0.69.
+Kontrole w tym środowisku są statyczne; końcowy przebieg CMD/PowerShell 5.1 należy potwierdzić na Windows.

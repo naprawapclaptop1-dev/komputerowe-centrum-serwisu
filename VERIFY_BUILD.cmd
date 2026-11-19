@@ -1,6 +1,6 @@
 @echo off
 setlocal EnableExtensions DisableDelayedExpansion
-title KOMPUTEROWE CENTRUM SERWISU FIX114 - WERYFIKACJA WYNIKOW BUDOWANIA
+title KOMPUTEROWE CENTRUM SERWISU FIX115 - WERYFIKACJA WYNIKOW BUDOWANIA
 pushd "%~dp0"
 set "VERIFY=%~dp0VERIFY_BUILD.ps1"
 set "LOGDIR=%~dp0dist\build-logs"
@@ -11,7 +11,7 @@ powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%VERIFY%"
 set "RC=%ERRORLEVEL%"
 if not exist "%LOGDIR%\04-verification.log" goto :report_missing
 echo ============================================================
-echo SZCZEGOLOWY RAPORT WERYFIKACJI FIX114
+echo SZCZEGOLOWY RAPORT WERYFIKACJI FIX115
 echo ============================================================
 type "%LOGDIR%\04-verification.log"
 goto :after_report

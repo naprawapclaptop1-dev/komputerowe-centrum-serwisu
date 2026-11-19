@@ -1,0 +1,18 @@
+FIX115 — MAPA ZMIAN
+
+VERIFY_BUILD.ps1
+- Parametr Root nie ma już wyrażenia domyślnego odwołującego się do $PSScriptRoot.
+- Root jest inicjalizowany po param(): $PSScriptRoot, a następnie Get-Location.ProviderPath.
+- Usunięto [IO.Path]::GetFullPath($Root); ścieżka jest rozwiązywana przez Get-Item i DirectoryInfo.FullName.
+- Dodano walidację katalogu i diagnostykę Root/ScriptRoot/CurrentDirectory dla błędów wejściowych.
+
+CHECK_FIX114_ROOT_ARGUMENT.ps1
+- Zaktualizowano do nowego kontraktu inicjalizacji ścieżki.
+
+CHECK_FIX115_ROOT_INITIALIZATION.ps1
+- Test składni PowerShell, kolejności inicjalizacji Root, braku GetFullPath($Root), normalizacji przez Get-Item i diagnostyki.
+
+CHECK_SOURCE.cmd / VALIDATE_FIX100_PACKAGE.ps1 / FIX099_POWERSHELL_MANIFEST.txt / FIX099_SOURCE_ALLOWLIST.txt
+- Dodano FIX115 do wymaganych testów, walidacji, manifestu i synchronizacji jawnej.
+
+Wersja produktu: 1.0.0.69 (bez zmian).

@@ -14,11 +14,17 @@ if ($invokeLine.Count -ne 1) { throw 'VERIFY_BUILD.cmd must invoke the verifier 
 if ($invokeLine[0] -match '(?i)\s-Root\s+') { throw 'VERIFY_BUILD.cmd must not pass an explicit -Root ending with %~dp0.' }
 $checks += 'Wrapper invokes VERIFY_BUILD.ps1 without a trailing-backslash Root argument'
 
-if (-not ($verifier -match '(?s)param\s*\(\s*\[string\]\$Root\s*=\s*\$PSScriptRoot')) {
-    throw 'VERIFY_BUILD.ps1 must default Root to its own $PSScriptRoot.'
+if ($verifier -match '(?s)param\s*\(\s*\[string\]\$Root\s*=') {
+    throw 'Root must not depend on automatic variables in a param default expression.'
 }
-if (-not $verifier.Contains('[IO.Path]::GetFullPath($Root)')) { throw 'Verifier must normalize the script-root path before checking outputs.' }
-$checks += 'Verifier defaults to PSScriptRoot and normalizes its package root'
+if (-not ($verifier.Contains('if ([string]::IsNullOrWhiteSpace($Root))') -and $verifier.Contains('$Root = $PSScriptRoot') -and $verifier.Contains('$Root = (Get-Location).ProviderPath'))) {
+    throw 'Root must be assigned after parameter binding with script-root and current-directory fallbacks.'
+}
+if ($verifier.Contains('[IO.Path]::GetFullPath($Root)')) { throw 'Verifier must not call GetFullPath on the Root parameter.' }
+if (-not ($verifier.Contains('Get-Item -LiteralPath $Root -Force -ErrorAction Stop') -and $verifier.Contains('$resolvedRoot = $rootItem.FullName'))) {
+    throw 'Verifier must normalize the package root through Get-Item FullName.'
+}
+$checks += 'Verifier assigns the root after param binding and resolves it via filesystem provider' 
 
 if (-not ($wrapper.Contains('if exist "%LOGDIR%\04-verification.log" del /q "%LOGDIR%\04-verification.log"') -and $wrapper.Contains('md "%LOGDIR%"'))) {
     throw 'Wrapper must create the log directory and clear the previous report before a new verification run.'
