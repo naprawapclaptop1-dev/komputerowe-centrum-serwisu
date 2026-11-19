@@ -1,0 +1,12 @@
+﻿KOMPUTEROWE CENTRUM SERWISU — FIX121
+
+Naprawiono końcową kontrolę publicznego wdrożenia w Windows PowerShell 5.1.
+- VERIFY_PUBLIC_DEPLOYMENT.ps1 korzysta teraz ze wspólnego dekodera ConvertTo-KcsResponseText.
+- Odpowiedzi manifestów XML, releases.json, SHA256SUMS.txt i strony GitHub Pages są jawnie dekodowane przed parsowaniem lub sprawdzaniem.
+- Dekoder obsługuje tekst, Byte[] oraz Stream i wykrywa BOM przez StreamReader.
+- Oczekiwany znacznik strony jest pobierany z lokalnego website/index.html zamiast być na stałe ustawiony na FIX093.
+- Dodano CHECK_FIX121_PUBLIC_HTTP_TEXT.ps1 z testami Byte[], BOM, Stream, XML, JSON, SHA256SUMS i parsera weryfikatora.
+- Test dołączono do CHECK_SOURCE, walidatora pakietu, allowlisty i manifestu SHA-256.
+- Reguła ponownego użycia istniejącego wydania dopuszcza zmianę weryfikatora publicznego wdrożenia, ale nadal blokuje zmiany aplikacji, zasobów i receptury instalatora.
+
+Wersja produktu bez zmian: 1.0.0.69.

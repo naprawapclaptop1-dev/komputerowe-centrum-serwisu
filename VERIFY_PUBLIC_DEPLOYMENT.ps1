@@ -4,11 +4,18 @@ $Repo="naprawapclaptop1-dev/komputerowe-centrum-serwisu"
 $Version="1.0.0.69"
 $Tag="v$Version"
 $PageUrl="https://naprawapclaptop1-dev.github.io/komputerowe-centrum-serwisu/"
-$Headers=@{"User-Agent"="KCS-FIX093-PublicVerifier";Accept="application/vnd.github+json"}
+$Headers=@{"User-Agent"="KCS-FIX121-PublicVerifier";Accept="application/vnd.github+json"}
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
 $LogDir=Join-Path $PSScriptRoot "dist\build-logs"
 New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
 $Log=Join-Path $LogDir "03-public-deployment-verification.log"
+. (Join-Path $PSScriptRoot "KCS_RELEASE_POLICY.ps1")
+$LocalIndexPath=Join-Path $PSScriptRoot "website\index.html"
+$LocalIndex=Get-Content -LiteralPath $LocalIndexPath -Raw -Encoding UTF8
+$LocalFixMatch=[regex]::Match($LocalIndex, '<meta\s+name="application-fix"\s+content="([^"]+)"')
+if(-not $LocalFixMatch.Success){throw "Lokalna strona nie zawiera znacznika application-fix."}
+$ExpectedSiteFix=$LocalFixMatch.Groups[1].Value
+$ExpectedSiteMarker='application-fix" content="'+$ExpectedSiteFix+'"'
 Start-Transcript -Path $Log -Force | Out-Null
 try {
   $api="https://api.github.com/repos/$Repo/releases/tags/$Tag"
@@ -31,7 +38,9 @@ try {
     $tagUrl=$assets[$manifestName].browser_download_url
     $manifestResponse=Invoke-WebRequest -UseBasicParsing -Headers $Headers -Uri $tagUrl -TimeoutSec 45
     if($manifestResponse.StatusCode -ne 200){throw "Manifest $channel (tag) nie zwrócił HTTP 200."}
-    [xml]$doc=$manifestResponse.Content
+    $manifestText=ConvertTo-KcsResponseText -Content $manifestResponse.Content
+    if([string]::IsNullOrWhiteSpace($manifestText)){throw "Manifest $channel jest pusty."}
+    [xml]$doc=$manifestText
     $root=$doc.DocumentElement
     if($root.Name -ne "Update" -or $root.GetAttribute("version") -ne $Version -or $root.GetAttribute("channel") -ne $channel){throw "Manifest $channel ma błędny format, wersję lub kanał."}
     $expectedPackage=$tagBase+"KomputeroweCentrumSerwisu_FIX069_INSTALATOR.exe"
@@ -52,14 +61,17 @@ try {
   }
 
   $catalogResponse=Invoke-WebRequest -UseBasicParsing -Headers $Headers -Uri $assets["releases.json"].browser_download_url -TimeoutSec 45
-  $catalog=ConvertFrom-Json -InputObject $catalogResponse.Content
+  $catalogText=ConvertTo-KcsResponseText -Content $catalogResponse.Content
+  if([string]::IsNullOrWhiteSpace($catalogText)){throw "releases.json jest pusty."}
+  $catalog=ConvertFrom-Json -InputObject $catalogText
   if($catalog -isnot [array] -or $catalog.Count -ne 2){throw "releases.json musi zawierać dokładnie dwa wpisy kanałów Stable/Beta."}
   foreach($channel in @("stable","beta")){
     $entry=@($catalog | Where-Object {$_.channel -eq $channel -and $_.version -eq $Version}) | Select-Object -First 1
     if(!$entry -or $entry.packageUrl -ne $setupUrl -or $entry.sha256 -notmatch '^[0-9a-fA-F]{64}$'){throw "Katalog releases.json ma nieprawidłowy wpis $channel."}
   }
   $sumResponse=Invoke-WebRequest -UseBasicParsing -Headers $Headers -Uri $assets["SHA256SUMS.txt"].browser_download_url -TimeoutSec 45
-  $sumText=$sumResponse.Content
+  $sumText=ConvertTo-KcsResponseText -Content $sumResponse.Content
+  if([string]::IsNullOrWhiteSpace($sumText)){throw "SHA256SUMS.txt jest pusty."}
   foreach($name in @($setupName,$portableName)){
     if($sumText -notmatch [regex]::Escape($name)){throw "SHA256SUMS.txt nie zawiera pliku $name."}
   }
@@ -70,12 +82,13 @@ try {
   for($i=1;$i -le $PageAttempts;$i++){
     try {
       $page=Invoke-WebRequest -UseBasicParsing -Headers @{"Cache-Control"="no-cache"} -Uri ($PageUrl+"?fix086="+[guid]::NewGuid().ToString("N")) -TimeoutSec 20
-      if($page.StatusCode -eq 200 -and $page.Content -match 'application-fix" content="FIX093' -and $page.Content -match 'Pobierz' -and $page.Content -match 'prezentacja.mp4'){$siteReady=$true;break}
+      $pageText=ConvertTo-KcsResponseText -Content $page.Content
+      if($page.StatusCode -eq 200 -and $pageText.Contains($ExpectedSiteMarker) -and $pageText -match 'Pobierz' -and $pageText -match 'prezentacja.mp4'){$siteReady=$true;break}
     } catch {}
     Start-Sleep -Seconds $PageDelaySeconds
   }
-  if(!$siteReady){throw "Wydanie GitHub działa, ale strona WWW nie potwierdziła HTTP 200 z oznaczeniem FIX093. Sprawdź https://github.com/$Repo/actions/workflows/deploy-pages.yml oraz Settings > Pages."}
-  Write-Host "[PASS] Strona WWW HTTP 200 i zawiera właściwą wersję FIX093."
+  if(!$siteReady){throw "Wydanie GitHub działa, ale strona WWW nie potwierdziła HTTP 200 z oczekiwanym znacznikiem $ExpectedSiteFix. Sprawdź https://github.com/$Repo/actions/workflows/deploy-pages.yml oraz Settings > Pages."}
+  Write-Host "[PASS] Strona WWW HTTP 200 i zawiera znacznik $ExpectedSiteFix zgodny z pakietem lokalnym."
   foreach($relative in @("styles.css","app.js","media/centrum-serwisu.png","media/favicon.svg","media/prezentacja.mp4","media/prezentacja.vtt","media/prezentacja-en.vtt","site.webmanifest","sitemap.xml","robots.txt","404.html")){
     $url=$PageUrl+$relative
     $assetResponse=Invoke-WebRequest -UseBasicParsing -Method Head -Uri $url -TimeoutSec 45

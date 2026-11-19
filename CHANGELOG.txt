@@ -1089,3 +1089,12 @@ KOMPUTEROWE CENTRUM SERWISU — FIX113
 - Brak raportu przy kodzie 0 nie jest uznawany za sukces (kod 3).
 - Dodano CHECK_FIX113_WRAPPER_REPORT.ps1 i dołączono do CHECK_SOURCE, walidatora pakietu oraz allowlisty.
 - Wersja produktu bez zmian: 1.0.0.69.
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX121
+- Naprawiono końcową publiczną weryfikację GitHub Releases w Windows PowerShell 5.1: odpowiedzi HTTP typu System.Byte[] są dekodowane przed parsowaniem XML, JSON i kontrolą SHA-256.
+- Wspólny dekoder obsługuje string, Byte[] i Stream oraz wykrywa BOM.
+- Weryfikacja GitHub Pages porównuje znacznik application-fix z lokalnym website/index.html, zamiast używać nieaktualnego FIX093.
+- Dodano CHECK_FIX121_PUBLIC_HTTP_TEXT.ps1 i podłączono go do CHECK_SOURCE oraz pełnego walidatora.
+- Zachowano ochronę istniejących assetów i blokadę ponownego użycia wydania przy zmianach kodu aplikacji lub instalatora.
+- Wersja produktu bez zmian: 1.0.0.69.

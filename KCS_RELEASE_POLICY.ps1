@@ -27,7 +27,7 @@ function Test-KcsReleaseIndependentChangeSet {
         '(?i)^FIX099_(POWERSHELL_MANIFEST|SOURCE_ALLOWLIST)\.txt$',
         '(?i)^FIX[0-9]+_(RELEASE_NOTES|MODULE_MAP)\.txt$',
         '(?i)^CHANGELOG\.txt$',
-        '(?i)^(PUBLISH_GITHUB_SOURCE|PUBLISH_GITHUB_RELEASES|VERIFY_GLOBAL_UPDATE_SERVER)\.ps1$',
+        '(?i)^(PUBLISH_GITHUB_SOURCE|PUBLISH_GITHUB_RELEASES|VERIFY_GLOBAL_UPDATE_SERVER|VERIFY_PUBLIC_DEPLOYMENT)\.ps1$',
         '(?i)^KCS_RELEASE_POLICY\.ps1$',
         '(?i)^README\.md$'
     )
@@ -50,15 +50,31 @@ function ConvertTo-KcsResponseText {
     param([AllowNull()][object]$Content)
 
     if ($null -eq $Content) { return '' }
+    if ($Content -is [string]) { return $Content }
+
+    # Windows PowerShell 5.1 may expose Invoke-WebRequest.Content as Byte[].
+    # StreamReader decodes UTF-8 and honours a UTF-8/UTF-16 BOM when present.
     if ($Content -is [byte[]]) {
-        return [System.Text.Encoding]::UTF8.GetString($Content)
+        $memory = New-Object System.IO.MemoryStream
+        try {
+            $bytes = [byte[]]$Content
+            if ($bytes.Length -gt 0) { $memory.Write($bytes, 0, $bytes.Length) }
+            $memory.Position = 0
+            $reader = New-Object System.IO.StreamReader($memory, [System.Text.Encoding]::UTF8, $true)
+            try { return $reader.ReadToEnd() }
+            finally { $reader.Dispose() }
+        }
+        finally { $memory.Dispose() }
     }
     if ($Content -is [System.IO.Stream]) {
         $memory = New-Object System.IO.MemoryStream
         try {
             if ($Content.CanSeek) { $Content.Position = 0 }
             $Content.CopyTo($memory)
-            return [System.Text.Encoding]::UTF8.GetString($memory.ToArray())
+            $memory.Position = 0
+            $reader = New-Object System.IO.StreamReader($memory, [System.Text.Encoding]::UTF8, $true)
+            try { return $reader.ReadToEnd() }
+            finally { $reader.Dispose() }
         }
         finally { $memory.Dispose() }
     }
