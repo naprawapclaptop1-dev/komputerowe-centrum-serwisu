@@ -80,6 +80,12 @@ public partial class MainWindow : Window
         if (!IsLoaded || _changingMode || ModeCombo.SelectedItem is not ComboBoxItem item) return;
         var selected = item.Content?.ToString() ?? "";
         _mode = selected.Contains("Automatyczny", StringComparison.Ordinal) ? "Automatyczny • Zrównoważony" : selected;
+        if (selected == "Domyślne sterownika")
+        {
+            foreach (var fan in Fans) fan.Restore();
+            FanModeText.Text = "Domyślne ustawienia kontrolera";
+            return;
+        }
         var manual = selected == "Ręczny";
         foreach (var fan in Fans) fan.CanControl = manual;
         FanModeText.Text = manual ? "Tryb ręczny" : "Profil: " + _mode;
@@ -102,10 +108,7 @@ public partial class MainWindow : Window
 
     private void Restore_Click(object sender, RoutedEventArgs e)
     {
-        foreach (var fan in Fans) fan.Restore();
-        _mode = "Automatyczny • Zrównoważony";
-        _changingMode = true; ModeCombo.SelectedIndex = 0; _changingMode = false;
-        FanModeText.Text = "Wysłano przywrócenie domyślnych ustawień";
+        ModeCombo.SelectedIndex = 4;
         FooterText.Text = "Przywrócono wartości domyślne kanałów kontrolera.";
     }
 
@@ -114,7 +117,7 @@ public partial class MainWindow : Window
         var dialog = new SaveFileDialog { Title = "Zapisz raport diagnostyczny", FileName = "NaprawaPC_FanControl_Raport_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt", Filter = "Raport tekstowy (*.txt)|*.txt" };
         if (dialog.ShowDialog(this) != true) return;
         var text = new StringBuilder();
-        text.AppendLine("NAPRAWA PC FAN CONTROL PRO AI 2.0.0 FIX002");
+        text.AppendLine("NAPRAWA PC FAN CONTROL PRO AI 2.0.1 FIX003");
         text.AppendLine("Data: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
         text.AppendLine(); text.AppendLine("=== CZUJNIKI ===");
         foreach (var s in Sensors) text.AppendLine($"{s.Category};{s.Hardware};{s.Name};{s.Value};{s.Status}");
