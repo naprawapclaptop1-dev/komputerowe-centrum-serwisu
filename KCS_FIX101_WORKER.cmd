@@ -1,8 +1,8 @@
 @echo off
-rem FIX105 worker: runs inside the persistent cmd.exe /K host; build manager is isolated in a child cmd.exe.
+rem FIX127 worker: runs inside the persistent cmd.exe /K host; build manager is isolated in a child cmd.exe.
 setlocal EnableExtensions DisableDelayedExpansion
 chcp 65001 >nul
-title KOMPUTEROWE CENTRUM SERWISU - AUTOMATYCZNY START FIX105
+title KOMPUTEROWE CENTRUM SERWISU - AUTOMATYCZNY START FIX127
 set "ROOT=%~dp0"
 pushd "%ROOT%" >nul 2>&1
 if errorlevel 1 goto :path_fail
@@ -15,14 +15,14 @@ set "LOG=%LOGDIR%\00-AUTOMATYCZNY-START.log"
 set "STATUS=%LOGDIR%\FULL_RELEASE.status"
 set "RC=0"
 set "CHECKSTEP=initialization"
->"%LOG%" echo KOMPUTEROWE CENTRUM SERWISU FIX105
+>"%LOG%" echo KOMPUTEROWE CENTRUM SERWISU FIX127
 >>"%LOG%" echo Folder: %ROOT%
 >>"%LOG%" echo Repozytorium: %GHREPO%
 >>"%LOG%" echo Start: %DATE% %TIME%
 if exist "%STATUS%" del /q "%STATUS%" >nul 2>&1
 if exist "%ROOT%PUBLICATION_VERIFICATION.status" del /q "%ROOT%PUBLICATION_VERIFICATION.status" >nul 2>&1
 echo ============================================================
-echo KOMPUTEROWE CENTRUM SERWISU - FIX105
+echo KOMPUTEROWE CENTRUM SERWISU - FIX127
 echo AUTOMATYCZNA BUDOWA + PUBLIKACJA + INSTALACJA
 echo ============================================================
 echo Repozytorium: %GHREPO%
@@ -71,7 +71,7 @@ if not "%RC%"=="0" goto :source_fail
 
 echo.
 echo [2/5] Kompilacja aplikacji, wersji portable i instalatora...
-rem FIX105: isolate legacy batch build manager in a child CMD process.
+rem FIX127: isolate legacy batch build manager in a child CMD process.
 rem This prevents an EXIT issued by any nested build script from terminating this worker.
 set "BUILD_LOG=%LOGDIR%\02-build-all.log"
 if exist "%BUILD_LOG%" del /q "%BUILD_LOG%" >nul 2>&1
@@ -108,7 +108,7 @@ echo.
 echo [PASS] GOTOWE: aplikacja, instalator i strona zostaly zweryfikowane.
 echo Repozytorium: %GHURL%
 echo Strona globalna: %PAGEURL%
-echo Wersja produktu: 1.0.0.69
+echo Wersja produktu: 1.0.0.70
 echo Log: %LOG%
 echo.
 popd
@@ -118,6 +118,21 @@ exit /b 0
 >>"%LOG%" echo [FAIL] Walidacja: %CHECKSTEP% kod=%RC%
 echo [BLAD] Walidacja nie przeszla: %CHECKSTEP% (kod=%RC%).
 powershell.exe -NoLogo -NoProfile -Command "Get-Content -LiteralPath '%LOG%' -Tail 100 | Out-Host"
+if /I "%CHECKSTEP%"=="bramka testow CHECK_SOURCE" (
+  echo.
+  echo ============================================================
+  echo SZCZEGOLOWA DIAGNOSTYKA CHECK_SOURCE FIX127
+  echo ============================================================
+  if exist "%LOGDIR%\CHECK_SOURCE_FIX127.log" (
+    >>"%LOG%" echo ============================================================
+    >>"%LOG%" echo SZCZEGOLOWA DIAGNOSTYKA CHECK_SOURCE FIX127
+    type "%LOGDIR%\CHECK_SOURCE_FIX127.log"
+    type "%LOGDIR%\CHECK_SOURCE_FIX127.log" >>"%LOG%"
+  ) else (
+    echo [WARN] Brak pliku CHECK_SOURCE_FIX127.log. Nie mozna ustalic testu, ktory zakonczyl sie bledem.
+    >>"%LOG%" echo [WARN] Brak pliku CHECK_SOURCE_FIX127.log.
+  )
+)
 goto :end_fail
 :tools_fail
 >>"%LOG%" echo [FAIL] Przygotowanie narzedzi kod=%RC%

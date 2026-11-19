@@ -1,0 +1,12 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX124
+
+Naprawa diagnostyki bramki CHECK_SOURCE.
+
+- Zastąpiono powtarzane, niejednolite sprawdzanie ERRORLEVEL wspólną procedurą :run_ps_check.
+- Po każdym teście PowerShell kod procesu jest przechwytywany natychmiast do KCS_TEST_RC i jawnie oceniany.
+- Raport CHECK_SOURCE zapisuje nazwę każdego testu, pełne wyjście procesu oraz kod zakończenia w dist\build-logs\CHECK_SOURCE_FIX124.log.
+- W razie błędu na konsoli pojawia się nazwa konkretnego testu i jego kod wyjścia; bramka nie maskuje błędu pojedynczego testu.
+- Zachowano wszystkie wcześniejsze testy, listę wymaganych plików i kolejność kontroli.
+- Ujednolicono oznaczenie FIX124 na jedynym pliku CMD uruchamiającym pakiet i w trwałym workerze.
+- Dodano CHECK_FIX124_SOURCE_GATE_DIAGNOSTICS.ps1, wymagany przez CHECK_SOURCE i walidator pełnego pakietu.
+- Wersja produktu pozostaje 1.0.0.70 / FIX070; FIX124 dotyczy wyłącznie narzędzi walidacji.

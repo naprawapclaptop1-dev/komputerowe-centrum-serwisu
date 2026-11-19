@@ -1,0 +1,17 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX125
+NAPRAWA PRZEKAZYWANIA RAPORTU CHECK_SOURCE
+
+Problem:
+FIX124 zapisywał szczegółowe kody wyjścia testów do CHECK_SOURCE_FIX124.log, ale worker przy błędzie walidacji wyświetlał wyłącznie główny log automatycznego startu. Raport z dokładną nazwą testu i kodem wyjścia pozostawał w osobnym pliku, więc użytkownik nadal widział jedynie ogólne „CHECK_SOURCE kod=1”.
+
+Zmiana:
+- Worker FIX125 odczytuje CHECK_SOURCE_FIX125.log, gdy źródłowa bramka CHECK_SOURCE nie przejdzie.
+- Pełny raport jest wyświetlany w aktywnym oknie CMD i dopisywany do 00-AUTOMATYCZNY-START.log.
+- Gdy raport nie istnieje, worker pokazuje osobny komunikat diagnostyczny zamiast sugerować, że szczegóły są dostępne.
+- CHECK_SOURCE zapisuje raport pod nazwą CHECK_SOURCE_FIX125.log i uruchamia nowy test propagacji diagnostyki.
+- Zachowano wszystkie wcześniejsze testy FIX123 i FIX124.
+
+Wersja produktu pozostaje 1.0.0.70 / FIX070. Nie zmieniono kodu aplikacji, receptury instalatora ani publicznych assetów wydania.
+
+Uwaga testowa:
+Test statyczny sprawdza ścieżkę przekazania raportu. Pełne wykonanie wymaga CMD i Windows PowerShell 5.1 na komputerze docelowym.

@@ -1,7 +1,7 @@
 ﻿param([int]$PageAttempts=36,[int]$PageDelaySeconds=5)
 $ErrorActionPreference="Stop"
 $Repo="naprawapclaptop1-dev/komputerowe-centrum-serwisu"
-$Version="1.0.0.69"
+$Version="1.0.0.70"
 $Tag="v$Version"
 $PageUrl="https://naprawapclaptop1-dev.github.io/komputerowe-centrum-serwisu/"
 $Headers=@{"User-Agent"="KCS-FIX121-PublicVerifier";Accept="application/vnd.github+json"}
@@ -24,7 +24,7 @@ try {
   if($release.tag_name -ne $Tag){throw "Oczekiwano $Tag, GitHub zwrócił $($release.tag_name)."}
   if($release.draft){throw "Wydanie $Tag nadal jest szkicem (draft)."}
   if($release.draft -or $release.prerelease){throw "Najnowsze wydanie nie jest publicznym wydaniem stabilnym."}
-  $required=@("KomputeroweCentrumSerwisu_FIX069_INSTALATOR.exe","KomputeroweCentrumSerwisu_FIX069_PORTABLE.exe","manifest-stable.xml","manifest-beta.xml","releases.json","SHA256SUMS.txt")
+  $required=@("KomputeroweCentrumSerwisu_FIX070_INSTALATOR.exe","KomputeroweCentrumSerwisu_FIX070_PORTABLE.exe","manifest-stable.xml","manifest-beta.xml","releases.json","SHA256SUMS.txt")
   $assets=@{}
   foreach($name in $required){
     $asset=@($release.assets | Where-Object {$_.name -eq $name -and $_.state -eq "uploaded" -and [long]$_.size -gt 0}) | Select-Object -First 1
@@ -43,15 +43,15 @@ try {
     [xml]$doc=$manifestText
     $root=$doc.DocumentElement
     if($root.Name -ne "Update" -or $root.GetAttribute("version") -ne $Version -or $root.GetAttribute("channel") -ne $channel){throw "Manifest $channel ma błędny format, wersję lub kanał."}
-    $expectedPackage=$tagBase+"KomputeroweCentrumSerwisu_FIX069_INSTALATOR.exe"
+    $expectedPackage=$tagBase+"KomputeroweCentrumSerwisu_FIX070_INSTALATOR.exe"
     if($root.GetAttribute("packageUrl") -ne $expectedPackage){throw "Manifest $channel wskazuje nieprawidłowy pakiet."}
     if($root.GetAttribute("sha256") -notmatch '^[0-9a-fA-F]{64}$'){throw "Manifest $channel nie ma poprawnej sumy SHA-256."}
     if($tagUrl -ne ($tagBase+$manifestName)){throw "Manifest $channel ma nieprawidłowy adres tagowy."}
     Write-Host "[PASS] Manifest ${channel}: HTTP 200, wersja, kanał, URL i SHA-256 zgodne."
   }
 
-  $setupName="KomputeroweCentrumSerwisu_FIX069_INSTALATOR.exe"
-  $portableName="KomputeroweCentrumSerwisu_FIX069_PORTABLE.exe"
+  $setupName="KomputeroweCentrumSerwisu_FIX070_INSTALATOR.exe"
+  $portableName="KomputeroweCentrumSerwisu_FIX070_PORTABLE.exe"
   $setupUrl=$tagBase+$setupName
   $portableUrl=$tagBase+$portableName
   foreach($url in @($setupUrl,$portableUrl)){

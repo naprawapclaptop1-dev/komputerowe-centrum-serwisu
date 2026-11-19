@@ -1,0 +1,15 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX123
+
+Naprawa inicjalizacji instalatora i nowa wersja produktu 1.0.0.70.
+
+- Zdiagnozowano kod Inno Setup 1 jako błąd inicjalizacji instalatora, a nie błąd kompilacji aplikacji.
+- Rozszerzono wykrywanie pełnego .NET Framework 4+: kontrola uwzględnia Install=1, dodatni Release dla .NET 4.5+ oraz wartość Version.
+- Kontrola sprawdza standardową ścieżkę rejestru i ścieżkę WOW6432Node.
+- Dodano znaczniki KCS_PREREQUISITE_OK / KCS_PREREQUISITE_MISSING do logu Inno Setup.
+- Automatyczna instalacja tworzy osobny plik dist\build-logs\installation-FIX070-inno.log i dołącza ostatnie 80 linii logu do komunikatu błędu.
+- Wersja aplikacji, instalatora, portable, aktualizatora, manifestów i strony została podniesiona do 1.0.0.70 / FIX070, aby nie nadpisywać istniejącego, kompletnego i niezmiennego wydania v1.0.0.69.
+- Poprzednie wydanie v1.0.0.69 oraz jego sześć publicznych assetów pozostają bez zmian.
+
+Testy: CHECK_FIX123_INSTALLER_INITIALIZATION.ps1, CHECK_FIX122_INSTALL_VERSION_NORMALIZATION.ps1 oraz pełna bramka CHECK_SOURCE.cmd.
+
+Uwaga: w środowisku przygotowania pakietu nie ma Windows PowerShell 5.1, Windows ani kompilatora Inno Setup. Rzeczywistą kompilację instalatora, wykonanie testu PowerShell 5.1, publikację nowego wydania i lokalną instalację musi potwierdzić uruchomienie URUCHOM_TYLKO_TEN_PLIK.cmd w systemie Windows.

@@ -23,11 +23,12 @@ function Test-KcsReleaseIndependentChangeSet {
         '(?i)^\.github/workflows/deploy-pages\.yml$',
         '(?i)^CHECK_[A-Za-z0-9_.-]+\.(ps1|cmd)$',
         '(?i)^CHECK_SOURCE\.cmd$',
+        '(?i)^(URUCHOM_TYLKO_TEN_PLIK|KCS_FIX101_WORKER)\.cmd$',
         '(?i)^VALIDATE_FIX100_PACKAGE\.ps1$',
         '(?i)^FIX099_(POWERSHELL_MANIFEST|SOURCE_ALLOWLIST)\.txt$',
         '(?i)^FIX[0-9]+_(RELEASE_NOTES|MODULE_MAP)\.txt$',
         '(?i)^CHANGELOG\.txt$',
-        '(?i)^(PUBLISH_GITHUB_SOURCE|PUBLISH_GITHUB_RELEASES|VERIFY_GLOBAL_UPDATE_SERVER|VERIFY_PUBLIC_DEPLOYMENT)\.ps1$',
+        '(?i)^(PUBLISH_GITHUB_SOURCE|PUBLISH_GITHUB_RELEASES|GENERATE_UPDATE_MANIFEST|VERIFY_GLOBAL_UPDATE_SERVER|VERIFY_PUBLIC_DEPLOYMENT)\.ps1$',
         '(?i)^KCS_RELEASE_POLICY\.ps1$',
         '(?i)^INSTALL_PUBLISHED_BUILD\.ps1$',
         '(?i)^README\.md$'

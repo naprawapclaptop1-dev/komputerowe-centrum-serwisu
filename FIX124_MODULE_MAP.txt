@@ -1,0 +1,15 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX124 — MAPA MODUŁÓW
+
+ZMIENIONE
+- CHECK_SOURCE.cmd — wspólny runner testów, natychmiastowy odczyt kodu procesu, osobny raport diagnostyczny.
+- URUCHOM_TYLKO_TEN_PLIK.cmd i KCS_FIX101_WORKER.cmd — spójny widoczny identyfikator FIX124.
+- CHECK_FIX124_SOURCE_GATE_DIAGNOSTICS.ps1 — test regresji zachowania bramki.
+- VALIDATE_FIX100_PACKAGE.ps1 — wymaganie nowego testu i dokumentacji.
+- CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1 — dopuszczenie plików testu i dokumentacji jako zmian narzędziowych.
+- FIX099_SOURCE_ALLOWLIST.txt — jawne dołączenie testu i dokumentacji.
+- FIX099_POWERSHELL_MANIFEST.txt — odświeżone SHA-256.
+- CHANGELOG.txt — wpis FIX124.
+
+NIEZMIENIONE
+- Kod aplikacji, zasoby, receptura instalatora i wersja produktu 1.0.0.70.
+- Publiczne assety wydania v1.0.0.69 oraz dotychczasowe dane, ustawienia i baza.

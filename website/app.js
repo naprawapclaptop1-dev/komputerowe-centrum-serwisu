@@ -7,10 +7,10 @@
   const RELEASES_API = `https://api.github.com/repos/${REPOSITORY}/releases?per_page=20`;
   const RELEASES_PAGE = `https://github.com/${REPOSITORY}/releases`;
   const ISSUES_PAGE = `https://github.com/${REPOSITORY}/issues/new`;
-  const setupName = 'KomputeroweCentrumSerwisu_FIX069_INSTALATOR.exe';
-  const portableName = 'KomputeroweCentrumSerwisu_FIX069_PORTABLE.exe';
+  const setupName = 'KomputeroweCentrumSerwisu_FIX070_INSTALATOR.exe';
+  const portableName = 'KomputeroweCentrumSerwisu_FIX070_PORTABLE.exe';
   const checksumName = 'SHA256SUMS.txt';
-  const productVersion = '1.0.0.69';
+  const productVersion = '1.0.0.70';
 
   const $ = (id) => document.getElementById(id);
   const elements = {

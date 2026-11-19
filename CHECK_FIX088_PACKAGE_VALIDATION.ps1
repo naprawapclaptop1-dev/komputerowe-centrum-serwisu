@@ -16,7 +16,7 @@ $checks += [pscustomobject]@{ Passed = [bool]$source.Contains('"-c","core.longpa
 $checks += [pscustomobject]@{ Passed = [bool]($source.Contains('".tools"') -and $source.Contains('".tools/"')); Name = 'Local tool cache is excluded' }
 $checks += [pscustomobject]@{ Passed = [bool]($legacyCheck.Contains('[pscustomobject]') -and $legacyCheck.Contains('$check.Passed') -and $legacyCheck -notmatch '(?m)^\s*@\('); Name = 'Legacy FIX085 startup check no longer uses nested arrays' }
 $checks += [pscustomobject]@{ Passed = [bool]($cmd.Contains('goto :validation_fail') -and $cmd.Contains(':validation_fail')); Name = 'CMD reports validation failures separately from missing package files' }
-$checks += [pscustomobject]@{ Passed = [bool]((Get-Content -LiteralPath (Join-Path $root 'VERSION.txt') -Raw).Contains('1.0.0.69')); Name = 'Application version remains 1.0.0.69' }
+$checks += [pscustomobject]@{ Passed = [bool]((Get-Content -LiteralPath (Join-Path $root 'VERSION.txt') -Raw).Contains('1.0.0.70')); Name = 'Application version remains 1.0.0.70' }
 $failed = 0
 foreach ($check in $checks) { if ($check.Passed) { Write-Host ('[PASS] ' + $check.Name) } else { Write-Host ('[FAIL] ' + $check.Name); $failed++ } }
 if ($failed -gt 0) { throw ("$failed FIX088 package checks failed.") }

@@ -1,0 +1,20 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX126 MODULE MAP
+
+CHECK_SOURCE.cmd
+- Rejestruje aktualny numer FIX126 w tytule i nazwie raportu.
+- Przechwytuje ERRORLEVEL PowerShell natychmiast po zakończeniu procesu.
+- Używa jawnej gałęzi PASS przy kodzie 0; tylko niezerowy kod przechodzi do FAIL i ustawia KCS_CHECK_FAILED.
+
+CHECK_FIX116_RELEASE_VERSION_NORMALIZATION.ps1
+- Wyznacza oczekiwaną wersję z metadanych publikatora, bez historycznego stałego oczekiwania 1.0.0.69.
+
+CHECK_FIX124_SOURCE_GATE_DIAGNOSTICS.ps1 / CHECK_FIX125_DIAGNOSTICS_PROPAGATION.ps1
+- Zachowują wcześniejsze regresje, ale rozpoznają bieżącą tożsamość pakietu dynamicznie.
+
+KCS_RELEASE_POLICY.ps1 / CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1
+- Dopuszczają jawnie tylko znany launcher i worker w bezpiecznym zestawie narzędzi; pozostałe nieznane pliki nadal blokują ponowne użycie wydania.
+
+CHECK_FIX126_SOURCE_GATE_EXIT_CODE.ps1
+- Weryfikuje rozdzielenie kodu 0 i niezerowego, dynamiczną tożsamość, aktywację testu, walidator, allowlistę i politykę wydania.
+
+Wersja produktu: 1.0.0.70 / FIX070 (bez zmian).

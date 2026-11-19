@@ -1,0 +1,18 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX127 MODULE MAP
+
+CHECK_FIX116_RELEASE_VERSION_NORMALIZATION.ps1
+- Funkcja Get-PublisherProductVersion odczytuje czteroczęściowy produktowy numer wersji z przypisania $Version niezależnie od wcięcia linii.
+- Reszta testów nadal wykonuje rzeczywistą funkcję Assert-ExpectedFileVersion z publikatora.
+
+CHECK_FIX127_PUBLISHER_VERSION_RESOLVER.ps1
+- Parsuje rzeczywisty FIX116 przez PowerShell AST.
+- Wyodrębnia i uruchamia rzeczywistą funkcję resolvera, sprawdzając wcięcie, spacje, tabulatory, komentarze, brak wersji i nieprawidłowy format.
+- Kontroluje aktywację testu, walidator, allowlistę i test polityki bezpiecznego wydania.
+
+CHECK_FIX126_SOURCE_GATE_EXIT_CODE.ps1
+- Nadal sprawdza historyczną regresję rozdzielania kodu PASS/FAIL, ale nie wymusza numeru aktywnego pakietu FIX126.
+
+CHECK_SOURCE.cmd / KCS_FIX101_WORKER.cmd / URUCHOM_TYLKO_TEN_PLIK.cmd
+- Oznaczenie aktywnego pakietu i raport diagnostyczny przechodzą na FIX127.
+
+Wersja produktu: 1.0.0.70 / FIX070 (bez zmian).

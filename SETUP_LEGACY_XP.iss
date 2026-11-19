@@ -1,5 +1,5 @@
-#define MyAppName "KOMPUTEROWE CENTRUM SERWISU"
-#define MyAppVersion "1.0.0.69"
+﻿#define MyAppName "KOMPUTEROWE CENTRUM SERWISU"
+#define MyAppVersion "1.0.0.70"
 #define MyAppPublisher "Serwis komputerowy"
 #define MyAppExeName "KomputeroweCentrumSerwisu.exe"
 
@@ -27,14 +27,14 @@ CloseApplications=yes
 RestartApplications=no
 Uninstallable=yes
 CreateUninstallRegKey=yes
-VersionInfoVersion=1.0.0.69
-VersionInfoProductVersion=1.0.0.69
+VersionInfoVersion=1.0.0.70
+VersionInfoProductVersion=1.0.0.70
 VersionInfoCompany={#MyAppPublisher}
 VersionInfoDescription={#MyAppName} Installer
 VersionInfoProductName={#MyAppName}
 SetupLogging=yes
 MinVersion=5.1.2600sp3
-OutputBaseFilename=KomputeroweCentrumSerwisu_FIX069_INSTALATOR_XP
+OutputBaseFilename=KomputeroweCentrumSerwisu_FIX070_INSTALATOR_XP
 
 [Languages]
 Name: "polish"; MessagesFile: "compiler:Languages\Polish.isl"
@@ -78,16 +78,34 @@ Name: "{group}\KOMPUTEROWE CENTRUM SERWISU"; Filename: "{app}\{#MyAppExeName}"; 
 Name: "{commondesktop}\KOMPUTEROWE CENTRUM SERWISU"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon; WorkingDir: "{app}"; IconFilename: "{app}\NaprawaPC.ico"; IconIndex: 0
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "Uruchom KOMPUTEROWE CENTRUM SERWISU FIX069"; Flags: postinstall nowait skipifsilent runascurrentuser
+Filename: "{app}\{#MyAppExeName}"; Description: "Uruchom KOMPUTEROWE CENTRUM SERWISU FIX070"; Flags: postinstall nowait skipifsilent runascurrentuser
 
 [Code]
-function IsDotNet4FullInstalled(): Boolean;
+function IsDotNetFullAt(RootKey: Integer; SubKey: string): Boolean;
 var
   InstallValue: Cardinal;
+  ReleaseValue: Cardinal;
+  VersionValue: string;
 begin
-  Result := RegQueryDWordValue(HKLM, 'SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full', 'Install', InstallValue) and (InstallValue = 1);
+  Result := False;
+  InstallValue := 0;
+  ReleaseValue := 0;
+  VersionValue := '';
+  if RegQueryDWordValue(RootKey, SubKey, 'Install', InstallValue) and (InstallValue = 1) then
+    Result := True;
   if not Result then
-    Result := RegQueryDWordValue(HKLM, 'SOFTWARE\WOW6432Node\Microsoft\NET Framework Setup\NDP\v4\Full', 'Install', InstallValue) and (InstallValue = 1);
+    if RegQueryDWordValue(RootKey, SubKey, 'Release', ReleaseValue) and (ReleaseValue > 0) then
+      Result := True;
+  if not Result then
+    if RegQueryStringValue(RootKey, SubKey, 'Version', VersionValue) and (Pos('4.', VersionValue) = 1) then
+      Result := True;
+end;
+
+function IsDotNet4FullInstalled(): Boolean;
+begin
+  Result := IsDotNetFullAt(HKLM, 'SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full');
+  if not Result then
+    Result := IsDotNetFullAt(HKLM, 'SOFTWARE\WOW6432Node\Microsoft\NET Framework Setup\NDP\v4\Full');
 end;
 
 function InitializeSetup(): Boolean;
@@ -95,14 +113,16 @@ var
   ErrorCode: Integer;
 begin
   Result := IsDotNet4FullInstalled();
-  if not Result then
+  if Result then
+    Log('KCS_PREREQUISITE_OK: .NET Framework 4 Full detected using Install, Release or Version registry data.')
+  else
   begin
-    MsgBox('Program wymaga pełnego .NET Framework 4.0 lub nowszego. Zainstaluj .NET Framework i ponownie uruchom instalator.'#13#10#13#10'Oficjalna strona: https://dotnet.microsoft.com/download/dotnet-framework', mbError, MB_OK);
+    Log('KCS_PREREQUISITE_MISSING: .NET Framework 4 Full was not detected in either registry path. Setup initialization is cancelled.');
+    MsgBox('Nie wykryto pełnego .NET Framework 4 lub nowszego. Instalator nie może kontynuować, dopóki wymagana platforma nie będzie dostępna.'#13#10#13#10'Oficjalna strona: https://dotnet.microsoft.com/download/dotnet-framework', mbError, MB_OK);
     if MsgBox('Otworzyć oficjalną stronę .NET Framework?', mbConfirmation, MB_YESNO) = IDYES then
       ShellExec('open', 'https://dotnet.microsoft.com/download/dotnet-framework', '', '', SW_SHOWNORMAL, ewNoWait, ErrorCode);
   end;
 end;
-
 
 var
   BrandPage: TWizardPage;
@@ -125,7 +145,7 @@ begin
   WizardForm.WelcomeLabel2.Font.Color := $B8DDEF;
   WizardForm.FinishedLabel.Font.Color := $EAF7FF;
   WizardForm.FinishedLabel.Caption := 'Instalacja zakończona. KOMPUTEROWE CENTRUM SERWISU jest gotowe.';
-  WizardForm.FinishedHeadingLabel.Caption := 'Gotowe — FIX069 zainstalowany';
+  WizardForm.FinishedHeadingLabel.Caption := 'Gotowe — FIX070 zainstalowany';
   WizardForm.FinishedHeadingLabel.Font.Color := $46DFFF;
   WizardForm.RunList.Color := $07182C;
   WizardForm.RunList.Font.Color := $EAF7FF;

@@ -35,26 +35,26 @@ function Add-Check {
     $script:checks += [pscustomobject]@{ Passed = $Passed; Name = $Name }
 }
 
-$normal = ConvertTo-KcsProductVersion -RawVersion '1.0.0.69' -ExpectedVersion '1.0.0.69' -Label 'Test'
-Add-Check ($normal -ceq '1.0.0.69') 'Canonical product version remains unchanged'
+$normal = ConvertTo-KcsProductVersion -RawVersion '1.0.0.70' -ExpectedVersion '1.0.0.70' -Label 'Test'
+Add-Check ($normal -ceq '1.0.0.70') 'Canonical product version remains unchanged'
 
-$fixedWidth = ConvertTo-KcsProductVersion -RawVersion ('1.0.0.69' + (' ' * 16)) -ExpectedVersion '1.0.0.69' -Label 'Test'
-Add-Check ($fixedWidth -ceq '1.0.0.69') 'Fixed-width FileVersion trailing spaces are trimmed before comparison'
+$fixedWidth = ConvertTo-KcsProductVersion -RawVersion ('1.0.0.70' + (' ' * 16)) -ExpectedVersion '1.0.0.70' -Label 'Test'
+Add-Check ($fixedWidth -ceq '1.0.0.70') 'Fixed-width FileVersion trailing spaces are trimmed before comparison'
 
-$surrounded = ConvertTo-KcsProductVersion -RawVersion ("`t 1.0.0.69 `t") -ExpectedVersion '1.0.0.69' -Label 'Test'
-Add-Check ($surrounded -ceq '1.0.0.69') 'Leading/trailing whitespace is normalized safely'
+$surrounded = ConvertTo-KcsProductVersion -RawVersion ("`t 1.0.0.70 `t") -ExpectedVersion '1.0.0.70' -Label 'Test'
+Add-Check ($surrounded -ceq '1.0.0.70') 'Leading/trailing whitespace is normalized safely'
 
-$unicodeSpace = [string][char]0x00A0 + '1.0.0.69' + [string][char]0x00A0
-$unicode = ConvertTo-KcsProductVersion -RawVersion $unicodeSpace -ExpectedVersion '1.0.0.69' -Label 'Test'
-Add-Check ($unicode -ceq '1.0.0.69') 'Unicode whitespace around FileVersion is trimmed'
+$unicodeSpace = [string][char]0x00A0 + '1.0.0.70' + [string][char]0x00A0
+$unicode = ConvertTo-KcsProductVersion -RawVersion $unicodeSpace -ExpectedVersion '1.0.0.70' -Label 'Test'
+Add-Check ($unicode -ceq '1.0.0.70') 'Unicode whitespace around FileVersion is trimmed'
 
 $wrongRejected = $false
-try { ConvertTo-KcsProductVersion -RawVersion '1.0.0.68            ' -ExpectedVersion '1.0.0.69' -Label 'Test' | Out-Null }
+try { ConvertTo-KcsProductVersion -RawVersion '1.0.0.68            ' -ExpectedVersion '1.0.0.70' -Label 'Test' | Out-Null }
 catch { $wrongRejected = $true }
 Add-Check $wrongRejected 'A genuinely different product version remains rejected after normalization'
 
 $malformedRejected = $false
-try { ConvertTo-KcsProductVersion -RawVersion '1.0.0.69-beta' -ExpectedVersion '1.0.0.69' -Label 'Test' | Out-Null }
+try { ConvertTo-KcsProductVersion -RawVersion '1.0.0.70-beta' -ExpectedVersion '1.0.0.70' -Label 'Test' | Out-Null }
 catch { $malformedRejected = $true }
 Add-Check $malformedRejected 'Malformed version suffix remains rejected'
 

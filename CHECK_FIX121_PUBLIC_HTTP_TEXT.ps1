@@ -15,11 +15,11 @@ function Add-Check {
 }
 
 # Reproduce the Windows PowerShell 5.1 Invoke-WebRequest Byte[] response shape.
-$xmlSource = '<?xml version="1.0" encoding="utf-8"?><Update version="1.0.0.69" channel="stable"><Description>Weryfikacja łącza</Description></Update>'
+$xmlSource = '<?xml version="1.0" encoding="utf-8"?><Update version="1.0.0.70" channel="stable"><Description>Weryfikacja łącza</Description></Update>'
 $xmlBytes = [System.Text.Encoding]::UTF8.GetBytes($xmlSource)
 $xmlText = ConvertTo-KcsResponseText -Content $xmlBytes
 $xmlDoc = [xml]$xmlText
-Add-Check ($xmlDoc.DocumentElement.Name -eq 'Update' -and $xmlDoc.DocumentElement.GetAttribute('version') -eq '1.0.0.69' -and $xmlDoc.DocumentElement.SelectSingleNode('Description').InnerText -eq 'Weryfikacja łącza') 'UTF-8 Byte[] manifest content is decoded before XML parsing'
+Add-Check ($xmlDoc.DocumentElement.Name -eq 'Update' -and $xmlDoc.DocumentElement.GetAttribute('version') -eq '1.0.0.70' -and $xmlDoc.DocumentElement.SelectSingleNode('Description').InnerText -eq 'Weryfikacja łącza') 'UTF-8 Byte[] manifest content is decoded before XML parsing'
 
 $xmlBomMemory = New-Object System.IO.MemoryStream
 try {
@@ -34,7 +34,7 @@ $xmlBomText = ConvertTo-KcsResponseText -Content $xmlBomBytes
 $xmlBomDoc = [xml]$xmlBomText
 Add-Check ($xmlBomDoc.DocumentElement.Name -eq 'Update') 'UTF-8 BOM is detected and removed before XML parsing'
 
-$jsonSource = '[{"channel":"stable","version":"1.0.0.69"},{"channel":"beta","version":"1.0.0.69"}]'
+$jsonSource = '[{"channel":"stable","version":"1.0.0.70"},{"channel":"beta","version":"1.0.0.70"}]'
 $jsonBytes = [System.Text.Encoding]::UTF8.GetBytes($jsonSource)
 $jsonText = ConvertTo-KcsResponseText -Content $jsonBytes
 $json = ConvertFrom-Json -InputObject $jsonText

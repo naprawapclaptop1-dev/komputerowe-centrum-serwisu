@@ -1,0 +1,19 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX126
+NAPRAWA FAŁSZYWYCH WYNIKÓW BRAMKI CHECK_SOURCE
+
+Ustalenia z raportu FIX125:
+- CHECK_FIX116_RELEASE_VERSION_NORMALIZATION.ps1 oczekiwał w komunikacie błędu dawnej wersji 1.0.0.69, mimo że produkt został już podniesiony do 1.0.0.70.
+- Testy FIX124 i FIX125 miały na sztywno wpisany numer poprzedniej paczki i zgłaszały błąd po zmianie etykiety bieżącej paczki.
+- CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1 uznawał zmiany launchera i workera za niebezpieczne, bo polityka nie zawierała ich jawnych wzorców.
+- Diagnostyczny CHECK_SOURCE zapisywał status FAIL również przy kodzie 0. W FIX126 status jest rozdzielony na jawne ścieżki PASS i FAIL bez bloku IF/ELSE.
+
+Zmiany:
+- Poprawiono przechwytywanie i klasyfikację kodu procesu PowerShell w CHECK_SOURCE.cmd.
+- Testy FIX124 i FIX125 dopasowują kontrolowaną tożsamość do aktywnego numeru pakietu.
+- Test FIX116 wyprowadza oczekiwaną wersję z metadanych publikatora i sprawdza odrzucanie odmiennej wersji.
+- KCS_RELEASE_POLICY.ps1 jawnie dopuszcza tylko dwa stałe pliki uruchomieniowe: URUCHOM_TYLKO_TEN_PLIK.cmd i KCS_FIX101_WORKER.cmd.
+- Dodano CHECK_FIX126_SOURCE_GATE_EXIT_CODE.ps1 oraz aktualizacje CHECK_SOURCE, walidatora, allowlisty i manifestu SHA-256.
+
+Wersja produktu pozostaje 1.0.0.70 / FIX070. Nie zmieniono kodu C#, ikony, zasobów aplikacji ani receptury instalatora. Nie opublikowano nowego wydania.
+
+Weryfikacja Windows PowerShell 5.1 i pełna kompilacja wymagają uruchomienia pakietu na Windows.

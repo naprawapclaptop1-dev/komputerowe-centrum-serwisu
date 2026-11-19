@@ -4,6 +4,17 @@ $publisherPath = Join-Path $root 'PUBLISH_GITHUB_RELEASES.ps1'
 $generatorPath = Join-Path $root 'GENERATE_UPDATE_MANIFEST.ps1'
 $publisher = Get-Content -LiteralPath $publisherPath -Raw
 $generator = Get-Content -LiteralPath $generatorPath -Raw
+function Get-PublisherProductVersion {
+    param([string]$PublisherText)
+    # The release publisher declares $Version inside a try block; allow indentation
+    # but only match a complete four-part product version assignment line.
+    $versionMatch = [regex]::Match($PublisherText, '(?m)^[ \t]*\$Version[ \t]*=[ \t]*"(?<version>\d+\.\d+\.\d+\.\d+)"')
+    if (-not $versionMatch.Success) { throw 'Publisher product version could not be resolved for the regression test.' }
+    return $versionMatch.Groups['version'].Value
+}
+$expectedProductVersion = Get-PublisherProductVersion -PublisherText $publisher
+$versionParts = [version]$expectedProductVersion
+$wrongProductVersion = '{0}.{1}.{2}.{3}' -f $versionParts.Major,$versionParts.Minor,$versionParts.Build,([Math]::Max(0,$versionParts.Revision - 1))
 function Get-FileVersionHelperAst {
     param([string]$Path)
     $tokens = $null
@@ -20,16 +31,16 @@ $generatorFunction = Get-FileVersionHelperAst -Path $generatorPath
 if ($null -eq $publisherFunction -or $null -eq $generatorFunction) { Write-Host '[FAIL] Shared FileVersion normalization helper is missing.'; exit 1 }
 . ([scriptblock]::Create($publisherFunction.Extent.Text))
 $checks = @()
-$trimmed = Assert-ExpectedFileVersion -RawVersion "1.0.0.69   " -ExpectedVersion '1.0.0.69' -Label 'test installer'
-$checks += [pscustomobject]@{Passed=($trimmed -ceq '1.0.0.69');Name='Trailing fixed-width whitespace is normalized before version comparison'}
-$tabbed = Assert-ExpectedFileVersion -RawVersion "`t1.0.0.69`r`n" -ExpectedVersion '1.0.0.69' -Label 'test portable'
-$checks += [pscustomobject]@{Passed=($tabbed -ceq '1.0.0.69');Name='Leading/trailing whitespace is normalized safely'}
+$trimmed = Assert-ExpectedFileVersion -RawVersion ($expectedProductVersion + "   ") -ExpectedVersion $expectedProductVersion -Label 'test installer'
+$checks += [pscustomobject]@{Passed=($trimmed -ceq $expectedProductVersion);Name='Trailing fixed-width whitespace is normalized before version comparison'}
+$tabbed = Assert-ExpectedFileVersion -RawVersion ("`t" + $expectedProductVersion + "`r`n") -ExpectedVersion $expectedProductVersion -Label 'test portable'
+$checks += [pscustomobject]@{Passed=($tabbed -ceq $expectedProductVersion);Name='Leading/trailing whitespace is normalized safely'}
 $wrongVersionRejected = $false
-try { [void](Assert-ExpectedFileVersion -RawVersion '1.0.0.68' -ExpectedVersion '1.0.0.69' -Label 'test wrong version') }
-catch { $wrongVersionRejected = ($_.Exception.Message -match 'expected=\[1\.0\.0\.69\]') }
+try { [void](Assert-ExpectedFileVersion -RawVersion $wrongProductVersion -ExpectedVersion $expectedProductVersion -Label 'test wrong version') }
+catch { $wrongVersionRejected = ($_.Exception.Message.Contains(('expected=[' + $expectedProductVersion + ']'))) }
 $checks += [pscustomobject]@{Passed=$wrongVersionRejected;Name='A genuinely different product version remains rejected'}
 $malformedRejected = $false
-try { [void](Assert-ExpectedFileVersion -RawVersion '1.0.0.69-extra' -ExpectedVersion '1.0.0.69' -Label 'test malformed version') }
+try { [void](Assert-ExpectedFileVersion -RawVersion ($expectedProductVersion + '-extra') -ExpectedVersion $expectedProductVersion -Label 'test malformed version') }
 catch { $malformedRejected = $true }
 $checks += [pscustomobject]@{Passed=$malformedRejected;Name='Malformed version suffix remains rejected'}
 $publisherHelperText = (($publisherFunction.Extent.Text -split '\r?\n' | ForEach-Object { $_.TrimStart() }) -join "`n")

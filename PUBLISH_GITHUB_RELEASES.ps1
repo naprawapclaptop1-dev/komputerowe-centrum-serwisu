@@ -114,9 +114,9 @@ try {
   if($authCheck.Output.Trim()){Write-Host $authCheck.Output.TrimEnd()}
   if($authCheck.ExitCode -ne 0){throw "Brak autoryzacji GitHub CLI po etapie synchronizacji. Wróć do głównego CMD i dokończ jednorazowe logowanie w przeglądarce."}
 
-  $Version="1.0.0.69"; $Tag="v$Version"
-  $SetupName="KomputeroweCentrumSerwisu_FIX069_INSTALATOR.exe"
-  $PortableName="KomputeroweCentrumSerwisu_FIX069_PORTABLE.exe"
+  $Version="1.0.0.70"; $Tag="v$Version"
+  $SetupName="KomputeroweCentrumSerwisu_FIX070_INSTALATOR.exe"
+  $PortableName="KomputeroweCentrumSerwisu_FIX070_PORTABLE.exe"
   $Installer=Join-Path $Root "dist\installers\$SetupName"
   $Portable=Join-Path $Root "dist\portable\$PortableName"
   foreach($path in @($Installer,$Portable)){if(!(Test-Path -LiteralPath $path -PathType Leaf)){throw "Brak świeżego artefaktu kompilacji: $path"};if((Get-Item -LiteralPath $path).Length -le 0){throw "Plik wynikowy jest pusty: $path"}}
@@ -163,7 +163,7 @@ try {
   $TagBase="https://github.com/$Repo/releases/download/$Tag/"
   $utf8NoBom=New-Object -TypeName System.Text.UTF8Encoding -ArgumentList $false
   foreach($ch in @("stable","beta")){
-    $manifest="<?xml version=`"1.0`" encoding=`"utf-8`"?><Update version=`"$Version`" channel=`"$ch`" region=`"global`" language=`"all`" architecture=`"any`" packageUrl=`"$($TagBase)$SetupName`" sha256=`"$SetupSha`"><Notes lang=`"pl`">Komputerowe Centrum Serwisu $Version — kanał $ch. FIX099: czyszczenie lokalne i publikacja globalna.</Notes><Notes lang=`"en`">Computer Service Center $Version — $ch channel. FIX099: package-local cleanup and public release publishing.</Notes><Mirrors /></Update>"
+    $manifest="<?xml version=`"1.0`" encoding=`"utf-8`"?><Update version=`"$Version`" channel=`"$ch`" region=`"global`" language=`"all`" architecture=`"any`" packageUrl=`"$($TagBase)$SetupName`" sha256=`"$SetupSha`"><Notes lang=`"pl`">Komputerowe Centrum Serwisu $Version — kanał $ch. FIX123: poprawa inicjalizacji instalatora i diagnostyka instalacji.</Notes><Notes lang=`"en`">Computer Service Center $Version — $ch channel. FIX123: installer initialization fix and installation diagnostics.</Notes><Mirrors /></Update>"
     [IO.File]::WriteAllText((Join-Path $Stage "manifest-$ch.xml"),$manifest,($utf8NoBom))
   }
   $published=(Get-Date).ToUniversalTime().ToString("o")
@@ -171,14 +171,14 @@ try {
   $catalog=@(
     [ordered]@{
       version=$Version;channel="stable";publishedUtc=$published
-      notes="Wydanie stabilne $Version — FIX099: aktualizator GitHub i bezpłatna strona WWW."
+      notes="Wydanie stabilne $Version — FIX123: instalator i aktualizator GitHub."
       packageUrl="$TagBase$SetupName";sha256=$SetupSha;signerThumbprint=""
       signatureStatus="Brak podpisu Authenticode; sprawdzanie SHA-256";sizeBytes=$SetupSize
       portableName=$PortableName;portableUrl="$TagBase$PortableName";portableSha256=$PortableSha;portableSizeBytes=$PortableSize
     },
     [ordered]@{
       version=$Version;channel="beta";publishedUtc=$published
-      notes="Kanał Beta $Version — FIX099: aktualizator GitHub i bezpłatna strona WWW."
+      notes="Kanał Beta $Version — FIX123: instalator i aktualizator GitHub."
       packageUrl="$TagBase$SetupName";sha256=$SetupSha;signerThumbprint=""
       signatureStatus="Brak podpisu Authenticode; sprawdzanie SHA-256";sizeBytes=$SetupSize
       portableName=$PortableName;portableUrl="$TagBase$PortableName";portableSha256=$PortableSha;portableSizeBytes=$PortableSize
@@ -212,7 +212,7 @@ try {
     $tagProbe=Invoke-GhCapture -Executable $GhPath -Arguments @("api","repos/$Repo/git/ref/tags/$Tag")
     if($tagProbe.ExitCode -eq 0){throw "Tag $Tag już istnieje bez wydania. Zgodnie z polityką nie używam ponownie istniejącego tagu. Wymagana jest inspekcja."}
     Write-Host "[RELEASE] Tworzę pierwsze wydanie jako szkic, dodając sześć sprawdzonych plików..."
-    $createArgs=@("release","create",$Tag)+$assets+@("--repo",$Repo,"--target",$repoMeta.default_branch,"--title","KOMPUTEROWE CENTRUM SERWISU $Version — FIX099","--notes","FIX099 — ograniczenie czyszczenia do katalogu pakietu; automatyczna publikacja do przypisanego GitHub.`n`nInstalator i wersja przenośna są weryfikowane przez SHA-256. Wydanie utworzono ze świeżych plików po lokalnej kompilacji.","--draft")
+    $createArgs=@("release","create",$Tag)+$assets+@("--repo",$Repo,"--target",$repoMeta.default_branch,"--title","KOMPUTEROWE CENTRUM SERWISU $Version — FIX123","--notes","FIX123 — naprawa inicjalizacji instalatora, kontrola .NET Framework i diagnostyczny log instalacji.`n`nInstalator i wersja przenośna są weryfikowane przez SHA-256. Wydanie utworzono ze świeżych plików po lokalnej kompilacji.","--draft")
     $createResult=Invoke-GhCapture -Executable $GhPath -Arguments $createArgs
     if($createResult.Output.Trim()){Write-Host $createResult.Output.TrimEnd()}
     if($createResult.ExitCode -ne 0){throw "GitHub nie utworzył szkicu wydania lub nie przesłał wszystkich plików: $($createResult.Output.Trim())"}

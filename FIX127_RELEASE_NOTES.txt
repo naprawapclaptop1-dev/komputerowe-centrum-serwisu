@@ -1,0 +1,17 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX127
+NAPRAWA TESTU ODCZYTU WERSJI PUBLIKATORA
+
+Ustalenie z raportu FIX126:
+- CHECK_FIX116_RELEASE_VERSION_NORMALIZATION.ps1 nie potrafił odczytać wersji z PUBLISH_GITHUB_RELEASES.ps1, ponieważ wzorzec wymagał, aby $Version zaczynał się w pierwszej kolumnie.
+- W publikatorze przypisanie $Version znajduje się wewnątrz bloku try i ma wcięcie, dlatego test kończył się przed wykonaniem asercji wersji.
+
+Zmiany:
+- Dodano funkcję Get-PublisherProductVersion, która dopuszcza wcięcia i spacje/tabulatory wokół przypisania, ale wymaga dokładnie czterech liczbowych składników wersji.
+- CHECK_FIX116 pobiera oczekiwaną wersję z rzeczywistego publikatora i zachowuje testy normalizacji FileVersion.
+- Dodano CHECK_FIX127_PUBLISHER_VERSION_RESOLVER.ps1. Test wyodrębnia rzeczywistą funkcję resolvera przez AST i sprawdza warianty wcięć, komentarze, brak deklaracji i błędny format.
+- CHECK_FIX126 jako test historyczny rozpoznaje aktywny numer paczki dynamicznie.
+- CHECK_SOURCE, pełny walidator, jawna allowlista, manifest PowerShell i fixtures polityki wydania wymagają nowego testu oraz dokumentacji.
+
+Wersja produktu pozostaje 1.0.0.70 / FIX070. Nie zmieniono C#, ikony, zasobów aplikacji, receptury instalatora ani publicznych assetów.
+
+Weryfikacja wykonania Windows PowerShell 5.1 i kompilacji wymaga uruchomienia na Windows.

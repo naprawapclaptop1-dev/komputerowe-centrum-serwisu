@@ -1,0 +1,18 @@
+KOMPUTEROWE CENTRUM SERWISU — MAPA MODUŁÓW FIX123
+
+Przyczyna z logu:
+- Budowa EXE, portable i nowoczesnego instalatora zakończyła się powodzeniem.
+- Publiczne wydanie v1.0.0.69 i strona WWW były dostępne.
+- Lokalny instalator zakończył się kodem 1. Według tabeli Inno Setup jest to Setup failed to initialize.
+- SETUP_MODERN.iss zawiera InitializeSetup(), które przerywa instalację, gdy IsDotNet4FullInstalled() zwróci False.
+
+Zmiany:
+- SETUP_MODERN.iss oraz SETUP_LEGACY_XP.iss: dokładniejsze wykrywanie .NET Framework Full w rejestrze (Install, Release, Version).
+- INSTALL_PUBLISHED_BUILD.ps1: osobny log Inno Setup, rozpoznawanie kodów wyjścia i prezentacja końcówki logu przy błędzie.
+- AssemblyInfo.cs, kod aktualizatora, build scripts, weryfikatory, publikator, manifesty, README i website: spójna wersja 1.0.0.70 / FIX070.
+- CHECK_FIX123_INSTALLER_INITIALIZATION.ps1: regresja wykrywania .NET, logowania instalatora, wersji i tagów wydania.
+- CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1: weryfikacja, że zmiana aplikacji i receptury instalatora nie używa ponownie assetów v1.0.0.69.
+
+Punkt startowy pozostaje jeden: URUCHOM_TYLKO_TEN_PLIK.cmd.
+Wersja produktu: 1.0.0.70.
+Wydanie poprzednie: v1.0.0.69 — zachowane bez zmian.

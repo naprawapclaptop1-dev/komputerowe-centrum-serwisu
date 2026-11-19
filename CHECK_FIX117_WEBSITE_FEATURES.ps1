@@ -31,7 +31,7 @@ Add-Check ($css.Contains('.device-summary') -and $css.Contains('.release-history
 Add-Check ($css.Contains('@media(max-width:640px)') -and $css.Contains('@media(max-width:760px)') -and $css.Contains('prefers-reduced-motion')) 'New website layout supports mobile widths and reduced motion'
 Add-Check ($index.Contains('data-pl=') -and $index.Contains('data-en=') -and $js.Contains('placeholder${lang')) 'Polish and English labels and dynamic placeholders are supported'
 Add-Check ($index.Contains('prezentacja.mp4') -and $index.Contains('prezentacja.vtt') -and $index.Contains('prezentacja-en.vtt') -and (Test-Path -LiteralPath (Join-Path $root 'website/media/prezentacja-en.vtt')) -and (Test-Path -LiteralPath (Join-Path $root 'website/media/prezentacja.vtt'))) 'Existing presentation video and Polish/English captions remain present'
-Add-Check ($js.Contains('productVersion') -and $index.Contains('software-version" content="1.0.0.69"')) 'Product version remains 1.0.0.69'
+Add-Check ($js.Contains('productVersion') -and $index.Contains('software-version" content="1.0.0.70"')) 'Product version remains 1.0.0.70'
 $failed = $false
 foreach ($check in $checks) {
     if ($check.Passed) { Write-Host ('[PASS] ' + $check.Name) }

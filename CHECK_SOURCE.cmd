@@ -1,82 +1,96 @@
 @echo off
 setlocal EnableExtensions DisableDelayedExpansion
 chcp 65001 >nul
-title KOMPUTEROWE CENTRUM SERWISU FIX100 - KONTROLA AKTYWNEGO PAKIETU
+title KOMPUTEROWE CENTRUM SERWISU FIX127 - KONTROLA AKTYWNEGO PAKIETU
 pushd "%~dp0" >nul 2>&1
 if errorlevel 1 exit /b 2
-set "FAILED=0"
+set "KCS_CHECK_FAILED=0"
+set "KCS_CHECK_LOG=%~dp0dist\build-logs\CHECK_SOURCE_FIX127.log"
+set "KCS_TEST_OUTPUT=%~dp0dist\build-logs\CHECK_SOURCE_FIX127-current.txt"
+if not exist "%~dp0dist\build-logs" mkdir "%~dp0dist\build-logs" >nul 2>&1
+>"%KCS_CHECK_LOG%" echo CHECK_SOURCE FIX127 - %DATE% %TIME%
 echo ============================================================
-echo CHECK SOURCE - AKTYWNE TESTY FIX100
+echo CHECK SOURCE - AKTYWNE TESTY FIX127
+echo Raport diagnostyczny: dist\build-logs\CHECK_SOURCE_FIX127.log
 echo ============================================================
-for %%F in (URUCHOM_TYLKO_TEN_PLIK.cmd KCS_FIX101_WORKER.cmd CHECK_FIX105_BUILD_FLOW.ps1 CHECK_FIX107_UPDATER_ENDPOINTS.ps1 CHECK_FIX108_RELEASE_PUBLISHING.ps1 CHECK_FIX110_BUILD_DIAGNOSTICS.ps1 CHECK_FIX111_BUILD_ALL_SYNTAX.ps1 FIX111_RELEASE_NOTES.txt FIX111_MODULE_MAP.txt CHECK_FIX112_VERIFICATION.ps1 CHECK_FIX113_WRAPPER_REPORT.ps1 CHECK_FIX114_ROOT_ARGUMENT.ps1 CHECK_FIX115_ROOT_INITIALIZATION.ps1 CHECK_FIX116_RELEASE_VERSION_NORMALIZATION.ps1 FIX116_RELEASE_NOTES.txt FIX116_MODULE_MAP.txt CHECK_FIX117_WEBSITE_FEATURES.ps1 FIX117_RELEASE_NOTES.txt FIX117_MODULE_MAP.txt CHECK_FIX118_WEBSITE_REGRESSION.ps1 FIX118_RELEASE_NOTES.txt FIX118_MODULE_MAP.txt KCS_RELEASE_POLICY.ps1 CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1 FIX119_RELEASE_NOTES.txt FIX119_MODULE_MAP.txt CHECK_FIX120_POWERSHELL_INTERPOLATION.ps1 FIX120_RELEASE_NOTES.txt FIX120_MODULE_MAP.txt CHECK_FIX121_PUBLIC_HTTP_TEXT.ps1 FIX121_RELEASE_NOTES.txt FIX121_MODULE_MAP.txt CHECK_FIX122_INSTALL_VERSION_NORMALIZATION.ps1 FIX122_RELEASE_NOTES.txt FIX122_MODULE_MAP.txt website\media\prezentacja.vtt website\media\prezentacja-en.vtt VERIFY_BUILD.ps1 FIX115_RELEASE_NOTES.txt FIX115_MODULE_MAP.txt FIX112_RELEASE_NOTES.txt FIX112_MODULE_MAP.txt FIX113_RELEASE_NOTES.txt FIX113_MODULE_MAP.txt FIX114_RELEASE_NOTES.txt FIX114_MODULE_MAP.txt FIX110_RELEASE_NOTES.txt FIX110_MODULE_MAP.txt FIX107_RELEASE_NOTES.txt FIX107_MODULE_MAP.txt FIX108_RELEASE_NOTES.txt FIX108_MODULE_MAP.txt FIX099_PACKAGE_MARKER.txt FIX099_POWERSHELL_MANIFEST.txt VALIDATE_FIX100_PACKAGE.ps1 CHECK_FIX101_KEEP_OPEN.ps1 FIX101_RELEASE_NOTES.txt FIX101_MODULE_MAP.txt CHECK_FIX100_PIPELINE.ps1 CHECK_FIX099_PAGES_TRIGGER.ps1 CHECK_FIX100_CLEANUP_PATH.ps1 CHECK_FIX100_SOURCE_SCOPE.ps1 CHECK_FIX100_ROOT_PATH.ps1 FIX099_CLEANUP_SCOPE.txt FIX099_NETWORK_SCOPE.txt CLEAN_SAFE_TEMP.ps1 FIX094_PACKAGE_MARKER.txt CHECK_FIX094_KEEP_OPEN.ps1 PUBLISH_GITHUB_SOURCE.ps1 PUBLISH_GITHUB_RELEASES.ps1 BUILD_ALL.cmd BUILD_PORTABLE.cmd BUILD_INSTALLER_MODERN.cmd VERIFY_BUILD.cmd VERIFY_PUBLIC_DEPLOYMENT.ps1 INSTALL_PUBLISHED_BUILD.ps1 WindowsVersionSwitcherPRO.cs WindowsVersionSwitcherPRO.Modules.cs AssemblyInfo.cs app.manifest NaprawaPC.ico CentrumMigracjiHero.png SETUP_MODERN.iss website\index.html website\styles.css website\app.js website\media\prezentacja.mp4 .github\workflows\deploy-pages.yml) do (
-  if exist "%~dp0%%F" (echo [PASS] %%F) else (echo [FAIL] Missing: %%F& set "FAILED=1")
+for %%F in (URUCHOM_TYLKO_TEN_PLIK.cmd KCS_FIX101_WORKER.cmd CHECK_FIX105_BUILD_FLOW.ps1 CHECK_FIX107_UPDATER_ENDPOINTS.ps1 CHECK_FIX108_RELEASE_PUBLISHING.ps1 CHECK_FIX110_BUILD_DIAGNOSTICS.ps1 CHECK_FIX111_BUILD_ALL_SYNTAX.ps1 FIX111_RELEASE_NOTES.txt FIX111_MODULE_MAP.txt CHECK_FIX112_VERIFICATION.ps1 CHECK_FIX113_WRAPPER_REPORT.ps1 CHECK_FIX114_ROOT_ARGUMENT.ps1 CHECK_FIX115_ROOT_INITIALIZATION.ps1 CHECK_FIX116_RELEASE_VERSION_NORMALIZATION.ps1 FIX116_RELEASE_NOTES.txt FIX116_MODULE_MAP.txt CHECK_FIX117_WEBSITE_FEATURES.ps1 FIX117_RELEASE_NOTES.txt FIX117_MODULE_MAP.txt CHECK_FIX118_WEBSITE_REGRESSION.ps1 FIX118_RELEASE_NOTES.txt FIX118_MODULE_MAP.txt KCS_RELEASE_POLICY.ps1 CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1 FIX119_RELEASE_NOTES.txt FIX119_MODULE_MAP.txt CHECK_FIX120_POWERSHELL_INTERPOLATION.ps1 FIX120_RELEASE_NOTES.txt FIX120_MODULE_MAP.txt CHECK_FIX121_PUBLIC_HTTP_TEXT.ps1 FIX121_RELEASE_NOTES.txt FIX121_MODULE_MAP.txt CHECK_FIX122_INSTALL_VERSION_NORMALIZATION.ps1 FIX122_RELEASE_NOTES.txt FIX122_MODULE_MAP.txt CHECK_FIX123_INSTALLER_INITIALIZATION.ps1 FIX123_RELEASE_NOTES.txt FIX123_MODULE_MAP.txt CHECK_FIX124_SOURCE_GATE_DIAGNOSTICS.ps1 FIX124_RELEASE_NOTES.txt FIX124_MODULE_MAP.txt CHECK_FIX125_DIAGNOSTICS_PROPAGATION.ps1 FIX125_RELEASE_NOTES.txt FIX125_MODULE_MAP.txt CHECK_FIX126_SOURCE_GATE_EXIT_CODE.ps1 FIX126_RELEASE_NOTES.txt FIX126_MODULE_MAP.txt CHECK_FIX127_PUBLISHER_VERSION_RESOLVER.ps1 FIX127_RELEASE_NOTES.txt FIX127_MODULE_MAP.txt website\media\prezentacja.vtt website\media\prezentacja-en.vtt VERIFY_BUILD.ps1 FIX115_RELEASE_NOTES.txt FIX115_MODULE_MAP.txt FIX112_RELEASE_NOTES.txt FIX112_MODULE_MAP.txt FIX113_RELEASE_NOTES.txt FIX113_MODULE_MAP.txt FIX114_RELEASE_NOTES.txt FIX114_MODULE_MAP.txt FIX110_RELEASE_NOTES.txt FIX110_MODULE_MAP.txt FIX107_RELEASE_NOTES.txt FIX107_MODULE_MAP.txt FIX108_RELEASE_NOTES.txt FIX108_MODULE_MAP.txt FIX099_PACKAGE_MARKER.txt FIX099_POWERSHELL_MANIFEST.txt VALIDATE_FIX100_PACKAGE.ps1 CHECK_FIX101_KEEP_OPEN.ps1 FIX101_RELEASE_NOTES.txt FIX101_MODULE_MAP.txt CHECK_FIX100_PIPELINE.ps1 CHECK_FIX099_PAGES_TRIGGER.ps1 CHECK_FIX100_CLEANUP_PATH.ps1 CHECK_FIX100_SOURCE_SCOPE.ps1 CHECK_FIX100_ROOT_PATH.ps1 FIX099_CLEANUP_SCOPE.txt FIX099_NETWORK_SCOPE.txt CLEAN_SAFE_TEMP.ps1 FIX094_PACKAGE_MARKER.txt CHECK_FIX094_KEEP_OPEN.ps1 PUBLISH_GITHUB_SOURCE.ps1 PUBLISH_GITHUB_RELEASES.ps1 BUILD_ALL.cmd BUILD_PORTABLE.cmd BUILD_INSTALLER_MODERN.cmd VERIFY_BUILD.cmd VERIFY_PUBLIC_DEPLOYMENT.ps1 INSTALL_PUBLISHED_BUILD.ps1 WindowsVersionSwitcherPRO.cs WindowsVersionSwitcherPRO.Modules.cs AssemblyInfo.cs app.manifest NaprawaPC.ico CentrumMigracjiHero.png SETUP_MODERN.iss website\index.html website\styles.css website\app.js website\media\prezentacja.mp4 .github\workflows\deploy-pages.yml) do (
+  if exist "%~dp0%%F" (
+    echo [PASS] Required: %%F
+  ) else (
+    echo [FAIL] Missing: %%F
+    >>"%KCS_CHECK_LOG%" echo [FAIL] Missing required file: %%F
+    set "KCS_CHECK_FAILED=1"
+  )
 )
-if not "%FAILED%"=="0" goto :done
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX069_REGRESSION.ps1"
-if errorlevel 1 (echo [FAIL] Product FIX069 regression.& set "FAILED=1") else echo [PASS] Product compatibility FIX069
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX083_INTERPOLATION.ps1"
-if errorlevel 1 (echo [FAIL] PowerShell interpolation regression.& set "FAILED=1") else echo [PASS] PowerShell interpolation
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX083_NATIVE_PROCESS.ps1"
-if errorlevel 1 (echo [FAIL] Native process runner regression.& set "FAILED=1") else echo [PASS] Native process runner
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX084_CMD_ENCODING.ps1"
-if errorlevel 1 (echo [FAIL] CMD encoding regression.& set "FAILED=1") else echo [PASS] CMD encoding
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX084_PAGES_CONFIGURATION.ps1"
-if errorlevel 1 (echo [FAIL] GitHub Pages configuration regression.& set "FAILED=1") else echo [PASS] GitHub Pages configuration
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX084_SOURCE_CACHE_EXCLUSIONS.ps1"
-if errorlevel 1 (echo [FAIL] Source cache exclusions regression.& set "FAILED=1") else echo [PASS] Source cache exclusions
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX085_GIT_CLONE_LONGPATHS.ps1"
-if errorlevel 1 (echo [FAIL] Git long paths/cache regression.& set "FAILED=1") else echo [PASS] Git long paths/cache
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX099_PAGES_TRIGGER.ps1"
-if errorlevel 1 (echo [FAIL] Pages trigger regression.& set "FAILED=1") else echo [PASS] Pages trigger
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX100_ROOT_PATH.ps1"
-if errorlevel 1 (echo [FAIL] Root-path FIX100 regression.& set "FAILED=1") else echo [PASS] Root-path FIX100
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX101_KEEP_OPEN.ps1"
-if errorlevel 1 (echo [FAIL] Persistent CMD FIX101 regression.& set "FAILED=1") else echo [PASS] Persistent CMD FIX101
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX102_SOURCE_GATE.ps1"
-if errorlevel 1 (echo [FAIL] Source gate FIX102 regression.& set "FAILED=1") else echo [PASS] Source gate FIX102
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX104_BUILD_ISOLATION.ps1"
-if errorlevel 1 (echo [FAIL] FIX104 build isolation regression.& set "FAILED=1") else echo [PASS] FIX104 build isolation
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX105_BUILD_FLOW.ps1"
-if errorlevel 1 (echo [FAIL] FIX105 build-flow regression.& set "FAILED=1") else echo [PASS] FIX105 build-flow
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX107_UPDATER_ENDPOINTS.ps1"
-if errorlevel 1 (echo [FAIL] FIX107 updater endpoint regression.& set "FAILED=1") else echo [PASS] FIX107 updater endpoints
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX108_RELEASE_PUBLISHING.ps1"
-if errorlevel 1 (echo [FAIL] FIX108 release publishing regression.& set "FAILED=1") else echo [PASS] FIX108 release publishing
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX110_BUILD_DIAGNOSTICS.ps1"
-if errorlevel 1 (echo [FAIL] FIX110 build diagnostics regression.& set "FAILED=1") else echo [PASS] FIX110 build diagnostics
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX111_BUILD_ALL_SYNTAX.ps1"
-if errorlevel 1 (echo [FAIL] FIX111 BUILD_ALL syntax regression.& set "FAILED=1") else echo [PASS] FIX111 BUILD_ALL syntax
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX112_VERIFICATION.ps1"
-if errorlevel 1 (echo [FAIL] FIX112 verification regression.& set "FAILED=1") else echo [PASS] FIX112 verification regression
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX113_WRAPPER_REPORT.ps1"
-if errorlevel 1 (echo [FAIL] FIX113 verifier report regression.& set "FAILED=1") else echo [PASS] FIX113 verifier report
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX114_ROOT_ARGUMENT.ps1"
-if errorlevel 1 (echo [FAIL] FIX114 verifier root argument regression.& set "FAILED=1") else echo [PASS] FIX114 verifier root argument regression
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX115_ROOT_INITIALIZATION.ps1"
-if errorlevel 1 (echo [FAIL] FIX115 verifier root initialization regression.& set "FAILED=1") else echo [PASS] FIX115 verifier root initialization regression
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX116_RELEASE_VERSION_NORMALIZATION.ps1"
-if errorlevel 1 (echo [FAIL] FIX116 release FileVersion normalization regression.& set "FAILED=1") else echo [PASS] FIX116 release FileVersion normalization regression
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX117_WEBSITE_FEATURES.ps1"
-if errorlevel 1 (echo [FAIL] FIX117 website feature regression.& set "FAILED=1") else echo [PASS] FIX117 website features
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX118_WEBSITE_REGRESSION.ps1"
-if errorlevel 1 (echo [FAIL] FIX118 website regression.& set "FAILED=1") else echo [PASS] FIX118 website regression
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1"
-if errorlevel 1 (echo [FAIL] FIX119 published-release preservation regression.& set "FAILED=1") else echo [PASS] FIX119 published-release preservation
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX120_POWERSHELL_INTERPOLATION.ps1"
-if errorlevel 1 (echo [FAIL] FIX120 PowerShell interpolation regression.& set "FAILED=1") else echo [PASS] FIX120 PowerShell interpolation
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX121_PUBLIC_HTTP_TEXT.ps1"
-if errorlevel 1 (echo [FAIL] FIX121 public HTTP response regression.& set "FAILED=1") else echo [PASS] FIX121 public HTTP response decoding
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX122_INSTALL_VERSION_NORMALIZATION.ps1"
-if errorlevel 1 (echo [FAIL] FIX122 install FileVersion normalization regression.& set "FAILED=1") else echo [PASS] FIX122 install FileVersion normalization
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX100_CLEANUP_PATH.ps1"
-if errorlevel 1 (echo [FAIL] Package-local cleanup FIX100 regression.& set "FAILED=1") else echo [PASS] Package-local cleanup FIX100
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX100_SOURCE_SCOPE.ps1"
-if errorlevel 1 (echo [FAIL] Source allowlist FIX100 regression.& set "FAILED=1") else echo [PASS] Source allowlist FIX100
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX100_PIPELINE.ps1"
-if errorlevel 1 (echo [FAIL] Pipeline FIX100 regression.& set "FAILED=1") else echo [PASS] Pipeline FIX100
+if not "%KCS_CHECK_FAILED%"=="0" goto :done
+call :run_ps_check "CHECK_FIX069_REGRESSION.ps1" "Product compatibility FIX069"
+call :run_ps_check "CHECK_FIX083_INTERPOLATION.ps1" "PowerShell interpolation"
+call :run_ps_check "CHECK_FIX083_NATIVE_PROCESS.ps1" "Native process runner"
+call :run_ps_check "CHECK_FIX084_CMD_ENCODING.ps1" "CMD encoding"
+call :run_ps_check "CHECK_FIX084_PAGES_CONFIGURATION.ps1" "GitHub Pages configuration"
+call :run_ps_check "CHECK_FIX084_SOURCE_CACHE_EXCLUSIONS.ps1" "Source cache exclusions"
+call :run_ps_check "CHECK_FIX085_GIT_CLONE_LONGPATHS.ps1" "Git long paths and cache"
+call :run_ps_check "CHECK_FIX099_PAGES_TRIGGER.ps1" "Pages trigger"
+call :run_ps_check "CHECK_FIX100_ROOT_PATH.ps1" "Root-path FIX100"
+call :run_ps_check "CHECK_FIX101_KEEP_OPEN.ps1" "Persistent CMD FIX101"
+call :run_ps_check "CHECK_FIX102_SOURCE_GATE.ps1" "Source gate FIX102"
+call :run_ps_check "CHECK_FIX104_BUILD_ISOLATION.ps1" "Build isolation FIX104"
+call :run_ps_check "CHECK_FIX105_BUILD_FLOW.ps1" "Build-flow FIX105"
+call :run_ps_check "CHECK_FIX107_UPDATER_ENDPOINTS.ps1" "Updater endpoints FIX107"
+call :run_ps_check "CHECK_FIX108_RELEASE_PUBLISHING.ps1" "Release publishing FIX108"
+call :run_ps_check "CHECK_FIX110_BUILD_DIAGNOSTICS.ps1" "Build diagnostics FIX110"
+call :run_ps_check "CHECK_FIX111_BUILD_ALL_SYNTAX.ps1" "BUILD_ALL syntax FIX111"
+call :run_ps_check "CHECK_FIX112_VERIFICATION.ps1" "Verification FIX112"
+call :run_ps_check "CHECK_FIX113_WRAPPER_REPORT.ps1" "Verifier report FIX113"
+call :run_ps_check "CHECK_FIX114_ROOT_ARGUMENT.ps1" "Verifier root argument FIX114"
+call :run_ps_check "CHECK_FIX115_ROOT_INITIALIZATION.ps1" "Verifier root initialization FIX115"
+call :run_ps_check "CHECK_FIX116_RELEASE_VERSION_NORMALIZATION.ps1" "Release FileVersion normalization FIX116"
+call :run_ps_check "CHECK_FIX117_WEBSITE_FEATURES.ps1" "Website features FIX117"
+call :run_ps_check "CHECK_FIX118_WEBSITE_REGRESSION.ps1" "Website regression FIX118"
+call :run_ps_check "CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1" "Published-release preservation FIX119"
+call :run_ps_check "CHECK_FIX120_POWERSHELL_INTERPOLATION.ps1" "PowerShell interpolation FIX120"
+call :run_ps_check "CHECK_FIX121_PUBLIC_HTTP_TEXT.ps1" "Public HTTP response decoding FIX121"
+call :run_ps_check "CHECK_FIX122_INSTALL_VERSION_NORMALIZATION.ps1" "Install FileVersion normalization FIX122"
+call :run_ps_check "CHECK_FIX123_INSTALLER_INITIALIZATION.ps1" "Installer initialization diagnostics FIX123"
+call :run_ps_check "CHECK_FIX124_SOURCE_GATE_DIAGNOSTICS.ps1" "Source-gate diagnostics FIX124"
+call :run_ps_check "CHECK_FIX125_DIAGNOSTICS_PROPAGATION.ps1" "Diagnostic propagation FIX125"
+call :run_ps_check "CHECK_FIX126_SOURCE_GATE_EXIT_CODE.ps1" "Source-gate exit-code FIX126"
+call :run_ps_check "CHECK_FIX127_PUBLISHER_VERSION_RESOLVER.ps1" "Publisher version resolver FIX127"
+call :run_ps_check "CHECK_FIX100_CLEANUP_PATH.ps1" "Package-local cleanup FIX100"
+call :run_ps_check "CHECK_FIX100_SOURCE_SCOPE.ps1" "Source allowlist FIX100"
+call :run_ps_check "CHECK_FIX100_PIPELINE.ps1" "Pipeline FIX100"
 :done
-if "%FAILED%"=="0" (echo [PASS] Current source/build/release gates completed.) else echo [FAIL] Current source/build/release gate failed.
+if "%KCS_CHECK_FAILED%"=="0" (
+  echo [PASS] Current source/build/release gates completed.
+  >>"%KCS_CHECK_LOG%" echo [PASS] Current source/build/release gates completed.
+) else (
+  echo [FAIL] Current source/build/release gate failed. See dist\build-logs\CHECK_SOURCE_FIX127.log for the exact failing child process and exit code.
+  >>"%KCS_CHECK_LOG%" echo [FAIL] Current source/build/release gate failed.
+)
+if exist "%KCS_TEST_OUTPUT%" del /q "%KCS_TEST_OUTPUT%" >nul 2>&1
 popd
 if /i not "%~1"=="/nopause" pause
-if "%FAILED%"=="0" exit /b 0
+if "%KCS_CHECK_FAILED%"=="0" exit /b 0
 exit /b 1
+
+:run_ps_check
+set "KCS_TEST_NAME=%~1"
+if exist "%KCS_TEST_OUTPUT%" del /q "%KCS_TEST_OUTPUT%" >nul 2>&1
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0%~1" >"%KCS_TEST_OUTPUT%" 2>&1
+set "KCS_TEST_RC=%ERRORLEVEL%"
+if exist "%KCS_TEST_OUTPUT%" (
+  type "%KCS_TEST_OUTPUT%"
+  >>"%KCS_CHECK_LOG%" echo ------------------------------------------------------------
+  >>"%KCS_CHECK_LOG%" echo [OUTPUT] %KCS_TEST_NAME%
+  type "%KCS_TEST_OUTPUT%" >>"%KCS_CHECK_LOG%"
+)
+>>"%KCS_CHECK_LOG%" echo [EXIT] %KCS_TEST_NAME% = %KCS_TEST_RC%
+if "%KCS_TEST_RC%"=="0" goto :run_ps_check_pass
+echo [FAIL] %KCS_TEST_NAME% (exit=%KCS_TEST_RC%)
+>>"%KCS_CHECK_LOG%" echo [FAIL] %KCS_TEST_NAME% (exit=%KCS_TEST_RC%)
+set "KCS_CHECK_FAILED=1"
+goto :run_ps_check_return
+:run_ps_check_pass
+echo [PASS] %KCS_TEST_NAME% (exit=0)
+:run_ps_check_return
+exit /b 0

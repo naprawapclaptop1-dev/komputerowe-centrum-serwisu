@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -68,7 +68,7 @@ namespace NaprawaPC.WindowsSwitcher
         private string pendingUpdateChannel = "", pendingUpdateRegion = "", pendingUpdateLanguage = "", pendingUpdateFeed = "";
         private string pendingUpdateSignerThumbprint = "";
         private string updaterSettingsPath = "";
-        private const string ProgramVersion = "1.0.0.69";
+        private const string ProgramVersion = "1.0.0.70";
         // Jeden adres wbudowany w aplikację — użytkownicy nie wpisują manifestów ani serwerów.
         private string GitHubReleaseBaseUrl
         {
@@ -954,7 +954,7 @@ namespace NaprawaPC.WindowsSwitcher
 
         private string GetOfficialUpdatePackageUrl()
         {
-            return OfficialUpdateBaseUrl+"KomputeroweCentrumSerwisu_FIX069_INSTALATOR.exe";
+            return OfficialUpdateBaseUrl+"KomputeroweCentrumSerwisu_FIX070_INSTALATOR.exe";
         }
         private string GetOfficialReleaseCatalogUrl()
         {
@@ -1243,7 +1243,7 @@ namespace NaprawaPC.WindowsSwitcher
                 using(StreamReader reader=new StreamReader(response.GetResponseStream(),Encoding.UTF8))
                 {
                     string json=reader.ReadToEnd();
-                    string[] required={"KomputeroweCentrumSerwisu_FIX069_INSTALATOR.exe","KomputeroweCentrumSerwisu_FIX069_PORTABLE.exe","manifest-stable.xml","manifest-beta.xml","releases.json","SHA256SUMS.txt"};
+                    string[] required={"KomputeroweCentrumSerwisu_FIX070_INSTALATOR.exe","KomputeroweCentrumSerwisu_FIX070_PORTABLE.exe","manifest-stable.xml","manifest-beta.xml","releases.json","SHA256SUMS.txt"};
                     List<string> missing=new List<string>();foreach(string name in required)if(json.IndexOf(name,StringComparison.OrdinalIgnoreCase)<0)missing.Add(name);
                     if(missing.Count>0)throw new InvalidDataException("W najnowszym wydaniu GitHub brakuje assetów: "+String.Join(", ",missing.ToArray()));
                     string tag=ReadJsonStringProperty(json,"tag_name");
@@ -1965,7 +1965,7 @@ namespace NaprawaPC.WindowsSwitcher
             if(d.ShowDialog()!=DialogResult.OK)return;
             string channel=updaterChannelBox!=null && updaterChannelBox.SelectedIndex==1?"beta":"stable";
             string sample="<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n"+
-                "<Update version=\"1.0.0.69\" channel=\""+channel+"\" region=\"global\" language=\"all\" architecture=\"any\" packageUrl=\""+
+                "<Update version=\"1.0.0.70\" channel=\""+channel+"\" region=\"global\" language=\"all\" architecture=\"any\" packageUrl=\""+
                 GetOfficialUpdatePackageUrl()+"\" sha256=\"WSTAW_64_ZNAKI_SHA256\">\r\n"+
                 "  <Notes lang=\"pl\">Wydanie "+ProgramVersion+"</Notes>\r\n"+
                 "  <Notes lang=\"en\">Release "+ProgramVersion+"</Notes>\r\n"+
@@ -1992,7 +1992,7 @@ namespace NaprawaPC.WindowsSwitcher
             string channel=updaterChannelBox!=null && updaterChannelBox.SelectedIndex==1?"beta":"stable";
             string manifestName=channel=="beta"?"manifest-beta.xml":"manifest-stable.xml";
             string folder=Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"GlobalUpdateServer");
-            string packageName="KomputeroweCentrumSerwisu_FIX069_INSTALATOR.exe";
+            string packageName="KomputeroweCentrumSerwisu_FIX070_INSTALATOR.exe";
             string packagePath=Path.Combine(folder,packageName);
             string manifestPath=Path.Combine(folder,manifestName);
             try

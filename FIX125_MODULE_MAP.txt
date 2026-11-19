@@ -1,0 +1,21 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX125 MODULE MAP
+
+CHECK_SOURCE.cmd
+- Zapisuje pełny diagnostyczny raport jako dist\build-logs\CHECK_SOURCE_FIX125.log.
+- Zachowuje kolejność i zestaw wcześniejszych testów; dodaje test propagacji FIX125.
+
+KCS_FIX101_WORKER.cmd
+- W gałęzi validation_fail rozpoznaje CHECK_SOURCE jako przyczynę.
+- Wyświetla raport CHECK_SOURCE_FIX125.log w aktywnym CMD i dopisuje go do głównego logu.
+- Jawnie informuje o braku raportu, jeśli plik nie istnieje.
+
+URUCHOM_TYLKO_TEN_PLIK.cmd
+- Zachowuje pojedynczy entrypoint i trwałe okno CMD; aktualizuje etykietę FIX125.
+
+CHECK_FIX125_DIAGNOSTICS_PROPAGATION.ps1
+- Testuje worker, źródłowy raport, wyjście konsoli, główny log, allowlistę i ochronę wydania.
+
+VALIDATE_FIX100_PACKAGE.ps1 / FIX099_SOURCE_ALLOWLIST.txt / FIX099_POWERSHELL_MANIFEST.txt
+- Wymagają i integralnie weryfikują nowe źródła.
+
+Wersja produktu: 1.0.0.70 / FIX070 (bez zmian).

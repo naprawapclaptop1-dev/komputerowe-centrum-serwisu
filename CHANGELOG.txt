@@ -1,4 +1,37 @@
-﻿KOMPUTEROWE CENTRUM SERWISU — FIX122
+﻿KOMPUTEROWE CENTRUM SERWISU — FIX127
+
+- Naprawiono resolver wersji w teście FIX116: wzorzec akceptuje wcięty zapis $Version używany przez publikator wewnątrz bloku try.
+- Resolver wymaga dokładnie czterech numerycznych składników i nie akceptuje komentarzy, braku przypisania ani niepoprawnego sufiksu.
+- Dodano CHECK_FIX127_PUBLISHER_VERSION_RESOLVER.ps1, który wyodrębnia i wykonuje rzeczywistą funkcję resolvera przez AST.
+- Test FIX126 został uodporniony na kolejny numer paczki; CHECK_SOURCE, walidator, allowlista, manifest i fixtures wydania uwzględniają FIX127.
+- Wersja produktu pozostaje 1.0.0.70 / FIX070; bez zmian kodu aplikacji i receptury instalatora.
+
+KOMPUTEROWE CENTRUM SERWISU — FIX126
+
+- Naprawiono fałszywe oznaczanie testów CHECK_SOURCE jako FAIL przy kodzie wyjścia 0; jawna gałąź PASS jest niezależna od gałęzi niepowodzenia.
+- Naprawiono test FIX116, który porównywał komunikat błędu z nieaktualną wersją 1.0.0.69 zamiast wersji odczytanej z publikatora.
+- Testy FIX124 i FIX125 rozpoznają numer aktywnego pakietu i raportu dynamicznie, bez awarii przy kolejnym FIX.
+- Polityka ponownego użycia publicznego wydania rozpoznaje wyłącznie określony launcher i persistent worker jako bezpieczne narzędzia.
+- Dodano CHECK_FIX126_SOURCE_GATE_EXIT_CODE.ps1 do aktywnego CHECK_SOURCE, pełnej walidacji, allowlisty i manifestu SHA-256.
+- Wersja produktu pozostaje 1.0.0.70 / FIX070; nie zmieniono plików aplikacji ani receptury instalatora.
+
+KOMPUTEROWE CENTRUM SERWISU — FIX125
+
+- Naprawiono przekazywanie szczegółowego raportu bramki CHECK_SOURCE do aktywnego okna CMD i głównego logu automatycznego startu.
+- Gdy CHECK_SOURCE zwróci kod 1, worker wyświetla pełny CHECK_SOURCE_FIX125.log z nazwą każdego testu, jego kodem wyjścia oraz przechwyconym wyjściem PowerShell.
+- Jeśli raport diagnostyczny nie istnieje, komunikat wprost wskazuje ten brak.
+- Dodano CHECK_FIX125_DIAGNOSTICS_PROPAGATION.ps1, obowiązkowy w CHECK_SOURCE i walidacji pełnego pakietu.
+- Wersja produktu pozostaje 1.0.0.70 / FIX070. Nie publikowano ani nie nadpisywano wydania GitHub.
+
+KOMPUTEROWE CENTRUM SERWISU — FIX123
+
+- Naprawiono wykrywanie wymaganego .NET Framework Full w inicjalizacji instalatora: poza Install=1 sprawdzane są również Release i Version, dla obu ścieżek rejestru.
+- Dodano jawne wpisy KCS_PREREQUISITE_OK / KCS_PREREQUISITE_MISSING do logu Inno Setup.
+- Automatyczna instalacja zapisuje log installation-FIX070-inno.log i dołącza końcowe wpisy przy błędzie, zamiast podawać tylko kod wyjścia.
+- Utworzono nową, spójną wersję produktu 1.0.0.70 / FIX070. Nie nadpisuje ona istniejącego wydania v1.0.0.69.
+- Dodano CHECK_FIX123_INSTALLER_INITIALIZATION.ps1 i dokumentację FIX123.
+
+KOMPUTEROWE CENTRUM SERWISU — FIX122
 NAPRAWA NORMALIZACJI FILEVERSION PRZED INSTALACJĄ
 
 - Naprawiono INSTALL_PUBLISHED_BUILD.ps1: FileVersion instalatora oraz zainstalowanego EXE jest najpierw jawnie konwertowany na tekst i Trim() usuwa końcowe spacje dopełniające zasób wersji Windows.

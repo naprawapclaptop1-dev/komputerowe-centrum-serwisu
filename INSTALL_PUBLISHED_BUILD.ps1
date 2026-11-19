@@ -30,13 +30,30 @@ function ConvertTo-KcsProductVersion {
     return $actualVersion.ToString()
 }
 
-$Installer=Join-Path $PSScriptRoot "dist\installers\KomputeroweCentrumSerwisu_FIX069_INSTALATOR.exe"
+$LogDir=Join-Path $PSScriptRoot "dist\build-logs"
+New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
+$InstallLog=Join-Path $LogDir "installation-FIX070-inno.log"
+if(Test-Path -LiteralPath $InstallLog){Remove-Item -LiteralPath $InstallLog -Force}
+$Installer=Join-Path $PSScriptRoot "dist\installers\KomputeroweCentrumSerwisu_FIX070_INSTALATOR.exe"
 if(!(Test-Path -LiteralPath $Installer)){throw "Nie znaleziono świeżego instalatora do instalacji."}
 $versionRaw=[Diagnostics.FileVersionInfo]::GetVersionInfo($Installer).FileVersion
-$version=ConvertTo-KcsProductVersion -RawVersion $versionRaw -ExpectedVersion '1.0.0.69' -Label 'Instalator'
+$version=ConvertTo-KcsProductVersion -RawVersion $versionRaw -ExpectedVersion '1.0.0.70' -Label 'Instalator'
 Write-Host "[AUTO] Instaluję opublikowaną wersję $version..."
-$p=Start-Process -FilePath $Installer -ArgumentList "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP-" -Verb RunAs -Wait -PassThru
-if($p.ExitCode -ne 0){throw "Instalator zakończył się kodem $($p.ExitCode)."}
+$logArgument='/LOG="' + $InstallLog + '"'
+$p=Start-Process -FilePath $Installer -ArgumentList @('/VERYSILENT','/SUPPRESSMSGBOXES','/NORESTART','/SP-',$logArgument) -Verb RunAs -Wait -PassThru
+if($p.ExitCode -ne 0){
+  $meaning=switch([int]$p.ExitCode){
+    1 {'Setup failed to initialize (Inno Setup exit code 1).'}
+    2 {'Installation was cancelled before installation began.'}
+    3 {'Fatal error while preparing installation.'}
+    4 {'Fatal error during installation.'}
+    5 {'Installation was cancelled during installation.'}
+    default {'Unexpected Inno Setup exit code.'}
+  }
+  $tail=''
+  if(Test-Path -LiteralPath $InstallLog){$tail=(Get-Content -LiteralPath $InstallLog -Tail 80 -ErrorAction SilentlyContinue) -join [Environment]::NewLine}
+  throw ("Instalator zakończył się kodem {0}. {1} Log: {2}`n{3}" -f $p.ExitCode,$meaning,$InstallLog,$tail)
+}
 $exeCandidates=@(
   (Join-Path $env:ProgramFiles "Komputerowe Centrum Serwisu\KomputeroweCentrumSerwisu.exe"),
   (Join-Path ${env:ProgramFiles(x86)} "Komputerowe Centrum Serwisu\KomputeroweCentrumSerwisu.exe"),
@@ -49,7 +66,8 @@ if(!$exe){
 }
 if(!$exe){throw "Instalator zakończył pracę, ale nie można odnaleźć zainstalowanego pliku EXE do weryfikacji."}
 $installedRaw=[Diagnostics.FileVersionInfo]::GetVersionInfo($exe).FileVersion
-$installed=ConvertTo-KcsProductVersion -RawVersion $installedRaw -ExpectedVersion '1.0.0.69' -Label 'Zainstalowany program'
+$installed=ConvertTo-KcsProductVersion -RawVersion $installedRaw -ExpectedVersion '1.0.0.70' -Label 'Zainstalowany program'
 Write-Host "[PASS] Zainstalowana wersja: $installed"
 Write-Host "[PASS] Repozytorium aktualizacji jest zapisane w instalatorze: naprawapclaptop1-dev/komputerowe-centrum-serwisu"
+Write-Host ("[PASS] Log instalatora: {0}" -f $InstallLog)
 Start-Process -FilePath $exe
