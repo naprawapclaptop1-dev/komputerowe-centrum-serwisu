@@ -1,8 +1,0 @@
-KOMPUTEROWE CENTRUM SERWISU — FIX108
-
-- Usunięto blokadę publikatora wymagającą folderu o nazwie KCS_FIX099. Publikacja może działać z dowolnej nazwy katalogu rozpakowania.
-- Zachowano kontrolę tożsamości pakietu przez FIX099_PACKAGE_MARKER.txt, przypisane repozytorium i punkt startowy.
-- Dodano obowiązkowy test regresyjny FIX108.
-- Zachowano wersję produktu 1.0.0.69, kanały Stable/Beta, konfigurację, wygląd i dotychczasowe funkcje.
-
-Weryfikacja repozytorium GitHub: repozytorium jest publiczne, ale obecnie API zwraca pustą listę Releases oraz brak tagu v1.0.0.69. Lokalny pakiet nie może sam zapewnić publicznej aktualizacji bez uruchomienia pełnej kompilacji na Windows i autoryzacji GitHub CLI.

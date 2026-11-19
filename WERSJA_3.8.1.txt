@@ -1,6 +1,0 @@
-NAPRAWA PC - AKADEMIA SERWISU PRO 3.8.2
-Poprawka obsługi konfiguracji Wrangler TOML pobieranej przez pages download config.
-Jeden CMD obsługuje wrangler.toml, wrangler.json i wrangler.jsonc.
-Nie tworzy nowej bazy D1 ani nowego projektu Pages.
-
-FIX 3.8.2: wykrywanie istniejącej bazy D1 po schemacie Akademii, korekta starej nazwy bindingu tylko po jednoznacznym dopasowaniu; brak losowego wyboru i brak tworzenia baz.

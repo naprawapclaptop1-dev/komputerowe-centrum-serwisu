@@ -1,9 +1,0 @@
-NAUKA OD A DO Z — DLA WSZYSTKICH
-6.4.0 FIX15 — ULTIMATE SERVICE ACADEMY
-Build: 6.4.0-ultimate-service-academy-fix15-20261102
-
-Pełny opis: README_FIX15_ULTIMATE_SERVICE_ACADEMY.txt
-Testy: TEST_REPORT_6.4.0_FIX15.txt
-Zmiany: CHANGELOG_6.4.0_FIX15.txt
-
-Nieopublikowano na Cloudflare Pages. Nie zmieniano produkcyjnej bazy D1.

@@ -1,9 +1,0 @@
-﻿KOMPUTEROWE CENTRUM SERWISU — FIX119 — BEZPIECZNA OBSŁUGA JUŻ OPUBLIKOWANEGO WYDANIA
-
-- Naprawiono obsługę ponownego uruchomienia publikacji po tym, gdy publiczne wydanie v1.0.0.69 już istnieje. Automat nie próbuje podmieniać assetów publicznego wydania.
-- Jeśli lokalne pliki różnią się od publicznych, publikator pobiera porównanie GitHub tagu z gałęzią domyślną. Ponowne użycie istniejących assetów jest dozwolone wyłącznie wtedy, gdy tag jest przodkiem bieżącej gałęzi, komplet sześciu publicznych assetów istnieje, a wszystkie zmienione ścieżki należą do jawnej listy zmian strony WWW, testów, narzędzi publikacji lub dokumentacji.
-- Zmiana plików C#, AssemblyInfo, manifestu aplikacji, ikon, zasobów instalatora, skryptu budowania lub nieznanej ścieżki blokuje automatyczne pominięcie wydania. Nie ma automatycznego podbijania wersji ani nadpisywania assetów.
-- Dodano KCS_RELEASE_POLICY.ps1 z czystymi funkcjami polityki ponownego użycia publicznego wydania oraz dekodowania odpowiedzi HTTP.
-- Naprawiono weryfikator publicznego manifestu dla Windows PowerShell 5.1: odpowiedzi byte[] są dekodowane z UTF-8 przed parsowaniem XML i kontrolą SHA256SUMS.txt.
-- Dodano CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1 i włączono test do CHECK_SOURCE oraz walidatora pełnego pakietu.
-- Wersja produktu pozostaje 1.0.0.69; tag v1.0.0.69 i istniejące publiczne pliki zostają zachowane.

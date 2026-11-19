@@ -1,8 +1,0 @@
-﻿KOMPUTEROWE CENTRUM SERWISU — FIX120 — NAPRAWA SKŁADNI INTERPOLACJI POWERSHELL 5.1
-
-- Naprawiono błąd parsera PowerShell 5.1 w PUBLISH_GITHUB_RELEASES.ps1: odwołanie do tagu bezpośrednio przed dwukropkiem zapisano jako ${Tag}:.
-- Dodano CHECK_FIX120_POWERSHELL_INTERPOLATION.ps1. Test parsuje rzeczywisty publikator przez System.Management.Automation.Language.Parser i sprawdza fixture błędnej oraz poprawnej interpolacji.
-- Nowy test uruchamia się w CHECK_SOURCE i jest wymaganym plikiem walidatora pakietu.
-- Zaktualizowano jawną allowlistę synchronizacji, manifest SHA-256 i dokumentację.
-- Nie zmieniono zasad zachowania istniejących assetów GitHub Release, kodu aplikacji, instalatora ani tagu v1.0.0.69.
-- Wersja produktu pozostaje 1.0.0.69.

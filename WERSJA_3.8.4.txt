@@ -1,6 +1,0 @@
-NAPRAWA PC — AKADEMIA SERWISU PRO 3.8.4
-Naprawa brakującego produkcyjnego bindingu D1 w Cloudflare Pages.
-Wybór jednej z istniejących baz D1 wymaga świadomego wskazania i potwierdzenia.
-Obsługa wrangler.toml, wrangler.json i wrangler.jsonc.
-Jeden punkt startowy: URUCHOM_AKADEMIE.cmd.
-Nie tworzy nowej bazy ani nowego projektu Pages.

@@ -1,8 +1,0 @@
-KOMPUTEROWE CENTRUM SERWISU — FIX111
-
-- Usunięto ostatni wielowierszowy blok IF(...) z BUILD_ALL.cmd, który powodował odrzucenie bramki CHECK_FIX105_BUILD_FLOW.ps1.
-- Zachowano wyświetlanie szczegółowego raportu 04-verification.log; brak pliku raportu nie przerywa przepływu.
-- Zachowano kontrolę kodu wyjścia VERIFY_BUILD.cmd oraz etykietowy przepływ etapów FIX105.
-- Dodano CHECK_FIX111_BUILD_ALL_SYNTAX.ps1 i włączono go do CHECK_SOURCE.
-- Nie wyłączono ani nie pominięto żadnej wcześniejszej bramki testowej.
-- Wersja produktu bez zmian: 1.0.0.69.

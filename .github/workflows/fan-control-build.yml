@@ -1,0 +1,41 @@
+name: Windows build — Fan Control PRO AI FIX001
+
+on:
+  push:
+    branches:
+      - fan-control-pro-ai-fix001
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore
+        working-directory: NAPRAWA_PC_FAN_CONTROL_PRO_AI_FIX001
+        run: dotnet restore NAPRAWA_PC_FAN_CONTROL_PRO_AI.csproj
+
+      - name: Build
+        working-directory: NAPRAWA_PC_FAN_CONTROL_PRO_AI_FIX001
+        run: dotnet build NAPRAWA_PC_FAN_CONTROL_PRO_AI.csproj -c Release --no-restore
+
+      - name: Publish self-contained x64
+        working-directory: NAPRAWA_PC_FAN_CONTROL_PRO_AI_FIX001
+        run: dotnet publish NAPRAWA_PC_FAN_CONTROL_PRO_AI.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o publish
+
+      - name: Upload EXE artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: NAPRAWA_PC_FAN_CONTROL_PRO_AI_FIX001_WIN_X64
+          path: NAPRAWA_PC_FAN_CONTROL_PRO_AI_FIX001/publish/NAPRAWA_PC_FAN_CONTROL_PRO_AI.exe
+          if-no-files-found: error

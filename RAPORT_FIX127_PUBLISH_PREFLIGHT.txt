@@ -1,9 +1,0 @@
-NAUKA OD A DO Z — FIX127 OneClick / Watcher preflight
-OneClick entries: 60
-Watcher entries: 61
-Unique scripts: 63
-PASS: 63
-FAIL: 0
-
-
-Nie wykonywano publikacji produkcyjnej, migracji D1 ani zmian sekretów.

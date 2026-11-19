@@ -1,9 +1,0 @@
-﻿FIX100 — NAPRAWA STARTU CMD I WALIDACJI KATALOGU PAKIETU
-
-- Usunięto błędne wymaganie, aby katalog rozpakowania nazywał się dokładnie KCS_FIX099.
-- Tożsamość pakietu jest weryfikowana przez marker FIX099_PACKAGE_MARKER.txt, przypisane repozytorium i wymagane pliki; nazwa folderu może być dowolna.
-- Walidator, bezpieczne czyszczenie i publikator odrzucają katalog główny dysku oraz katalogi będące punktami ponownej analizy.
-- Główny CMD uruchamia worker przez CALL w tym samym widocznym oknie /K, bez dodatkowego procesu CMD /C.
-- Dodano testy regresyjne FIX100 dla katalogu pakietu, stałego okna CMD, czyszczenia i kolejności pipeline.
-- Zachowano allowlistę źródeł, zakres czyszczenia, repozytorium GitHub Pages i konfigurację aplikacji.
-- Wersja produktu pozostaje 1.0.0.69; FIX100 naprawia automat uruchomieniowy i walidację pakietu, nie zmienia funkcji aplikacji.

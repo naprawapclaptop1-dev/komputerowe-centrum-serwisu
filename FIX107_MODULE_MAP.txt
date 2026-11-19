@@ -1,8 +1,0 @@
-FIX107 — MAPA ZMIAN
-
-WindowsVersionSwitcherPRO.Modules.cs — przypięcie manifestów i pakietu do tagu v1.0.0.69; diagnostyka sprawdza konkretny tag.
-VERIFY_GLOBAL_UPDATE_SERVER.ps1 — kontrola assetów dokładnego tagu i adresów tagowych.
-VERIFY_PUBLIC_DEPLOYMENT.ps1 — weryfikacja publikacji bez aliasu latest/download.
-GLOBAL_UPDATE_DEPLOYMENT.txt / README.txt — dokumentacja endpointów.
-CHECK_FIX107_UPDATER_ENDPOINTS.ps1 — regresyjny test spójności klienta i weryfikatorów.
-CHANGELOG.txt / CHECK_SOURCE.cmd / FIX099_SOURCE_ALLOWLIST.txt / FIX099_POWERSHELL_MANIFEST.txt — rejestracja poprawki i walidacja pakietu.

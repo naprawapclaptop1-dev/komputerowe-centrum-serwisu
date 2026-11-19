@@ -1,8 +1,0 @@
-{
-  "createdAt": "2026-11-11T21:08:31.976Z",
-  "scope": "source/config scan; no secret values printed",
-  "filesScanned": 437,
-  "findings": [],
-  "critical": 0,
-  "high": 0
-}

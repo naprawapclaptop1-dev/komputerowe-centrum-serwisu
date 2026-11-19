@@ -1,6 +1,0 @@
-import {spawnSync} from 'node:child_process';
-const tests=['scripts/test-fix220-post-deploy-smoke.mjs','scripts/test-fix220-228-implementation.mjs','scripts/test-fix220-228-publisher-guard.mjs','scripts/test-fix221-state-revision-contract.mjs','scripts/test-fix222-exam-bank-contract.mjs','scripts/test-fix223-security-report-contract.mjs','scripts/test-fix224-226-local-tools-contract.mjs','scripts/test-fix225-glb-import.mjs','scripts/test-fix227-228-cert-admin-contract.mjs','scripts/run-tests-fix219.mjs'];
-for(const file of tests){console.log(`\n===== ${file} =====`);const result=spawnSync(process.execPath,[file],{stdio:'inherit'});if(result.error)throw result.error;if(result.status!==0)process.exit(result.status??1);}
-const syntax=['functions/api/state.js','functions/api/certificates.js','functions/api/admin/exam-bank.js','functions/api/admin/health.js','WEB_PUBLISH/assets/cloud-academy.js','WEB_PUBLISH/assets/academy-workshop-3d-fix199.js','WEB_PUBLISH/assets/academy-master-curriculum-fix162.js','WEB_PUBLISH/assets/academy-fix222-exam-bank.js','ONECLICK_AKADEMIA.js','AUTO_PUBLISH_WATCHER.js'];
-for(const file of syntax){const result=spawnSync(process.execPath,['--check',file],{stdio:'inherit'});if(result.error)throw result.error;if(result.status!==0)process.exit(result.status??1);}
-console.log('\nFIX220–FIX228 FULL LOCAL TEST SUITE: PASS');

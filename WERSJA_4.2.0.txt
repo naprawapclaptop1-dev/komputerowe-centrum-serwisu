@@ -1,4 +1,0 @@
-NAPRAWA PC — AKADEMIA SERWISU PRO 4.2.0
-Nowy ekran startowy: LABORATORIUM SERWISOWE.
-Przebudowa interfejsu, części elektroniczne, stanowiska lutownicze i ścieżki szkoleniowe.
-Zachowana dotychczasowa baza D1, API i zawartość Akademii.

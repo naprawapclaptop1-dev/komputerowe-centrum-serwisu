@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 350" role="img" aria-labelledby="t d">
-<title id="t">BIBLIOTEKA MEDIÓW</title><desc id="d">Materiały szkoleniowe</desc>
-<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="hsl(8 58% 17%)"/><stop offset="1" stop-color="#071326"/></linearGradient><radialGradient id="glow"><stop stop-color="hsl(63 90% 65% / .26)"/><stop offset="1" stop-color="#061426" stop-opacity="0"/></radialGradient></defs>
-<rect width="500" height="350" rx="24" fill="url(#bg)"/><circle cx="405" cy="80" r="190" fill="url(#glow)"/>
-<g fill="none" stroke="hsl(63 88% 72%)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><rect x="82" y="68" width="336" height="210" rx="18"/><path d="M218 120l90 53-90 53z" fill="currentColor" stroke="none"/><path d="M110 300h280M130 322h240"/></g>
-<path d="M35 295h430" stroke="hsl(8 75% 65% / .5)" stroke-width="2"/><text x="38" y="45" fill="#a7f5ef" font-family="Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="3">NAUKA OD A DO Z / PRO</text><text x="38" y="327" fill="#effbff" font-family="Arial,sans-serif" font-size="18" font-weight="700">VIDEO / PHOTO</text></svg>

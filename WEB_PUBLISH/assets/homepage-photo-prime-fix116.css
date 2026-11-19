@@ -1,8 +1,0 @@
-/* FIX116 — keep photo attributions inside the homepage image crop without colliding with labels. */
-#view-home .np30-module-photo{position:relative!important;overflow:hidden!important;isolation:isolate!important}
-#view-home .np30-module-photo>img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;min-width:0!important;min-height:0!important;max-width:100%!important;max-height:100%!important;object-fit:cover!important;object-position:center!important}
-#view-home .np30-module-photo>i{z-index:3!important;bottom:27px!important;max-width:100%!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
-#view-home .np30-module-photo>.photo-credit-fix90{box-sizing:border-box!important;position:absolute!important;left:0!important;right:0!important;bottom:0!important;z-index:4!important;display:block!important;width:100%!important;max-width:100%!important;min-height:22px!important;max-height:28px!important;overflow:hidden!important;padding:3px 6px!important;font-size:7px!important;line-height:1.25!important;white-space:nowrap!important;text-overflow:ellipsis!important;background:rgba(2,10,22,.88)!important}
-#view-home .np75-specialist-photo>i{bottom:20px!important;z-index:2!important}
-#view-home .np75-specialist-photo>.photo-credit-fix90{bottom:0!important;z-index:4!important;max-height:18px!important;font-size:5px!important}
-#view-home .np30-module-photo img.photo-fix90-offline-fallback{object-fit:contain!important;padding:7px!important}

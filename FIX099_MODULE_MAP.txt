@@ -1,8 +1,0 @@
-FIX099 MODULE MAP
-- URUCHOM_TYLKO_TEN_PLIK.cmd: jedyny punkt uruchomienia i trwałe okno CMD.
-- VALIDATE_FIX099_PACKAGE.ps1: wymaga czystego katalogu KCS_FIX099.
-- CLEAN_SAFE_TEMP.ps1: czyści tylko dozwolone pliki tymczasowe wewnątrz pakietu.
-- PUBLISH_GITHUB_SOURCE.ps1: kopiuje i dodaje do Git wyłącznie ścieżki z FIX099_SOURCE_ALLOWLIST.txt.
-- CHECK_FIX099_SOURCE_SCOPE.ps1: testuje allowlist, zabezpieczenie katalogu i brak szerokiego kopiowania.
-- PUBLISH_GITHUB_RELEASES.ps1: publikuje instalator i portable dopiero po świeżej kompilacji.
-- Produkt: 1.0.0.69 (bez zmiany numeru produktu).

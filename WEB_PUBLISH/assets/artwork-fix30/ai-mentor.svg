@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 350" role="img" aria-labelledby="t d">
-<title id="t">AI TECHNICIAN MENTOR</title><desc id="d">Asystent nauki i analizy</desc>
-<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="hsl(66 58% 17%)"/><stop offset="1" stop-color="#071326"/></linearGradient><radialGradient id="glow"><stop stop-color="hsl(121 90% 65% / .26)"/><stop offset="1" stop-color="#061426" stop-opacity="0"/></radialGradient></defs>
-<rect width="500" height="350" rx="24" fill="url(#bg)"/><circle cx="405" cy="80" r="190" fill="url(#glow)"/>
-<g fill="none" stroke="hsl(121 88% 72%)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><rect x="125" y="75" width="270" height="190" rx="22"/><path d="M195 265v30l45-30m-60-125h160m-160 42h115"/><circle cx="180" cy="90" r="7"/><circle cx="220" cy="90" r="7"/><circle cx="260" cy="90" r="7"/><path d="M338 130l9 18 20 3-15 14 3 20-17-9-18 9 4-20-15-14 20-3z"/></g>
-<path d="M35 295h430" stroke="hsl(66 75% 65% / .5)" stroke-width="2"/><text x="38" y="45" fill="#a7f5ef" font-family="Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="3">NAUKA OD A DO Z / PRO</text><text x="38" y="327" fill="#effbff" font-family="Arial,sans-serif" font-size="18" font-weight="700">ASK / ANALYZE</text></svg>

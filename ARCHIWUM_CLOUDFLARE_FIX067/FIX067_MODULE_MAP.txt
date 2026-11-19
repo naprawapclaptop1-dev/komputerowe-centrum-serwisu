@@ -1,6 +1,0 @@
-FIX068 — MAPA ZMIAN
-1. URUCHOM_WSZYSTKO.cmd — jedyny punkt startowy całego przebiegu.
-2. PUBLISH_CLOUDFLARE_FREE.ps1 — lokalny Wrangler v4 zamiast tymczasowego npx; zachowana autoryzacja OAuth i weryfikacja sesji.
-3. BUILD_PORTABLE / BUILD_INSTALLER_MODERN / VERIFY_BUILD — wydanie 1.0.0.68.
-4. CHECK_FIX068_REGRESSION.ps1 — test regresji istniejących funkcji.
-5. FIX065 i wcześniejsze pliki release notes pozostają historią, nie są usuwane.

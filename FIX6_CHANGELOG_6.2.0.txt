@@ -1,7 +1,0 @@
-6.2.0 FIX6 — PUBLISH GUARD
-- Naprawiono niezgodność nazwy znacznika wersji silnika zdjęć między runtime, publikacją i watcherem.
-- Zaktualizowano przestarzały test wersji wydania.
-- Zaktualizowano Service Worker oraz wersje zasobów, by ominąć stare cache FIX5.
-- Dodano test regresyjny bramki publikacji.
-- Zachowano FIX5: unikalne fotografie tematyczne i długie szkolenia.
-- Bez zmian w danych produkcyjnych, sekretach i konfiguracji konta Cloudflare.

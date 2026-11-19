@@ -1,9 +1,0 @@
-FIX113 — ZAKRES ZMIAN
-- scripts/test-global-academy-http-port-fix112.mjs — poprawiono test proxy FIX112.
-- scripts/test-global-academy-http-proxy-fix113.mjs — nowy test preflight proxy Node 26.
-- ONECLICK_AKADEMIA.js — aktualny test FIX113 w walidacji.
-- AUTO_PUBLISH_WATCHER.js — aktualny test FIX113 w regresji Watchera.
-- scripts/run-tests-fix113.mjs — pełny runner regresji i składni.
-- WYKONAJ_TESTY_FIX113.cmd — launcher Windows.
-- CHANGELOG_6.8.0_FIX113.txt, README_FIX113_NODE26_PROXY.txt, RAPORT_FIX113_TESTY.log.
-Wersja produktu: 6.8.0 (bez zmiany). D1 i cache PWA bez zmian.

@@ -1,3 +1,0 @@
-NAPRAWA PC — AKADEMIA SERWISU PRO 3.8.8
-Wydanie: poprawa interfejsu procedur napraw i okien modalnych.
-Zmiany produkcyjne Cloudflare/D1: brak. Konfiguracja 3.8.7 pozostaje bez zmian.

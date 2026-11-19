@@ -1,9 +1,0 @@
-ZIP VERIFY — NAUKA OD A DO Z 6.8.0 FIX31
-Archiwum zawiera pełny projekt odziedziczony z FIX30, sześć nowych plików źródłowych FIX31 i cztery dokumenty wydania FIX31.
-Weryfikacja po utworzeniu archiwum:
-- ZIP testzip() musi zwrócić None.
-- Wszystkie pliki źródłowe z FIX30 muszą być zachowane.
-- Brak usuniętych plików względem FIX30.
-- Oczekiwany zestaw testów: 47/47 PASS.
-- Oczekiwany wynik lokalnej kontroli publikatora verifyWeb(): PASS.
-Suma SHA-256 znajduje się w pliku obok archiwum .sha256.

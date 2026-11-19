@@ -1,8 +1,0 @@
-NAPRAWA PC — FIX037 MODULE MAP
-Base: FIX035 verified FileVersion trim build.
-Added route: Migracja PC PRO.
-Migration engine: selected-folder export/import, versioned manifest, per-file SHA-256 and file-size checks, path traversal protection, reparse-point skip.
-Transport: local/removable storage and reachable SMB shares over LAN/Wi-Fi. Bluetooth package handoff via Windows Nearby Sharing is documented, not implemented as a direct Bluetooth protocol.
-Themes: CENTRUM MIGRACJI I NAPRAW, CYAN, VIOLET, EMERALD, ICE, GRAPHITE, AMBER, RUBY, SOLAR, OCEAN.
-All existing 61 module routes and persistent app-data paths are retained.
-ProductVersion: 1.0.0.37 / FIX037.

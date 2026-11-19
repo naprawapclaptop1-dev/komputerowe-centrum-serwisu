@@ -1,3 +1,0 @@
-# Pusty plik blokuje publikację.
-# Sprawdź dokładną Production Branch w Cloudflare Pages > Settings > Builds & deployments.
-# Wpisz poniżej jedną nazwę gałęzi, np. main, dopiero po ręcznym potwierdzeniu w panelu.

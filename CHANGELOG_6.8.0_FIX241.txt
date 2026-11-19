@@ -1,9 +1,0 @@
-NAUKA OD A DO Z 6.8.0 — FIX241
-
-- Naprawiono cytowanie literałów SQL w functions/api/guardians.js (completed, pending, revoked).
-- Dodano kontrolę składni wszystkich Cloudflare Pages Functions przed wdrożeniem.
-- OneClick i Auto Publisher Watcher blokują publikację, jeśli test FIX241 nie przechodzi.
-- Dodano test integracyjny SQL panelu opiekuna na migracjach 0001, 0019 i 0023.
-- Wersja produktu 6.8.0 bez zmian.
-- Brak nowych migracji D1, brak zmian sekretów i cache PWA.
-- Publikacja produkcyjna nie została wykonana.

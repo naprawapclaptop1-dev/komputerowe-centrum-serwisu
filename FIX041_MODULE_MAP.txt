@@ -1,9 +1,0 @@
-NAPRAWA PC — CENTRUM MIGRACJI I NAPRAW
-MAPA ZMIAN FIX041
-
-Widoczne nazwy modułów są polskie; identyfikatory routingu pozostają wewnętrzne i zgodne ze starszą konfiguracją.
-Zachowano strony: pulpit, migracja, kopia zapasowa, przywracanie, katalog Windows, diagnostyka PC, narzędzia, dziennik operacji, kreator USB, raporty, sterowniki, naprawa Windows, analiza BSOD, monitor sprzętu, zdrowie dysków, centrum serwisowe, integralność, kopia konfiguracji, plan migracji, partycje/GPT/UEFI, harmonogram kopii, asystent AI i transfer komputera.
-
-Wygląd: trzy różne style malowania kart i przycisków oraz dziesięć niezależnych palet kolorów. Wybór stylu i palety zapisywany jest w ustawieniach.
-
-Format NEXUS_MIGRATION_MANIFEST_V1 jest pozostawiony jako techniczny identyfikator formatu pakietu, aby starsze pakiety mogły być weryfikowane. Nie jest to nazwa programu ani widoczny tekst interfejsu.

@@ -1,4 +1,0 @@
-NAPRAWA PC — AKADEMIA SERWISU PRO 3.8.9
-Pełna paczka: stabilna konfiguracja D1 z 3.8.7 + kompletna poprawa interfejsu procedur + odświeżanie cache.
-
-Nie zmieniono identyfikatora bazy D1, migracji SQL ani połączenia produkcyjnego.

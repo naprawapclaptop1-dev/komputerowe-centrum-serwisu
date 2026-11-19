@@ -1,4 +1,0 @@
-[11/4/2026, 8:18:17 AM] 5/7 — Kontrola plików WWW, rejestracji, modeli, statystyk i materiałów…
-[11/4/2026, 8:18:17 AM] Lokalny build potwierdzony: 6.8.0-social-login-fix33-home-refresh-selector-20261104, 1060 lekcji, formularz kont, katalog modeli, globalne statystyki i film wsparcia; 12 kart diagnostycznych.
-[11/4/2026, 8:18:17 AM] Katalog WWW przeszedł wszystkie kontrole.
-PASS: pełne ONECLICK verifyWeb() przechodzi lokalnie; build=6.8.0-social-login-fix33-home-refresh-selector-20261104, lekcje=1060, karty diagnostyczne=12. Bez Cloudflare, D1 i migracji.

@@ -1,8 +1,0 @@
-FIX081 — MODUŁY ZMIENIONE
-- URUCHOM_TYLKO_TEN_PLIK.cmd — jedyny punkt startowy, uruchamia walidację FIX081.
-- VALIDATE_FIX081_PACKAGE.ps1 — waliduje marker, pliki wymagane, manifest skryptów, BOM, SHA-256 i parser PowerShell.
-- FIX081_POWERSHELL_MANIFEST.txt — jawna lista skryptów PowerShell dołączonych do ZIP wraz z SHA-256.
-- CHECK_FIX081_PACKAGE_VALIDATION.ps1 — testy regresyjne walidatora.
-- PUBLISH_GITHUB_SOURCE.ps1 — synchronizacja źródeł, wymaga markera FIX081.
-- PUBLISH_GITHUB_RELEASES.ps1 — publikacja assetów, wymaga markera FIX081.
-- CHANGELOG.txt / README.md / FIX081_RELEASE_NOTES.txt — dokumentacja zmiany.

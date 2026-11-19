@@ -1,8 +1,0 @@
-FIX8 — Strona główna: pokaz slajdów, centrum nauki i plan nauki
-- Dodano pokaz sześciu fotografii online: naprawy PCB, pomiary, podzespoły, laptop, RAM i wspólna nauka.
-- Dodano podpisy autorów i odnośniki do oryginalnych stron zdjęć.
-- Dodano kontrolki dostępności, pauzę, obsługę klawiatury, automatyczne zatrzymanie i wsparcie reduced motion.
-- Dodano 12 skrótów do istniejących działających modułów edukacyjnych.
-- Dodano dzienny plan nauki z lokalnym zapisem trzech etapów.
-- Zmieniono namespace Service Workera i dodano testy publikatora oraz watchera dla nowej strony głównej.
-- Zachowano zakres edukacyjny bez formularzy zleceń serwisowych.

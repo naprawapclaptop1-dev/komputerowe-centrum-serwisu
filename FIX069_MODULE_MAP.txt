@@ -1,5 +1,0 @@
-FIX069 - MAPA ZMIAN
-URUCHOM_WSZYSTKO.cmd: nowy launcher bez BOM, walidacja owner/repo, build i publikacja.
-BUILD_ALL.cmd: zachowany bez zmiany logiki.
-PUBLISH_GITHUB_RELEASES.ps1: zachowany dotychczasowy publikator GitHub.
-CHANGELOG.txt / VERSION.txt: wersja 1.0.0.69.

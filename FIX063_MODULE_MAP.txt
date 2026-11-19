@@ -1,9 +1,0 @@
-KOMPUTEROWE CENTRUM SERWISU — MAPA FIX063
-
-- ProgramVersion i Assembly metadata: 1.0.0.63.
-- CHECK_FIX063_REGRESSION.ps1: rzeczywisty tytuł ekranu aktualizacji „CENTRUM AKTUALIZACJI GLOBALNYCH”; test ograniczony do fragmentu BuildUpdaterPage().
-- BUILD_INSTALLER_MODERN.cmd: wstępna kontrola starego stage EXE jest cicha; stary plik jest odrzucany i następuje świeże budowanie, jeśli nie ma poprawnego BUILD_ID.
-- VERIFY_PAYLOAD.ps1: nadal wymaga wersji 1.0.0.63, FIX063, SHA-256 i SOURCE_SHA256.
-- URUCHOM_WSZYSTKO.cmd: nadal jest jedynym zalecanym punktem startowym.
-- Cloudflare Pages/R2, DNS/HTTPS, 65 tras, 3 style, 10 motywów i zabezpieczenia migracji zachowane.
-- DesignVersion FIX060 zachowany dla zgodności ustawień użytkownika.

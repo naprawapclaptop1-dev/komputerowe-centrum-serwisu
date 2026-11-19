@@ -1,9 +1,0 @@
-NAPRAWA PC — AKADEMIA SERWISU PRO 3.8.2
-
-- Naprawiono blokadę wynikającą z nieistniejącej/starej nazwy D1.
-- Jeśli nie ma zgodności nazwy, skrypt wykonuje wyłącznie odczytowe sprawdzenie tabel w istniejących bazach.
-- Automatycznie wybiera tylko jeden, jednoznacznie rozpoznany schemat Akademii (min. 2 z 3 tabel kontrolnych).
-- Jeśli jest kilka pasujących baz albo żadna, zatrzymuje się bez migracji i bez publikacji.
-- Jeżeli konfiguracja ma database_id, ID musi się zgadzać; konflikt blokuje zmianę.
-- Stara nazwa bindingu może zostać poprawiona po potwierdzeniu bazy; tworzona jest kopia .bak.
-- Testy offline nie potwierdzają dostępu do konta Cloudflare ani nie wykonują zdalnej migracji.

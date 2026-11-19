@@ -1,6 +1,0 @@
-FIX106 MODULE MAP
-
-CHECK_FIX101_KEEP_OPEN.ps1 — validates persistent launcher behavior without pinning the launcher title to the obsolete FIX104 string.
-URUCHOM_TYLKO_TEN_PLIK.cmd — retains current FIX-numbered title and starts the separate worker in ComSpec /d /k.
-CHECK_SOURCE.cmd — continues to run the persistent CMD regression gate; no test is bypassed.
-CHANGELOG.txt — records FIX106.

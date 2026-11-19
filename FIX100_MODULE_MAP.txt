@@ -1,6 +1,0 @@
-﻿FIX100 MODULE MAP
-- URUCHOM_TYLKO_TEN_PLIK.cmd: uruchamia trwałe okno CMD /K i wywołuje worker przez CALL w tym samym oknie.
-- VALIDATE_FIX100_PACKAGE.ps1: weryfikuje marker, repozytorium, wymagane pliki, BOM, SHA-256 i składnię PowerShell bez narzucania nazwy katalogu rozpakowania.
-- CLEAN_SAFE_TEMP.ps1: czyści wyłącznie dozwolone katalogi tymczasowe wewnątrz zweryfikowanego pakietu.
-- PUBLISH_GITHUB_SOURCE.ps1: zachowuje ścisłą allowlistę publikowanych plików, ale nie blokuje folderu o nazwie innej niż KCS_FIX099.
-- CHECK_FIX100_ROOT_PATH.ps1 / KEEP_OPEN / CLEANUP_PATH / SOURCE_SCOPE / PIPELINE: testy regresyjne poprawki.

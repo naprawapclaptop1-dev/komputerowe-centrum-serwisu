@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Update version="1.0.0.69" channel="stable" region="global" language="all" architecture="any" packageUrl="https://github.com/naprawapclaptop1-dev/komputerowe-centrum-serwisu/releases/download/v1.0.0.69/KomputeroweCentrumSerwisu_FIX069_INSTALATOR.exe" sha256="SHA256_TUTAJ">
-  <Notes lang="pl">Wydanie 1.0.0.69 — Komputerowe Centrum Serwisu</Notes>
-  <Notes lang="en">Release 1.0.0.69 — Computer Service Center</Notes>
-  <Mirrors />
-</Update>

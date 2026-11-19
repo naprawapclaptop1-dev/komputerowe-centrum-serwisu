@@ -1,8 +1,0 @@
-FIX099 — BLOKADA SZEROKIEJ PUBLIKACJI ŹRÓDEŁ
-
-- Zastąpiono kopiowanie całego katalogu Robocopy /E jawną listą FIX099_SOURCE_ALLOWLIST.txt.
-- Git stage obejmuje wyłącznie ścieżki z allowlisty.
-- Pominięto podkatalogi spoza pakietu, w tym WEB_PUBLISH i ARCHIWUM_CLOUDFLARE_FIX067.
-- Uruchomienie z folderu innego niż KCS_FIX099 jest blokowane przed czyszczeniem i publikacją.
-- Czyszczenie pozostaje ograniczone do folderu pakietu.
-- Numer produktu pozostaje 1.0.0.69.

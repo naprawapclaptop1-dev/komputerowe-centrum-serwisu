@@ -1,7 +1,0 @@
-FIX63 SYNTAX REPORT
-JS/MJS/CJS checked: 232
-Syntax errors: 0
-CSS files checked: 50
-CSS brace balance errors: 0
-JSON files checked: 54
-JSON errors: 0

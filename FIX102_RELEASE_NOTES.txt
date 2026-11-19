@@ -1,8 +1,0 @@
-KOMPUTEROWE CENTRUM SERWISU — FIX102
-
-- Naprawiono rozbieżności w bramce CHECK_SOURCE: test PATH sprawdza worker, w którym narzędzia są wykrywane i dodawane do PATH.
-- Test czyszczenia sprawdza worker wykonujący CLEAN_SAFE_TEMP.ps1, zamiast minimalnego launchera.
-- Zaktualizowano testy cache .tools do rzeczywistej architektury synchronizacji opartej na jawnej allowliście (bez Robocopy).
-- Publikator usuwa wcześniej śledzone wpisy .tools wyłącznie z indeksu tymczasowego klonu Git; lokalny cache projektu pozostaje nietknięty.
-- Dodano CHECK_FIX102_SOURCE_GATE.ps1 i włączono go do CHECK_SOURCE.cmd.
-- Wersja produktu bez zmian: 1.0.0.69.

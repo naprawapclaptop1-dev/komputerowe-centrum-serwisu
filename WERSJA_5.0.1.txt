@@ -1,9 +1,0 @@
-NAPRAWA PC — AKADEMIA SERWISU PRO 5.0.1
-NEON MOTION ACADEMY — NAVIGATION & SIDEBAR FIX
-
-Naprawiono błąd inicjalizacji zdarzeń: brak opcjonalnego #startDiagnosis nie przerywa już podpinania dalszych kontrolek.
-Dodano odporną na błędy nawigację do Bazy napraw i otwieranie szybkich procedur.
-Poprawiono wysokość i przewijanie bocznego panelu, pełne etykiety procedur, widoczność przycisku Pokaż wszystkie naprawy oraz przycisk zamykania menu mobilnego.
-Zachowano dane Akademii, moduły 5.0.0, konfigurację Pages i binding D1.
-
-Nie dodano migracji D1 ani nie zmieniono istniejących tabel.

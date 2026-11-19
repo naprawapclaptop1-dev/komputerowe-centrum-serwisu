@@ -1,7 +1,0 @@
-FIX53 — SYNTAX LOG
-
-Pełny lokalny przebieg node --check zakończony powodzeniem dla 223 plików JS/MJS/CJS.
-W szczególności sprawdzono: AUTO_PUBLISH_WATCHER.js, ONECLICK_AKADEMIA.js, scripts/fix51-visual-asset-verification-fix53.cjs i scripts/test-watcher-fix51-asset-count-fix53.mjs.
-
-Node.js w środowisku testowym: v22.16.0.
-Wymagany przebieg potwierdzający na Windows: uruchom WYKONAJ_TESTY_FIX53.cmd z Node.js v24.19.0.

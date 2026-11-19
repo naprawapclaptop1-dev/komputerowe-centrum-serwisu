@@ -1,9 +1,0 @@
-3.9.6 — FIX PUBLIKACJI NA STAŁY ADRES
-
-- Dodano weryfikację statycznego build marker przed uruchomieniem migracji.
-- Dodano walidację widoku Diagnostyka i 12 kart w lokalnym WEB_PUBLISH.
-- Dodano kontrolę wersji HTML po wdrożeniu na stały adres Pages.
-- Dodano jawne rozróżnienie adresu hash deployment preview i stałego adresu produkcyjnego.
-- Dodano automatyczne otwarcie poprawnego adresu po pozytywnej kontroli.
-- Dodano zamykanie starych obserwatorów uruchomionych z tego samego katalogu.
-- Nie zmieniono schematu D1, UUID, migracji ani OAuth.

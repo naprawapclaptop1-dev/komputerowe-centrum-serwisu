@@ -1,6 +1,0 @@
-FIX033 - COMPILER HOTFIX
-1. The C# error CS1061 occurred because radioBubbleButton was stored as the base type Button.
-2. Its actual instance is PremiumButton, which defines AccentColor.
-3. The field now uses PremiumButton, so AccentColor resolves at compile time.
-4. The NEXUS design version marker remains FIX032 to preserve current preferences.
-5. Product version and build identity are FIX033 / 1.0.0.33.

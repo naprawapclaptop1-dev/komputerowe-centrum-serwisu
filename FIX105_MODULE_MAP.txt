@@ -1,7 +1,0 @@
-FIX105 MODULE MAP
-
-BUILD_ALL.cmd — flat label-driven build state machine; avoids nested multi-line IF blocks that caused CMD parse termination.
-CHECK_FIX105_BUILD_FLOW.ps1 — regression checks for label flow, stage exit-code gates and worker integration.
-CHECK_SOURCE.cmd — executes the FIX105 build-flow regression gate.
-VALIDATE_FIX100_PACKAGE.ps1 — requires the FIX105 test in the complete package.
-FIX099_SOURCE_ALLOWLIST.txt — includes FIX105 regression and documentation files.

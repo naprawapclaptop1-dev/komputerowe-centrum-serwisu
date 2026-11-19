@@ -1,8 +1,0 @@
-6.1.0 — ULTIMATE KNOWLEDGE LAB
-- Dodano 60 unikalnych lekcji warsztatowych z 8 krokami, narzędziami, objawami, diagnozą, naprawą, weryfikacją i quizem.
-- Łączny katalog po załadowaniu wszystkich pakietów: 1060 unikalnych lekcji.
-- Dodano mapę wiedzy 18 dziedzin, liczoną z rzeczywistych danych kursów.
-- Dodano trzy skórki z ręcznym i okresowym wyborem.
-- Dodano animowany panel wiedzy i pulpitu z rzeczywistymi licznikami D1/katalogu.
-- Uaktualniono Service Worker i oba walidatory publikacji.
-- Brak nowych migracji D1; bez zmian w istniejących tabelach.

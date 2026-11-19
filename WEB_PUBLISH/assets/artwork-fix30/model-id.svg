@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 350" role="img" aria-labelledby="t d">
-<title id="t">KATALOG MODELI</title><desc id="d">Identyfikacja modeli i rewizji</desc>
-<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="hsl(339 58% 17%)"/><stop offset="1" stop-color="#071326"/></linearGradient><radialGradient id="glow"><stop stop-color="hsl(34 90% 65% / .26)"/><stop offset="1" stop-color="#061426" stop-opacity="0"/></radialGradient></defs>
-<rect width="500" height="350" rx="24" fill="url(#bg)"/><circle cx="405" cy="80" r="190" fill="url(#glow)"/>
-<g fill="none" stroke="hsl(34 88% 72%)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><rect x="185" y="95" width="150" height="150" rx="18"/><rect x="215" y="125" width="90" height="90" rx="8"/><path d="M210 70v25m32-25v25m32-25v25m32-25v25m32-25v25m-128 150v25m32-25v25m32-25v25m32-25v25m32-25v25M160 125h25m-25 32h25m-25 32h25m-25 32h25m150-96h25m-25 32h25m-25 32h25m-25 32h25"/></g>
-<path d="M35 295h430" stroke="hsl(339 75% 65% / .5)" stroke-width="2"/><text x="38" y="45" fill="#a7f5ef" font-family="Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="3">NAUKA OD A DO Z / PRO</text><text x="38" y="327" fill="#effbff" font-family="Arial,sans-serif" font-size="18" font-weight="700">BOARD ID / REV</text></svg>

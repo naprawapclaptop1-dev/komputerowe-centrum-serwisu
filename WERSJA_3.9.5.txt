@@ -1,8 +1,0 @@
-NAPRAWA PC — AKADEMIA SERWISU PRO 3.9.5
-Pełny projekt z naprawą rzeczywistej domyślnej trasy Diagnostyka.
-- Diagnostyka ustawiona jako aktywny widok już w HTML, bez oczekiwania na JavaScript.
-- 12 kart diagnostycznych obecnych jako statyczny fallback.
-- JavaScript przełącza widok na samym początku inicjalizacji.
-- Przycisk Rozpocznij diagnostykę prowadzi do katalogu Diagnostyka.
-- Pulpit pozostaje osobną zakładką i jest dostępny przez ?view=home.
-- D1, produkcyjny binding, migracje i OAuth pozostawione bez zmian.

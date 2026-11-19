@@ -1,8 +1,0 @@
-NAUKA OD A DO Z — DLA WSZYSTKICH
-WERSJA 6.6.0 FIX17
-MASTER SERVICE CENTER
-Build: 6.6.0-master-service-center-fix17-20261102
-
-Zakres: sekwencje startowe płyt, netlisty CSV, wykresy pomiarowe CSV, Repair Brain, audyt stanowiska, lokalne karty pracy, scenariusze praktyczne, kopia FIX17 oraz opcjonalny lokalny audyt Windows CIM/Storage z importem JSON.
-
-Wydanie lokalne — production_published=false. Brak publikacji Cloudflare i brak zmian D1.

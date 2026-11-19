@@ -1,8 +1,0 @@
-FIX095 MODULE MAP
-- URUCHOM_TYLKO_TEN_PLIK.cmd: persistent outer CMD host and isolated worker.
-- CHECK_SOURCE.cmd: active package gate; references only included FIX095 tests.
-- VALIDATE_FIX095_PACKAGE.ps1: marker, required files, BOM, hashes and parser checks.
-- CLEAN_SAFE_TEMP.ps1: stale TEMP cleanup and explicit allowlist of regenerable application caches.
-- CHECK_FIX095_*.ps1: regression checks for CMD, Pages, cleanup, app caches and pipeline order.
-- Repository: naprawapclaptop1-dev/komputerowe-centrum-serwisu
-- Product version: 1.0.0.69
