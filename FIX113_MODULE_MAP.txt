@@ -1,0 +1,18 @@
+FIX113 — MAPA ZMIAN
+
+VERIFY_BUILD.cmd
+- Po zakończeniu VERIFY_BUILD.ps1 przechwytuje kod wyjścia.
+- Wyświetla pełny dist\build-logs\04-verification.log zarówno przy sukcesie, jak i błędzie.
+- Brak raportu przy kodzie 0 jest zamieniany na kod 3; kody niezerowe PowerShell są zachowywane.
+
+CHECK_FIX113_WRAPPER_REPORT.ps1
+- Regresja kolejności: uruchomienie weryfikatora → przechwycenie kodu → wydruk raportu → rozgałęzienie sukces/błąd.
+- Regresja braku raportu i propagacji kodu.
+
+CHECK_SOURCE.cmd / VALIDATE_FIX100_PACKAGE.ps1
+- Test FIX113 dołączony do bramki źródłowej i walidacji pakietu.
+
+FIX099_SOURCE_ALLOWLIST.txt
+- Dodano jawne ścieżki plików FIX113.
+
+Wersja produktu: 1.0.0.69 (bez zmian).

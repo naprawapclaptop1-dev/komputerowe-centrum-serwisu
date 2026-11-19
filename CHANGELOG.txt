@@ -1004,3 +1004,19 @@ KOMPUTEROWE CENTRUM SERWISU — FIX111
 - Zachowano wyświetlanie szczegółowego raportu weryfikacji i kontrolę kodu wyjścia VERIFY_BUILD.cmd.
 - Dodano CHECK_FIX111_BUILD_ALL_SYNTAX.ps1 do CHECK_SOURCE; wcześniejsze testy pozostają aktywne.
 - Wersja produktu bez zmian: 1.0.0.69.
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX112
+- Przeniesiono etap weryfikacji wyników budowania do osobnego weryfikatora PowerShell.
+- Raport 04-verification.log zapisuje brakujące/puste pliki, wyniki BUILD_ID, FileVersion, SHA-256, zgodność źródeł oraz stdout/stderr i kody wyjścia.
+- Zachowano wymaganie portable + nowoczesnego instalatora; XP pozostaje opcjonalny.
+- Dodano test regresji FIX112 z kontrolą pozytywnego zestawu i brakującego artefaktu.
+- Wersja produktu bez zmian: 1.0.0.69.
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX113
+- Naprawiono rozjazd między testem regresji FIX110 a wrapperem weryfikacji wprowadzonym w FIX112: VERIFY_BUILD.cmd ponownie samodzielnie wyświetla pełny 04-verification.log.
+- Raport jest pokazywany także przy nieudanej weryfikacji; oryginalny kod wyjścia PowerShell pozostaje zachowany.
+- Brak raportu przy kodzie 0 nie jest uznawany za sukces (kod 3).
+- Dodano CHECK_FIX113_WRAPPER_REPORT.ps1 i dołączono do CHECK_SOURCE, walidatora pakietu oraz allowlisty.
+- Wersja produktu bez zmian: 1.0.0.69.
