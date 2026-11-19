@@ -119,10 +119,36 @@ try {
   $Installer=Join-Path $Root "dist\installers\$SetupName"
   $Portable=Join-Path $Root "dist\portable\$PortableName"
   foreach($path in @($Installer,$Portable)){if(!(Test-Path -LiteralPath $path -PathType Leaf)){throw "Brak świeżego artefaktu kompilacji: $path"};if((Get-Item -LiteralPath $path).Length -le 0){throw "Plik wynikowy jest pusty: $path"}}
-  $installerVersion=[Diagnostics.FileVersionInfo]::GetVersionInfo($Installer).FileVersion
-  if($installerVersion -ne "1.0.0.69"){throw "Instalator ma wersję $installerVersion zamiast 1.0.0.69."}
-  $portableVersion=[Diagnostics.FileVersionInfo]::GetVersionInfo($Portable).FileVersion
-  if($portableVersion -ne "1.0.0.69"){throw "Wersja portable ma wersję $portableVersion zamiast 1.0.0.69."}
+  function Assert-ExpectedFileVersion {
+    param([string]$RawVersion,[string]$ExpectedVersion,[string]$Label)
+    $raw = [string]$RawVersion
+    $actual = $raw.Trim()
+    $expected = ([string]$ExpectedVersion).Trim()
+    if ([string]::IsNullOrWhiteSpace($actual)) {
+      throw ("{0}: zasób FileVersion jest pusty; raw=[{1}] expected=[{2}]" -f $Label,$raw,$expected)
+    }
+    $matches = $false
+    try {
+      $actualVersionObject = [version]$actual
+      $expectedVersionObject = [version]$expected
+      $matches = $actualVersionObject.Equals($expectedVersionObject)
+    }
+    catch {
+      $matches = [string]::Equals($actual,$expected,[StringComparison]::OrdinalIgnoreCase)
+    }
+    if (-not $matches) {
+      $characterCodes = @()
+      foreach ($character in $raw.ToCharArray()) { $characterCodes += ('U+{0:X4}' -f [int][char]$character) }
+      throw ("{0}: nieprawidłowy FileVersion; raw=[{1}] normalized=[{2}] expected=[{3}] chars=[{4}]" -f $Label,$raw,$actual,$expected,($characterCodes -join ' '))
+    }
+    return $actual
+  }
+
+  # Keep release validation consistent with VERIFY_PAYLOAD.ps1: normalize fixed-width PE version strings.
+  $installerVersionRaw=[Diagnostics.FileVersionInfo]::GetVersionInfo($Installer).FileVersion
+  $installerVersion=Assert-ExpectedFileVersion -RawVersion $installerVersionRaw -ExpectedVersion $Version -Label "Instalator"
+  $portableVersionRaw=[Diagnostics.FileVersionInfo]::GetVersionInfo($Portable).FileVersion
+  $portableVersion=Assert-ExpectedFileVersion -RawVersion $portableVersionRaw -ExpectedVersion $Version -Label "Wersja portable"
 
   $Stage=Join-Path $Root "dist\github-release"
   if(Test-Path $Stage){Remove-Item -LiteralPath $Stage -Recurse -Force}

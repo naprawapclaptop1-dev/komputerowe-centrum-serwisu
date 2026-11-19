@@ -1,3 +1,9 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX116
+- Naprawiono zgodność kontroli FileVersion w publikatorze GitHub z weryfikatorem budowania: wartości wersji w publikatorze i generatorze manifestu są normalizowane przez Trim() i porównywane jako [Version].
+- Dodano diagnostykę surowej/znormalizowanej wartości i kodów Unicode przy rzeczywistej niezgodności.
+- Dodano test CHECK_FIX116_RELEASE_VERSION_NORMALIZATION.ps1, który wykonuje właściwą funkcję z AST publikatora i potwierdza odrzucanie złych wersji.
+- Wersja produktu pozostaje 1.0.0.69.
+
 KOMPUTEROWE CENTRUM SERWISU — FIX115
 
 Przyczyna błędu z logu FIX114:

@@ -12,8 +12,32 @@ $Version="1.0.0.69"; $Tag="v$Version"; $Fix="FIX072"
 $PackageName="KomputeroweCentrumSerwisu_FIX069_INSTALATOR.exe"
 if([string]::IsNullOrWhiteSpace($PackagePath)){$PackagePath=Join-Path $Root "dist\installers\$PackageName"}
 if(!(Test-Path -LiteralPath $PackagePath -PathType Leaf)){throw "Brak świeżego instalatora: $PackagePath"}
-$FileVersion=[Diagnostics.FileVersionInfo]::GetVersionInfo($PackagePath).FileVersion
-if($FileVersion -ne $Version){throw "Instalator ma wersję $FileVersion, oczekiwano $Version."}
+function Assert-ExpectedFileVersion {
+  param([string]$RawVersion,[string]$ExpectedVersion,[string]$Label)
+  $raw = [string]$RawVersion
+  $actual = $raw.Trim()
+  $expected = ([string]$ExpectedVersion).Trim()
+  if ([string]::IsNullOrWhiteSpace($actual)) {
+    throw ("{0}: zasób FileVersion jest pusty; raw=[{1}] expected=[{2}]" -f $Label,$raw,$expected)
+  }
+  $matches = $false
+  try {
+    $actualVersionObject = [version]$actual
+    $expectedVersionObject = [version]$expected
+    $matches = $actualVersionObject.Equals($expectedVersionObject)
+  }
+  catch {
+    $matches = [string]::Equals($actual,$expected,[StringComparison]::OrdinalIgnoreCase)
+  }
+  if (-not $matches) {
+    $characterCodes = @()
+    foreach ($character in $raw.ToCharArray()) { $characterCodes += ('U+{0:X4}' -f [int][char]$character) }
+    throw ("{0}: nieprawidłowy FileVersion; raw=[{1}] normalized=[{2}] expected=[{3}] chars=[{4}]" -f $Label,$raw,$actual,$expected,($characterCodes -join ' '))
+  }
+  return $actual
+}
+$FileVersionRaw=[Diagnostics.FileVersionInfo]::GetVersionInfo($PackagePath).FileVersion
+$FileVersion=Assert-ExpectedFileVersion -RawVersion $FileVersionRaw -ExpectedVersion $Version -Label "Instalator"
 $Stage=Join-Path $Root "dist\github-release"
 New-Item -ItemType Directory -Force -Path $Stage | Out-Null
 Copy-Item -LiteralPath $PackagePath -Destination (Join-Path $Stage $PackageName) -Force
