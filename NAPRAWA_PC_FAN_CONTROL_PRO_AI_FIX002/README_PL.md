@@ -11,11 +11,14 @@ Niezależna aplikacja Windows x64 zbudowana od czystego projektu. Nie jest modyf
 - Raport tekstowy i ciemny interfejs w języku polskim.
 
 ## Budowanie
-Wymagane: Windows 10/11 x64 i .NET 10 SDK. Uruchom BUILD.cmd. Wynik pojawi się w publish\win-x64.
-Instalator: otwórz INSTALLER.iss w Inno Setup 6 lub nowszym po zbudowaniu programu.
+Wymagane: Windows 10/11 x64, .NET 10 SDK oraz Inno Setup 6 (dla instalatora Setup.exe). Uruchom BUILD.cmd z katalogu projektu. Wyniki trafiają do katalogu `artifacts` poziom wyżej: aplikacja publikowana, archiwum portable ZIP i instalator Setup.exe.
+
+W CI budowanie jest wykonywane na Windows x64. Skrypt instalatora wskazuje katalog publikacji oraz katalog wyjściowy względem położenia pliku INSTALLER.iss, dzięki czemu nie zależy od bieżącego katalogu roboczego.
 
 ## Ograniczenia sprzętowe
-Suwak ręczny ma bezpieczny dolny limit 20%, aby ograniczyć ryzyko przypadkowego zatrzymania wentylatora. Tryb Domyślne sterownika przywraca i pozostawia ustawienia domyślne.\n\nSterowanie wentylatorami jest dostępne wyłącznie wtedy, gdy kontroler, firmware i sterownik udostępniają kanał IControl. Wiele laptopów i płyt głównych pozwala tylko na odczyt albo blokuje zmianę obrotów z poziomu aplikacji Windows. Aplikacja nie obchodzi zabezpieczeń kontrolera i nie zapisuje ustawień BIOS/UEFI. Automatyczne profile działają wyłącznie na wykrytych kanałach kontrolowanych.
+Suwak ręczny ma bezpieczny dolny limit 20%, aby ograniczyć ryzyko przypadkowego zatrzymania wentylatora. Tryb Domyślne sterownika przywraca i pozostawia ustawienia domyślne.
+
+Sterowanie wentylatorami jest dostępne wyłącznie wtedy, gdy kontroler, firmware i sterownik udostępniają kanał IControl. Wiele laptopów i płyt głównych pozwala tylko na odczyt albo blokuje zmianę obrotów z poziomu aplikacji Windows. Aplikacja nie obchodzi zabezpieczeń kontrolera i nie zapisuje ustawień BIOS/UEFI. Automatyczne profile działają wyłącznie na wykrytych kanałach kontrolowanych.
 
 Inwentaryzacja EDID i WMI zależy od danych dostarczanych przez monitor, adapter, firmware i sterownik. Niektóre stacje dokujące lub przejściówki nie przekazują modelu matrycy.
 
@@ -23,4 +26,4 @@ Inwentaryzacja EDID i WMI zależy od danych dostarczanych przez monitor, adapter
 Nie ma automatycznego flashowania BIOS-u ani wymuszania nieobsługiwanych wartości. Program wymaga uprawnień administratora do części odczytów i dostępu do kontrolerów.
 
 ## Walidacja
-CI sprawdza kompilację i publikację Windows x64. Sterowanie wentylatorami wymaga dodatkowego testu na fizycznym komputerze z obsługiwanym kontrolerem.
+CI sprawdza przywracanie pakietów, kompilację i publikację Windows x64, kompilację instalatora Inno Setup, utworzenie archiwum portable i obecność gotowych artefaktów. Sterowanie wentylatorami wymaga dodatkowego testu na fizycznym komputerze z obsługiwanym kontrolerem.
