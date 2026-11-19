@@ -1,0 +1,9 @@
+FIX110 — MAPA ZMIAN
+
+BUILD_ALL.cmd — status SKIPPED instalatora XP jest raportowany jako [SKIP], a nie [PASS]; po weryfikacji wyświetlany jest szczegółowy raport.
+VERIFY_BUILD.cmd — prezentuje zawartość 04-verification.log również w samodzielnym uruchomieniu.
+CHECK_FIX110_BUILD_DIAGNOSTICS.ps1 — test regresji klasyfikacji XP i widoczności logu.
+CHECK_SOURCE.cmd — wymaga i uruchamia test FIX110.
+FIX099_SOURCE_ALLOWLIST.txt — dopisano trzy pliki FIX110 do jawnej listy publikacji.
+CHANGELOG.txt — wpis FIX110.
+Wersja produktu: 1.0.0.69 (bez zmiany).

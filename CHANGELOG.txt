@@ -990,3 +990,17 @@ KOMPUTEROWE CENTRUM SERWISU — FIX106
 - Zachowano sprawdzanie ComSpec /d /k, osobnego workera, kontroli pliku workera oraz braku rekurencji.
 - Nie pominięto żadnych testów CHECK_SOURCE.
 - Wersja produktu bez zmian: 1.0.0.69.
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX110
+- Poprawiono raportowanie pominiętego instalatora XP: status SKIPPED jest oznaczany jako [SKIP], nie [PASS].
+- Uwidoczniono pełny raport 04-verification.log po zakończeniu weryfikacji, aby dokładna przyczyna błędu była widoczna w głównym oknie CMD.
+- Dodano test regresji FIX110 i objęto nowe pliki jawną allowlistą publikacji.
+- Wersja produktu bez zmian: 1.0.0.69.
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX111
+- Usunięto wielowierszowy blok IF(...) z BUILD_ALL.cmd, który powodował niepowodzenie testu CHECK_FIX105_BUILD_FLOW.ps1.
+- Zachowano wyświetlanie szczegółowego raportu weryfikacji i kontrolę kodu wyjścia VERIFY_BUILD.cmd.
+- Dodano CHECK_FIX111_BUILD_ALL_SYNTAX.ps1 do CHECK_SOURCE; wcześniejsze testy pozostają aktywne.
+- Wersja produktu bez zmian: 1.0.0.69.

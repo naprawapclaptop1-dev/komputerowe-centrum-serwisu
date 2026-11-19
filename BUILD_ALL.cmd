@@ -50,8 +50,15 @@ call "%~dp0BUILD_INSTALLER_XP.cmd" /nopause > "%LOGDIR%\stage-xp-output.log" 2>&
 set "X_RC=%ERRORLEVEL%"
 type "%LOGDIR%\stage-xp-output.log"
 if not "%X_RC%"=="0" goto :xp_optional_failed
+if exist "%LOGDIR%\XP_INSTALLER.status" findstr /i /x "SKIPPED" "%LOGDIR%\XP_INSTALLER.status" >nul
+if not errorlevel 1 goto :xp_optional_skipped
 >>"%LOGDIR%\BUILD_SUMMARY.txt" echo [PASS] Optional XP installer
  goto :verify
+:xp_optional_skipped
+echo [SKIP] Optional XP installer not built; Inno Setup 5.6.1 is unavailable.
+>>"%LOGDIR%\BUILD_SUMMARY.txt" echo [SKIP] Optional XP installer - Inno Setup 5.6.1 unavailable.
+set "X_RC=0"
+goto :verify
 :xp_optional_failed
 echo [WARN] Optional XP installer failed; modern installer and portable remain eligible.
 >>"%LOGDIR%\BUILD_SUMMARY.txt" echo [WARN] Optional XP installer failed; not blocking release.
@@ -63,6 +70,11 @@ echo [4/5] Verifying required outputs Portable and modern installer...
 call "%~dp0VERIFY_BUILD.cmd" /nopause > "%LOGDIR%\stage-verification-output.log" 2>&1
 set "V_RC=%ERRORLEVEL%"
 type "%LOGDIR%\stage-verification-output.log"
+if not exist "%LOGDIR%\04-verification.log" goto :verification_detail_done
+echo.
+echo [INFO] Szczegolowy raport weryfikacji:
+type "%LOGDIR%\04-verification.log"
+:verification_detail_done
 if not "%V_RC%"=="0" goto :verification_failed
 >>"%LOGDIR%\BUILD_SUMMARY.txt" echo [PASS] Full output verification
 
@@ -105,7 +117,7 @@ goto :fail
 echo.
 echo ============================================================
 echo [FAIL] Build incomplete. Successful artifacts were preserved.
-echo [INFO] See BUILD_SUMMARY.txt and individual stage logs.
+echo [INFO] See BUILD_SUMMARY.txt, stage-verification-output.log and 04-verification.log.
 echo ============================================================
 type "%LOGDIR%\BUILD_SUMMARY.txt"
 echo Logs: %LOGDIR%

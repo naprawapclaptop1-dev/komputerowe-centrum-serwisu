@@ -52,6 +52,9 @@ if exist "%LOGDIR%\MODERN_INSTALLER.status" (echo [INFO] Modern status: & type "
 if exist "%LOGDIR%\XP_INSTALLER.status" (echo [INFO] XP status: & type "%LOGDIR%\XP_INSTALLER.status")
 echo.
 if "%FAILED%"=="0" (echo [PASS] FIX069 outputs verified.& >>"%LOGDIR%\04-verification.log" echo [PASS] FIX069 outputs verified.) else (echo [FAIL] FIX069 output verification failed.& >>"%LOGDIR%\04-verification.log" echo [FAIL] FIX069 output verification failed.)
+echo.
+echo [INFO] Full verification detail: %LOGDIR%\04-verification.log
+type "%LOGDIR%\04-verification.log"
 if /i not "%~1"=="/nopause" if /i not "%~1"=="/partial" pause
 popd
 if "%FAILED%"=="0" exit /b 0
