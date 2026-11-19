@@ -1,4 +1,4 @@
-# TEST PLAN — FIX002
+# TEST PLAN — FIX003
 ## CI
 1. dotnet restore.
 2. dotnet publish Release / win-x64 / self-contained.
