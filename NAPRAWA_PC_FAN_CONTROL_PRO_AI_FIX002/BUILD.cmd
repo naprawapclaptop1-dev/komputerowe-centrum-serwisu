@@ -1,9 +1,9 @@
 @echo off
 setlocal EnableExtensions
-title NAPRAWA PC FAN CONTROL PRO AI 2.0.1 FIX003
+title NAPRAWA PC FAN CONTROL PRO AI 2.0.2 FIX004
 cd /d "%~dp0"
 echo ============================================================
-echo NAPRAWA PC FAN CONTROL PRO AI 2.0.1 - FIX003
+echo NAPRAWA PC FAN CONTROL PRO AI 2.0.2 - FIX004
 echo Windows x64 / .NET 10
 echo ============================================================
 where dotnet >nul 2>nul
