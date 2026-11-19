@@ -1,0 +1,61 @@
+name: Fan Control PRO AI FIX005 — Windows x64 + Setup
+on:
+  push:
+    branches:
+      - fan-control-pro-ai-fix005-installer-relative-paths
+    paths:
+      - 'NAPRAWA_PC_FAN_CONTROL_PRO_AI_FIX002/**'
+      - '.github/workflows/fan-control-fix005-build.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Restore
+        run: dotnet restore NAPRAWA_PC_FAN_CONTROL_PRO_AI_FIX002/NAPRAWA_PC_FAN_CONTROL_PRO_AI.csproj
+      - name: Publish Windows x64
+        run: dotnet publish NAPRAWA_PC_FAN_CONTROL_PRO_AI_FIX002/NAPRAWA_PC_FAN_CONTROL_PRO_AI.csproj -c Release -r win-x64 --self-contained true -p:PublishReadyToRun=true -o artifacts/NaprawaPCFanControl
+      - name: Verify published app
+        shell: pwsh
+        run: |
+          if (!(Test-Path "artifacts/NaprawaPCFanControl/NaprawaPCFanControl.exe")) { throw "Published EXE is missing." }
+      - name: Install Inno Setup
+        shell: pwsh
+        run: choco install innosetup -y --no-progress
+      - name: Build Windows installer
+        shell: pwsh
+        run: |
+          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+          if (!(Test-Path $iscc)) { $iscc = "${env:ProgramFiles}\Inno Setup 6\ISCC.exe" }
+          if (!(Test-Path $iscc)) { throw "ISCC.exe not found." }
+          if (!(Test-Path "artifacts/NaprawaPCFanControl/NaprawaPCFanControl.exe")) { throw "Installer source EXE missing." }
+          & $iscc "NAPRAWA_PC_FAN_CONTROL_PRO_AI_FIX002/INSTALLER.iss"
+          if ($LASTEXITCODE -ne 0) { throw "Inno Setup compilation failed." }
+          if (!(Test-Path "artifacts/installer/NaprawaPC_FanControl_PRO_AI_2.0.3_FIX005_Setup.exe")) { throw "Setup.exe missing after compilation." }
+      - name: Package portable build
+        shell: pwsh
+        run: Compress-Archive -Path artifacts/NaprawaPCFanControl/* -DestinationPath artifacts/NAPRAWA_PC_FAN_CONTROL_PRO_AI_2.0.3_FIX005_PORTABLE.zip -Force
+      - name: Verify release package
+        shell: pwsh
+        run: |
+          $setup = Get-Item "artifacts/installer/NaprawaPC_FanControl_PRO_AI_2.0.3_FIX005_Setup.exe"
+          $portable = Get-Item "artifacts/NAPRAWA_PC_FAN_CONTROL_PRO_AI_2.0.3_FIX005_PORTABLE.zip"
+          if ($setup.Length -lt 1000000) { throw "Setup.exe size is unexpectedly small." }
+          if ($portable.Length -lt 1000000) { throw "Portable ZIP size is unexpectedly small." }
+          Write-Host "Setup bytes: $($setup.Length)"
+          Write-Host "Portable bytes: $($portable.Length)"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: NAPRAWA_PC_FAN_CONTROL_PRO_AI_2.0.3_FIX005_RELEASE
+          path: |
+            artifacts/NAPRAWA_PC_FAN_CONTROL_PRO_AI_2.0.3_FIX005_PORTABLE.zip
+            artifacts/installer/NaprawaPC_FanControl_PRO_AI_2.0.3_FIX005_Setup.exe
+          retention-days: 90
