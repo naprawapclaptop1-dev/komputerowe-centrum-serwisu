@@ -1,4 +1,4 @@
-# NAPRAWA PC FAN CONTROL PRO AI 2.0.0 — FIX002
+# NAPRAWA PC FAN CONTROL PRO AI 2.0.1 — FIX003
 
 Niezależna aplikacja Windows x64 zbudowana od czystego projektu. Nie jest modyfikacją ani rozpakowaną kopią instalatora V10.2.77.
 
@@ -15,7 +15,7 @@ Wymagane: Windows 10/11 x64 i .NET 10 SDK. Uruchom BUILD.cmd. Wynik pojawi się 
 Instalator: otwórz INSTALLER.iss w Inno Setup 6 lub nowszym po zbudowaniu programu.
 
 ## Ograniczenia sprzętowe
-Sterowanie wentylatorami jest dostępne wyłącznie wtedy, gdy kontroler, firmware i sterownik udostępniają kanał IControl. Wiele laptopów i płyt głównych pozwala tylko na odczyt albo blokuje zmianę obrotów z poziomu aplikacji Windows. Aplikacja nie obchodzi zabezpieczeń kontrolera i nie zapisuje ustawień BIOS/UEFI. Automatyczne profile działają wyłącznie na wykrytych kanałach kontrolowanych.
+Suwak ręczny ma bezpieczny dolny limit 20%, aby ograniczyć ryzyko przypadkowego zatrzymania wentylatora. Tryb Domyślne sterownika przywraca i pozostawia ustawienia domyślne.\n\nSterowanie wentylatorami jest dostępne wyłącznie wtedy, gdy kontroler, firmware i sterownik udostępniają kanał IControl. Wiele laptopów i płyt głównych pozwala tylko na odczyt albo blokuje zmianę obrotów z poziomu aplikacji Windows. Aplikacja nie obchodzi zabezpieczeń kontrolera i nie zapisuje ustawień BIOS/UEFI. Automatyczne profile działają wyłącznie na wykrytych kanałach kontrolowanych.
 
 Inwentaryzacja EDID i WMI zależy od danych dostarczanych przez monitor, adapter, firmware i sterownik. Niektóre stacje dokujące lub przejściówki nie przekazują modelu matrycy.
 
