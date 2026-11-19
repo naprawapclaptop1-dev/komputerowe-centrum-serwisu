@@ -1,4 +1,16 @@
-﻿KOMPUTEROWE CENTRUM SERWISU — FIX120 — NAPRAWA SKŁADNI POWERSHELL 5.1
+﻿KOMPUTEROWE CENTRUM SERWISU — FIX122
+NAPRAWA NORMALIZACJI FILEVERSION PRZED INSTALACJĄ
+
+- Naprawiono INSTALL_PUBLISHED_BUILD.ps1: FileVersion instalatora oraz zainstalowanego EXE jest najpierw jawnie konwertowany na tekst i Trim() usuwa końcowe spacje dopełniające zasób wersji Windows.
+- Wersja po normalizacji jest parsowana jako [version] i porównywana z oczekiwaną 1.0.0.69. Inna lub niepoprawna wersja nadal powoduje przerwanie instalacji.
+- Diagnostyka zachowuje surową i znormalizowaną wartość FileVersion, aby podobny przypadek można było rozpoznać bez zgadywania.
+- Dodano CHECK_FIX122_INSTALL_VERSION_NORMALIZATION.ps1. Test wyodrębnia i wykonuje rzeczywistą funkcję normalizującą z INSTALL_PUBLISHED_BUILD.ps1.
+- Test obejmuje spacje stałej szerokości, białe znaki Unicode, błędną wersję i nieprawidłowy sufiks; jest wymagany przez CHECK_SOURCE oraz walidator pełnego pakietu.
+- Rozszerzono test polityki FIX119, aby bezpieczna zmiana lokalnego skryptu instalacji i testu FIX122 mogła być klasyfikowana jako zmiana narzędziowa. Zmiany kodu aplikacji, ikony i receptury SETUP_MODERN.iss nadal blokują ponowne użycie starego wydania.
+
+Wersja produktu pozostaje 1.0.0.69. Nie zmieniono istniejących publicznych assetów GitHub Release.
+
+KOMPUTEROWE CENTRUM SERWISU — FIX120 — NAPRAWA SKŁADNI POWERSHELL 5.1
 
 - Naprawiono błąd parsera w PUBLISH_GITHUB_RELEASES.ps1: zmienna tagu przed dwukropkiem jest teraz zapisana jako ${Tag}:.
 - Dodano test FIX120 parsujący rzeczywisty publikator oraz sprawdzający niepoprawny i poprawny zapis interpolacji.

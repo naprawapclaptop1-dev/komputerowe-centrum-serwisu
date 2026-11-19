@@ -1,0 +1,15 @@
+﻿FIX122 — MAPA ZMIAN
+
+INSTALL_PUBLISHED_BUILD.ps1
+  - ConvertTo-KcsProductVersion: walidacja wersji z Trim() i [version].
+  - Wspólny normalizator przed instalacją i po instalacji.
+
+CHECK_FIX122_INSTALL_VERSION_NORMALIZATION.ps1
+  - Parser PowerShell, wykonanie funkcji AST z prawdziwego skryptu instalacji.
+  - Test wartości poprawnej, stałej szerokości, Unicode whitespace i odrzucania złej wersji.
+
+CHECK_SOURCE.cmd / VALIDATE_FIX100_PACKAGE.ps1
+  - Test FIX122 włączony do bramki źródeł i kompletności pakietu.
+
+KCS_RELEASE_POLICY.ps1 / CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1
+  - Jawna klasyfikacja zmiany skryptu lokalnej instalacji; brak zmian w polityce chroniącej kod programu i recepturę instalatora.

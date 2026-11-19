@@ -29,6 +29,7 @@ function Test-KcsReleaseIndependentChangeSet {
         '(?i)^CHANGELOG\.txt$',
         '(?i)^(PUBLISH_GITHUB_SOURCE|PUBLISH_GITHUB_RELEASES|VERIFY_GLOBAL_UPDATE_SERVER|VERIFY_PUBLIC_DEPLOYMENT)\.ps1$',
         '(?i)^KCS_RELEASE_POLICY\.ps1$',
+        '(?i)^INSTALL_PUBLISHED_BUILD\.ps1$',
         '(?i)^README\.md$'
     )
 
