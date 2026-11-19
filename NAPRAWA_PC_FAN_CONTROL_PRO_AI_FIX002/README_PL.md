@@ -1,4 +1,4 @@
-# NAPRAWA PC FAN CONTROL PRO AI 2.0.1 — FIX003
+# NAPRAWA PC FAN CONTROL PRO AI 2.0.2 — FIX004
 
 Niezależna aplikacja Windows x64 zbudowana od czystego projektu. Nie jest modyfikacją ani rozpakowaną kopią instalatora V10.2.77.
 
