@@ -1,3 +1,22 @@
+﻿KOMPUTEROWE CENTRUM SERWISU — FIX118 — NAPRAWA TESTÓW STRONY I DOSTĘPNOŚĆ
+- Naprawiono testy strony uruchamiane w Windows PowerShell 5.1: pliki HTML/JS/CSS są jawnie odczytywane jako UTF-8, a odwołania JavaScript zawierające `$()` są sprawdzane jako tekst literalny (bez interpolacji PowerShell).
+- Ulepszono menu mobilne: klawisz Escape zamyka menu i przywraca fokus do przycisku; kliknięcie poza menu również je zamyka. Stan `aria-expanded` i etykieta przycisku są aktualizowane przy każdej zmianie.
+- Dodano wyraźne ostrzeżenie, że zgłoszenia do publicznego repozytorium GitHub są publiczne, oraz wymagane potwierdzenie przed przygotowaniem szkicu. W szkicu ponownie wyświetlane jest ostrzeżenie o danych poufnych; nic nie jest wysyłane automatycznie.
+- Przywrócono oba tory napisów PL/EN bezpośrednio w elemencie wideo; zmiana języka włącza właściwy tor, a oryginalny film MP4 i oba pliki VTT pozostają w pakiecie.
+- Dodano CHECK_FIX118_WEBSITE_REGRESSION.ps1; test jest uruchamiany przez CHECK_SOURCE i walidator pełnego pakietu. Zaktualizowano allowlistę, manifest SHA-256 i dokumentację.
+- Wersja produktu pozostaje 1.0.0.69.
+
+KOMPUTEROWE CENTRUM SERWISU — FIX117 — ROZBUDOWA STRONY WWW
+- Dodano inteligentne centrum pobierania z wykrywaniem platformy/architektury, weryfikacją metadanych assetów i ręcznym odświeżeniem statusu.
+- Dodano historię wydań Stable/Beta z datami, opisami i licznikami pobrań z GitHub Releases; manifest Beta w Stable jest jasno odróżniany od osobnego prerelease.
+- Dodano lokalną kontrolę SHA-256 plików EXE względem SHA256SUMS.txt (Web Crypto; bez przesyłania plików).
+- Dodano wyszukiwalną bazę wiedzy, wyszukiwarkę FAQ, mobilne menu z dostępnością klawiatury i formularz przygotowujący GitHub Issue do świadomego zatwierdzenia przez użytkownika.
+- Zachowano dark/cyan UI, film i napisy PL/EN, oficjalne repozytorium oraz wersję produktu 1.0.0.69.
+- Naprawiono rzeczywiste podłączenie przycisków menu mobilnego do mapy elementów DOM i rozszerzono test regresji o te referencje.
+- Rozszerzono bazę wiedzy o Authenticode oraz postęp/wznawianie pobierania (obsługiwane przez przeglądarkę); doprecyzowano limit SHA-256 500 MB i stan dostępności wydań.
+- Przetestowano scenariusze przeglądarkowe z symulowanym GitHub API: Stable/Beta, historia, PL/EN, filtry, logika sum kontrolnych, szkic issue i menu mobilne.
+- Dodano CHECK_FIX117_WEBSITE_FEATURES.ps1 do CHECK_SOURCE i walidacji pełnego pakietu.
+
 KOMPUTEROWE CENTRUM SERWISU — FIX116
 - Naprawiono zgodność kontroli FileVersion w publikatorze GitHub z weryfikatorem budowania: wartości wersji w publikatorze i generatorze manifestu są normalizowane przez Trim() i porównywane jako [Version].
 - Dodano diagnostykę surowej/znormalizowanej wartości i kodów Unicode przy rzeczywistej niezgodności.

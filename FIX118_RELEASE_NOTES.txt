@@ -1,0 +1,11 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX118
+
+Zakres poprawki
+- Naprawiono testy strony pobierania: jawny odczyt UTF-8 w Windows PowerShell 5.1 oraz literalne sprawdzanie odwołań JavaScript zawierających $().
+- Rozbudowano menu mobilne: zamykanie klawiszem Escape, przywrócenie fokusu do przycisku i zamykanie po kliknięciu poza menu.
+- Dodano wyraźne ostrzeżenie o publicznej widoczności zgłoszeń GitHub i obowiązkowe potwierdzenie przed przygotowaniem szkicu.
+- Zachowano ręczną publikację zgłoszenia; strona nie wysyła issue automatycznie.
+- Umieszczono na stronie oba tory napisów PL i EN, a zmiana języka wybiera właściwy tor bez podmieniania pliku źródłowego.
+- Zaktualizowano testy, allowlistę, manifest SHA-256 i walidację pełnego pakietu.
+
+Wersja produktu pozostaje 1.0.0.69.
