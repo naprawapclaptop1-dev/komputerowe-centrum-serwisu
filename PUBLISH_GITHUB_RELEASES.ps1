@@ -82,11 +82,12 @@ function Invoke-GhInteractive([string]$Executable,[string[]]$Arguments){
 }
 
 $Root=[IO.Path]::GetFullPath($PSScriptRoot)
-if((Split-Path -Leaf $Root) -ne 'KCS_FIX099'){throw "Publikacja wydania zablokowana: wymagany jest katalog KCS_FIX099. Folder=$Root"}
+# FIX108: package identity is verified by its marker, never by the extracted folder name.
+# Users may extract the same complete archive to any folder (including FIX057/FIX107).
 $packageMarker=Join-Path $Root "FIX099_PACKAGE_MARKER.txt"
-if(!(Test-Path -LiteralPath $packageMarker -PathType Leaf)){throw "Brak markera FIX099 — publikator musi być uruchomiony z kompletnej paczki."}
+if(!(Test-Path -LiteralPath $packageMarker -PathType Leaf)){throw "Brak markera pakietu FIX099 — publikator musi być uruchomiony z kompletnego archiwum."}
 $packageLines=Get-Content -LiteralPath $packageMarker
-if($packageLines -notcontains "PACKAGE=FIX099" -or $packageLines -notcontains "REPOSITORY=naprawapclaptop1-dev/komputerowe-centrum-serwisu"){throw "Marker FIX099 nie potwierdza właściwego pakietu / repozytorium."}
+if($packageLines -notcontains "PACKAGE=FIX099" -or $packageLines -notcontains "REPOSITORY=naprawapclaptop1-dev/komputerowe-centrum-serwisu" -or $packageLines -notcontains "ENTRYPOINT=URUCHOM_TYLKO_TEN_PLIK.cmd"){throw "Marker pakietu nie potwierdza właściwego projektu / repozytorium / punktu startowego."}
 $Repo="naprawapclaptop1-dev/komputerowe-centrum-serwisu"
 $LogDir=Join-Path $Root "dist\build-logs"
 New-Item -ItemType Directory -Force -Path $LogDir | Out-Null

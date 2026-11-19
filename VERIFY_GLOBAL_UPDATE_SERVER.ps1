@@ -6,8 +6,8 @@ if(!(Test-Path -LiteralPath $RepoFile)){throw "Brak GITHUB_REPOSITORY.txt — ur
 if((Get-Content -LiteralPath $RepoFile -Raw).Trim() -ne $Repo){throw "Repozytorium niezgodne z przypisaniem tej aplikacji."}
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
 $headers=@{"User-Agent"="KomputeroweCentrumSerwisu-FIX073";Accept="application/vnd.github+json"}
-$api="https://api.github.com/repos/$Repo/releases/tags/$expectedTag"
 $expectedTag="v1.0.0.69"
+$api="https://api.github.com/repos/$Repo/releases/tags/$expectedTag"
 Write-Host "[INFO] Repozytorium: $Repo"
 Write-Host "[INFO] Sprawdzam publiczne wydanie GitHub Releases..."
 $release=Invoke-RestMethod -Headers $headers -Uri $api -TimeoutSec 45

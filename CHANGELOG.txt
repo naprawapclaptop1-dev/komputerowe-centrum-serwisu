@@ -1,4 +1,12 @@
-﻿FIX107 — NAPRAWA 404 AKTUALIZATORA GITHUB RELEASES
+KOMPUTEROWE CENTRUM SERWISU — FIX109
+- Usunięto UTF-8 BOM z CHECK_SOURCE.cmd; plik zaczyna się od @echo off, więc walidacja pakietu FIX099 nie odrzuca już pliku z powodu kodowania.
+- Zachowano istniejący test regresyjny FIX084 sprawdzający brak BOM w głównych plikach CMD.
+
+KOMPUTEROWE CENTRUM SERWISU — FIX108
+- Naprawa publikacji GitHub niezależnie od nazwy folderu rozpakowania.
+- Dodano obowiązkowy test regresyjny FIX108.
+
+FIX107 — NAPRAWA 404 AKTUALIZATORA GITHUB RELEASES
 - Usunięto zależność klienta od aliasu /releases/latest/download/; manifesty Stable/Beta i instalator korzystają z jawnego tagu v1.0.0.69.
 - Test GitHub Releases sprawdza konkretny tag produktu, status draft i komplet wymaganych assetów.
 - Weryfikatory publikacji sprawdzają dokładnie te adresy tagowe, z których korzysta aplikacja.

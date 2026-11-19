@@ -8,7 +8,7 @@ set "FAILED=0"
 echo ============================================================
 echo CHECK SOURCE - AKTYWNE TESTY FIX100
 echo ============================================================
-for %%F in (URUCHOM_TYLKO_TEN_PLIK.cmd KCS_FIX101_WORKER.cmd CHECK_FIX105_BUILD_FLOW.ps1 CHECK_FIX107_UPDATER_ENDPOINTS.ps1 FIX107_RELEASE_NOTES.txt FIX107_MODULE_MAP.txt FIX099_PACKAGE_MARKER.txt FIX099_POWERSHELL_MANIFEST.txt VALIDATE_FIX100_PACKAGE.ps1 CHECK_FIX101_KEEP_OPEN.ps1 FIX101_RELEASE_NOTES.txt FIX101_MODULE_MAP.txt CHECK_FIX100_PIPELINE.ps1 CHECK_FIX099_PAGES_TRIGGER.ps1 CHECK_FIX100_CLEANUP_PATH.ps1 CHECK_FIX100_SOURCE_SCOPE.ps1 CHECK_FIX100_ROOT_PATH.ps1 FIX099_CLEANUP_SCOPE.txt FIX099_NETWORK_SCOPE.txt CLEAN_SAFE_TEMP.ps1 FIX094_PACKAGE_MARKER.txt CHECK_FIX094_KEEP_OPEN.ps1 PUBLISH_GITHUB_SOURCE.ps1 PUBLISH_GITHUB_RELEASES.ps1 BUILD_ALL.cmd BUILD_PORTABLE.cmd BUILD_INSTALLER_MODERN.cmd VERIFY_BUILD.cmd VERIFY_PUBLIC_DEPLOYMENT.ps1 INSTALL_PUBLISHED_BUILD.ps1 WindowsVersionSwitcherPRO.cs WindowsVersionSwitcherPRO.Modules.cs AssemblyInfo.cs app.manifest NaprawaPC.ico CentrumMigracjiHero.png SETUP_MODERN.iss website\index.html website\styles.css website\app.js website\media\prezentacja.mp4 .github\workflows\deploy-pages.yml) do (
+for %%F in (URUCHOM_TYLKO_TEN_PLIK.cmd KCS_FIX101_WORKER.cmd CHECK_FIX105_BUILD_FLOW.ps1 CHECK_FIX107_UPDATER_ENDPOINTS.ps1 CHECK_FIX108_RELEASE_PUBLISHING.ps1 FIX107_RELEASE_NOTES.txt FIX107_MODULE_MAP.txt FIX108_RELEASE_NOTES.txt FIX108_MODULE_MAP.txt FIX099_PACKAGE_MARKER.txt FIX099_POWERSHELL_MANIFEST.txt VALIDATE_FIX100_PACKAGE.ps1 CHECK_FIX101_KEEP_OPEN.ps1 FIX101_RELEASE_NOTES.txt FIX101_MODULE_MAP.txt CHECK_FIX100_PIPELINE.ps1 CHECK_FIX099_PAGES_TRIGGER.ps1 CHECK_FIX100_CLEANUP_PATH.ps1 CHECK_FIX100_SOURCE_SCOPE.ps1 CHECK_FIX100_ROOT_PATH.ps1 FIX099_CLEANUP_SCOPE.txt FIX099_NETWORK_SCOPE.txt CLEAN_SAFE_TEMP.ps1 FIX094_PACKAGE_MARKER.txt CHECK_FIX094_KEEP_OPEN.ps1 PUBLISH_GITHUB_SOURCE.ps1 PUBLISH_GITHUB_RELEASES.ps1 BUILD_ALL.cmd BUILD_PORTABLE.cmd BUILD_INSTALLER_MODERN.cmd VERIFY_BUILD.cmd VERIFY_PUBLIC_DEPLOYMENT.ps1 INSTALL_PUBLISHED_BUILD.ps1 WindowsVersionSwitcherPRO.cs WindowsVersionSwitcherPRO.Modules.cs AssemblyInfo.cs app.manifest NaprawaPC.ico CentrumMigracjiHero.png SETUP_MODERN.iss website\index.html website\styles.css website\app.js website\media\prezentacja.mp4 .github\workflows\deploy-pages.yml) do (
   if exist "%~dp0%%F" (echo [PASS] %%F) else (echo [FAIL] Missing: %%F& set "FAILED=1")
 )
 if not "%FAILED%"=="0" goto :done
@@ -40,6 +40,8 @@ powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX1
 if errorlevel 1 (echo [FAIL] FIX105 build-flow regression.& set "FAILED=1") else echo [PASS] FIX105 build-flow
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX107_UPDATER_ENDPOINTS.ps1"
 if errorlevel 1 (echo [FAIL] FIX107 updater endpoint regression.& set "FAILED=1") else echo [PASS] FIX107 updater endpoints
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX108_RELEASE_PUBLISHING.ps1"
+if errorlevel 1 (echo [FAIL] FIX108 release publishing regression.& set "FAILED=1") else echo [PASS] FIX108 release publishing
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX100_CLEANUP_PATH.ps1"
 if errorlevel 1 (echo [FAIL] Package-local cleanup FIX100 regression.& set "FAILED=1") else echo [PASS] Package-local cleanup FIX100
 powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0CHECK_FIX100_SOURCE_SCOPE.ps1"

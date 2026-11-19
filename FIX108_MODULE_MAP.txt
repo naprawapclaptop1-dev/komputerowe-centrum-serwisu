@@ -1,0 +1,6 @@
+FIX108 — MAPA ZMIAN
+
+PUBLISH_GITHUB_RELEASES.ps1 — usunięta zależność od nazwy folderu KCS_FIX099; walidacja markerem pakietu.
+CHECK_FIX108_RELEASE_PUBLISHING.ps1 — test regresyjny blokady folderu oraz weryfikacji tagu, kanałów i SHA-256.
+CHECK_SOURCE.cmd / VALIDATE_FIX100_PACKAGE.ps1 / VERIFY_PAYLOAD.ps1 / FIX099_SOURCE_ALLOWLIST.txt / FIX099_POWERSHELL_MANIFEST.txt — rejestracja FIX108.
+CHANGELOG.txt / GLOBAL_UPDATE_DEPLOYMENT.txt — dokumentacja.
