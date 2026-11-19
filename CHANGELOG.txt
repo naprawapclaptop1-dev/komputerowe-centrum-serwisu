@@ -1,3 +1,11 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX114
+- Naprawiono uruchamianie VERIFY_BUILD.ps1: usunięto parametr `-Root "%~dp0"`, którego ścieżka kończyła się separatorem `\` i mogła uszkadzać argument wiersza polecenia PowerShell.
+- Wrapper korzysta z `$PSScriptRoot` i nie przekazuje już ścieżki z końcowym separatorem.
+- Przed weryfikacją usuwa poprzedni raport; przy awarii przed utworzeniem nowego raportu zapisuje świeży log z kodem wyjścia, aby nie pokazywać starej daty i fałszywego raportu.
+- Zaktualizowano test wrappera FIX113 i dodano CHECK_FIX114_ROOT_ARGUMENT.ps1. Test dołączono do CHECK_SOURCE, walidatora pakietu, manifestu SHA-256 i jawnej allowlisty.
+- Zachowano kontrolę artefaktów, BUILD_ID, FileVersion, SHA-256, tożsamości źródeł i kodów błędów.
+- Wersja produktu pozostaje 1.0.0.69.
+
 KOMPUTEROWE CENTRUM SERWISU — FIX109
 - Usunięto UTF-8 BOM z CHECK_SOURCE.cmd; plik zaczyna się od @echo off, więc walidacja pakietu FIX099 nie odrzuca już pliku z powodu kodowania.
 - Zachowano istniejący test regresyjny FIX084 sprawdzający brak BOM w głównych plikach CMD.

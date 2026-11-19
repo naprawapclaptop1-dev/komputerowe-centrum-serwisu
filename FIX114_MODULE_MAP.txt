@@ -1,0 +1,19 @@
+FIX114 — MAPA ZMIAN
+
+VERIFY_BUILD.cmd
+- Usunięto jawny parametr `-Root "%~dp0"`; skrypt weryfikatora używa `$PSScriptRoot`.
+- Stary raport 04-verification.log jest usuwany przed uruchomieniem nowej weryfikacji.
+- Gdy skrypt nie utworzy raportu, wrapper tworzy nowy raport błędu z kodem procesu; nie pokazuje starego raportu.
+- Zachowano wydruk raportu i rzeczywisty kod wyjścia.
+
+CHECK_FIX113_WRAPPER_REPORT.ps1
+- Zaktualizowano oczekiwaną linię uruchomienia bez argumentu -Root.
+- Test odrzuca powrót do niebezpiecznego argumentu z `%~dp0`.
+
+CHECK_FIX114_ROOT_ARGUMENT.ps1
+- Sprawdza bezpieczne wywołanie skryptu, domyślny `$PSScriptRoot`, czyszczenie starego raportu, tworzenie raportu błędu i kolejność kodów wyjścia.
+
+CHECK_SOURCE.cmd / VALIDATE_FIX100_PACKAGE.ps1 / manifest / allowlista
+- Dodano test i dokumentację FIX114 do wymaganych plików, kontroli źródeł oraz synchronizacji jawnej.
+
+Wersja produktu: 1.0.0.69 (bez zmian).

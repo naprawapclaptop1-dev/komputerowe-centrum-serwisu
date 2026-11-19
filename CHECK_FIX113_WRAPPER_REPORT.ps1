@@ -5,7 +5,7 @@ if (-not (Test-Path -LiteralPath $wrapperPath -PathType Leaf)) { throw 'VERIFY_B
 $wrapper = Get-Content -LiteralPath $wrapperPath -Raw
 $required = @(
     'set "LOGDIR=%~dp0dist\build-logs"',
-    'powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%VERIFY%" -Root "%~dp0"',
+    'powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%VERIFY%"',
     'set "RC=%ERRORLEVEL%"',
     'type "%LOGDIR%\04-verification.log"',
     'if not "%RC%"=="0" goto :failed',
@@ -20,8 +20,9 @@ $capture = $wrapper.IndexOf($required[2], [System.StringComparison]::Ordinal)
 $print = $wrapper.IndexOf($required[3], [System.StringComparison]::Ordinal)
 $gate = $wrapper.IndexOf($required[4], [System.StringComparison]::Ordinal)
 if (-not ($invoke -ge 0 -and $capture -gt $invoke -and $print -gt $capture -and $gate -gt $print)) {
-    throw 'Report must be printed after PowerShell completes and its exit code is captured, before success/failure branching.'
+    throw 'Report must be printed after verifier execution and exit-code capture, before success/failure branching.'
 }
+if ($wrapper.Contains('-Root "%~dp0"')) { throw 'Unsafe trailing-backslash -Root argument is still passed to PowerShell.' }
 Write-Host '[PASS] Report display is ordered after verifier execution and exit-code capture.'
 if (-not ($wrapper.Contains(':report_missing') -and $wrapper.Contains('if "%RC%"=="0" set "RC=3"'))) {
     throw 'Missing report must not be silently treated as successful verification.'
