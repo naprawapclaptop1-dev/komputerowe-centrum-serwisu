@@ -42,21 +42,21 @@ Add-Check ($modules.Contains('Client') -and $modules.Contains('Serial') -and $mo
 Add-Check ($modules.Contains('BACKUP_MANIFEST.txt') -and $modules.Contains('KCS_SERVICEPRO_BACKUP_V1') -and $modules.Contains('ComputeSha256')) 'Backup writes a versioned SHA-256 manifest'
 Add-Check ($modules.Contains('Niezgodna suma SHA-256') -and $modules.Contains('TryLoadXmlDocument') -and $modules.Contains('BeforeRestore_')) 'Restore validates hashes and XML and keeps a before-restore backup'
 Add-Check ($modules.Contains('MessageBoxButtons.YesNo') -and $modules.Contains('MessageBoxDefaultButton.Button2')) 'Restore requires explicit confirmation and defaults to No'
-Add-Check ($versionLines.Count -ge 2 -and $versionLines[0].Trim() -eq '1.0.0.73' -and $versionLines[1].Trim() -eq 'FIX137') 'Product release identity is 1.0.0.73 / FIX137'
-Add-Check ($assembly.Contains('AssemblyVersion("1.0.0.73")') -and $assembly.Contains('AssemblyFileVersion("1.0.0.73")') -and $assembly.Contains('AssemblyInformationalVersion("FIX137")')) 'Assembly metadata matches the new immutable product release'
-Add-Check ($modules.Contains('ProgramVersion = "1.0.0.73"') -and $setup.Contains('#define MyAppVersion "1.0.0.73"') -and $setup.Contains('OutputBaseFilename=KomputeroweCentrumSerwisu_FIX137_INSTALATOR')) 'Updater and installer recipe share the new product version and FIX137 asset name'
+Add-Check ($versionLines.Count -ge 2 -and $versionLines[0].Trim() -eq '1.0.0.74' -and $versionLines[1].Trim() -eq 'FIX139') 'Product release identity is 1.0.0.74 / FIX139'
+Add-Check ($assembly.Contains('AssemblyVersion("1.0.0.74")') -and $assembly.Contains('AssemblyFileVersion("1.0.0.74")') -and $assembly.Contains('AssemblyInformationalVersion("FIX139")')) 'Assembly metadata matches the new immutable product release'
+Add-Check ($modules.Contains('ProgramVersion = "1.0.0.74"') -and $setup.Contains('#define MyAppVersion "1.0.0.74"') -and $setup.Contains('OutputBaseFilename=KomputeroweCentrumSerwisu_FIX139_INSTALATOR')) 'Updater and installer recipe share the new product version and FIX139 asset name'
 $buildAll=Read-Text 'BUILD_ALL.cmd';$buildManager=Read-Text 'BUILD_MANAGER.cmd';$legacyInstallerMenu=Read-Text 'BUILD_INSTALLERS.cmd'
-Add-Check ($buildAll.Contains('FIX137') -and $buildManager.Contains('FIX137') -and $legacyInstallerMenu.Contains('FIX137') -and -not $buildAll.Contains('FIX130')) 'All visible build menus identify the active FIX137 build'
-Add-Check ($main.Contains('UniversalWindowsMigrationPRO/1.0.0.73') -and $main.Contains('Radio Stream Probe/1.0.0.73') -and $main.Contains('NAPRAW - FIX137')) 'Application diagnostics and product report use the active FIX137 identity'
+Add-Check ($buildAll.Contains('FIX139') -and $buildManager.Contains('FIX139') -and $legacyInstallerMenu.Contains('FIX139') -and -not $buildAll.Contains('FIX130')) 'All visible build menus identify the active FIX139 build'
+Add-Check ($main.Contains('UniversalWindowsMigrationPRO/1.0.0.74') -and $main.Contains('Radio Stream Probe/1.0.0.74') -and $main.Contains('NAPRAW - FIX139')) 'Application diagnostics and product report use the active FIX139 identity'
 Add-Check ($sourceGate.Contains('CHECK_FIX137_SERVICE_PRO.ps1') -and $sourceGate.Contains('CHECK_FIX137_SERVICE_PRO.ps1" "Service desk')) 'Service PRO regression is active in CHECK_SOURCE'
-Add-Check (($required | Where-Object {$validator.Contains($_)}).Count -eq $required.Count) 'Full package validator requires the FIX137 regression and docs'
-Add-Check (($required | Where-Object {$allow -contains $_}).Count -eq $required.Count) 'Explicit source allowlist contains the FIX137 regression and docs'
-Add-Check (($required | Where-Object {$safe.Contains($_)}).Count -eq $required.Count) 'FIX137 test and docs are classified as safe tooling/documentation paths'
-Add-Check (($required | Where-Object {$changed.Contains($_)}).Count -eq $required.Count) 'FIX137 artifacts are included in release-preservation path classification'
-Add-Check ($manifest -match '(?m)^[0-9A-F]{64}\|CHECK_FIX137_SERVICE_PRO\.ps1$') 'PowerShell SHA-256 manifest contains FIX137 regression test'
-Add-Check ($payload.Contains('"CHECK_FIX137_SERVICE_PRO.ps1"') -and $payload.Contains('"1.0.0.73"') -and $payload.Contains('"FIX137"') -and $payload.Contains('"BUILD_ALL.cmd"') -and $payload.Contains('"KCS_FIX101_WORKER.cmd"')) 'Build provenance hashes Service PRO tests, active orchestration and worker with current release identity'
+Add-Check (($required | Where-Object {$validator.Contains($_)}).Count -eq $required.Count) 'Full package validator requires the FIX139 regression and docs'
+Add-Check (($required | Where-Object {$allow -contains $_}).Count -eq $required.Count) 'Explicit source allowlist contains the FIX139 regression and docs'
+Add-Check (($required | Where-Object {$safe.Contains($_)}).Count -eq $required.Count) 'FIX139 test and docs are classified as safe tooling/documentation paths'
+Add-Check (($required | Where-Object {$changed.Contains($_)}).Count -eq $required.Count) 'FIX139 artifacts are included in release-preservation path classification'
+Add-Check ($manifest -match '(?m)^[0-9A-F]{64}\|CHECK_FIX137_SERVICE_PRO\.ps1$') 'PowerShell SHA-256 manifest contains FIX139 regression test'
+Add-Check ($payload.Contains('"CHECK_FIX137_SERVICE_PRO.ps1"') -and $payload.Contains('"1.0.0.74"') -and $payload.Contains('"FIX139"') -and $payload.Contains('"BUILD_ALL.cmd"') -and $payload.Contains('"KCS_FIX101_WORKER.cmd"')) 'Build provenance hashes Service PRO tests, active orchestration and worker with current release identity'
 $failed=@($checks | Where-Object {-not $_.Passed})
 foreach($c in $checks){if($c.Passed){Write-Host ('[PASS] '+$c.Name)}else{Write-Host ('[FAIL] '+$c.Name)}}
-if($failed.Count){Write-Host ('[FAIL] FIX137 Service PRO: '+(($failed|ForEach-Object{$_.Name}) -join '; '));exit 1}
-Write-Host ('[PASS] FIX137 Service PRO regression checks: '+$checks.Count+'/'+$checks.Count)
+if($failed.Count){Write-Host ('[FAIL] FIX139 Service PRO: '+(($failed|ForEach-Object{$_.Name}) -join '; '));exit 1}
+Write-Host ('[PASS] FIX139 Service PRO regression checks: '+$checks.Count+'/'+$checks.Count)
 exit 0

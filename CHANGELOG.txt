@@ -1,4 +1,11 @@
-﻿FIX138 HOTFIX 01 — NAPRAWA KOMPILACJI BUTTONAT W MAGAZYNIE SERWIS PRO
+FIX139 HOTFIX 01 — NAPRAWA KODOWANIA PLIKÓW CMD
+- Usunięto UTF-8 BOM ze wszystkich 12 plików CMD; pierwszy bajt pliku startowego to teraz „@” (ASCII), zgodnie z walidatorem FIX099.
+- Poprawiono również pliki worker/build, aby uruchamiane bezpośrednio skrypty wsadowe nie otrzymywały błędnego prefiksu BOM.
+- Zachowano logikę budowania, konfigurację repozytorium, źródła, dane, ustawienia i istniejące artefakty; nie zmieniono kodu aplikacji ani wersji produktu 1.0.0.74.
+- Weryfikacja lokalna: wszystkie pliki .cmd bez BOM; archiwum ZIP testowane po utworzeniu. Kompilacja Windows i publikacja wymagają uruchomienia na komputerze użytkownika.
+Data: 2026-11-20
+
+FIX138 HOTFIX 01 — NAPRAWA KOMPILACJI BUTTONAT W MAGAZYNIE SERWIS PRO
 - Naprawiono błąd CS1501 w WindowsVersionSwitcherPRO.Modules.cs: metoda ButtonAt była wywoływana z argumentem wysokości, ale brakowało odpowiadającego przeciążenia.
 - Dodano przeciążenie ButtonAt(..., width, height, click); dotychczasowa sygnatura zachowuje domyślną wysokość 40 px, więc istniejące ekrany nie zmieniają układu.
 - Akcja „WYDAJ DO AKTYWNEGO ZLECENIA” korzysta z jawnej wysokości 40 px.
@@ -1261,3 +1268,32 @@ KOMPUTEROWE CENTRUM SERWISU — FIX121
 - Dodano CHECK_FIX121_PUBLIC_HTTP_TEXT.ps1 i podłączono go do CHECK_SOURCE oraz pełnego walidatora.
 - Zachowano ochronę istniejących assetów i blokadę ponownego użycia wydania przy zmianach kodu aplikacji lub instalatora.
 - Wersja produktu bez zmian: 1.0.0.69.
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX139
+Wersja produktu: 1.0.0.74
+
+NOWY MODUŁ: KALENDARZ WIZYT PRO
+- Lokalny terminarz wizyt, przyjęć i odbiorów sprzętu.
+- Pola klienta, telefonu, daty/godziny, sprzętu/usługi, statusu i notatek.
+- Dodawanie, edycja, usuwanie z potwierdzeniem oraz sortowanie terminów po dacie.
+- Eksport terminów do iCalendar (.ics) oraz CSV UTF-8.
+- Zapis XML przez istniejący mechanizm bezpiecznego zapisu; dane pozostają lokalnie w Data\ServicePRO.
+- Zmiany terminów są dopisywane do historii operacji Serwis PRO.
+
+ZACHOWANO
+- Dotychczasowe zlecenia, historię urządzeń, diagnostykę przed/po, magazyn, raporty i kopie zapasowe.
+- FIX138 HOTFIX01 i wszystkie wcześniejsze testy regresji.
+
+OGRANICZENIA
+- Kalendarz jest lokalny; nie wysyła SMS/e-mail i nie synchronizuje automatycznie z usługami zewnętrznymi.
+- Eksport ICS można zaimportować do Outlook/Google Calendar ręcznie.
+- Nie wykonano kompilacji Windows ani publikacji w tym środowisku.
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX139 HOTFIX02
+- Naprawiono brak widocznego postępu podczas walidacji pakietu, testów CHECK_SOURCE i przygotowania narzędzi.
+- Długie etapy pokazują teraz komunikat startowy i wynik, a testy CHECK_SOURCE prezentują nazwy testów oraz status PASS/FAIL w oknie CMD.
+- Zachowano kody wyjścia, osobny log główny i log CHECK_SOURCE; nie zmieniono danych aplikacji ani konfiguracji.
+- Wersja produktu bez zmian: 1.0.0.74.
+- Nie oznacza to potwierdzenia kompilacji lub publikacji; te etapy nadal wymagają wykonania na Windows.

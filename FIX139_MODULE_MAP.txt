@@ -1,0 +1,11 @@
+﻿FIX139 — MAPA ZMIAN
+
+Aplikacja desktopowa:
+- WindowsVersionSwitcherPRO.cs: pozycja nawigacji i routing Kalendarz wizyt PRO.
+- WindowsVersionSwitcherPRO.Modules.cs: lokalny kalendarz, zapis XML, edycja/usuwanie, sortowanie, eksport ICS/CSV.
+- Dane: Data\ServicePRO\appointments.xml; zapis przez SaveXmlSafely.
+- Historia: operacje kalendarza trafiają do istniejącej historii Serwis PRO.
+
+Wydanie: 1.0.0.74 / FIX139.
+
+Testy: CHECK_FIX139_APPOINTMENTS.ps1; wcześniejsze testy FIX137 i FIX138 pozostają wymagane.

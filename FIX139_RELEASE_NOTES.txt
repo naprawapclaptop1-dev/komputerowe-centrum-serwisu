@@ -1,0 +1,19 @@
+﻿KOMPUTEROWE CENTRUM SERWISU — FIX139
+Wersja produktu: 1.0.0.74
+
+NOWY MODUŁ: KALENDARZ WIZYT PRO
+- Lokalny terminarz wizyt, przyjęć i odbiorów sprzętu.
+- Pola klienta, telefonu, daty/godziny, sprzętu/usługi, statusu i notatek.
+- Dodawanie, edycja, usuwanie z potwierdzeniem oraz sortowanie terminów po dacie.
+- Eksport terminów do iCalendar (.ics) oraz CSV UTF-8.
+- Zapis XML przez istniejący mechanizm bezpiecznego zapisu; dane pozostają lokalnie w Data\ServicePRO.
+- Zmiany terminów są dopisywane do historii operacji Serwis PRO.
+
+ZACHOWANO
+- Dotychczasowe zlecenia, historię urządzeń, diagnostykę przed/po, magazyn, raporty i kopie zapasowe.
+- FIX138 HOTFIX01 i wszystkie wcześniejsze testy regresji.
+
+OGRANICZENIA
+- Kalendarz jest lokalny; nie wysyła SMS/e-mail i nie synchronizuje automatycznie z usługami zewnętrznymi.
+- Eksport ICS można zaimportować do Outlook/Google Calendar ręcznie.
+- Nie wykonano kompilacji Windows ani publikacji w tym środowisku.
