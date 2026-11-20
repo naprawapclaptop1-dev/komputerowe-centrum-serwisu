@@ -8,7 +8,7 @@ on:
       - '.github/workflows/fan-control-fix006-one-zip.yml'
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
   actions: read
 jobs:
   build:
@@ -71,8 +71,18 @@ jobs:
           $size = (Get-Item $archive).Length
           if ($size -lt 50000000) { throw "Release ZIP is unexpectedly small." }
           Write-Host "One ZIP verified. Size: $size bytes. Setup.exe + Portable EXE present. No nested ZIP."
-      - uses: actions/upload-artifact@v4
-        with:
-          name: NAPRAWA_PC_FAN_CONTROL_PRO_AI_2.0.4_FIX006_ONE_ZIP
-          path: artifacts/NAPRAWA_PC_FAN_CONTROL_PRO_AI_2.0.4_FIX006_ONE_ZIP.zip
-          retention-days: 90
+      - name: Publish direct ZIP download — no artifact wrapper
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $tag = "v2.0.4-FIX006"
+          $archive = "artifacts/NAPRAWA_PC_FAN_CONTROL_PRO_AI_2.0.4_FIX006_ONE_ZIP.zip"
+          gh release view $tag --repo ${{ github.repository }} *> $null
+          if ($LASTEXITCODE -eq 0) {
+            gh release upload $tag $archive --repo ${{ github.repository }} --clobber
+          } else {
+            gh release create $tag $archive --repo ${{ github.repository }} --title "NAPRAWA PC FAN CONTROL PRO AI 2.0.4 — FIX006" --notes "Pojedynczy ZIP. W katalogu głównym: Setup.exe oraz folder Portable. Bez zagnieżdżonych archiwów ZIP." --target $env:GITHUB_SHA
+          }
+          if ($LASTEXITCODE -ne 0) { throw "Direct ZIP release upload failed." }
+          gh release view $tag --repo ${{ github.repository }} --json url,assets
