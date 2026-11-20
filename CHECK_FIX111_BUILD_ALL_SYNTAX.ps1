@@ -1,4 +1,4 @@
-$ErrorActionPreference = 'Stop'
+﻿$ErrorActionPreference = 'Stop'
 $root = $PSScriptRoot
 $build = Get-Content -LiteralPath (Join-Path $root 'BUILD_ALL.cmd') -Raw
 $checks = @(

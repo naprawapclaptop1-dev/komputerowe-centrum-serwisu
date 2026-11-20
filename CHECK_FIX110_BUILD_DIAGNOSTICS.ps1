@@ -1,4 +1,4 @@
-$ErrorActionPreference = 'Stop'
+﻿$ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $build = Get-Content -LiteralPath (Join-Path $root 'BUILD_ALL.cmd') -Raw
 $verify = Get-Content -LiteralPath (Join-Path $root 'VERIFY_BUILD.cmd') -Raw

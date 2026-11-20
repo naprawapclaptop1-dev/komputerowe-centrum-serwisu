@@ -1,0 +1,21 @@
+﻿KOMPUTEROWE CENTRUM SERWISU — FIX138
+NAPRAWA HISTORYCZNYCH REGRESJI I ZGODNOŚCI MANIFESTU SHA-256
+
+PRZYCZYNA
+Po wydaniu Serwis PRO 1.0.0.73 / FIX137 kilka testów narzędziowych nadal wymagało starej wersji produktu 1.0.0.72 / FIX072 albo szukało nazwy logu instalatora z FIX072. Dodatkowo wyrażenia regularne w testach manifestu nie uwzględniały znaku CR w zakończeniach linii CRLF, przez co błędnie zgłaszały brak hashy mimo obecności wpisów.
+
+ZMIANY
+- Testy FIX132, FIX133 i FIX134 potwierdzają historyczny numer produktu w dokumentacji historycznej, zamiast błędnie wymagać cofnięcia bieżącego VERSION.txt do 1.0.0.72.
+- Test FIX128 wyznacza nazwę logu Inno Setup z drugiej linii VERSION.txt i pozostaje zgodny z kolejnymi wydaniami produktu.
+- Testy FIX133, FIX134, FIX135, FIX136 i FIX137 normalizują CRLF manifestu przed zakotwiczonymi dopasowaniami.
+- Dodano CHECK_FIX138_HISTORICAL_RELEASE_REGRESSIONS.ps1 z kontrolą tożsamości pakietu FIX138, produktu FIX137, historycznych notatek i sum SHA-256.
+- Tytuł, raport diagnostyczny, launcher i worker mają teraz spójny identyfikator pakietu FIX138; identyfikator wydania aplikacji pozostaje FIX137.
+- Odświeżono manifest SHA-256, CHECK_SOURCE, pełny walidator, allowlistę i politykę ochrony wydań.
+- README wskazuje aktualny plik logu instalatora FIX137.
+
+WERSJA PRODUKTU
+Pozostaje 1.0.0.73 / FIX137. FIX138 jest poprawką narzędziową; nie zmieniono kodu aplikacji, AssemblyInfo, zasobów ani receptury instalatora.
+
+WALIDACJA
+Pakiet zawiera test regresji w aktywnej bramce CHECK_SOURCE. Pełny test PowerShell 5.1, kompilacja C# i Inno Setup wymagają uruchomienia na Windows.
+Data: 2026-11-20

@@ -32,7 +32,7 @@ $existingPages = @('BuildDiskHealthPage','BuildNvmeDoctorPage','BuildHardwareInt
 $allExisting = $true
 foreach ($method in $existingPages) { if (-not $modules.Contains($method)) { $allExisting = $false } }
 Add-Check $allExisting 'Existing Disk SMART/NVMe, driver, BIOS, backup, report and work-order modules remain present rather than being duplicated'
-Add-Check ($modules.Contains('ProgramVersion = "1.0.0.72"')) 'Updater targets immutable product version 1.0.0.72 / FIX072'
+Add-Check ($modules.Contains('ProgramVersion = "1.0.0.73"')) 'Updater targets immutable product version 1.0.0.73 / FIX137'
 $failed=@($checks | Where-Object {-not $_.Passed})
 foreach($c in $checks){if($c.Passed){Write-Host ('[PASS] '+$c.Name)}else{Write-Host ('[FAIL] '+$c.Name)}}
 if($failed.Count){Write-Host ('[FAIL] FIX130 monitoring integration: '+(($failed | ForEach-Object {$_.Name}) -join '; '));exit 1}

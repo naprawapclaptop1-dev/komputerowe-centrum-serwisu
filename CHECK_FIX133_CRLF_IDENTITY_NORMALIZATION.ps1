@@ -36,7 +36,7 @@ Add-Check ($cmd.Contains('call :run_ps_check "CHECK_FIX128_INTERACTIVE_INSTALL_C
 Add-Check ($cmd.Contains('call :run_ps_check "CHECK_FIX133_CRLF_IDENTITY_NORMALIZATION.ps1"')) 'FIX133 newline normalization regression is active in CHECK_SOURCE'
 $validator = Get-Content -LiteralPath (Join-Path $root 'VALIDATE_FIX100_PACKAGE.ps1') -Raw -Encoding UTF8
 $allow = @(Get-Content -LiteralPath (Join-Path $root 'FIX099_SOURCE_ALLOWLIST.txt') -Encoding UTF8 | ForEach-Object { $_.Trim() } | Where-Object { $_ })
-$manifest = Get-Content -LiteralPath (Join-Path $root 'FIX099_POWERSHELL_MANIFEST.txt') -Raw -Encoding UTF8
+$manifest = (Get-Content -LiteralPath (Join-Path $root 'FIX099_POWERSHELL_MANIFEST.txt') -Raw -Encoding UTF8).Replace("`r`n","`n")
 $policy = Get-Content -LiteralPath (Join-Path $root 'CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1') -Raw -Encoding UTF8
 $safeBlock = [regex]::Match($policy,'\$safePaths\s*=\s*@\((.*?)\)',[Text.RegularExpressions.RegexOptions]::Singleline).Groups[1].Value
 $currentBlock = [regex]::Match($policy,'\$currentTagChanges\s*=\s*@\((.*?)\)',[Text.RegularExpressions.RegexOptions]::Singleline).Groups[1].Value
@@ -46,8 +46,8 @@ Add-Check (($required | Where-Object { $allow -contains $_ }).Count -eq 3) 'Expl
 Add-Check (($required | Where-Object { $safeBlock.Contains($_) }).Count -eq 3) 'FIX133 test and docs are classified as safe tooling changes'
 Add-Check (($required | Where-Object { $currentBlock.Contains($_) }).Count -eq 3) 'FIX133 artifacts are included in current release-preservation changes'
 Add-Check (($manifest -match '(?m)^[0-9A-F]{64}\|CHECK_FIX133_CRLF_IDENTITY_NORMALIZATION\.ps1$')) 'PowerShell manifest contains the FIX133 regression hash'
-$version = (Get-Content -LiteralPath (Join-Path $root 'VERSION.txt') -Encoding UTF8 | Select-Object -First 1).Trim()
-Add-Check ($version -eq '1.0.0.72') 'Product version remains unchanged for tooling-only FIX133'
+$historicalNotes = Get-Content -LiteralPath (Join-Path $root 'FIX133_RELEASE_NOTES.txt') -Raw -Encoding UTF8
+Add-Check ($historicalNotes.Contains('numerze wersji produktu 1.0.0.72 / FIX072')) 'FIX133 historical notes preserve the original tooling-only product baseline 1.0.0.72 / FIX072'
 $failed = @($checks | Where-Object { -not $_.Passed })
 foreach ($check in $checks) { if ($check.Passed) { Write-Host ('[PASS] ' + $check.Name) } else { Write-Host ('[FAIL] ' + $check.Name) } }
 if ($failed.Count) { Write-Host ('[FAIL] FIX133 CRLF identity checks: ' + (($failed | ForEach-Object { $_.Name }) -join '; ')); exit 1 }

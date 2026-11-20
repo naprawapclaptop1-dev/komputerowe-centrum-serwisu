@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Collections;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.IO;
 using System.Globalization;
 using System.Management;
@@ -68,7 +69,7 @@ namespace NaprawaPC.WindowsSwitcher
         private string pendingUpdateChannel = "", pendingUpdateRegion = "", pendingUpdateLanguage = "", pendingUpdateFeed = "";
         private string pendingUpdateSignerThumbprint = "";
         private string updaterSettingsPath = "";
-        private const string ProgramVersion = "1.0.0.72";
+        private const string ProgramVersion = "1.0.0.73";
         // Jeden adres wbudowany w aplikację — użytkownicy nie wpisują manifestów ani serwerów.
         private string GitHubReleaseBaseUrl
         {
@@ -955,7 +956,7 @@ namespace NaprawaPC.WindowsSwitcher
 
         private string GetOfficialUpdatePackageUrl()
         {
-            return OfficialUpdateBaseUrl+"KomputeroweCentrumSerwisu_FIX072_INSTALATOR.exe";
+            return OfficialUpdateBaseUrl+"KomputeroweCentrumSerwisu_FIX137_INSTALATOR.exe";
         }
         private string GetOfficialReleaseCatalogUrl()
         {
@@ -1244,7 +1245,7 @@ namespace NaprawaPC.WindowsSwitcher
                 using(StreamReader reader=new StreamReader(response.GetResponseStream(),Encoding.UTF8))
                 {
                     string json=reader.ReadToEnd();
-                    string[] required={"KomputeroweCentrumSerwisu_FIX072_INSTALATOR.exe","KomputeroweCentrumSerwisu_FIX072_PORTABLE.exe","manifest-stable.xml","manifest-beta.xml","releases.json","SHA256SUMS.txt"};
+                    string[] required={"KomputeroweCentrumSerwisu_FIX137_INSTALATOR.exe","KomputeroweCentrumSerwisu_FIX137_PORTABLE.exe","manifest-stable.xml","manifest-beta.xml","releases.json","SHA256SUMS.txt"};
                     List<string> missing=new List<string>();foreach(string name in required)if(json.IndexOf(name,StringComparison.OrdinalIgnoreCase)<0)missing.Add(name);
                     if(missing.Count>0)throw new InvalidDataException("W najnowszym wydaniu GitHub brakuje assetów: "+String.Join(", ",missing.ToArray()));
                     string tag=ReadJsonStringProperty(json,"tag_name");
@@ -1966,7 +1967,7 @@ namespace NaprawaPC.WindowsSwitcher
             if(d.ShowDialog()!=DialogResult.OK)return;
             string channel=updaterChannelBox!=null && updaterChannelBox.SelectedIndex==1?"beta":"stable";
             string sample="<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n"+
-                "<Update version=\"1.0.0.72\" channel=\""+channel+"\" region=\"global\" language=\"all\" architecture=\"any\" packageUrl=\""+
+                "<Update version=\"1.0.0.73\" channel=\""+channel+"\" region=\"global\" language=\"all\" architecture=\"any\" packageUrl=\""+
                 GetOfficialUpdatePackageUrl()+"\" sha256=\"WSTAW_64_ZNAKI_SHA256\">\r\n"+
                 "  <Notes lang=\"pl\">Wydanie "+ProgramVersion+"</Notes>\r\n"+
                 "  <Notes lang=\"en\">Release "+ProgramVersion+"</Notes>\r\n"+
@@ -1993,7 +1994,7 @@ namespace NaprawaPC.WindowsSwitcher
             string channel=updaterChannelBox!=null && updaterChannelBox.SelectedIndex==1?"beta":"stable";
             string manifestName=channel=="beta"?"manifest-beta.xml":"manifest-stable.xml";
             string folder=Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"GlobalUpdateServer");
-            string packageName="KomputeroweCentrumSerwisu_FIX072_INSTALATOR.exe";
+            string packageName="KomputeroweCentrumSerwisu_FIX137_INSTALATOR.exe";
             string packagePath=Path.Combine(folder,packageName);
             string manifestPath=Path.Combine(folder,manifestName);
             try
@@ -6686,6 +6687,778 @@ try {
                 MessageBox.Show("Przywrócono "+restored+" plików.","Migracja danych komputera",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
             catch(Exception ex){PcMigrationWriteStatus("BŁĄD PRZYWRACANIA\r\n"+ex.GetBaseException().Message);MessageBox.Show(ex.GetBaseException().Message,"Przywracanie migracji");}
+        }
+
+
+        // FIX137 — lokalny pakiet obsługi serwisu: zlecenia, diagnostyka przed/po, magazyn, historia i kopie.
+        // Dane pozostają lokalne; żaden moduł nie wysyła kart klientów ani raportów do sieci.
+        private string serviceProDirectory = "";
+        private string serviceProCasesFile = "";
+        private string serviceProPartsFile = "";
+        private string serviceProHistoryFile = "";
+        private string selectedServiceProCaseId = "";
+        private DataGridView serviceProCasesGrid;
+        private DataGridView serviceProPartsGrid;
+        private DataGridView serviceProHistoryGrid;
+        private TextBox serviceProClientBox, serviceProPhoneBox, serviceProEmailBox;
+        private TextBox serviceProDeviceBox, serviceProSerialBox, serviceProIssueBox, serviceProActionsBox;
+        private TextBox serviceProNotesBox, serviceProRecommendationsBox, serviceProBeforeBox, serviceProAfterBox, serviceProComparisonBox;
+        private ComboBox serviceProStatusBox, serviceProPriorityBox;
+        private TextBox serviceProEstimateBox, serviceProPaidBox;
+        private TextBox serviceProPartSkuBox, serviceProPartNameBox, serviceProPartCategoryBox;
+        private TextBox serviceProPartQuantityBox, serviceProPartCostBox, serviceProPartPriceBox, serviceProPartMinimumBox;
+        private TextBox serviceProPartUseQuantityBox;
+        private TextBox serviceProBackupStatusBox;
+        private BackgroundWorker serviceProSnapshotWorker;
+        private string serviceProSnapshotCaseId = "";
+        private string serviceProSnapshotStage = "";
+
+        private string ServiceProPath(string fileName)
+        {
+            if(String.IsNullOrEmpty(serviceProDirectory))
+            {
+                serviceProDirectory=Path.Combine(dataRoot,"ServicePRO");
+                serviceProCasesFile=Path.Combine(serviceProDirectory,"cases.xml");
+                serviceProPartsFile=Path.Combine(serviceProDirectory,"parts.xml");
+                serviceProHistoryFile=Path.Combine(serviceProDirectory,"history.xml");
+            }
+            Directory.CreateDirectory(serviceProDirectory);
+            return Path.Combine(serviceProDirectory,fileName);
+        }
+
+        private XmlDocument LoadServiceProXml(string path,string rootName)
+        {
+            XmlDocument d=new XmlDocument();
+            if(File.Exists(path))
+            {
+                string error="";
+                if(!TryLoadXmlDocument(path,out d,out error))
+                    throw new InvalidDataException("Plik danych serwisu jest nieprawidłowy i nie został nadpisany: "+path+". "+error);
+                if(d.DocumentElement==null || !String.Equals(d.DocumentElement.Name,rootName,StringComparison.Ordinal))
+                    throw new InvalidDataException("Nieprawidłowy korzeń XML w pliku "+Path.GetFileName(path)+". Oczekiwano: "+rootName);
+                return d;
+            }
+            XmlElement root=d.CreateElement(rootName);d.AppendChild(root);return d;
+        }
+
+        private string ServiceProRead(XmlNode parent,string childName)
+        {
+            if(parent==null)return "";
+            XmlNode n=parent.SelectSingleNode(childName);return n==null?"":n.InnerText;
+        }
+
+        private void ServiceProWrite(XmlDocument d,XmlElement parent,string childName,string value)
+        {
+            XmlNode n=parent.SelectSingleNode(childName);
+            if(n==null){XmlElement e=d.CreateElement(childName);e.InnerText=value??"";parent.AppendChild(e);}
+            else n.InnerText=value??"";
+        }
+
+        private DataGridView CreateServiceProGrid(Control parent,int x,int y,int width,int height,string[] headers,int[] widths)
+        {
+            DataGridView grid=new DataGridView();
+            grid.Location=new Point(UX(x),UY(y));grid.Size=new Size(UX(width),UY(height));
+            grid.BackgroundColor=Color.FromArgb(7,13,23);grid.GridColor=Color.FromArgb(35,62,83);
+            grid.BorderStyle=BorderStyle.FixedSingle;grid.AllowUserToAddRows=false;grid.AllowUserToDeleteRows=false;
+            grid.AllowUserToResizeRows=false;grid.MultiSelect=false;grid.ReadOnly=true;
+            grid.RowHeadersVisible=false;grid.SelectionMode=DataGridViewSelectionMode.FullRowSelect;
+            grid.AutoSizeColumnsMode=DataGridViewAutoSizeColumnsMode.None;
+            grid.EnableHeadersVisualStyles=false;grid.ColumnHeadersDefaultCellStyle.BackColor=Color.FromArgb(17,42,62);
+            grid.ColumnHeadersDefaultCellStyle.ForeColor=Color.FromArgb(222,241,250);
+            grid.ColumnHeadersDefaultCellStyle.Font=new Font("Segoe UI",8.5F*layoutScaleY,FontStyle.Bold);
+            grid.DefaultCellStyle.BackColor=Color.FromArgb(7,17,30);grid.DefaultCellStyle.ForeColor=Color.FromArgb(220,236,245);
+            grid.DefaultCellStyle.SelectionBackColor=Color.FromArgb(24,76,96);grid.DefaultCellStyle.SelectionForeColor=Color.White;
+            grid.DefaultCellStyle.Font=new Font("Segoe UI",8.4F*layoutScaleY);
+            grid.AlternatingRowsDefaultCellStyle.BackColor=Color.FromArgb(10,24,39);
+            grid.RowTemplate.Height=UY(25);
+            for(int i=0;i<headers.Length;i++)
+            {
+                DataGridViewTextBoxColumn c=new DataGridViewTextBoxColumn();c.HeaderText=headers[i];c.Name="C"+i;c.Width=UX(widths[i]);c.SortMode=DataGridViewColumnSortMode.Automatic;grid.Columns.Add(c);
+            }
+            parent.Controls.Add(grid);return grid;
+        }
+
+        private void BuildServiceProPage()
+        {
+            if(FindPage("Serwis PRO")!=null)return;
+            Panel p=NewPage("Serwis PRO","Zlecenia, karta urządzenia, diagnostyka przed i po naprawie oraz raport klienta");
+            Panel form=Card(p,"ZLECENIE SERWISOWE / KARTA URZĄDZENIA",10,8,950,405);
+            LabelAt(form,"Klient / firma",18,42,100,22);serviceProClientBox=TextAt(form,118,39,310,27,"");
+            LabelAt(form,"Telefon",445,42,62,22);serviceProPhoneBox=TextAt(form,505,39,150,27,"");
+            LabelAt(form,"E-mail",670,42,55,22);serviceProEmailBox=TextAt(form,725,39,195,27,"");
+            LabelAt(form,"Komputer / model",18,82,125,22);serviceProDeviceBox=TextAt(form,145,78,335,27,Environment.MachineName);
+            LabelAt(form,"Numer seryjny",500,82,95,22);serviceProSerialBox=TextAt(form,595,78,325,27,"");
+            LabelAt(form,"Opis usterki / zgłoszenie",18,121,240,22);
+            serviceProIssueBox=TextAt(form,18,145,902,45,"");serviceProIssueBox.Multiline=true;serviceProIssueBox.ScrollBars=ScrollBars.Vertical;
+            LabelAt(form,"Wykonane czynności / naprawa",18,198,260,22);
+            serviceProActionsBox=TextAt(form,18,222,902,45,"");serviceProActionsBox.Multiline=true;serviceProActionsBox.ScrollBars=ScrollBars.Vertical;
+            LabelAt(form,"Uwagi technika",18,275,120,22);
+            serviceProNotesBox=TextAt(form,18,298,902,37,"");serviceProNotesBox.Multiline=true;serviceProNotesBox.ScrollBars=ScrollBars.Vertical;
+            LabelAt(form,"Status",18,348,55,22);serviceProStatusBox=ComboAt(form,new string[]{"Nowe","W diagnozie","Oczekuje na akceptację","Oczekuje na część","W naprawie","Testy końcowe","Gotowe do odbioru","Wydane","Zamknięte"},75,344,175);
+            LabelAt(form,"Priorytet",270,348,70,22);serviceProPriorityBox=ComboAt(form,new string[]{"Standardowy","Pilny","Krytyczny"},340,344,145);
+            LabelAt(form,"Kosztorys PLN",500,348,100,22);serviceProEstimateBox=TextAt(form,600,344,105,27,"0,00");
+            LabelAt(form,"Zapłacono PLN",715,348,100,22);serviceProPaidBox=TextAt(form,815,344,105,27,"0,00");
+            ButtonAt(form,"ZAPISZ ZLECENIE",18,370,160,delegate{SaveServiceProCase();});
+            ButtonAt(form,"NOWE",188,370,95,delegate{ClearServiceProCase();});
+            ButtonAt(form,"USUŃ",293,370,90,delegate{DeleteServiceProCase();});
+            ButtonAt(form,"RAPORT PDF",393,370,135,delegate{PrintServiceProCaseReport();});
+            ButtonAt(form,"MAGAZYN CZĘŚCI",538,370,165,delegate{ShowPage("Magazyn części PRO");});
+            ButtonAt(form,"HISTORIA",713,370,105,delegate{ShowPage("Historia serwisu PRO");});
+
+            Panel diag=Card(p,"DIAGNOSTYKA PRZED / PO NAPRAWIE — ODCZYTY TYLKO DO ODCZYTU",10,423,950,245);
+            LabelAt(diag,"PRZED NAPRAWĄ",18,42,410,22);LabelAt(diag,"PO NAPRAWIE",465,42,410,22);
+            serviceProBeforeBox=TextAt(diag,18,66,420,112,"");serviceProBeforeBox.Multiline=true;serviceProBeforeBox.ReadOnly=true;serviceProBeforeBox.ScrollBars=ScrollBars.Vertical;serviceProBeforeBox.Font=new Font("Consolas",8.2F*layoutScaleY);
+            serviceProAfterBox=TextAt(diag,465,66,420,112,"");serviceProAfterBox.Multiline=true;serviceProAfterBox.ReadOnly=true;serviceProAfterBox.ScrollBars=ScrollBars.Vertical;serviceProAfterBox.Font=new Font("Consolas",8.2F*layoutScaleY);
+            ButtonAt(diag,"ZAPISZ POMIARY PRZED",18,185,200,delegate{StartServiceProSnapshot("Before");});
+            ButtonAt(diag,"ZAPISZ POMIARY PO",230,185,185,delegate{StartServiceProSnapshot("After");});
+            ButtonAt(diag,"PORÓWNAJ",465,185,145,delegate{CompareServiceProSnapshots();});
+            ButtonAt(diag,"ODŚWIEŻ HISTORIĘ",620,185,190,delegate{LoadServiceProCasesGrid();});
+            ButtonAt(diag,"HISTORIA PC",820,185,100,delegate{ShowServiceProDeviceHistory();});
+
+            Panel advice=Card(p,"ZALECENIA DLA KLIENTA / NASTĘPNE KROKI",10,678,950,130);
+            LabelAt(advice,"Wpisz zalecenia technika, ograniczenia, propozycję dalszych testów lub przypomnienie o kopii danych.",18,43,900,24);
+            serviceProRecommendationsBox=TextAt(advice,18,68,902,48,"");serviceProRecommendationsBox.Multiline=true;serviceProRecommendationsBox.ScrollBars=ScrollBars.Vertical;
+
+            Panel history=Card(p,"ZLECENIA — WYBIERZ WIERSZ, ABY OTWORZYĆ KARTĘ",10,818,950,245);
+            serviceProCasesGrid=CreateServiceProGrid(history,18,43,902,184,new string[]{"Numer zlecenia","Data","Status","Klient","Sprzęt","Priorytet"},new int[]{145,135,140,190,190,90});
+            serviceProCasesGrid.SelectionChanged+=delegate{LoadSelectedServiceProCase();};
+            Panel privacy=Card(p,"DANE I OGRANICZENIA",10,1073,950,90);
+            LabelAt(privacy,"Kartoteka, pomiary i raporty są przechowywane lokalnie w Data\\ServicePRO. Brak odczytu czujnika lub SMART jest oznaczany jako niedostępność — nie jako wynik pozytywny. Przed operacjami naprawczymi zachowaj kopię danych.",18,42,900,38);
+            p.AutoScrollMinSize=new Size(0,1185);
+            ServiceProPath("cases.xml");LoadServiceProCasesGrid();
+        }
+
+        private void ClearServiceProCase()
+        {
+            selectedServiceProCaseId="";
+            if(serviceProClientBox!=null)serviceProClientBox.Clear();if(serviceProPhoneBox!=null)serviceProPhoneBox.Clear();if(serviceProEmailBox!=null)serviceProEmailBox.Clear();
+            if(serviceProDeviceBox!=null)serviceProDeviceBox.Text=Environment.MachineName;if(serviceProSerialBox!=null)serviceProSerialBox.Clear();
+            if(serviceProIssueBox!=null)serviceProIssueBox.Clear();if(serviceProActionsBox!=null)serviceProActionsBox.Clear();if(serviceProNotesBox!=null)serviceProNotesBox.Clear();
+            if(serviceProStatusBox!=null)serviceProStatusBox.SelectedIndex=0;if(serviceProPriorityBox!=null)serviceProPriorityBox.SelectedIndex=0;
+            if(serviceProEstimateBox!=null)serviceProEstimateBox.Text="0,00";if(serviceProPaidBox!=null)serviceProPaidBox.Text="0,00";
+            if(serviceProBeforeBox!=null)serviceProBeforeBox.Clear();if(serviceProAfterBox!=null)serviceProAfterBox.Clear();if(serviceProRecommendationsBox!=null)serviceProRecommendationsBox.Clear();
+            if(serviceProCasesGrid!=null)serviceProCasesGrid.ClearSelection();
+        }
+
+        private decimal ServiceProMoney(string value,string fieldName)
+        {
+            decimal result;string normalized=(value??"").Trim().Replace(" ","").Replace(',',System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0]);
+            if(!Decimal.TryParse(normalized,NumberStyles.Number,CultureInfo.CurrentCulture,out result) || result<0m)
+                throw new InvalidDataException("Pole \""+fieldName+"\" musi zawierać nieujemną kwotę.");
+            return result;
+        }
+
+        private XmlElement FindServiceProCase(XmlDocument d,string id)
+        {
+            if(d==null || d.DocumentElement==null)return null;
+            foreach(XmlNode n in d.DocumentElement.SelectNodes("Case"))
+                if(n.Attributes["id"]!=null && String.Equals(n.Attributes["id"].Value,id,StringComparison.Ordinal))return n as XmlElement;
+            return null;
+        }
+
+        private void SaveServiceProCase()
+        {
+            if(serviceProClientBox==null)return;
+            if(String.IsNullOrWhiteSpace(serviceProClientBox.Text) || String.IsNullOrWhiteSpace(serviceProDeviceBox.Text))
+            {MessageBox.Show("Podaj klienta oraz model urządzenia.","Zlecenie serwisowe",MessageBoxButtons.OK,MessageBoxIcon.Warning);return;}
+            try
+            {
+                decimal estimate=ServiceProMoney(serviceProEstimateBox.Text,"Kosztorys");
+                decimal paid=ServiceProMoney(serviceProPaidBox.Text,"Zapłacono");
+                if(paid>estimate && estimate>0m && MessageBox.Show("Kwota zapłacona przekracza kosztorys. Zapisać mimo to?","Kontrola płatności",MessageBoxButtons.YesNo,MessageBoxIcon.Warning)!=DialogResult.Yes)return;
+                string path=ServiceProPath("cases.xml");XmlDocument d=LoadServiceProXml(path,"ServiceProCases");
+                XmlElement item=FindServiceProCase(d,selectedServiceProCaseId);bool created=item==null;
+                if(created){item=d.CreateElement("Case");selectedServiceProCaseId="KCS-"+DateTime.Now.ToString("yyyyMMdd-HHmmss",CultureInfo.InvariantCulture)+"-"+Guid.NewGuid().ToString("N").Substring(0,6).ToUpperInvariant();item.SetAttribute("id",selectedServiceProCaseId);item.SetAttribute("createdUtc",DateTime.UtcNow.ToString("o",CultureInfo.InvariantCulture));d.DocumentElement.AppendChild(item);}
+                item.SetAttribute("updatedUtc",DateTime.UtcNow.ToString("o",CultureInfo.InvariantCulture));
+                item.SetAttribute("status",serviceProStatusBox==null?"Nowe":serviceProStatusBox.Text);
+                item.SetAttribute("priority",serviceProPriorityBox==null?"Standardowy":serviceProPriorityBox.Text);
+                ServiceProWrite(d,item,"Client",serviceProClientBox.Text.Trim());ServiceProWrite(d,item,"Phone",serviceProPhoneBox.Text.Trim());
+                ServiceProWrite(d,item,"Email",serviceProEmailBox.Text.Trim());ServiceProWrite(d,item,"Device",serviceProDeviceBox.Text.Trim());
+                ServiceProWrite(d,item,"Serial",serviceProSerialBox.Text.Trim());ServiceProWrite(d,item,"Issue",serviceProIssueBox.Text);
+                ServiceProWrite(d,item,"Actions",serviceProActionsBox.Text);ServiceProWrite(d,item,"Notes",serviceProNotesBox.Text);
+                ServiceProWrite(d,item,"Recommendations",serviceProRecommendationsBox==null?"":serviceProRecommendationsBox.Text);
+                ServiceProWrite(d,item,"Estimate",estimate.ToString("0.00",CultureInfo.InvariantCulture));ServiceProWrite(d,item,"Paid",paid.ToString("0.00",CultureInfo.InvariantCulture));
+                ServiceProWrite(d,item,"Technician",Environment.UserName);ServiceProWrite(d,item,"Host",Environment.MachineName);
+                SaveXmlSafely(d,path,10);
+                AddServiceProHistory(selectedServiceProCaseId,created?"Utworzono zlecenie":"Zaktualizowano zlecenie",serviceProClientBox.Text+" | "+serviceProDeviceBox.Text+" | status: "+(serviceProStatusBox==null?"Nowe":serviceProStatusBox.Text));
+                LoadServiceProCasesGrid();
+                MessageBox.Show("Zlecenie zapisane lokalnie. Numer: "+selectedServiceProCaseId,"Serwis PRO",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            }
+            catch(Exception ex){MessageBox.Show("Nie udało się zapisać zlecenia: "+ex.GetBaseException().Message,"Serwis PRO",MessageBoxButtons.OK,MessageBoxIcon.Error);}
+        }
+
+        private void LoadServiceProCasesGrid()
+        {
+            if(serviceProCasesGrid==null || serviceProCasesGrid.IsDisposed)return;
+            serviceProCasesGrid.Rows.Clear();
+            try
+            {
+                XmlDocument d=LoadServiceProXml(ServiceProPath("cases.xml"),"ServiceProCases");
+                foreach(XmlNode n in d.SelectNodes("/ServiceProCases/Case"))
+                {
+                    string id=n.Attributes["id"]==null?"":n.Attributes["id"].Value;
+                    string date=n.Attributes["createdUtc"]==null?"":n.Attributes["createdUtc"].Value;
+                    DateTime dt;if(DateTime.TryParse(date,null,DateTimeStyles.RoundtripKind,out dt))date=dt.ToLocalTime().ToString("yyyy-MM-dd HH:mm");
+                    serviceProCasesGrid.Rows.Add(id,date,n.Attributes["status"]==null?"Nowe":n.Attributes["status"].Value,
+                        ServiceProRead(n,"Client"),ServiceProRead(n,"Device"),n.Attributes["priority"]==null?"Standardowy":n.Attributes["priority"].Value);
+                }
+                serviceProCasesGrid.Sort(serviceProCasesGrid.Columns[1],ListSortDirection.Descending);
+            }
+            catch(Exception ex){AppendLog("Serwis PRO — odczyt zleceń: "+ex.GetBaseException().Message);}
+        }
+
+        private void LoadSelectedServiceProCase()
+        {
+            if(serviceProCasesGrid==null || serviceProCasesGrid.CurrentRow==null)return;
+            try
+            {
+                string id=Convert.ToString(serviceProCasesGrid.CurrentRow.Cells[0].Value);if(String.IsNullOrWhiteSpace(id))return;
+                XmlDocument d=LoadServiceProXml(ServiceProPath("cases.xml"),"ServiceProCases");XmlElement n=FindServiceProCase(d,id);if(n==null)return;
+                selectedServiceProCaseId=id;
+                serviceProClientBox.Text=ServiceProRead(n,"Client");serviceProPhoneBox.Text=ServiceProRead(n,"Phone");serviceProEmailBox.Text=ServiceProRead(n,"Email");
+                serviceProDeviceBox.Text=ServiceProRead(n,"Device");serviceProSerialBox.Text=ServiceProRead(n,"Serial");serviceProIssueBox.Text=ServiceProRead(n,"Issue");
+                serviceProActionsBox.Text=ServiceProRead(n,"Actions");serviceProNotesBox.Text=ServiceProRead(n,"Notes");
+                if(serviceProRecommendationsBox!=null)serviceProRecommendationsBox.Text=ServiceProRead(n,"Recommendations");
+                serviceProEstimateBox.Text=ServiceProRead(n,"Estimate").Replace('.',',');serviceProPaidBox.Text=ServiceProRead(n,"Paid").Replace('.',',');
+                string status=n.Attributes["status"]==null?"Nowe":n.Attributes["status"].Value;int si=serviceProStatusBox.Items.IndexOf(status);serviceProStatusBox.SelectedIndex=si<0?0:si;
+                string priority=n.Attributes["priority"]==null?"Standardowy":n.Attributes["priority"].Value;int pi=serviceProPriorityBox.Items.IndexOf(priority);serviceProPriorityBox.SelectedIndex=pi<0?0:pi;
+                serviceProBeforeBox.Text=ServiceProRead(n,"BeforeSnapshot");serviceProAfterBox.Text=ServiceProRead(n,"AfterSnapshot");
+                AddServiceProHistory(id,"Otwarto kartę zlecenia","Załadowano kartę do edycji.");
+            }
+            catch(Exception ex){AppendLog("Serwis PRO — błąd wczytania zlecenia: "+ex.GetBaseException().Message);}
+        }
+
+        private void ShowServiceProDeviceHistory()
+        {
+            string serial=serviceProSerialBox==null?"":serviceProSerialBox.Text.Trim();
+            if(String.IsNullOrWhiteSpace(serial)){MessageBox.Show("Wpisz numer seryjny urządzenia w karcie zlecenia, aby wyświetlić jego historię.","Historia sprzętu");return;}
+            try
+            {
+                XmlDocument d=LoadServiceProXml(ServiceProPath("cases.xml"),"ServiceProCases");StringBuilder b=new StringBuilder();int count=0;
+                b.AppendLine("HISTORIA URZĄDZENIA — NUMER SERYJNY: "+serial);b.AppendLine(new string('=',78));
+                foreach(XmlNode n in d.SelectNodes("/ServiceProCases/Case"))
+                {
+                    if(!String.Equals(ServiceProRead(n,"Serial").Trim(),serial,StringComparison.OrdinalIgnoreCase))continue;
+                    count++;b.AppendLine();b.AppendLine("Zlecenie: "+(n.Attributes["id"]==null?"":n.Attributes["id"].Value));
+                    b.AppendLine("Data: "+(n.Attributes["createdUtc"]==null?"":n.Attributes["createdUtc"].Value));
+                    b.AppendLine("Status: "+(n.Attributes["status"]==null?"Nowe":n.Attributes["status"].Value));
+                    b.AppendLine("Sprzęt: "+ServiceProRead(n,"Device"));b.AppendLine("Usterka: "+ServiceProRead(n,"Issue"));
+                    b.AppendLine("Czynności: "+ServiceProRead(n,"Actions"));b.AppendLine("Zalecenia: "+ServiceProRead(n,"Recommendations"));
+                }
+                if(count==0)b.AppendLine("Nie znaleziono wcześniejszych zleceń z tym numerem seryjnym.");
+                b.AppendLine();b.AppendLine("Liczba znalezionych zleceń: "+count);
+                Form f=new Form();f.Text="Historia sprzętu — "+serial;f.StartPosition=FormStartPosition.CenterParent;f.Size=new Size(950,680);f.BackColor=Color.FromArgb(5,13,24);
+                TextBox box=new TextBox();box.Multiline=true;box.ReadOnly=true;box.ScrollBars=ScrollBars.Both;box.WordWrap=false;box.Dock=DockStyle.Fill;box.Font=new Font("Consolas",9F);box.BackColor=Color.FromArgb(7,13,23);box.ForeColor=Color.FromArgb(220,239,247);box.Text=b.ToString();f.Controls.Add(box);f.ShowDialog(this);
+                AddServiceProHistory(selectedServiceProCaseId,"Wyświetlono historię sprzętu","S/N: "+serial+" | znaleziono zleceń: "+count);
+            }
+            catch(Exception ex){MessageBox.Show("Nie udało się odczytać historii sprzętu: "+ex.GetBaseException().Message,"Historia sprzętu",MessageBoxButtons.OK,MessageBoxIcon.Error);}
+        }
+
+        private void DeleteServiceProCase()
+        {
+            if(String.IsNullOrEmpty(selectedServiceProCaseId)){MessageBox.Show("Wybierz zlecenie z tabeli.");return;}
+            if(MessageBox.Show("Usunąć wybrane zlecenie? Operacji nie można cofnąć. Historia zdarzeń pozostanie w dzienniku.","Potwierdzenie",MessageBoxButtons.YesNo,MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2)!=DialogResult.Yes)return;
+            try
+            {
+                string id=selectedServiceProCaseId;XmlDocument d=LoadServiceProXml(ServiceProPath("cases.xml"),"ServiceProCases");XmlElement item=FindServiceProCase(d,id);
+                if(item!=null){d.DocumentElement.RemoveChild(item);SaveXmlSafely(d,serviceProCasesFile,10);}
+                AddServiceProHistory(id,"Usunięto zlecenie","Usunięto kartę z aktywnej listy; wpis historii zachowano.");
+                ClearServiceProCase();LoadServiceProCasesGrid();
+            }
+            catch(Exception ex){MessageBox.Show("Nie udało się usunąć zlecenia: "+ex.GetBaseException().Message);}
+        }
+
+        private void StartServiceProSnapshot(string stage)
+        {
+            if(String.IsNullOrEmpty(selectedServiceProCaseId)){MessageBox.Show("Najpierw zapisz zlecenie i wybierz je w tabeli.","Diagnostyka przed/po",MessageBoxButtons.OK,MessageBoxIcon.Information);return;}
+            if(serviceProSnapshotWorker!=null && serviceProSnapshotWorker.IsBusy){MessageBox.Show("Trwa już odczyt diagnostyczny. Poczekaj na zakończenie.");return;}
+            serviceProSnapshotCaseId=selectedServiceProCaseId;serviceProSnapshotStage=stage;
+            if(serviceProBeforeBox!=null)serviceProBeforeBox.Text=stage=="Before"?"Trwa odczyt diagnostyczny…":serviceProBeforeBox.Text;
+            if(serviceProAfterBox!=null)serviceProAfterBox.Text=stage=="After"?"Trwa odczyt diagnostyczny…":serviceProAfterBox.Text;
+            BackgroundWorker w=new BackgroundWorker();serviceProSnapshotWorker=w;
+            w.DoWork+=delegate(object sender,DoWorkEventArgs e){e.Result=CaptureServiceProDiagnosticsSnapshot();};
+            w.RunWorkerCompleted+=delegate(object sender,RunWorkerCompletedEventArgs e)
+            {
+                if(serviceProSnapshotWorker==w)serviceProSnapshotWorker=null;
+                if(e.Error!=null){w.Dispose();MessageBox.Show("Odczyt zakończył się błędem: "+e.Error.GetBaseException().Message,"Diagnostyka");return;}
+                try
+                {
+                    string id=serviceProSnapshotCaseId;string value=Convert.ToString(e.Result);XmlDocument d=LoadServiceProXml(ServiceProPath("cases.xml"),"ServiceProCases");XmlElement item=FindServiceProCase(d,id);
+                    if(item==null)throw new InvalidDataException("Zlecenie usunięto podczas odczytu. Pomiar nie został zapisany.");
+                    ServiceProWrite(d,item,serviceProSnapshotStage=="Before"?"BeforeSnapshot":"AfterSnapshot",value);
+                    item.SetAttribute(serviceProSnapshotStage=="Before"?"beforeUtc":"afterUtc",DateTime.UtcNow.ToString("o",CultureInfo.InvariantCulture));
+                    SaveXmlSafely(d,serviceProCasesFile,10);
+                    if(id==selectedServiceProCaseId)
+                    {if(serviceProSnapshotStage=="Before")serviceProBeforeBox.Text=value;else serviceProAfterBox.Text=value;}
+                    AddServiceProHistory(id,serviceProSnapshotStage=="Before"?"Diagnostyka przed naprawą":"Diagnostyka po naprawie","Zapisano lokalny odczyt sprzętu.");
+                    MessageBox.Show("Pomiar zapisano w historii zlecenia. Brakujące sensory są oznaczone jako niedostępne.","Diagnostyka",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                }
+                catch(Exception ex){MessageBox.Show("Nie udało się zapisać pomiaru: "+ex.GetBaseException().Message);}
+                w.Dispose();
+            };
+            try{w.RunWorkerAsync();}catch(Exception ex){serviceProSnapshotWorker=null;w.Dispose();MessageBox.Show("Nie można uruchomić odczytu: "+ex.Message);}
+        }
+
+        private string ServiceProDecodeMonitorId(object value)
+        {
+            Array chars=value as Array;if(chars==null)return "";StringBuilder b=new StringBuilder();
+            foreach(object item in chars){ushort code=0;try{code=Convert.ToUInt16(item,CultureInfo.InvariantCulture);}catch{continue;}if(code==0)continue;b.Append((char)code);}
+            return b.ToString().Trim();
+        }
+
+        private string CaptureServiceProDiagnosticsSnapshot()
+        {
+            StringBuilder b=new StringBuilder();b.AppendLine("POMIAR DIAGNOSTYCZNY KCS / ODCZYT TYLKO DO ODCZYTU");
+            b.AppendLine("Data lokalna: "+DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));b.AppendLine("Komputer: "+Environment.MachineName);b.AppendLine("System: "+GetOsCaption()+" / build "+GetBuild());
+            string cpu="Niedostępne";
+            try{using(ManagementObjectSearcher q=CreateTimedWmiSearcher("root\\cimv2","SELECT Name FROM Win32_Processor",5))foreach(ManagementObject o in q.Get()){cpu=Convert.ToString(o["Name"]);break;}}catch(Exception ex){cpu="Niedostępne (WMI: "+ex.GetBaseException().Message+")";}
+            b.AppendLine("CPU: "+(String.IsNullOrWhiteSpace(cpu)?"Niedostępne":cpu));
+            try
+            {
+                bool seen=false;using(ManagementObjectSearcher q=CreateTimedWmiSearcher("root\\cimv2","SELECT TotalVisibleMemorySize,FreePhysicalMemory FROM Win32_OperatingSystem",5))
+                foreach(ManagementObject o in q.Get())
+                {double total=Convert.ToDouble(o["TotalVisibleMemorySize"])/1048576.0;double free=Convert.ToDouble(o["FreePhysicalMemory"])/1048576.0;b.AppendLine(String.Format(CultureInfo.InvariantCulture,"RAM: wolne {0:0.00} GB / {1:0.00} GB",free,total));seen=true;break;}
+                if(!seen)b.AppendLine("RAM: Niedostępne");
+            }catch(Exception ex){b.AppendLine("RAM: Niedostępne ("+ex.GetBaseException().Message+")");}
+            try
+            {
+                bool seen=false;using(ManagementObjectSearcher q=CreateTimedWmiSearcher("root\\cimv2","SELECT Name,DriverVersion,CurrentHorizontalResolution,CurrentVerticalResolution,CurrentRefreshRate,VideoModeDescription FROM Win32_VideoController",5))
+                foreach(ManagementObject o in q.Get()){b.AppendLine("GPU: "+Convert.ToString(o["Name"])+" | sterownik: "+Convert.ToString(o["DriverVersion"]));string width=Convert.ToString(o["CurrentHorizontalResolution"]);string height=Convert.ToString(o["CurrentVerticalResolution"]);string rate=Convert.ToString(o["CurrentRefreshRate"]);string mode=Convert.ToString(o["VideoModeDescription"]);if(!String.IsNullOrWhiteSpace(width)||!String.IsNullOrWhiteSpace(height))b.AppendLine("  Tryb obrazu: "+width+" x "+height+" | odświeżanie: "+(String.IsNullOrWhiteSpace(rate)?"Niedostępne":rate+" Hz")+" | opis: "+mode);seen=true;}
+                if(!seen)b.AppendLine("GPU: Niedostępne");
+            }catch(Exception ex){b.AppendLine("GPU: Niedostępne ("+ex.GetBaseException().Message+")");}
+            b.AppendLine("BATERIA LAPTOPA:");bool batterySeen=false;
+            try
+            {
+                using(ManagementObjectSearcher q=CreateTimedWmiSearcher("root\\cimv2","SELECT Name,EstimatedChargeRemaining,BatteryStatus,Chemistry,DesignCapacity,FullChargeCapacity FROM Win32_Battery",5))
+                foreach(ManagementObject o in q.Get())
+                {
+                    batterySeen=true;string name=Convert.ToString(o["Name"]);string charge=Convert.ToString(o["EstimatedChargeRemaining"]);
+                    string status=Convert.ToString(o["BatteryStatus"]);string chemistry=Convert.ToString(o["Chemistry"]);
+                    b.AppendLine("  Model: "+(String.IsNullOrWhiteSpace(name)?"Niedostępny":name)+" | poziom: "+(String.IsNullOrWhiteSpace(charge)?"Niedostępny":charge+"%")+" | status WMI: "+(String.IsNullOrWhiteSpace(status)?"Niedostępny":status)+" | chemia: "+(String.IsNullOrWhiteSpace(chemistry)?"Niedostępna":chemistry));
+                    ulong design=0,full=0;try{design=Convert.ToUInt64(o["DesignCapacity"]);}catch{}try{full=Convert.ToUInt64(o["FullChargeCapacity"]);}catch{}
+                    if(design>0 && full>0)b.AppendLine(String.Format(CultureInfo.InvariantCulture,"  Pojemność projektowa: {0} mWh | pełne ładowanie: {1} mWh | relacja: {2:0.0}% (szacunek z danych WMI)",design,full,Math.Min(100.0,(double)full/(double)design*100.0)));
+                    else b.AppendLine("  Pojemność projektowa/pełnego ładowania: niedostępna — nie wyliczono kondycji.");
+                }
+            }
+            catch(Exception ex){b.AppendLine("  Odczyt baterii niedostępny: "+ex.GetBaseException().Message);}
+            if(!batterySeen)b.AppendLine("  Nie wykryto baterii WMI (typowe dla komputerów stacjonarnych lub brak providera). Nie oznacza to uszkodzenia baterii.");
+            b.AppendLine("MONITOR / MATRYCA:");bool monitorSeen=false;
+            try
+            {
+                using(ManagementObjectSearcher q=CreateTimedWmiSearcher("root\\wmi","SELECT ManufacturerName,ProductCodeID,UserFriendlyName,SerialNumberID,WeekOfManufacture,YearOfManufacture FROM WmiMonitorID",5))
+                foreach(ManagementObject o in q.Get())
+                {
+                    monitorSeen=true;string manufacturer=ServiceProDecodeMonitorId(o["ManufacturerName"]);string product=ServiceProDecodeMonitorId(o["ProductCodeID"]);
+                    string model=ServiceProDecodeMonitorId(o["UserFriendlyName"]);string serial=ServiceProDecodeMonitorId(o["SerialNumberID"]);
+                    b.AppendLine("  Producent: "+(String.IsNullOrWhiteSpace(manufacturer)?"Niedostępny":manufacturer)+" | kod/model: "+(String.IsNullOrWhiteSpace(model)?(String.IsNullOrWhiteSpace(product)?"Niedostępny":product):model)+" | S/N: "+(String.IsNullOrWhiteSpace(serial)?"Niedostępny":serial));
+                    b.AppendLine("  Produkcja: "+Convert.ToString(o["WeekOfManufacture"])+" / "+Convert.ToString(o["YearOfManufacture"]));
+                }
+            }
+            catch(Exception ex){b.AppendLine("  Odczyt EDID/WMI monitora niedostępny: "+ex.GetBaseException().Message);}
+            if(!monitorSeen)b.AppendLine("  Brak monitora zgłoszonego przez WmiMonitorID; adapter wirtualny, dock lub brak providera mogą ograniczać identyfikację.");
+            b.AppendLine("WOLUMINY:");
+            int volumeCount=0;try
+            {
+                foreach(DriveInfo drive in DriveInfo.GetDrives())
+                {
+                    if(!drive.IsReady)continue;volumeCount++;
+                    double free=drive.AvailableFreeSpace/1073741824.0;double total=drive.TotalSize/1073741824.0;
+                    b.AppendLine(String.Format(CultureInfo.InvariantCulture,"  {0} — wolne {1:0.00} GB / {2:0.00} GB ({3:0.0}%)",drive.Name,free,total,total<=0?0:free/total*100.0));
+                }
+            }catch(Exception ex){b.AppendLine("  Odczyt woluminów niedostępny: "+ex.GetBaseException().Message);}
+            if(volumeCount==0)b.AppendLine("  Brak gotowych woluminów.");
+            b.AppendLine("SMART PREDYKCYJNY:");bool smartSeen=false;
+            try{using(ManagementObjectSearcher q=CreateTimedWmiSearcher("root\\WMI","SELECT InstanceName,PredictFailure,Reason FROM MSStorageDriver_FailurePredictStatus",5))foreach(ManagementObject o in q.Get()){smartSeen=true;b.AppendLine("  "+Convert.ToString(o["InstanceName"])+" | PredictFailure="+Convert.ToString(o["PredictFailure"])+" | Reason="+Convert.ToString(o["Reason"]));}}
+            catch(Exception ex){b.AppendLine("  Niedostępne: "+ex.GetBaseException().Message);}
+            if(!smartSeen)b.AppendLine("  Brak dostępnego provider'a SMART — brak danych nie oznacza sprawności.");
+            b.AppendLine("TEMPERATURA CPU / STREFA ACPI:");bool tempSeen=false;
+            try{using(ManagementObjectSearcher q=CreateTimedWmiSearcher("root\\WMI","SELECT CurrentTemperature FROM MSAcpi_ThermalZoneTemperature",5))foreach(ManagementObject o in q.Get()){double raw=Convert.ToDouble(o["CurrentTemperature"]);double c=(raw/10.0)-273.15;b.AppendLine(String.Format(CultureInfo.InvariantCulture,"  Strefa ACPI: {0:0.0} °C (odczyt strefy, nie zawsze temperatura CPU)",c));tempSeen=true;}}
+            catch(Exception ex){b.AppendLine("  Niedostępne: "+ex.GetBaseException().Message);}
+            if(!tempSeen)b.AppendLine("  Brak dostępnego odczytu strefy ACPI.");
+            b.AppendLine();b.AppendLine("UWAGA: snapshot jest odczytem w chwili pomiaru, nie testem obciążeniowym ani certyfikatem sprawności.");
+            return b.ToString();
+        }
+
+        private void CompareServiceProSnapshots()
+        {
+            if(String.IsNullOrEmpty(selectedServiceProCaseId)){MessageBox.Show("Wybierz zapisane zlecenie.");return;}
+            try
+            {
+                XmlDocument d=LoadServiceProXml(ServiceProPath("cases.xml"),"ServiceProCases");XmlElement item=FindServiceProCase(d,selectedServiceProCaseId);
+                if(item==null)return;string before=ServiceProRead(item,"BeforeSnapshot");string after=ServiceProRead(item,"AfterSnapshot");
+                string comparison="PORÓWNANIE DIAGNOSTYKI — "+selectedServiceProCaseId+"\r\n\r\n";
+                if(String.IsNullOrWhiteSpace(before)||String.IsNullOrWhiteSpace(after))comparison+="Do porównania potrzebne są oba pomiary: PRZED i PO naprawie.\r\n";
+                else comparison+="PRZED NAPRAWĄ:\r\n"+before+"\r\nPO NAPRAWIE:\r\n"+after+"\r\nWYNIK: dostępne są oba snapshoty. Porównaj wartości i daty; program nie deklaruje automatycznie poprawy stanu na podstawie samych różnic tekstowych.\r\n";
+                Form f=new Form();f.Text="Porównanie diagnostyki — "+selectedServiceProCaseId;f.StartPosition=FormStartPosition.CenterParent;f.Size=new Size(1000,760);f.BackColor=Color.FromArgb(5,13,24);
+                TextBox box=new TextBox();box.Multiline=true;box.ReadOnly=true;box.ScrollBars=ScrollBars.Both;box.WordWrap=false;box.Dock=DockStyle.Fill;box.Font=new Font("Consolas",9F);box.BackColor=Color.FromArgb(7,13,23);box.ForeColor=Color.FromArgb(220,239,247);box.Text=comparison;f.Controls.Add(box);f.ShowDialog(this);
+                AddServiceProHistory(selectedServiceProCaseId,"Porównano diagnostykę","Wyświetlono snapshot przed i po naprawie.");
+            }
+            catch(Exception ex){MessageBox.Show("Nie można porównać pomiarów: "+ex.GetBaseException().Message);}
+        }
+
+        private string BuildServiceProReportText(XmlNode item)
+        {
+            StringBuilder b=new StringBuilder();
+            b.AppendLine("KOMPUTEROWE CENTRUM SERWISU");b.AppendLine("RAPORT ZLECENIA SERWISOWEGO");b.AppendLine(new string('=',72));
+            b.AppendLine("Numer zlecenia: "+(item.Attributes["id"]==null?"":item.Attributes["id"].Value));
+            b.AppendLine("Data utworzenia: "+(item.Attributes["createdUtc"]==null?"":item.Attributes["createdUtc"].Value));
+            b.AppendLine("Status: "+(item.Attributes["status"]==null?"Nowe":item.Attributes["status"].Value));
+            b.AppendLine("Priorytet: "+(item.Attributes["priority"]==null?"Standardowy":item.Attributes["priority"].Value));
+            b.AppendLine();b.AppendLine("KLIENT: "+ServiceProRead(item,"Client"));b.AppendLine("Telefon: "+ServiceProRead(item,"Phone"));b.AppendLine("E-mail: "+ServiceProRead(item,"Email"));
+            b.AppendLine();b.AppendLine("URZĄDZENIE: "+ServiceProRead(item,"Device"));b.AppendLine("Numer seryjny: "+ServiceProRead(item,"Serial"));
+            b.AppendLine();b.AppendLine("ZGŁOSZONA USTERKA:");b.AppendLine(ServiceProRead(item,"Issue"));
+            b.AppendLine();b.AppendLine("WYKONANE CZYNNOŚCI:");b.AppendLine(ServiceProRead(item,"Actions"));
+            b.AppendLine();b.AppendLine("UWAGI TECHNIKA:");b.AppendLine(ServiceProRead(item,"Notes"));
+            b.AppendLine();b.AppendLine("ZALECENIA DLA KLIENTA / NASTĘPNE KROKI:");b.AppendLine(ServiceProRead(item,"Recommendations"));
+            b.AppendLine();b.AppendLine("CZĘŚCI WYDANE DO ZLECENIA:");b.AppendLine(ServiceProRead(item,"UsedParts"));
+            b.AppendLine();b.AppendLine("KOSZTORYS: "+ServiceProRead(item,"Estimate")+" PLN | ZAPŁACONO: "+ServiceProRead(item,"Paid")+" PLN");
+            b.AppendLine();b.AppendLine("DIAGNOSTYKA PRZED NAPRAWĄ:");b.AppendLine(ServiceProRead(item,"BeforeSnapshot"));
+            b.AppendLine();b.AppendLine("DIAGNOSTYKA PO NAPRAWIE:");b.AppendLine(ServiceProRead(item,"AfterSnapshot"));
+            b.AppendLine();b.AppendLine("Raport wygenerowano: "+DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            b.AppendLine("Wartości sprzętowe zależą od udostępnianych przez urządzenie sensorów i providerów. Brak odczytu nie oznacza prawidłowego stanu.");
+            b.AppendLine("Dane przechowywane lokalnie przez KOMPUTEROWE CENTRUM SERWISU.");
+            return b.ToString();
+        }
+
+        private void PrintServiceProCaseReport()
+        {
+            if(String.IsNullOrEmpty(selectedServiceProCaseId)){MessageBox.Show("Zapisz lub wybierz zlecenie przed utworzeniem raportu.");return;}
+            try
+            {
+                XmlDocument d=LoadServiceProXml(ServiceProPath("cases.xml"),"ServiceProCases");XmlElement item=FindServiceProCase(d,selectedServiceProCaseId);if(item==null)throw new InvalidDataException("Nie znaleziono zlecenia.");
+                string report=BuildServiceProReportText(item);PrintDocument doc=new PrintDocument();doc.DocumentName="KCS_Raport_"+selectedServiceProCaseId;
+                Font font=new Font("Arial",9F);LinkedList<string> printLines=new LinkedList<string>(report.Replace("\r\n","\n").Replace('\r','\n').Split(new char[]{'\n'}));
+                doc.PrintPage+=delegate(object sender,PrintPageEventArgs e)
+                {
+                    float y=e.MarginBounds.Top;float lineHeight=font.GetHeight(e.Graphics)+3;
+                    while(printLines.Count>0)
+                    {
+                        string line=printLines.First.Value;printLines.RemoveFirst();
+                        float maxBlockHeight=Math.Max(lineHeight,e.MarginBounds.Height-lineHeight);
+                        float blockHeight=Math.Max(lineHeight,e.Graphics.MeasureString(line,font,e.MarginBounds.Width).Height+2);
+                        if(blockHeight>maxBlockHeight && line.Length>1)
+                        {
+                            int cut=line.Length;
+                            while(cut>1 && e.Graphics.MeasureString(line.Substring(0,cut),font,e.MarginBounds.Width).Height+2>maxBlockHeight)cut=Math.Max(1,cut/2);
+                            int wordBreak=line.LastIndexOf(' ',Math.Max(0,cut-1));if(wordBreak>0)cut=wordBreak;
+                            string remainder=line.Substring(cut).TrimStart();line=line.Substring(0,cut).TrimEnd();
+                            if(remainder.Length>0)printLines.AddFirst(remainder);
+                            blockHeight=Math.Max(lineHeight,e.Graphics.MeasureString(line,font,e.MarginBounds.Width).Height+2);
+                        }
+                        if(y+blockHeight>e.MarginBounds.Bottom){printLines.AddFirst(line);e.HasMorePages=true;return;}
+                        e.Graphics.DrawString(line,font,Brushes.Black,new RectangleF(e.MarginBounds.Left,y,e.MarginBounds.Width,blockHeight));y+=blockHeight;
+                    }
+                    e.HasMorePages=false;
+                };
+                PrintDialog dialog=new PrintDialog();dialog.Document=doc;dialog.AllowSomePages=false;dialog.UseEXDialog=true;
+                if(dialog.ShowDialog(this)==DialogResult.OK)
+                {
+                    doc.PrinterSettings=dialog.PrinterSettings;doc.Print();AddServiceProHistory(selectedServiceProCaseId,"Wydrukowano raport","Drukarka: "+doc.PrinterSettings.PrinterName+". Dla PDF wybierz Microsoft Print to PDF.");
+                }
+                font.Dispose();doc.Dispose();
+            }
+            catch(Exception ex){MessageBox.Show("Nie udało się przygotować raportu: "+ex.GetBaseException().Message,"Raport serwisowy",MessageBoxButtons.OK,MessageBoxIcon.Error);}
+        }
+
+        private void AddServiceProHistory(string caseId,string action,string detail)
+        {
+            try
+            {
+                string path=ServiceProPath("history.xml");XmlDocument d=LoadServiceProXml(path,"ServiceProHistory");XmlElement e=d.CreateElement("Entry");
+                e.SetAttribute("id",Guid.NewGuid().ToString("N"));e.SetAttribute("utc",DateTime.UtcNow.ToString("o",CultureInfo.InvariantCulture));e.SetAttribute("caseId",caseId??"");
+                e.SetAttribute("user",Environment.UserName);e.SetAttribute("machine",Environment.MachineName);
+                ServiceProWrite(d,e,"Action",action);ServiceProWrite(d,e,"Detail",detail);d.DocumentElement.AppendChild(e);SaveXmlSafely(d,path,10);
+                if(serviceProHistoryGrid!=null && !serviceProHistoryGrid.IsDisposed)LoadServiceProHistoryGrid(caseId);
+            }
+            catch(Exception ex){AppendLog("Serwis PRO — nie udało się zapisać historii: "+ex.GetBaseException().Message);}
+        }
+
+        private void BuildServiceProPartsPage()
+        {
+            if(FindPage("Magazyn części PRO")!=null)return;
+            Panel p=NewPage("Magazyn części PRO","Lokalny magazyn podzespołów, kontrola stanów i rozliczanie części w zleceniach");
+            Panel edit=Card(p,"KARTA CZĘŚCI / PODZESPOŁU",10,8,950,235);
+            LabelAt(edit,"Kod / SKU",18,44,90,22);serviceProPartSkuBox=TextAt(edit,108,40,160,27,"");
+            LabelAt(edit,"Nazwa",285,44,65,22);serviceProPartNameBox=TextAt(edit,350,40,340,27,"");
+            LabelAt(edit,"Kategoria",705,44,80,22);serviceProPartCategoryBox=TextAt(edit,785,40,135,27,"");
+            LabelAt(edit,"Ilość",18,87,50,22);serviceProPartQuantityBox=TextAt(edit,68,83,90,27,"0");
+            LabelAt(edit,"Próg min.",175,87,85,22);serviceProPartMinimumBox=TextAt(edit,260,83,90,27,"0");
+            LabelAt(edit,"Koszt PLN",370,87,80,22);serviceProPartCostBox=TextAt(edit,450,83,120,27,"0,00");
+            LabelAt(edit,"Cena PLN",590,87,80,22);serviceProPartPriceBox=TextAt(edit,670,83,120,27,"0,00");
+            ButtonAt(edit,"ZAPISZ / AKTUALIZUJ",18,130,190,delegate{SaveServiceProPart();});
+            ButtonAt(edit,"NOWA CZĘŚĆ",218,130,145,delegate{ClearServiceProPart();});
+            ButtonAt(edit,"USUŃ CZĘŚĆ",373,130,145,delegate{DeleteServiceProPart();});
+            LabelAt(edit,"Ilość do wydania",18,184,130,22);serviceProPartUseQuantityBox=TextAt(edit,148,180,70,27,"1");
+            ButtonAt(edit,"WYDAJ DO AKTYWNEGO ZLECENIA",230,176,285,40,delegate{ConsumeServiceProPartForCase();});
+            LabelAt(edit,"Wydanie zmniejsza stan magazynowy i zapisuje pozycję w karcie bieżącego zlecenia.",535,184,370,25);
+            Panel stock=Card(p,"STAN MAGAZYNU — POZYCJE PONIŻEJ PROGU MINIMALNEGO SĄ OZNACZANE",10,253,950,405);
+            serviceProPartsGrid=CreateServiceProGrid(stock,18,43,902,350,new string[]{"SKU","Nazwa","Kategoria","Ilość","Min.","Koszt PLN","Cena PLN","Status"},new int[]{90,230,120,65,65,100,100,110});
+            serviceProPartsGrid.SelectionChanged+=delegate{LoadSelectedServiceProPart();};
+            Panel warning=Card(p,"UWAGA DOTYCZĄCA STANÓW",10,668,950,100);
+            LabelAt(warning,"Magazyn jest lokalną ewidencją serwisową — nie łączy się ze sklepami ani hurtowniami i nie potwierdza fizycznej obecności części. Wydanie z magazynu wymaga aktywnego, zapisanego zlecenia.",18,43,900,42);
+            p.AutoScrollMinSize=new Size(0,790);ServiceProPath("parts.xml");LoadServiceProPartsGrid();
+        }
+
+        private void ClearServiceProPart()
+        {
+            if(serviceProPartSkuBox!=null)serviceProPartSkuBox.Clear();if(serviceProPartNameBox!=null)serviceProPartNameBox.Clear();if(serviceProPartCategoryBox!=null)serviceProPartCategoryBox.Clear();
+            if(serviceProPartQuantityBox!=null)serviceProPartQuantityBox.Text="0";if(serviceProPartMinimumBox!=null)serviceProPartMinimumBox.Text="0";
+            if(serviceProPartCostBox!=null)serviceProPartCostBox.Text="0,00";if(serviceProPartPriceBox!=null)serviceProPartPriceBox.Text="0,00";
+            if(serviceProPartsGrid!=null)serviceProPartsGrid.ClearSelection();
+        }
+
+        private int ServiceProInteger(string value,string fieldName)
+        {
+            int result;if(!Int32.TryParse((value??"").Trim(),NumberStyles.Integer,CultureInfo.InvariantCulture,out result)||result<0||result>100000000)
+                throw new InvalidDataException("Pole \""+fieldName+"\" musi zawierać liczbę całkowitą od 0 do 100000000.");return result;
+        }
+
+        private XmlElement FindServiceProPart(XmlDocument d,string sku)
+        {
+            foreach(XmlNode n in d.SelectNodes("/ServiceProParts/Part"))if(String.Equals(ServiceProRead(n,"Sku"),sku,StringComparison.OrdinalIgnoreCase))return n as XmlElement;return null;
+        }
+
+        private void SaveServiceProPart()
+        {
+            try
+            {
+                string sku=(serviceProPartSkuBox.Text??"").Trim();string name=(serviceProPartNameBox.Text??"").Trim();if(sku.Length==0||name.Length==0)throw new InvalidDataException("Wypełnij kod SKU i nazwę części.");
+                int quantity=ServiceProInteger(serviceProPartQuantityBox.Text,"Ilość");int minimum=ServiceProInteger(serviceProPartMinimumBox.Text,"Próg minimalny");
+                decimal cost=ServiceProMoney(serviceProPartCostBox.Text,"Koszt jednostkowy");decimal price=ServiceProMoney(serviceProPartPriceBox.Text,"Cena sprzedaży");
+                XmlDocument d=LoadServiceProXml(ServiceProPath("parts.xml"),"ServiceProParts");XmlElement item=FindServiceProPart(d,sku);bool created=item==null;
+                if(created){item=d.CreateElement("Part");item.SetAttribute("id",Guid.NewGuid().ToString("N"));item.SetAttribute("createdUtc",DateTime.UtcNow.ToString("o",CultureInfo.InvariantCulture));d.DocumentElement.AppendChild(item);}
+                ServiceProWrite(d,item,"Sku",sku);ServiceProWrite(d,item,"Name",name);ServiceProWrite(d,item,"Category",serviceProPartCategoryBox.Text.Trim());
+                ServiceProWrite(d,item,"Quantity",quantity.ToString(CultureInfo.InvariantCulture));ServiceProWrite(d,item,"Minimum",minimum.ToString(CultureInfo.InvariantCulture));
+                ServiceProWrite(d,item,"Cost",cost.ToString("0.00",CultureInfo.InvariantCulture));ServiceProWrite(d,item,"Price",price.ToString("0.00",CultureInfo.InvariantCulture));
+                item.SetAttribute("updatedUtc",DateTime.UtcNow.ToString("o",CultureInfo.InvariantCulture));SaveXmlSafely(d,serviceProPartsFile,10);
+                AddServiceProHistory(selectedServiceProCaseId,"Zmieniono magazyn","SKU "+sku+" | "+name+" | stan: "+quantity);LoadServiceProPartsGrid();
+            }
+            catch(Exception ex){MessageBox.Show("Nie udało się zapisać części: "+ex.GetBaseException().Message,"Magazyn",MessageBoxButtons.OK,MessageBoxIcon.Warning);}
+        }
+
+        private void LoadServiceProPartsGrid()
+        {
+            if(serviceProPartsGrid==null||serviceProPartsGrid.IsDisposed)return;serviceProPartsGrid.Rows.Clear();
+            try
+            {
+                XmlDocument d=LoadServiceProXml(ServiceProPath("parts.xml"),"ServiceProParts");
+                foreach(XmlNode n in d.SelectNodes("/ServiceProParts/Part"))
+                {
+                    int qty=0,min=0;Int32.TryParse(ServiceProRead(n,"Quantity"),out qty);Int32.TryParse(ServiceProRead(n,"Minimum"),out min);
+                    string status=qty<=min?"NISKI STAN":"OK";int row=serviceProPartsGrid.Rows.Add(ServiceProRead(n,"Sku"),ServiceProRead(n,"Name"),ServiceProRead(n,"Category"),qty,min,ServiceProRead(n,"Cost"),ServiceProRead(n,"Price"),status);
+                    if(qty<=min){serviceProPartsGrid.Rows[row].DefaultCellStyle.ForeColor=Color.FromArgb(255,184,105);}
+                }
+            }
+            catch(Exception ex){AppendLog("Magazyn części — odczyt: "+ex.GetBaseException().Message);}
+        }
+
+        private void LoadSelectedServiceProPart()
+        {
+            if(serviceProPartsGrid==null||serviceProPartsGrid.CurrentRow==null)return;
+            string sku=Convert.ToString(serviceProPartsGrid.CurrentRow.Cells[0].Value);if(String.IsNullOrEmpty(sku))return;
+            try
+            {
+                XmlDocument d=LoadServiceProXml(ServiceProPath("parts.xml"),"ServiceProParts");XmlElement item=FindServiceProPart(d,sku);if(item==null)return;
+                serviceProPartSkuBox.Text=ServiceProRead(item,"Sku");serviceProPartNameBox.Text=ServiceProRead(item,"Name");serviceProPartCategoryBox.Text=ServiceProRead(item,"Category");
+                serviceProPartQuantityBox.Text=ServiceProRead(item,"Quantity");serviceProPartMinimumBox.Text=ServiceProRead(item,"Minimum");serviceProPartCostBox.Text=ServiceProRead(item,"Cost").Replace('.',',');serviceProPartPriceBox.Text=ServiceProRead(item,"Price").Replace('.',',');
+            }
+            catch(Exception ex){AppendLog("Magazyn — wczytanie pozycji: "+ex.GetBaseException().Message);}
+        }
+
+        private void DeleteServiceProPart()
+        {
+            string sku=serviceProPartSkuBox==null?"":serviceProPartSkuBox.Text.Trim();if(sku.Length==0){MessageBox.Show("Wybierz pozycję magazynową.");return;}
+            if(MessageBox.Show("Usunąć pozycję "+sku+" z magazynu? Historia wydań pozostanie.","Potwierdzenie",MessageBoxButtons.YesNo,MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2)!=DialogResult.Yes)return;
+            try{XmlDocument d=LoadServiceProXml(ServiceProPath("parts.xml"),"ServiceProParts");XmlElement item=FindServiceProPart(d,sku);if(item!=null){d.DocumentElement.RemoveChild(item);SaveXmlSafely(d,serviceProPartsFile,10);}AddServiceProHistory(selectedServiceProCaseId,"Usunięto pozycję magazynową","SKU "+sku);ClearServiceProPart();LoadServiceProPartsGrid();}
+            catch(Exception ex){MessageBox.Show("Nie udało się usunąć części: "+ex.GetBaseException().Message);}
+        }
+
+        private void ConsumeServiceProPartForCase()
+        {
+            if(String.IsNullOrEmpty(selectedServiceProCaseId)){MessageBox.Show("Najpierw wybierz i zapisz aktywne zlecenie w module Serwis PRO.","Wydanie części");return;}
+            if(serviceProPartsGrid==null||serviceProPartsGrid.CurrentRow==null){MessageBox.Show("Wybierz część z listy magazynu.");return;}
+            string sku=Convert.ToString(serviceProPartsGrid.CurrentRow.Cells[0].Value);int count;
+            try{count=ServiceProInteger(serviceProPartUseQuantityBox.Text,"Ilość do wydania");if(count<1)throw new InvalidDataException("Ilość do wydania musi być większa od zera.");}
+            catch(Exception ex){MessageBox.Show(ex.Message);return;}
+            try
+            {
+                XmlDocument parts=LoadServiceProXml(ServiceProPath("parts.xml"),"ServiceProParts");XmlElement part=FindServiceProPart(parts,sku);if(part==null)throw new InvalidDataException("Pozycja nie istnieje.");
+                int available=ServiceProInteger(ServiceProRead(part,"Quantity"),"Stan magazynu");if(available<count)throw new InvalidDataException("Za mało części w magazynie. Dostępne: "+available);
+                XmlDocument cases=LoadServiceProXml(ServiceProPath("cases.xml"),"ServiceProCases");XmlElement item=FindServiceProCase(cases,selectedServiceProCaseId);if(item==null)throw new InvalidDataException("Aktywne zlecenie nie istnieje.");
+                string line=sku+" | "+ServiceProRead(part,"Name")+" x"+count.ToString(CultureInfo.InvariantCulture)+" | "+ServiceProRead(part,"Price")+" PLN/szt.";
+                // Capture the unmodified order before changing it, so a failed stock write can really roll it back.
+                string originalCasesXml=cases.OuterXml;
+                string current=ServiceProRead(item,"UsedParts");ServiceProWrite(cases,item,"UsedParts",String.IsNullOrEmpty(current)?line:current+Environment.NewLine+line);
+                ServiceProWrite(parts,part,"Quantity",(available-count).ToString(CultureInfo.InvariantCulture));
+                // Save the case first; if the stock write fails, restore the previous case document.
+                SaveXmlSafely(cases,serviceProCasesFile,10);
+                try{SaveXmlSafely(parts,serviceProPartsFile,10);}
+                catch(Exception stockSaveError)
+                {
+                    try{XmlDocument rollback=new XmlDocument();rollback.XmlResolver=null;rollback.LoadXml(originalCasesXml);SaveXmlSafely(rollback,serviceProCasesFile,10);}
+                    catch(Exception rollbackError){throw new InvalidOperationException("Nie udało się zapisać stanu magazynu i nie udało się automatycznie cofnąć zapisu zlecenia. Nie wykonuj kolejnego wydania; sprawdź pliki cases.xml i parts.xml. Szczegóły: "+stockSaveError.GetBaseException().Message+" | rollback: "+rollbackError.GetBaseException().Message);}
+                    throw new IOException("Zapis stanu magazynu nie powiódł się; poprzedni stan zlecenia został przywrócony.",stockSaveError);
+                }
+                AddServiceProHistory(selectedServiceProCaseId,"Wydano część do zlecenia",line);LoadServiceProPartsGrid();
+                MessageBox.Show("Zapisano wydanie części do zlecenia i zaktualizowano stan magazynowy.","Magazyn",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            }
+            catch(Exception ex){MessageBox.Show("Nie udało się wydać części: "+ex.GetBaseException().Message,"Magazyn",MessageBoxButtons.OK,MessageBoxIcon.Error);}
+        }
+
+        private void BuildServiceProHistoryPage()
+        {
+            if(FindPage("Historia serwisu PRO")!=null)return;
+            Panel p=NewPage("Historia serwisu PRO","Chronologiczny dziennik zmian zleceń, pomiarów i ruchów magazynowych");
+            Panel top=Card(p,"HISTORIA OPERACJI",10,8,950,130);
+            LabelAt(top,"Dziennik zawiera czas UTC, nazwę operacji, numer zlecenia, użytkownika i komputer. Dane są lokalne.",18,44,900,30);
+            ButtonAt(top,"ODŚWIEŻ",18,80,145,delegate{LoadServiceProHistoryGrid("");});
+            ButtonAt(top,"OTWÓRZ SERWIS PRO",173,80,220,delegate{ShowPage("Serwis PRO");});
+            Panel table=Card(p,"ZDARZENIA — NAJNOWSZE NA GÓRZE",10,148,950,560);
+            serviceProHistoryGrid=CreateServiceProGrid(table,18,43,902,505,new string[]{"Czas UTC","Numer zlecenia","Operacja","Szczegóły","Użytkownik","Komputer"},new int[]{135,130,160,250,85,100});
+            p.AutoScrollMinSize=new Size(0,730);ServiceProPath("history.xml");LoadServiceProHistoryGrid("");
+        }
+
+        private void LoadServiceProHistoryGrid(string caseId)
+        {
+            if(serviceProHistoryGrid==null||serviceProHistoryGrid.IsDisposed)return;serviceProHistoryGrid.Rows.Clear();
+            try
+            {
+                XmlDocument d=LoadServiceProXml(ServiceProPath("history.xml"),"ServiceProHistory");
+                List<XmlNode> nodes=new List<XmlNode>();foreach(XmlNode n in d.SelectNodes("/ServiceProHistory/Entry"))nodes.Add(n);
+                for(int i=nodes.Count-1;i>=0;i--)
+                {
+                    XmlNode n=nodes[i];string id=n.Attributes["caseId"]==null?"":n.Attributes["caseId"].Value;
+                    if(!String.IsNullOrEmpty(caseId)&&!String.Equals(id,caseId,StringComparison.Ordinal))continue;
+                    string when=n.Attributes["utc"]==null?"":n.Attributes["utc"].Value;DateTime dt;if(DateTime.TryParse(when,null,DateTimeStyles.RoundtripKind,out dt))when=dt.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss");
+                    serviceProHistoryGrid.Rows.Add(when,id,ServiceProRead(n,"Action"),ServiceProRead(n,"Detail"),n.Attributes["user"]==null?"":n.Attributes["user"].Value,n.Attributes["machine"]==null?"":n.Attributes["machine"].Value);
+                }
+            }
+            catch(Exception ex){AppendLog("Historia Serwis PRO: "+ex.GetBaseException().Message);}
+        }
+
+        private string[] ServiceProBackupFiles()
+        {
+            return new string[]{"cases.xml","parts.xml","history.xml"};
+        }
+
+        private void CreateServiceProBackupTo(string target)
+        {
+            if(String.IsNullOrWhiteSpace(target))throw new InvalidDataException("Nie wskazano folderu kopii.");
+            Directory.CreateDirectory(target);StringBuilder manifest=new StringBuilder();manifest.AppendLine("KCS_SERVICEPRO_BACKUP_V1");
+            foreach(string file in ServiceProBackupFiles())
+            {
+                string source=ServiceProPath(file);if(!File.Exists(source))
+                {
+                    XmlDocument empty=new XmlDocument();string rootName=file=="cases.xml"?"ServiceProCases":file=="parts.xml"?"ServiceProParts":"ServiceProHistory";empty.AppendChild(empty.CreateElement(rootName));SaveXmlSafely(empty,source,10);
+                }
+                string dest=Path.Combine(target,file);File.Copy(source,dest,true);manifest.AppendLine(file+"|"+ComputeSha256(dest));
+            }
+            File.WriteAllText(Path.Combine(target,"BACKUP_MANIFEST.txt"),manifest.ToString(),new UTF8Encoding(false));
+        }
+
+        private void BuildServiceProBackupPage()
+        {
+            if(FindPage("Kopia danych serwisu PRO")!=null)return;
+            Panel p=NewPage("Kopia danych serwisu PRO","Kopie lokalnej kartoteki, magazynu i historii — kontrola SHA-256 przed odtworzeniem");
+            Panel actions=Card(p,"KOPIA BEZPIECZEŃSTWA SERWIS PRO",10,8,950,210);
+            LabelAt(actions,"Kopia obejmuje tylko lokalne pliki cases.xml, parts.xml i history.xml. Nie obejmuje ustawień aplikacji, haseł ani plików spoza katalogu ServicePRO.",18,44,900,42);
+            ButtonAt(actions,"UTWÓRZ KOPIĘ",18,100,190,delegate{CreateServiceProBackupDialog();});
+            ButtonAt(actions,"ODTWÓRZ KOPIĘ",220,100,190,delegate{RestoreServiceProBackupDialog();});
+            ButtonAt(actions,"OTWÓRZ KATALOG DANYCH",422,100,230,delegate{try{Process.Start(ServiceProPath("cases.xml").Replace("\\cases.xml", ""));}catch(Exception ex){MessageBox.Show(ex.Message);}});
+            serviceProBackupStatusBox=TextAt(actions,18,151,902,42,"");serviceProBackupStatusBox.Multiline=true;serviceProBackupStatusBox.ReadOnly=true;serviceProBackupStatusBox.ScrollBars=ScrollBars.Vertical;
+            Panel how=Card(p,"PROCEDURA ODTWARZANIA",10,228,950,180);
+            LabelAt(how,"1. Wybierz folder kopii z plikiem BACKUP_MANIFEST.txt.\r\n2. Program weryfikuje sumy SHA-256 i poprawność XML wszystkich trzech plików.\r\n3. Przed odtworzeniem tworzy kopię aktualnych danych.\r\n4. Odtwarzanie wymaga osobnego potwierdzenia; pliki są zapisywane atomowo przez bezpieczny zapis XML.",18,48,900,108);
+            Panel warning=Card(p,"PRYWATNOŚĆ / ODPOWIEDZIALNOŚĆ",10,416,950,145);
+            LabelAt(warning,"Kopie zawierają dane klientów i historię serwisu. Przechowuj je na zabezpieczonym nośniku, ogranicz dostęp i nie wysyłaj ich do publicznych repozytoriów. Przed odtworzeniem zamknij inne instancje programu.",18,45,900,60);
+            p.AutoScrollMinSize=new Size(0,585);ServiceProPath("cases.xml");
+        }
+
+        private void CreateServiceProBackupDialog()
+        {
+            using(FolderBrowserDialog dialog=new FolderBrowserDialog())
+            {
+                dialog.Description="Wybierz miejsce docelowe dla kopii danych serwisu.";dialog.ShowNewFolderButton=true;
+                if(dialog.ShowDialog(this)!=DialogResult.OK)return;
+                try
+                {
+                    string name="KCS_ServicePRO_"+DateTime.Now.ToString("yyyyMMdd_HHmmss",CultureInfo.InvariantCulture);string target=Path.Combine(dialog.SelectedPath,name);
+                    CreateServiceProBackupTo(target);string message="Kopia utworzona: "+target+"\r\nPliki: 3 XML + manifest SHA-256.";
+                    if(serviceProBackupStatusBox!=null)serviceProBackupStatusBox.Text=message;AddServiceProHistory(selectedServiceProCaseId,"Utworzono kopię danych",target);MessageBox.Show(message,"Kopia Serwis PRO",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                }
+                catch(Exception ex){MessageBox.Show("Nie udało się wykonać kopii: "+ex.GetBaseException().Message,"Kopia Serwis PRO",MessageBoxButtons.OK,MessageBoxIcon.Error);}
+            }
+        }
+
+        private Dictionary<string,string> ReadServiceProBackupManifest(string folder)
+        {
+            string path=Path.Combine(folder,"BACKUP_MANIFEST.txt");if(!File.Exists(path))throw new InvalidDataException("Brak BACKUP_MANIFEST.txt.");
+            string[] lines=File.ReadAllLines(path,Encoding.UTF8);if(lines.Length==0||lines[0].Trim()!="KCS_SERVICEPRO_BACKUP_V1")throw new InvalidDataException("Nieobsługiwana wersja manifestu kopii.");
+            Dictionary<string,string> entries=new Dictionary<string,string>(StringComparer.OrdinalIgnoreCase);
+            for(int i=1;i<lines.Length;i++)
+            {
+                if(String.IsNullOrWhiteSpace(lines[i]))continue;string[] parts=lines[i].Split('|');
+                if(parts.Length!=2||Array.IndexOf(ServiceProBackupFiles(),parts[0])<0||!Regex.IsMatch(parts[1],"^[0-9a-fA-F]{64}$"))throw new InvalidDataException("Nieprawidłowy wpis manifestu kopii: "+lines[i]);
+                if(entries.ContainsKey(parts[0]))throw new InvalidDataException("Powtórzony plik w manifeście: "+parts[0]);entries.Add(parts[0],parts[1]);
+            }
+            if(entries.Count!=3)throw new InvalidDataException("Kopia jest niekompletna — oczekiwano trzech plików XML.");return entries;
+        }
+
+        private void RestoreServiceProBackupDialog()
+        {
+            string safety="";
+            using(FolderBrowserDialog dialog=new FolderBrowserDialog())
+            {
+                dialog.Description="Wybierz folder kompletnej kopii KCS_ServicePRO.";dialog.ShowNewFolderButton=false;
+                if(dialog.ShowDialog(this)!=DialogResult.OK)return;
+                try
+                {
+                    Dictionary<string,string> entries=ReadServiceProBackupManifest(dialog.SelectedPath);
+                    foreach(KeyValuePair<string,string> entry in entries)
+                    {
+                        string source=Path.Combine(dialog.SelectedPath,entry.Key);if(!File.Exists(source))throw new InvalidDataException("Brak pliku kopii: "+entry.Key);
+                        if(!String.Equals(ComputeSha256(source),entry.Value,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Niezgodna suma SHA-256: "+entry.Key);
+                        XmlDocument check;string error;if(!TryLoadXmlDocument(source,out check,out error))throw new InvalidDataException("Nieprawidłowy XML "+entry.Key+": "+error);
+                        string requiredRoot=entry.Key=="cases.xml"?"ServiceProCases":entry.Key=="parts.xml"?"ServiceProParts":"ServiceProHistory";
+                        if(check.DocumentElement==null||check.DocumentElement.Name!=requiredRoot)throw new InvalidDataException("Nieprawidłowa struktura pliku "+entry.Key);
+                    }
+                    if(MessageBox.Show("Kopia przeszła kontrolę SHA-256 i XML. Przed odtworzeniem program utworzy kopię bieżących danych. Zastąpić bieżącą kartotekę, magazyn i historię?","Potwierdź odtworzenie",MessageBoxButtons.YesNo,MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2)!=DialogResult.Yes)return;
+                    string safetyRoot=Path.Combine(ServiceProPath("."),"Backups");string candidate=Path.Combine(safetyRoot,"BeforeRestore_"+DateTime.Now.ToString("yyyyMMdd_HHmmss",CultureInfo.InvariantCulture));
+                    CreateServiceProBackupTo(candidate);safety=candidate;
+                    try
+                    {
+                        foreach(string file in ServiceProBackupFiles())
+                        {
+                            XmlDocument restore;string error;if(!TryLoadXmlDocument(Path.Combine(dialog.SelectedPath,file),out restore,out error))throw new InvalidDataException("Odmowa odtworzenia — ponowna kontrola XML nie powiodła się: "+file+" / "+error);
+                            string rootName=file=="cases.xml"?"ServiceProCases":file=="parts.xml"?"ServiceProParts":"ServiceProHistory";
+                            if(restore.DocumentElement==null||restore.DocumentElement.Name!=rootName)throw new InvalidDataException("Nieprawidłowy korzeń: "+file);
+                            SaveXmlSafely(restore,ServiceProPath(file),10);
+                        }
+                    }
+                    catch(Exception applyError)
+                    {
+                        try
+                        {
+                            foreach(string file in ServiceProBackupFiles())
+                            {
+                                XmlDocument previous;string previousError;string previousPath=Path.Combine(safety,file);
+                                if(!TryLoadXmlDocument(previousPath,out previous,out previousError))throw new InvalidDataException("Nie można odczytać kopii cofającej "+file+": "+previousError);
+                                string rootName=file=="cases.xml"?"ServiceProCases":file=="parts.xml"?"ServiceProParts":"ServiceProHistory";
+                                if(previous.DocumentElement==null||previous.DocumentElement.Name!=rootName)throw new InvalidDataException("Nieprawidłowa kopia cofająca: "+file);
+                                SaveXmlSafely(previous,ServiceProPath(file),10);
+                            }
+                        }
+                        catch(Exception rollbackError)
+                        {
+                            throw new InvalidOperationException("Odtwarzanie kopii przerwano i nie udało się w pełni przywrócić poprzedniego stanu. Zachowana kopia bezpieczeństwa: "+safety+". Błąd odtwarzania: "+applyError.GetBaseException().Message+". Błąd cofania: "+rollbackError.GetBaseException().Message,rollbackError);
+                        }
+                        throw new IOException("Odtwarzanie przerwano; poprzedni stan wszystkich plików został przywrócony z kopii: "+safety,applyError);
+                    }
+                    string message="Odtworzenie zakończone. Kopię poprzedniego stanu zapisano w: "+safety;
+                    if(serviceProBackupStatusBox!=null)serviceProBackupStatusBox.Text=message;AddServiceProHistory(selectedServiceProCaseId,"Odtworzono kopię danych",dialog.SelectedPath);MessageBox.Show(message,"Kopia Serwis PRO",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                    LoadServiceProCasesGrid();LoadServiceProPartsGrid();LoadServiceProHistoryGrid("");
+                }
+                catch(Exception ex){if(serviceProBackupStatusBox!=null)serviceProBackupStatusBox.Text="ODTWARZANIE NIE WYKONANE\r\n"+ex.GetBaseException().Message;MessageBox.Show("Nie odtworzono kopii: "+ex.GetBaseException().Message,"Kopia Serwis PRO",MessageBoxButtons.OK,MessageBoxIcon.Error);}
+            }
         }
 
     }

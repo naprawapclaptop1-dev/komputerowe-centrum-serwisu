@@ -1,0 +1,17 @@
+﻿KOMPUTEROWE CENTRUM SERWISU — FIX137
+Wersja produktu: 1.0.0.73
+
+SERWIS PRO
+- Karta zlecenia i dane klienta/sprzętu.
+- Status, priorytet, kosztorys, czynności i notatki.
+- Snapshot diagnostyczny przed i po naprawie: CPU, RAM, GPU/sterownik, dyski/woluminy, predykcja SMART, dostępne strefy ACPI, stan/pojemność baterii oraz producent/model/identyfikator monitora z WMI/EDID. Brak danych jest oznaczany jako niedostępność.
+- Historia urządzenia po numerze seryjnym oraz zalecenia technika zapisywane w zleceniu i raporcie dla klienta.
+- Magazyn części i wydawanie do aktywnego zlecenia; zapis zlecenia jest cofany, jeśli zapis stanu magazynu zakończy się błędem.
+- Historia operacji i raport do wydruku/PDF.
+- Kopia danych XML z manifestem SHA-256 i bezpiecznym odtworzeniem po walidacji. Przed odtworzeniem powstaje kopia obecnych danych; w przypadku błędu częściowego program próbuje odtworzyć cały poprzedni zestaw plików.
+
+PRYWATNOŚĆ I BEZPIECZEŃSTWO
+Dane Serwis PRO pozostają lokalnie w Data\ServicePRO. Raport zawiera dane klienta, więc przechowuj pliki i wydruki z ograniczonym dostępem. Nie wykonuj odtworzenia, gdy aplikacja działa w kilku instancjach.
+
+UWAGI
+Raport diagnostyczny wykorzystuje dostępne interfejsy WMI/Windows i nie jest testem obciążeniowym. Brak danych nie oznacza sprawności. Raport PDF tworzy się przez wybraną drukarkę Windows, np. Microsoft Print to PDF.

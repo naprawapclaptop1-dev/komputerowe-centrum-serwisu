@@ -1,0 +1,10 @@
+﻿FIX137 — MAPA MODUŁÓW SERWIS PRO
+
+Menu: Serwis PRO | Magazyn części PRO | Historia serwisu PRO | Kopia danych serwisu PRO
+
+Serwis PRO: karta zlecenia, wybór/edycja, zapis XML, status/priorytet, klient i dane urządzenia, opis problemu, notatki, zalecenia technika, kosztorys, snapshot PRZED i PO, podgląd porównania, historia urządzenia po numerze seryjnym, wydruk raportu.
+Magazyn części PRO: SKU, nazwa, kategoria, ilość, minimum, koszt, cena, wskaźnik niskiego stanu, wydanie do aktywnego zlecenia.
+Historia serwisu PRO: lokalny dziennik zdarzeń z datą UTC, numerem zlecenia, operacją, szczegółami, użytkownikiem i komputerem.
+Kopia danych serwisu PRO: eksport cases.xml / parts.xml / history.xml, manifest SHA-256, walidacja sum i XML, kopia bieżących danych przed odtworzeniem oraz rollback całego zestawu w przypadku błędu częściowego.
+
+Lokalizacja: Data\ServicePRO. Dane tych modułów nie są synchronizowane z GitHub.

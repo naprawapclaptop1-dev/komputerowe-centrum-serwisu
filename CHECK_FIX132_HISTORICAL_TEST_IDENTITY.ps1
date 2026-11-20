@@ -46,8 +46,8 @@ Add-Check (($required | Where-Object { $allow -contains $_ }).Count -eq 3) 'Expl
 Add-Check (($required | Where-Object { $safeBlock.Contains($_) }).Count -eq 3) 'FIX132 regression and docs are safe tooling changes'
 Add-Check (($required | Where-Object { $currentBlock.Contains($_) }).Count -eq 3) 'FIX132 files are represented in current release-preservation changes'
 Add-Check ($cmd.Contains('call :run_ps_check "CHECK_FIX132_HISTORICAL_TEST_IDENTITY.ps1"')) 'FIX132 historical identity regression is active in CHECK_SOURCE'
-$version = (Get-Content -LiteralPath (Join-Path $root 'VERSION.txt') -Encoding UTF8 | Select-Object -First 1).Trim()
-Add-Check ($version -eq '1.0.0.72') 'Product version remains unchanged for tooling-only FIX132'
+$historicalNotes = Get-Content -LiteralPath (Join-Path $root 'FIX132_RELEASE_NOTES.txt') -Raw -Encoding UTF8
+Add-Check ($historicalNotes -match 'Wersja produktu pozostaje 1\.0\.0\.72 / FIX072' -and $historicalNotes.Contains('Zmiany dotycza wyłącznie testow i narzedzi pakowania')) 'FIX132 historical notes preserve the original tooling-only product baseline 1.0.0.72 / FIX072'
 $failed = @($checks | Where-Object { -not $_.Passed })
 foreach ($check in $checks) { if ($check.Passed) { Write-Host ('[PASS] ' + $check.Name) } else { Write-Host ('[FAIL] ' + $check.Name) } }
 if ($failed.Count) { Write-Host ('[FAIL] FIX132 historical test identity checks: ' + (($failed | ForEach-Object { $_.Name }) -join '; ')); exit 1 }

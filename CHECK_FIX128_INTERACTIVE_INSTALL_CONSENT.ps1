@@ -22,7 +22,9 @@ Add-Check ($runner.Contains($expectedArgs)) 'Install runner launches Inno Setup 
 Add-Check ($runner -notmatch '(?i)/VERYSILENT|/SILENT|/SUPPRESSMSGBOXES') 'No silent or message-suppression switch can bypass the acknowledgement page'
 Add-Check ($runner.Contains("'-Verb RunAs'") -or $runner.Contains('-Verb RunAs')) 'Installer still requests elevation'
 Add-Check ($runner.Contains('-Wait -PassThru')) 'Automation waits for the real installer process and exit code'
-Add-Check ($runner.Contains('/LOG=') -and $runner.Contains('installation-FIX072-inno.log')) 'Dedicated Inno Setup diagnostic log remains enabled'
+$versionLines = [IO.File]::ReadAllLines((Join-Path $root 'VERSION.txt'))
+$productFix = if ($versionLines.Count -gt 1) { $versionLines[1].Trim() } else { '' }
+Add-Check ($runner.Contains('/LOG=') -and $productFix -match '^FIX\d{3}$' -and $runner.Contains(('installation-{0}-inno.log' -f $productFix))) 'Dedicated Inno Setup diagnostic log follows the current product release identity'
 Add-Check ($runner.Contains('samodzielnie zaznacz pole akceptacji ryzyka')) 'Console explains that consent must be given by the user'
 Add-Check ($runner.Contains('if($p.ExitCode -ne 0)') -and $runner.Contains('Installation was cancelled during installation.')) 'Nonzero and cancellation exit codes are not reported as successful'
 foreach ($installer in @($setup,$legacy)) {

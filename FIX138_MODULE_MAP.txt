@@ -1,0 +1,11 @@
+﻿FIX138 — MAPA MODUŁÓW / HISTORICAL RELEASE REGRESSION
+
+1. CHECK_FIX128_INTERACTIVE_INSTALL_CONSENT.ps1 — dynamiczna nazwa logu instalatora pobierana z VERSION.txt.
+2. CHECK_FIX132_HISTORICAL_TEST_IDENTITY.ps1 — sprawdza historyczne notatki FIX132, a nie wymusza starej wersji produktu.
+3. CHECK_FIX133_CRLF_IDENTITY_NORMALIZATION.ps1 oraz CHECK_FIX134_RELEASE_POLICY_SYNTAX.ps1 — CRLF-safe manifest matching i test historycznych notatek.
+4. CHECK_FIX135_SOURCE_GATE_EXIT_CAPTURE.ps1, CHECK_FIX136_SOURCE_BUILD_IDENTITY.ps1, CHECK_FIX137_SERVICE_PRO.ps1 — normalizacja zakończeń linii przed testem wpisów manifestu.
+5. CHECK_FIX138_HISTORICAL_RELEASE_REGRESSIONS.ps1 — spójność tożsamości pakietu FIX138 i produktu FIX137, hashy SHA-256, logów oraz wymagań pakietu.
+6. CHECK_SOURCE.cmd / URUCHOM_TYLKO_TEN_PLIK.cmd / KCS_FIX101_WORKER.cmd — bieżąca tożsamość pakietu FIX138.
+7. VALIDATE_FIX100_PACKAGE.ps1 / FIX099_SOURCE_ALLOWLIST.txt / FIX099_POWERSHELL_MANIFEST.txt / CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1 — kompletność, integralność i ochrona wydania.
+
+Wersja produktu: 1.0.0.73 / FIX137 — bez zmian.

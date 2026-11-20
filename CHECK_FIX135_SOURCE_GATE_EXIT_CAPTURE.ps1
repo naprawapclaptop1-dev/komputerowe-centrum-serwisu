@@ -13,7 +13,7 @@ $worker = [IO.File]::ReadAllText($workerPath, [Text.Encoding]::UTF8)
 $validator = Get-Content -LiteralPath $validatorPath -Raw -Encoding UTF8
 $policy = Get-Content -LiteralPath $policyPath -Raw -Encoding UTF8
 $allow = @(Get-Content -LiteralPath $allowPath -Encoding UTF8 | ForEach-Object { $_.Trim() } | Where-Object { $_ })
-$manifest = Get-Content -LiteralPath $manifestPath -Raw -Encoding UTF8
+$manifest = (Get-Content -LiteralPath $manifestPath -Raw -Encoding UTF8).Replace("`r`n","`n")
 $checks = @()
 function Add-Check { param([bool]$Passed,[string]$Name); $script:checks += [pscustomobject]@{Passed=$Passed;Name=$Name} }
 $currentFixMatch = [regex]::Match($cmd, '(?im)^title\s+.*?(?<fix>FIX\d{3})')
@@ -36,7 +36,7 @@ Add-Check (($required | Where-Object { $safeBlock.Contains($_) }).Count -eq 3) '
 Add-Check (($required | Where-Object { $currentBlock.Contains($_) }).Count -eq 3) 'FIX135 artifacts are represented in current release-preservation changes'
 Add-Check ($manifest -match '(?m)^[0-9A-F]{64}\|CHECK_FIX135_SOURCE_GATE_EXIT_CAPTURE\.ps1$') 'PowerShell manifest contains the FIX135 regression hash'
 $version = (Get-Content -LiteralPath (Join-Path $root 'VERSION.txt') -Encoding UTF8 | Select-Object -First 1).Trim()
-Add-Check ($version -eq '1.0.0.72') 'Product version remains 1.0.0.72 for tooling-only FIX135'
+Add-Check ($version -eq '1.0.0.73') 'New service application release is 1.0.0.73 / FIX137'
 $bytes = [IO.File]::ReadAllBytes($cmdPath)
 Add-Check ($bytes.Length -gt 0 -and $bytes[0] -eq 64 -and ([Text.Encoding]::UTF8.GetString($bytes) -notmatch '(?m)^powershell\.exe[^\r\n]*-File "%~dp0%~1"[^\r\n]*>"%KCS_TEST_OUTPUT%" 2>&1\r?\n\r?\nset "KCS_TEST_RC=')) 'No empty command row separates PowerShell execution from ERRORLEVEL capture'
 $failed = @($checks | Where-Object { -not $_.Passed })

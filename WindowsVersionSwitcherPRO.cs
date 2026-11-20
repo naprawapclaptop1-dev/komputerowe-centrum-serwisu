@@ -1236,7 +1236,7 @@ namespace NaprawaPC.WindowsSwitcher
                 {
                     string path=route.StartsWith("/")?route:"/"+route;
                     req=(HttpWebRequest)WebRequest.Create(host+path);
-                    req.Method="GET";req.UserAgent="NaprawaPC-UniversalWindowsMigrationPRO/1.0.0.72";
+                    req.Method="GET";req.UserAgent="NaprawaPC-UniversalWindowsMigrationPRO/1.0.0.73";
                     req.Accept="application/json";req.Timeout=10000;req.ReadWriteTimeout=10000;
                     req.AutomaticDecompression=DecompressionMethods.GZip|DecompressionMethods.Deflate;
                     using(HttpWebResponse response=(HttpWebResponse)req.GetResponse())
@@ -1584,7 +1584,7 @@ namespace NaprawaPC.WindowsSwitcher
                 HttpWebRequest req=(HttpWebRequest)WebRequest.Create(target);
                 req.Method="GET";req.Timeout=9000;req.ReadWriteTimeout=7000;req.KeepAlive=false;
                 req.AllowAutoRedirect=true;req.MaximumAutomaticRedirections=8;
-                req.UserAgent="NaprawaPC Radio Stream Probe/1.0.0.72";req.Accept="audio/*,*/*;q=0.8";
+                req.UserAgent="NaprawaPC Radio Stream Probe/1.0.0.73";req.Accept="audio/*,*/*;q=0.8";
                 try{req.AddRange(0,2047);}catch{}
                 using(HttpWebResponse response=(HttpWebResponse)req.GetResponse())
                 using(Stream stream=response.GetResponseStream())
@@ -1935,6 +1935,10 @@ namespace NaprawaPC.WindowsSwitcher
             AddNav("Monitor sprzętu","Monitor sprzętu",0);
             AddNav("Zdrowie dysków","Stan dysków",0);
             AddNav("Serwis klientów","Obsługa klientów",0);
+            AddNav("Serwis PRO","Zlecenia i diagnostyka Serwis PRO",0);
+            AddNav("Magazyn części PRO","Magazyn części i podzespołów",0);
+            AddNav("Historia serwisu PRO","Historia operacji serwisowych",0);
+            AddNav("Kopia danych serwisu PRO","Kopie kartoteki i magazynu",0);
             AddNav("Kontrola integralności","Kontrola integralności",0);
             AddNav("Konfiguracja PRO","Ustawienia i konfiguracja",0);
             AddNav("Raport przed migracją","Raport przed migracją",0);
@@ -1994,7 +1998,7 @@ namespace NaprawaPC.WindowsSwitcher
             if(k.Contains("kopia")||k.Contains("backup")||k.Contains("przywr")||k.Contains("recovery")||k.Contains("obraz systemu"))return "KOPIE I ODZYSKIWANIE";
             if(k.Contains("zdrowie")||k.Contains("porówn")||k.Contains("diagnost")||k.Contains("hardware")||k.Contains("monitor")||k.Contains("benchmark")||k.Contains("ram test")||k.Contains("ssd")||k.Contains("wi-fi"))return "DIAGNOSTYKA I SPRZĘT";
             if(k.Contains("windows")||k.Contains("sterownik")||k.Contains("driver")||k.Contains("boot")||k.Contains("partyc")||k.Contains("usb")||k.Contains("katalog"))return "WINDOWS I NARZĘDZIA";
-            if(k.Contains("serwis")||k.Contains("program")||k.Contains("raport")||k.Contains("dziennik")||k.Contains("zad")||k.Contains("quality")||k.Contains("powiadom")||k.Contains("licenc"))return "SERWIS I RAPORTY";
+            if(k.Contains("serwis")||k.Contains("magazyn")||k.Contains("program")||k.Contains("raport")||k.Contains("dziennik")||k.Contains("zad")||k.Contains("quality")||k.Contains("powiadom")||k.Contains("licenc"))return "SERWIS I RAPORTY";
             return "USTAWIENIA I POZOSTAŁE";
         }
 
@@ -2073,6 +2077,10 @@ namespace NaprawaPC.WindowsSwitcher
                 case "Monitor sprzętu": return "Monitor sprzętu";
                 case "Zdrowie dysków": return "Stan dysków";
                 case "Serwis klientów": return "Obsługa klientów";
+                case "Serwis PRO": return "Zlecenia serwisowe PRO";
+                case "Magazyn części PRO": return "Magazyn części PRO";
+                case "Historia serwisu PRO": return "Historia serwisu PRO";
+                case "Kopia danych serwisu PRO": return "Kopia danych serwisu PRO";
                 case "Kontrola integralności": return "Kontrola integralności";
                 case "Konfiguracja PRO": return "Ustawienia i konfiguracja";
                 case "Raport przed migracją": return "Raport przed migracją";
@@ -2325,6 +2333,10 @@ namespace NaprawaPC.WindowsSwitcher
             if(id=="Monitor sprzętu") BuildHardwareMonitorPage();
             if(id=="Zdrowie dysków") BuildDiskHealthPage();
             if(id=="Serwis klientów") BuildServiceDeskPage();
+            if(id=="Serwis PRO") BuildServiceProPage();
+            if(id=="Magazyn części PRO") BuildServiceProPartsPage();
+            if(id=="Historia serwisu PRO") BuildServiceProHistoryPage();
+            if(id=="Kopia danych serwisu PRO") BuildServiceProBackupPage();
             if(id=="Kontrola integralności") BuildIntegrityPage();
             if(id=="Konfiguracja PRO") BuildConfigurationPage();
             if(id=="Raport przed migracją") BuildMigrationReadinessPage();
@@ -3752,7 +3764,7 @@ namespace NaprawaPC.WindowsSwitcher
                 if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
                 File.WriteAllText(consentFile,
                     "Accepted=" + DateTime.Now.ToString("o") + Environment.NewLine +
-                    "Application=KOMPUTEROWE CENTRUM SERWISU - CENTRUM MIGRACJI I NAPRAW - FIX072" + Environment.NewLine,
+                    "Application=KOMPUTEROWE CENTRUM SERWISU - CENTRUM MIGRACJI I NAPRAW - FIX137" + Environment.NewLine,
                     Encoding.UTF8);
                 AppendLog("Zaakceptowano ostrzeżenie o używaniu programu na własną odpowiedzialność.");
                 return true;

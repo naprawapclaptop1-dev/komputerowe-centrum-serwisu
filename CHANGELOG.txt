@@ -1,3 +1,28 @@
+﻿FIX138 — NAPRAWA HISTORYCZNYCH REGRESJI I MANIFESTU
+- Testy FIX132/FIX133/FIX134 weryfikują wersję 1.0.0.72 / FIX072 jako historyczną informację z notatek, a nie jako wymaganą aktualną wersję aplikacji.
+- Test FIX128 pobiera nazwę logu instalatora z VERSION.txt, dzięki czemu nie oczekuje już installation-FIX072-inno.log.
+- Testy FIX133–FIX137 normalizują CRLF przed dopasowaniem hashy z manifestu PowerShell.
+- Dodano CHECK_FIX138_HISTORICAL_RELEASE_REGRESSIONS.ps1 do CHECK_SOURCE, pełnego walidatora, allowlisty, manifestu i polityki ochrony wydań.
+- Ujednolicono aktywną tożsamość pakietu w CHECK_SOURCE, launcherze i workerze do FIX138; wydanie aplikacji pozostaje 1.0.0.73 / FIX137.
+- Odświeżono wszystkie hashy w FIX099_POWERSHELL_MANIFEST.txt i zaktualizowano README o bieżącą nazwę logu instalatora.
+- Bez zmian kodu C#, zasobów ani receptury instalatora; wersja produktu pozostaje 1.0.0.73 / FIX137.
+Data: 2026-11-20
+
+FIX137 — SERWIS PRO: ZLECENIA, DIAGNOSTYKA, MAGAZYN, HISTORIA I KOPIE
+- Dodano nowy moduł Serwis PRO z kartą zlecenia, danymi klienta i sprzętu, opisem usterki, wykonanymi czynnościami, statusem, priorytetem oraz kosztorysem.
+- Dodano diagnostykę przed/po naprawie uruchamianą w tle: CPU, RAM, GPU/sterownik, woluminy, dostępny provider SMART predykcyjny i strefy ACPI. Brak providera/sensora nie jest pokazywany jako wartość zero ani jako wynik pozytywny.
+- Dodano podgląd porównania snapshotów, bez automatycznego przypisywania sprawności na podstawie różnic tekstowych.
+- Dodano magazyn części (SKU, kategoria, stan, próg minimalny, koszt i cena) oraz wydawanie ilości do zapisanego zlecenia.
+- Dodano lokalną historię operacji serwisowych i raport zlecenia do wydruku; wybór drukarki Microsoft Print to PDF pozwala zapisać raport jako PDF.
+- Dodano kopie danych cases.xml, parts.xml i history.xml z manifestem SHA-256, walidacją XML oraz zabezpieczającą kopią obecnego stanu przed odtworzeniem.
+- Dodano historię urządzenia po numerze seryjnym, zalecenia technika w karcie zlecenia i raporcie oraz dodatkowe odczyty baterii i identyfikacji monitora WMI/EDID.
+- Zabezpieczono wydanie części: kopia dokumentu zlecenia jest wykonywana przed zmianą; w razie błędu zapisu magazynu program przywraca poprzedni dokument.
+- Odtwarzanie kopii danych obejmuje rollback całego zestawu XML w przypadku niepowodzenia zapisu jednego z plików.
+- Nowe dane są przechowywane lokalnie w Data\ServicePRO; nie są częścią synchronizacji GitHub/WWW.
+- Dodano CHECK_FIX137_SERVICE_PRO.ps1 do CHECK_SOURCE, walidatora, allowlisty, manifestu i polityki ochrony wydań.
+- Podniesiono wersję aplikacji z 1.0.0.72 / FIX072 do 1.0.0.73 / FIX137, ponieważ zmieniono kod C# i recepturę instalatora. Poprzednie wydanie pozostaje niezmienione.
+Data: 2026-11-20
+
 FIX136 — NAPRAWA WEJŚĆ WERYFIKATORA I SPÓJNOŚCI WERSJI BUDOWANIA
 - Dodano brakujący CHECK_FIX072_REPOSITORY_INPUT.ps1 wymagany przez VERIFY_PAYLOAD.ps1 do obliczania SOURCE_SHA256.
 - Test wejść repozytorium potwierdza przypięte repozytorium GitHub, szablon repozytorium oraz niezmienną wersję produktu 1.0.0.72 / FIX072.
