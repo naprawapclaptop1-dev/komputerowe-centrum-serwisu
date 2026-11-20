@@ -16,7 +16,7 @@ if ([string]::IsNullOrWhiteSpace($Root)) {
 }
 
 $script:RequiredOutputs = @(
-    @{ Rel = 'dist/portable/KomputeroweCentrumSerwisu_FIX070_PORTABLE.exe'; Label = 'PORTABLE EXE' },
+    @{ Rel = 'dist/portable/KomputeroweCentrumSerwisu_FIX071_PORTABLE.exe'; Label = 'PORTABLE EXE' },
     @{ Rel = 'dist/setup-files/KomputeroweCentrumSerwisu.exe'; Label = 'COMMON INSTALLER PAYLOAD' },
     @{ Rel = 'dist/setup-files/BUILD_ID.txt'; Label = 'STAGING BUILD ID' },
     @{ Rel = 'dist/portable/BUILD_ID.txt'; Label = 'PORTABLE BUILD ID' },
@@ -28,7 +28,7 @@ $script:RequiredOutputs = @(
     @{ Rel = 'CentrumMigracjiHero.png'; Label = 'SOURCE HERO ART' },
     @{ Rel = 'dist/setup-files/README.txt'; Label = 'STAGED README' },
     @{ Rel = 'dist/setup-files/CHANGELOG.txt'; Label = 'STAGED CHANGELOG' },
-    @{ Rel = 'dist/installers/KomputeroweCentrumSerwisu_FIX070_INSTALATOR.exe'; Label = 'MODERN SETUP EXE' },
+    @{ Rel = 'dist/installers/KomputeroweCentrumSerwisu_FIX071_INSTALATOR.exe'; Label = 'MODERN SETUP EXE' },
     @{ Rel = 'dist/installers/SETUP_BUILD_ID.txt'; Label = 'MODERN SETUP BUILD ID' }
 )
 
@@ -65,7 +65,7 @@ function Invoke-PayloadVerification {
     }
     $values = @(
         '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', $verifier,
-        '-ExePath', $ExePath, '-ExpectedVersion', '1.0.0.70',
+        '-ExePath', $ExePath, '-ExpectedVersion', '1.0.0.71',
         '-StampPath', $StampPath, '-SourceRoot', $RootPath, '-CheckStamp'
     )
     $quoted = @($values | ForEach-Object { Quote-ProcessArgument ([string]$_) })
@@ -128,7 +128,7 @@ function Invoke-BuildVerification {
     if (Test-Path -LiteralPath $LogPath -PathType Leaf) {
         Remove-Item -LiteralPath $LogPath -Force
     }
-    Write-ReportLine $LogPath 'KOMPUTEROWE CENTRUM SERWISU FIX070 - RAPORT WERYFIKACJI FIX115'
+    Write-ReportLine $LogPath 'KOMPUTEROWE CENTRUM SERWISU FIX071 - RAPORT WERYFIKACJI FIX115'
     Write-ReportLine $LogPath ("Date: {0}" -f (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'))
     Write-ReportLine $LogPath ("Root: {0}" -f $RootPath)
     Write-ReportLine $LogPath '--- REQUIRED OUTPUT FILES ---'
@@ -149,7 +149,7 @@ function Invoke-BuildVerification {
         Write-ReportLine $LogPath ("[PASS] {0} - {1} bytes" -f $item.Label,$file.Length)
     }
 
-    $xpSetup = Join-Path $dist 'installers/KomputeroweCentrumSerwisu_FIX070_INSTALATOR_XP.exe'
+    $xpSetup = Join-Path $dist 'installers/KomputeroweCentrumSerwisu_FIX071_INSTALATOR_XP.exe'
     if (Test-Path -LiteralPath $xpSetup -PathType Leaf) {
         $xpFile = Get-Item -LiteralPath $xpSetup -Force
         if ($xpFile.Length -gt 0) { Write-ReportLine $LogPath ("[PASS] OPTIONAL XP SETUP EXE - {0} bytes" -f $xpFile.Length) }
@@ -163,8 +163,8 @@ function Invoke-BuildVerification {
         Write-ReportLine $LogPath '--- BUILD ID / FILEVERSION / SHA-256 / SOURCE IDENTITY ---'
         $payloadChecks = @(
             @{ Label='STAGING EXE'; Exe='dist/setup-files/KomputeroweCentrumSerwisu.exe'; Stamp='dist/setup-files/BUILD_ID.txt' },
-            @{ Label='PORTABLE EXE'; Exe='dist/portable/KomputeroweCentrumSerwisu_FIX070_PORTABLE.exe'; Stamp='dist/portable/BUILD_ID.txt' },
-            @{ Label='MODERN INSTALLER'; Exe='dist/installers/KomputeroweCentrumSerwisu_FIX070_INSTALATOR.exe'; Stamp='dist/installers/SETUP_BUILD_ID.txt' }
+            @{ Label='PORTABLE EXE'; Exe='dist/portable/KomputeroweCentrumSerwisu_FIX071_PORTABLE.exe'; Stamp='dist/portable/BUILD_ID.txt' },
+            @{ Label='MODERN INSTALLER'; Exe='dist/installers/KomputeroweCentrumSerwisu_FIX071_INSTALATOR.exe'; Stamp='dist/installers/SETUP_BUILD_ID.txt' }
         )
         foreach ($check in $payloadChecks) {
             $exe = Join-Path $RootPath ($check.Exe.Replace('/', [IO.Path]::DirectorySeparatorChar))
@@ -190,10 +190,10 @@ function Invoke-BuildVerification {
     }
 
     if ($failed) {
-        Write-ReportLine $LogPath '[FAIL] FIX070 output verification failed. Review the preceding [FAIL] lines.'
+        Write-ReportLine $LogPath '[FAIL] FIX071 output verification failed. Review the preceding [FAIL] lines.'
         return 1
     }
-    Write-ReportLine $LogPath '[PASS] FIX070 required outputs and payload provenance verified.'
+    Write-ReportLine $LogPath '[PASS] FIX071 required outputs and payload provenance verified.'
     return 0
 }
 
@@ -215,7 +215,7 @@ function Invoke-Fix112SelfTest {
         }
         $passCode = Invoke-BuildVerification -RootPath $tempRoot -LogPath $log -SkipPayloadValidation
         if ($passCode -ne 0) { throw 'Valid fixture was not accepted.' }
-        $missing = Join-Path $tempRoot 'dist/portable/KomputeroweCentrumSerwisu_FIX070_PORTABLE.exe'
+        $missing = Join-Path $tempRoot 'dist/portable/KomputeroweCentrumSerwisu_FIX071_PORTABLE.exe'
         Remove-Item -LiteralPath $missing -Force
         $failCode = Invoke-BuildVerification -RootPath $tempRoot -LogPath $log -SkipPayloadValidation
         if ($failCode -eq 0) { throw 'Missing required output was incorrectly accepted.' }

@@ -14,7 +14,7 @@ foreach ($path in @($verifier)) {
     $checks += 'VERIFY_BUILD.ps1 parses without PowerShell syntax errors'
 }
 $source = Get-Content -LiteralPath $verifier -Raw
-foreach ($required in @('dist/portable/KomputeroweCentrumSerwisu_FIX070_PORTABLE.exe','dist/setup-files/KomputeroweCentrumSerwisu.exe','dist/setup-files/BUILD_ID.txt','dist/portable/BUILD_ID.txt','dist/portable/portable.mode','dist/installers/KomputeroweCentrumSerwisu_FIX070_INSTALATOR.exe','dist/installers/SETUP_BUILD_ID.txt')) {
+foreach ($required in @('dist/portable/KomputeroweCentrumSerwisu_FIX071_PORTABLE.exe','dist/setup-files/KomputeroweCentrumSerwisu.exe','dist/setup-files/BUILD_ID.txt','dist/portable/BUILD_ID.txt','dist/portable/portable.mode','dist/installers/KomputeroweCentrumSerwisu_FIX071_INSTALATOR.exe','dist/installers/SETUP_BUILD_ID.txt')) {
     if (-not $source.Contains($required)) { throw ("Verifier is missing required output check: {0}" -f $required) }
 }
 $checks += 'All required EXE, BUILD_ID and portable marker checks are present'

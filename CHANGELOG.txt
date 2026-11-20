@@ -1,11 +1,27 @@
-﻿KOMPUTEROWE CENTRUM SERWISU — FIX128
-
-- Naprawiono automatyczny etap instalacji: nie uruchamia już instalatora z /VERYSILENT ani /SUPPRESSMSGBOXES, ponieważ kreator wymaga jawnego potwierdzenia ostrzeżenia o ryzyku.
-- Instalator otwiera teraz pełny interfejs, a użytkownik może przeczytać ostrzeżenie i samodzielnie zaznaczyć pole akceptacji.
-- Proces automatyzacji czeka na zamknięcie kreatora, zachowuje log Inno Setup i nadal weryfikuje kod zakończenia oraz FileVersion 1.0.0.70.
-- Zaktualizowano historyczny test FIX072 i dodano CHECK_FIX128_INTERACTIVE_INSTALL_CONSENT.ps1 do CHECK_SOURCE, walidatora, allowlisty i manifestu.
-- Nie zmieniono SETUP_MODERN.iss, kodu aplikacji ani binarnego instalatora; wersja produktu pozostaje 1.0.0.70 / FIX070.
-
+﻿FIX129 — 1.0.0.71 — ZAPIS I ODZYSKIWANIE KONFIGURACJI
+- Atomowy zapis XML, walidacja DTD-free i Flush(true) przed podmianą pliku.
+- Rotacyjne kopie, zachowanie plików uszkodzonych i automatyczne odzyskiwanie ustawień.
+- Zapamiętywanie modułu, rozmiaru/pozycji okna i dodatkowych lokalizacji kopii.
+- Panel Konfiguracja PRO umożliwia kontrolę i jawne odtworzenie ustawień.
+- Pulpit integruje skróty do dziewięciu istniejących modułów serwisowych.
+- Nowe niezmienne wydanie produktu: v1.0.0.71; v1.0.0.70 pozostaje zachowane.
+
+KOMPUTEROWE CENTRUM SERWISU — FIX128
+
+
+
+- Naprawiono automatyczny etap instalacji: nie uruchamia już instalatora z /VERYSILENT ani /SUPPRESSMSGBOXES, ponieważ kreator wymaga jawnego potwierdzenia ostrzeżenia o ryzyku.
+
+- Instalator otwiera teraz pełny interfejs, a użytkownik może przeczytać ostrzeżenie i samodzielnie zaznaczyć pole akceptacji.
+
+- Proces automatyzacji czeka na zamknięcie kreatora, zachowuje log Inno Setup i nadal weryfikuje kod zakończenia oraz FileVersion 1.0.0.70.
+
+- Zaktualizowano historyczny test FIX072 i dodano CHECK_FIX128_INTERACTIVE_INSTALL_CONSENT.ps1 do CHECK_SOURCE, walidatora, allowlisty i manifestu.
+
+- Nie zmieniono SETUP_MODERN.iss, kodu aplikacji ani binarnego instalatora; wersja produktu pozostaje 1.0.0.70 / FIX070.
+
+
+
 KOMPUTEROWE CENTRUM SERWISU — FIX127
 
 - Naprawiono resolver wersji w teście FIX116: wzorzec akceptuje wcięty zapis $Version używany przez publikator wewnątrz bloku try.

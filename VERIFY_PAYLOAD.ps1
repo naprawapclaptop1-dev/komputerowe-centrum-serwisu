@@ -1,8 +1,8 @@
 ﻿[CmdletBinding()]
 param(
     [Parameter(Mandatory=$true)][string]$ExePath,
-    [string]$ExpectedVersion = "1.0.0.70",
-    [string]$ExpectedFix = "FIX070",
+    [string]$ExpectedVersion = "1.0.0.71",
+    [string]$ExpectedFix = "FIX071",
     [string]$StampPath = "",
     [string]$SourceRoot = "",
     [switch]$CreateStamp,

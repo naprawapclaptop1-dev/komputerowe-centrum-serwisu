@@ -1,0 +1,28 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX129 / WYDANIE PRODUKTU 1.0.0.71
+===============================================================
+
+CEL
+FIX129 zabezpiecza trwały zapis ustawień i danych XML, dodaje kontrolę oraz odzyskiwanie konfiguracji i łączy najważniejsze moduły na pulpicie.
+
+ZMIANY
+- Atomiczny zapis XML: plik tymczasowy w katalogu docelowym, walidacja, Flush(true), a następnie File.Replace z bezpiecznym mechanizmem awaryjnym.
+- Rotacyjne kopie poprzednich poprawnych dokumentów XML; maksymalna liczba kopii jest ograniczona dla każdego pliku.
+- Uszkodzony XML nie jest po cichu nadpisywany: pierwotny plik jest zachowywany jako .corrupt_*.xml.
+- Przy uruchomieniu aplikacja weryfikuje settings.xml i automatycznie próbuje odzyskać najnowszą poprawną kopię.
+- Import ustawień jest ograniczony rozmiarem, chroniony przed DTD/XXE, walidowany pod kątem schematu i wymaga potwierdzenia użytkownika.
+- Zapisywane są: ostatni moduł, rozmiar i położenie okna, stan maksymalizacji oraz lista dodatkowych folderów kopii.
+- Dodano w module Konfiguracja PRO przyciski sprawdzenia konfiguracji, przywrócenia kopii i otwarcia katalogu kopii.
+- Pulpit otrzymał skróty do dziewięciu istniejących modułów: diagnostyki, backupu, migracji, sterowników, raportów, naprawy Windows, kartoteki, trybu offline i historii/rollbacku.
+- Dodatkowe foldery kopii mają limit 40 wpisów, zgodny z walidacją pliku.
+- Wspólna bezpieczna ścieżka zapisu została zastosowana również do profili komputerów i lokalnie generowanych manifestów.
+
+ZGODNOŚĆ / BEZPIECZEŃSTWO
+- Zachowano istniejące ścieżki danych i ustawień; nie przenosi się ani nie usuwa baz, danych klientów, poświadczeń ani wcześniejszych kopii.
+- Starszy settings.xml bez ConfigSchemaVersion pozostaje obsługiwany.
+- DTD i zewnętrzne resolver-y XML są blokowane.
+- Przywracanie i import wymagają jawnego potwierdzenia.
+- Publiczne wydanie v1.0.0.70 pozostaje niezmienione; kod aplikacji i receptura instalatora trafiają do nowego wydania v1.0.0.71.
+
+WERYFIKACJA
+CHECK_FIX129_CONFIG_PERSISTENCE.ps1 jest włączony do CHECK_SOURCE, VALIDATE_FIX100_PACKAGE, allowlisty i manifestu PowerShell.
+W tym pakiecie wykonano kontrole statyczne i integralności archiwum. Kompilację Windows / Inno Setup oraz uruchomienie PowerShell 5.1 wykonuje środowisko Windows przez URUCHOM_TYLKO_TEN_PLIK.cmd.

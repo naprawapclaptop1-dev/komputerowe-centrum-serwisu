@@ -13,7 +13,7 @@ $checks = @(
   @($release.Contains('FIX086_PACKAGE_MARKER.txt') -and $release.Contains('PACKAGE=FIX086'), 'Release publisher checks FIX086 marker'),
   @($source.Contains('"-c","core.longpaths=true","clone"'), 'Clone enables long paths before checkout'),
   @($source.Contains('".tools"') -and $source.Contains('".tools/"'), 'Cache is excluded from copy and ignored in repository'),
-  @((Get-Content -LiteralPath (Join-Path $root 'VERSION.txt') -Raw).Contains('1.0.0.70'), 'Application version remains 1.0.0.70')
+  @((Get-Content -LiteralPath (Join-Path $root 'VERSION.txt') -Raw).Contains('1.0.0.71'), 'Application version remains 1.0.0.71')
 )
 $failed=0
 foreach($check in $checks){if($check[0]){Write-Host ('[PASS] '+$check[1])}else{Write-Host ('[FAIL] '+$check[1]);$failed++}}

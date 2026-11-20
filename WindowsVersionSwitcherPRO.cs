@@ -518,6 +518,15 @@ namespace NaprawaPC.WindowsSwitcher
         private string savedRelease = "Nie wybrano — użyj ISO / katalogu";
         private string dataRoot;
         private string configPath;
+        private string savedLastPage = "Pulpit";
+        private int savedWindowWidth = 1600;
+        private int savedWindowHeight = 1000;
+        private int savedWindowX = -1;
+        private int savedWindowY = -1;
+        private bool savedWindowMaximized = true;
+        private string configLoadStatus = "Konfiguracja domyślna";
+        private bool isCapturingWindowState = false;
+        private static readonly object xmlPersistenceLock = new object();
         private bool portableMode;
         private bool scanPassed = false;
         private string scannedSetup = "";
@@ -675,8 +684,9 @@ namespace NaprawaPC.WindowsSwitcher
             LoadBackupSchedule();
             selectedIso = savedIsoPath;
             BuildShell();
+            ApplySavedWindowState();
             InitializeTrayIcon();
-            ShowPage("Pulpit");
+            ShowPage(IsKnownPageId(savedLastPage) ? savedLastPage : "Pulpit");
             LoadLastBackup();
             Shown += delegate {
                 if (!ShowRiskDisclaimer())
@@ -707,6 +717,10 @@ namespace NaprawaPC.WindowsSwitcher
             AppendLog("KOMPUTEROWE CENTRUM SERWISU uruchomione. Tryb: " + (portableMode ? "PORTABLE" : "INSTALACJA"));
             AppendLog("System: " + GetOsCaption() + " | Build: " + GetBuild() + " | Architektura: " + GetArchitecture());
             AppendLog("Tryb: ochrona danych — wymagany backup plików oraz pełny obraz systemu przed aktualizacją.");
+            FormClosing += delegate(object sender,FormClosingEventArgs e) {
+                try { CaptureWindowStateForConfig(); SaveConfig(); }
+                catch(Exception ex) { AppendLog("Nie udało się zapisać konfiguracji przy zamykaniu: "+ex.Message); }
+            };
             FormClosed += delegate {
                 radioClosingForShutdown=true;
                 try { if(appTrayIcon!=null){appTrayIcon.Visible=false;appTrayIcon.Dispose();appTrayIcon=null;} } catch {}
@@ -862,7 +876,7 @@ namespace NaprawaPC.WindowsSwitcher
                     e.SetAttribute("lastCheckOk",s.LastCheckOk?"1":"0");e.SetAttribute("hls",s.Hls?"1":"0");
                     root.AppendChild(e);
                 }
-                d.Save(radioStationsPath);
+                SaveXmlSafely(d,radioStationsPath,6);
             }
             catch(Exception ex){AppendLog("Radio station list save error: "+ex.Message);}
         }
@@ -1198,7 +1212,7 @@ namespace NaprawaPC.WindowsSwitcher
                 {
                     string path=route.StartsWith("/")?route:"/"+route;
                     req=(HttpWebRequest)WebRequest.Create(host+path);
-                    req.Method="GET";req.UserAgent="NaprawaPC-UniversalWindowsMigrationPRO/1.0.0.70";
+                    req.Method="GET";req.UserAgent="NaprawaPC-UniversalWindowsMigrationPRO/1.0.0.71";
                     req.Accept="application/json";req.Timeout=10000;req.ReadWriteTimeout=10000;
                     req.AutomaticDecompression=DecompressionMethods.GZip|DecompressionMethods.Deflate;
                     using(HttpWebResponse response=(HttpWebResponse)req.GetResponse())
@@ -1490,7 +1504,7 @@ namespace NaprawaPC.WindowsSwitcher
                     e.SetAttribute("tags",s.Tags??"");e.SetAttribute("codec",s.Codec??"");e.SetAttribute("bitrate",s.Bitrate.ToString(CultureInfo.InvariantCulture));
                     e.SetAttribute("lastCheckOk",s.LastCheckOk?"1":"0");e.SetAttribute("hls",s.Hls?"1":"0");e.SetAttribute("clickCount",s.ClickCount.ToString(CultureInfo.InvariantCulture));root.AppendChild(e);
                 }
-                d.Save(radioCatalogCachePath);
+                SaveXmlSafely(d,radioCatalogCachePath,3);
             }
             catch(Exception ex){AppendLog("Radio catalog cache save error: "+ex.Message);}
         }
@@ -1546,7 +1560,7 @@ namespace NaprawaPC.WindowsSwitcher
                 HttpWebRequest req=(HttpWebRequest)WebRequest.Create(target);
                 req.Method="GET";req.Timeout=9000;req.ReadWriteTimeout=7000;req.KeepAlive=false;
                 req.AllowAutoRedirect=true;req.MaximumAutomaticRedirections=8;
-                req.UserAgent="NaprawaPC Radio Stream Probe/1.0.0.70";req.Accept="audio/*,*/*;q=0.8";
+                req.UserAgent="NaprawaPC Radio Stream Probe/1.0.0.71";req.Accept="audio/*,*/*;q=0.8";
                 try{req.AddRange(0,2047);}catch{}
                 using(HttpWebResponse response=(HttpWebResponse)req.GetResponse())
                 using(Stream stream=response.GetResponseStream())
@@ -2338,6 +2352,9 @@ namespace NaprawaPC.WindowsSwitcher
             ApplyTheme();
             if(id=="Pulpit" && riskAccepted && IsHandleCreated && Visible) StartDashboardMonitor();
             if(id=="Windows Performance" && riskAccepted && IsHandleCreated && Visible) StartPerformanceMonitor();
+            // Remember the last module after it has been created successfully.
+            savedLastPage=id;
+            SaveConfig();
         }
 
 
@@ -2417,8 +2434,8 @@ namespace NaprawaPC.WindowsSwitcher
             // Six large primary actions in a compact, balanced three-column grid.
             int quickY=514,quickH=174;
             Panel quick=Card(p,"NAJCZĘŚCIEJ UŻYWANE NARZĘDZIA",12,quickY,width,quickH);
-            string[] qLabels=new string[]{"INSTALACJA WINDOWS","KOPIA I PRZYWRACANIE","DIAGNOSTYKA KOMPUTERA","MONITOR SPRZĘTU","NAPRAWA WINDOWS","RAPORT SERWISOWY","STAN ZDROWIA PC","PORÓWNAJ KOMPUTERY","SPIS PROGRAMÓW"};
-            string[] qPages=new string[]{"Katalog Windows","Backup Recovery ULTIMATE","Diagnostyka PC","Hardware Intelligence PRO","Naprawa Windows","Service Report Designer","Zdrowie PC","Porównanie PC","Spis programów"};
+            string[] qLabels=new string[]{"DIAGNOSTYKA SPRZĘTU","KOPIA / ODZYSKIWANIE","INTELIGENTNA MIGRACJA","STEROWNIKI PRO","RAPORT SERWISOWY","NAPRAWA WINDOWS","KARTOTEKA KLIENTÓW","TRYB OFFLINE","HISTORIA / ROLLBACK"};
+            string[] qPages=new string[]{"Hardware Intelligence PRO","Backup Recovery ULTIMATE","Migration Intelligence PRO","Driver Download Center","Service Report Designer","Naprawa Windows","Serwis klientów","Naprawa offline","Operation Recovery Center"};
             int qCols=3,qGap=12,qW=(width-48-2*qGap)/qCols;
             for(int qi=0;qi<qLabels.Length;qi++)
             {
@@ -3658,7 +3675,7 @@ namespace NaprawaPC.WindowsSwitcher
                 if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
                 File.WriteAllText(consentFile,
                     "Accepted=" + DateTime.Now.ToString("o") + Environment.NewLine +
-                    "Application=KOMPUTEROWE CENTRUM SERWISU - CENTRUM MIGRACJI I NAPRAW - FIX070" + Environment.NewLine,
+                    "Application=KOMPUTEROWE CENTRUM SERWISU - CENTRUM MIGRACJI I NAPRAW - FIX071" + Environment.NewLine,
                     Encoding.UTF8);
                 AppendLog("Zaakceptowano ostrzeżenie o używaniu programu na własną odpowiedzialność.");
                 return true;
@@ -3774,13 +3791,260 @@ namespace NaprawaPC.WindowsSwitcher
         }
         private string LastBackupSetting()
         {
-            try {if(File.Exists(configPath)){XmlDocument d=new XmlDocument();d.Load(configPath);XmlNode n=d.SelectSingleNode("/Settings/LastManifest");if(n!=null)return n.InnerText;}}catch{}
+            try {XmlDocument d;string error;if(TryLoadXmlDocument(configPath,out d,out error) && IsValidSettingsDocument(d,out error)){XmlNode n=d.SelectSingleNode("/Settings/LastManifest");if(n!=null)return n.InnerText;}}catch{}
             return "";
         }
+        private bool IsKnownPageId(string id)
+        {
+            if(String.IsNullOrWhiteSpace(id))return false;
+            string[] ids=new string[]{
+                "Pulpit","Migracja","Kopia zapasowa","Przywracanie","Katalog Windows","Diagnostyka PC","Narzędzia","Tryby i kanały","Dziennik operacji","Windows 11 Bypass","Kreator USB","Raporty serwisowe","Sterowniki PRO","Naprawa Windows","Analiza BSOD","Aktualizator PRO","Monitor sprzętu","Zdrowie dysków","Serwis klientów","Kontrola integralności","Konfiguracja PRO","Raport przed migracją","Partycje i UEFI","Kontrola narzędzi","Plan migracji PRO","Obraz systemu PRO","Boot Manager PRO","Zgodność sterowników","Centrum zadań","Licencja Windows","Kopia rejestru","Naprawa sieci","Windows Update PRO","Dziennik zdarzeń","Naprawa offline","Radio online","Windows Performance","Application Migration","Security Center","Rollback Manager","Benchmark CPU RAM","NVMe SSD Doctor","PC Rescue Center","RAM Test PRO","Quality Control PRO","Powiadomienia PRO","Backup Scheduler PRO","AI Service Assistant","Driver Repository PRO","Wi-Fi Analyzer PRO","Windows File Recovery","App Compatibility Center","Build Manager PRO","Migration Intelligence PRO","Backup Recovery ULTIMATE","Hardware Intelligence PRO","Windows Compatibility DB","Universal Boot Repair","Driver Download Center","Service Report Designer","Operation Recovery Center","Migracja PC PRO","Zdrowie PC","Porównanie PC","Spis programów"};
+            foreach(string candidate in ids)if(String.Equals(candidate,id,StringComparison.OrdinalIgnoreCase))return true;
+            return false;
+        }
+
+        private bool TryLoadXmlDocument(string path,out XmlDocument document,out string error)
+        {
+            document=null;error="";
+            try
+            {
+                FileInfo info=new FileInfo(path);
+                if(!info.Exists)throw new FileNotFoundException("Plik XML nie istnieje.",path);
+                long maximumBytes=String.Equals(Path.GetFullPath(path),Path.GetFullPath(configPath),StringComparison.OrdinalIgnoreCase)?1024L*1024L:64L*1024L*1024L;
+                if(info.Length>maximumBytes)throw new InvalidDataException("Plik XML przekracza bezpieczny limit "+(maximumBytes/(1024L*1024L))+" MB.");
+                XmlReaderSettings settings=new XmlReaderSettings();
+                settings.DtdProcessing=DtdProcessing.Prohibit;
+                settings.XmlResolver=null;
+                settings.MaxCharactersInDocument=maximumBytes;
+                XmlDocument parsed=new XmlDocument();parsed.XmlResolver=null;
+                using(XmlReader reader=XmlReader.Create(path,settings))parsed.Load(reader);
+                if(parsed.DocumentElement==null)throw new InvalidDataException("Dokument XML nie ma elementu głównego.");
+                document=parsed;return true;
+            }
+            catch(Exception ex){error=ex.GetBaseException().Message;return false;}
+        }
+
+        private bool IsValidSettingsDocument(XmlDocument document,out string error)
+        {
+            error="";
+            if(document==null || document.DocumentElement==null || document.DocumentElement.Name!="Settings")
+            {error="Nieprawidłowy element główny konfiguracji; oczekiwano Settings.";return false;}
+            string[] allowed=new string[]{"ConfigSchemaVersion","DesignVersion","Theme","InterfaceStyle","ProgramChannel","WindowsChannel","Target","LastManifest","Edition","Architecture","Language","InstallMode","SelectedIso","Release","LastPage","WindowWidth","WindowHeight","WindowX","WindowY","WindowMaximized","LastSavedUtc","CustomBackupRoots"};
+            HashSet<string> encountered=new HashSet<string>(StringComparer.Ordinal);
+            foreach(XmlNode child in document.DocumentElement.ChildNodes)
+            {
+                if(child.NodeType!=XmlNodeType.Element)continue;
+                bool known=false;foreach(string key in allowed)if(child.Name==key){known=true;break;}
+                if(!known){error="Nieznane pole konfiguracji: "+child.Name;return false;}
+                if(!encountered.Add(child.Name)){error="Powtórzone pole konfiguracji: "+child.Name;return false;}
+                if(child.InnerText!=null && child.InnerText.Length>8192){error="Wartość konfiguracji jest zbyt długa: "+child.Name;return false;}
+                if(child.Name=="ConfigSchemaVersion" && child.InnerText!="1" && child.InnerText!="2"){error="Nieobsługiwana wersja schematu konfiguracji: "+child.InnerText;return false;}
+                if(child.Name=="CustomBackupRoots")
+                {
+                    int count=0;foreach(XmlNode rootNode in child.ChildNodes)
+                    {
+                        if(rootNode.NodeType!=XmlNodeType.Element)continue;
+                        if(rootNode.Name!="Root"){error="Nieznany element w CustomBackupRoots: "+rootNode.Name;return false;}
+                        if(++count>40){error="Konfiguracja zawiera zbyt wiele dodatkowych folderów kopii.";return false;}
+                        if(rootNode.InnerText.Length>1024){error="Ścieżka dodatkowego folderu jest zbyt długa.";return false;}
+                    }
+                }
+            }
+            return true;
+        }
+
+        private bool IsWellFormedXmlFile(string path)
+        {
+            XmlDocument parsed;string error;
+            return TryLoadXmlDocument(path,out parsed,out error);
+        }
+
+        private bool FilesAreEqual(string first,string second)
+        {
+            try
+            {
+                FileInfo a=new FileInfo(first),b=new FileInfo(second);if(a.Length!=b.Length)return false;
+                using(FileStream fa=File.OpenRead(first))using(FileStream fb=File.OpenRead(second))
+                {
+                    byte[] ba=new byte[65536],bb=new byte[65536];int ra,rb;
+                    do{ra=fa.Read(ba,0,ba.Length);rb=fb.Read(bb,0,bb.Length);if(ra!=rb)return false;for(int i=0;i<ra;i++)if(ba[i]!=bb[i])return false;}while(ra>0);
+                }
+                return true;
+            }
+            catch{return false;}
+        }
+
+        private void TrimXmlBackups(string path,int keep)
+        {
+            if(keep<1)return;
+            try
+            {
+                string directory=Path.GetDirectoryName(path);if(String.IsNullOrEmpty(directory)||!Directory.Exists(directory))return;
+                string pattern=Path.GetFileName(path)+".backup_*.xml";
+                List<string> files=new List<string>(Directory.GetFiles(directory,pattern));
+                files.Sort(delegate(string a,string b){return File.GetLastWriteTimeUtc(b).CompareTo(File.GetLastWriteTimeUtc(a));});
+                for(int i=keep;i<files.Count;i++)try{File.Delete(files[i]);}catch{}
+            }
+            catch{}
+        }
+
+        private bool SettingsAreEquivalentIgnoringTimestamp(string first,string second)
+        {
+            try
+            {
+                XmlDocument a;string errorA;XmlDocument b;string errorB;
+                if(!TryLoadXmlDocument(first,out a,out errorA) || !IsValidSettingsDocument(a,out errorA))return false;
+                if(!TryLoadXmlDocument(second,out b,out errorB) || !IsValidSettingsDocument(b,out errorB))return false;
+                XmlNode aStamp=a.SelectSingleNode("/Settings/LastSavedUtc");if(aStamp!=null)aStamp.ParentNode.RemoveChild(aStamp);
+                XmlNode bStamp=b.SelectSingleNode("/Settings/LastSavedUtc");if(bStamp!=null)bStamp.ParentNode.RemoveChild(bStamp);
+                return String.Equals(a.DocumentElement.OuterXml,b.DocumentElement.OuterXml,StringComparison.Ordinal);
+            }
+            catch{return false;}
+        }
+
+        // All persistent XML is written to a sibling temporary file, validated, then atomically swapped.
+        // A valid previous generation is retained before replacement; invalid originals are renamed, never silently discarded.
+        private void SaveXmlSafely(XmlDocument document,string path,int keepBackups)
+        {
+            if(document==null || document.DocumentElement==null)throw new InvalidDataException("Nie można zapisać pustego dokumentu XML.");
+            lock(xmlPersistenceLock)
+            {
+                string directory=Path.GetDirectoryName(path);
+                if(String.IsNullOrEmpty(directory))throw new InvalidDataException("Brak folderu docelowego dla XML.");
+                Directory.CreateDirectory(directory);
+                string temporary=path+".tmp_"+Guid.NewGuid().ToString("N");
+                try
+                {
+                    XmlWriterSettings writerSettings=new XmlWriterSettings();
+                    writerSettings.Encoding=new UTF8Encoding(false);writerSettings.Indent=true;writerSettings.CloseOutput=false;
+                    using(FileStream stream=new FileStream(temporary,FileMode.CreateNew,FileAccess.Write,FileShare.None))
+                    {
+                        using(XmlWriter writer=XmlWriter.Create(stream,writerSettings)){document.Save(writer);writer.Flush();}
+                        stream.Flush(true);
+                    }
+                    XmlDocument check;string validationError;
+                    if(!TryLoadXmlDocument(temporary,out check,out validationError))throw new InvalidDataException("Nowy plik XML nie przeszedł walidacji: "+validationError);
+                    bool same=File.Exists(path) && (FilesAreEqual(path,temporary) || (String.Equals(Path.GetFullPath(path),Path.GetFullPath(configPath),StringComparison.OrdinalIgnoreCase) && SettingsAreEquivalentIgnoringTimestamp(path,temporary)));
+                    if(same){File.Delete(temporary);return;}
+                    if(File.Exists(path))
+                    {
+                        if(IsWellFormedXmlFile(path))
+                        {
+                            string backup=path+".backup_"+DateTime.Now.ToString("yyyyMMdd_HHmmss_ffff",CultureInfo.InvariantCulture)+".xml";
+                            File.Copy(path,backup,false);
+                        }
+                        else
+                        {
+                            string corrupt=path+".corrupt_"+DateTime.Now.ToString("yyyyMMdd_HHmmss_ffff",CultureInfo.InvariantCulture)+".xml";
+                            File.Move(path,corrupt);
+                        }
+                        try{File.Replace(temporary,path,null);}
+                        catch
+                        {
+                            string displaced=path+".replace_"+Guid.NewGuid().ToString("N");
+                            if(File.Exists(path))File.Move(path,displaced);
+                            try
+                            {
+                                File.Move(temporary,path);
+                                if(File.Exists(displaced))File.Delete(displaced);
+                            }
+                            catch
+                            {
+                                if(!File.Exists(path) && File.Exists(displaced))File.Move(displaced,path);
+                                throw;
+                            }
+                        }
+                    }
+                    else File.Move(temporary,path);
+                    TrimXmlBackups(path,keepBackups);
+                }
+                finally{try{if(File.Exists(temporary))File.Delete(temporary);}catch{}}
+            }
+        }
+
+        private List<string> GetConfigBackupCandidates()
+        {
+            List<string> files=new List<string>();
+            try
+            {
+                string dir=Path.GetDirectoryName(configPath);
+                if(Directory.Exists(dir))files.AddRange(Directory.GetFiles(dir,Path.GetFileName(configPath)+".backup_*.xml"));
+                files.Sort(delegate(string a,string b){return File.GetLastWriteTimeUtc(b).CompareTo(File.GetLastWriteTimeUtc(a));});
+            }
+            catch{}
+            return files;
+        }
+
+        private string CreateConfigBackupSnapshot()
+        {
+            if(!File.Exists(configPath))return "";
+            XmlDocument current;string error;
+            if(!TryLoadXmlDocument(configPath,out current,out error) || !IsValidSettingsDocument(current,out error))
+                throw new InvalidDataException("Bieżąca konfiguracja nie jest poprawna — nie utworzono kopii: "+error);
+            string backup=configPath+".backup_"+DateTime.Now.ToString("yyyyMMdd_HHmmss_ffff",CultureInfo.InvariantCulture)+".xml";
+            File.Copy(configPath,backup,false);TrimXmlBackups(configPath,12);return backup;
+        }
+
+        private void CopyFileAtomically(string source,string destination)
+        {
+            string directory=Path.GetDirectoryName(destination);Directory.CreateDirectory(directory);
+            string temporary=destination+".import_"+Guid.NewGuid().ToString("N");
+            try
+            {
+                File.Copy(source,temporary,false);
+                if(File.Exists(destination))
+                {
+                    string displaced=destination+".replace_"+Guid.NewGuid().ToString("N");
+                    try{File.Replace(temporary,destination,null);}
+                    catch
+                    {
+                        File.Move(destination,displaced);
+                        try{File.Move(temporary,destination);File.Delete(displaced);}
+                        catch{if(!File.Exists(destination)&&File.Exists(displaced))File.Move(displaced,destination);throw;}
+                    }
+                }
+                else File.Move(temporary,destination);
+            }
+            finally{try{if(File.Exists(temporary))File.Delete(temporary);}catch{}}
+        }
+
+        private void ApplySavedWindowState()
+        {
+            try
+            {
+                if(savedWindowMaximized){WindowState=FormWindowState.Maximized;return;}
+                Rectangle work=Screen.PrimaryScreen==null?new Rectangle(0,0,1600,900):Screen.PrimaryScreen.WorkingArea;
+                int width=Math.Max(1200,Math.Min(savedWindowWidth,Math.Max(1200,work.Width)));
+                int height=Math.Max(760,Math.Min(savedWindowHeight,Math.Max(760,work.Height)));
+                int x=savedWindowX,y=savedWindowY;
+                if(x<work.Left || y<work.Top || x+100>work.Right || y+100>work.Bottom){x=work.Left+(work.Width-width)/2;y=work.Top+(work.Height-height)/2;}
+                Location=new Point(x,y);Size=new Size(width,height);WindowState=FormWindowState.Normal;
+            }
+            catch{WindowState=FormWindowState.Maximized;}
+        }
+
+        private void CaptureWindowStateForConfig()
+        {
+            if(isCapturingWindowState)return;
+            isCapturingWindowState=true;
+            try
+            {
+                savedWindowMaximized=WindowState==FormWindowState.Maximized;
+                Rectangle bounds=WindowState==FormWindowState.Normal?Bounds:RestoreBounds;
+                if(bounds.Width>=1200)savedWindowWidth=bounds.Width;
+                if(bounds.Height>=760)savedWindowHeight=bounds.Height;
+                savedWindowX=bounds.X;savedWindowY=bounds.Y;
+            }
+            finally{isCapturingWindowState=false;}
+        }
+
         private void SaveConfig()
         {
-            try {
+            try
+            {
+                CaptureWindowStateForConfig();
                 XmlDocument d=new XmlDocument();XmlElement root=d.CreateElement("Settings");d.AppendChild(root);
+                AddXml(d,root,"ConfigSchemaVersion","2");
                 AddXml(d,root,"Theme",currentTheme);
                 AddXml(d,root,"InterfaceStyle",currentInterfaceStyle);
                 AddXml(d,root,"DesignVersion","FIX060");
@@ -3794,19 +4058,57 @@ namespace NaprawaPC.WindowsSwitcher
                 AddXml(d,root,"InstallMode",installationModeBox==null?savedInstallMode:installationModeBox.Text);
                 AddXml(d,root,"SelectedIso",selectedIso);
                 AddXml(d,root,"Release",migrationReleaseLabel==null?savedRelease:migrationReleaseLabel.Text);
-                d.Save(configPath);
-            } catch(Exception ex){AppendLog("Nie zapisano konfiguracji: "+ex.Message);}
+                AddXml(d,root,"LastPage",IsKnownPageId(activePage)?activePage:"Pulpit");
+                AddXml(d,root,"WindowWidth",savedWindowWidth.ToString(CultureInfo.InvariantCulture));
+                AddXml(d,root,"WindowHeight",savedWindowHeight.ToString(CultureInfo.InvariantCulture));
+                AddXml(d,root,"WindowX",savedWindowX.ToString(CultureInfo.InvariantCulture));
+                AddXml(d,root,"WindowY",savedWindowY.ToString(CultureInfo.InvariantCulture));
+                AddXml(d,root,"WindowMaximized",savedWindowMaximized?"1":"0");
+                AddXml(d,root,"LastSavedUtc",DateTime.UtcNow.ToString("o",CultureInfo.InvariantCulture));
+                XmlElement roots=d.CreateElement("CustomBackupRoots");root.AppendChild(roots);
+                foreach(string folder in customRoots)
+                {
+                    if(String.IsNullOrWhiteSpace(folder) || !Path.IsPathRooted(folder))continue;
+                    XmlElement item=d.CreateElement("Root");item.InnerText=folder;roots.AppendChild(item);
+                }
+                SaveXmlSafely(d,configPath,12);
+                configLoadStatus="Konfiguracja zapisana i zweryfikowana";
+            }
+            catch(Exception ex){AppendLog("Nie zapisano konfiguracji: "+ex.GetBaseException().Message);}
         }
+
         private void LoadConfig()
         {
-            try {
-                if(!File.Exists(configPath))return;
-                XmlDocument d=new XmlDocument();d.Load(configPath);
+            XmlDocument d=null;string error="";bool recovered=false;
+            if(!TryLoadXmlDocument(configPath,out d,out error) || !IsValidSettingsDocument(d,out error))
+            {
+                if(File.Exists(configPath))AppendLog("Konfiguracja główna jest uszkodzona lub nieprawidłowa: "+error+". Próbuję odzyskać kopię.");
+                foreach(string candidate in GetConfigBackupCandidates())
+                {
+                    XmlDocument backup;string backupError;
+                    if(!TryLoadXmlDocument(candidate,out backup,out backupError) || !IsValidSettingsDocument(backup,out backupError))continue;
+                    try
+                    {
+                        SaveXmlSafely(backup,configPath,12);
+                        d=backup;recovered=true;configLoadStatus="Odzyskano z kopii: "+Path.GetFileName(candidate);
+                        AppendLog("Odzyskano konfigurację z kopii bezpieczeństwa: "+candidate);
+                        break;
+                    }
+                    catch(Exception ex){AppendLog("Nie udało się przywrócić kopii konfiguracji "+candidate+": "+ex.Message);}
+                }
+            }
+            if(d==null)
+            {
+                customRoots.Clear();configLoadStatus=File.Exists(configPath)?"Uszkodzona konfiguracja — zastosowano bezpieczne ustawienia domyślne":"Pierwsze uruchomienie — utworzono konfigurację";
+                if(File.Exists(configPath))AppendLog("Nie znaleziono poprawnej kopii konfiguracji. Plik zostanie zachowany jako uszkodzony, a ustawienia domyślne zostaną zapisane.");
+                SaveConfig();return;
+            }
+            try
+            {
                 XmlNode design=d.SelectSingleNode("/Settings/DesignVersion");
                 bool applyNewDesign=design==null || design.InnerText!="FIX060";
                 XmlNode n=d.SelectSingleNode("/Settings/Theme");if(n!=null)currentTheme=NormalizeThemeName(n.InnerText);
                 n=d.SelectSingleNode("/Settings/InterfaceStyle");if(n!=null)currentInterfaceStyle=NormalizeInterfaceStyle(n.InnerText);
-                // Preserve any recognized legacy palette after NormalizeThemeName; unsupported names already fall back to GRANATOWY.
                 n=d.SelectSingleNode("/Settings/ProgramChannel");if(n!=null)savedProgramChannel=n.InnerText;
                 n=d.SelectSingleNode("/Settings/WindowsChannel");if(n!=null)savedWindowsChannel=n.InnerText;
                 n=d.SelectSingleNode("/Settings/Target");if(n!=null)savedTarget=n.InnerText;
@@ -3817,9 +4119,25 @@ namespace NaprawaPC.WindowsSwitcher
                 n=d.SelectSingleNode("/Settings/InstallMode");if(n!=null)savedInstallMode=n.InnerText;
                 n=d.SelectSingleNode("/Settings/SelectedIso");if(n!=null)savedIsoPath=n.InnerText;
                 n=d.SelectSingleNode("/Settings/Release");if(n!=null)savedRelease=n.InnerText;
-                if(applyNewDesign) SaveConfig();
-            } catch {}
+                n=d.SelectSingleNode("/Settings/LastPage");if(n!=null && IsKnownPageId(n.InnerText))savedLastPage=n.InnerText;
+                int parsed;
+                n=d.SelectSingleNode("/Settings/WindowWidth");if(n!=null && Int32.TryParse(n.InnerText,out parsed))savedWindowWidth=Math.Max(1200,Math.Min(7680,parsed));
+                n=d.SelectSingleNode("/Settings/WindowHeight");if(n!=null && Int32.TryParse(n.InnerText,out parsed))savedWindowHeight=Math.Max(760,Math.Min(4320,parsed));
+                n=d.SelectSingleNode("/Settings/WindowX");if(n!=null && Int32.TryParse(n.InnerText,out parsed))savedWindowX=parsed;
+                n=d.SelectSingleNode("/Settings/WindowY");if(n!=null && Int32.TryParse(n.InnerText,out parsed))savedWindowY=parsed;
+                n=d.SelectSingleNode("/Settings/WindowMaximized");if(n!=null)savedWindowMaximized=n.InnerText=="1" || n.InnerText.Equals("true",StringComparison.OrdinalIgnoreCase);
+                customRoots.Clear();
+                foreach(XmlNode item in d.SelectNodes("/Settings/CustomBackupRoots/Root"))
+                {
+                    string folder=(item.InnerText??"").Trim();
+                    if(folder.Length>0 && folder.Length<=1024 && Path.IsPathRooted(folder) && !customRoots.Contains(folder) && customRoots.Count<40)customRoots.Add(folder);
+                }
+                if(recovered || applyNewDesign)SaveConfig();
+                else configLoadStatus="Konfiguracja prawidłowa";
+            }
+            catch(Exception ex){configLoadStatus="Błąd wczytywania konfiguracji: "+ex.GetBaseException().Message;AppendLog(configLoadStatus);}
         }
+
         private void AddXml(XmlDocument d,XmlElement parent,string name,string value)
         {
             XmlElement e=d.CreateElement(name);e.InnerText=value??"";parent.AppendChild(e);
@@ -3897,13 +4215,17 @@ namespace NaprawaPC.WindowsSwitcher
         {
             FolderBrowserDialog d=new FolderBrowserDialog();d.Description="Wybierz dodatkowy folder do kopii zapasowej.";
             if(d.ShowDialog()==DialogResult.OK) {
-                if(!customRoots.Contains(d.SelectedPath))customRoots.Add(d.SelectedPath);
-                AppendLog("Dodano folder dodatkowy: "+d.SelectedPath);
+                string selected=Path.GetFullPath(d.SelectedPath);
+                if(customRoots.Contains(selected)){MessageBox.Show("Ten folder jest już na liście kopii.");return;}
+                if(customRoots.Count>=40){MessageBox.Show("Można dodać maksymalnie 40 dodatkowych folderów.");return;}
+                customRoots.Add(selected);
+                SaveConfig();
+                AppendLog("Dodano folder dodatkowy: "+selected);
             }
         }
         private void RemoveCustomFolder()
         {
-            if(customRoots.Count>0){string s=customRoots[customRoots.Count-1];customRoots.RemoveAt(customRoots.Count-1);AppendLog("Usunięto ostatni folder dodatkowy: "+s);}
+            if(customRoots.Count>0){string s=customRoots[customRoots.Count-1];customRoots.RemoveAt(customRoots.Count-1);SaveConfig();AppendLog("Usunięto ostatni folder dodatkowy: "+s);}
         }
 
 
@@ -4152,7 +4474,7 @@ namespace NaprawaPC.WindowsSwitcher
             }
             XmlElement errs=d.CreateElement("Errors");root.AppendChild(errs);
             foreach(string err in errors) {XmlElement n=d.CreateElement("Error");n.InnerText=err;errs.AppendChild(n);}
-            d.Save(r.Manifest);
+            SaveXmlSafely(d,r.Manifest,5);
         }
 
         private void BackupCompleted(object sender,RunWorkerCompletedEventArgs e)

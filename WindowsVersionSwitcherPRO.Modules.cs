@@ -68,7 +68,7 @@ namespace NaprawaPC.WindowsSwitcher
         private string pendingUpdateChannel = "", pendingUpdateRegion = "", pendingUpdateLanguage = "", pendingUpdateFeed = "";
         private string pendingUpdateSignerThumbprint = "";
         private string updaterSettingsPath = "";
-        private const string ProgramVersion = "1.0.0.70";
+        private const string ProgramVersion = "1.0.0.71";
         // Jeden adres wbudowany w aplikację — użytkownicy nie wpisują manifestów ani serwerów.
         private string GitHubReleaseBaseUrl
         {
@@ -378,7 +378,7 @@ namespace NaprawaPC.WindowsSwitcher
                     field.InnerText=values.ContainsKey(key)?values[key]:"Nieudostępnione";snapshot.AppendChild(field);
                 }
                 d.DocumentElement.AppendChild(snapshot);
-                string path=GetComputerSnapshotsPath();Directory.CreateDirectory(Path.GetDirectoryName(path));d.Save(path);
+                string path=GetComputerSnapshotsPath();Directory.CreateDirectory(Path.GetDirectoryName(path));SaveXmlSafely(d,path,8);
                 AppendLog("Zapisano profil komputera do porównania: "+name);
                 RefreshComputerSnapshots();
                 MessageBox.Show("Profil komputera zapisany lokalnie:\r\n"+path,"Porównanie komputerów");
@@ -410,7 +410,8 @@ namespace NaprawaPC.WindowsSwitcher
             pick.Multiselect=false;
             if(pick.ShowDialog()!=DialogResult.OK)return;
             try {
-                XmlDocument incoming=new XmlDocument();incoming.XmlResolver=null;incoming.Load(pick.FileName);
+                XmlDocument incoming;string importError;
+                if(!TryLoadXmlDocument(pick.FileName,out incoming,out importError))throw new InvalidDataException("Nie można bezpiecznie odczytać profili: "+importError);
                 if(incoming.DocumentElement==null || incoming.DocumentElement.Name!="ComputerSnapshots")
                     throw new InvalidDataException("Wybrany plik nie jest prawidłowym zestawem profili komputerów.");
                 XmlDocument local=LoadComputerSnapshots();
@@ -432,7 +433,7 @@ namespace NaprawaPC.WindowsSwitcher
                     local.DocumentElement.AppendChild(copy);imported++;
                 }
                 if(imported==0){MessageBox.Show("Plik nie zawiera nowych profili do zaimportowania.");return;}
-                string path=GetComputerSnapshotsPath();Directory.CreateDirectory(Path.GetDirectoryName(path));local.Save(path);
+                string path=GetComputerSnapshotsPath();Directory.CreateDirectory(Path.GetDirectoryName(path));SaveXmlSafely(local,path,8);
                 RefreshComputerSnapshots();AppendLog("Zaimportowano profile z drugiego komputera: "+imported);
                 MessageBox.Show("Zaimportowano profile: "+imported+"\r\nPlik danych: "+path,"Porównanie komputerów");
             } catch(Exception ex){MessageBox.Show("Nie udało się zaimportować profili: "+ex.Message);}
@@ -484,7 +485,7 @@ namespace NaprawaPC.WindowsSwitcher
                 XmlDocument d=LoadComputerSnapshots();XmlNode target=null;
                 foreach(XmlNode node in d.SelectNodes("/ComputerSnapshots/Snapshot"))
                     if(node.Attributes["id"]!=null && node.Attributes["id"].Value==id){target=node;break;}
-                if(target!=null){d.DocumentElement.RemoveChild(target);d.Save(GetComputerSnapshotsPath());}
+                if(target!=null){d.DocumentElement.RemoveChild(target);SaveXmlSafely(d,GetComputerSnapshotsPath(),8);}
                 RefreshComputerSnapshots();AppendLog("Usunięto profil porównania komputera: "+id);
             } catch(Exception ex){MessageBox.Show("Nie udało się usunąć profilu: "+ex.Message);}
         }
@@ -954,7 +955,7 @@ namespace NaprawaPC.WindowsSwitcher
 
         private string GetOfficialUpdatePackageUrl()
         {
-            return OfficialUpdateBaseUrl+"KomputeroweCentrumSerwisu_FIX070_INSTALATOR.exe";
+            return OfficialUpdateBaseUrl+"KomputeroweCentrumSerwisu_FIX071_INSTALATOR.exe";
         }
         private string GetOfficialReleaseCatalogUrl()
         {
@@ -1243,7 +1244,7 @@ namespace NaprawaPC.WindowsSwitcher
                 using(StreamReader reader=new StreamReader(response.GetResponseStream(),Encoding.UTF8))
                 {
                     string json=reader.ReadToEnd();
-                    string[] required={"KomputeroweCentrumSerwisu_FIX070_INSTALATOR.exe","KomputeroweCentrumSerwisu_FIX070_PORTABLE.exe","manifest-stable.xml","manifest-beta.xml","releases.json","SHA256SUMS.txt"};
+                    string[] required={"KomputeroweCentrumSerwisu_FIX071_INSTALATOR.exe","KomputeroweCentrumSerwisu_FIX071_PORTABLE.exe","manifest-stable.xml","manifest-beta.xml","releases.json","SHA256SUMS.txt"};
                     List<string> missing=new List<string>();foreach(string name in required)if(json.IndexOf(name,StringComparison.OrdinalIgnoreCase)<0)missing.Add(name);
                     if(missing.Count>0)throw new InvalidDataException("W najnowszym wydaniu GitHub brakuje assetów: "+String.Join(", ",missing.ToArray()));
                     string tag=ReadJsonStringProperty(json,"tag_name");
@@ -1621,7 +1622,7 @@ namespace NaprawaPC.WindowsSwitcher
                 d.DocumentElement.AppendChild(item);
                 while(d.DocumentElement.SelectNodes("Event").Count>200)
                     d.DocumentElement.RemoveChild(d.DocumentElement.FirstChild);
-                d.Save(updaterHistoryPath);
+                SaveXmlSafely(d,updaterHistoryPath,8);
                 LoadUpdaterHistory();
             }
             catch(Exception ex){AppendLog("Nie zapisano historii aktualizacji: "+ex.Message);}
@@ -1674,7 +1675,7 @@ namespace NaprawaPC.WindowsSwitcher
                 if(MessageBox.Show("Usunąć "+archived.Count+" archiwalnych wpisów poprzedniego serwera naprawapclaptop.pl?\r\n\r\nBieżące wpisy GitHub zostaną zachowane.","Czyszczenie archiwalnych wpisów",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2)!=DialogResult.Yes)return;
 
                 foreach(XmlNode item in archived)root.RemoveChild(item);
-                d.Save(updaterHistoryPath);
+                SaveXmlSafely(d,updaterHistoryPath,8);
                 LoadUpdaterHistory();
                 AppendUpdaterHistory("Historia","Oczyszczono archiwum","Usunięto "+archived.Count+" wpisów starego serwera; bieżąca historia GitHub została zachowana.");
             }
@@ -1886,7 +1887,7 @@ namespace NaprawaPC.WindowsSwitcher
 
                 string dir=Path.GetDirectoryName(updaterSettingsPath);
                 if(!Directory.Exists(dir))Directory.CreateDirectory(dir);
-                d.Save(updaterSettingsPath);
+                SaveXmlSafely(d,updaterSettingsPath,8);
 
                 savedProgramChannel=updaterChannelBox!=null && updaterChannelBox.SelectedIndex==1?"Beta / wersja testowa":"Stable / wersja normalna";
                 ApplyUpdaterSchedule();
@@ -1965,7 +1966,7 @@ namespace NaprawaPC.WindowsSwitcher
             if(d.ShowDialog()!=DialogResult.OK)return;
             string channel=updaterChannelBox!=null && updaterChannelBox.SelectedIndex==1?"beta":"stable";
             string sample="<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n"+
-                "<Update version=\"1.0.0.70\" channel=\""+channel+"\" region=\"global\" language=\"all\" architecture=\"any\" packageUrl=\""+
+                "<Update version=\"1.0.0.71\" channel=\""+channel+"\" region=\"global\" language=\"all\" architecture=\"any\" packageUrl=\""+
                 GetOfficialUpdatePackageUrl()+"\" sha256=\"WSTAW_64_ZNAKI_SHA256\">\r\n"+
                 "  <Notes lang=\"pl\">Wydanie "+ProgramVersion+"</Notes>\r\n"+
                 "  <Notes lang=\"en\">Release "+ProgramVersion+"</Notes>\r\n"+
@@ -1992,7 +1993,7 @@ namespace NaprawaPC.WindowsSwitcher
             string channel=updaterChannelBox!=null && updaterChannelBox.SelectedIndex==1?"beta":"stable";
             string manifestName=channel=="beta"?"manifest-beta.xml":"manifest-stable.xml";
             string folder=Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"GlobalUpdateServer");
-            string packageName="KomputeroweCentrumSerwisu_FIX070_INSTALATOR.exe";
+            string packageName="KomputeroweCentrumSerwisu_FIX071_INSTALATOR.exe";
             string packagePath=Path.Combine(folder,packageName);
             string manifestPath=Path.Combine(folder,manifestName);
             try
@@ -2021,7 +2022,7 @@ namespace NaprawaPC.WindowsSwitcher
                 en.InnerText="Release "+ProgramVersion+" — Computer Service Center";
                 update.AppendChild(en);
                 update.AppendChild(doc.CreateElement("Mirrors"));
-                doc.Save(manifestPath);
+                SaveXmlSafely(doc,manifestPath,4);
 
                 string info=Path.Combine(folder,"README_PUBLISH.txt");
                 File.WriteAllText(info,
@@ -2598,8 +2599,18 @@ try {
             {
                 string cfg=Path.Combine(latest,"settings.xml");
                 string channels=Path.Combine(latest,"update_channels.xml");
-                if(File.Exists(cfg)){Directory.CreateDirectory(Path.GetDirectoryName(configPath));File.Copy(cfg,configPath,true);}
-                if(File.Exists(channels)){Directory.CreateDirectory(Path.GetDirectoryName(updaterSettingsPath));File.Copy(channels,updaterSettingsPath,true);}
+                if(File.Exists(cfg))
+                {
+                    XmlDocument importedConfig;string configError;
+                    if(!TryLoadXmlDocument(cfg,out importedConfig,out configError) || !IsValidSettingsDocument(importedConfig,out configError))throw new InvalidDataException("Kopia konfiguracji jest nieprawidłowa: "+configError);
+                    SaveConfig();CreateConfigBackupSnapshot();SaveXmlSafely(importedConfig,configPath,12);
+                }
+                if(File.Exists(channels))
+                {
+                    XmlDocument importedChannels;string channelsError;
+                    if(!TryLoadXmlDocument(channels,out importedChannels,out channelsError) || importedChannels.DocumentElement==null || importedChannels.DocumentElement.Name!="UpdateChannels")throw new InvalidDataException("Kopia kanałów aktualizacji jest nieprawidłowa: "+channelsError);
+                    SaveXmlSafely(importedChannels,updaterSettingsPath,8);
+                }
                 LoadConfig();LoadUpdaterSettings();
                 AppendUpdaterHistory("Kopia ustawień","Przywrócono","Z kopii "+latest);
                 MessageBox.Show("Przywrócono kopię ustawień. Nie jest to cofnięcie wersji programu — instalator EXE musi być cofnięty oddzielnie.");
@@ -2918,7 +2929,7 @@ try {
                 SetCaseValue(d,item,"Windows",GetOsCaption()+" / "+GetBuild());
                 SetCaseValue(d,item,"Machine",Environment.MachineName);
                 Directory.CreateDirectory(Path.GetDirectoryName(serviceCasesPath));
-                d.Save(serviceCasesPath);
+                SaveXmlSafely(d,serviceCasesPath,12);
                 AppendLog((created?"Utworzono":"Zaktualizowano")+" zgłoszenie serwisowe dla: "+serviceClientBox.Text);
                 LoadServiceCases();
                 MessageBox.Show((created?"Zgłoszenie utworzone":"Zgłoszenie zaktualizowane")+" lokalnie:\r\n"+serviceCasesPath,"Kartoteka serwisowa");
@@ -2940,7 +2951,7 @@ try {
                 XmlDocument d=LoadServiceCaseDocument();XmlElement target=null;
                 foreach(XmlNode node in d.DocumentElement.SelectNodes("Case"))
                     if(node.Attributes["id"]!=null && node.Attributes["id"].Value==selectedServiceCaseId){target=node as XmlElement;break;}
-                if(target!=null){d.DocumentElement.RemoveChild(target);d.Save(serviceCasesPath);}
+                if(target!=null){d.DocumentElement.RemoveChild(target);SaveXmlSafely(d,serviceCasesPath,12);}
                 AppendLog("Usunięto zgłoszenie z lokalnej kartoteki: "+selectedServiceCaseId);
                 ClearServiceCase();LoadServiceCases();
             } catch(Exception ex){MessageBox.Show("Nie udało się usunąć zgłoszenia: "+ex.Message);}
@@ -3145,7 +3156,7 @@ try {
                         item.SetAttribute("Length",new FileInfo(file).Length.ToString(CultureInfo.InvariantCulture));
                         item.SetAttribute("SHA256",ComputeSha256(file));root.AppendChild(item);
                     }
-                    d.Save(baseline);
+                    SaveXmlSafely(d,baseline,5);
                     report.AppendLine("Utworzono wzorzec: "+baseline);
                     report.AppendLine("Liczba plików: "+candidates.Count);
                     foreach(string f in candidates)report.AppendLine("[BASELINE] "+f+" | "+ComputeSha256(f));
@@ -3214,11 +3225,17 @@ try {
             ButtonAt(intro,"IMPORTUJ KONFIGURACJĘ",270,98,240,delegate{ImportConfiguration();});
             ButtonAt(intro,"OTWÓRZ FOLDER DANYCH",522,98,220,delegate{OpenDataFolder();});
             Panel safety=Card(p,"KOPIA USTAWIEŃ PRZED IMPORTEM",10,195,950,145);
-            LabelAt(safety,"Przed importem aktualna konfiguracja jest kopiowana do pliku .bak. Import obejmuje wyłącznie settings.xml — nie przenosi plików ani nie zmienia lokalizacji backupów.",18,45,900,42);
+            LabelAt(safety,"Przed importem aktualna konfiguracja trafia do rotacyjnej kopii .backup_*.xml. Import obejmuje wyłącznie settings.xml — nie przenosi plików ani nie zmienia lokalizacji backupów.",18,45,900,42);
             ButtonAt(safety,"UTWÓRZ KOPIĘ TERAZ",18,96,210,delegate{BackupConfigurationNow();});
             ButtonAt(safety,"OTWÓRZ PLIK USTAWIEŃ",240,96,220,delegate{OpenConfigurationFile();});
             Panel note=Card(p,"UWAGA",10,360,950,110);
             LabelAt(note,"Po imporcie uruchom program ponownie, aby zastosować wszystkie wybory i motyw. Zaimportowana ścieżka ISO lub manifestu może nie istnieć na tym komputerze — program nie pobiera ani nie przywraca tych plików automatycznie.",18,45,900,45);
+            Panel recovery=Card(p,"AUTOMATYCZNA OCHRONA / WALIDACJA / ODTWARZANIE KONFIGURACJI",10,480,950,165);
+            LabelAt(recovery,"Ustawienia są zapisywane atomowo. Przed zmianą poprzedni poprawny XML trafia do rotacyjnych kopii; przy uszkodzeniu pliku program próbuje odzyskać najnowszą prawidłową wersję.",18,43,900,42);
+            ButtonAt(recovery,"SPRAWDŹ KONFIGURACJĘ",18,100,210,delegate{ValidateConfigurationNow();});
+            ButtonAt(recovery,"PRZYWRÓĆ OSTATNIĄ KOPIĘ",240,100,235,delegate{RestoreLatestConfigBackup();});
+            ButtonAt(recovery,"OTWÓRZ KOPIE KONFIGURACJI",487,100,250,delegate{OpenConfigBackupFolder();});
+            p.AutoScrollMinSize=new Size(0,680);
         }
 
         private void BackupConfigurationNow()
@@ -3227,12 +3244,63 @@ try {
             {
                 SaveConfig();
                 if(!File.Exists(configPath)){MessageBox.Show("Nie znaleziono settings.xml.");return;}
-                string backup=configPath+".backup_"+DateTime.Now.ToString("yyyyMMdd_HHmmss")+".xml";
-                File.Copy(configPath,backup,false);
-                AppendLog("Utworzono kopię konfiguracji: "+backup);
+                string backup=CreateConfigBackupSnapshot();
+                if(String.IsNullOrEmpty(backup)){MessageBox.Show("Nie utworzono kopii konfiguracji.");return;}
+                AppendLog("Utworzono ręczną kopię konfiguracji: "+backup);
                 MessageBox.Show("Kopia konfiguracji zapisana:\r\n"+backup,"Kopia ustawień");
             }
-            catch(Exception ex){MessageBox.Show("Nie udało się wykonać kopii konfiguracji: "+ex.Message);}
+            catch(Exception ex){MessageBox.Show("Nie udało się wykonać kopii konfiguracji: "+ex.GetBaseException().Message);}
+        }
+
+        private void ValidateConfigurationNow()
+        {
+            try
+            {
+                SaveConfig();
+                XmlDocument document;string error;
+                bool valid=TryLoadXmlDocument(configPath,out document,out error) && IsValidSettingsDocument(document,out error);
+                List<string> backups=GetConfigBackupCandidates();int validBackups=0;
+                foreach(string file in backups){XmlDocument b;string e;if(TryLoadXmlDocument(file,out b,out e)&&IsValidSettingsDocument(b,out e))validBackups++;}
+                string report="WYNIK KONTROLI KONFIGURACJI\r\n\r\nPlik: "+configPath+"\r\nStan: "+(valid?"POPRAWNY":"BŁĄD — "+error)+"\r\nKopie znalezione: "+backups.Count+"\r\nKopie poprawne: "+validBackups+"\r\nStatus ostatniego wczytania: "+configLoadStatus+"\r\n\r\nRotacja: maksymalnie 12 kopii XML.\r\nZapis: plik tymczasowy → walidacja XML → atomowa podmiana.";
+                AppendLog(valid?"Kontrola konfiguracji: PASS; kopie poprawne="+validBackups:"Kontrola konfiguracji: FAIL; "+error);
+                MessageBox.Show(report,"Kontrola konfiguracji",MessageBoxButtons.OK,valid&&validBackups>0?MessageBoxIcon.Information:MessageBoxIcon.Warning);
+            }
+            catch(Exception ex){MessageBox.Show("Kontrola konfiguracji nie powiodła się: "+ex.GetBaseException().Message);}
+        }
+
+        private void RestoreLatestConfigBackup()
+        {
+            try
+            {
+                string selected="";
+                foreach(string candidate in GetConfigBackupCandidates())
+                {
+                    XmlDocument d;string error;
+                    if(TryLoadXmlDocument(candidate,out d,out error) && IsValidSettingsDocument(d,out error)){selected=candidate;break;}
+                }
+                if(String.IsNullOrEmpty(selected)){MessageBox.Show("Nie znaleziono poprawnej kopii ustawień.","Odzyskiwanie konfiguracji",MessageBoxButtons.OK,MessageBoxIcon.Warning);return;}
+                if(MessageBox.Show("Przywrócić konfigurację z kopii?\r\n\r\n"+selected+"\r\n\r\nBieżące ustawienia zostaną najpierw zapisane do nowej kopii.","Potwierdź odzyskiwanie",MessageBoxButtons.YesNo,MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2)!=DialogResult.Yes)return;
+                SaveConfig();CreateConfigBackupSnapshot();
+                XmlDocument backup;string loadError;
+                if(!TryLoadXmlDocument(selected,out backup,out loadError) || !IsValidSettingsDocument(backup,out loadError))throw new InvalidDataException("Wybrana kopia przestała być poprawna: "+loadError);
+                SaveXmlSafely(backup,configPath,12);
+                LoadConfig();selectedIso=savedIsoPath;ApplyTheme();ApplyInterfaceStyle();
+                string page=IsKnownPageId(savedLastPage)?savedLastPage:"Pulpit";ShowPage(page);
+                AppendLog("Przywrócono konfigurację z kopii: "+selected);
+                MessageBox.Show("Konfiguracja została przywrócona. Moduł i wygląd zostały odświeżone.","Odzyskiwanie konfiguracji",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            }
+            catch(Exception ex){MessageBox.Show("Nie udało się przywrócić konfiguracji: "+ex.GetBaseException().Message,"Odzyskiwanie konfiguracji",MessageBoxButtons.OK,MessageBoxIcon.Error);}
+        }
+
+        private void OpenConfigBackupFolder()
+        {
+            try
+            {
+                string dir=Path.GetDirectoryName(configPath);if(!Directory.Exists(dir))Directory.CreateDirectory(dir);
+                if(Directory.GetFiles(dir,Path.GetFileName(configPath)+".backup_*.xml").Length==0)CreateConfigBackupSnapshot();
+                Process.Start("explorer.exe",dir);
+            }
+            catch(Exception ex){MessageBox.Show("Nie udało się otworzyć folderu kopii: "+ex.GetBaseException().Message);}
         }
 
         private void ExportConfiguration()
@@ -3259,23 +3327,17 @@ try {
             {
                 FileInfo info=new FileInfo(d.FileName);
                 if(info.Length>1024*1024)throw new InvalidDataException("Plik konfiguracji jest większy niż 1 MB.");
-                XmlDocument imported=new XmlDocument();imported.XmlResolver=null;imported.Load(d.FileName);
+                XmlDocument imported;string importLoadError;
+                if(!TryLoadXmlDocument(d.FileName,out imported,out importLoadError))throw new InvalidDataException("Nie można bezpiecznie odczytać konfiguracji: "+importLoadError);
                 if(imported.DocumentElement==null || imported.DocumentElement.Name!="Settings")
                     throw new InvalidDataException("Nieprawidłowy format. Oczekiwany główny element <Settings>.");
-                string[] allowed=new string[]{"Theme","ProgramChannel","WindowsChannel","Target","LastManifest","Edition","Architecture","Language","InstallMode","SelectedIso","Release"};
-                foreach(XmlNode child in imported.DocumentElement.ChildNodes)
-                {
-                    if(child.NodeType!=XmlNodeType.Element)continue;
-                    bool known=false;
-                    foreach(string key in allowed)if(child.Name==key){known=true;break;}
-                    if(!known)throw new InvalidDataException("Nieznane pole konfiguracji: "+child.Name);
-                    if(child.InnerText.Length>8192)throw new InvalidDataException("Wartość konfiguracji jest zbyt długa: "+child.Name);
-                }
+                string validationError;
+                if(!IsValidSettingsDocument(imported,out validationError))throw new InvalidDataException(validationError);
                 if(MessageBox.Show("Import zastąpi bieżące ustawienia programu. Najpierw utworzę kopię aktualnego settings.xml.\r\n\r\nKontynuować?",
                     "Import konfiguracji",MessageBoxButtons.YesNo,MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2)!=DialogResult.Yes)return;
-                BackupConfigurationNow();
-                File.Copy(d.FileName,configPath,true);
-                LoadConfig();
+                SaveConfig();CreateConfigBackupSnapshot();
+                SaveXmlSafely(imported,configPath,12);
+                LoadConfig();selectedIso=savedIsoPath;ApplyTheme();ApplyInterfaceStyle();
                 AppendLog("Zaimportowano konfigurację z: "+d.FileName);
                 MessageBox.Show("Konfiguracja została zaimportowana. Zamknij i uruchom program ponownie, aby zastosować wszystkie ustawienia.");
             }
@@ -4803,7 +4865,7 @@ try {
                     AddCaseValue(d,item,"When",r.When.ToString("o"));AddCaseValue(d,item,"Level",r.Level);
                     AddCaseValue(d,item,"Title",r.Title);AddCaseValue(d,item,"Message",r.Message);
                 }
-                d.Save(notificationsPath);
+                SaveXmlSafely(d,notificationsPath,8);
             }
             catch(Exception ex){try{File.AppendAllText(activityLogPath,"Notification save error: "+ex.Message+Environment.NewLine);}catch{}}
         }
@@ -4901,7 +4963,7 @@ try {
                 root.SetAttribute("PhysicalConfirmed",schedulerPhysicalConfirmed?"1":"0");
                 root.SetAttribute("NextRun",schedulerNextRun==DateTime.MinValue?"":schedulerNextRun.ToString("o"));
                 root.SetAttribute("LastRun",schedulerLastRun==DateTime.MinValue?"":schedulerLastRun.ToString("o"));
-                d.AppendChild(root);d.Save(backupSchedulePath);
+                d.AppendChild(root);SaveXmlSafely(d,backupSchedulePath,8);
             }
             catch(Exception ex){AppendLog("Backup scheduler save error: "+ex.Message);}
         }
@@ -5963,7 +6025,7 @@ try {
                 AddCaseValue(d,item,"Name",name);AddCaseValue(d,item,"Vendor",compatibilityDbVendorBox.Text.Trim());
                 AddCaseValue(d,item,"Target",compatibilityDbTargetBox.Text.Trim());AddCaseValue(d,item,"Note",compatibilityDbNoteBox.Text.Trim());
                 d.DocumentElement.AppendChild(item);string dir=Path.GetDirectoryName(compatibilityDbPath);if(!Directory.Exists(dir))Directory.CreateDirectory(dir);
-                d.Save(compatibilityDbPath);AppendLog("Dodano wpis do Windows Compatibility DB: "+name);
+                SaveXmlSafely(d,compatibilityDbPath,8);AppendLog("Dodano wpis do Windows Compatibility DB: "+name);
                 compatibilityDbNameBox.Clear();compatibilityDbNoteBox.Clear();RefreshCompatibilityDatabase();
             }catch(Exception ex){MessageBox.Show("Nie zapisano bazy zgodności: "+ex.Message);}
         }
@@ -5990,7 +6052,7 @@ try {
                         }}catch{}}
                     catch{}
                 }
-                string dir=Path.GetDirectoryName(compatibilityDbPath);if(!Directory.Exists(dir))Directory.CreateDirectory(dir);d.Save(compatibilityDbPath);
+                string dir=Path.GetDirectoryName(compatibilityDbPath);if(!Directory.Exists(dir))Directory.CreateDirectory(dir);SaveXmlSafely(d,compatibilityDbPath,8);
                 AppendLog("Dodano do bazy zgodności "+added+" aplikacji do ręcznej weryfikacji.");RefreshCompatibilityDatabase();
             }catch(Exception ex){MessageBox.Show("Skan aplikacji nie powiódł się: "+ex.Message);}
         }

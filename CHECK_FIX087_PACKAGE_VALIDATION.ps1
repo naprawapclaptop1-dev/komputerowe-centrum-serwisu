@@ -15,7 +15,7 @@ $checks += [pscustomobject]@{ Passed = [bool]($release.Contains('FIX087_PACKAGE_
 $checks += [pscustomobject]@{ Passed = [bool]($source.Contains('"-c","core.longpaths=true","clone"')); Name = 'Clone enables long paths before checkout' }
 $checks += [pscustomobject]@{ Passed = [bool]($source.Contains('".tools"') -and $source.Contains('".tools/"')); Name = 'Cache is excluded from copy and ignored in repository' }
 $checks += [pscustomobject]@{ Passed = [bool]($workflowCheck.Contains('[pscustomobject]') -and $workflowCheck.Contains('$check.Passed')); Name = 'Workflow checks use stable object records, not flattened nested arrays' }
-$checks += [pscustomobject]@{ Passed = [bool]((Get-Content -LiteralPath (Join-Path $root 'VERSION.txt') -Raw).Contains('1.0.0.70')); Name = 'Application version remains 1.0.0.70' }
+$checks += [pscustomobject]@{ Passed = [bool]((Get-Content -LiteralPath (Join-Path $root 'VERSION.txt') -Raw).Contains('1.0.0.71')); Name = 'Application version remains 1.0.0.71' }
 $failed = 0
 foreach ($check in $checks) {
     if ($check.Passed) { Write-Host ('[PASS] ' + $check.Name) }

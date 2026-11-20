@@ -1,6 +1,6 @@
 @echo off
 setlocal EnableExtensions DisableDelayedExpansion
-title KOMPUTEROWE CENTRUM SERWISU FIX123 - BUDOWANIE WSZYSTKICH ELEMENTOW
+title KOMPUTEROWE CENTRUM SERWISU FIX129 - BUDOWANIE WSZYSTKICH ELEMENTOW
 pushd "%~dp0"
 set "LOGDIR=%~dp0dist\build-logs"
 if not exist "%LOGDIR%" mkdir "%LOGDIR%"
@@ -10,11 +10,11 @@ set "P_RC=1"
 set "M_RC=1"
 set "X_RC=0"
 set "V_RC=1"
->"%LOGDIR%\BUILD_SUMMARY.txt" echo KOMPUTEROWE CENTRUM SERWISU FIX123 - PODSUMOWANIE BUDOWANIA
+>"%LOGDIR%\BUILD_SUMMARY.txt" echo KOMPUTEROWE CENTRUM SERWISU FIX129 - PODSUMOWANIE BUDOWANIA
 >>"%LOGDIR%\BUILD_SUMMARY.txt" echo Date: %DATE% %TIME%
 echo ============================================================
 echo KOMPUTEROWE CENTRUM SERWISU - CENTRUM MIGRACJI I NAPRAW
-echo FIX123 - MENEDZER BUDOWANIA / PLYNNE ETAPY BEZ BLOKOW IF
+echo FIX129 - MENEDZER BUDOWANIA / PLYNNE ETAPY BEZ BLOKOW IF
 echo ============================================================
 echo.
 

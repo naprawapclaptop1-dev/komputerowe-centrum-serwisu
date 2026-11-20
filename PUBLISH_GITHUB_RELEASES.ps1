@@ -114,9 +114,9 @@ try {
   if($authCheck.Output.Trim()){Write-Host $authCheck.Output.TrimEnd()}
   if($authCheck.ExitCode -ne 0){throw "Brak autoryzacji GitHub CLI po etapie synchronizacji. Wróć do głównego CMD i dokończ jednorazowe logowanie w przeglądarce."}
 
-  $Version="1.0.0.70"; $Tag="v$Version"
-  $SetupName="KomputeroweCentrumSerwisu_FIX070_INSTALATOR.exe"
-  $PortableName="KomputeroweCentrumSerwisu_FIX070_PORTABLE.exe"
+  $Version="1.0.0.71"; $Tag="v$Version"
+  $SetupName="KomputeroweCentrumSerwisu_FIX071_INSTALATOR.exe"
+  $PortableName="KomputeroweCentrumSerwisu_FIX071_PORTABLE.exe"
   $Installer=Join-Path $Root "dist\installers\$SetupName"
   $Portable=Join-Path $Root "dist\portable\$PortableName"
   foreach($path in @($Installer,$Portable)){if(!(Test-Path -LiteralPath $path -PathType Leaf)){throw "Brak świeżego artefaktu kompilacji: $path"};if((Get-Item -LiteralPath $path).Length -le 0){throw "Plik wynikowy jest pusty: $path"}}

@@ -1,0 +1,35 @@
+FIX129 — MAPA MODUŁÓW
+====================
+
+Aplikacja / wersja: KOMPUTEROWE CENTRUM SERWISU 1.0.0.71 (FIX071)
+Pakiet źródłowy: FIX129
+
+WindowsVersionSwitcherPRO.cs
+- pola stanu i konfiguracji okna
+- bezpieczny parser XML i walidacja schematu Settings
+- wspólny atomowy zapis XML i kopie rotacyjne
+- automatyczne odzyskiwanie settings.xml z ostatniej poprawnej kopii
+- zapis/odtworzenie ostatniego modułu, okna i dodatkowych folderów backupu
+- skróty pulpitu do istniejących modułów serwisowych
+
+WindowsVersionSwitcherPRO.Modules.cs
+- panel Konfiguracja PRO: sprawdzenie, przywracanie i katalog kopii
+- jawne potwierdzenie importu / rollbacku
+- bezpieczny zapis profili komputerów i manifestów
+- zachowane moduły: Hardware Intelligence PRO, Backup Recovery ULTIMATE,
+  Migration Intelligence PRO, Driver Download Center, Service Report Designer,
+  Naprawa Windows, Serwis klientów, Naprawa offline, Operation Recovery Center
+
+Test / bramka
+- CHECK_FIX129_CONFIG_PERSISTENCE.ps1
+- CHECK_SOURCE.cmd
+- VALIDATE_FIX100_PACKAGE.ps1
+- FIX099_SOURCE_ALLOWLIST.txt
+- FIX099_POWERSHELL_MANIFEST.txt
+- CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1
+
+Zasady wydania
+- FIX128 pozostaje bazą działającą i nietkniętą.
+- FIX129 zmienia kod aplikacji, zatem produkt otrzymuje numer 1.0.0.71 / FIX071.
+- Wydanie GitHub v1.0.0.70 i jego sześć assetów nie są nadpisywane ani usuwane.
+- Jedyny entrypoint CMD: URUCHOM_TYLKO_TEN_PLIK.cmd.

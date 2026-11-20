@@ -24,7 +24,7 @@ Add-Check ($html.Contains('prezentacja.mp4') -and $html.Contains('prezentacja.vt
 Add-Check ((Test-Path -LiteralPath (Join-Path $root 'website/media/prezentacja.mp4')) -and (Test-Path -LiteralPath (Join-Path $root 'website/media/prezentacja.vtt')) -and (Test-Path -LiteralPath (Join-Path $root 'website/media/prezentacja-en.vtt'))) 'Original presentation media and both subtitle files exist in the package'
 Add-Check ($js.Contains('video.querySelectorAll(''track[kind="captions"]'')') -and $js.Contains('track.track.mode = selected ? ''showing'' : ''disabled''')) 'Language switch selects the matching caption track without replacing the other track'
 Add-Check ($css.Contains('.support-public-warning') -and $css.Contains('.support-ack') -and $css.Contains(':focus-visible')) 'New privacy and keyboard-accessibility elements have dedicated styles'
-Add-Check ($html.Contains('software-version" content="1.0.0.70"') -and $js.Contains("const productVersion = '1.0.0.70'")) 'Product version remains unchanged at 1.0.0.70'
+Add-Check ($html.Contains('software-version" content="1.0.0.71"') -and $js.Contains("const productVersion = '1.0.0.71'")) 'Product version remains unchanged at 1.0.0.71'
 $failed = @($checks | Where-Object { -not $_.Passed })
 foreach ($check in $checks) {
     if ($check.Passed) { Write-Host ('[PASS] ' + $check.Name) }

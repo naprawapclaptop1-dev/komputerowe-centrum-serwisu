@@ -13,7 +13,7 @@ $checks += [pscustomobject]@{ Passed = [bool]($source.Contains('FIX085_PACKAGE_M
 $checks += [pscustomobject]@{ Passed = [bool]($release.Contains('FIX085_PACKAGE_MARKER.txt') -and $release.Contains('PACKAGE=FIX085')); Name = 'Release publisher checks FIX085 marker' }
 $checks += [pscustomobject]@{ Passed = [bool]$source.Contains('"-c","core.longpaths=true","clone"'); Name = 'Clone enables long paths before checkout' }
 $checks += [pscustomobject]@{ Passed = [bool]($source.Contains('".tools"') -and $source.Contains('".tools/"')); Name = 'Cache is excluded from copy and ignored in repository' }
-$checks += [pscustomobject]@{ Passed = [bool]( (Get-Content -LiteralPath (Join-Path $root 'VERSION.txt') -Raw).Contains('1.0.0.70') ); Name = 'Application version remains 1.0.0.70' }
+$checks += [pscustomobject]@{ Passed = [bool]( (Get-Content -LiteralPath (Join-Path $root 'VERSION.txt') -Raw).Contains('1.0.0.71') ); Name = 'Application version remains 1.0.0.71' }
 $failed = 0
 foreach ($check in $checks) { if ($check.Passed) { Write-Host ('[PASS] ' + $check.Name) } else { Write-Host ('[FAIL] ' + $check.Name); $failed++ } }
 if ($failed -gt 0) { throw ("$failed FIX085 regression checks failed.") }
