@@ -1,0 +1,95 @@
+name: Fan Control PRO AI FIX007 — ONE ZIP + UAC launch fix
+on:
+  push:
+    branches:
+      - fan-control-pro-ai-fix007-elevation-one-zip
+    paths:
+      - 'NAPRAWA_PC_FAN_CONTROL_PRO_AI_FIX002/**'
+      - '.github/workflows/fan-control-fix007-elevation-one-zip.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Restore
+        run: dotnet restore NAPRAWA_PC_FAN_CONTROL_PRO_AI_FIX002/NAPRAWA_PC_FAN_CONTROL_PRO_AI.csproj
+      - name: Publish Windows x64
+        run: dotnet publish NAPRAWA_PC_FAN_CONTROL_PRO_AI_FIX002/NAPRAWA_PC_FAN_CONTROL_PRO_AI.csproj -c Release -r win-x64 --self-contained true -p:PublishReadyToRun=true -o artifacts/NaprawaPCFanControl
+      - name: Verify published EXE
+        shell: pwsh
+        run: |
+          if (!(Test-Path "artifacts/NaprawaPCFanControl/NaprawaPCFanControl.exe")) { throw "Published EXE is missing." }
+      - name: Verify installer elevation flag
+        shell: pwsh
+        run: |
+          $script = Get-Content "NAPRAWA_PC_FAN_CONTROL_PRO_AI_FIX002/INSTALLER.iss" -Raw
+          if ($script -notmatch '(?im)^Filename: "\{app\}\\\{#AppExe\}".*Flags:.*postinstall.*runascurrentuser') {
+            throw "Installer must launch the app with runascurrentuser to avoid UAC error 740."
+          }
+      - name: Install Inno Setup
+        shell: pwsh
+        run: choco install innosetup -y --no-progress
+      - name: Build Setup.exe
+        shell: pwsh
+        run: |
+          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+          if (!(Test-Path $iscc)) { $iscc = "${env:ProgramFiles}\Inno Setup 6\ISCC.exe" }
+          if (!(Test-Path $iscc)) { throw "ISCC.exe not found." }
+          & $iscc "NAPRAWA_PC_FAN_CONTROL_PRO_AI_FIX002/INSTALLER.iss"
+          if ($LASTEXITCODE -ne 0) { throw "Inno Setup compilation failed." }
+          if (!(Test-Path "artifacts/installer/NaprawaPC_FanControl_PRO_AI_2.0.5_FIX007_Setup.exe")) { throw "Setup.exe missing." }
+      - name: Assemble one ZIP — Setup.exe + Portable folder
+        shell: pwsh
+        run: |
+          $stage = "artifacts/ONE_ZIP_FIX007"
+          if (Test-Path $stage) { Remove-Item $stage -Recurse -Force }
+          New-Item -ItemType Directory -Path "$stage/Portable" -Force | Out-Null
+          Copy-Item "artifacts/installer/NaprawaPC_FanControl_PRO_AI_2.0.5_FIX007_Setup.exe" "$stage/Setup.exe"
+          Copy-Item "artifacts/NaprawaPCFanControl/*" "$stage/Portable/" -Recurse -Force
+          Set-Content -Path "$stage/README.txt" -Encoding UTF8 -Value @(
+            "NAPRAWA PC FAN CONTROL PRO AI 2.0.5 — FIX007",
+            "",
+            "JEDNA PACZKA ZIP. W tym archiwum nie ma kolejnego ZIP-a.",
+            "",
+            "Instalacja: uruchom Setup.exe i zaakceptuj UAC.",
+            "Wersja portable: otworz folder Portable i uruchom NaprawaPCFanControl.exe."
+          )
+          Compress-Archive -Path "$stage/*" -DestinationPath "artifacts/NAPRAWA_PC_FAN_CONTROL_PRO_AI_2.0.5_FIX007_ONE_ZIP.zip" -Force
+      - name: Verify final ZIP contents
+        shell: pwsh
+        run: |
+          $archive = "artifacts/NAPRAWA_PC_FAN_CONTROL_PRO_AI_2.0.5_FIX007_ONE_ZIP.zip"
+          if (!(Test-Path $archive)) { throw "Final ZIP missing." }
+          $verify = Join-Path $env:RUNNER_TEMP "fan-control-fix007-verify"
+          if (Test-Path $verify) { Remove-Item $verify -Recurse -Force }
+          Expand-Archive -Path $archive -DestinationPath $verify -Force
+          if (!(Test-Path "$verify/Setup.exe")) { throw "Setup.exe is not in the ZIP root." }
+          if (!(Test-Path "$verify/Portable/NaprawaPCFanControl.exe")) { throw "Portable EXE is missing." }
+          $nested = Get-ChildItem -Path $verify -Recurse -File -Filter "*.zip"
+          if ($nested.Count -gt 0) { throw "Nested ZIP detected in release package." }
+          $size = (Get-Item $archive).Length
+          if ($size -lt 50000000) { throw "Release ZIP is unexpectedly small." }
+          Write-Host "One ZIP verified. Size: $size bytes. Setup.exe + Portable EXE present. No nested ZIP."
+      - name: Publish direct ZIP download — no artifact wrapper
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $tag = "v2.0.5-FIX007"
+          $archive = "artifacts/NAPRAWA_PC_FAN_CONTROL_PRO_AI_2.0.5_FIX007_ONE_ZIP.zip"
+          gh release view $tag --repo ${{ github.repository }} *> $null
+          if ($LASTEXITCODE -eq 0) {
+            gh release upload $tag $archive --repo ${{ github.repository }} --clobber
+          } else {
+            gh release create $tag $archive --repo ${{ github.repository }} --title "NAPRAWA PC FAN CONTROL PRO AI 2.0.5 — FIX007" --notes "Pojedynczy ZIP. Setup.exe, README.txt i folder Portable. Bez zagnieżdżonych archiwów. Uruchamianie aplikacji z podwyższonymi uprawnieniami po instalacji — poprawka błędu 740." --target $env:GITHUB_SHA
+          }
+          if ($LASTEXITCODE -ne 0) { throw "Direct ZIP release upload failed." }
+          gh release view $tag --repo ${{ github.repository }} --json url,assets
