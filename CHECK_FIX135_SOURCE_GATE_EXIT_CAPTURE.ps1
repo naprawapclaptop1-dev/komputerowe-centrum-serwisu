@@ -24,12 +24,12 @@ $runnerPattern = '(?s)powershell\.exe[^\r\n]*-File "%~dp0%~1"[^\r\n]*>"%KCS_TEST
 $safeBlock = [regex]::Match($policy, '\$safePaths\s*=\s*@\((.*?)\)', [Text.RegularExpressions.RegexOptions]::Singleline).Groups[1].Value
 $currentBlock = [regex]::Match($policy, '\$currentTagChanges\s*=\s*@\((.*?)\)', [Text.RegularExpressions.RegexOptions]::Singleline).Groups[1].Value
 $required = @('CHECK_FIX135_SOURCE_GATE_EXIT_CAPTURE.ps1','FIX135_RELEASE_NOTES.txt','FIX135_MODULE_MAP.txt')
-Add-Check ($currentFixMatch.Success -and $currentFix -eq 'FIX135') 'CHECK_SOURCE declares active package FIX135'
-Add-Check ($cmd.StartsWith('@echo off') -and $cmd.Contains($reportName) -and $cmd.Contains($reportTempName)) 'Source gate is BOM-free CMD and uses FIX135 report identities'
+Add-Check ($currentFixMatch.Success -and $currentFix -match '^FIX\d{3}$') 'CHECK_SOURCE declares one valid active three-digit package identity'
+Add-Check ($cmd.StartsWith('@echo off') -and $cmd.Contains($reportName) -and $cmd.Contains($reportTempName)) 'Source gate is BOM-free CMD and uses report identities matching the active package'
 Add-Check ([regex]::IsMatch($cmd, $runnerPattern)) 'PowerShell child exit code is captured on the immediately following command line'
 Add-Check ($cmd.Contains('if "%KCS_TEST_RC%"=="0" goto :run_ps_check_pass') -and $cmd.Contains('set "KCS_CHECK_FAILED=1"')) 'PASS and FAIL handling remain explicit and independent'
 Add-Check ($cmd.Contains('call :run_ps_check "CHECK_FIX126_SOURCE_GATE_EXIT_CODE.ps1"') -and $cmd.Contains('call :run_ps_check "CHECK_FIX135_SOURCE_GATE_EXIT_CAPTURE.ps1"')) 'Historical FIX126 and new FIX135 regressions both remain active'
-Add-Check ($entry.Contains('FIX135') -and $worker.Contains('FIX135') -and $worker.Contains($reportName)) 'Launcher, worker and detailed report share active FIX135 identity'
+Add-Check ($entry.Contains($currentFix) -and $worker.Contains($currentFix) -and $worker.Contains($reportName)) 'Launcher, worker and detailed report share the active package identity'
 Add-Check (($required | Where-Object { $validator.Contains($_) }).Count -eq 3) 'Full-package validator requires all FIX135 artifacts'
 Add-Check (($required | Where-Object { $allow -contains $_ }).Count -eq 3) 'Explicit source allowlist includes all FIX135 artifacts'
 Add-Check (($required | Where-Object { $safeBlock.Contains($_) }).Count -eq 3) 'FIX135 regression and docs are safe tooling paths'

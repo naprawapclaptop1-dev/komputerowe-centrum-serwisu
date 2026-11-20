@@ -1,0 +1,9 @@
+FIX136 — NAPRAWA WEJŚĆ WERYFIKATORA I SPÓJNOŚCI WERSJI BUDOWANIA
+- Dodano brakujący CHECK_FIX072_REPOSITORY_INPUT.ps1 wymagany przez VERIFY_PAYLOAD.ps1 do obliczania SOURCE_SHA256.
+- Test wejść repozytorium potwierdza przypięte repozytorium GitHub, szablon repozytorium oraz niezmienną wersję produktu 1.0.0.72 / FIX072.
+- Dodano kontrolę spójności VERSION.txt, AssemblyInfo, modułu aktualizatora, portable, instalatora Inno Setup oraz kolejności bramek BUILD_ALL/worker.
+- Błędna mieszanka plików FIX071/FIX072 ma zostać wykryta w CHECK_SOURCE przed kompilacją, publikacją lub instalacją.
+- Historyczny CHECK_FIX135_SOURCE_GATE_EXIT_CAPTURE.ps1 korzysta teraz z dynamicznej tożsamości aktualnego pakietu i pozostaje aktywny.
+- Zaktualizowano walidator, allowlistę, manifest SHA-256, ochronę wydania, CHANGELOG, launcher i worker.
+- Bez zmian kodu C#, zasobów i receptury SETUP_MODERN.iss; wersja produktu pozostaje 1.0.0.72 / FIX072.
+Data: 2026-11-20

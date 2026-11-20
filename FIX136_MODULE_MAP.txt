@@ -1,0 +1,12 @@
+FIX136 — MAPA MODUŁÓW I TESTÓW
+
+Zakres:
+1. CHECK_FIX072_REPOSITORY_INPUT.ps1 — brakujący plik wymagany przez VERIFY_PAYLOAD.ps1; kontrola repozytorium i metadanych wersji.
+2. CHECK_FIX136_SOURCE_BUILD_IDENTITY.ps1 — kontrola zgodności VERSION.txt, AssemblyInfo, aktualizatora, plików budowania i instalatora; test fail-fast sekwencji build/publish/install.
+3. CHECK_FIX135_SOURCE_GATE_EXIT_CAPTURE.ps1 — historyczna regresja przechwytywania kodu wyjścia, dostosowana do dynamicznego numeru bieżącego pakietu.
+4. CHECK_SOURCE.cmd — uruchamia test wejść FIX072 i regresję spójności FIX136 przed etapem kompilacji.
+5. VALIDATE_FIX100_PACKAGE.ps1 / FIX099_SOURCE_ALLOWLIST.txt / FIX099_POWERSHELL_MANIFEST.txt — wymagania pakietu, jawna lista synchronizacji i integralność skryptów PowerShell.
+6. CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1 — klasyfikacja FIX136 jako zmian narzędziowych bez zmiany binarnego wydania produktu.
+
+Wersja produktu: 1.0.0.72 / FIX072.
+Numer pakietu narzędziowego: FIX136.
