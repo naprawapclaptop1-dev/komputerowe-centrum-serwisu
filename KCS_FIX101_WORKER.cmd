@@ -1,8 +1,8 @@
 @echo off
-rem FIX127 worker: runs inside the persistent cmd.exe /K host; build manager is isolated in a child cmd.exe.
+rem FIX128 worker: runs inside the persistent cmd.exe /K host; build manager is isolated in a child cmd.exe.
 setlocal EnableExtensions DisableDelayedExpansion
 chcp 65001 >nul
-title KOMPUTEROWE CENTRUM SERWISU - AUTOMATYCZNY START FIX127
+title KOMPUTEROWE CENTRUM SERWISU - AUTOMATYCZNY START FIX128
 set "ROOT=%~dp0"
 pushd "%ROOT%" >nul 2>&1
 if errorlevel 1 goto :path_fail
@@ -15,14 +15,14 @@ set "LOG=%LOGDIR%\00-AUTOMATYCZNY-START.log"
 set "STATUS=%LOGDIR%\FULL_RELEASE.status"
 set "RC=0"
 set "CHECKSTEP=initialization"
->"%LOG%" echo KOMPUTEROWE CENTRUM SERWISU FIX127
+>"%LOG%" echo KOMPUTEROWE CENTRUM SERWISU FIX128
 >>"%LOG%" echo Folder: %ROOT%
 >>"%LOG%" echo Repozytorium: %GHREPO%
 >>"%LOG%" echo Start: %DATE% %TIME%
 if exist "%STATUS%" del /q "%STATUS%" >nul 2>&1
 if exist "%ROOT%PUBLICATION_VERIFICATION.status" del /q "%ROOT%PUBLICATION_VERIFICATION.status" >nul 2>&1
 echo ============================================================
-echo KOMPUTEROWE CENTRUM SERWISU - FIX127
+echo KOMPUTEROWE CENTRUM SERWISU - FIX128
 echo AUTOMATYCZNA BUDOWA + PUBLIKACJA + INSTALACJA
 echo ============================================================
 echo Repozytorium: %GHREPO%
@@ -71,7 +71,7 @@ if not "%RC%"=="0" goto :source_fail
 
 echo.
 echo [2/5] Kompilacja aplikacji, wersji portable i instalatora...
-rem FIX127: isolate legacy batch build manager in a child CMD process.
+rem FIX128: isolate legacy batch build manager in a child CMD process.
 rem This prevents an EXIT issued by any nested build script from terminating this worker.
 set "BUILD_LOG=%LOGDIR%\02-build-all.log"
 if exist "%BUILD_LOG%" del /q "%BUILD_LOG%" >nul 2>&1
@@ -121,16 +121,16 @@ powershell.exe -NoLogo -NoProfile -Command "Get-Content -LiteralPath '%LOG%' -Ta
 if /I "%CHECKSTEP%"=="bramka testow CHECK_SOURCE" (
   echo.
   echo ============================================================
-  echo SZCZEGOLOWA DIAGNOSTYKA CHECK_SOURCE FIX127
+  echo SZCZEGOLOWA DIAGNOSTYKA CHECK_SOURCE FIX128
   echo ============================================================
-  if exist "%LOGDIR%\CHECK_SOURCE_FIX127.log" (
+  if exist "%LOGDIR%\CHECK_SOURCE_FIX128.log" (
     >>"%LOG%" echo ============================================================
-    >>"%LOG%" echo SZCZEGOLOWA DIAGNOSTYKA CHECK_SOURCE FIX127
-    type "%LOGDIR%\CHECK_SOURCE_FIX127.log"
-    type "%LOGDIR%\CHECK_SOURCE_FIX127.log" >>"%LOG%"
+    >>"%LOG%" echo SZCZEGOLOWA DIAGNOSTYKA CHECK_SOURCE FIX128
+    type "%LOGDIR%\CHECK_SOURCE_FIX128.log"
+    type "%LOGDIR%\CHECK_SOURCE_FIX128.log" >>"%LOG%"
   ) else (
-    echo [WARN] Brak pliku CHECK_SOURCE_FIX127.log. Nie mozna ustalic testu, ktory zakonczyl sie bledem.
-    >>"%LOG%" echo [WARN] Brak pliku CHECK_SOURCE_FIX127.log.
+    echo [WARN] Brak pliku CHECK_SOURCE_FIX128.log. Nie mozna ustalic testu, ktory zakonczyl sie bledem.
+    >>"%LOG%" echo [WARN] Brak pliku CHECK_SOURCE_FIX128.log.
   )
 )
 goto :end_fail

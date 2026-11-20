@@ -18,7 +18,7 @@ $checks=@(
  @($generate.Contains('https://github.com/$Repo/releases/download/$Tag/') -and $generate -notmatch 'pages\.dev','Manifest generator uses tag-specific GitHub release URLs'),
  @($boot.Contains('GitHub.cli') -and $boot.Contains('Git.Git') -and $boot.Contains('JRSoftware.InnoSetup.7'),'Required build tools are auto-installed through WinGet'),
  @($sourceSync.Contains('Arguments @("clone","--branch"') -and $sourceSync.Contains('Arguments @("-C",$Temp,"push","origin","HEAD:refs/heads/$Branch")') -and $sourceSync.Contains('POLITYKA_PUBLIKACJI.md') -and $sourceSync.Contains('auth","login","--web') -and $sourceSync.Contains('Invoke-NativeCapture') -and $sourceSync.Contains('Add-Content -LiteralPath $gitIgnore'),'Source code sync authenticates once and preserves repository docs and ignore rules'),
- @($install.Contains('/VERYSILENT') -and ($install.Contains('Start-Process') -and $install.Contains('-Verb RunAs')),'Published installer is installed automatically'),
+ @($install -notmatch '/VERYSILENT|/SILENT|/SUPPRESSMSGBOXES' -and $install.Contains('/NORESTART') -and $install.Contains('/SP-') -and $install.Contains('Start-Process') -and $install.Contains('-Verb RunAs') -and $install.Contains('-Wait'),'Published installer is launched interactively so the user can acknowledge the risk warning'),
  @($pub -notmatch '--clobber' -and $pub.Contains('release","create'),'No release overwrite; create new tag only'),
  @($pub.Contains('naprawapclaptop1-dev/komputerowe-centrum-serwisu'),'Publisher is locked to the dedicated repository')
 )

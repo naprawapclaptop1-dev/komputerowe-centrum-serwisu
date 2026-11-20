@@ -1,0 +1,9 @@
+FIX128 — MAPA MODUŁÓW
+
+INSTALL_PUBLISHED_BUILD.ps1 — uruchamia instalator widocznie, aby użytkownik mógł potwierdzić ostrzeżenie; czeka na proces, odczytuje log i weryfikuje zainstalowany EXE.
+SETUP_MODERN.iss — bez zmian; checkbox ryzyka nadal startuje jako odznaczony i blokuje dalszą instalację bez potwierdzenia.
+CHECK_FIX072_UPDATE_ENDPOINTS.ps1 — aktualizowany historyczny test ścieżki instalacji.
+CHECK_FIX128_INTERACTIVE_INSTALL_CONSENT.ps1 — regresja widocznego instalatora i jawnego potwierdzenia.
+CHECK_SOURCE.cmd — aktywna bramka testowa FIX128.
+VALIDATE_FIX100_PACKAGE.ps1 / FIX099_SOURCE_ALLOWLIST.txt / FIX099_POWERSHELL_MANIFEST.txt — integralność i publikacja jawnych zmian narzędziowych.
+CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1 — bezpieczna klasyfikacja zmian narzędziowych; pliki aplikacji i receptura instalatora nadal blokują reuse.

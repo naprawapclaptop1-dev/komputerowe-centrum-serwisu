@@ -1,0 +1,19 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX128
+NAPRAWA AUTOMATYCZNEJ INSTALACJI I POTWIERDZENIA OSTRZEŻENIA
+
+Przyczyna:
+Instalator Inno Setup zawiera stronę ostrzeżenia o ryzyku z domyślnie odznaczonym polem akceptacji.
+Poprzedni INSTALL_PUBLISHED_BUILD.ps1 uruchamiał go z /VERYSILENT i /SUPPRESSMSGBOXES,
+więc automat nie mógł zaznaczyć pola ani przejść do następnej strony. Log kończył się komunikatem
+„Failed to proceed to next wizard page; aborting” i kodem wyjścia 1.
+
+Naprawa:
+- Uruchomienie instalatora w widocznym trybie interaktywnym.
+- Użytkownik nadal musi przeczytać ostrzeżenie i samodzielnie zaznaczyć checkbox.
+- Start-Process zachowuje RunAs, Wait, PassThru, /NORESTART, /SP- i osobny log Inno Setup.
+- Po instalacji automat nadal waliduje kod wyjścia, odnalezienie EXE i FileVersion produktu.
+- Nie usunięto ani nie osłabiono strony ostrzeżenia; checkbox w SETUP_MODERN.iss pozostaje domyślnie odznaczony.
+
+Wydanie:
+Produkt pozostaje 1.0.0.70 / FIX070. Nie zmieniono SETUP_MODERN.iss ani źródeł aplikacji,
+dlatego nie jest wymagany nowy tag ani nadpisywanie assetów istniejącego wydania.

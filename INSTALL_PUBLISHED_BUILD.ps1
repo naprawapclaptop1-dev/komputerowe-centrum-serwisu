@@ -40,7 +40,10 @@ $versionRaw=[Diagnostics.FileVersionInfo]::GetVersionInfo($Installer).FileVersio
 $version=ConvertTo-KcsProductVersion -RawVersion $versionRaw -ExpectedVersion '1.0.0.70' -Label 'Instalator'
 Write-Host "[AUTO] Instaluję opublikowaną wersję $version..."
 $logArgument='/LOG="' + $InstallLog + '"'
-$p=Start-Process -FilePath $Installer -ArgumentList @('/VERYSILENT','/SUPPRESSMSGBOXES','/NORESTART','/SP-',$logArgument) -Verb RunAs -Wait -PassThru
+Write-Host '[INFO] Instalator uruchomi się w trybie interaktywnym.'
+Write-Host '[INFO] Przeczytaj ostrzeżenie i samodzielnie zaznacz pole akceptacji ryzyka, aby kontynuować.'
+Write-Host '[INFO] Automat poczeka na zakończenie kreatora, a następnie sprawdzi kod wyjścia i wersję EXE.'
+$p=Start-Process -FilePath $Installer -ArgumentList @('/NORESTART','/SP-',$logArgument) -Verb RunAs -Wait -PassThru
 if($p.ExitCode -ne 0){
   $meaning=switch([int]$p.ExitCode){
     1 {'Setup failed to initialize (Inno Setup exit code 1).'}
