@@ -1,5 +1,5 @@
 #define AppName "NAPRAWA PC FAN CONTROL PRO AI"
-#define AppVersion "2.0.4"
+#define AppVersion "2.0.5"
 #define AppExe "NaprawaPCFanControl.exe"
 [Setup]
 AppId={{6C59DBAA-5C43-4B17-A75D-CF52E091201A}
@@ -9,7 +9,7 @@ AppPublisher=Naprawa Komputerów i Laptopów
 DefaultDirName={autopf}\Naprawa PC Fan Control PRO AI
 DefaultGroupName={#AppName}
 OutputDir=..\artifacts\installer
-OutputBaseFilename=NaprawaPC_FanControl_PRO_AI_2.0.4_FIX006_Setup
+OutputBaseFilename=NaprawaPC_FanControl_PRO_AI_2.0.5_FIX007_Setup
 ArchitecturesInstallIn64BitMode=x64
 PrivilegesRequired=admin
 Compression=lzma2
@@ -23,4 +23,4 @@ Name: "{autodesktop}\{#AppName}"; Filename: "{app}\{#AppExe}"; Tasks: desktopico
 [Tasks]
 Name: "desktopicon"; Description: "Utwórz skrót na pulpicie"; GroupDescription: "Dodatkowe opcje:"
 [Run]
-Filename: "{app}\{#AppExe}"; Description: "Uruchom program"; Flags: postinstall nowait skipifsilent
+Filename: "{app}\{#AppExe}"; Description: "Uruchom program"; Flags: postinstall nowait skipifsilent runascurrentuser
