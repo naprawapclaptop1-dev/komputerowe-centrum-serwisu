@@ -1,6 +1,9 @@
-# NAPRAWA PC FAN CONTROL PRO AI 2.0.4 — FIX006
+# NAPRAWA PC FAN CONTROL PRO AI 2.0.5 — FIX007
 
 Niezależna aplikacja Windows x64 zbudowana od czystego projektu. Nie jest modyfikacją ani rozpakowaną kopią instalatora V10.2.77.
+
+## Uruchamianie po instalacji
+Instalator uruchamia program z podwyższonymi uprawnieniami odziedziczonymi po instalatorze. Dzięki temu aplikacja z manifestem wymagającym administratora może zostać uruchomiona z ekranu końcowego Setup bez błędu Windows 740.
 
 ## Jedna paczka ZIP
 Pakowanie wydania jest weryfikowane przez CI po ponownym rozpakowaniu archiwum i sprawdzeniu braku zagnieżdżonych plików ZIP.
@@ -20,7 +23,7 @@ W środku nie ma drugiego archiwum ZIP. Nie trzeba pobierać osobnego instalator
 - Raport tekstowy i ciemny interfejs w języku polskim.
 
 ## Budowanie
-Wymagane: Windows 10/11 x64, .NET 10 SDK oraz Inno Setup 6. Uruchom BUILD.cmd. Pliki wynikowe trafiają do katalogu nadrzędnego `artifacts`; finalnym wydaniem jest jedno archiwum `NAPRAWA_PC_FAN_CONTROL_PRO_AI_2.0.4_FIX006_ONE_ZIP.zip`.
+Wymagane: Windows 10/11 x64, .NET 10 SDK oraz Inno Setup 6. Uruchom BUILD.cmd. Pliki wynikowe trafiają do katalogu nadrzędnego `artifacts`; finalnym wydaniem jest jedno archiwum `NAPRAWA_PC_FAN_CONTROL_PRO_AI_2.0.5_FIX007_ONE_ZIP.zip`.
 
 ## Ograniczenia sprzętowe
 Suwak ręczny ma bezpieczny dolny limit 20%, aby ograniczyć ryzyko przypadkowego zatrzymania wentylatora. Tryb Domyślne sterownika przywraca i pozostawia ustawienia domyślne.
