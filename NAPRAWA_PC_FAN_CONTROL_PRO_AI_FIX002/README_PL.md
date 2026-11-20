@@ -3,6 +3,7 @@
 Niezależna aplikacja Windows x64 zbudowana od czystego projektu. Nie jest modyfikacją ani rozpakowaną kopią instalatora V10.2.77.
 
 ## Jedna paczka ZIP
+Pakowanie wydania jest weryfikowane przez CI po ponownym rozpakowaniu archiwum i sprawdzeniu braku zagnieżdżonych plików ZIP.
 Pobierasz tylko jedno archiwum ZIP. Po rozpakowaniu w głównym katalogu znajduje się:
 - `Setup.exe` — instalator Windows.
 - `Portable\` — komplet plików programu do uruchomienia bez instalacji, w tym `NaprawaPCFanControl.exe`.
