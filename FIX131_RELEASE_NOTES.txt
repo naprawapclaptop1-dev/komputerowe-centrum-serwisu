@@ -1,0 +1,20 @@
+﻿KOMPUTEROWE CENTRUM SERWISU — FIX131 / PRODUKT 1.0.0.72 (FIX072)
+
+Cel
+Naprawa rozbieznosci znacznika wersji produktu na stronie WWW, ktora blokowala bramke CHECK_SOURCE w FIX130.
+
+Przyczyna
+website/index.html publikowal application-fix="FIX130" (numer pakietu narzedziowego), podczas gdy VERSION.txt, updater, manifesty i klient strony wskazuja produkt 1.0.0.72 / FIX072. Testy FIX117 i FIX118 prawidlowo porownywaly znacznik strony z FIX tozsamosci produktu, dlatego wykrywaly niespojnosc.
+
+Zmiany
+- Zmieniono meta application-fix na FIX072, zgodnie z VERSION.txt.
+- Dodano CHECK_FIX131_WEBSITE_PRODUCT_MARKER.ps1: sprawdza zgodnosc application-fix, software-version, klienta pobierania i sposobu wyliczania znacznika przez publiczny weryfikator.
+- Test FIX131 wlaczono do CHECK_SOURCE, walidatora pelnego pakietu, jawnej allowlisty synchronizacji oraz manifestu SHA-256.
+- Test i dokumentacje FIX131 sklasyfikowano jako bezpieczne zmiany narzedziowe w regresji ochrony wydania.
+- Zachowano testy FIX117/FIX118 i ich pelna kontrole dostepnosci, prywatnosci i dostepnosci klawiaturowej.
+
+Wydanie
+Nie zmieniono kodu C#, AssemblyInfo, zasobow aplikacji ani receptury instalatora. Wersja produktu pozostaje 1.0.0.72 / FIX072. Zmiana strony i testow moze byc opublikowana bez nadpisywania binarnych assetow produktu.
+
+Walidacja
+Uruchom CHECK_FIX131_WEBSITE_PRODUCT_MARKER.ps1 oraz pelny CHECK_SOURCE.cmd. Ten pakiet nie deklaruje wykonania kompilacji Windows ani runtime testow PowerShell 5.1 poza srodowiskiem Windows.

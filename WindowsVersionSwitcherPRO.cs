@@ -69,11 +69,14 @@ namespace NaprawaPC.WindowsSwitcher
         public string Ram = "Niedostępne";
         public string Gpu = "Niedostępne";
         public string Vram = "Niedostępne";
+        public string GpuDetails = "Brak szczegółów adapterów graficznych.";
+        public string GpuPhysicalStatus = "Niepotwierdzony";
         public string CpuTemperature = "Brak odczytu czujnika";
         public string Bios = "Niedostępne";
         public string Board = "Niedostępne";
         public string Disks = "Niedostępne";
         public string Drives = "Niedostępne";
+        public string DriveSummary = "Niedostępne";
         public string Tpm = "Niedostępne";
         public string Firmware = "Niedostępne";
         public string SecureBoot = "Niedostępne";
@@ -88,6 +91,14 @@ namespace NaprawaPC.WindowsSwitcher
         public string Message;
     }
 
+    internal class DiskHealthSnapshot
+    {
+        public string Report = "";
+        public List<string> Disks = new List<string>();
+        public int DiskCount;
+        public bool SmartAvailable;
+    }
+
     internal class PerformanceSnapshot
     {
         public string Report;
@@ -95,6 +106,15 @@ namespace NaprawaPC.WindowsSwitcher
         public float RamPercent;
         public bool CpuKnown;
         public bool RamKnown;
+        public float GpuPercent;
+        public bool GpuKnown;
+        public string GpuSource = "Niedostępne";
+        public double GpuDedicatedMemoryMb;
+        public double GpuSharedMemoryMb;
+        public bool GpuMemoryKnown;
+        public double DiskReadMbPerSec;
+        public double DiskWriteMbPerSec;
+        public bool DiskIoKnown;
     }
 
     internal class BackupRoot
@@ -582,8 +602,11 @@ namespace NaprawaPC.WindowsSwitcher
 
         private Label dashCpuLabel, dashRamLabel, dashGpuLabel, dashStorageLabel, dashSensorLabel;
         private Label dashFirmwareLabel, dashUpdatedLabel;
+        private ToolTip dashboardMetricTip;
         private TextBox diskHealthReportBox;
         private ListBox diskHealthList;
+        private BackgroundWorker diskHealthWorker;
+        private BackgroundWorker hardwareMonitorWorker;
         private ListBox serviceCaseList;
         private TextBox serviceClientBox, serviceDeviceBox, serviceProblemBox, serviceActionsBox, serviceNotesBox;
         private string serviceCasesPath = "";
@@ -613,6 +636,7 @@ namespace NaprawaPC.WindowsSwitcher
         private Label performanceLiveStatusLabel;
         private List<float> performanceCpuHistory = new List<float>();
         private List<float> performanceRamHistory = new List<float>();
+        private List<float> performanceGpuHistory = new List<float>();
         private float lastPerformanceCpu = 0;
         private float lastPerformanceRam = 0;
 
@@ -1212,7 +1236,7 @@ namespace NaprawaPC.WindowsSwitcher
                 {
                     string path=route.StartsWith("/")?route:"/"+route;
                     req=(HttpWebRequest)WebRequest.Create(host+path);
-                    req.Method="GET";req.UserAgent="NaprawaPC-UniversalWindowsMigrationPRO/1.0.0.71";
+                    req.Method="GET";req.UserAgent="NaprawaPC-UniversalWindowsMigrationPRO/1.0.0.72";
                     req.Accept="application/json";req.Timeout=10000;req.ReadWriteTimeout=10000;
                     req.AutomaticDecompression=DecompressionMethods.GZip|DecompressionMethods.Deflate;
                     using(HttpWebResponse response=(HttpWebResponse)req.GetResponse())
@@ -1560,7 +1584,7 @@ namespace NaprawaPC.WindowsSwitcher
                 HttpWebRequest req=(HttpWebRequest)WebRequest.Create(target);
                 req.Method="GET";req.Timeout=9000;req.ReadWriteTimeout=7000;req.KeepAlive=false;
                 req.AllowAutoRedirect=true;req.MaximumAutomaticRedirections=8;
-                req.UserAgent="NaprawaPC Radio Stream Probe/1.0.0.71";req.Accept="audio/*,*/*;q=0.8";
+                req.UserAgent="NaprawaPC Radio Stream Probe/1.0.0.72";req.Accept="audio/*,*/*;q=0.8";
                 try{req.AddRange(0,2047);}catch{}
                 using(HttpWebResponse response=(HttpWebResponse)req.GetResponse())
                 using(Stream stream=response.GetResponseStream())
@@ -2370,6 +2394,9 @@ namespace NaprawaPC.WindowsSwitcher
                 if(width<800)width=800;if(width>2400)width=2400;
             }
             int gap=16;
+            if(dashboardMetricTip==null)dashboardMetricTip=new ToolTip();
+            dashboardMetricTip.AutoPopDelay=15000;dashboardMetricTip.InitialDelay=350;dashboardMetricTip.ReshowDelay=120;
+            dashboardMetricTip.ShowAlways=true;
 
             // Branded overview: real machine details and backup state, no invented health score.
             Panel hero=Card(p,"CENTRUM ZARZĄDZANIA KOMPUTEREM",12,8,width,78);
@@ -2490,19 +2517,30 @@ namespace NaprawaPC.WindowsSwitcher
             return new ManagementObjectSearcher(scope,query,options);
         }
 
+        private bool IsVirtualVideoAdapter(string name,string pnpDeviceId)
+        {
+            string value=((name??"")+" "+(pnpDeviceId??"")).ToLowerInvariant();
+            string[] markers=new string[]{"virtual","remote display","rdpidd","mirror driver","indirect display","spacedesk","parsec","teamviewer","anydesk display","vnc mirror","hyper-v video"};
+            foreach(string marker in markers)if(value.IndexOf(marker,StringComparison.OrdinalIgnoreCase)>=0)return true;
+            return false;
+        }
+
         private HardwareSnapshot ReadHardwareSnapshot()
         {
             HardwareSnapshot h=new HardwareSnapshot();
             try {
+                double cpuLoadTotal=0;int cpuLoadSamples=0;
                 using(ManagementObjectSearcher q=CreateTimedWmiSearcher("root\\cimv2","SELECT Name,NumberOfCores,NumberOfLogicalProcessors,LoadPercentage FROM Win32_Processor",5)) {
                     foreach(ManagementObject o in q.Get()) {
-                        h.Cpu=Convert.ToString(o["Name"]);
-                        h.Cores=Convert.ToString(o["NumberOfCores"])+" rdzeni / "+Convert.ToString(o["NumberOfLogicalProcessors"])+" wątków";
-                        h.CpuLoad=(o["LoadPercentage"]==null?"Niedostępne":Convert.ToString(o["LoadPercentage"])+"% (WMI)");
-                        break;
+                        if(String.IsNullOrWhiteSpace(h.Cpu) || h.Cpu=="Niedostępne") {
+                            h.Cpu=Convert.ToString(o["Name"]);
+                            h.Cores=Convert.ToString(o["NumberOfCores"])+" rdzeni / "+Convert.ToString(o["NumberOfLogicalProcessors"])+" wątków";
+                        }
+                        double load; if(Double.TryParse(Convert.ToString(o["LoadPercentage"]),NumberStyles.Any,CultureInfo.InvariantCulture,out load)) {cpuLoadTotal+=load;cpuLoadSamples++;}
                     }
                 }
-            } catch(Exception ex){h.Cpu="Błąd WMI: "+ex.Message;}
+                if(cpuLoadSamples>0)h.CpuLoad=Math.Round(cpuLoadTotal/cpuLoadSamples,0).ToString(CultureInfo.InvariantCulture)+"% (średnia WMI wszystkich gniazd)";
+            } catch(Exception ex){h.Cpu="Błąd WMI: "+ex.Message;h.CpuLoad="Niedostępne";}
             try {
                 using(ManagementObjectSearcher q=CreateTimedWmiSearcher("root\\cimv2","SELECT TotalVisibleMemorySize,FreePhysicalMemory FROM Win32_OperatingSystem",5)) {
                     foreach(ManagementObject o in q.Get()) {
@@ -2514,17 +2552,39 @@ namespace NaprawaPC.WindowsSwitcher
                 }
             } catch(Exception ex){h.Ram="Błąd odczytu RAM: "+ex.Message;}
             try {
-                using(ManagementObjectSearcher q=CreateTimedWmiSearcher("root\\cimv2","SELECT Name,AdapterRAM,DriverVersion FROM Win32_VideoController",5)) {
+                List<ManagementObject> adapters=new List<ManagementObject>();
+                List<string> adapterLines=new List<string>();
+                ManagementObject selected=null;
+                using(ManagementObjectSearcher q=CreateTimedWmiSearcher("root\\cimv2","SELECT Name,AdapterRAM,DriverVersion,DriverDate,VideoProcessor,PNPDeviceID,Status FROM Win32_VideoController",6)) {
                     foreach(ManagementObject o in q.Get()) {
-                        h.Gpu=Convert.ToString(o["Name"]);
-                        object v=o["AdapterRAM"];
-                        if(v!=null)h.Vram=Math.Round(Convert.ToDouble(v)/1073741824.0,1).ToString(CultureInfo.InvariantCulture)+" GB wykryte przez WMI"; else h.Vram="Brak danych WMI";
-                        string driver=Convert.ToString(o["DriverVersion"]);
-                        if(!String.IsNullOrEmpty(driver))h.Gpu+=" | sterownik "+driver;
-                        break;
+                        adapters.Add(o);
+                        string name=Convert.ToString(o["Name"]);
+                        string pnp=Convert.ToString(o["PNPDeviceID"]);
+                        bool virtualAdapter=IsVirtualVideoAdapter(name,pnp);
+                        if(selected==null && !virtualAdapter)selected=o;
+                        ulong ram=0;try{ram=Convert.ToUInt64(o["AdapterRAM"]);}catch{}
+                        string ramText=ram>0?Math.Round(ram/1073741824.0,2).ToString("0.00",CultureInfo.InvariantCulture)+" GB (WMI; pole AdapterRAM ma ograniczenia)":"brak wiarygodnej wartości WMI";
+                        adapterLines.Add((virtualAdapter?"[WIRTUALNY / ZDALNY] ":"[ADAPTER GRAFICZNY] ")+name+" | VRAM: "+ramText+" | sterownik: "+Convert.ToString(o["DriverVersion"])+" | status: "+Convert.ToString(o["Status"])+" | PNP: "+pnp);
                     }
                 }
-            } catch(Exception ex){h.Gpu="Błąd WMI GPU: "+ex.Message;}
+                if(selected==null && adapters.Count>0)selected=adapters[0];
+                if(selected!=null) {
+                    string name=Convert.ToString(selected["Name"]);
+                    string pnp=Convert.ToString(selected["PNPDeviceID"]);
+                    bool virtualAdapter=IsVirtualVideoAdapter(name,pnp);
+                    string driver=Convert.ToString(selected["DriverVersion"]);
+                    ulong ram=0;try{ram=Convert.ToUInt64(selected["AdapterRAM"]);}catch{}
+                    h.Gpu=String.IsNullOrWhiteSpace(name)?"Adapter bez nazwy":name;
+                    if(!String.IsNullOrWhiteSpace(driver))h.Gpu+=" | sterownik "+driver;
+                    h.GpuPhysicalStatus=virtualAdapter?"Nie potwierdzono fizycznego GPU — wykryty adapter wirtualny/zdalny":"Wykryto adapter nieoznaczony jako wirtualny; fizyczność wymaga potwierdzenia sprzętowego";
+                    h.Vram=ram>0?Math.Round(ram/1073741824.0,2).ToString("0.00",CultureInfo.InvariantCulture)+" GB (wartość WMI, może być ograniczona)":"Brak wiarygodnych danych WMI";
+                    h.GpuDetails="STATUS: "+h.GpuPhysicalStatus+Environment.NewLine+String.Join(Environment.NewLine,adapterLines.ToArray());
+                } else {
+                    h.Gpu="Nie wykryto adaptera w Win32_VideoController";h.Vram="Brak danych";h.GpuPhysicalStatus="Brak danych";
+                    h.GpuDetails="WMI nie zwróciło adaptera graficznego. Sprawdź Menedżer urządzeń oraz dxdiag.";
+                }
+                foreach(ManagementObject o in adapters)try{o.Dispose();}catch{}
+            } catch(Exception ex){h.Gpu="Błąd WMI GPU: "+ex.Message;h.GpuDetails="Błąd odczytu Win32_VideoController: "+ex.Message;}
             try {
                 using(ManagementObjectSearcher q=CreateTimedWmiSearcher("root\\WMI","SELECT CurrentTemperature FROM MSAcpi_ThermalZoneTemperature",5)) {
                     List<string> temps=new List<string>();
@@ -2558,12 +2618,20 @@ namespace NaprawaPC.WindowsSwitcher
             } catch(Exception ex){h.Disks="Błąd dysków: "+ex.Message;}
             try {
                 List<string> drives=new List<string>();
+                List<string> concise=new List<string>();
                 foreach(DriveInfo d in DriveInfo.GetDrives())try{
-                    if(d.IsReady && d.DriveType==DriveType.Fixed)
-                        drives.Add(d.Name+" wolne "+Math.Round(d.AvailableFreeSpace/1073741824.0,1)+" / "+Math.Round(d.TotalSize/1073741824.0,1)+" GB");
+                    if(d.IsReady && d.DriveType==DriveType.Fixed) {
+                        double free=d.AvailableFreeSpace/1073741824.0,total=d.TotalSize/1073741824.0;
+                        double pct=total<=0?0:free/total*100.0;
+                        string full=d.Name+" wolne "+free.ToString("0.0",CultureInfo.InvariantCulture)+" / "+total.ToString("0.0",CultureInfo.InvariantCulture)+" GB ("+pct.ToString("0",CultureInfo.InvariantCulture)+"%)";
+                        drives.Add(full);
+                        concise.Add(d.Name.TrimEnd('\\')+": "+free.ToString("0",CultureInfo.InvariantCulture)+" / "+total.ToString("0",CultureInfo.InvariantCulture)+" GB wolne");
+                    }
                 }catch{}
-                h.Drives=String.Join("; ",drives.ToArray());
-            } catch {}
+                h.Drives=drives.Count==0?"Nie wykryto gotowych woluminów stałych":String.Join("; ",drives.ToArray());
+                int visible=Math.Min(2,concise.Count);
+                h.DriveSummary=concise.Count==0?"Brak gotowych woluminów":String.Join(" | ",concise.GetRange(0,visible).ToArray())+(concise.Count>visible?" | +"+(concise.Count-visible)+" wol.":"");
+            } catch(Exception ex){h.Drives="Błąd odczytu woluminów: "+ex.Message;h.DriveSummary="Błąd odczytu woluminów";}
             try {h.Tpm=ReadTpmSpec();}catch{}
             try {h.Firmware=ReadFirmwareType();h.SecureBoot=ReadSecureBoot();}catch{}
             return h;
@@ -2609,7 +2677,13 @@ namespace NaprawaPC.WindowsSwitcher
                 dashCpuLabel.Text="CPU: "+h.Cpu+" | "+h.Cores+" | obciążenie "+h.CpuLoad;
                 dashRamLabel.Text="RAM: "+h.Ram;
                 dashGpuLabel.Text="GPU: "+h.Gpu+" | VRAM: "+h.Vram;
-                dashStorageLabel.Text="DYSKI: "+h.Drives;
+                dashStorageLabel.Text="DYSKI: "+h.DriveSummary;
+                if(dashboardMetricTip!=null) {
+                    dashboardMetricTip.SetToolTip(dashCpuLabel,"CPU: "+h.Cpu+Environment.NewLine+h.Cores+Environment.NewLine+"Obciążenie: "+h.CpuLoad);
+                    dashboardMetricTip.SetToolTip(dashRamLabel,"Pamięć: "+h.Ram);
+                    dashboardMetricTip.SetToolTip(dashGpuLabel,h.GpuDetails+Environment.NewLine+"VRAM: "+h.Vram);
+                    dashboardMetricTip.SetToolTip(dashStorageLabel,"Woluminy: "+h.Drives+Environment.NewLine+"Dyski fizyczne: "+h.Disks);
+                }
                 dashSensorLabel.Text="TEMPERATURA: "+h.CpuTemperature;
                 dashFirmwareLabel.Text="BIOS: "+h.Bios+" | PŁYTA: "+h.Board;
                 if(dashUpdatedLabel!=null && !dashUpdatedLabel.IsDisposed)
@@ -2943,10 +3017,13 @@ namespace NaprawaPC.WindowsSwitcher
                 b.AppendLine("CPU: "+h.Cpu+" | "+h.Cores+" | load="+h.CpuLoad);
                 b.AppendLine("RAM: "+h.Ram);
                 b.AppendLine("GPU: "+h.Gpu+" | VRAM="+h.Vram);
+                b.AppendLine("Status rozpoznania GPU: "+h.GpuPhysicalStatus);
+                b.AppendLine("Szczegóły wszystkich adapterów GPU:");b.AppendLine(h.GpuDetails);
                 b.AppendLine("Temperatura ACPI: "+h.CpuTemperature);
                 b.AppendLine("BIOS: "+h.Bios+" | Płyta: "+h.Board);
-                b.AppendLine("Dyski: "+h.Disks);
-                b.AppendLine("Wolne miejsce: "+h.Drives);
+                b.AppendLine("Dyski fizyczne: "+h.Disks);
+                b.AppendLine("Podsumowanie woluminów: "+h.DriveSummary);
+                b.AppendLine("Pełny odczyt woluminów: "+h.Drives);
                 b.AppendLine("TPM: "+h.Tpm+" | Firmware: "+h.Firmware+" | Secure Boot: "+h.SecureBoot);
             } catch(Exception ex){b.AppendLine("WMI error: "+ex.Message);}
             b.AppendLine();b.AppendLine("OSTATNIE ZDARZENIA:");
@@ -3675,7 +3752,7 @@ namespace NaprawaPC.WindowsSwitcher
                 if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
                 File.WriteAllText(consentFile,
                     "Accepted=" + DateTime.Now.ToString("o") + Environment.NewLine +
-                    "Application=KOMPUTEROWE CENTRUM SERWISU - CENTRUM MIGRACJI I NAPRAW - FIX071" + Environment.NewLine,
+                    "Application=KOMPUTEROWE CENTRUM SERWISU - CENTRUM MIGRACJI I NAPRAW - FIX072" + Environment.NewLine,
                     Encoding.UTF8);
                 AppendLog("Zaakceptowano ostrzeżenie o używaniu programu na własną odpowiedzialność.");
                 return true;

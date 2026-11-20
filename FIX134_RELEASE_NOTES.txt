@@ -1,0 +1,17 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX134
+NAPRAWA SKŁADNI POLITYKI OCHRONY WYDANIA
+
+PRZYCZYNA
+Walidator PowerShell 5.1 zatrzymywał się podczas parsowania CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1. Dwie tablice PowerShell kończyły się przecinkiem tuż przed nawiasem zamykającym, co powodowało błąd „Missing expression after ','”.
+
+ZMIANY
+- Usunięto końcowe przecinki z tablic $safePaths i $currentTagChanges.
+- Dodano CHECK_FIX134_RELEASE_POLICY_SYNTAX.ps1 z użyciem PowerShell AST Parser.ParseFile.
+- Dodano kontrolę braku końcowych przecinków w obu tablicach.
+- Zaktualizowano aktywny numer pakietu w CHECK_SOURCE, launcherze i workerze.
+- Historyczny test FIX133 sprawdza bieżący identyfikator dynamicznie zamiast wymagać FIX133.
+- Wzmocniono odczyt identyfikatora raportu dla wejścia CRLF.
+- Zaktualizowano CHECK_SOURCE, walidator, allowlistę, manifest i ochronę wydania.
+
+WERSJA PRODUKTU
+Pozostaje 1.0.0.72 / FIX072. Zmiany dotyczą wyłącznie walidacji i narzędzi pakietowania. Kod aplikacji, zasoby i receptura instalatora nie zostały zmienione.

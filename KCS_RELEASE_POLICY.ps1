@@ -31,7 +31,10 @@ function Test-KcsReleaseIndependentChangeSet {
         '(?i)^(PUBLISH_GITHUB_SOURCE|PUBLISH_GITHUB_RELEASES|GENERATE_UPDATE_MANIFEST|VERIFY_GLOBAL_UPDATE_SERVER|VERIFY_PUBLIC_DEPLOYMENT)\.ps1$',
         '(?i)^KCS_RELEASE_POLICY\.ps1$',
         '(?i)^INSTALL_PUBLISHED_BUILD\.ps1$',
-        '(?i)^README\.md$'
+        '(?i)^README\.md$',
+        '(?i)^README(_PORTABLE)?\.txt$',
+        '(?i)^GLOBAL_UPDATE_DEPLOYMENT\.txt$',
+        '(?i)^UPDATE_MANIFEST_TEMPLATE\.xml$'
     )
 
     foreach ($changedPath in $ChangedPaths) {

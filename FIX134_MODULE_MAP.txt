@@ -1,0 +1,15 @@
+FIX134 — MAPA MODUŁU
+
+Obszar: walidacja pakietu / polityka bezpiecznego ponownego użycia wydania
+Główny plik naprawiony: CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1
+
+Elementy:
+- $safePaths: jawna lista plików narzędziowych, testów i dokumentacji, które nie wymagają nowego binarnego wydania.
+- $currentTagChanges: lista wszystkich plików zmienionych względem opublikowanego tagu, klasyfikowana przez KCS_RELEASE_POLICY.ps1.
+- CHECK_FIX134_RELEASE_POLICY_SYNTAX.ps1: parser PowerShell AST oraz regresja trailing-comma.
+- CHECK_SOURCE.cmd: wymagany plik testowy oraz wywołanie regresji FIX134.
+- VALIDATE_FIX100_PACKAGE.ps1: kompletność pakietu.
+- FIX099_SOURCE_ALLOWLIST.txt: jawna synchronizacja.
+- FIX099_POWERSHELL_MANIFEST.txt: SHA-256 skryptów PowerShell.
+
+Bez zmian w kodzie C#, instalatorze Inno Setup i wersji produktu.

@@ -46,7 +46,8 @@ Add-Check ($policy.Contains('(URUCHOM_TYLKO_TEN_PLIK|KCS_FIX101_WORKER)')) 'Rele
 $expectedNew = @('CHECK_FIX126_SOURCE_GATE_EXIT_CODE.ps1','FIX126_RELEASE_NOTES.txt','FIX126_MODULE_MAP.txt')
 Add-Check (($expectedNew | Where-Object { $validator.Contains($_) }).Count -eq 3) 'Full-package validation requires all FIX126 artifacts'
 Add-Check (($expectedNew | Where-Object { $allow -contains $_ }).Count -eq 3) 'Explicit source allowlist includes all FIX126 artifacts'
-Add-Check (($expectedNew | Where-Object { $safeBlock.Contains($_) }).Count -eq 3 -and ($expectedNew | Where-Object { $currentBlock.Contains($_) }).Count -eq 3) 'FIX126 regression test and docs are classified in release-preservation fixtures'
+Add-Check (($expectedNew | Where-Object { $safeBlock.Contains($_) }).Count -eq 3) 'FIX126 regression test and historical docs remain safe tooling paths'
+Add-Check ($currentBlock.Contains('CHECK_FIX126_SOURCE_GATE_EXIT_CODE.ps1') -and -not $currentBlock.Contains('FIX126_RELEASE_NOTES.txt') -and -not $currentBlock.Contains('FIX126_MODULE_MAP.txt')) 'Only the FIX126 test changed in this package; its historical docs remain unchanged'
 Add-Check ($cmd.Contains('call :run_ps_check "CHECK_FIX126_SOURCE_GATE_EXIT_CODE.ps1"')) 'FIX126 regression is part of the active source gate'
 $failed = @($checks | Where-Object { -not $_.Passed })
 foreach ($check in $checks) { if ($check.Passed) { Write-Host ('[PASS] ' + $check.Name) } else { Write-Host ('[FAIL] ' + $check.Name) } }

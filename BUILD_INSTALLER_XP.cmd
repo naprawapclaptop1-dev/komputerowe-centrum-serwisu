@@ -1,31 +1,31 @@
 @echo off
 setlocal EnableExtensions
-title KOMPUTEROWE CENTRUM SERWISU FIX071 - OPCJONALNY INSTALATOR XP
+title KOMPUTEROWE CENTRUM SERWISU FIX072 - OPCJONALNY INSTALATOR XP
 pushd "%~dp0"
 set "DIST=%~dp0dist"
 set "LOGDIR=%DIST%\build-logs"
 set "LOG=%LOGDIR%\03-xp-installer.log"
 set "PAYLOAD=%DIST%\setup-files\KomputeroweCentrumSerwisu.exe"
 set "STAMP=%DIST%\setup-files\BUILD_ID.txt"
-set "FINAL=%DIST%\installers\KomputeroweCentrumSerwisu_FIX071_INSTALATOR_XP.exe"
+set "FINAL=%DIST%\installers\KomputeroweCentrumSerwisu_FIX072_INSTALATOR_XP.exe"
 set "ISCC5="
 if not exist "%LOGDIR%" mkdir "%LOGDIR%"
 if not exist "%DIST%\installers" mkdir "%DIST%\installers"
->"%LOG%" echo KOMPUTEROWE CENTRUM SERWISU FIX071 - OPTIONAL WINDOWS XP SETUP
+>"%LOG%" echo KOMPUTEROWE CENTRUM SERWISU FIX072 - OPTIONAL WINDOWS XP SETUP
 >>"%LOG%" echo Date: %DATE% %TIME%
 
-rem XP installer is optional; it still requires a fresh FIX071 payload.
+rem XP installer is optional; it still requires a fresh FIX072 payload.
 set "PAYLOAD_OK=0"
 if exist "%PAYLOAD%" if exist "%STAMP%" (
-  powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0VERIFY_PAYLOAD.ps1" -ExePath "%PAYLOAD%" -ExpectedVersion "1.0.0.71" -StampPath "%STAMP%" -SourceRoot "%~dp0." -CheckStamp >>"%LOG%" 2>&1
+  powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0VERIFY_PAYLOAD.ps1" -ExePath "%PAYLOAD%" -ExpectedVersion "1.0.0.72" -StampPath "%STAMP%" -SourceRoot "%~dp0." -CheckStamp >>"%LOG%" 2>&1
   if not errorlevel 1 set "PAYLOAD_OK=1"
 )
 if "%PAYLOAD_OK%"=="0" (
-  >>"%LOG%" echo [INFO] No current verified FIX071 payload. Rebuilding Portable first.
+  >>"%LOG%" echo [INFO] No current verified FIX072 payload. Rebuilding Portable first.
   call "%~dp0BUILD_PORTABLE.cmd" /nopause >>"%LOG%" 2>&1
   if errorlevel 1 goto :fail
 )
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0VERIFY_PAYLOAD.ps1" -ExePath "%PAYLOAD%" -ExpectedVersion "1.0.0.71" -StampPath "%STAMP%" -SourceRoot "%~dp0." -CheckStamp >>"%LOG%" 2>&1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0VERIFY_PAYLOAD.ps1" -ExePath "%PAYLOAD%" -ExpectedVersion "1.0.0.72" -StampPath "%STAMP%" -SourceRoot "%~dp0." -CheckStamp >>"%LOG%" 2>&1
 if errorlevel 1 goto :fail
 for %%F in (SETUP_LEGACY_XP.iss NaprawaPC.ico InstallerWizard.bmp InstallerSmall.bmp CentrumMigracjiHero.png) do if not exist "%~dp0%%F" (>>"%LOG%" echo [FAIL] Missing installer asset %%F.& goto :fail)
 if defined INNO5_ISCC if exist "%INNO5_ISCC%" set "ISCC5=%INNO5_ISCC%"
@@ -42,16 +42,16 @@ if not defined ISCC5 (
 )
 set "TEMP_OUT=%DIST%\build-temp\xp"
 if not exist "%TEMP_OUT%" mkdir "%TEMP_OUT%"
-if exist "%TEMP_OUT%\KomputeroweCentrumSerwisu_FIX071_INSTALATOR_XP.exe" del /q "%TEMP_OUT%\KomputeroweCentrumSerwisu_FIX071_INSTALATOR_XP.exe" >nul 2>&1
+if exist "%TEMP_OUT%\KomputeroweCentrumSerwisu_FIX072_INSTALATOR_XP.exe" del /q "%TEMP_OUT%\KomputeroweCentrumSerwisu_FIX072_INSTALATOR_XP.exe" >nul 2>&1
 >>"%LOG%" echo [INFO] Compiler: %ISCC5%
 "%ISCC5%" /O"%TEMP_OUT%" "%~dp0SETUP_LEGACY_XP.iss" >>"%LOG%" 2>&1
 if errorlevel 1 goto :fail
-if not exist "%TEMP_OUT%\KomputeroweCentrumSerwisu_FIX071_INSTALATOR_XP.exe" (>>"%LOG%" echo [FAIL] Inno Setup 5 did not create the XP installer.& goto :fail)
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0VERIFY_PAYLOAD.ps1" -ExePath "%TEMP_OUT%\KomputeroweCentrumSerwisu_FIX071_INSTALATOR_XP.exe" -ExpectedVersion "1.0.0.71" >>"%LOG%" 2>&1
+if not exist "%TEMP_OUT%\KomputeroweCentrumSerwisu_FIX072_INSTALATOR_XP.exe" (>>"%LOG%" echo [FAIL] Inno Setup 5 did not create the XP installer.& goto :fail)
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0VERIFY_PAYLOAD.ps1" -ExePath "%TEMP_OUT%\KomputeroweCentrumSerwisu_FIX072_INSTALATOR_XP.exe" -ExpectedVersion "1.0.0.72" >>"%LOG%" 2>&1
 if errorlevel 1 goto :fail
-move /y "%TEMP_OUT%\KomputeroweCentrumSerwisu_FIX071_INSTALATOR_XP.exe" "%FINAL%" >nul
+move /y "%TEMP_OUT%\KomputeroweCentrumSerwisu_FIX072_INSTALATOR_XP.exe" "%FINAL%" >nul
 if errorlevel 1 goto :fail
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0VERIFY_PAYLOAD.ps1" -ExePath "%FINAL%" -ExpectedVersion "1.0.0.71" >>"%LOG%" 2>&1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0VERIFY_PAYLOAD.ps1" -ExePath "%FINAL%" -ExpectedVersion "1.0.0.72" >>"%LOG%" 2>&1
 if errorlevel 1 goto :fail
 >>"%LOG%" echo [PASS] XP Setup created and version-verified: %FINAL%
 >"%LOGDIR%\XP_INSTALLER.status" echo PASS

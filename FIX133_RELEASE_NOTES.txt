@@ -1,0 +1,14 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX133
+NAPRAWA ZGODNOŚCI REGEXÓW Z CRLF
+
+Przyczyna:
+Historyczne testy tożsamości CHECK_SOURCE używały zakotwiczonych wyrażeń regularnych bez uwzględnienia znaku CR w zakończeniach linii Windows CRLF. Z tego powodu testy nie odnajdywały linii raportu mimo zgodnego tytułu i nazwy pliku.
+
+Zmiany:
+- Normalizacja CRLF do LF przed analizą nagłówka i ścieżki raportu w testach FIX128, FIX129 i FIX132.
+- Nowy test FIX133 sprawdza źródła CRLF, fixture CRLF i fixture LF.
+- Zachowane wymagania testów instalatora, zapisu konfiguracji, identyfikacji monitora i raportów.
+- Bez zmian w kodzie aplikacji i numerze wersji produktu 1.0.0.72 / FIX072.
+
+Bezpieczeństwo wydania:
+FIX133 zmienia wyłącznie testy, diagnostykę i dokumentację. Nie zmienia binariów ani receptury instalatora.

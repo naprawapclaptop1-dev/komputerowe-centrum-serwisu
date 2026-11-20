@@ -5,6 +5,7 @@ $modulesPath = Join-Path $root 'WindowsVersionSwitcherPRO.Modules.cs'
 $main = Get-Content -LiteralPath $mainPath -Raw -Encoding UTF8
 $modules = Get-Content -LiteralPath $modulesPath -Raw -Encoding UTF8
 $cmd = Get-Content -LiteralPath (Join-Path $root 'CHECK_SOURCE.cmd') -Raw -Encoding UTF8
+$cmd = $cmd.Replace("`r`n","`n")
 $validator = Get-Content -LiteralPath (Join-Path $root 'VALIDATE_FIX100_PACKAGE.ps1') -Raw -Encoding UTF8
 $allow = @(Get-Content -LiteralPath (Join-Path $root 'FIX099_SOURCE_ALLOWLIST.txt') -Encoding UTF8 | ForEach-Object { $_.Trim() } | Where-Object { $_ })
 $manifest = Get-Content -LiteralPath (Join-Path $root 'FIX099_POWERSHELL_MANIFEST.txt') -Raw -Encoding UTF8
@@ -35,13 +36,19 @@ $quickPages = @('Hardware Intelligence PRO','Backup Recovery ULTIMATE','Migratio
 $quickOk = $true
 foreach ($page in $quickPages) { if (-not $main.Contains('"'+$page+'"')) { $quickOk = $false } }
 Add-Check $quickOk 'Dashboard quick actions link to all nine existing diagnostic, recovery, migration and service modules'
-Add-Check ($cmd.Contains('call :run_ps_check "CHECK_FIX129_CONFIG_PERSISTENCE.ps1"') -and $cmd.Contains('CHECK_SOURCE_FIX129.log')) 'FIX129 configuration regression is active in the versioned source gate'
+$activeFixMatch = [regex]::Match($cmd,'(?m)^title\s+KOMPUTEROWE CENTRUM SERWISU\s+(FIX\d{3})\b')
+$activeLogMatch = [regex]::Match($cmd,'(?m)^set "KCS_CHECK_LOG=%~dp0dist\\build-logs\\CHECK_SOURCE_(FIX\d{3})\.log"\r?$')
+$activeFix = $activeFixMatch.Groups[1].Value
+$worker = Get-Content -LiteralPath (Join-Path $root 'KCS_FIX101_WORKER.cmd') -Raw -Encoding UTF8
+$launcher = Get-Content -LiteralPath (Join-Path $root 'URUCHOM_TYLKO_TEN_PLIK.cmd') -Raw -Encoding UTF8
+Add-Check ($cmd.Contains('call :run_ps_check "CHECK_FIX129_CONFIG_PERSISTENCE.ps1"') -and $activeFixMatch.Success -and $activeLogMatch.Success -and $activeLogMatch.Groups[1].Value -eq $activeFix -and $worker.Contains($activeFix) -and $launcher.Contains($activeFix)) 'FIX129 configuration regression is active and uses the current source/report/launcher identity'
 $required = @('CHECK_FIX129_CONFIG_PERSISTENCE.ps1','FIX129_RELEASE_NOTES.txt','FIX129_MODULE_MAP.txt')
 Add-Check (($required | Where-Object { $validator.Contains($_) }).Count -eq 3) 'Full package validation requires the FIX129 regression test and both documents'
 Add-Check (($required | Where-Object { $allow -contains $_ }).Count -eq 3) 'Explicit source synchronization allowlist contains all FIX129 artifacts'
 Add-Check (($required | Where-Object { $manifest.Contains($_) }).Count -eq 1) 'PowerShell manifest includes the FIX129 regression test'
-Add-Check (($required | Where-Object { $safeBlock.Contains($_) -and $currentBlock.Contains($_) }).Count -eq 3) 'Release-preservation fixture permits only FIX129 test and documentation paths as safe tooling'
-Add-Check ($version -eq '1.0.0.71' -and $assembly.Contains('AssemblyVersion("1.0.0.71")') -and $assembly.Contains('AssemblyInformationalVersion("FIX071")')) 'Application metadata is consistently bumped to immutable release 1.0.0.71 / FIX071'
+Add-Check (($required | Where-Object { $safeBlock.Contains($_) }).Count -eq 3) 'FIX129 test and historical docs remain safe tooling paths'
+Add-Check ($currentBlock.Contains('CHECK_FIX129_CONFIG_PERSISTENCE.ps1') -and -not $currentBlock.Contains('FIX129_RELEASE_NOTES.txt') -and -not $currentBlock.Contains('FIX129_MODULE_MAP.txt')) 'Only the FIX129 test changed in this package; its historical docs remain unchanged'
+Add-Check ($version -match '^\d+\.\d+\.\d+\.\d+$' -and $assembly.Contains(('AssemblyVersion("{0}")' -f $version)) -and $assembly.Contains(('AssemblyFileVersion("{0}")' -f $version))) 'Application assembly metadata remains consistent with VERSION.txt'
 $failed = @($checks | Where-Object { -not $_.Passed })
 foreach ($check in $checks) { if ($check.Passed) { Write-Host ('[PASS] ' + $check.Name) } else { Write-Host ('[FAIL] ' + $check.Name) } }
 if ($failed.Count) { Write-Host ('[FAIL] FIX129 configuration persistence: ' + (($failed | ForEach-Object { $_.Name }) -join '; ')); exit 1 }

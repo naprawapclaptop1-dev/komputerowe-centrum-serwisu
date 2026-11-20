@@ -1,0 +1,27 @@
+﻿KOMPUTEROWE CENTRUM SERWISU — FIX130 / WYDANIE PRODUKTU 1.0.0.72 (FIX072)
+
+Cel
+Rozszerzenie i uporządkowanie wspólnej warstwy diagnostyki sprzętu, monitoringu wydajności oraz obsługi raportów serwisowych, bez dublowania istniejących modułów KCS.
+
+Zakres
+- Dashboard pokazuje krótkie podsumowanie woluminów; pełne dane CPU/RAM/GPU/dysków są dostępne w podpowiedziach.
+- Identyfikacja GPU wylicza wszystkie adaptery WMI i odróżnia nazwy typowe dla adapterów wirtualnych/zdalnych. Sam WMI nie stanowi dowodu fizycznego GPU, dlatego UI wyświetla tę niepewność.
+- Monitor LIVE zbiera CPU/RAM, GPU Engine, pamięć GPU dedykowaną/współdzieloną i transfer odczytu/zapisu dysków, gdy Windows i sterownik udostępniają odpowiednie providery.
+- Wykres przechowuje do 60 ostatnich punktów CPU/RAM/GPU. Brak providera jest prezentowany jako brak danych, a nie zero.
+- Odczyt Disk Health / SMART / woluminów wykonuje się w tle z ograniczonymi czasowo zapytaniami WMI; kolejne żądanie nie uruchamia równoległego skanu.
+- Odczyt CPU name w monitorze LIVE ma limit czasu WMI; monitor sprzętu blokuje nakładające się odczyty.
+- Raport serwisowy zawiera pełne dane identyfikacji GPU i woluminów.
+- Dodano bezpośrednie skróty z monitora sprzętu do BIOS/UEFI oraz ze strony dysków do Centrum kopii i odzyskiwania.
+- Zachowano istniejące moduły NVMe/SMART, kopii, odzyskiwania, sterowników/BIOS, raportów, kartoteki klientów i zleceń serwisowych.
+
+Bezpieczeństwo i ograniczenia
+- Moduły monitorujące wykonują odczyty informacyjne; nie flashują BIOS i nie modyfikują sektorów dysków.
+- Temperatura CPU/GPU, VRAM i GPU Engine zależą od sprzętu, sterowników i providerów Windows. Brak danych nie jest interpretowany jako dobry stan.
+- Testy obciążeniowe i operacje naprawcze pozostają oddzielnymi działaniami wymagającymi świadomego uruchomienia.
+- Wydanie produktu 1.0.0.72 jest niezmienne. Poprzednie wydania 1.0.0.70 i 1.0.0.71 pozostają zachowane.
+
+Walidacja
+CHECK_FIX130_DIAGNOSTICS_MONITORING.ps1 jest włączony do CHECK_SOURCE, walidatora pakietu, allowlisty synchronizacji i manifestu PowerShell.
+
+- Dodatkowe zabezpieczenie: Disk Health i Performance zwalniają workery po zakończeniu, także przy wyjątku; nie pozostawiają wiszących referencji po odświeżaniu.
+- Aktualizacja listy dysków gwarantuje EndUpdate w bloku finally.

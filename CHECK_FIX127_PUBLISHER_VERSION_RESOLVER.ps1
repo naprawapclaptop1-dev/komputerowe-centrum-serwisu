@@ -45,8 +45,9 @@ $requiredNew = @('CHECK_FIX127_PUBLISHER_VERSION_RESOLVER.ps1','FIX127_RELEASE_N
 Add-Check ($cmd.Contains('call :run_ps_check "CHECK_FIX127_PUBLISHER_VERSION_RESOLVER.ps1"')) 'FIX127 resolver regression is active in CHECK_SOURCE'
 Add-Check (($requiredNew | Where-Object { $validator.Contains($_) }).Count -eq 3) 'Full-package validation requires all FIX127 artifacts'
 Add-Check (($requiredNew | Where-Object { $allow -contains $_ }).Count -eq 3) 'Explicit source allowlist includes all FIX127 artifacts'
-Add-Check (($requiredNew | Where-Object { $safeBlock.Contains($_) }).Count -eq 3 -and ($requiredNew | Where-Object { $currentBlock.Contains($_) }).Count -eq 3) 'FIX127 test and docs are safe tooling changes in release-preservation fixtures'
-Add-Check ($safeBlock.Contains('CHECK_FIX116_RELEASE_VERSION_NORMALIZATION.ps1') -and $currentBlock.Contains('CHECK_FIX116_RELEASE_VERSION_NORMALIZATION.ps1')) 'Modified FIX116 regression script remains eligible as safe test tooling'
+Add-Check (($requiredNew | Where-Object { $safeBlock.Contains($_) }).Count -eq 3) 'FIX127 test and historical docs remain safe tooling paths'
+Add-Check ($currentBlock.Contains('CHECK_FIX127_PUBLISHER_VERSION_RESOLVER.ps1') -and -not $currentBlock.Contains('FIX127_RELEASE_NOTES.txt') -and -not $currentBlock.Contains('FIX127_MODULE_MAP.txt')) 'Only the FIX127 test changed in this package; its historical docs remain unchanged'
+Add-Check ($safeBlock.Contains('CHECK_FIX116_RELEASE_VERSION_NORMALIZATION.ps1') -and -not $currentBlock.Contains('CHECK_FIX116_RELEASE_VERSION_NORMALIZATION.ps1')) 'Historical FIX116 regression remains safe tooling but is unchanged from the preceding baseline'
 $failed = @($checks | Where-Object { -not $_.Passed })
 foreach ($check in $checks) { if ($check.Passed) { Write-Host ('[PASS] ' + $check.Name) } else { Write-Host ('[FAIL] ' + $check.Name) } }
 if ($failed.Count) { Write-Host ('[FAIL] FIX127 publisher-version resolver checks: ' + (($failed | ForEach-Object { $_.Name }) -join '; ')); exit 1 }

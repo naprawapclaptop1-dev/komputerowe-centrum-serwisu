@@ -1,0 +1,16 @@
+﻿FIX131 — MAPA MODULOW
+
+1. website/index.html
+   application-fix jest teraz znacznikiem wersji produktu (FIX072), zgodnym z VERSION.txt; software-version pozostaje 1.0.0.72.
+
+2. CHECK_FIX131_WEBSITE_PRODUCT_MARKER.ps1
+   Weryfikuje produktowy FIX, numer oprogramowania, nazwę assetu instalatora i dynamiczne wyliczanie znacznika w VERIFY_PUBLIC_DEPLOYMENT.ps1.
+
+3. CHECK_SOURCE.cmd / VALIDATE_FIX100_PACKAGE.ps1
+   Test FIX131 jest obowiązkowy w bramce źródeł i walidacji kompletności pakietu.
+
+4. FIX099_SOURCE_ALLOWLIST.txt / FIX099_POWERSHELL_MANIFEST.txt
+   Jawna synchronizacja obejmuje test i dokumentację; manifest zawiera SHA-256 testu.
+
+5. CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1
+   Nowy test i dokumenty są jawnie sklasyfikowane jako bezpieczne pliki narzędziowe. Kod aplikacji, assembly, ikona i receptura instalatora nadal wymuszają nowe niezmienne wydanie.

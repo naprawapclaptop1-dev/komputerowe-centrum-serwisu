@@ -2,6 +2,9 @@
 $root = $PSScriptRoot
 $verifier = Join-Path $root 'VERIFY_BUILD.ps1'
 $wrapper = Join-Path $root 'VERIFY_BUILD.cmd'
+$versionLines = Get-Content -LiteralPath (Join-Path $root 'VERSION.txt') -Encoding UTF8
+$productVersion = $versionLines[0].Trim()
+$productFix = $versionLines[1].Trim()
 $checks = @()
 function Quote-ProcessArgument { param([string]$Value) return '"' + $Value.Replace('"','\"') + '"' }
 foreach ($path in @($verifier,$wrapper)) {
@@ -14,7 +17,9 @@ foreach ($path in @($verifier)) {
     $checks += 'VERIFY_BUILD.ps1 parses without PowerShell syntax errors'
 }
 $source = Get-Content -LiteralPath $verifier -Raw
-foreach ($required in @('dist/portable/KomputeroweCentrumSerwisu_FIX071_PORTABLE.exe','dist/setup-files/KomputeroweCentrumSerwisu.exe','dist/setup-files/BUILD_ID.txt','dist/portable/BUILD_ID.txt','dist/portable/portable.mode','dist/installers/KomputeroweCentrumSerwisu_FIX071_INSTALATOR.exe','dist/installers/SETUP_BUILD_ID.txt')) {
+$portableName = 'dist/portable/KomputeroweCentrumSerwisu_{0}_PORTABLE.exe' -f $productFix
+$installerName = 'dist/installers/KomputeroweCentrumSerwisu_{0}_INSTALATOR.exe' -f $productFix
+foreach ($required in @($portableName,'dist/setup-files/KomputeroweCentrumSerwisu.exe','dist/setup-files/BUILD_ID.txt','dist/portable/BUILD_ID.txt','dist/portable/portable.mode',$installerName,'dist/installers/SETUP_BUILD_ID.txt')) {
     if (-not $source.Contains($required)) { throw ("Verifier is missing required output check: {0}" -f $required) }
 }
 $checks += 'All required EXE, BUILD_ID and portable marker checks are present'

@@ -6,12 +6,15 @@ $cssPath = Join-Path $root 'website/styles.css'
 $index = Get-Content -LiteralPath $htmlPath -Raw -Encoding UTF8
 $js = Get-Content -LiteralPath $jsPath -Raw -Encoding UTF8
 $css = Get-Content -LiteralPath $cssPath -Raw -Encoding UTF8
+$versionLines = Get-Content -LiteralPath (Join-Path $root 'VERSION.txt') -Encoding UTF8
+$productVersion = $versionLines[0].Trim()
+$productFix = $versionLines[1].Trim()
 $checks = @()
 function Add-Check {
     param([bool]$Passed,[string]$Name)
     $script:checks += [pscustomobject]@{ Passed = $Passed; Name = $Name }
 }
-Add-Check ($index.Contains('application-fix" content="FIX118"')) 'Website FIX118 retains the published application marker'
+Add-Check ($index.Contains(('application-fix" content="{0}"' -f $productFix))) 'Website marker matches current product FIX metadata'
 Add-Check ($index.Contains('id="pobierz"') -and $index.Contains('id="deviceSummary"') -and $index.Contains('id="refreshRelease"')) 'Download center includes system detection and manual availability refresh'
 Add-Check ($index.Contains('id="mobileMenuToggle"') -and $index.Contains('id="primaryNav"') -and $js.Contains('mobileMenuToggle: $(''mobileMenuToggle'')') -and $js.Contains('primaryNav: $(''primaryNav'')') -and $js.Contains('aria-expanded')) 'Mobile menu DOM controls are bound and keyboard-accessible with expanded state'
 Add-Check ($index.Contains('class="skip-link"') -and $css.Contains('.skip-link:focus')) 'Skip-navigation link is available for keyboard and assistive-technology users'
@@ -31,7 +34,7 @@ Add-Check ($css.Contains('.device-summary') -and $css.Contains('.release-history
 Add-Check ($css.Contains('@media(max-width:640px)') -and $css.Contains('@media(max-width:760px)') -and $css.Contains('prefers-reduced-motion')) 'New website layout supports mobile widths and reduced motion'
 Add-Check ($index.Contains('data-pl=') -and $index.Contains('data-en=') -and $js.Contains('placeholder${lang')) 'Polish and English labels and dynamic placeholders are supported'
 Add-Check ($index.Contains('prezentacja.mp4') -and $index.Contains('prezentacja.vtt') -and $index.Contains('prezentacja-en.vtt') -and (Test-Path -LiteralPath (Join-Path $root 'website/media/prezentacja-en.vtt')) -and (Test-Path -LiteralPath (Join-Path $root 'website/media/prezentacja.vtt'))) 'Existing presentation video and Polish/English captions remain present'
-Add-Check ($js.Contains('productVersion') -and $index.Contains('software-version" content="1.0.0.71"')) 'Product version remains 1.0.0.71'
+Add-Check ($js.Contains('productVersion') -and $index.Contains(('software-version" content="{0}"' -f $productVersion))) 'Website software version matches VERSION.txt'
 $failed = $false
 foreach ($check in $checks) {
     if ($check.Passed) { Write-Host ('[PASS] ' + $check.Name) }

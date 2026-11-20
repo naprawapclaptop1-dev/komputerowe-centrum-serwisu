@@ -6,12 +6,15 @@ $cssPath = Join-Path $root 'website/styles.css'
 $html = Get-Content -LiteralPath $htmlPath -Raw -Encoding UTF8
 $js = Get-Content -LiteralPath $jsPath -Raw -Encoding UTF8
 $css = Get-Content -LiteralPath $cssPath -Raw -Encoding UTF8
+$versionLines = Get-Content -LiteralPath (Join-Path $root 'VERSION.txt') -Encoding UTF8
+$productVersion = $versionLines[0].Trim()
+$productFix = $versionLines[1].Trim()
 $checks = @()
 function Add-Check {
     param([bool]$Passed,[string]$Name)
     $script:checks += [pscustomobject]@{ Passed = $Passed; Name = $Name }
 }
-Add-Check ($html.Contains('application-fix" content="FIX118"')) 'FIX118 marker is published in website HTML'
+Add-Check ($html.Contains(('application-fix" content="{0}"' -f $productFix))) 'Current product FIX marker is published in website HTML'
 Add-Check ($html.Contains('id="mobileMenuToggle"') -and $html.Contains('id="primaryNav"') -and $html.Contains('aria-controls="primaryNav"') -and $html.Contains('aria-expanded="false"')) 'Mobile menu button and navigation have accessible DOM relationships'
 Add-Check ($js.Contains('mobileMenuToggle: $(''mobileMenuToggle'')')) 'Mobile menu button is bound in the application element map'
 Add-Check ($js.Contains('primaryNav: $(''primaryNav'')') -and $js.Contains("event.key === 'Escape'") -and $js.Contains('setMobileMenuOpen(false, true)')) 'Mobile menu closes with Escape and returns keyboard focus'
@@ -24,7 +27,7 @@ Add-Check ($html.Contains('prezentacja.mp4') -and $html.Contains('prezentacja.vt
 Add-Check ((Test-Path -LiteralPath (Join-Path $root 'website/media/prezentacja.mp4')) -and (Test-Path -LiteralPath (Join-Path $root 'website/media/prezentacja.vtt')) -and (Test-Path -LiteralPath (Join-Path $root 'website/media/prezentacja-en.vtt'))) 'Original presentation media and both subtitle files exist in the package'
 Add-Check ($js.Contains('video.querySelectorAll(''track[kind="captions"]'')') -and $js.Contains('track.track.mode = selected ? ''showing'' : ''disabled''')) 'Language switch selects the matching caption track without replacing the other track'
 Add-Check ($css.Contains('.support-public-warning') -and $css.Contains('.support-ack') -and $css.Contains(':focus-visible')) 'New privacy and keyboard-accessibility elements have dedicated styles'
-Add-Check ($html.Contains('software-version" content="1.0.0.71"') -and $js.Contains("const productVersion = '1.0.0.71'")) 'Product version remains unchanged at 1.0.0.71'
+Add-Check ($html.Contains(('software-version" content="{0}"' -f $productVersion)) -and $js.Contains(("const productVersion = '{0}'" -f $productVersion))) 'Website HTML and release client share the current VERSION.txt value'
 $failed = @($checks | Where-Object { -not $_.Passed })
 foreach ($check in $checks) {
     if ($check.Passed) { Write-Host ('[PASS] ' + $check.Name) }

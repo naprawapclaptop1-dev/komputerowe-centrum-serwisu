@@ -1,5 +1,5 @@
 ﻿#define MyAppName "KOMPUTEROWE CENTRUM SERWISU"
-#define MyAppVersion "1.0.0.71"
+#define MyAppVersion "1.0.0.72"
 #define MyAppPublisher "Serwis komputerowy"
 #define MyAppExeName "KomputeroweCentrumSerwisu.exe"
 
@@ -34,14 +34,14 @@ CloseApplications=yes
 RestartApplications=no
 Uninstallable=yes
 CreateUninstallRegKey=yes
-VersionInfoVersion=1.0.0.71
-VersionInfoProductVersion=1.0.0.71
+VersionInfoVersion=1.0.0.72
+VersionInfoProductVersion=1.0.0.72
 VersionInfoCompany={#MyAppPublisher}
 VersionInfoDescription={#MyAppName} Installer
 VersionInfoProductName={#MyAppName}
 SetupLogging=yes
 MinVersion=6.1sp1
-OutputBaseFilename=KomputeroweCentrumSerwisu_FIX071_INSTALATOR
+OutputBaseFilename=KomputeroweCentrumSerwisu_FIX072_INSTALATOR
 
 [Languages]
 Name: "polish"; MessagesFile: "compiler:Languages\Polish.isl"
@@ -90,7 +90,7 @@ Name: "{group}\KOMPUTEROWE CENTRUM SERWISU"; Filename: "{app}\{#MyAppExeName}"; 
 Name: "{commondesktop}\KOMPUTEROWE CENTRUM SERWISU"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon; WorkingDir: "{app}"; IconFilename: "{app}\NaprawaPC.ico"; IconIndex: 0
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "Uruchom KOMPUTEROWE CENTRUM SERWISU FIX071"; Flags: postinstall nowait skipifsilent runascurrentuser
+Filename: "{app}\{#MyAppExeName}"; Description: "Uruchom KOMPUTEROWE CENTRUM SERWISU FIX072"; Flags: postinstall nowait skipifsilent runascurrentuser
 
 [Code]
 function IsDotNetFullAt(RootKey: Integer; SubKey: string): Boolean;
@@ -157,7 +157,7 @@ begin
   WizardForm.WelcomeLabel2.Font.Color := $B8DDEF;
   WizardForm.FinishedLabel.Font.Color := $EAF7FF;
   WizardForm.FinishedLabel.Caption := 'Instalacja zakończona. KOMPUTEROWE CENTRUM SERWISU jest gotowe.';
-  WizardForm.FinishedHeadingLabel.Caption := 'Gotowe — FIX071 zainstalowany';
+  WizardForm.FinishedHeadingLabel.Caption := 'Gotowe — FIX072 zainstalowany';
   WizardForm.FinishedHeadingLabel.Font.Color := $46DFFF;
   WizardForm.RunList.Color := $07182C;
   WizardForm.RunList.Font.Color := $EAF7FF;

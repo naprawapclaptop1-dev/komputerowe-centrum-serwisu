@@ -22,7 +22,7 @@ Add-Check ($runner.Contains($expectedArgs)) 'Install runner launches Inno Setup 
 Add-Check ($runner -notmatch '(?i)/VERYSILENT|/SILENT|/SUPPRESSMSGBOXES') 'No silent or message-suppression switch can bypass the acknowledgement page'
 Add-Check ($runner.Contains("'-Verb RunAs'") -or $runner.Contains('-Verb RunAs')) 'Installer still requests elevation'
 Add-Check ($runner.Contains('-Wait -PassThru')) 'Automation waits for the real installer process and exit code'
-Add-Check ($runner.Contains('/LOG=') -and $runner.Contains('installation-FIX071-inno.log')) 'Dedicated Inno Setup diagnostic log remains enabled'
+Add-Check ($runner.Contains('/LOG=') -and $runner.Contains('installation-FIX072-inno.log')) 'Dedicated Inno Setup diagnostic log remains enabled'
 Add-Check ($runner.Contains('samodzielnie zaznacz pole akceptacji ryzyka')) 'Console explains that consent must be given by the user'
 Add-Check ($runner.Contains('if($p.ExitCode -ne 0)') -and $runner.Contains('Installation was cancelled during installation.')) 'Nonzero and cancellation exit codes are not reported as successful'
 foreach ($installer in @($setup,$legacy)) {
@@ -32,6 +32,7 @@ foreach ($installer in @($setup,$legacy)) {
 }
 Add-Check ($fix072.Contains("-notmatch '/VERYSILENT|/SILENT|/SUPPRESSMSGBOXES'") -and $fix072.Contains('launched interactively')) 'Historical FIX072 endpoint regression now expects the guided installer path'
 $cmd = Get-Content -LiteralPath (Join-Path $root 'CHECK_SOURCE.cmd') -Raw -Encoding UTF8
+$cmd = $cmd.Replace("`r`n","`n")
 $validator = Get-Content -LiteralPath (Join-Path $root 'VALIDATE_FIX100_PACKAGE.ps1') -Raw -Encoding UTF8
 $allow = @(Get-Content -LiteralPath (Join-Path $root 'FIX099_SOURCE_ALLOWLIST.txt') -Encoding UTF8 | ForEach-Object { $_.Trim() } | Where-Object { $_ })
 $policy = Get-Content -LiteralPath (Join-Path $root 'CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1') -Raw -Encoding UTF8
@@ -41,10 +42,16 @@ $required = @('CHECK_FIX128_INTERACTIVE_INSTALL_CONSENT.ps1','FIX128_RELEASE_NOT
 Add-Check ($cmd.Contains('call :run_ps_check "CHECK_FIX128_INTERACTIVE_INSTALL_CONSENT.ps1"')) 'FIX128 installer-consent test is active in CHECK_SOURCE'
 Add-Check (($required | Where-Object { $validator.Contains($_) }).Count -eq 3) 'Full package validator requires all FIX128 artifacts'
 Add-Check (($required | Where-Object { $allow -contains $_ }).Count -eq 3) 'Explicit source allowlist contains all FIX128 artifacts'
-Add-Check (($required | Where-Object { $safeBlock.Contains($_) -and $currentBlock.Contains($_) }).Count -eq 3) 'FIX128 test and documentation are allowed safe tooling changes'
-Add-Check ($safeBlock.Contains('CHECK_FIX072_UPDATE_ENDPOINTS.ps1') -and $currentBlock.Contains('CHECK_FIX072_UPDATE_ENDPOINTS.ps1')) 'Updated historical installer regression remains eligible as safe test tooling'
+Add-Check (($required | Where-Object { $safeBlock.Contains($_) }).Count -eq 3) 'FIX128 test and historical docs remain safe tooling paths'
+Add-Check ($currentBlock.Contains('CHECK_FIX128_INTERACTIVE_INSTALL_CONSENT.ps1') -and -not $currentBlock.Contains('FIX128_RELEASE_NOTES.txt') -and -not $currentBlock.Contains('FIX128_MODULE_MAP.txt')) 'Only the FIX128 test changed in this package; its historical docs remain unchanged'
+Add-Check ($safeBlock.Contains('CHECK_FIX072_UPDATE_ENDPOINTS.ps1') -and -not $currentBlock.Contains('CHECK_FIX072_UPDATE_ENDPOINTS.ps1')) 'Historical FIX072 regression remains safe tooling but unchanged from the preceding baseline'
 Add-Check ($safeBlock.Contains('INSTALL_PUBLISHED_BUILD.ps1') -and $currentBlock.Contains('INSTALL_PUBLISHED_BUILD.ps1')) 'Install runner remains eligible as safe packaging tooling'
-Add-Check ($cmd.Contains('FIX129') -and $cmd.Contains('CHECK_SOURCE_FIX129.log')) 'CHECK_SOURCE uses current FIX129 package and report identity'
+$activeFixMatch = [regex]::Match($cmd,'(?m)^title\s+KOMPUTEROWE CENTRUM SERWISU\s+(FIX\d{3})\b')
+$activeLogMatch = [regex]::Match($cmd,'(?m)^set "KCS_CHECK_LOG=%~dp0dist\\build-logs\\CHECK_SOURCE_(FIX\d{3})\.log"\r?$')
+$activeFix = $activeFixMatch.Groups[1].Value
+$worker = Get-Content -LiteralPath (Join-Path $root 'KCS_FIX101_WORKER.cmd') -Raw -Encoding UTF8
+$launcher = Get-Content -LiteralPath (Join-Path $root 'URUCHOM_TYLKO_TEN_PLIK.cmd') -Raw -Encoding UTF8
+Add-Check ($activeFixMatch.Success -and $activeLogMatch.Success -and $activeLogMatch.Groups[1].Value -eq $activeFix -and $worker.Contains($activeFix) -and $launcher.Contains($activeFix)) 'CHECK_SOURCE, diagnostic report, launcher and worker share the active package identity'
 $failed = @($checks | Where-Object { -not $_.Passed })
 foreach ($check in $checks) { if ($check.Passed) { Write-Host ('[PASS] ' + $check.Name) } else { Write-Host ('[FAIL] ' + $check.Name) } }
 if ($failed.Count) { Write-Host ('[FAIL] FIX128 interactive installer consent checks: ' + (($failed | ForEach-Object { $_.Name }) -join '; ')); exit 1 }

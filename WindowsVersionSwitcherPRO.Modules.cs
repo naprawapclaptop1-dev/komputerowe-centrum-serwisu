@@ -68,7 +68,7 @@ namespace NaprawaPC.WindowsSwitcher
         private string pendingUpdateChannel = "", pendingUpdateRegion = "", pendingUpdateLanguage = "", pendingUpdateFeed = "";
         private string pendingUpdateSignerThumbprint = "";
         private string updaterSettingsPath = "";
-        private const string ProgramVersion = "1.0.0.71";
+        private const string ProgramVersion = "1.0.0.72";
         // Jeden adres wbudowany w aplikację — użytkownicy nie wpisują manifestów ani serwerów.
         private string GitHubReleaseBaseUrl
         {
@@ -955,7 +955,7 @@ namespace NaprawaPC.WindowsSwitcher
 
         private string GetOfficialUpdatePackageUrl()
         {
-            return OfficialUpdateBaseUrl+"KomputeroweCentrumSerwisu_FIX071_INSTALATOR.exe";
+            return OfficialUpdateBaseUrl+"KomputeroweCentrumSerwisu_FIX072_INSTALATOR.exe";
         }
         private string GetOfficialReleaseCatalogUrl()
         {
@@ -1244,7 +1244,7 @@ namespace NaprawaPC.WindowsSwitcher
                 using(StreamReader reader=new StreamReader(response.GetResponseStream(),Encoding.UTF8))
                 {
                     string json=reader.ReadToEnd();
-                    string[] required={"KomputeroweCentrumSerwisu_FIX071_INSTALATOR.exe","KomputeroweCentrumSerwisu_FIX071_PORTABLE.exe","manifest-stable.xml","manifest-beta.xml","releases.json","SHA256SUMS.txt"};
+                    string[] required={"KomputeroweCentrumSerwisu_FIX072_INSTALATOR.exe","KomputeroweCentrumSerwisu_FIX072_PORTABLE.exe","manifest-stable.xml","manifest-beta.xml","releases.json","SHA256SUMS.txt"};
                     List<string> missing=new List<string>();foreach(string name in required)if(json.IndexOf(name,StringComparison.OrdinalIgnoreCase)<0)missing.Add(name);
                     if(missing.Count>0)throw new InvalidDataException("W najnowszym wydaniu GitHub brakuje assetów: "+String.Join(", ",missing.ToArray()));
                     string tag=ReadJsonStringProperty(json,"tag_name");
@@ -1966,7 +1966,7 @@ namespace NaprawaPC.WindowsSwitcher
             if(d.ShowDialog()!=DialogResult.OK)return;
             string channel=updaterChannelBox!=null && updaterChannelBox.SelectedIndex==1?"beta":"stable";
             string sample="<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n"+
-                "<Update version=\"1.0.0.71\" channel=\""+channel+"\" region=\"global\" language=\"all\" architecture=\"any\" packageUrl=\""+
+                "<Update version=\"1.0.0.72\" channel=\""+channel+"\" region=\"global\" language=\"all\" architecture=\"any\" packageUrl=\""+
                 GetOfficialUpdatePackageUrl()+"\" sha256=\"WSTAW_64_ZNAKI_SHA256\">\r\n"+
                 "  <Notes lang=\"pl\">Wydanie "+ProgramVersion+"</Notes>\r\n"+
                 "  <Notes lang=\"en\">Release "+ProgramVersion+"</Notes>\r\n"+
@@ -1993,7 +1993,7 @@ namespace NaprawaPC.WindowsSwitcher
             string channel=updaterChannelBox!=null && updaterChannelBox.SelectedIndex==1?"beta":"stable";
             string manifestName=channel=="beta"?"manifest-beta.xml":"manifest-stable.xml";
             string folder=Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"GlobalUpdateServer");
-            string packageName="KomputeroweCentrumSerwisu_FIX071_INSTALATOR.exe";
+            string packageName="KomputeroweCentrumSerwisu_FIX072_INSTALATOR.exe";
             string packagePath=Path.Combine(folder,packageName);
             string manifestPath=Path.Combine(folder,manifestName);
             try
@@ -2699,26 +2699,30 @@ try {
         {
             if(FindPage("Monitor sprzętu")!=null)return;
             Panel p=NewPage("Monitor sprzętu","Hardware Monitor PRO");
-            Panel cpu=Card(p,"PROCESOR / PAMIĘĆ",10,8,950,150);
-            LabelAt(cpu,"CPU: informacje pobierane z WMI; obciążenie jest przybliżonym odczytem Windows.",18,46,900,25);
-            ButtonAt(cpu,"ODŚWIEŻ SPRZĘT",18,88,200,delegate{RefreshHardwareMonitorPage();});
-            ButtonAt(cpu,"Menedżer zadań",230,88,175,delegate{RunCommand("taskmgr.exe","");});
-            ButtonAt(cpu,"Monitor zasobów",418,88,190,delegate{RunCommand("resmon.exe","");});
-            ButtonAt(cpu,"dxdiag",620,88,130,delegate{RunCommand("dxdiag.exe","");});
+            Panel cpu=Card(p,"PROCESOR / PAMIĘĆ / SZYBKIE MODUŁY",10,8,950,170);
+            LabelAt(cpu,"CPU i RAM pochodzą z WMI. Temperatury, VRAM i GPU zależą od sterowników i kontrolera — brak odczytu nie oznacza prawidłowego stanu.",18,43,900,34);
+            ButtonAt(cpu,"ODŚWIEŻ SPRZĘT",18,82,190,delegate{RefreshHardwareMonitorPage();});
+            ButtonAt(cpu,"Menedżer zadań",220,82,175,delegate{RunCommand("taskmgr.exe","");});
+            ButtonAt(cpu,"Monitor zasobów",405,82,190,delegate{RunCommand("resmon.exe","");});
+            ButtonAt(cpu,"dxdiag",605,82,130,delegate{RunCommand("dxdiag.exe","");});
+            ButtonAt(cpu,"MONITOR LIVE CPU / RAM / GPU",18,125,290,delegate{ShowPage("Windows Performance");});
+            ButtonAt(cpu,"GPU / MONITORY / PNP",318,125,260,delegate{ShowPage("Hardware Intelligence PRO");});
+            ButtonAt(cpu,"SMART / NVMe",588,125,190,delegate{ShowPage("NVMe SSD Doctor");});
+            ButtonAt(cpu,"BIOS / UEFI",788,125,135,delegate{ShowPage("Partycje i UEFI");});
 
-            Panel metrics=Card(p,"ODCZYT SPRZĘTU — WMI / ACPI",10,175,950,260);
+            Panel metrics=Card(p,"ODCZYT SPRZĘTU — WMI / ACPI / WSZYSTKIE ADAPTERY",10,195,950,270);
             TextBox output=new TextBox();output.Name="HardwareMonitorReport";output.Multiline=true;output.ReadOnly=true;
             output.ScrollBars=ScrollBars.Both;output.WordWrap=true;output.Font=new Font("Consolas",9F);
             output.BackColor=Color.FromArgb(7,13,23);output.ForeColor=Color.FromArgb(205,235,245);
-            output.Location=new Point(UX(18),UY(45));output.Size=new Size(UX(895),UY(195));metrics.Controls.Add(output);
-            ButtonAt(metrics,"ZAPISZ RAPORT",18,214,190,delegate{
+            output.Location=new Point(UX(18),UY(45));output.Size=new Size(UX(895),UY(145));metrics.Controls.Add(output);
+            ButtonAt(metrics,"ZAPISZ RAPORT",18,205,190,delegate{
                 SaveFileDialog d=new SaveFileDialog();d.Filter="Raport TXT (*.txt)|*.txt";
                 d.FileName="Hardware_"+DateTime.Now.ToString("yyyyMMdd_HHmmss")+".txt";
                 if(d.ShowDialog()==DialogResult.OK){File.WriteAllText(d.FileName,output.Text,Encoding.UTF8);AppendLog("Zapisano raport sprzętu: "+d.FileName);}
             });
-            ButtonAt(metrics,"Eksport sterowników",220,214,205,delegate{ExportDrivers();});
+            ButtonAt(metrics,"Eksport sterowników",220,205,205,delegate{ExportDrivers();});
 
-            Panel sensors=Card(p,"CZUJNIKI I OGRANICZENIA ODCZYTU",10,455,950,145);
+            Panel sensors=Card(p,"CZUJNIKI I OGRANICZENIA ODCZYTU",10,475,950,145);
             LabelAt(sensors,"Windows nie udostępnia uniwersalnego API do temperatur CPU/GPU i obrotów wentylatorów. Odczyt ACPI może zwracać strefę termiczną, a nie temperaturę rdzenia CPU.",18,45,900,42);
             ButtonAt(sensors,"Otwórz Monitor wydajności",18,95,245,delegate{RunCommand("perfmon.exe","");});
             ButtonAt(sensors,"Otwórz dxdiag",275,95,180,delegate{RunCommand("dxdiag.exe","");});
@@ -2729,28 +2733,40 @@ try {
 
         private void RefreshHardwareMonitorPage()
         {
-            if(FindPage("Monitor sprzętu")==null)return;
-            Control[] found=FindPage("Monitor sprzętu").Controls.Find("HardwareMonitorReport",true);
+            Panel page=FindPage("Monitor sprzętu");if(page==null)return;
+            Control[] found=page.Controls.Find("HardwareMonitorReport",true);
             if(found.Length==0)return;
             TextBox box=found[0] as TextBox;if(box==null)return;
-            box.Text="Odczytywanie informacji sprzętowych...";
-            BackgroundWorker bw=new BackgroundWorker();
+            if(hardwareMonitorWorker!=null && hardwareMonitorWorker.IsBusy)
+            {
+                box.Text="Poprzedni odczyt sprzętu nadal trwa. Poczekaj na jego zakończenie.";return;
+            }
+            box.Text="Odczytywanie informacji sprzętowych w tle...";
+            BackgroundWorker bw=new BackgroundWorker();hardwareMonitorWorker=bw;
             bw.DoWork+=delegate(object sender,DoWorkEventArgs e){e.Result=ReadHardwareSnapshot();};
             bw.RunWorkerCompleted+=delegate(object sender,RunWorkerCompletedEventArgs e){
-                if(box.IsDisposed)return;
-                if(e.Error!=null){box.Text="Błąd odczytu: "+e.Error.Message;return;}
-                HardwareSnapshot h=(HardwareSnapshot)e.Result;
-                StringBuilder b=new StringBuilder();
-                b.AppendLine("KOMPUTEROWE CENTRUM SERWISU — HARDWARE MONITOR PRO");
-                b.AppendLine("Data: "+DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-                b.AppendLine("CPU: "+h.Cpu);b.AppendLine("Rdzenie / wątki: "+h.Cores);b.AppendLine("Obciążenie CPU: "+h.CpuLoad);
-                b.AppendLine("RAM: "+h.Ram);b.AppendLine("GPU: "+h.Gpu);b.AppendLine("VRAM: "+h.Vram);
-                b.AppendLine("Temperatura ACPI: "+h.CpuTemperature);
-                b.AppendLine("BIOS: "+h.Bios);b.AppendLine("Płyta główna: "+h.Board);
-                b.AppendLine("Dyski fizyczne: "+h.Disks);b.AppendLine("Wolne miejsce: "+h.Drives);
-                b.AppendLine("TPM: "+h.Tpm);b.AppendLine("Firmware: "+h.Firmware);b.AppendLine("Secure Boot: "+h.SecureBoot);
-                box.Text=b.ToString();
-                AppendLog("Odświeżono Hardware Monitor PRO.");
+                try
+                {
+                    if(box.IsDisposed)return;
+                    if(e.Error!=null){box.Text="Błąd odczytu: "+e.Error.GetBaseException().Message;AppendLog("Hardware Monitor PRO: "+e.Error.GetBaseException().Message);return;}
+                    HardwareSnapshot h=(HardwareSnapshot)e.Result;
+                    StringBuilder b=new StringBuilder();
+                    b.AppendLine("KOMPUTEROWE CENTRUM SERWISU — HARDWARE MONITOR PRO");
+                    b.AppendLine("Data: "+DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                    b.AppendLine("CPU: "+h.Cpu);b.AppendLine("Rdzenie / wątki: "+h.Cores);b.AppendLine("Obciążenie CPU: "+h.CpuLoad);
+                    b.AppendLine("RAM: "+h.Ram);b.AppendLine("GPU: "+h.Gpu);b.AppendLine("VRAM: "+h.Vram);
+                    b.AppendLine("Status fizycznego GPU: "+h.GpuPhysicalStatus);b.AppendLine("Adaptery graficzne:");b.AppendLine(h.GpuDetails);
+                    b.AppendLine("Temperatura ACPI: "+h.CpuTemperature);
+                    b.AppendLine("BIOS: "+h.Bios);b.AppendLine("Płyta główna: "+h.Board);
+                    b.AppendLine("Dyski fizyczne: "+h.Disks);b.AppendLine("Wolne miejsce: "+h.Drives);
+                    b.AppendLine("TPM: "+h.Tpm);b.AppendLine("Firmware: "+h.Firmware);b.AppendLine("Secure Boot: "+h.SecureBoot);
+                    box.Text=b.ToString();AppendLog("Odświeżono Hardware Monitor PRO.");
+                }
+                finally
+                {
+                    if(hardwareMonitorWorker==bw)hardwareMonitorWorker=null;
+                    bw.Dispose();
+                }
             };
             bw.RunWorkerAsync();
         }
@@ -2760,7 +2776,7 @@ try {
             if(FindPage("Zdrowie dysków")!=null)return;
             Panel p=NewPage("Zdrowie dysków","Disk Health PRO");
             Panel list=Card(p,"WYKRYTE DYSKI FIZYCZNE",10,8,950,190);
-            diskHealthList=new ListBox();diskHealthList.Location=new Point(UX(18),UY(45));diskHealthList.Size=new Size(UX(895),UY(125));
+            diskHealthList=new ListBox();diskHealthList.Location=new Point(UX(18),UY(45));diskHealthList.Size=new Size(UX(895),UY(88));
             diskHealthList.BackColor=Color.FromArgb(7,13,23);diskHealthList.ForeColor=Color.FromArgb(205,235,245);
             list.Controls.Add(diskHealthList);
             ButtonAt(list,"ODŚWIEŻ LISTĘ",18,145,180,delegate{RefreshDiskHealth();});
@@ -2776,60 +2792,123 @@ try {
             diskHealthReportBox.Location=new Point(UX(18),UY(45));diskHealthReportBox.Size=new Size(UX(895),UY(255));
             report.Controls.Add(diskHealthReportBox);
 
-            Panel note=Card(p,"INTERPRETACJA",10,540,950,120);
-            LabelAt(note,"Status WMI „OK” i PredictFailure nie zastępują pełnego odczytu wszystkich atrybutów SMART. Nie każdy kontroler NVMe/USB udostępnia te dane. Program nie deklaruje zdrowia dysku, jeśli sprzęt nie udostępnia wiarygodnych danych.",18,45,900,55);
-            ButtonAt(note,"Otwórz raport diagnostyczny",18,92,240,delegate{ShowPage("Diagnostyka PC");});
+            Panel note=Card(p,"INTERPRETACJA / NARZĘDZIA",10,540,950,145);
+            LabelAt(note,"Status WMI „OK” i PredictFailure nie zastępują pełnego odczytu wszystkich atrybutów SMART. Nie każdy kontroler NVMe/USB udostępnia te dane. Brak danych nie oznacza zdrowia dysku. Przed testami obciążeniowymi wykonaj kopię.",18,43,900,48);
+            ButtonAt(note,"Otwórz raport diagnostyczny",18,101,210,delegate{ShowPage("Diagnostyka PC");});
+            ButtonAt(note,"NVMe / Storage Reliability",238,101,245,delegate{ShowPage("NVMe SSD Doctor");});
+            ButtonAt(note,"Zapisz raport dysków",493,101,210,delegate{SaveTextReport(diskHealthReportBox,"DiskHealth");});
+            ButtonAt(note,"KOPIA / ODZYSKIWANIE",713,101,210,delegate{ShowPage("Backup Recovery ULTIMATE");});
             RefreshDiskHealth();
         }
 
-        private void RefreshDiskHealth()
+        private DiskHealthSnapshot ReadDiskHealthSnapshot()
         {
-            if(diskHealthList==null || diskHealthList.IsDisposed)return;
-            diskHealthList.Items.Clear();
+            DiskHealthSnapshot result=new DiskHealthSnapshot();
             StringBuilder report=new StringBuilder();
             report.AppendLine("KOMPUTEROWE CENTRUM SERWISU — DISK HEALTH PRO");
             report.AppendLine("Data: "+DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             report.AppendLine();
-            int count=0;
-            try {
-                using(ManagementObjectSearcher q=new ManagementObjectSearcher("SELECT Index,Model,Status,Size,InterfaceType,MediaType,PNPDeviceID FROM Win32_DiskDrive")) {
-                    foreach(ManagementObject o in q.Get()) {
-                        count++;
+            try
+            {
+                using(ManagementObjectSearcher q=CreateTimedWmiSearcher("root\\cimv2","SELECT Index,Model,Status,Size,InterfaceType,MediaType,PNPDeviceID FROM Win32_DiskDrive",7))
+                {
+                    foreach(ManagementObject o in q.Get())
+                    {
+                        result.DiskCount++;
                         string model=Convert.ToString(o["Model"]);
                         string status=Convert.ToString(o["Status"]);
                         double size=0;try{size=Convert.ToDouble(o["Size"])/1073741824.0;}catch{}
                         string item="#"+Convert.ToString(o["Index"])+" | "+model+" | "+size.ToString("0.0",CultureInfo.InvariantCulture)+" GB | "+status;
-                        diskHealthList.Items.Add(item);
-                        report.AppendLine(item);
+                        result.Disks.Add(item);report.AppendLine(item);
                         report.AppendLine("  Interface: "+Convert.ToString(o["InterfaceType"])+" | Media: "+Convert.ToString(o["MediaType"]));
                         report.AppendLine("  PNP: "+Convert.ToString(o["PNPDeviceID"]));
                     }
                 }
-            } catch(Exception ex){report.AppendLine("Win32_DiskDrive error: "+ex.Message);}
-            report.AppendLine();
-            report.AppendLine("PREDICTIVE FAILURE / SMART WMI:");
-            bool smartAvailable=false;
-            try {
-                using(ManagementObjectSearcher q=new ManagementObjectSearcher("root\\WMI","SELECT InstanceName,PredictFailure,Reason FROM MSStorageDriver_FailurePredictStatus")) {
-                    foreach(ManagementObject o in q.Get()) {
-                        smartAvailable=true;
+            }
+            catch(Exception ex){report.AppendLine("Win32_DiskDrive error: "+ex.Message);}
+            if(result.DiskCount==0)report.AppendLine("Nie zwrócono fizycznych dysków przez WMI.");
+            report.AppendLine();report.AppendLine("PREDICTIVE FAILURE / SMART WMI:");
+            try
+            {
+                using(ManagementObjectSearcher q=CreateTimedWmiSearcher("root\\WMI","SELECT InstanceName,PredictFailure,Reason FROM MSStorageDriver_FailurePredictStatus",6))
+                {
+                    foreach(ManagementObject o in q.Get())
+                    {
+                        result.SmartAvailable=true;
                         report.AppendLine("Instance: "+Convert.ToString(o["InstanceName"]));
                         report.AppendLine("PredictFailure: "+Convert.ToString(o["PredictFailure"]));
                         report.AppendLine("Reason: "+Convert.ToString(o["Reason"]));
                         report.AppendLine();
                     }
                 }
-            } catch(Exception ex){report.AppendLine("SMART WMI niedostępny: "+ex.Message);}
-            if(!smartAvailable)report.AppendLine("Brak danych PredictFailure. Kontroler/sterownik może nie udostępniać tej klasy; nie oznacza to automatycznie zdrowego dysku.");
-            report.AppendLine();
-            report.AppendLine("WOLUMINY:");
-            foreach(DriveInfo d in DriveInfo.GetDrives())try {
-                if(d.IsReady)report.AppendLine(d.Name+" | "+d.DriveType+" | wolne "+Math.Round(d.AvailableFreeSpace/1073741824.0,1)+" GB / "+Math.Round(d.TotalSize/1073741824.0,1)+" GB");
-            }catch{}
-            report.AppendLine();
-            report.AppendLine("Uwaga: WMI Status=OK nie jest pełnym testem SMART/NVMe. Przed testami obciążeniowymi wykonaj kopię danych.");
-            diskHealthReportBox.Text=report.ToString();
-            AppendLog("Odczyt Disk Health PRO zakończony; wykryto dysków: "+count+"; SMART WMI: "+(smartAvailable?"dostępny":"brak"));
+            }
+            catch(Exception ex){report.AppendLine("SMART WMI niedostępny: "+ex.Message);}
+            if(!result.SmartAvailable)report.AppendLine("Brak danych PredictFailure. Kontroler/sterownik może nie udostępniać tej klasy; nie oznacza to automatycznie zdrowego dysku.");
+            report.AppendLine();report.AppendLine("WOLUMINY:");
+            foreach(DriveInfo d in DriveInfo.GetDrives())
+            {
+                try
+                {
+                    if(d.DriveType!=DriveType.Fixed && d.DriveType!=DriveType.Removable)continue;
+                    if(d.IsReady)report.AppendLine(d.Name+" | "+d.DriveType+" | wolne "+Math.Round(d.AvailableFreeSpace/1073741824.0,1)+" GB / "+Math.Round(d.TotalSize/1073741824.0,1)+" GB");
+                }
+                catch(Exception ex){report.AppendLine(d.Name+" | wolumin niedostępny: "+ex.Message);}
+            }
+            report.AppendLine();report.AppendLine("Uwaga: WMI Status=OK nie jest pełnym testem SMART/NVMe. To odczyt informacyjny; przed testami naprawczymi wykonaj kopię danych.");
+            result.Report=report.ToString();
+            return result;
+        }
+
+        private void RefreshDiskHealth()
+        {
+            if(diskHealthList==null || diskHealthList.IsDisposed)return;
+            if(diskHealthWorker!=null && diskHealthWorker.IsBusy)
+            {
+                if(diskHealthReportBox!=null && !diskHealthReportBox.IsDisposed)diskHealthReportBox.Text="Poprzedni odczyt dysków nadal trwa. Poczekaj na jego zakończenie.";
+                return;
+            }
+            diskHealthList.Items.Clear();diskHealthList.Items.Add("Trwa bezpieczny odczyt dysków i SMART...");
+            if(diskHealthReportBox!=null && !diskHealthReportBox.IsDisposed)diskHealthReportBox.Text="Odczytuję Win32_DiskDrive, SMART i woluminy w tle. Interfejs pozostaje dostępny.";
+            BackgroundWorker worker=new BackgroundWorker();
+            diskHealthWorker=worker;
+            worker.DoWork+=delegate(object sender,DoWorkEventArgs e){e.Result=ReadDiskHealthSnapshot();};
+            worker.RunWorkerCompleted+=delegate(object sender,RunWorkerCompletedEventArgs e)
+            {
+                try
+                {
+                    if(diskHealthList==null || diskHealthList.IsDisposed)return;
+                    if(e.Error!=null)
+                    {
+                        diskHealthList.Items.Clear();diskHealthList.Items.Add("Błąd odczytu dysków — sprawdź raport.");
+                        if(diskHealthReportBox!=null && !diskHealthReportBox.IsDisposed)diskHealthReportBox.Text="Błąd odczytu dysków: "+e.Error.GetBaseException().Message;
+                        AppendLog("Disk Health PRO: błąd odczytu WMI — "+e.Error.GetBaseException().Message);return;
+                    }
+                    DiskHealthSnapshot snap=(DiskHealthSnapshot)e.Result;
+                    diskHealthList.BeginUpdate();
+                    try
+                    {
+                        diskHealthList.Items.Clear();
+                        if(snap.Disks.Count==0)diskHealthList.Items.Add("Nie wykryto dysków przez WMI — sprawdź Menedżer urządzeń.");
+                        else foreach(string disk in snap.Disks)diskHealthList.Items.Add(disk);
+                    }
+                    finally{diskHealthList.EndUpdate();}
+                    if(diskHealthReportBox!=null && !diskHealthReportBox.IsDisposed)diskHealthReportBox.Text=snap.Report;
+                    AppendLog("Odczyt Disk Health PRO zakończony; wykryto dysków: "+snap.DiskCount+"; SMART WMI: "+(snap.SmartAvailable?"dostępny":"brak danych"));
+                }
+                finally
+                {
+                    if(diskHealthWorker==worker)diskHealthWorker=null;
+                    worker.Dispose();
+                }
+            };
+            try{worker.RunWorkerAsync();}
+            catch(Exception ex)
+            {
+                if(diskHealthWorker==worker)diskHealthWorker=null;
+                worker.Dispose();
+                if(diskHealthReportBox!=null && !diskHealthReportBox.IsDisposed)diskHealthReportBox.Text="Nie udało się uruchomić odczytu dysków: "+ex.Message;
+                AppendLog("Disk Health PRO: nie udało się uruchomić workera — "+ex.Message);
+            }
         }
 
 
@@ -4137,13 +4216,13 @@ try {
             if(FindPage("Windows Performance")!=null)return;
             Panel p=NewPage("Windows Performance","Windows Performance Center");
             Panel top=Card(p,"MONITORING WYDAJNOŚCI NA ŻYWO",10,8,950,145);
-            LabelAt(top,"Automatyczny odczyt CPU i pamięci co 5 sekund. Dane pochodzą z WMI i mogą być niedostępne, jeśli provider systemowy nie odpowiada.",18,45,900,35);
+            LabelAt(top,"Automatyczny odczyt CPU, RAM, wykorzystania silnika GPU, pamięci GPU i transferu dysków co 5 sekund. GPU oraz Storage Reliability zależą od dostępności providerów Windows / sterownika.",18,45,900,35);
             ButtonAt(top,"ODŚWIEŻ TERAZ",18,92,190,delegate{RefreshPerformanceCenter();});
             ButtonAt(top,"MONITOR ZASOBÓW",220,92,205,delegate{RunCommand("resmon.exe","");});
             ButtonAt(top,"MENEDŻER ZADAŃ",437,92,205,delegate{RunCommand("taskmgr.exe","");});
             performanceUiStatus=LabelAt(top,"STATUS: oczekiwanie na pierwszy odczyt...",18,119,890,20);
 
-            Panel graph=Card(p,"HISTORIA CPU / RAM — OSTATNIE 60 ODCZYTÓW",10,165,950,190);
+            Panel graph=Card(p,"HISTORIA CPU / RAM / GPU — OSTATNIE 60 ODCZYTÓW",10,165,950,190);
             performanceUiGraph=new Panel();
             performanceUiGraph.Location=new Point(UX(18),UY(45));
             performanceUiGraph.Size=new Size(UX(895),UY(125));
@@ -4190,11 +4269,13 @@ try {
             using(SolidBrush t=new SolidBrush(Color.FromArgb(165,194,216)))
             {
                 g.DrawString("100%",f,t,3,2);g.DrawString("0%",f,t,3,bounds.Height-18);
-                g.DrawString("CPU",f,Brushes.DeepSkyBlue,bounds.Width-102,4);
-                g.DrawString("RAM",f,Brushes.LightGreen,bounds.Width-58,4);
+                g.DrawString("CPU",f,Brushes.DeepSkyBlue,bounds.Width-158,4);
+                g.DrawString("RAM",f,Brushes.LightGreen,bounds.Width-112,4);
+                g.DrawString("GPU",f,Brushes.Gold,bounds.Width-62,4);
             }
             DrawHistoryLine(g,bounds,performanceCpuHistory,Color.DeepSkyBlue);
             DrawHistoryLine(g,bounds,performanceRamHistory,Color.LightGreen);
+            DrawHistoryLine(g,bounds,performanceGpuHistory,Color.Gold);
         }
 
         private void DrawHistoryLine(Graphics g,Rectangle bounds,List<float> values,Color color)
@@ -4219,7 +4300,7 @@ try {
             b.AppendLine("CPU: "+GetCpuName());
             try
             {
-                using(ManagementObjectSearcher q=new ManagementObjectSearcher("SELECT PercentProcessorTime FROM Win32_PerfFormattedData_PerfOS_Processor WHERE Name='_Total'"))
+                using(ManagementObjectSearcher q=CreateTimedWmiSearcher("root\\cimv2","SELECT PercentProcessorTime FROM Win32_PerfFormattedData_PerfOS_Processor WHERE Name='_Total'",4))
                     foreach(ManagementObject o in q.Get())
                     {
                         float cpu;
@@ -4232,7 +4313,7 @@ try {
             catch(Exception ex){b.AppendLine("CPU load: provider WMI niedostępny: "+ex.Message);}
             try
             {
-                using(ManagementObjectSearcher q=new ManagementObjectSearcher("SELECT TotalVisibleMemorySize,FreePhysicalMemory FROM Win32_OperatingSystem"))
+                using(ManagementObjectSearcher q=CreateTimedWmiSearcher("root\\cimv2","SELECT TotalVisibleMemorySize,FreePhysicalMemory FROM Win32_OperatingSystem",4))
                     foreach(ManagementObject o in q.Get())
                     {
                         double total=Convert.ToDouble(o["TotalVisibleMemorySize"])/1048576.0;
@@ -4243,6 +4324,52 @@ try {
                     }
             }
             catch(Exception ex){b.AppendLine("RAM: błąd WMI: "+ex.Message);}
+            try
+            {
+                float maxGpu=0;bool seenGpu=false;
+                using(ManagementObjectSearcher q=CreateTimedWmiSearcher("root\\cimv2","SELECT Name,UtilizationPercentage FROM Win32_PerfFormattedData_GPUPerformanceCounters_GPUEngine",4))
+                    foreach(ManagementObject o in q.Get())
+                    {
+                        string instance=Convert.ToString(o["Name"]);
+                        if(instance.IndexOf("engtype_3D",StringComparison.OrdinalIgnoreCase)<0 && instance.IndexOf("engtype_Compute",StringComparison.OrdinalIgnoreCase)<0)continue;
+                        float value;if(Single.TryParse(Convert.ToString(o["UtilizationPercentage"]),NumberStyles.Any,CultureInfo.InvariantCulture,out value))
+                        {maxGpu=Math.Max(maxGpu,Math.Max(0,Math.Min(100,value)));seenGpu=true;}
+                    }
+                if(seenGpu){result.GpuPercent=maxGpu;result.GpuKnown=true;result.GpuSource="WMI GPU Engine (maksymalny odczyt 3D/Compute; nie suma silników)";b.AppendLine("GPU Engine usage: "+maxGpu.ToString("0.0",CultureInfo.InvariantCulture)+"% — "+result.GpuSource);}
+                else b.AppendLine("GPU Engine usage: provider nie zwrócił danych; brak odczytu nie oznacza 0%.");
+            }
+            catch(Exception ex){b.AppendLine("GPU Engine usage niedostępny: "+ex.Message);}
+            try
+            {
+                bool memorySeen=false;double dedicated=0,shared=0;
+                using(ManagementObjectSearcher q=CreateTimedWmiSearcher("root\\cimv2","SELECT Name,DedicatedUsage,SharedUsage FROM Win32_PerfFormattedData_GPUPerformanceCounters_GPUAdapterMemory",4))
+                    foreach(ManagementObject o in q.Get())
+                    {
+                        double d=0,sh=0;try{d=Convert.ToDouble(o["DedicatedUsage"]);}catch{}try{sh=Convert.ToDouble(o["SharedUsage"]);}catch{}
+                        dedicated+=d;shared+=sh;memorySeen=true;
+                    }
+                if(memorySeen){result.GpuDedicatedMemoryMb=dedicated/1048576.0;result.GpuSharedMemoryMb=shared/1048576.0;result.GpuMemoryKnown=true;
+                    b.AppendLine("GPU memory counters (suma dostępnych adapterów): dedicated "+result.GpuDedicatedMemoryMb.ToString("0",CultureInfo.InvariantCulture)+" MB; shared "+result.GpuSharedMemoryMb.ToString("0",CultureInfo.InvariantCulture)+" MB (Windows performance provider)");}
+                else b.AppendLine("GPU memory counters: provider niedostępny.");
+            }
+            catch(Exception ex){b.AppendLine("GPU memory counters niedostępne: "+ex.Message);}
+            try
+            {
+                bool diskSeen=false;double read=0,write=0;float busy=0;
+                using(ManagementObjectSearcher q=CreateTimedWmiSearcher("root\\cimv2","SELECT Name,DiskReadBytesPersec,DiskWriteBytesPersec,PercentDiskTime FROM Win32_PerfFormattedData_PerfDisk_PhysicalDisk",4))
+                    foreach(ManagementObject o in q.Get())
+                    {
+                        if(!String.Equals(Convert.ToString(o["Name"]),"_Total",StringComparison.OrdinalIgnoreCase))continue;
+                        try{read=Convert.ToDouble(o["DiskReadBytesPersec"])/1048576.0;}catch{}
+                        try{write=Convert.ToDouble(o["DiskWriteBytesPersec"])/1048576.0;}catch{}
+                        try{busy=(float)Convert.ToDouble(o["PercentDiskTime"]);}catch{}
+                        diskSeen=true;break;
+                    }
+                if(diskSeen){result.DiskReadMbPerSec=read;result.DiskWriteMbPerSec=write;result.DiskIoKnown=true;
+                    b.AppendLine("Dyski fizyczne _Total: odczyt "+read.ToString("0.00",CultureInfo.InvariantCulture)+" MB/s; zapis "+write.ToString("0.00",CultureInfo.InvariantCulture)+" MB/s; zajętość "+busy.ToString("0",CultureInfo.InvariantCulture)+"% (WMI Performance)");}
+                else b.AppendLine("Dysk I/O: licznik WMI _Total niedostępny.");
+            }
+            catch(Exception ex){b.AppendLine("Dysk I/O niedostępny: "+ex.Message);}
             b.AppendLine("Liczba logicznych procesorów: "+Environment.ProcessorCount);b.AppendLine();
             b.AppendLine("TOP 25 PROCESÓW WG WORKING SET:");
             try
@@ -4267,33 +4394,55 @@ try {
         {
             if(performanceReportBox==null || performanceReportBox.IsDisposed)return;
             if(performanceWorker!=null && performanceWorker.IsBusy)return;
-            if(performanceUiStatus!=null)performanceUiStatus.Text="STATUS: odczytuję CPU i RAM...";
-            performanceWorker=new BackgroundWorker();
-            performanceWorker.DoWork+=delegate(object sender,DoWorkEventArgs e){e.Result=ReadPerformanceSnapshot();};
-            performanceWorker.RunWorkerCompleted+=delegate(object sender,RunWorkerCompletedEventArgs e)
+            if(performanceUiStatus!=null)performanceUiStatus.Text="STATUS: odczytuję CPU, RAM, GPU i dyski...";
+            BackgroundWorker worker=new BackgroundWorker();
+            performanceWorker=worker;
+            worker.DoWork+=delegate(object sender,DoWorkEventArgs e){e.Result=ReadPerformanceSnapshot();};
+            worker.RunWorkerCompleted+=delegate(object sender,RunWorkerCompletedEventArgs e)
             {
-                if(performanceReportBox==null || performanceReportBox.IsDisposed)return;
-                if(e.Error!=null)
+                try
                 {
-                    if(performanceUiStatus!=null)performanceUiStatus.Text="STATUS: błąd odczytu — "+e.Error.GetBaseException().Message;
-                    performanceReportBox.Text="Błąd monitoringu: "+e.Error.GetBaseException().Message;return;
+                    if(performanceReportBox==null || performanceReportBox.IsDisposed)return;
+                    if(e.Error!=null)
+                    {
+                        if(performanceUiStatus!=null)performanceUiStatus.Text="STATUS: błąd odczytu — "+e.Error.GetBaseException().Message;
+                        performanceReportBox.Text="Błąd monitoringu: "+e.Error.GetBaseException().Message;return;
+                    }
+                    PerformanceSnapshot snap=(PerformanceSnapshot)e.Result;performanceReportBox.Text=snap.Report;
+                    if(snap.CpuKnown){performanceCpuHistory.Add(snap.CpuPercent);if(performanceCpuHistory.Count>60)performanceCpuHistory.RemoveAt(0);}
+                    if(snap.RamKnown){performanceRamHistory.Add(snap.RamPercent);if(performanceRamHistory.Count>60)performanceRamHistory.RemoveAt(0);}
+                    if(snap.GpuKnown){performanceGpuHistory.Add(snap.GpuPercent);if(performanceGpuHistory.Count>60)performanceGpuHistory.RemoveAt(0);}
+                    if(performanceUiStatus!=null)
+                        performanceUiStatus.Text="OSTATNI ODCZYT: "+DateTime.Now.ToString("HH:mm:ss")+
+                            " | CPU: "+(snap.CpuKnown?snap.CpuPercent.ToString("0",CultureInfo.InvariantCulture)+"%":"brak danych")+
+                            " | RAM: "+(snap.RamKnown?snap.RamPercent.ToString("0",CultureInfo.InvariantCulture)+"%":"brak danych")+
+                            " | GPU: "+(snap.GpuKnown?snap.GpuPercent.ToString("0",CultureInfo.InvariantCulture)+"%":"brak provider")+
+                            (snap.GpuMemoryKnown?" VRAM ded./wsp.: "+snap.GpuDedicatedMemoryMb.ToString("0",CultureInfo.InvariantCulture)+"/"+snap.GpuSharedMemoryMb.ToString("0",CultureInfo.InvariantCulture)+" MB":"")+
+                            " | Dysk R/W: "+(snap.DiskIoKnown?snap.DiskReadMbPerSec.ToString("0.0",CultureInfo.InvariantCulture)+"/"+snap.DiskWriteMbPerSec.ToString("0.0",CultureInfo.InvariantCulture)+" MB/s":"brak licznika");
+                    if(performanceUiGraph!=null && !performanceUiGraph.IsDisposed)performanceUiGraph.Invalidate();
+                    AppendLog("Odświeżono Windows Performance Center.");
                 }
-                PerformanceSnapshot snap=(PerformanceSnapshot)e.Result;performanceReportBox.Text=snap.Report;
-                if(snap.CpuKnown){performanceCpuHistory.Add(snap.CpuPercent);if(performanceCpuHistory.Count>60)performanceCpuHistory.RemoveAt(0);}
-                if(snap.RamKnown){performanceRamHistory.Add(snap.RamPercent);if(performanceRamHistory.Count>60)performanceRamHistory.RemoveAt(0);}
-                if(performanceUiStatus!=null)
-                    performanceUiStatus.Text="OSTATNI ODCZYT: "+DateTime.Now.ToString("HH:mm:ss")+
-                        " | CPU: "+(snap.CpuKnown?snap.CpuPercent.ToString("0",CultureInfo.InvariantCulture)+"%":"brak danych")+
-                        " | RAM: "+(snap.RamKnown?snap.RamPercent.ToString("0",CultureInfo.InvariantCulture)+"%":"brak danych");
-                if(performanceUiGraph!=null && !performanceUiGraph.IsDisposed)performanceUiGraph.Invalidate();
-                AppendLog("Odświeżono Windows Performance Center.");
+                finally
+                {
+                    if(performanceWorker==worker)performanceWorker=null;
+                    worker.Dispose();
+                }
             };
-            performanceWorker.RunWorkerAsync();
+            try{worker.RunWorkerAsync();}
+            catch(Exception ex)
+            {
+                if(performanceWorker==worker)performanceWorker=null;
+                worker.Dispose();
+                if(performanceUiStatus!=null)performanceUiStatus.Text="STATUS: nie udało się uruchomić odczytu — "+ex.Message;
+                if(performanceReportBox!=null && !performanceReportBox.IsDisposed)performanceReportBox.Text="Nie udało się uruchomić monitoringu: "+ex.Message;
+                AppendLog("Windows Performance Center: nie udało się uruchomić workera — "+ex.Message);
+            }
         }
+
 
         private string GetCpuName()
         {
-            try{using(ManagementObjectSearcher q=new ManagementObjectSearcher("SELECT Name FROM Win32_Processor"))foreach(ManagementObject o in q.Get())return Convert.ToString(o["Name"]);}catch{}
+            try{using(ManagementObjectSearcher q=CreateTimedWmiSearcher("root\\cimv2","SELECT Name FROM Win32_Processor",4))foreach(ManagementObject o in q.Get())return Convert.ToString(o["Name"]);}catch{}
             return "Niedostępne";
         }
 
@@ -4691,7 +4840,7 @@ try {
             catch(Exception ex){b.AppendLine("Błąd WMI RAM: "+ex.Message);}
             try
             {
-                using(ManagementObjectSearcher q=new ManagementObjectSearcher("SELECT TotalVisibleMemorySize,FreePhysicalMemory FROM Win32_OperatingSystem"))
+                using(ManagementObjectSearcher q=CreateTimedWmiSearcher("root\\cimv2","SELECT TotalVisibleMemorySize,FreePhysicalMemory FROM Win32_OperatingSystem",4))
                 foreach(ManagementObject o in q.Get())
                 {
                     double total=Convert.ToDouble(o["TotalVisibleMemorySize"])/1048576.0;
@@ -5935,15 +6084,20 @@ try {
                 b.AppendLine("Data: "+DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));b.AppendLine("OS: "+GetOsCaption()+" | "+GetBuild()+" | "+GetArchitecture());b.AppendLine();
                 HardwareSnapshot h=ReadHardwareSnapshot();
                 b.AppendLine("PODSTAWOWE PODZESPOŁY:");b.AppendLine("CPU: "+h.Cpu);b.AppendLine("Rdzenie/wątki: "+h.Cores);b.AppendLine("Obciążenie CPU: "+h.CpuLoad);
-                b.AppendLine("RAM: "+h.Ram);b.AppendLine("GPU: "+h.Gpu);b.AppendLine("VRAM: "+h.Vram);b.AppendLine("Temperatura ACPI: "+h.CpuTemperature);
+                b.AppendLine("RAM: "+h.Ram);b.AppendLine("GPU (wybrany adapter): "+h.Gpu);b.AppendLine("VRAM: "+h.Vram);
+                b.AppendLine("Ocena wykrycia fizycznego GPU: "+h.GpuPhysicalStatus);b.AppendLine(h.GpuDetails);b.AppendLine("Temperatura ACPI: "+h.CpuTemperature);
                 b.AppendLine("BIOS: "+h.Bios);b.AppendLine("Płyta: "+h.Board);b.AppendLine("Dyski: "+h.Disks);b.AppendLine("Wolumeny: "+h.Drives);
                 b.AppendLine("TPM: "+h.Tpm+" | Firmware: "+h.Firmware+" | Secure Boot: "+h.SecureBoot);b.AppendLine();
                 b.AppendLine("KONTROLERY GRAFICZNE:");
-                try{using(ManagementObjectSearcher q=new ManagementObjectSearcher("SELECT Name,AdapterRAM,DriverVersion,DriverDate,VideoProcessor,CurrentHorizontalResolution,CurrentVerticalResolution,CurrentRefreshRate,PNPDeviceID FROM Win32_VideoController"))
+                try{using(ManagementObjectSearcher q=new ManagementObjectSearcher("SELECT Name,AdapterRAM,DriverVersion,DriverDate,VideoProcessor,CurrentHorizontalResolution,CurrentVerticalResolution,CurrentRefreshRate,PNPDeviceID,AdapterCompatibility,Status FROM Win32_VideoController"))
                     foreach(ManagementObject o in q.Get())
                     {
                         string name=Convert.ToString(o["Name"]);ulong ram=0;try{ram=Convert.ToUInt64(o["AdapterRAM"]);}catch{}
-                        b.AppendLine("GPU: "+name);b.AppendLine("  VRAM WMI: "+(ram>0?Math.Round(ram/1073741824.0,2).ToString("0.00",CultureInfo.InvariantCulture)+" GB":"brak wiarygodnej wartości"));
+                        string pnp=Convert.ToString(o["PNPDeviceID"]);
+                        bool isVirtual=IsVirtualVideoAdapter(name,pnp);
+                        b.AppendLine("GPU: "+name+" | klasyfikacja: "+(isVirtual?"WIRTUALNY / ZDALNY":"adapter nieoznaczony jako wirtualny; fizyczność niepotwierdzona"));
+                        b.AppendLine("  VRAM WMI: "+(ram>0?Math.Round(ram/1073741824.0,2).ToString("0.00",CultureInfo.InvariantCulture)+" GB (wartość orientacyjna; limit pola WMI)":"brak wiarygodnej wartości"));
+                        b.AppendLine("  Producent adaptera: "+Convert.ToString(o["AdapterCompatibility"])+" | Status: "+Convert.ToString(o["Status"]));
                         b.AppendLine("  Driver: "+Convert.ToString(o["DriverVersion"])+" | date: "+Convert.ToString(o["DriverDate"]));
                         b.AppendLine("  VideoProcessor: "+Convert.ToString(o["VideoProcessor"]));
                         b.AppendLine("  Tryb: "+Convert.ToString(o["CurrentHorizontalResolution"])+"x"+Convert.ToString(o["CurrentVerticalResolution"])+" @ "+Convert.ToString(o["CurrentRefreshRate"])+" Hz");

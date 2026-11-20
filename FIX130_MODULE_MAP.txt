@@ -1,0 +1,23 @@
+﻿FIX130 — MAPA MODUŁÓW
+Aplikacja / wersja: KOMPUTEROWE CENTRUM SERWISU 1.0.0.72 (FIX072)
+Pakiet źródłowy: FIX130
+
+Rozszerzone pliki aplikacji:
+- WindowsVersionSwitcherPRO.cs — odczyt GPU, identyfikacja adapterów wirtualnych/zdalnych, skrócone podsumowanie woluminów, podpowiedzi dashboardu, nieblokujący model skanu dysków.
+- WindowsVersionSwitcherPRO.Modules.cs — monitoring CPU/RAM/GPU i I/O dysku, wykres GPU, skan dysków w tle bez nakładania zadań, raport serwisowy i skróty do BIOS/UEFI oraz kopii.
+
+Wykorzystywane istniejące moduły (bez duplikowania):
+- Hardware Intelligence PRO / Hardware Monitor PRO
+- Windows Performance Center
+- Disk Health PRO / NVMe SSD Doctor
+- Backup Recovery ULTIMATE / harmonogram kopii / odzyskiwanie
+- Driver Download Center / BIOS i firmware
+- Service Report Designer / Service Desk / kartoteka klientów
+- Naprawa Windows / tryb offline / Operation Recovery Center
+
+Nowy test:
+- CHECK_FIX130_DIAGNOSTICS_MONITORING.ps1
+
+Numer produktu został podniesiony do 1.0.0.72 / FIX072, ponieważ zmieniono kod C# i metadane kompilowanego EXE. Wydanie 1.0.0.71 pozostaje niezmienione.
+
+- Polling GPU/CPU/RAM oraz Disk Health: workery są zwalniane w finally, pole referencyjne czyszczone tylko dla bieżącej instancji, błąd RunWorkerAsync jest obsłużony i raportowany.

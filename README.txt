@@ -1,4 +1,4 @@
-﻿KOMPUTEROWE CENTRUM SERWISU — FIX123 / aplikacja 1.0.0.71
+﻿KOMPUTEROWE CENTRUM SERWISU — FIX130 / aplikacja 1.0.0.72
 
 JEDEN ZIP / JEDEN CMD
 1. Rozpakuj cały ZIP do dowolnego folderu z prawem zapisu (nazwa folderu nie ma znaczenia).
@@ -25,7 +25,7 @@ PIERWSZE URUCHOMIENIE
 Wymagane jest jednorazowe zalogowanie do GitHub w przeglądarce i zatwierdzenie uprawnień repo/workflow. Windows może poprosić o standardową zgodę UAC podczas instalacji. Nie zapisujemy tokena GitHub w kodzie ani w repozytorium.
 
 NAPRAWA 404
-Manifesty nie są udostępniane z samego adresu repozytorium — muszą zostać dołączone jako assety do opublikowanego wydania. Główny automat publikuje oba manifesty, pliki EXE, releases.json i SHA256SUMS.txt, a następnie odpytuje dokładne adresy assetów przypięte do tagu v1.0.0.71. Klient nie korzysta z aliasu /releases/latest/download/, aby Stable i Beta pobierały manifesty z tego samego, jawnie zweryfikowanego wydania. Jeżeli Release nie jest jeszcze dostępny lub strona Pages czeka na wdrożenie, etap weryfikacji zatrzyma instalację i zapisze szczegóły w dist\build-logs.
+Manifesty nie są udostępniane z samego adresu repozytorium — muszą zostać dołączone jako assety do opublikowanego wydania. Główny automat publikuje oba manifesty, pliki EXE, releases.json i SHA256SUMS.txt, a następnie odpytuje dokładne adresy assetów przypięte do tagu v1.0.0.72. Klient nie korzysta z aliasu /releases/latest/download/, aby Stable i Beta pobierały manifesty z tego samego, jawnie zweryfikowanego wydania. Jeżeli Release nie jest jeszcze dostępny lub strona Pages czeka na wdrożenie, etap weryfikacji zatrzyma instalację i zapisze szczegóły w dist\build-logs.
 
 BEZPIECZEŃSTWO I WZNOWIENIE
 - Opublikowane tagi i assety nie są nadpisywane ani kasowane.
@@ -41,4 +41,6 @@ FIX088: testy uruchamiane przez CMD używają PSCustomObject zamiast zagnieżdż
 FIX095 - CZYSZCZENIE CACHE INNYCH APLIKACJI
 Automat czyści stare pliki .tmp/.temp z katalogów TEMP oraz pliki z jawnie dozwolonych, regenerowalnych katalogów cache: przeglądarki (Chrome, Edge, Firefox, Brave, Vivaldi, Opera), Discord, klasyczny Microsoft Teams i cache DirectX/NVIDIA/AMD/Intel. Usuwane są wyłącznie pliki w tych katalogach cache; pliki zablokowane są pomijane. Nie są usuwane cookies, sesje, hasła, historia, rozszerzenia, ustawienia, profile, bazy danych, dokumenty ani programy. Raport: dist\build-logs\SAFE_TEMP_CLEANUP.log.
 
-FIX123: instalator rozszerza wykrywanie .NET Framework Full o wartości Install, Release i Version. Automatyczna instalacja zapisuje dist\build-logs\installation-FIX071-inno.log. Wersja produktu 1.0.0.71 / FIX071; poprzednie wydanie v1.0.0.69 pozostaje bez zmian.
+FIX123: instalator rozszerza wykrywanie .NET Framework Full o wartości Install, Release i Version. Automatyczna instalacja zapisuje dist\build-logs\installation-FIX072-inno.log. Wersja produktu 1.0.0.72 / FIX072; poprzednie wydanie v1.0.0.69 pozostaje bez zmian.
+
+FIX130 / FIX072: LIVE monitor pokazuje CPU/RAM oraz dostępne liczniki GPU Engine, pamięci GPU i transferu dysków. Dashboard podaje skrócone woluminy z pełnymi podpowiedziami, rozpoznaje typowe adaptery wirtualne/zdalne, a odczyt SMART/dysków działa w tle. Raport serwisowy zawiera szczegółowe informacje GPU i woluminów. Brak danych z WMI oznacza brak pomiaru, nie zerowe obciążenie ani potwierdzenie zdrowia sprzętu.

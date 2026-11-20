@@ -1,0 +1,13 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX132 MODULE MAP
+
+CHECK_FIX128_INTERACTIVE_INSTALL_CONSENT.ps1
+  Historyczny test zgody instalatora; biezacy identyfikator pakietu odczytywany dynamicznie z CHECK_SOURCE.
+
+CHECK_FIX129_CONFIG_PERSISTENCE.ps1
+  Historyczny test atomowego zapisu i odzyskiwania konfiguracji; sprawdza tez aktywny identyfikator raportu.
+
+CHECK_FIX132_HISTORICAL_TEST_IDENTITY.ps1
+  Regresja zgodnosci historycznych testow ze zmiennym numerem pakietu, tytulem CHECK_SOURCE, sciezka raportu, launcherem i workerem.
+
+CHECK_SOURCE.cmd / URUCHOM_TYLKO_TEN_PLIK.cmd / KCS_FIX101_WORKER.cmd
+  Biezacy identyfikator narzedziowy FIX132. Wersja produktu pozostaje FIX072.

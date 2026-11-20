@@ -1,0 +1,21 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX132 / PRODUKT 1.0.0.72 (FIX072)
+
+Cel
+Usuniecie twardo wpisanej tozsamosci FIX130 z historycznych testow FIX128 i FIX129, ktora blokowala bramke CHECK_SOURCE po aktualizacji pakietu do FIX131.
+
+Przyczyna
+CHECK_FIX128_INTERACTIVE_INSTALL_CONSENT.ps1 oraz CHECK_FIX129_CONFIG_PERSISTENCE.ps1 sprawdzaly doslownie CHECK_SOURCE_FIX130.log i/lub tekst FIX130. Testy byly historyczne, ale sprawdzaly biezacy numer pakietu narzedziowego jak stala wartosc.
+
+Zmiany
+- Oba testy historyczne odczytuja aktywne FIX z tytulu CHECK_SOURCE.cmd i porownuja go z nazwa raportu.
+- Oba testy dodatkowo sprawdzaja zgodnosc identyfikatora z launcherem i persistent workerem.
+- Dodano CHECK_FIX132_HISTORICAL_TEST_IDENTITY.ps1 z fixture dla FIX131, FIX132 i FIX145.
+- Test FIX132 zostal wlaczony do CHECK_SOURCE, walidatora pakietu, allowlisty i manifestu SHA-256.
+- Zaktualizowano identyfikator aktywnego pakietu w CHECK_SOURCE, jedynym launcherze i workerze.
+- Zachowano testy i funkcje instalatora FIX128 oraz atomowego zapisu i odzyskiwania konfiguracji FIX129.
+
+Wydanie
+Zmiany dotycza wyłącznie testow i narzedzi pakowania. Kod aplikacji, AssemblyInfo, zasoby i receptura instalatora pozostaja bez zmian. Wersja produktu pozostaje 1.0.0.72 / FIX072; nie tworzy sie nowego wydania binarnego.
+
+Walidacja
+Nowy test sprawdza zgodnosc dynamicznego identyfikatora pakietu, raportu, launchera i workera. Pelny CHECK_SOURCE oraz testy PowerShell 5.1 musza zostac uruchomione w Windows.

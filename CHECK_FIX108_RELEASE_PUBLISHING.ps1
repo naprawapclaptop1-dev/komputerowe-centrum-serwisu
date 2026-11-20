@@ -2,7 +2,9 @@
 $root=$PSScriptRoot
 $publisher=Get-Content (Join-Path $root 'PUBLISH_GITHUB_RELEASES.ps1') -Raw
 $verify=Get-Content (Join-Path $root 'VERIFY_GLOBAL_UPDATE_SERVER.ps1') -Raw
-$tagPos=$verify.IndexOf('$expectedTag="v1.0.0.71"')
+$version=(Get-Content -LiteralPath (Join-Path $root 'VERSION.txt') -Encoding UTF8 | Select-Object -First 1).Trim()
+$expectedTagText = '$expectedTag="v{0}"' -f $version
+$tagPos=$verify.IndexOf($expectedTagText)
 $apiPos=$verify.IndexOf('$api="https://api.github.com/repos/$Repo/releases/tags/$expectedTag"')
 $checks=@(
  [pscustomobject]@{Passed=($publisher -notmatch 'Split-Path -Leaf \$Root.*KCS_FIX099' -and $publisher.Contains('FIX099_PACKAGE_MARKER.txt') -and $publisher.Contains('ENTRYPOINT=URUCHOM_TYLKO_TEN_PLIK.cmd'));Name='Publisher accepts any extraction folder but validates package identity'},

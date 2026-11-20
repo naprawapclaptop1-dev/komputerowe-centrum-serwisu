@@ -1,4 +1,55 @@
-﻿FIX129 — 1.0.0.71 — ZAPIS I ODZYSKIWANIE KONFIGURACJI
+﻿FIX135 — NAPRAWA NATYCHMIASTOWEGO PRZECHWYTYWANIA KODU WYJŚCIA CHECK_SOURCE
+- Usunięto pusty wiersz między uruchomieniem procesu PowerShell a przechwyceniem %ERRORLEVEL% w CHECK_SOURCE.cmd.
+- Zachowano natychmiastowy zapis kodu procesu do KCS_TEST_RC i jawne gałęzie PASS/FAIL.
+- Dodano CHECK_FIX135_SOURCE_GATE_EXIT_CAPTURE.ps1 do aktywnego CHECK_SOURCE i pełnej walidacji pakietu.
+- Zaktualizowano identyfikator pakietu, dokumentację, allowlistę, manifest SHA-256 i politykę ochrony wydania.
+- Wersja produktu pozostaje 1.0.0.72 / FIX072; bez zmian C#, zasobów i plików instalatora.
+Data: 2026-11-20
+
+FIX134 — NAPRAWA SKŁADNI POLITYKI OCHRONY WYDANIA
+- Usunięto końcowe przecinki z tablic $safePaths i $currentTagChanges w CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1, które powodowały błąd parsera PowerShell 5.1.
+- Dodano test CHECK_FIX134_RELEASE_POLICY_SYNTAX.ps1 wykorzystujący PowerShell AST Parser.ParseFile oraz sprawdzenie obu tablic.
+- Historyczny test FIX133 sprawdza teraz dynamiczny identyfikator aktywnego pakietu zamiast stałej FIX133; wzmocniono także obsługę CRLF w testach identyfikacji.
+- Zaktualizowano CHECK_SOURCE, launcher, worker, walidator, allowlistę, manifest i politykę ochrony wydania.
+- Wersja produktu pozostaje 1.0.0.72 / FIX072; kod aplikacji i receptura instalatora bez zmian.
+Data: 2026-11-20
+
+FIX133 — NAPRAWA REGEXÓW TOŻSAMOŚCI DLA CRLF
+- Przyczyną blokady FIX132 były anchored regexy czytające pliki CMD z zakończeniami CRLF; znak CR uniemożliwiał dopasowanie końca linii.
+- Testy FIX128, FIX129 i FIX132 normalizują teraz CRLF do LF przed analizą identyfikatora.
+- Dodano CHECK_FIX133_CRLF_IDENTITY_NORMALIZATION.ps1 dla testów CRLF/LF, zgodności tytułu i raportu oraz ochrony pakietu.
+- Wersja produktu pozostaje 1.0.0.72 / FIX072; zmiany dotyczą wyłącznie testów i narzędzi.
+
+FIX132 — NAPRAWA TOZSAMOSCI HISTORYCZNYCH TESTOW CHECK_SOURCE
+- Testy FIX128 i FIX129 odczytuja biezacy numer pakietu z tytulu CHECK_SOURCE i porownuja z nazwa raportu.
+- Dodano test regresji zgodnosci numerow pakietu, launchera i workera dla kolejnych wydan.
+- Zaktualizowano aktywny identyfikator w CHECK_SOURCE, launcherze i workerze.
+- Zachowano zgode instalatora, kopie konfiguracji i wszystkie moduly aplikacji.
+- Wersja produktu pozostaje 1.0.0.72 / FIX072; zmiany sa narzedziowe i nie nadpisuja wydania binarnego.
+Data: 2026-11-20
+
+FIX131 — NAPRAWA ZNACZNIKA WERSJI PRODUKTU NA STRONIE WWW
+- application-fix w website/index.html wskazuje teraz FIX072 zgodnie z VERSION.txt, a nie numer pakietu narzędziowego FIX130.
+- Dodano CHECK_FIX131_WEBSITE_PRODUCT_MARKER.ps1 kontrolujacy zgodnosc znacznika FIX, software-version, klienta pobierania i weryfikatora publicznego.
+- Test FIX131 dodano do CHECK_SOURCE, walidatora pakietu, allowlisty i manifestu SHA-256.
+- Test i dokumentacje FIX131 dodano do ochrony ponownego uzycia niezmiennego wydania.
+- Bez zmian kodu aplikacji i receptury instalatora; wersja produktu pozostaje 1.0.0.72 / FIX072.
+Data: 2026-11-20
+
+FIX130 — 1.0.0.72 — MONITORING LIVE GPU / DYSKI / RAPORTY SERWISOWE / STABILNY CYKL WORKERÓW
+- Workery LIVE i Disk Health są zwalniane po zakończeniu oraz po błędzie uruchomienia; aktualizacja listy dysków zawsze domyka BeginUpdate/EndUpdate.
+Data: 2026-11-20
+
+- Rozbudowano identyfikację wszystkich adapterów GPU z odróżnianiem typowych urządzeń wirtualnych i zdalnych; aplikacja nie deklaruje fizycznej karty wyłącznie na podstawie nazwy WMI.
+- Dashboard prezentuje krótkie podsumowanie dysków i pełne dane w podpowiedziach.
+- Monitor LIVE dodaje dostępne liczniki GPU Engine, pamięci GPU dedykowanej/współdzielonej oraz transfer odczytu i zapisu dysków.
+- Wykres CPU/RAM/GPU przechowuje do 60 punktów; brak providerów jest pokazywany jako brak danych.
+- Odczyt dysków i SMART przeniesiono do tła z ograniczonym czasem zapytań WMI; dodano ochronę przed nakładającymi się skanami.
+- CPU name w monitorze LIVE również używa limitowanego WMI, a Hardware Monitor nie uruchamia równoległych odczytów.
+- Raport serwisowy zawiera rozszerzone informacje GPU i woluminów; skróty prowadzą do istniejących modułów SMART/NVMe, sprzętu, wydajności, BIOS/UEFI i kopii.
+- Wersja produktu 1.0.0.72 / FIX072. Wydania 1.0.0.70 i 1.0.0.71 zachowane.
+
+FIX129 — 1.0.0.71 — ZAPIS I ODZYSKIWANIE KONFIGURACJI
 - Atomowy zapis XML, walidacja DTD-free i Flush(true) przed podmianą pliku.
 - Rotacyjne kopie, zachowanie plików uszkodzonych i automatyczne odzyskiwanie ustawień.
 - Zapamiętywanie modułu, rozmiaru/pozycji okna i dodatkowych lokalizacji kopii.

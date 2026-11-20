@@ -1,0 +1,18 @@
+FIX135 — MAPA ZMIAN
+
+Obszar: CHECK_SOURCE.cmd — wykonanie testów PowerShell i raportowanie kodu wyjścia.
+
+Plik źródłowy:
+- CHECK_SOURCE.cmd — bezpośrednio po wywołaniu powershell.exe przechwytuje %ERRORLEVEL% do KCS_TEST_RC, bez pustego wiersza pośredniego.
+
+Regresja:
+- CHECK_FIX126_SOURCE_GATE_EXIT_CODE.ps1 — historyczny test pozostaje aktywny.
+- CHECK_FIX135_SOURCE_GATE_EXIT_CAPTURE.ps1 — nowy test kontroluje bezpośrednie przechwycenie, identyfikator FIX135, integrację z walidatorem, allowlistą, manifestem i polityką wydania.
+
+Integracja pakietu:
+- CHECK_SOURCE.cmd — aktywuje test FIX135 i używa raportu CHECK_SOURCE_FIX135.log.
+- URUCHOM_TYLKO_TEN_PLIK.cmd oraz KCS_FIX101_WORKER.cmd — wspólny identyfikator FIX135.
+- VALIDATE_FIX100_PACKAGE.ps1, FIX099_SOURCE_ALLOWLIST.txt i FIX099_POWERSHELL_MANIFEST.txt — kontrola kompletności, zakresu synchronizacji i hashy.
+- CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1 — jawna klasyfikacja bezpiecznych zmian narzędziowych.
+
+Wersja produktu: 1.0.0.72 / FIX072 — bez zmian.

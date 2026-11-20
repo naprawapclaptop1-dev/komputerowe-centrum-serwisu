@@ -1,0 +1,16 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX135
+NAPRAWA NATYCHMIASTOWEGO PRZECHWYTYWANIA KODU WYJŚCIA CHECK_SOURCE
+
+PRZYCZYNA
+Historyczny test CHECK_FIX126_SOURCE_GATE_EXIT_CODE.ps1 wymaga, aby ustawienie KCS_TEST_RC następowało w bezpośrednio następnym wierszu po uruchomieniu procesu PowerShell. W CHECK_SOURCE.cmd znajdował się pusty wiersz pomiędzy poleceniami. CMD wykonywał je prawidłowo, ale ścisła kontrola regresji odrzucała układ źródła.
+
+ZMIANY
+- Usunięto pusty wiersz pomiędzy uruchomieniem powershell.exe a set "KCS_TEST_RC=%ERRORLEVEL%".
+- Zachowano przechwycenie rzeczywistego kodu procesu natychmiast po jego zakończeniu.
+- Aktywny identyfikator pakietu CHECK_SOURCE, launchera i workera ustawiono na FIX135.
+- Dodano CHECK_FIX135_SOURCE_GATE_EXIT_CAPTURE.ps1 i aktywowano go w CHECK_SOURCE.
+- Zaktualizowano walidator, allowlistę, manifest SHA-256 i politykę ochrony wydania.
+- Zachowano historyczny test FIX126 oraz wszystkie wcześniejsze testy.
+
+WERSJA PRODUKTU
+Pozostaje 1.0.0.72 / FIX072. Zmiany dotyczą wyłącznie CMD, testów i narzędzi pakietowania. Kod aplikacji C#, zasoby oraz pliki instalatora Inno Setup nie zostały zmienione.

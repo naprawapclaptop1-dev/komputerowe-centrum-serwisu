@@ -1,0 +1,10 @@
+FIX133 — MAPA ZMIAN
+
+CHECK_FIX128_INTERACTIVE_INSTALL_CONSENT.ps1 — normalizacja CRLF przed dopasowaniem identyfikatora raportu.
+CHECK_FIX129_CONFIG_PERSISTENCE.ps1 — normalizacja CRLF przed dopasowaniem identyfikatora raportu.
+CHECK_FIX132_HISTORICAL_TEST_IDENTITY.ps1 — normalizacja CRLF przed odczytem identyfikatora raportu.
+CHECK_FIX133_CRLF_IDENTITY_NORMALIZATION.ps1 — regresja dla CRLF/LF oraz spójności metadanych pakietu.
+CHECK_SOURCE.cmd — aktywny test FIX133 i raport CHECK_SOURCE_FIX133.log.
+KCS_FIX101_WORKER.cmd / URUCHOM_TYLKO_TEN_PLIK.cmd — identyfikator pakietu FIX133.
+VALIDATE_FIX100_PACKAGE.ps1 / FIX099_SOURCE_ALLOWLIST.txt / FIX099_POWERSHELL_MANIFEST.txt — walidacja i dystrybucja nowych plików.
+CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1 — jawna ochrona plików testowych i dokumentacji.

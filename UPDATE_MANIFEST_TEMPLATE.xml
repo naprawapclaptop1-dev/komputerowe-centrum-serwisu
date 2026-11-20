@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Update version="1.0.0.71" channel="stable" region="global" language="all" architecture="any" packageUrl="https://github.com/naprawapclaptop1-dev/komputerowe-centrum-serwisu/releases/download/v1.0.0.71/KomputeroweCentrumSerwisu_FIX071_INSTALATOR.exe" sha256="SHA256_TUTAJ">
-  <Notes lang="pl">Wydanie 1.0.0.71 — Komputerowe Centrum Serwisu</Notes>
-  <Notes lang="en">Release 1.0.0.71 — Computer Service Center</Notes>
+<Update version="1.0.0.72" channel="stable" region="global" language="all" architecture="any" packageUrl="https://github.com/naprawapclaptop1-dev/komputerowe-centrum-serwisu/releases/download/v1.0.0.72/KomputeroweCentrumSerwisu_FIX072_INSTALATOR.exe" sha256="SHA256_TUTAJ">
+  <Notes lang="pl">Wydanie 1.0.0.72 — Komputerowe Centrum Serwisu</Notes>
+  <Notes lang="en">Release 1.0.0.72 — Computer Service Center</Notes>
   <Mirrors />
 </Update>
