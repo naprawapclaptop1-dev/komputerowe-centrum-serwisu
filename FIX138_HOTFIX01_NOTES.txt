@@ -1,0 +1,9 @@
+﻿KOMPUTEROWE CENTRUM SERWISU — FIX138 HOTFIX 01
+
+Naprawa CS1501:
+WindowsVersionSwitcherPRO.Modules.cs wywołuje ButtonAt z argumentami (parent, text, x, y, width, height, click).
+Dodano brakujące przeciążenie w WindowsVersionSwitcherPRO.cs. Dotychczasowa metoda bez argumentu height deleguje do nowej z height=40, zachowując wygląd pozostałych ekranów.
+
+Dodano test statyczny do CHECK_FIX138_HISTORICAL_RELEASE_REGRESSIONS.ps1 i odświeżono wpis SHA-256 testu w FIX099_POWERSHELL_MANIFEST.txt.
+
+Nie wykonano kompilacji Windows ani publikacji w tym środowisku. Po rozpakowaniu należy uruchomić wyłącznie URUCHOM_TYLKO_TEN_PLIK.cmd i sprawdzić log kompilacji portable. Instalator i publikację uznać za poprawne dopiero po świeżym BUILD_ID i pozytywnej weryfikacji artefaktów.

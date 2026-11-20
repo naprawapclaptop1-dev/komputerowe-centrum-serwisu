@@ -2295,9 +2295,16 @@ namespace NaprawaPC.WindowsSwitcher
         }
         private Button ButtonAt(Control p,string text,int x,int y,int w,EventHandler click)
         {
+            return ButtonAt(p,text,x,y,w,40,click);
+        }
+
+        // Overload with an explicit height for compact or taller module-specific actions.
+        // The original five-argument layout contract remains unchanged for existing pages.
+        private Button ButtonAt(Control p,string text,int x,int y,int w,int h,EventHandler click)
+        {
             PremiumButton b=new PremiumButton();
             Theme t=GetCurrentTheme();b.AccentColor=t==null?Color.FromArgb(18,169,225):t.Accent;
-            b.Text=PolishUiText(text); b.InterfaceStyle=currentInterfaceStyle; b.Location=new Point(UX(x),UY(y)); b.Size=new Size(UX(w),UY(40));
+            b.Text=PolishUiText(text); b.InterfaceStyle=currentInterfaceStyle; b.Location=new Point(UX(x),UY(y)); b.Size=new Size(UX(w),UY(h));
             b.ForeColor=Color.White; b.Font=new Font("Segoe UI",9.3F*layoutScaleY,FontStyle.Bold);
             b.Image=NavIconRenderer.Create(text,Color.White,18,false); b.Click+=click; p.Controls.Add(b); return b;
         }

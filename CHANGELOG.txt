@@ -1,4 +1,12 @@
-﻿FIX138 — NAPRAWA HISTORYCZNYCH REGRESJI I MANIFESTU
+﻿FIX138 HOTFIX 01 — NAPRAWA KOMPILACJI BUTTONAT W MAGAZYNIE SERWIS PRO
+- Naprawiono błąd CS1501 w WindowsVersionSwitcherPRO.Modules.cs: metoda ButtonAt była wywoływana z argumentem wysokości, ale brakowało odpowiadającego przeciążenia.
+- Dodano przeciążenie ButtonAt(..., width, height, click); dotychczasowa sygnatura zachowuje domyślną wysokość 40 px, więc istniejące ekrany nie zmieniają układu.
+- Akcja „WYDAJ DO AKTYWNEGO ZLECENIA” korzysta z jawnej wysokości 40 px.
+- Rozszerzono CHECK_FIX138_HISTORICAL_RELEASE_REGRESSIONS.ps1 o kontrolę obu sygnatur i wywołania magazynu; odświeżono hash testu w FIX099_POWERSHELL_MANIFEST.txt.
+- Wersja produktu 1.0.0.73 / FIX137 pozostaje bez zmian; jest to poprawka kompilacji w ramach zachowania bieżącej tożsamości wydania.
+Data: 2026-11-20
+
+FIX138 — NAPRAWA HISTORYCZNYCH REGRESJI I MANIFESTU
 - Testy FIX132/FIX133/FIX134 weryfikują wersję 1.0.0.72 / FIX072 jako historyczną informację z notatek, a nie jako wymaganą aktualną wersję aplikacji.
 - Test FIX128 pobiera nazwę logu instalatora z VERSION.txt, dzięki czemu nie oczekuje już installation-FIX072-inno.log.
 - Testy FIX133–FIX137 normalizują CRLF przed dopasowaniem hashy z manifestu PowerShell.
