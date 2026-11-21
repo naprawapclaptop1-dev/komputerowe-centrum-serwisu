@@ -1,0 +1,10 @@
+﻿KOMPUTEROWE CENTRUM SERWISU — FIX148 HOTFIX08
+Typ: poprawka narzędziowa / kompletność archiwum źródłowego
+Produkt: 1.0.0.76 / FIX141 (bez zmiany)
+
+- Uzupełniono brakujące pliki dokumentacji FIX147 wymagane przez walidator pakietu.
+- Dodano test regresyjny sprawdzający obecność dokumentacji FIX147 i testu resolvera.
+- Test jest uruchamiany przez CHECK_SOURCE.cmd i wymagany w walidacji pakietu.
+- Zaktualizowano allowlistę, manifest PowerShell i reguły ochrony wydania.
+- Nie zmieniono aplikacji, konfiguracji użytkownika ani publicznych zasobów.
+- Walidacja archiwum ZIP i integralności plików wykonana lokalnie; test Windows, build i publikacja pozostają do wykonania.

@@ -1,0 +1,9 @@
+﻿KOMPUTEROWE CENTRUM SERWISU — FIX147 HOTFIX07
+Typ: poprawka narzędziowa / resolver wersji publicznego wydania
+Produkt: 1.0.0.76 / FIX141 (bez zmiany)
+
+- Weryfikator publicznego wdrożenia odczytuje wersję produktu i numer FIX z VERSION.txt.
+- Tag GitHub oraz nazwy instalatora i pakietu portable są wyliczane z aktywnej tożsamości produktu.
+- Usunięto zależność od nieaktualnego tagu 1.0.0.75 i nazw zasobów FIX140.
+- Nie zmieniono kodu aplikacji ani publicznego wydania.
+- Budowa, publikacja i instalacja wymagają potwierdzenia w środowisku Windows.

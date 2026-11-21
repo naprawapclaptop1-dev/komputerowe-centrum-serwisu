@@ -1,0 +1,7 @@
+﻿FIX147 — mapa zmian
+- VERIFY_PUBLIC_DEPLOYMENT.ps1: pobiera VERSION.txt i dynamicznie wyznacza tag oraz nazwy zasobów.
+- CHECK_FIX147_PUBLIC_VERSION_RESOLVER.ps1: 6 kontroli statycznych resolvera.
+- CHECK_SOURCE.cmd: uruchamia test resolvera FIX147.
+- VALIDATE_FIX100_PACKAGE.ps1: wymaga plików testu i dokumentacji FIX147.
+- FIX099_SOURCE_ALLOWLIST.txt / FIX099_POWERSHELL_MANIFEST.txt: synchronizacja źródeł i hashy skryptów.
+- CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1: klasyfikacja zmian jako narzędziowych.

@@ -1,4 +1,4 @@
-FIX145 HOTFIX05 — BOM DLA SKRYPTÓW KONTROLI WYDANIA
+﻿FIX145 HOTFIX05 — BOM DLA SKRYPTÓW KONTROLI WYDANIA
 - Dodano UTF-8 BOM do CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1 i CHECK_FIX136_SOURCE_BUILD_IDENTITY.ps1.
 - Zaktualizowano ich sumy SHA-256 w FIX099_POWERSHELL_MANIFEST.txt.
 - Wersja produktu pozostaje 1.0.0.76 / FIX141; nie zmieniano kodu aplikacji.
@@ -1357,3 +1357,9 @@ FIX146 — zgodność weryfikacji payloadu FIX141
 - Dodano wrapper CHECK_FIX141_APPOINTMENTS.ps1 delegujący do aktywnego testu kalendarza FIX139.
 - Uzupełniono walidację pakietu, CHECK_SOURCE, allowlistę i politykę zachowania wydania.
 - Wersja produktu pozostaje 1.0.0.76 / FIX141; zmiana dotyczy wyłącznie narzędzi wydania.
+
+FIX148 — brakujące artefakty dokumentacyjne FIX147
+- Uzupełniono archiwum o FIX147_RELEASE_NOTES.txt i FIX147_MODULE_MAP.txt wymagane przez walidator FIX099/FIX100.
+- Dodano CHECK_FIX148_PACKAGE_ARTIFACTS.ps1 i podłączono go do CHECK_SOURCE oraz walidacji pakietu.
+- Zaktualizowano allowlistę i ochronę niezmienności publicznego wydania.
+- Wersja produktu pozostaje 1.0.0.76 / FIX141; zmiana dotyczy wyłącznie kompletności pakietu.

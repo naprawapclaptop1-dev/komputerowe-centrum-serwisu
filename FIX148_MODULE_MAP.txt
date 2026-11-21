@@ -1,0 +1,8 @@
+﻿FIX148 — mapa zmian
+- FIX147_RELEASE_NOTES.txt / FIX147_MODULE_MAP.txt: przywrócone do archiwum jako wymagane artefakty FIX147.
+- CHECK_FIX148_PACKAGE_ARTIFACTS.ps1: test obecności trzech artefaktów FIX147.
+- CHECK_SOURCE.cmd: wymaga i uruchamia test FIX148 oraz wymaga dokumentacji FIX148.
+- VALIDATE_FIX100_PACKAGE.ps1: wymaga testu i dokumentacji FIX148.
+- FIX099_SOURCE_ALLOWLIST.txt: jawna lista nowych plików.
+- CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1: klasyfikacja zmian jako bezpiecznych zmian narzędziowych.
+- FIX099_POWERSHELL_MANIFEST.txt: aktualne SHA-256 skryptów PowerShell.
