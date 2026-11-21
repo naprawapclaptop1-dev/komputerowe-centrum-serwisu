@@ -34,11 +34,11 @@ if exist "%PAYLOAD%" if exist "%STAMP%" (
 if "%PAYLOAD_OK%"=="0" (
   >>"%LOG%" echo [INFO] No current verified %PRODUCT_FIX% payload. Rebuilding Portable first.
   call "%~dp0BUILD_PORTABLE.cmd" /nopause >>"%LOG%" 2>&1
-  if errorlevel 1 goto :fail
+  if errorlevel 1 goto :optional_fail
 )
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0VERIFY_PAYLOAD.ps1" -ExePath "%PAYLOAD%" -ExpectedVersion "%PRODUCT_VERSION%" -ExpectedFix "%PRODUCT_FIX%" -StampPath "%STAMP%" -SourceRoot "%~dp0." -CheckStamp >>"%LOG%" 2>&1
-if errorlevel 1 goto :fail
-for %%F in (SETUP_LEGACY_XP.iss NaprawaPC.ico InstallerWizard.bmp InstallerSmall.bmp CentrumMigracjiHero.png) do if not exist "%~dp0%%F" (>>"%LOG%" echo [FAIL] Missing installer asset %%F.& goto :fail)
+if errorlevel 1 goto :optional_fail
+for %%F in (SETUP_LEGACY_XP.iss NaprawaPC.ico InstallerWizard.bmp InstallerSmall.bmp CentrumMigracjiHero.png) do if not exist "%~dp0%%F" (>>"%LOG%" echo [FAIL] Missing installer asset %%F.& goto :optional_fail)
 if defined INNO5_ISCC if exist "%INNO5_ISCC%" set "ISCC5=%INNO5_ISCC%"
 if not defined ISCC5 if exist "%ProgramFiles(x86)%\Inno Setup 5\ISCC.exe" set "ISCC5=%ProgramFiles(x86)%\Inno Setup 5\ISCC.exe"
 if not defined ISCC5 if exist "%ProgramFiles%\Inno Setup 5\ISCC.exe" set "ISCC5=%ProgramFiles%\Inno Setup 5\ISCC.exe"
@@ -56,14 +56,14 @@ if not exist "%TEMP_OUT%" mkdir "%TEMP_OUT%"
 if exist "%TEMP_OUT%\KomputeroweCentrumSerwisu_%PRODUCT_FIX%_INSTALATOR_XP.exe" del /q "%TEMP_OUT%\KomputeroweCentrumSerwisu_%PRODUCT_FIX%_INSTALATOR_XP.exe" >nul 2>&1
 >>"%LOG%" echo [INFO] Compiler: %ISCC5%
 "%ISCC5%" /O"%TEMP_OUT%" "%~dp0SETUP_LEGACY_XP.iss" >>"%LOG%" 2>&1
-if errorlevel 1 goto :fail
-if not exist "%TEMP_OUT%\KomputeroweCentrumSerwisu_%PRODUCT_FIX%_INSTALATOR_XP.exe" (>>"%LOG%" echo [FAIL] Inno Setup 5 did not create the XP installer.& goto :fail)
+if errorlevel 1 goto :optional_fail
+if not exist "%TEMP_OUT%\KomputeroweCentrumSerwisu_%PRODUCT_FIX%_INSTALATOR_XP.exe" (>>"%LOG%" echo [FAIL] Inno Setup 5 did not create the XP installer.& goto :optional_fail)
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0VERIFY_PAYLOAD.ps1" -ExePath "%TEMP_OUT%\KomputeroweCentrumSerwisu_%PRODUCT_FIX%_INSTALATOR_XP.exe" -ExpectedVersion "%PRODUCT_VERSION%" >>"%LOG%" 2>&1
-if errorlevel 1 goto :fail
+if errorlevel 1 goto :optional_fail
 move /y "%TEMP_OUT%\KomputeroweCentrumSerwisu_%PRODUCT_FIX%_INSTALATOR_XP.exe" "%FINAL%" >nul
-if errorlevel 1 goto :fail
+if errorlevel 1 goto :optional_fail
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0VERIFY_PAYLOAD.ps1" -ExePath "%FINAL%" -ExpectedVersion "%PRODUCT_VERSION%" >>"%LOG%" 2>&1
-if errorlevel 1 goto :fail
+if errorlevel 1 goto :optional_fail
 >>"%LOG%" echo [PASS] XP Setup created and version-verified: %FINAL%
 >"%LOGDIR%\XP_INSTALLER.status" echo PASS
 type "%LOG%"
@@ -71,11 +71,20 @@ echo [PASS] OPCJONALNY INSTALATOR XP COMPLETED.
 if /i not "%~1"=="/nopause" pause
 popd
 exit /b 0
-:fail
->>"%LOG%" echo [WARN] Optional XP installer failed. Modern setup and Portable are not deleted.
+:optional_fail
+>>"%LOG%" echo [FAIL] Optional XP installer failed. See this log for the exact cause.
+>>"%LOG%" echo [PRESERVED] Modern installer and Portable outputs were not deleted or modified.
 >"%LOGDIR%\XP_INSTALLER.status" echo FAIL
 type "%LOG%"
-echo [WARN] XP setup did not build. This optional stage does not block modern build outputs.
+echo [WARN] XP setup failed, but XP is optional. Required modern outputs are preserved and this stage returns 0.
+if /i not "%~1"=="/nopause" pause
+popd
+exit /b 0
+
+:fail
+>>"%LOG%" echo [FAIL] XP installer identity or required metadata is invalid.
+>"%LOGDIR%\XP_INSTALLER.status" echo FAIL
+type "%LOG%"
 if /i not "%~1"=="/nopause" pause
 popd
 exit /b 1

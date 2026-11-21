@@ -1373,3 +1373,16 @@ Wersja produktu bez zmian: 1.0.0.76 / FIX141.
 - Walidacja payloadu sprawdza bieżący FILEVERSION, FIX oraz BUILD_ID.
 - Dodano regresję FIX149 do CHECK_SOURCE i walidacji pełnego pakietu.
 - Zmiana dotyczy wyłącznie narzędzi budowania; kod produktu i numer wydania pozostają bez zmian.
+
+
+FIX150 — izolacja błędów opcjonalnego instalatora XP
+- Niepowodzenie opcjonalnej kompilacji XP jest raportowane jako FAIL/WARN, ale nie przerywa weryfikacji wymaganych Portable i nowoczesnego instalatora.
+- Raporty Build Manager i BUILD_INSTALLERS rozróżniają PASS, SKIPPED i FAIL.
+- Wersja produktu bez zmian: 1.0.0.76 / FIX141.
+
+
+FIX151 — naprawa kodowania bramki źródłowej
+- Usunięto UTF-8 BOM z CHECK_SOURCE.cmd; plik zaczyna się teraz od @echo off, zgodnie z walidatorem FIX099.
+- Dodano test regresji FIX151 i podłączono go do CHECK_SOURCE oraz walidacji pełnego pakietu.
+- Zaktualizowano allowlistę i manifest SHA-256.
+- Wersja produktu bez zmian: 1.0.0.76 / FIX141.

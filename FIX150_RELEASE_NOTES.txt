@@ -1,0 +1,8 @@
+﻿FIX150 — niezależny status opcjonalnego instalatora XP
+Data: 2026-11-21
+Wersja produktu bez zmian: 1.0.0.76 / FIX141.
+- Błąd kompilacji opcjonalnego instalatora XP zapisuje status FAIL i szczegółowy log, ale nie zatrzymuje wymaganych artefaktów.
+- BUILD_ALL odczytuje XP_INSTALLER.status i rozróżnia PASS, SKIPPED oraz FAIL; FAIL jest ostrzeżeniem, a weryfikacja Portable i nowoczesnego instalatora jest kontynuowana.
+- BUILD_MANAGER i BUILD_INSTALLERS nie przedstawiają nieudanego XP jako PASS.
+- Nieprawidłowa tożsamość produktu z VERSION.txt pozostaje błędem krytycznym.
+- Dodano test regresji FIX150 i zaktualizowano dokumentację oraz manifest.

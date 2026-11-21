@@ -1,0 +1,7 @@
+﻿FIX150 MODULE MAP
+BUILD_INSTALLER_XP.cmd — status opcjonalnej kompilacji XP i zachowanie wymaganych artefaktów.
+BUILD_ALL.cmd — kontynuacja weryfikacji po niepowodzeniu opcjonalnego XP.
+BUILD_MANAGER.cmd — czytelny status XP.
+BUILD_INSTALLERS.cmd — poprawny raport PASS/SKIP/WARN.
+CHECK_FIX150_OPTIONAL_XP_ORCHESTRATION.ps1 — regresje przepływu.
+VERSION.txt — pozostaje 1.0.0.76 / FIX141.

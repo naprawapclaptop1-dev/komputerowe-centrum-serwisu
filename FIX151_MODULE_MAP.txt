@@ -1,0 +1,7 @@
+FIX151 — mapa zmian
+CHECK_SOURCE.cmd — zapis bez BOM, zachowana zawartość i przepływ testów.
+CHECK_FIX151_CMD_BOM.ps1 — test kodowania i pierwszej linii.
+VALIDATE_FIX100_PACKAGE.ps1 — wymagany nowy test i dokumentacja.
+FIX099_SOURCE_ALLOWLIST.txt — dozwolone nowe artefakty FIX151.
+FIX099_POWERSHELL_MANIFEST.txt — zaktualizowana suma SHA-256 testu.
+CHANGELOG.txt — wpis FIX151.

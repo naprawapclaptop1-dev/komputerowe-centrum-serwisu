@@ -1,0 +1,7 @@
+FIX151 — naprawa kodowania bramki źródłowej
+Data: 2026-11-21
+Wersja produktu bez zmian: 1.0.0.76 / FIX141.
+- Usunięto UTF-8 BOM z CHECK_SOURCE.cmd; pierwszymi bajtami pliku jest teraz „@echo off”.
+- Dodano test regresji CHECK_FIX151_CMD_BOM.ps1 i podłączono go do CHECK_SOURCE oraz walidacji pakietu.
+- Zaktualizowano allowlistę i manifest SHA-256.
+- Nie zmieniono funkcji aplikacji ani danych użytkownika.
