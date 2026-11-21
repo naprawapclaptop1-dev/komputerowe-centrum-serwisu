@@ -1,0 +1,10 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX149
+HOTFIX09: bieżąca tożsamość opcjonalnego instalatora XP
+
+Wersja produktu: 1.0.0.76
+Numer produktu: FIX141 (bez zmian)
+Numer poprawki narzędziowej: FIX149
+
+Naprawiono BUILD_INSTALLER_XP.cmd: wersja produktu, numer FIX i nazwa instalatora są rozwiązywane z VERSION.txt. Nie ma już stałych wartości 1.0.0.75 / FIX140. Weryfikacja pliku wykonywalnego sprawdza aktualną wersję i tożsamość payloadu.
+
+Zakres: wyłącznie tooling build/release. Nie zmieniano kodu aplikacji ani danych użytkownika.

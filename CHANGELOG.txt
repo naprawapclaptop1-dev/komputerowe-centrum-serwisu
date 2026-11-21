@@ -1363,3 +1363,13 @@ FIX148 — brakujące artefakty dokumentacyjne FIX147
 - Dodano CHECK_FIX148_PACKAGE_ARTIFACTS.ps1 i podłączono go do CHECK_SOURCE oraz walidacji pakietu.
 - Zaktualizowano allowlistę i ochronę niezmienności publicznego wydania.
 - Wersja produktu pozostaje 1.0.0.76 / FIX141; zmiana dotyczy wyłącznie kompletności pakietu.
+
+
+FIX149 — naprawa identyfikacji opcjonalnego instalatora XP
+Data: 2026-11-21
+Wersja produktu bez zmian: 1.0.0.76 / FIX141.
+- Instalator XP odczytuje wersję i numer FIX bezpośrednio z VERSION.txt.
+- Usunięto nieaktualne oczekiwanie 1.0.0.75 / FIX140 i nazwę wyjściową FIX140.
+- Walidacja payloadu sprawdza bieżący FILEVERSION, FIX oraz BUILD_ID.
+- Dodano regresję FIX149 do CHECK_SOURCE i walidacji pełnego pakietu.
+- Zmiana dotyczy wyłącznie narzędzi budowania; kod produktu i numer wydania pozostają bez zmian.

@@ -1,0 +1,12 @@
+FIX149 — MAPA ZMIAN
+
+BUILD_INSTALLER_XP.cmd — dynamiczny odczyt wersji/FIX, dynamiczna nazwa artefaktu, kontrola błędów.
+CHECK_FIX149_XP_INSTALLER_IDENTITY.ps1 — 6 testów regresyjnych.
+CHECK_SOURCE.cmd — uruchamianie testu FIX149.
+VALIDATE_FIX100_PACKAGE.ps1 — wymagane artefakty FIX149.
+FIX099_SOURCE_ALLOWLIST.txt — jawna lista publikowanych artefaktów.
+KCS_RELEASE_POLICY.ps1 — klasyfikacja skryptu instalatora XP jako narzędzia.
+CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1 — zachowanie reguł bezpiecznego ponownego użycia wydania.
+CHANGELOG.txt — wpis FIX149.
+
+Produkt pozostaje 1.0.0.76 / FIX141.
