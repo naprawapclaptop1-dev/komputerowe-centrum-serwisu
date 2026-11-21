@@ -1,0 +1,6 @@
+﻿FIX146 — mapa zmian
+- CHECK_FIX141_APPOINTMENTS.ps1: kompatybilny wrapper uruchamiający CHECK_FIX139_APPOINTMENTS.ps1.
+- CHECK_SOURCE.cmd: wymaga obecności wrappera.
+- VALIDATE_FIX100_PACKAGE.ps1: wymaga wrappera w kompletnym pakiecie.
+- FIX099_SOURCE_ALLOWLIST.txt: jawna synchronizacja nowego skryptu.
+- CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1: klasyfikacja wrappera jako bezpiecznej zmiany narzędziowej.

@@ -1,0 +1,10 @@
+﻿KOMPUTEROWE CENTRUM SERWISU — FIX146 HOTFIX06
+Typ: poprawka narzędziowa / zgodność weryfikacji portable
+Produkt: 1.0.0.76 / FIX141 (bez zmiany)
+
+- Dodano CHECK_FIX141_APPOINTMENTS.ps1 jako zgodny punkt wejścia do historycznego testu CHECK_FIX139_APPOINTMENTS.ps1.
+- Zachowano historyczny test FIX139 bez zmian; nie dubluje się jego logiki.
+- Dodano nowy skrypt do walidacji pakietu, jawnej allowlisty synchronizacji oraz CHECK_SOURCE.
+- Naprawia SOURCE_FILE_MISSING podczas VERIFY_PAYLOAD i budowania wersji przenośnej.
+- Nie zmieniano kodu aplikacji, konfiguracji użytkownika ani istniejących wydań.
+- Wymagane: ponowne uruchomienie pełnego procesu na Windows; build/publikacja nie są tu deklarowane jako wykonane.

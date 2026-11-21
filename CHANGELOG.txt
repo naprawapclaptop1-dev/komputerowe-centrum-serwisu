@@ -1352,3 +1352,8 @@ FIX143 — poprawka asercji manifestu SHA-256 (FIX136)
 - Zmieniono oczekiwaną nazwę kontroli kalendarza z nieistniejącej CHECK_FIX141_CALENDAR_COMPILE_GUARD.ps1 na aktywną CHECK_FIX140_CALENDAR_COMPILE_GUARD.ps1.
 - Zaktualizowano hash CHECK_FIX136_SOURCE_BUILD_IDENTITY.ps1 w FIX099_POWERSHELL_MANIFEST.txt.
 - Wersja produktu bez zmian: 1.0.0.76 / FIX141.
+
+FIX146 — zgodność weryfikacji payloadu FIX141
+- Dodano wrapper CHECK_FIX141_APPOINTMENTS.ps1 delegujący do aktywnego testu kalendarza FIX139.
+- Uzupełniono walidację pakietu, CHECK_SOURCE, allowlistę i politykę zachowania wydania.
+- Wersja produktu pozostaje 1.0.0.76 / FIX141; zmiana dotyczy wyłącznie narzędzi wydania.
