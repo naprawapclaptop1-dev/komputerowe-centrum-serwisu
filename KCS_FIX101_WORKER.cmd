@@ -1,8 +1,8 @@
 @echo off
-rem FIX139 worker: runs inside the persistent cmd.exe /K host; build manager is isolated in a child cmd.exe.
+rem FIX141 worker: runs inside the persistent cmd.exe /K host; build manager is isolated in a child cmd.exe.
 setlocal EnableExtensions DisableDelayedExpansion
 chcp 65001 >nul
-title KOMPUTEROWE CENTRUM SERWISU - AUTOMATYCZNY START FIX139
+title KOMPUTEROWE CENTRUM SERWISU - AUTOMATYCZNY START FIX141
 set "ROOT=%~dp0"
 pushd "%ROOT%" >nul 2>&1
 if errorlevel 1 goto :path_fail
@@ -15,14 +15,14 @@ set "LOG=%LOGDIR%\00-AUTOMATYCZNY-START.log"
 set "STATUS=%LOGDIR%\FULL_RELEASE.status"
 set "RC=0"
 set "CHECKSTEP=initialization"
->"%LOG%" echo KOMPUTEROWE CENTRUM SERWISU FIX139
+>"%LOG%" echo KOMPUTEROWE CENTRUM SERWISU FIX141
 >>"%LOG%" echo Folder: %ROOT%
 >>"%LOG%" echo Repozytorium: %GHREPO%
 >>"%LOG%" echo Start: %DATE% %TIME%
 if exist "%STATUS%" del /q "%STATUS%" >nul 2>&1
 if exist "%ROOT%PUBLICATION_VERIFICATION.status" del /q "%ROOT%PUBLICATION_VERIFICATION.status" >nul 2>&1
 echo ============================================================
-echo KOMPUTEROWE CENTRUM SERWISU - FIX139
+echo KOMPUTEROWE CENTRUM SERWISU - FIX141
 echo AUTOMATYCZNA BUDOWA + PUBLIKACJA + INSTALACJA
 echo ============================================================
 echo Repozytorium: %GHREPO%
@@ -46,7 +46,7 @@ echo [ETAP 2/6] Testy zrodel CHECK_SOURCE - uruchamiam testy regresji; to moze p
 >>"%LOG%" echo [%DATE% %TIME%] [ETAP 2/6] CHECK_SOURCE start
 call "%ROOT%CHECK_SOURCE.cmd" /nopause
 set "RC=%ERRORLEVEL%"
-if exist "%LOGDIR%\CHECK_SOURCE_FIX139.log" type "%LOGDIR%\CHECK_SOURCE_FIX139.log" >>"%LOG%"
+if exist "%LOGDIR%\CHECK_SOURCE_FIX141.log" type "%LOGDIR%\CHECK_SOURCE_FIX141.log" >>"%LOG%"
 >>"%LOG%" echo [%DATE% %TIME%] [ETAP 2/6] CHECK_SOURCE - kod %RC%
 if not "%RC%"=="0" goto :validation_fail
 
@@ -80,7 +80,7 @@ if not "%RC%"=="0" goto :source_fail
 
 echo.
 echo [2/5] Kompilacja aplikacji, wersji portable i instalatora...
-rem FIX139: isolate legacy batch build manager in a child CMD process.
+rem FIX141: isolate legacy batch build manager in a child CMD process.
 rem This prevents an EXIT issued by any nested build script from terminating this worker.
 set "BUILD_LOG=%LOGDIR%\02-build-all.log"
 if exist "%BUILD_LOG%" del /q "%BUILD_LOG%" >nul 2>&1
@@ -117,7 +117,7 @@ echo.
 echo [PASS] GOTOWE: aplikacja, instalator i strona zostaly zweryfikowane.
 echo Repozytorium: %GHURL%
 echo Strona globalna: %PAGEURL%
-echo Wersja produktu: 1.0.0.74
+echo Wersja produktu: 1.0.0.76
 echo Log: %LOG%
 echo.
 popd
@@ -130,16 +130,16 @@ powershell.exe -NoLogo -NoProfile -Command "Get-Content -LiteralPath '%LOG%' -Ta
 if /I "%CHECKSTEP%"=="bramka testow CHECK_SOURCE" (
   echo.
   echo ============================================================
-  echo SZCZEGOLOWA DIAGNOSTYKA CHECK_SOURCE FIX139
+  echo SZCZEGOLOWA DIAGNOSTYKA CHECK_SOURCE FIX141
   echo ============================================================
-  if exist "%LOGDIR%\CHECK_SOURCE_FIX139.log" (
+  if exist "%LOGDIR%\CHECK_SOURCE_FIX141.log" (
     >>"%LOG%" echo ============================================================
-    >>"%LOG%" echo SZCZEGOLOWA DIAGNOSTYKA CHECK_SOURCE FIX139
-    type "%LOGDIR%\CHECK_SOURCE_FIX139.log"
-    type "%LOGDIR%\CHECK_SOURCE_FIX139.log" >>"%LOG%"
+    >>"%LOG%" echo SZCZEGOLOWA DIAGNOSTYKA CHECK_SOURCE FIX141
+    type "%LOGDIR%\CHECK_SOURCE_FIX141.log"
+    type "%LOGDIR%\CHECK_SOURCE_FIX141.log" >>"%LOG%"
   ) else (
-    echo [WARN] Brak pliku CHECK_SOURCE_FIX139.log. Nie mozna ustalic testu, ktory zakonczyl sie bledem.
-    >>"%LOG%" echo [WARN] Brak pliku CHECK_SOURCE_FIX139.log.
+    echo [WARN] Brak pliku CHECK_SOURCE_FIX141.log. Nie mozna ustalic testu, ktory zakonczyl sie bledem.
+    >>"%LOG%" echo [WARN] Brak pliku CHECK_SOURCE_FIX141.log.
   )
 )
 goto :end_fail

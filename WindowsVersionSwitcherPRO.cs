@@ -1236,7 +1236,7 @@ namespace NaprawaPC.WindowsSwitcher
                 {
                     string path=route.StartsWith("/")?route:"/"+route;
                     req=(HttpWebRequest)WebRequest.Create(host+path);
-                    req.Method="GET";req.UserAgent="NaprawaPC-UniversalWindowsMigrationPRO/1.0.0.74";
+                    req.Method="GET";req.UserAgent="NaprawaPC-UniversalWindowsMigrationPRO/1.0.0.76";
                     req.Accept="application/json";req.Timeout=10000;req.ReadWriteTimeout=10000;
                     req.AutomaticDecompression=DecompressionMethods.GZip|DecompressionMethods.Deflate;
                     using(HttpWebResponse response=(HttpWebResponse)req.GetResponse())
@@ -1584,7 +1584,7 @@ namespace NaprawaPC.WindowsSwitcher
                 HttpWebRequest req=(HttpWebRequest)WebRequest.Create(target);
                 req.Method="GET";req.Timeout=9000;req.ReadWriteTimeout=7000;req.KeepAlive=false;
                 req.AllowAutoRedirect=true;req.MaximumAutomaticRedirections=8;
-                req.UserAgent="NaprawaPC Radio Stream Probe/1.0.0.74";req.Accept="audio/*,*/*;q=0.8";
+                req.UserAgent="NaprawaPC Radio Stream Probe/1.0.0.76";req.Accept="audio/*,*/*;q=0.8";
                 try{req.AddRange(0,2047);}catch{}
                 using(HttpWebResponse response=(HttpWebResponse)req.GetResponse())
                 using(Stream stream=response.GetResponseStream())
@@ -3773,7 +3773,7 @@ namespace NaprawaPC.WindowsSwitcher
                 if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
                 File.WriteAllText(consentFile,
                     "Accepted=" + DateTime.Now.ToString("o") + Environment.NewLine +
-                    "Application=KOMPUTEROWE CENTRUM SERWISU - CENTRUM MIGRACJI I NAPRAW - FIX139" + Environment.NewLine,
+                    "Application=KOMPUTEROWE CENTRUM SERWISU - CENTRUM MIGRACJI I NAPRAW - FIX141" + Environment.NewLine,
                     Encoding.UTF8);
                 AppendLog("Zaakceptowano ostrzeżenie o używaniu programu na własną odpowiedzialność.");
                 return true;

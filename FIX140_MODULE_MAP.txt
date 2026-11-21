@@ -1,0 +1,13 @@
+FIX140 — MAPA ZMIAN
+
+Kod aplikacji:
+- WindowsVersionSwitcherPRO.Modules.cs: rozdzielenie metody odczytu XML LoadServiceProAppointmentsDocument() od odświeżania widoku LoadServiceProAppointments().
+- Wywołania XML w operacjach kalendarza korzystają z metody dokumentowej.
+
+Testy:
+- CHECK_FIX140_CALENDAR_COMPILE_GUARD.ps1 sprawdza deklaracje metod, wywołania i tożsamość wydania.
+- CHECK_SOURCE uruchamia nową bramkę FIX140.
+- Zachowano testy regresji FIX137/FIX138.
+
+Wydanie: 1.0.0.75 / FIX140.
+Poprzednie wydanie 1.0.0.74 / FIX139 pozostaje historyczne.

@@ -1,0 +1,10 @@
+FIX143 — MAPA ZMIAN
+
+1. CHECK_FIX136_SOURCE_BUILD_IDENTITY.ps1
+   Zmieniono oczekiwaną nazwę testu kalendarza na istniejący CHECK_FIX140_CALENDAR_COMPILE_GUARD.ps1, zgodnie z CHECK_SOURCE.cmd.
+
+2. FIX099_POWERSHELL_MANIFEST.txt
+   Zaktualizowano SHA-256 zmienionego CHECK_FIX136_SOURCE_BUILD_IDENTITY.ps1. Pozostałe wpisy pozostawiono bez zmian.
+
+3. Tożsamość
+   FIX143 jest poprawką narzędzi/testów. Produkt pozostaje 1.0.0.76 / FIX141.

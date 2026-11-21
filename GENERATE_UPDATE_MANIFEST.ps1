@@ -8,8 +8,8 @@ $Repo="naprawapclaptop1-dev/komputerowe-centrum-serwisu"
 $RepoFile=Join-Path $Root "GITHUB_REPOSITORY.txt"
 if(!(Test-Path $RepoFile)){throw "Brak GITHUB_REPOSITORY.txt — uruchom URUCHOM_TYLKO_TEN_PLIK.cmd."}
 if((Get-Content $RepoFile -Raw).Trim() -ne $Repo){throw "Nieprawidłowe repozytorium przypisane do aplikacji."}
-$Version="1.0.0.74"; $Tag="v$Version"; $Fix="FIX139"
-$PackageName="KomputeroweCentrumSerwisu_FIX139_INSTALATOR.exe"
+$Version="1.0.0.76"; $Tag="v$Version"; $Fix="FIX141"
+$PackageName="KomputeroweCentrumSerwisu_FIX141_INSTALATOR.exe"
 if([string]::IsNullOrWhiteSpace($PackagePath)){$PackagePath=Join-Path $Root "dist\installers\$PackageName"}
 if(!(Test-Path -LiteralPath $PackagePath -PathType Leaf)){throw "Brak świeżego instalatora: $PackagePath"}
 function Assert-ExpectedFileVersion {

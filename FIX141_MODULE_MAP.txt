@@ -1,0 +1,21 @@
+﻿FIX141 / 1.0.0.76 — MAPA ZMIAN
+
+Aktywna tożsamość:
+- VERSION.txt
+- AssemblyInfo.cs
+- WindowsVersionSwitcherPRO.cs
+- WindowsVersionSwitcherPRO.Modules.cs
+- SETUP_MODERN.iss
+- BUILD_ALL.cmd / BUILD_MANAGER.cmd / BUILD_PORTABLE.cmd
+- BUILD_INSTALLER_MODERN.cmd / KCS_FIX101_WORKER.cmd
+- VERIFY_BUILD.ps1 / VERIFY_PAYLOAD.ps1
+- PUBLISH_GITHUB_RELEASES.ps1 / GENERATE_UPDATE_MANIFEST.ps1
+- website/index.html / website/app.js
+
+Regresje:
+- CHECK_FIX136_SOURCE_BUILD_IDENTITY.ps1
+- CHECK_FIX137_SERVICE_PRO.ps1
+- CHECK_FIX140_CALENDAR_COMPILE_GUARD.ps1
+- CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1
+
+Zakres: oznaczenie raportu diagnostycznego i spójność wydania. Nie zmieniano danych użytkownika ani struktury lokalnego magazynu Service PRO.

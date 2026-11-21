@@ -3,7 +3,7 @@ $root=$PSScriptRoot
 $publisher=Get-Content (Join-Path $root 'PUBLISH_GITHUB_RELEASES.ps1') -Raw
 $verify=Get-Content (Join-Path $root 'VERIFY_GLOBAL_UPDATE_SERVER.ps1') -Raw
 $version=(Get-Content -LiteralPath (Join-Path $root 'VERSION.txt') -Encoding UTF8 | Select-Object -First 1).Trim()
-$expectedTagText = '$expectedTag="v{0}"' -f $version
+$expectedTagText = '$expectedTag="v' + $version + '"'
 $tagPos=$verify.IndexOf($expectedTagText)
 $apiPos=$verify.IndexOf('$api="https://api.github.com/repos/$Repo/releases/tags/$expectedTag"')
 $checks=@(

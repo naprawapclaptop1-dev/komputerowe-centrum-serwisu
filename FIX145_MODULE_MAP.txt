@@ -1,0 +1,7 @@
+FIX145 HOTFIX05 — MAPA ZMIAN
+
+CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1 — UTF-8 BOM; zachowana logika kontroli ochrony wydania.
+CHECK_FIX136_SOURCE_BUILD_IDENTITY.ps1 — UTF-8 BOM; zachowana logika kontroli tożsamości źródeł i kompilacji.
+FIX099_POWERSHELL_MANIFEST.txt — odświeżone SHA-256 obu zmienionych skryptów.
+CHANGELOG.txt / FIX145_RELEASE_NOTES.txt / FIX145_MODULE_MAP.txt — dokumentacja poprawki.
+Versja produktu bez zmian: 1.0.0.76 / FIX141.

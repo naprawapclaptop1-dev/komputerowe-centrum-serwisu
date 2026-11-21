@@ -1,0 +1,13 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX144 HOTFIX04
+
+Zakres: naprawa uruchamiania walidatora pakietu w Windows PowerShell 5.1.
+
+Przyczyna: VALIDATE_FIX100_PACKAGE.ps1 zawiera polskie znaki UTF-8, ale brakowało znacznika BOM. Windows PowerShell 5.1 interpretuje pliki UTF-8 bez BOM według lokalnej strony kodowej, co prowadziło do błędnego odczytu tekstu i błędu parsera już w etapie 1/6.
+
+Zmiany:
+- dodano UTF-8 BOM do VALIDATE_FIX100_PACKAGE.ps1;
+- zaktualizowano SHA-256 plików zmienionych w FIX144 w FIX099_POWERSHELL_MANIFEST.txt;
+- dodano dokumentację FIX144 i wpisy pakietowe;
+- zachowano wersję produktu 1.0.0.76 / FIX141 — poprawka dotyczy wyłącznie narzędzia walidacyjnego.
+
+Walidacja lokalna: kontrola BOM, manifestu SHA-256 i integralności ZIP. Nie wykonano Windows PowerShell 5.1, pełnego CHECK_SOURCE, kompilacji, instalacji ani publikacji — wymagają uruchomienia w środowisku Windows.

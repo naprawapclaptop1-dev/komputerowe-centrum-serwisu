@@ -1,0 +1,7 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX145 HOTFIX05
+
+- Dodano UTF-8 BOM do CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1 oraz CHECK_FIX136_SOURCE_BUILD_IDENTITY.ps1.
+- Zaktualizowano odpowiadające sumy SHA-256 w FIX099_POWERSHELL_MANIFEST.txt.
+- Zachowano kod aplikacji i wersję produktu 1.0.0.76 / FIX141; poprawka dotyczy kodowania i walidacji pakietu.
+- Weryfikacja lokalna: BOM obu plików, zgodność hashy manifestu, integralność ZIP.
+- Windows PowerShell 5.1, pełny CHECK_SOURCE, kompilacja, publikacja i instalacja wymagają ponownego uruchomienia na komputerze użytkownika.

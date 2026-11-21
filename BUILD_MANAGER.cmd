@@ -1,13 +1,13 @@
 @echo off
 setlocal EnableExtensions
-title KOMPUTEROWE CENTRUM SERWISU FIX139 - BUILD MANAGER
+title KOMPUTEROWE CENTRUM SERWISU FIX141 - BUILD MANAGER
 pushd "%~dp0"
 set "LOGDIR=%~dp0dist\build-logs"
 if not exist "%LOGDIR%" mkdir "%LOGDIR%"
 :menu
 cls
 echo ============================================================
-echo KOMPUTEROWE CENTRUM SERWISU - BUILD MANAGER PRO  ^|  FIX139
+echo KOMPUTEROWE CENTRUM SERWISU - BUILD MANAGER PRO  ^|  FIX141
 echo ============================================================
 echo 1. Build PORTABLE EXE only
 echo 2. Build modern INSTALLER EXE only (Windows 7 SP1 - 11)

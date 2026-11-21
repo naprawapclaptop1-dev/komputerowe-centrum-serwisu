@@ -1,0 +1,19 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX140
+Wersja produktu: 1.0.0.75
+
+NAPRAWA KOMPILACJI KALENDARZA WIZYT PRO
+- Usunięto konflikt nazw metod LoadServiceProAppointments: metoda zwracająca XmlDocument ma teraz nazwę LoadServiceProAppointmentsDocument().
+- Metoda LoadServiceProAppointments() pozostaje metodą odświeżającą tabelę kalendarza.
+- Wywołania odczytu XML w edycji, zapisie, usuwaniu, filtrowaniu i eksporcie kierują do metody dokumentowej.
+- Dodano CHECK_FIX140_CALENDAR_COMPILE_GUARD.ps1: kontroluje pojedyncze deklaracje obu metod, brak starej kolidującej deklaracji i zgodność tożsamości wydania.
+- Zachowano kalendarz, lokalny zapis XML, eksport CSV/iCalendar i historię Serwis PRO.
+
+TOŻSAMOŚĆ WYDANIA
+- Nowa poprawka kodu C# otrzymuje nowe niezmienne wydanie 1.0.0.75 / FIX140.
+- Zaktualizowano AssemblyInfo, VERSION, konfigurację portable/instalatora, aktualizator, manifest wydania, launcher, worker i oznaczenia bieżącego wydania.
+- FIX139 / 1.0.0.74 pozostaje historycznym wydaniem; nie jest nadpisywane.
+
+WERYFIKACJA
+- Wykonano kontrolę statyczną źródeł i spójności plików pakietu.
+- Nie wykonano kompilacji C# na Windows, uruchomienia instalatora ani publikacji GitHub. Te etapy wymagają uruchomienia pakietu na Windows i nie są oznaczone jako PASS.
+Data: 2026-11-20

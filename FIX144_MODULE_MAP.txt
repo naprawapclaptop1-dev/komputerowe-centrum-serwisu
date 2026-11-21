@@ -1,0 +1,8 @@
+FIX144 — MAPA ZMIAN
+
+1. VALIDATE_FIX100_PACKAGE.ps1 — dodano UTF-8 BOM, aby Windows PowerShell 5.1 poprawnie odczytywał polskie znaki w komunikatach.
+2. FIX099_POWERSHELL_MANIFEST.txt — odświeżono SHA-256 zmienionych skryptów.
+3. FIX099_SOURCE_ALLOWLIST.txt, CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1 — dopisano dokumentację FIX144 do dozwolonych ścieżek.
+4. VALIDATE_FIX100_PACKAGE.ps1 — uwzględnia dokumentację FIX144 w wymaganych plikach pakietu.
+
+Wersja produktu bez zmian: 1.0.0.76 / FIX141.

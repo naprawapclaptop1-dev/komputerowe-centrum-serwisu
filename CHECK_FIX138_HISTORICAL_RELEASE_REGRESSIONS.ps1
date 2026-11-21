@@ -18,10 +18,12 @@ $changed = [regex]::Match($policy,'\$currentTagChanges\s*=\s*@\((.*?)\)',[Text.R
 $validator = Read-Text 'VALIDATE_FIX100_PACKAGE.ps1'
 $allow = @(Get-Content -LiteralPath (Join-Path $root 'FIX099_SOURCE_ALLOWLIST.txt') | ForEach-Object { $_.Trim() } | Where-Object { $_ })
 $required = @('CHECK_FIX138_HISTORICAL_RELEASE_REGRESSIONS.ps1','FIX138_RELEASE_NOTES.txt','FIX138_MODULE_MAP.txt')
-Add-Check ($activeTitle.Success -and $activeTitle.Groups[1].Value -eq 'FIX139' -and $activeLog.Success -and $activeLog.Groups[1].Value -eq 'FIX139') 'Active package and detailed report both use FIX139 identity'
-Add-Check ($cmd.Contains('echo CHECK_SOURCE FIX139 - %DATE% %TIME%') -and $cmd.Contains('CHECK_SOURCE_FIX139-current.txt')) 'Visible source-gate report header and temporary log use FIX139'
-Add-Check ($launcher.Contains('FIX139') -and $worker.Contains('FIX139') -and $worker.Contains('CHECK_SOURCE_FIX139.log')) 'Single launcher and persistent worker match active FIX139 package'
-Add-Check ($productVersion -eq '1.0.0.74' -and $productFix -eq 'FIX139') 'Active FIX139 package and product release identity are 1.0.0.74 / FIX139'
+Add-Check ($activeTitle.Success -and $activeTitle.Groups[1].Value -eq 'FIX141' -and $activeLog.Success -and $activeLog.Groups[1].Value -eq 'FIX141') 'Active package and detailed report both use the active FIX141 identity'
+Add-Check ($cmd.Contains('echo CHECK_SOURCE FIX141 - %DATE% %TIME%') -and $cmd.Contains('CHECK_SOURCE_FIX141-current.txt')) 'Visible source-gate report header and temporary log use FIX141'
+Add-Check ($launcher.Contains('FIX141') -and $worker.Contains('FIX141') -and $worker.Contains('CHECK_SOURCE_FIX141.log')) 'Single launcher and persistent worker match active FIX141 package'
+Add-Check ($productVersion -eq '1.0.0.76' -and $productFix -eq 'FIX141') 'Active package and product release identity are 1.0.0.76 / FIX141'
+$historicalNotes = Read-Text 'FIX139_RELEASE_NOTES.txt'
+Add-Check ($historicalNotes.Contains('1.0.0.74') -and $historicalNotes.Contains('FIX139')) 'Historical FIX139 release notes retain their original immutable identity'
 $installerRunner = Read-Text 'INSTALL_PUBLISHED_BUILD.ps1'
 $installerTest = Read-Text 'CHECK_FIX128_INTERACTIVE_INSTALL_CONSENT.ps1'
 Add-Check ($installerRunner.Contains(('installation-{0}-inno.log' -f $productFix)) -and $installerTest.Contains('$productFix') -and -not $installerTest.Contains('installation-FIX072-inno.log')) 'Historical FIX128 test follows the current installer log identity instead of stale FIX072'
@@ -53,7 +55,7 @@ Add-Check ($mainSource.Contains('return ButtonAt(p,text,x,y,w,40,click);')) 'Ori
 Add-Check ($moduleSource.Contains('ButtonAt(edit,"WYDAJ DO AKTYWNEGO ZLECENIA",230,176,285,40,delegate{ConsumeServiceProPartForCase();});')) 'Service PRO stock action uses the explicit-height ButtonAt overload'
 $setup = Read-Text 'SETUP_MODERN.iss'
 $assembly = Read-Text 'AssemblyInfo.cs'
-Add-Check ($setup.Contains('#define MyAppVersion "1.0.0.74"') -and $assembly.Contains('AssemblyFileVersion("1.0.0.74")') -and $assembly.Contains('AssemblyInformationalVersion("FIX139")')) 'Current product setup and assembly metadata remain aligned to FIX139'
+Add-Check ($setup.Contains('#define MyAppVersion "1.0.0.76"') -and $assembly.Contains('AssemblyFileVersion("1.0.0.76")') -and $assembly.Contains('AssemblyInformationalVersion("FIX141")')) 'Current product setup and assembly metadata remain aligned to FIX141'
 $failed = @($checks | Where-Object { -not $_.Passed })
 foreach ($check in $checks) { if ($check.Passed) { Write-Host ('[PASS] ' + $check.Name) } else { Write-Host ('[FAIL] ' + $check.Name) } }
 if ($failed.Count) { Write-Host ('[FAIL] FIX139 historical release regression checks: ' + (($failed | ForEach-Object { $_.Name }) -join '; ')); exit 1 }

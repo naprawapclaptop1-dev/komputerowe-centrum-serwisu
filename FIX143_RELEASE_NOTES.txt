@@ -1,0 +1,13 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX143 HOTFIX03
+
+Zakres: poprawka błędnej asercji manifestu w CHECK_FIX136_SOURCE_BUILD_IDENTITY.ps1.
+
+Przyczyna: test wymagał wpisu CHECK_FIX141_CALENDAR_COMPILE_GUARD.ps1, którego pakiet nie zawiera. Aktywny test kalendarza ma nazwę CHECK_FIX140_CALENDAR_COMPILE_GUARD.ps1 i właśnie tę nazwę uruchamia CHECK_SOURCE.cmd. Nie była to usterka brakującego pliku ani brakującego wpisu SHA-256.
+
+Zmiany:
+- poprawiono nazwę pliku w asercji manifestu: FIX141 → FIX140;
+- przeliczono i zaktualizowano SHA-256 testu CHECK_FIX136_SOURCE_BUILD_IDENTITY.ps1 w FIX099_POWERSHELL_MANIFEST.txt;
+- zachowano historyczne testy i aktywną tożsamość produktu 1.0.0.76 / FIX141;
+- nie zmieniono kodu aplikacji, instalatora ani numeru wersji produktu.
+
+Walidacja lokalna: sprawdzono obecność oczekiwanych wpisów, poprawność SHA-256 oraz integralność ZIP. Pełny CHECK_SOURCE i kompilacja wymagają uruchomienia w Windows; nie są deklarowane jako wykonane.

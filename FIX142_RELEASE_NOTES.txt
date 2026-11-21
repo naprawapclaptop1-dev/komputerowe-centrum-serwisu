@@ -1,0 +1,14 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX142 HOTFIX02
+
+Zakres: poprawki testów regresji i spójności narzędzi wydania dla aktywnej wersji produktu 1.0.0.76 / FIX141.
+
+- Ujednolicono updater, weryfikator aktualizacji, instalator, publisher i generator manifestu z wersją 1.0.0.76 / FIX141.
+- Poprawiono asercje testów, które nadal wymagały FIX140 / 1.0.0.75.
+- Poprawiono odczyt dwóch linii VERSION.txt w kontroli kalendarza.
+- Test historyczny FIX138 sprawdza aktywny pakiet FIX141, a oryginalną tożsamość FIX139 zachowuje jako historyczną.
+- Zawężono zakres analizy gałęzi IF/ELSE w teście FIX126 do właściwej procedury CMD.
+- Uporządkowano kontrolę expectedTag i SHA-256 manifestu PowerShell.
+
+Nie zmieniono kodu funkcjonalnego aplikacji. Wersja produktu pozostaje 1.0.0.76 / FIX141; FIX142 oznacza hotfix narzędziowy.
+
+Walidacja w tym środowisku: kontrola struktury źródeł, spójności identyfikatorów i archiwum ZIP. Pełne uruchomienie CHECK_SOURCE, kompilacja C# i test instalatora wymagają Windows i nie są deklarowane jako wykonane.

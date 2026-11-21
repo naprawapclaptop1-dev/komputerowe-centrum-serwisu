@@ -13,7 +13,7 @@ Add-Check ($mod.Contains('ExportServiceProAppointmentsIcs') -and $mod.Contains('
 Add-Check ($mod.Contains('ExportServiceProAppointmentsCsv') -and $mod.Contains('new UTF8Encoding(true)')) 'CSV UTF-8 export'
 Add-Check ($mod.Contains('SaveXmlSafely(d,ServiceProAppointmentPath(),10)')) 'Safe XML persistence'
 Add-Check ($mod.Contains('AddServiceProHistory(selectedServiceProAppointmentId')) 'Appointment audit history'
-Add-Check ($version -match '1\.0\.0\.74\s+FIX139' -and $assembly.Contains('AssemblyVersion("1.0.0.74")')) 'Release identity 1.0.0.74 / FIX139'
+Add-Check ($mod.Contains('LoadServiceProAppointmentsDocument') -and $mod.Contains('LoadServiceProAppointments')) 'FIX139 calendar feature retained in current source'
 $failed = @($checks | Where-Object { -not $_.Passed })
 foreach ($check in $checks) { if ($check.Passed) { Write-Host ('[PASS] ' + $check.Name) } else { Write-Host ('[FAIL] ' + $check.Name) } }
 if ($failed.Count) { Write-Host ('[FAIL] FIX139 appointments: ' + (($failed | ForEach-Object { $_.Name }) -join '; ')); exit 1 }

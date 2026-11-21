@@ -1,0 +1,12 @@
+﻿KOMPUTEROWE CENTRUM SERWISU — FIX141
+Wersja produktu: 1.0.0.76
+
+- Ujednolicono oznaczenie wydania w raporcie diagnostycznym aplikacji: FIX141.
+- Zaktualizowano identyfikację wersji w metadanych aplikacji, instalatora, aktualizatora, pakietu portable i witryny.
+- Zachowano funkcjonalność kalendarza wizyt, eksport CSV/iCalendar i lokalny zapis XML.
+- Poprawiono regresyjne testy tożsamości wydania i wymagane pliki walidatora.
+- Przeniesiono podprogram CHECK_SOURCE przed główny przepływ CMD, aby uniknąć błędu odnajdywania etykiety run_ps_check.
+- Poprawiono oczekiwanie testu ochrony publicznych wydań dla nowej wersji 1.0.0.76.
+- Poprzednie wydania FIX139 i FIX140 pozostają historyczne; nie są nadpisywane.
+
+Walidacja: kontrola statyczna źródeł i manifestów. Kompilacja Windows, publikacja i instalator wymagają uruchomienia w środowisku Windows.

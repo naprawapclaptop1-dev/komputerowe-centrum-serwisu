@@ -17,7 +17,7 @@ $checks += ,@(($sourcePublisher.Contains('$Repo="'+$repo+'"')),'Source publisher
 $checks += ,@(($releasePublisher.Contains('$Repo="'+$repo+'"')),'Release publisher is locked to the dedicated repository')
 $checks += ,@(($releasePublisher.Contains('$ExpectedRepo="'+$repo+'"')),'Release publisher rejects a different repository')
 $checks += ,@(($entry -notmatch '(?im)^\s*set\s+/p\s|Read-Host|Podaj publiczne repozytorium'),'The single launcher does not ask for a repository manually')
-$checks += ,@(($version -eq '1.0.0.74' -and $fix -eq 'FIX139'),'VERSION.txt identifies current product 1.0.0.74 / FIX139')
+$checks += ,@(($version -eq '1.0.0.76' -and $fix -eq 'FIX141'),'VERSION.txt identifies current product 1.0.0.76 / FIX141')
 $checks += ,@(($payloadVerifier.Contains('"CHECK_FIX072_REPOSITORY_INPUT.ps1"')),'Payload source identity includes this repository-input regression')
 $checks += ,@((Test-Path -LiteralPath (Join-Path $root 'GITHUB_REPOSITORY.txt.template') -PathType Leaf),'Repository template exists in the package root')
 $failed = @($checks | Where-Object { -not $_[0] })
