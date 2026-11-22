@@ -1986,6 +1986,7 @@ namespace NaprawaPC.WindowsSwitcher
             AddNav("Zdrowie PC","Stan zdrowia komputera",0);
             AddNav("Porównanie PC","Porównanie komputerów",0);
             AddNav("Spis programów","Spis programów i licencji",0);
+            AddNav("Centrum Operacyjne PRO","Centrum Operacyjne PRO",0);
             BuildNavigationGroups();
             ApplyInterfaceStyle();ApplyTheme();
         }
@@ -2128,6 +2129,7 @@ namespace NaprawaPC.WindowsSwitcher
                 case "Zdrowie PC": return "Stan zdrowia komputera";
                 case "Porównanie PC": return "Porównanie komputerów";
                 case "Spis programów": return "Spis programów i licencji";
+                case "Centrum Operacyjne PRO": return "Centrum Operacyjne PRO";
                 default: return PolishUiText(id);
             }
         }
@@ -2392,6 +2394,7 @@ namespace NaprawaPC.WindowsSwitcher
             if(id=="Zdrowie PC") BuildPcHealthCenterPage();
             if(id=="Porównanie PC") BuildComputerComparisonPage();
             if(id=="Spis programów") BuildInstalledSoftwarePage();
+            if(id=="Centrum Operacyjne PRO") BuildOperationalHubPage();
             foreach(Control c in content.Controls) if(c.Name==id)c.Visible=true;
             UpdateNavState();
             ApplyTheme();
@@ -2403,6 +2406,55 @@ namespace NaprawaPC.WindowsSwitcher
         }
 
 
+
+
+        // FIX142: one operational entry point that routes to existing, implemented service modules.
+        // It deliberately reports navigation/status only; it never fabricates health scores or test results.
+        private void BuildOperationalHubPage()
+        {
+            if(FindPage("Centrum Operacyjne PRO")!=null)return;
+            Panel p=NewPage("Centrum Operacyjne PRO","Centrum Operacyjne PRO");
+            int width=1000;
+            if(content!=null && layoutScale>0.1F)
+            {
+                width=(int)(content.ClientSize.Width/layoutScale)-46;
+                if(width<800)width=800;if(width>2400)width=2400;
+            }
+            Panel hero=Card(p,"CENTRUM OPERACYJNE — JEDEN PUNKT STARTOWY",12,8,width,88);
+            LabelAt(hero,"Zintegrowany dostęp do diagnostyki, ochrony danych, napraw, migracji i obsługi klienta.",20,39,width-48,24);
+            LabelAt(hero,"Wyniki i oceny są pobierane z poszczególnych modułów — pulpit nie tworzy fikcyjnych statusów.",20,62,width-48,18);
+            int gap=14,cardW=(width-24-gap)/2,cardH=132;
+            string[,] modules=new string[,] {
+                {"DIAGNOSTYKA I ZDROWIE PC","Zdrowie PC","Hardware Intelligence PRO","Analiza BSOD"},
+                {"DYSKI, PAMIĘĆ I ODZYSKIWANIE","NVMe SSD Doctor","RAM Test PRO","PC Rescue Center"},
+                {"SIEĆ I BEZPIECZEŃSTWO","Wi-Fi Analyzer PRO","Naprawa sieci","Security Center"},
+                {"WINDOWS, STEROWNIKI I BIOS","Driver Download Center","Zgodność sterowników","Universal Boot Repair"},
+                {"KOPIE I OCHRONA DANYCH","Backup Recovery ULTIMATE","Backup Scheduler PRO","Kopia zapasowa"},
+                {"SERWIS I KLIENCI","Serwis PRO","Magazyn części PRO","Kalendarz wizyt PRO"},
+                {"RAPORTY I HISTORIA","Service Report Designer","Raporty serwisowe","Historia serwisu PRO"},
+                {"MIGRACJA I ZARZĄDZANIE","Migracja PC PRO","Migration Intelligence PRO","Operation Recovery Center"},
+                {"AKTUALIZACJE I KONTROLA","Aktualizator PRO","Kontrola integralności","Quality Control PRO"},
+                {"NARZĘDZIA I INWENTARYZACJA","Spis programów","Monitor sprzętu","Centrum zadań"}
+            };
+            int startY=112;
+            for(int i=0;i<modules.GetLength(0);i++)
+            {
+                int col=i%2,row=i/2,x=12+col*(cardW+gap),y=startY+row*(cardH+gap);
+                Panel c=Card(p,modules[i,0],x,y,cardW,cardH);
+                int bw=(cardW-52)/3;
+                for(int j=1;j<=3;j++)
+                {
+                    string target=modules[i,j];
+                    int bx=14+(j-1)*(bw+8);
+                    ButtonAt(c,target,bx,67,bw,48,delegate { ShowPage(target); });
+                }
+                LabelAt(c,"Otwórz istniejący moduł i wykonaj test lub operację w jego własnym panelu.",16,39,cardW-32,22);
+            }
+            int footerY=startY+5*(cardH+gap)+4;
+            Panel safety=Card(p,"BEZPIECZNA KOLEJNOŚĆ PRACY",12,footerY,width,104);
+            LabelAt(safety,"1. Zidentyfikuj komputer  •  2. Wykonaj kopię  •  3. Uruchom diagnostykę  •  4. Zapisz raport  •  5. Zatwierdź naprawę",20,42,width-48,22);
+            LabelAt(safety,"Operacje destrukcyjne, klonowanie i przywracanie wymagają osobnego potwierdzenia w odpowiednim module.",20,67,width-48,20);
+        }
 
         private void BuildDashboard()
         {
