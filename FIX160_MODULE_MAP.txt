@@ -1,0 +1,7 @@
+FIX160 — MAPA ZMIAN
+
+VERIFY_GLOBAL_UPDATE_SERVER.ps1: wersja pochodzi z VERSION.txt; format jest walidowany; expectedTag powstaje przed adresem API; manifest jest porównywany z tą samą wersją.
+CHECK_FIX108_RELEASE_PUBLISHING.ps1: sprawdza odczyt wersji, ustawienie tagu i kolejność adresu API.
+CHECK_FIX160_DYNAMIC_RELEASE_TAG.ps1: nowy test regresji.
+CHECK_SOURCE.cmd, VALIDATE_FIX100_PACKAGE.ps1, FIX099_SOURCE_ALLOWLIST.txt: test FIX160 jest obowiązkowy.
+Polityka: poprawka tooling-only; produkt pozostaje 1.0.0.76 / FIX141; bez publikacji i nadpisywania binariów.

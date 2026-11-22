@@ -1,4 +1,11 @@
-﻿FIX158 HOTFIX18 — NAPRAWA BOM TESTU REGRESJI FIX157
+﻿FIX160 HOTFIX20 — DYNAMICZNY TAG WYDANIA PUBLICZNEGO
+- Weryfikator pobiera wersję z VERSION.txt i dynamicznie buduje tag GitHub.
+- Walidacja wersji manifestu korzysta z tego samego źródła.
+- Rozszerzono test FIX108 i dodano CHECK_FIX160_DYNAMIC_RELEASE_TAG.ps1.
+- Test włączono do CHECK_SOURCE, walidatora pakietu, allowlisty i polityki zachowania wydań.
+- Wersja produktu bez zmian: 1.0.0.76 / FIX141.
+
+FIX158 HOTFIX18 — NAPRAWA BOM TESTU REGRESJI FIX157
 - Dodano UTF-8 BOM do CHECK_FIX157_VALIDATOR_MANIFEST_HASH.ps1; walidator FIX099 wymaga tego kodowania dla skryptów PowerShell.
 - Test FIX157 jest teraz wywoływany niezależnie przez CHECK_SOURCE.cmd i znajduje się na liście wymaganych plików.
 - Zaktualizowano SHA-256 w manifeście dla zmienionych skryptów PowerShell.

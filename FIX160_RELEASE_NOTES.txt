@@ -1,0 +1,13 @@
+KOMPUTEROWE CENTRUM SERWISU — FIX160 HOTFIX20
+
+Naprawa dynamicznego rozpoznawania tagu publicznego wydania.
+
+- VERIFY_GLOBAL_UPDATE_SERVER.ps1 pobiera wersję z VERSION.txt i waliduje format czterech członów liczbowych.
+- Oczekiwany tag GitHub jest tworzony po odczytaniu i walidacji wersji, przed zbudowaniem adresu API.
+- Wersja z manifestu jest porównywana z wersją pakietu, a nie ze stałą wpisaną w skrypcie.
+- CHECK_FIX108_RELEASE_PUBLISHING.ps1 sprawdza kolejność inicjalizacji wersji, tagu i adresu API.
+- Dodano CHECK_FIX160_DYNAMIC_RELEASE_TAG.ps1 do CHECK_SOURCE, walidatora pakietu i jawnej allowlisty.
+- Zachowano wersję produktu 1.0.0.76 / FIX141; poprawka dotyczy wyłącznie narzędzi wydania i kontroli.
+- Nie zmieniono kodu aplikacji, instalatora, istniejących wydań ani publicznych assetów.
+
+Walidacja w tym środowisku: kontrola statyczna źródeł i struktury ZIP. Test PowerShell 5.1, kompilacja Windows, instalacja i publikacja nie są tutaj oznaczane jako zaliczone.

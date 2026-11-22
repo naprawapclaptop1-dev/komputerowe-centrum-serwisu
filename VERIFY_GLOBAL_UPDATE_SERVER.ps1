@@ -6,7 +6,11 @@ if(!(Test-Path -LiteralPath $RepoFile)){throw "Brak GITHUB_REPOSITORY.txt — ur
 if((Get-Content -LiteralPath $RepoFile -Raw).Trim() -ne $Repo){throw "Repozytorium niezgodne z przypisaniem tej aplikacji."}
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
 $headers=@{"User-Agent"="KomputeroweCentrumSerwisu-FIX073";Accept="application/vnd.github+json"}
-$expectedTag="v1.0.0.76"
+$versionFile=Join-Path $PSScriptRoot "VERSION.txt"
+if(!(Test-Path -LiteralPath $versionFile)){throw "Brak VERSION.txt."}
+$version=(Get-Content -LiteralPath $versionFile -Encoding UTF8 | Select-Object -First 1).Trim()
+if($version -notmatch '^\d+\.\d+\.\d+\.\d+$'){throw "Nieprawidłowa wersja w VERSION.txt: $version"}
+$expectedTag="v$version"
 $api="https://api.github.com/repos/$Repo/releases/tags/$expectedTag"
 Write-Host "[INFO] Repozytorium: $Repo"
 Write-Host "[INFO] Sprawdzam publiczne wydanie GitHub Releases..."
@@ -31,7 +35,7 @@ if($manifest.StatusCode -ne 200){throw "Manifest tagowy zwrócił HTTP $($manife
 $manifestText=ConvertTo-KcsResponseText -Content $manifest.Content
 [xml]$doc=$manifestText
 if($doc.DocumentElement.Name -ne "Update"){throw "Manifest nie ma korzenia Update."}
-if($doc.DocumentElement.GetAttribute("version") -ne "1.0.0.76"){throw "Manifest ma nieprawidłową wersję."}
+if($doc.DocumentElement.GetAttribute("version") -ne $version){throw "Manifest ma nieprawidłową wersję."}
 if($doc.DocumentElement.GetAttribute("channel") -ne $Channel){throw "Manifest ma nieprawidłowy kanał."}
 $setupSha=$doc.DocumentElement.GetAttribute("sha256")
 if($setupSha -notmatch '^[0-9a-fA-F]{64}$'){throw "Manifest nie zawiera poprawnego SHA-256."}
