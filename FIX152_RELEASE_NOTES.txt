@@ -1,0 +1,7 @@
+FIX152 — naprawa BOM w teście opcjonalnego instalatora XP
+Data: 2026-11-21
+Wersja produktu bez zmian: 1.0.0.76 / FIX141.
+- Usunięto UTF-8 BOM z CHECK_FIX150_OPTIONAL_XP_ORCHESTRATION.ps1, który powodował błąd przy pierwszej instrukcji PowerShell.
+- Dodano test FIX152 sprawdzający brak BOM i poprawność parsowania skryptu FIX150.
+- Podłączono test do CHECK_SOURCE i walidacji pełnego pakietu; zaktualizowano allowlistę i manifest SHA-256.
+- Nie zmieniono kodu produktu ani istniejących artefaktów Portable/instalatora.

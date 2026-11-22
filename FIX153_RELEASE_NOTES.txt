@@ -1,0 +1,6 @@
+FIX153 HOTFIX13 — KODOWANIE WALIDATORA WINDOWS POWERSHELL 5.1
+
+- Przywrócono UTF-8 BOM w VALIDATE_FIX100_PACKAGE.ps1.
+- Zapobiega to dekodowaniu polskich znaków jako Windows-1252/ANSI i błędowi parsera przy uruchomieniu walidatora w Windows PowerShell 5.1.
+- Zaktualizowano SHA-256 walidatora w FIX099_POWERSHELL_MANIFEST.txt.
+- Wersja produktu pozostaje 1.0.0.76 / FIX141; zmiana dotyczy wyłącznie kodowania skryptu.

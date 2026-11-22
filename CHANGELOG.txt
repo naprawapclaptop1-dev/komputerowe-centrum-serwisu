@@ -1,4 +1,11 @@
-﻿FIX145 HOTFIX05 — BOM DLA SKRYPTÓW KONTROLI WYDANIA
+﻿FIX153 HOTFIX13 — KODOWANIE WALIDATORA WINDOWS POWERSHELL 5.1
+- Przywrócono UTF-8 BOM w VALIDATE_FIX100_PACKAGE.ps1; Windows PowerShell 5.1 poprawnie odczytuje polskie znaki.
+- Ujednolicono kodowanie dwóch skryptów regresji FIX150/FIX152 z regułą manifestu (UTF-8 BOM); test FIX152 sprawdza teraz obecność BOM.
+- Dodano CHECK_FIX153_VALIDATOR_ENCODING.ps1 do kontroli BOM i składni parsera.
+- Zaktualizowano manifest SHA-256, allowlistę i wymagane pliki pakietu.
+- Wersja produktu bez zmian: 1.0.0.76 / FIX141.
+
+FIX145 HOTFIX05 — BOM DLA SKRYPTÓW KONTROLI WYDANIA
 - Dodano UTF-8 BOM do CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1 i CHECK_FIX136_SOURCE_BUILD_IDENTITY.ps1.
 - Zaktualizowano ich sumy SHA-256 w FIX099_POWERSHELL_MANIFEST.txt.
 - Wersja produktu pozostaje 1.0.0.76 / FIX141; nie zmieniano kodu aplikacji.
@@ -1384,5 +1391,19 @@ FIX150 — izolacja błędów opcjonalnego instalatora XP
 FIX151 — naprawa kodowania bramki źródłowej
 - Usunięto UTF-8 BOM z CHECK_SOURCE.cmd; plik zaczyna się teraz od @echo off, zgodnie z walidatorem FIX099.
 - Dodano test regresji FIX151 i podłączono go do CHECK_SOURCE oraz walidacji pełnego pakietu.
+- Zaktualizowano allowlistę i manifest SHA-256.
+- Wersja produktu bez zmian: 1.0.0.76 / FIX141.
+
+
+FIX152 — naprawa BOM w teście PowerShell
+- Usunięto UTF-8 BOM z CHECK_FIX150_OPTIONAL_XP_ORCHESTRATION.ps1; naprawiono błąd „The term $ErrorActionPreference is not recognized”.
+- Dodano test regresji FIX152 i podłączono go do CHECK_SOURCE oraz walidacji pełnego pakietu.
+- Zaktualizowano allowlistę i manifest SHA-256.
+- Wersja produktu bez zmian: 1.0.0.76 / FIX141.
+
+
+FIX152 — naprawa BOM w teście PowerShell
+- Usunięto UTF-8 BOM z CHECK_FIX150_OPTIONAL_XP_ORCHESTRATION.ps1; naprawiono błąd „The term $ErrorActionPreference is not recognized”.
+- Dodano test regresji FIX152 i podłączono go do CHECK_SOURCE oraz walidacji pełnego pakietu.
 - Zaktualizowano allowlistę i manifest SHA-256.
 - Wersja produktu bez zmian: 1.0.0.76 / FIX141.

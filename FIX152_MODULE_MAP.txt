@@ -1,0 +1,6 @@
+FIX152 — MAPA MODUŁÓW
+Zakres: narzędzia kontroli źródeł i pakietowania.
+Plik poprawiony: CHECK_FIX150_OPTIONAL_XP_ORCHESTRATION.ps1.
+Test regresji: CHECK_FIX152_POWERSHELL_TEST_BOM.ps1.
+Integracja: CHECK_SOURCE.cmd, VALIDATE_FIX100_PACKAGE.ps1, FIX099_SOURCE_ALLOWLIST.txt, FIX099_POWERSHELL_MANIFEST.txt, CHANGELOG.txt.
+Wersja produktu pozostaje 1.0.0.76 / FIX141.

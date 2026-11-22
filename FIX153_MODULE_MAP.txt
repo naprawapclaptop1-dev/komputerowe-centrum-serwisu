@@ -1,0 +1,5 @@
+FIX153 — mapa zmian
+
+VALIDATE_FIX100_PACKAGE.ps1: UTF-8 BOM przywrócony dla zgodności z Windows PowerShell 5.1.
+FIX099_POWERSHELL_MANIFEST.txt: zaktualizowany SHA-256 walidatora.
+FIX153_RELEASE_NOTES.txt: opis poprawki.
