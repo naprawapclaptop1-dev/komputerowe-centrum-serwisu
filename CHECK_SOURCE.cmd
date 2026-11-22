@@ -131,6 +131,7 @@ call :run_ps_check "CHECK_FIX151_CMD_BOM.ps1" "CHECK_SOURCE CMD BOM regression F
 
 call :run_ps_check "CHECK_FIX152_POWERSHELL_TEST_BOM.ps1" "PowerShell test BOM regression FIX152"
 call :run_ps_check "CHECK_FIX153_VALIDATOR_ENCODING.ps1" "FIX100 validator UTF-8 encoding FIX153"
+call :run_ps_check "CHECK_FIX154_OPTIONAL_XP_DIAGNOSTICS.ps1" "Optional XP isolation and diagnostics FIX154"
 
 call :run_ps_check "CHECK_FIX110_BUILD_DIAGNOSTICS.ps1" "Build diagnostics FIX110"
 

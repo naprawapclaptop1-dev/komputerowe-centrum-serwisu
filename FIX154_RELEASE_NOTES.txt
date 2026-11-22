@@ -1,0 +1,8 @@
+FIX154 HOTFIX14 — IZOLACJA ETAPU XP I PEŁNA DIAGNOSTYKA
+
+- Opcjonalny instalator XP jest uruchamiany w odizolowanym procesie cmd.exe, aby nie mógł zakończyć procesu głównego przez polecenia EXIT w zagnieżdżonych skryptach.
+- Brak pliku statusu XP jest traktowany jako OPTIONAL-FAIL, a nie jako poprawne zakończenie etapu.
+- Każda ścieżka błędu XP jawnie przechodzi do weryfikacji wymaganych Portable i nowoczesnego instalatora.
+- Diagnostyka po błędzie obejmuje teraz log etapu XP, szczegółowy log XP oraz log końcowej weryfikacji.
+- Zachowano istniejące EXE, instalator, dane użytkownika i konfigurację; nie zmieniono kodu produktu.
+- Wersja produktu bez zmian: 1.0.0.76 / FIX141.

@@ -46,10 +46,11 @@ if not "%M_RC%"=="0" goto :modern_failed
 
 echo.
 echo [3/5] Building optional XP installer...
-call "%~dp0BUILD_INSTALLER_XP.cmd" /nopause > "%LOGDIR%\stage-xp-output.log" 2>&1
+"%ComSpec%" /d /c ""%~dp0BUILD_INSTALLER_XP.cmd" /nopause" > "%LOGDIR%\stage-xp-output.log" 2>&1
 set "X_RC=%ERRORLEVEL%"
 type "%LOGDIR%\stage-xp-output.log"
 if not "%X_RC%"=="0" goto :xp_optional_failed
+if not exist "%LOGDIR%\XP_INSTALLER.status" goto :xp_optional_failed
 if exist "%LOGDIR%\XP_INSTALLER.status" findstr /i /x "FAIL" "%LOGDIR%\XP_INSTALLER.status" >nul
 if not errorlevel 1 goto :xp_optional_failed
 if exist "%LOGDIR%\XP_INSTALLER.status" findstr /i /x "SKIPPED" "%LOGDIR%\XP_INSTALLER.status" >nul
@@ -67,6 +68,7 @@ goto :verify
 echo [WARN] Optional XP installer failed or its status is missing; modern installer and portable remain eligible.
 >>"%LOGDIR%\BUILD_SUMMARY.txt" echo [WARN] Optional XP installer FAILED; not blocking required outputs.
 set "X_RC=OPTIONAL-FAIL"
+goto :verify
 
 :verify
 echo.

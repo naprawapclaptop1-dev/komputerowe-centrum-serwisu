@@ -1407,3 +1407,9 @@ FIX152 — naprawa BOM w teście PowerShell
 - Dodano test regresji FIX152 i podłączono go do CHECK_SOURCE oraz walidacji pełnego pakietu.
 - Zaktualizowano allowlistę i manifest SHA-256.
 - Wersja produktu bez zmian: 1.0.0.76 / FIX141.
+
+
+FIX154 — izolacja opcjonalnego etapu XP i diagnostyka
+- Uruchamianie XP w osobnym procesie CMD; awaria lub brak statusu XP nie blokują weryfikacji wymaganych plików.
+- Worker pokazuje logi XP i weryfikacji po błędzie budowania.
+- Wersja produktu bez zmian: 1.0.0.76 / FIX141.

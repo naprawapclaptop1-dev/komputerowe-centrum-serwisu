@@ -1,0 +1,7 @@
+FIX154 — MAPA MODUŁÓW
+
+BUILD_ALL.cmd — izolowane uruchomienie opcjonalnego instalatora XP, klasyfikacja brakującego statusu i przejście do weryfikacji.
+KCS_FIX101_WORKER.cmd — prezentacja diagnostyki XP i weryfikacji po niepowodzeniu budowania.
+CHECK_FIX154_OPTIONAL_XP_DIAGNOSTICS.ps1 — regresje orkiestracji, diagnostyki i niezmienności wersji produktu.
+CHECK_SOURCE.cmd — uruchamianie nowego testu.
+CHANGELOG.txt — wpis FIX154.

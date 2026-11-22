@@ -163,6 +163,11 @@ echo --- PORTABLE ---
 if exist "%LOGDIR%\stage-portable-output.log" powershell.exe -NoLogo -NoProfile -Command "Get-Content -LiteralPath '%LOGDIR%\stage-portable-output.log' -Tail 80 | Out-Host"
 echo --- INSTALLER ---
 if exist "%LOGDIR%\stage-modern-output.log" powershell.exe -NoLogo -NoProfile -Command "Get-Content -LiteralPath '%LOGDIR%\stage-modern-output.log' -Tail 100 | Out-Host"
+echo --- OPTIONAL XP ---
+if exist "%LOGDIR%\stage-xp-output.log" powershell.exe -NoLogo -NoProfile -Command "Get-Content -LiteralPath '%LOGDIR%\stage-xp-output.log' -Tail 120 | Out-Host"
+if exist "%LOGDIR%\03-xp-installer.log" powershell.exe -NoLogo -NoProfile -Command "Get-Content -LiteralPath '%LOGDIR%\03-xp-installer.log' -Tail 120 | Out-Host"
+echo --- VERIFICATION ---
+if exist "%LOGDIR%\stage-verification-output.log" powershell.exe -NoLogo -NoProfile -Command "Get-Content -LiteralPath '%LOGDIR%\stage-verification-output.log' -Tail 120 | Out-Host"
 goto :end_fail
 :publish_fail
 >>"%LOG%" echo [FAIL] Publikacja GitHub Release kod=%RC%
