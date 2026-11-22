@@ -1,0 +1,14 @@
+FIX156 MODULE MAP
+
+CHECK_SOURCE.cmd
+  - uruchamia FIX154, FIX155 i FIX156 jako trzy osobne wywołania :run_ps_check
+CHECK_FIX156_SOURCE_GATE_ARGUMENTS.ps1
+  - sprawdza niezależne argumenty, aktywność testu, runner -File i niezmienność wersji produktu
+VALIDATE_FIX100_PACKAGE.ps1
+  - wymaga testu oraz dokumentacji FIX156
+FIX099_SOURCE_ALLOWLIST.txt
+  - jawnie dopuszcza test i dokumentację FIX156
+FIX099_POWERSHELL_MANIFEST.txt
+  - zawiera aktualny SHA-256 testu FIX156
+CHANGELOG.txt
+  - zapisuje zakres i ograniczenia FIX156

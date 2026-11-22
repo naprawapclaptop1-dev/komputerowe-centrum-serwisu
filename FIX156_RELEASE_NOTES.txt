@@ -1,0 +1,8 @@
+FIX156 — naprawa argumentów testów CHECK_SOURCE
+
+- Rozdzielono wywołania CHECK_FIX154_OPTIONAL_XP_DIAGNOSTICS.ps1 i CHECK_FIX155_RELEASE_REUSE_POLICY.ps1 na dwa niezależne uruchomienia wspólnego runnera.
+- Dodano CHECK_FIX156_SOURCE_GATE_ARGUMENTS.ps1, który blokuje powrót błędu łączenia dwóch nazw skryptów w jeden argument PowerShell -File.
+- Test FIX156 jest uruchamiany w CHECK_SOURCE; dodano go do walidacji pełnego pakietu, allowlisty i manifestu SHA-256.
+- Nie zmieniono VERSION.txt ani wydania aplikacji: 1.0.0.76 / FIX141.
+- Nie zmieniono kodu aplikacji, receptury instalatora ani istniejących assetów publicznego wydania.
+- Weryfikacja środowiska Windows/PowerShell 5.1 wymaga uruchomienia jednego pliku URUCHOM_TYLKO_TEN_PLIK.cmd na komputerze użytkownika.

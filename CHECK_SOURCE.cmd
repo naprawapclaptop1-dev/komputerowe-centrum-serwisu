@@ -132,6 +132,8 @@ call :run_ps_check "CHECK_FIX151_CMD_BOM.ps1" "CHECK_SOURCE CMD BOM regression F
 call :run_ps_check "CHECK_FIX152_POWERSHELL_TEST_BOM.ps1" "PowerShell test BOM regression FIX152"
 call :run_ps_check "CHECK_FIX153_VALIDATOR_ENCODING.ps1" "FIX100 validator UTF-8 encoding FIX153"
 call :run_ps_check "CHECK_FIX154_OPTIONAL_XP_DIAGNOSTICS.ps1" "Optional XP isolation and diagnostics FIX154"
+call :run_ps_check "CHECK_FIX155_RELEASE_REUSE_POLICY.ps1" "Safe immutable release reuse FIX155"
+call :run_ps_check "CHECK_FIX156_SOURCE_GATE_ARGUMENTS.ps1" "Separate PowerShell test arguments FIX156"
 
 call :run_ps_check "CHECK_FIX110_BUILD_DIAGNOSTICS.ps1" "Build diagnostics FIX110"
 
@@ -194,6 +196,8 @@ call :run_ps_check "CHECK_FIX138_HISTORICAL_RELEASE_REGRESSIONS.ps1" "Historical
 call :run_ps_check "CHECK_FIX139_APPOINTMENTS.ps1" "FIX139 calendar functionality retained"
 
 call :run_ps_check "CHECK_FIX140_CALENDAR_COMPILE_GUARD.ps1" "Service PRO appointments calendar and exports FIX141"
+call :run_ps_check "CHECK_FIX157_VALIDATOR_MANIFEST_HASH.ps1" "Validator manifest hash and PowerShell BOM FIX157"
+
 
 call :run_ps_check "CHECK_FIX100_CLEANUP_PATH.ps1" "Package-local cleanup FIX100"
 

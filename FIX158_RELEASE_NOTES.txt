@@ -1,0 +1,8 @@
+FIX158 HOTFIX18 — NAPRAWA BOM TESTU REGRESJI FIX157
+
+- Naprawiono błąd walidacji zgłoszony w logu: CHECK_FIX157_VALIDATOR_MANIFEST_HASH.ps1 nie miał UTF-8 BOM.
+- Dodano UTF-8 BOM i asercję, która sprawdza kodowanie własnego pliku testowego.
+- Zaktualizowano SHA-256 plików PowerShell zmienionych w poprawce w FIX099_POWERSHELL_MANIFEST.txt.
+- Dodano test FIX157 do CHECK_SOURCE.cmd i listy wymaganych plików walidatora, aby nie był tylko martwym testem.
+- Zachowano wersję produktu 1.0.0.76 / FIX141; nie zmieniono kodu aplikacji ani receptury instalatora.
+- Walidacja statyczna i test ZIP wykonane lokalnie; uruchomienie PowerShell 5.1, budowy, publikacji i instalacji wymaga komputera Windows.

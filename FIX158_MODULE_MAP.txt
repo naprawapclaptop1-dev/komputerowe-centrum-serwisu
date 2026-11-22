@@ -1,0 +1,7 @@
+FIX158 — mapa zmian
+
+CHECK_FIX157_VALIDATOR_MANIFEST_HASH.ps1 — UTF-8 BOM + test kodowania własnego pliku.
+CHECK_SOURCE.cmd — uruchamia test FIX157 niezależnie.
+VALIDATE_FIX100_PACKAGE.ps1 — wymaga obecności testu FIX157.
+FIX099_POWERSHELL_MANIFEST.txt — aktualne SHA-256 zmienionych skryptów PowerShell.
+FIX158_RELEASE_NOTES.txt / CHANGELOG.txt — dokumentacja poprawki.

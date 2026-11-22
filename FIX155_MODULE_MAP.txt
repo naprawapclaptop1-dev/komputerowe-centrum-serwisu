@@ -1,0 +1,14 @@
+FIX155 — MAPA MODUŁÓW
+
+KCS_RELEASE_POLICY.ps1
+- Lista dozwolonych zmian niezależnych od binariów produktu.
+- Zachowanie fail-closed dla wejść kompilacji i instalatora.
+
+CHECK_FIX155_RELEASE_REUSE_POLICY.ps1
+- Test pozytywny dla skryptów orkiestracji.
+- Testy negatywne dla źródeł, receptur instalatora, zasobów, wersji i mieszanych zmian.
+
+CHECK_SOURCE.cmd / VALIDATE_FIX100_PACKAGE.ps1
+- Uruchomienie nowej regresji i wymuszenie obecności artefaktów.
+
+Wersja produktu: 1.0.0.76 / FIX141.

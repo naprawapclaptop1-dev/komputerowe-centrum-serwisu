@@ -1,0 +1,6 @@
+FIX157 — naprawa niezgodnego SHA-256 walidatora
+
+- Zaktualizowano wpis VALIDATE_FIX100_PACKAGE.ps1 w FIX099_POWERSHELL_MANIFEST.txt do rzeczywistego SHA-256 pliku z pakietu FIX156.
+- Dodano test regresji sprawdzający zgodność skrótu walidatora z manifestem.
+- Zachowano wersję produktu 1.0.0.76 / FIX141; nie zmieniano kodu aplikacji ani receptur instalatora.
+- Wymagane jest uruchomienie pełnego CMD na Windows w celu potwierdzenia dalszych etapów.

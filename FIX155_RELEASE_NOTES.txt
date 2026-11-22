@@ -1,0 +1,13 @@
+FIX155 — bezpieczna polityka publikacji
+
+Problem:
+Publikacja FIX154 zatrzymała się, ponieważ porównanie zmian od tagu v1.0.0.76 klasyfikowało skrypty orkiestrujące jako potencjalne wejścia kompilacji. Jednocześnie lokalne pliki EXE różniły się od już opublikowanych assetów.
+
+Naprawa:
+- Dopuszczono ponowne użycie publicznego wydania wyłącznie dla zmian BUILD_ALL.cmd, BUILD_INSTALLERS.cmd, BUILD_MANAGER.cmd oraz opcjonalnej orkiestracji XP.
+- Nie dopuszczono BUILD_PORTABLE.cmd, BUILD_INSTALLER_MODERN.cmd, plików .iss, źródeł C#, AssemblyInfo, VERSION ani zasobów.
+- Wymagane są nadal kompletne publiczne assety, tag będący przodkiem gałęzi i kompletna odpowiedź GitHub Compare.
+- Istniejące publiczne pliki nigdy nie są usuwane ani nadpisywane. Lokalnie przebudowane EXE nie są przesyłane przy ścieżce reuse.
+- Dodano CHECK_FIX155_RELEASE_REUSE_POLICY.ps1.
+
+Wersja produktu: 1.0.0.76 / FIX141 (bez zmian; poprawka narzędzi publikacji).

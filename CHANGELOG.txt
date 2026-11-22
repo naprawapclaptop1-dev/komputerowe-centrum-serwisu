@@ -1,4 +1,10 @@
-﻿FIX153 HOTFIX13 — KODOWANIE WALIDATORA WINDOWS POWERSHELL 5.1
+﻿FIX158 HOTFIX18 — NAPRAWA BOM TESTU REGRESJI FIX157
+- Dodano UTF-8 BOM do CHECK_FIX157_VALIDATOR_MANIFEST_HASH.ps1; walidator FIX099 wymaga tego kodowania dla skryptów PowerShell.
+- Test FIX157 jest teraz wywoływany niezależnie przez CHECK_SOURCE.cmd i znajduje się na liście wymaganych plików.
+- Zaktualizowano SHA-256 w manifeście dla zmienionych skryptów PowerShell.
+- Wersja produktu bez zmian: 1.0.0.76 / FIX141.
+
+FIX153 HOTFIX13 — KODOWANIE WALIDATORA WINDOWS POWERSHELL 5.1
 - Przywrócono UTF-8 BOM w VALIDATE_FIX100_PACKAGE.ps1; Windows PowerShell 5.1 poprawnie odczytuje polskie znaki.
 - Ujednolicono kodowanie dwóch skryptów regresji FIX150/FIX152 z regułą manifestu (UTF-8 BOM); test FIX152 sprawdza teraz obecność BOM.
 - Dodano CHECK_FIX153_VALIDATOR_ENCODING.ps1 do kontroli BOM i składni parsera.
@@ -1412,4 +1418,24 @@ FIX152 — naprawa BOM w teście PowerShell
 FIX154 — izolacja opcjonalnego etapu XP i diagnostyka
 - Uruchamianie XP w osobnym procesie CMD; awaria lub brak statusu XP nie blokują weryfikacji wymaganych plików.
 - Worker pokazuje logi XP i weryfikacji po błędzie budowania.
+- Wersja produktu bez zmian: 1.0.0.76 / FIX141.
+
+
+FIX155 — bezpieczne ponowne użycie niezmiennego wydania po zmianach orkiestracji
+- Rozszerzono klasyfikację wyłącznie o skrypty orkiestrujące BUILD_ALL.cmd, BUILD_INSTALLERS.cmd i BUILD_MANAGER.cmd oraz opcjonalny etap XP.
+- Zmiany w kompilatorach, recepturach instalatora, kodzie C#, zasobach i VERSION.txt nadal wymuszają nowe wydanie produktu.
+- Przy kompletnych assetach, zgodnym tagu-ancestor i wyłącznie bezpiecznych zmianach publikator zachowuje sześć istniejących assetów bez nadpisywania ich lokalnym buildem.
+- Dodano testy scenariusza FIX155 do CHECK_SOURCE i walidacji pełnego pakietu.
+- Wersja produktu bez zmian: 1.0.0.76 / FIX141.
+
+
+FIX156 — naprawa argumentów testów CHECK_SOURCE
+- Rozdzielono testy FIX154 i FIX155 na osobne wywołania PowerShell -File.
+- Dodano aktywny test regresji FIX156 oraz aktualizacje walidatora, allowlisty i manifestu SHA-256.
+- Wersja produktu bez zmian: 1.0.0.76 / FIX141.
+
+
+FIX157 — naprawa SHA-256 walidatora pakietu
+- Zsynchronizowano wpis VALIDATE_FIX100_PACKAGE.ps1 w manifeście SHA-256 z aktualnym plikiem.
+- Dodano test regresji FIX157 dla zgodności skrótu walidatora.
 - Wersja produktu bez zmian: 1.0.0.76 / FIX141.

@@ -1,0 +1,7 @@
+FIX157 — mapa zmian
+
+FIX099_POWERSHELL_MANIFEST.txt — poprawiony SHA-256 walidatora.
+CHECK_FIX157_VALIDATOR_MANIFEST_HASH.ps1 — regresyjna kontrola skrótu walidatora.
+FIX099_SOURCE_ALLOWLIST.txt — dopuszczenie pliku testu i dokumentacji FIX157.
+FIX157_RELEASE_NOTES.txt — opis poprawki i ograniczeń walidacji.
+CHANGELOG.txt — wpis FIX157.
