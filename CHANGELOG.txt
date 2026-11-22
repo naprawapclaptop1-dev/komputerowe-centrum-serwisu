@@ -1,4 +1,12 @@
-﻿FIX158 HOTFIX18 — NAPRAWA BOM TESTU REGRESJI FIX157
+﻿FIX142 — CENTRUM OPERACYJNE PRO / WERSJA 1.0.0.77
+- Dodano jeden ekran startowy integrujący istniejące moduły diagnostyki, dysków, sieci, sterowników, kopii zapasowych, obsługi klientów, raportów, migracji i kontroli jakości.
+- Każdy kafel otwiera istniejący moduł przez ShowPage; nie dubluje funkcji i nie tworzy fikcyjnych wyników diagnostycznych.
+- Dodano wskazówki bezpiecznej kolejności pracy i przypomnienie o potwierdzaniu operacji destrukcyjnych w modułach źródłowych.
+- Zachowano istniejący pulpit, konfigurację, nawigację oraz bazowe moduły FIX141.
+- Wersja produktu podniesiona z 1.0.0.76 do 1.0.0.77; AssemblyVersion, FileVersion i VERSION.txt zsynchronizowane.
+- Weryfikacja wykonana: kontrola statyczna zmian źródłowych i spójności numeru wersji. Kompilacja Windows, test GUI, Portable i instalator wymagają uruchomienia pipeline na Windows.
+
+FIX158 HOTFIX18 — NAPRAWA BOM TESTU REGRESJI FIX157
 - Dodano UTF-8 BOM do CHECK_FIX157_VALIDATOR_MANIFEST_HASH.ps1; walidator FIX099 wymaga tego kodowania dla skryptów PowerShell.
 - Test FIX157 jest teraz wywoływany niezależnie przez CHECK_SOURCE.cmd i znajduje się na liście wymaganych plików.
 - Zaktualizowano SHA-256 w manifeście dla zmienionych skryptów PowerShell.
