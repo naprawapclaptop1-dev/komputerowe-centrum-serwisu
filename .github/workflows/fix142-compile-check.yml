@@ -1,0 +1,23 @@
+name: FIX142 Windows compile check
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  compile:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check ButtonAt regression
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $source = Get-Content WindowsVersionSwitcherPRO.Modules.cs -Raw
+          if ($source.Contains('230,176,285,40,delegate{ConsumeServiceProPartForCase();}')) { throw 'CS1501 regression' }
+          $compiler = Join-Path $env:WINDIR 'Microsoft.NET\Framework\v4.0.30319\csc.exe'
+          if (!(Test-Path $compiler)) { throw 'Compiler unavailable' }
+          $files = @(Get-ChildItem -File -Filter 'WindowsVersionSwitcherPRO*.cs' | ForEach-Object FullName)
+          & $compiler /nologo /target:winexe /out:"$env:RUNNER_TEMP\KCS-FIX142.exe" /r:System.Windows.Forms.dll /r:System.Drawing.dll /r:System.Management.dll /r:System.Xml.dll /r:System.Core.dll /r:System.Data.dll /r:System.Web.Extensions.dll /r:System.IO.Compression.dll /r:System.IO.Compression.FileSystem.dll $files
+          if ($LASTEXITCODE -ne 0) { throw 'Compilation failed' }
