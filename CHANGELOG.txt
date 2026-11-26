@@ -1,3 +1,8 @@
+FIX142 - 2026-11-26
+- Naprawiono nadmiarowy argument ButtonAt w module magazynu (CS1501).
+- Zachowano domyslna wysokosc przycisku i dotychczasowe funkcje.
+- Kompilacja Windows i test instalatora wymagaja weryfikacji przed publikacja.
+
 ﻿FIX138 — NAPRAWA HISTORYCZNYCH REGRESJI I MANIFESTU
 - Testy FIX132/FIX133/FIX134 weryfikują wersję 1.0.0.72 / FIX072 jako historyczną informację z notatek, a nie jako wymaganą aktualną wersję aplikacji.
 - Test FIX128 pobiera nazwę logu instalatora z VERSION.txt, dzięki czemu nie oczekuje już installation-FIX072-inno.log.
