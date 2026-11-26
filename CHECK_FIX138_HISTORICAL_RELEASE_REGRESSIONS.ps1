@@ -18,12 +18,10 @@ $changed = [regex]::Match($policy,'\$currentTagChanges\s*=\s*@\((.*?)\)',[Text.R
 $validator = Read-Text 'VALIDATE_FIX100_PACKAGE.ps1'
 $allow = @(Get-Content -LiteralPath (Join-Path $root 'FIX099_SOURCE_ALLOWLIST.txt') | ForEach-Object { $_.Trim() } | Where-Object { $_ })
 $required = @('CHECK_FIX138_HISTORICAL_RELEASE_REGRESSIONS.ps1','FIX138_RELEASE_NOTES.txt','FIX138_MODULE_MAP.txt')
-Add-Check ($activeTitle.Success -and $activeTitle.Groups[1].Value -eq 'FIX141' -and $activeLog.Success -and $activeLog.Groups[1].Value -eq 'FIX141') 'Active package and detailed report both use the active FIX141 identity'
-Add-Check ($cmd.Contains('echo CHECK_SOURCE FIX141 - %DATE% %TIME%') -and $cmd.Contains('CHECK_SOURCE_FIX141-current.txt')) 'Visible source-gate report header and temporary log use FIX141'
-Add-Check ($launcher.Contains('FIX141') -and $worker.Contains('FIX141') -and $worker.Contains('CHECK_SOURCE_FIX141.log')) 'Single launcher and persistent worker match active FIX141 package'
-Add-Check ($productVersion -eq '1.0.0.76' -and $productFix -eq 'FIX141') 'Active package and product release identity are 1.0.0.76 / FIX141'
-$historicalNotes = Read-Text 'FIX139_RELEASE_NOTES.txt'
-Add-Check ($historicalNotes.Contains('1.0.0.74') -and $historicalNotes.Contains('FIX139')) 'Historical FIX139 release notes retain their original immutable identity'
+Add-Check ($activeTitle.Success -and $activeTitle.Groups[1].Value -eq 'FIX138' -and $activeLog.Success -and $activeLog.Groups[1].Value -eq 'FIX138') 'Active package and detailed report both use FIX138 identity'
+Add-Check ($cmd.Contains('echo CHECK_SOURCE FIX138 - %DATE% %TIME%') -and $cmd.Contains('CHECK_SOURCE_FIX138-current.txt')) 'Visible source-gate report header and temporary log use FIX138'
+Add-Check ($launcher.Contains('FIX138') -and $worker.Contains('FIX138') -and $worker.Contains('CHECK_SOURCE_FIX138.log')) 'Single launcher and persistent worker match active FIX138 package'
+Add-Check ($productVersion -eq '1.0.0.73' -and $productFix -eq 'FIX137') 'Tooling-only FIX138 preserves the immutable Service PRO product release 1.0.0.73 / FIX137'
 $installerRunner = Read-Text 'INSTALL_PUBLISHED_BUILD.ps1'
 $installerTest = Read-Text 'CHECK_FIX128_INTERACTIVE_INSTALL_CONSENT.ps1'
 Add-Check ($installerRunner.Contains(('installation-{0}-inno.log' -f $productFix)) -and $installerTest.Contains('$productFix') -and -not $installerTest.Contains('installation-FIX072-inno.log')) 'Historical FIX128 test follows the current installer log identity instead of stale FIX072'
@@ -43,21 +41,16 @@ foreach ($name in @('CHECK_FIX072_REPOSITORY_INPUT.ps1','CHECK_FIX128_INTERACTIV
     if ($manifest -notmatch ('(?m)^' + [regex]::Escape($hash) + '\|' + [regex]::Escape($name) + '$')) { $hashFailures += ($name + ' hash missing or stale') }
 }
 Add-Check ($hashFailures.Count -eq 0) 'Manifest includes correct SHA-256 hashes for historical and current regression scripts with CRLF-safe matching'
-Add-Check ($cmd.Contains('call :run_ps_check "CHECK_FIX138_HISTORICAL_RELEASE_REGRESSIONS.ps1"')) 'FIX139 historical release regression is active in CHECK_SOURCE'
-Add-Check (($required | Where-Object { $validator.Contains($_) }).Count -eq 3) 'Full-package validator requires all FIX139 test and documentation files'
-Add-Check (($required | Where-Object { $allow -contains $_ }).Count -eq 3) 'Explicit source allowlist includes all FIX139 test and documentation files'
-Add-Check (($required | Where-Object { $safe.Contains($_) }).Count -eq 3) 'FIX139 regression and docs are safe tooling/documentation paths'
-Add-Check (($required | Where-Object { $changed.Contains($_) }).Count -eq 3) 'FIX139 artifacts are classified in current release-preservation changes'
-$mainSource = Read-Text 'WindowsVersionSwitcherPRO.cs'
-$moduleSource = Read-Text 'WindowsVersionSwitcherPRO.Modules.cs'
-Add-Check ($mainSource.Contains('private Button ButtonAt(Control p,string text,int x,int y,int w,int h,EventHandler click)')) 'ButtonAt exposes an explicit-height overload for module layouts'
-Add-Check ($mainSource.Contains('return ButtonAt(p,text,x,y,w,40,click);')) 'Original ButtonAt signature preserves the established 40px default height'
-Add-Check ($moduleSource.Contains('ButtonAt(edit,"WYDAJ DO AKTYWNEGO ZLECENIA",230,176,285,40,delegate{ConsumeServiceProPartForCase();});')) 'Service PRO stock action uses the explicit-height ButtonAt overload'
+Add-Check ($cmd.Contains('call :run_ps_check "CHECK_FIX138_HISTORICAL_RELEASE_REGRESSIONS.ps1"')) 'FIX138 historical release regression is active in CHECK_SOURCE'
+Add-Check (($required | Where-Object { $validator.Contains($_) }).Count -eq 3) 'Full-package validator requires all FIX138 test and documentation files'
+Add-Check (($required | Where-Object { $allow -contains $_ }).Count -eq 3) 'Explicit source allowlist includes all FIX138 test and documentation files'
+Add-Check (($required | Where-Object { $safe.Contains($_) }).Count -eq 3) 'FIX138 regression and docs are safe tooling/documentation paths'
+Add-Check (($required | Where-Object { $changed.Contains($_) }).Count -eq 3) 'FIX138 artifacts are classified in current release-preservation changes'
 $setup = Read-Text 'SETUP_MODERN.iss'
 $assembly = Read-Text 'AssemblyInfo.cs'
-Add-Check ($setup.Contains('#define MyAppVersion "1.0.0.76"') -and $assembly.Contains('AssemblyFileVersion("1.0.0.76")') -and $assembly.Contains('AssemblyInformationalVersion("FIX141")')) 'Current product setup and assembly metadata remain aligned to FIX141'
+Add-Check ($setup.Contains('#define MyAppVersion "1.0.0.73"') -and $assembly.Contains('AssemblyFileVersion("1.0.0.73")') -and $assembly.Contains('AssemblyInformationalVersion("FIX137")')) 'Current product setup and assembly metadata remain aligned to FIX137'
 $failed = @($checks | Where-Object { -not $_.Passed })
 foreach ($check in $checks) { if ($check.Passed) { Write-Host ('[PASS] ' + $check.Name) } else { Write-Host ('[FAIL] ' + $check.Name) } }
-if ($failed.Count) { Write-Host ('[FAIL] FIX139 historical release regression checks: ' + (($failed | ForEach-Object { $_.Name }) -join '; ')); exit 1 }
-Write-Host ('[PASS] FIX139 historical release regression checks: {0}/{0}' -f $checks.Count)
+if ($failed.Count) { Write-Host ('[FAIL] FIX138 historical release regression checks: ' + (($failed | ForEach-Object { $_.Name }) -join '; ')); exit 1 }
+Write-Host ('[PASS] FIX138 historical release regression checks: {0}/{0}' -f $checks.Count)
 exit 0

@@ -1,6 +1,6 @@
-﻿@echo off
+@echo off
 setlocal EnableExtensions DisableDelayedExpansion
-title KOMPUTEROWE CENTRUM SERWISU FIX141 - BUDOWANIE WSZYSTKICH ELEMENTOW
+title KOMPUTEROWE CENTRUM SERWISU FIX137 - BUDOWANIE WSZYSTKICH ELEMENTOW
 pushd "%~dp0"
 set "LOGDIR=%~dp0dist\build-logs"
 if not exist "%LOGDIR%" mkdir "%LOGDIR%"
@@ -10,11 +10,11 @@ set "P_RC=1"
 set "M_RC=1"
 set "X_RC=0"
 set "V_RC=1"
->"%LOGDIR%\BUILD_SUMMARY.txt" echo KOMPUTEROWE CENTRUM SERWISU FIX141 - PODSUMOWANIE BUDOWANIA
+>"%LOGDIR%\BUILD_SUMMARY.txt" echo KOMPUTEROWE CENTRUM SERWISU FIX137 - PODSUMOWANIE BUDOWANIA
 >>"%LOGDIR%\BUILD_SUMMARY.txt" echo Date: %DATE% %TIME%
 echo ============================================================
 echo KOMPUTEROWE CENTRUM SERWISU - CENTRUM MIGRACJI I NAPRAW
-echo FIX141 - MENEDZER BUDOWANIA / PLYNNE ETAPY BEZ BLOKOW IF
+echo FIX137 - MENEDZER BUDOWANIA / PLYNNE ETAPY BEZ BLOKOW IF
 echo ============================================================
 echo.
 
@@ -46,17 +46,12 @@ if not "%M_RC%"=="0" goto :modern_failed
 
 echo.
 echo [3/5] Building optional XP installer...
-"%ComSpec%" /d /c ""%~dp0BUILD_INSTALLER_XP.cmd" /nopause" > "%LOGDIR%\stage-xp-output.log" 2>&1
+call "%~dp0BUILD_INSTALLER_XP.cmd" /nopause > "%LOGDIR%\stage-xp-output.log" 2>&1
 set "X_RC=%ERRORLEVEL%"
 type "%LOGDIR%\stage-xp-output.log"
 if not "%X_RC%"=="0" goto :xp_optional_failed
-if not exist "%LOGDIR%\XP_INSTALLER.status" goto :xp_optional_failed
-if exist "%LOGDIR%\XP_INSTALLER.status" findstr /i /x "FAIL" "%LOGDIR%\XP_INSTALLER.status" >nul
-if not errorlevel 1 goto :xp_optional_failed
 if exist "%LOGDIR%\XP_INSTALLER.status" findstr /i /x "SKIPPED" "%LOGDIR%\XP_INSTALLER.status" >nul
 if not errorlevel 1 goto :xp_optional_skipped
-if exist "%LOGDIR%\XP_INSTALLER.status" findstr /i /x "PASS" "%LOGDIR%\XP_INSTALLER.status" >nul
-if errorlevel 1 goto :xp_optional_failed
 >>"%LOGDIR%\BUILD_SUMMARY.txt" echo [PASS] Optional XP installer
  goto :verify
 :xp_optional_skipped
@@ -65,10 +60,9 @@ echo [SKIP] Optional XP installer not built; Inno Setup 5.6.1 is unavailable.
 set "X_RC=0"
 goto :verify
 :xp_optional_failed
-echo [WARN] Optional XP installer failed or its status is missing; modern installer and portable remain eligible.
->>"%LOGDIR%\BUILD_SUMMARY.txt" echo [WARN] Optional XP installer FAILED; not blocking required outputs.
-set "X_RC=OPTIONAL-FAIL"
-goto :verify
+echo [WARN] Optional XP installer failed; modern installer and portable remain eligible.
+>>"%LOGDIR%\BUILD_SUMMARY.txt" echo [WARN] Optional XP installer failed; not blocking release.
+set "X_RC=0"
 
 :verify
 echo.
@@ -92,11 +86,10 @@ echo ============================================================
 >>"%LOGDIR%\BUILD_SUMMARY.txt" echo Source check exit code: %S_RC%
 >>"%LOGDIR%\BUILD_SUMMARY.txt" echo Portable exit code: %P_RC%
 >>"%LOGDIR%\BUILD_SUMMARY.txt" echo Modern installer exit code: %M_RC%
->>"%LOGDIR%\BUILD_SUMMARY.txt" echo XP installer status: %X_RC% optional
+>>"%LOGDIR%\BUILD_SUMMARY.txt" echo XP installer exit code: %X_RC% optional
 echo Verification exit code: %V_RC%
 type "%LOGDIR%\BUILD_SUMMARY.txt"
 echo [PASS] Required Portable, modern installer and file checks completed.
-if "%X_RC%"=="OPTIONAL-FAIL" (echo [WARN] XP optional installer failed; see 03-xp-installer.log.) else (echo [INFO] XP status: %X_RC%.)
 echo [INFO] Successful artifacts remain in dist. XP is optional.
 if /i not "%~1"=="/nopause" pause
 popd

@@ -1,9 +1,9 @@
-﻿@echo off
+@echo off
 setlocal EnableExtensions
-title KOMPUTEROWE CENTRUM SERWISU FIX141 - INSTALLER BUILDS
+title KOMPUTEROWE CENTRUM SERWISU FIX137 - INSTALLER BUILDS
 pushd "%~dp0"
 echo ============================================================
-echo KOMPUTEROWE CENTRUM SERWISU FIX141 - INSTALLER BUILDS
+echo KOMPUTEROWE CENTRUM SERWISU FIX137 - INSTALLER BUILDS
 echo ============================================================
 call "%~dp0BUILD_INSTALLER_MODERN.cmd" /nopause
 set "MODERN_RC=%ERRORLEVEL%"
@@ -15,12 +15,10 @@ if "%MODERN_RC%"=="0" (
 ) else (
   echo [FAIL] Modern installer stage. Check dist\build-logs\02-modern-installer.log.
 )
-if exist "%~dp0dist\build-logs\XP_INSTALLER.status" findstr /i /x "PASS" "%~dp0dist\build-logs\XP_INSTALLER.status" >nul
-if not errorlevel 1 (
-  echo [PASS] Optional XP installer built.
+if "%XP_RC%"=="0" (
+  echo [INFO] XP stage completed or was intentionally skipped.
 ) else (
-  if exist "%~dp0dist\build-logs\XP_INSTALLER.status" findstr /i /x "SKIPPED" "%~dp0dist\build-logs\XP_INSTALLER.status" >nul
-  if not errorlevel 1 (echo [SKIP] XP installer intentionally skipped.) else (echo [WARN] XP installer did not build. See dist\build-logs\03-xp-installer.log.)
+  echo [WARN] XP optional stage returned code %XP_RC%.
 )
 if not "%MODERN_RC%"=="0" goto :fail
 if /i not "%~1"=="/nopause" pause

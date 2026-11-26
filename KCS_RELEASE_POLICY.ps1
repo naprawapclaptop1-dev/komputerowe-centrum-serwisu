@@ -23,8 +23,6 @@ function Test-KcsReleaseIndependentChangeSet {
         '(?i)^\.github/workflows/deploy-pages\.yml$',
         '(?i)^CHECK_[A-Za-z0-9_.-]+\.(ps1|cmd)$',
         '(?i)^CHECK_SOURCE\.cmd$',
-        '(?i)^BUILD_INSTALLER_XP\.cmd$',
-        '(?i)^(BUILD_ALL|BUILD_INSTALLERS|BUILD_MANAGER)\.cmd$',
         '(?i)^(URUCHOM_TYLKO_TEN_PLIK|KCS_FIX101_WORKER)\.cmd$',
         '(?i)^VALIDATE_FIX100_PACKAGE\.ps1$',
         '(?i)^FIX099_(POWERSHELL_MANIFEST|SOURCE_ALLOWLIST)\.txt$',

@@ -69,7 +69,7 @@ namespace NaprawaPC.WindowsSwitcher
         private string pendingUpdateChannel = "", pendingUpdateRegion = "", pendingUpdateLanguage = "", pendingUpdateFeed = "";
         private string pendingUpdateSignerThumbprint = "";
         private string updaterSettingsPath = "";
-        private const string ProgramVersion = "1.0.0.76";
+        private const string ProgramVersion = "1.0.0.73";
         // Jeden adres wbudowany w aplikację — użytkownicy nie wpisują manifestów ani serwerów.
         private string GitHubReleaseBaseUrl
         {
@@ -956,7 +956,7 @@ namespace NaprawaPC.WindowsSwitcher
 
         private string GetOfficialUpdatePackageUrl()
         {
-            return OfficialUpdateBaseUrl+"KomputeroweCentrumSerwisu_FIX141_INSTALATOR.exe";
+            return OfficialUpdateBaseUrl+"KomputeroweCentrumSerwisu_FIX137_INSTALATOR.exe";
         }
         private string GetOfficialReleaseCatalogUrl()
         {
@@ -1245,7 +1245,7 @@ namespace NaprawaPC.WindowsSwitcher
                 using(StreamReader reader=new StreamReader(response.GetResponseStream(),Encoding.UTF8))
                 {
                     string json=reader.ReadToEnd();
-                    string[] required={"KomputeroweCentrumSerwisu_FIX141_INSTALATOR.exe","KomputeroweCentrumSerwisu_FIX141_PORTABLE.exe","manifest-stable.xml","manifest-beta.xml","releases.json","SHA256SUMS.txt"};
+                    string[] required={"KomputeroweCentrumSerwisu_FIX137_INSTALATOR.exe","KomputeroweCentrumSerwisu_FIX137_PORTABLE.exe","manifest-stable.xml","manifest-beta.xml","releases.json","SHA256SUMS.txt"};
                     List<string> missing=new List<string>();foreach(string name in required)if(json.IndexOf(name,StringComparison.OrdinalIgnoreCase)<0)missing.Add(name);
                     if(missing.Count>0)throw new InvalidDataException("W najnowszym wydaniu GitHub brakuje assetów: "+String.Join(", ",missing.ToArray()));
                     string tag=ReadJsonStringProperty(json,"tag_name");
@@ -1967,7 +1967,7 @@ namespace NaprawaPC.WindowsSwitcher
             if(d.ShowDialog()!=DialogResult.OK)return;
             string channel=updaterChannelBox!=null && updaterChannelBox.SelectedIndex==1?"beta":"stable";
             string sample="<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n"+
-                "<Update version=\"1.0.0.76\" channel=\""+channel+"\" region=\"global\" language=\"all\" architecture=\"any\" packageUrl=\""+
+                "<Update version=\"1.0.0.73\" channel=\""+channel+"\" region=\"global\" language=\"all\" architecture=\"any\" packageUrl=\""+
                 GetOfficialUpdatePackageUrl()+"\" sha256=\"WSTAW_64_ZNAKI_SHA256\">\r\n"+
                 "  <Notes lang=\"pl\">Wydanie "+ProgramVersion+"</Notes>\r\n"+
                 "  <Notes lang=\"en\">Release "+ProgramVersion+"</Notes>\r\n"+
@@ -1994,7 +1994,7 @@ namespace NaprawaPC.WindowsSwitcher
             string channel=updaterChannelBox!=null && updaterChannelBox.SelectedIndex==1?"beta":"stable";
             string manifestName=channel=="beta"?"manifest-beta.xml":"manifest-stable.xml";
             string folder=Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"GlobalUpdateServer");
-            string packageName="KomputeroweCentrumSerwisu_FIX141_INSTALATOR.exe";
+            string packageName="KomputeroweCentrumSerwisu_FIX137_INSTALATOR.exe";
             string packagePath=Path.Combine(folder,packageName);
             string manifestPath=Path.Combine(folder,manifestName);
             try
@@ -6690,7 +6690,7 @@ try {
         }
 
 
-        // FIX139 — lokalny pakiet obsługi serwisu: zlecenia, diagnostyka przed/po, magazyn, historia i kopie.
+        // FIX137 — lokalny pakiet obsługi serwisu: zlecenia, diagnostyka przed/po, magazyn, historia i kopie.
         // Dane pozostają lokalne; żaden moduł nie wysyła kart klientów ani raportów do sieci.
         private string serviceProDirectory = "";
         private string serviceProCasesFile = "";
@@ -7461,127 +7461,5 @@ try {
             }
         }
 
-
-        // FIX139: lokalny kalendarz wizyt Serwis PRO. Dane pozostają na komputerze serwisu.
-        private DataGridView serviceProAppointmentsGrid;
-        private TextBox serviceProAppointmentClientBox,serviceProAppointmentPhoneBox,serviceProAppointmentDeviceBox,serviceProAppointmentNotesBox;
-        private ComboBox serviceProAppointmentStatusBox;
-        private DateTimePicker serviceProAppointmentDateBox;
-        private string selectedServiceProAppointmentId="";
-
-        private string ServiceProAppointmentPath()
-        {
-            string dir=ServiceProPath("appointments.xml");
-            Directory.CreateDirectory(Path.GetDirectoryName(dir));
-            return dir;
-        }
-        private void BuildServiceProAppointmentsPage()
-        {
-            if(FindPage("Kalendarz wizyt PRO")!=null)return;
-            Panel page=NewPage("Kalendarz wizyt PRO","Lokalny terminarz przyjęć, wizyt i odbiorów sprzętu");
-            Panel form=Card(page,"NOWA WIZYTA / EDYCJA TERMINU",10,8,950,300);
-            LabelAt(form,"Klient",18,42,70,22);serviceProAppointmentClientBox=TextAt(form,90,39,270,27,"");
-            LabelAt(form,"Telefon",380,42,70,22);serviceProAppointmentPhoneBox=TextAt(form,450,39,210,27,"");
-            LabelAt(form,"Data i godzina",680,42,110,22);serviceProAppointmentDateBox=new DateTimePicker();serviceProAppointmentDateBox.Format=DateTimePickerFormat.Custom;serviceProAppointmentDateBox.CustomFormat="yyyy-MM-dd HH:mm";serviceProAppointmentDateBox.ShowUpDown=true;serviceProAppointmentDateBox.Location=new Point(UX(790),UY(39));serviceProAppointmentDateBox.Size=new Size(UX(145),UY(27));form.Controls.Add(serviceProAppointmentDateBox);
-            LabelAt(form,"Sprzęt / usługa",18,88,110,22);serviceProAppointmentDeviceBox=TextAt(form,130,85,530,27,"");
-            LabelAt(form,"Status",680,88,60,22);serviceProAppointmentStatusBox=ComboAt(form,new string[]{"Zaplanowana","Potwierdzona","Przyjęta","Zakończona","Odwołana"},740,85,195);
-            LabelAt(form,"Notatki",18,132,75,22);serviceProAppointmentNotesBox=TextAt(form,90,129,845,55,"");serviceProAppointmentNotesBox.Multiline=true;serviceProAppointmentNotesBox.ScrollBars=ScrollBars.Vertical;
-            ButtonAt(form,"ZAPISZ TERMIN",18,210,160,delegate{SaveServiceProAppointment();});
-            ButtonAt(form,"NOWY",188,210,100,delegate{ClearServiceProAppointment();});
-            ButtonAt(form,"USUŃ",298,210,100,delegate{DeleteServiceProAppointment();});
-            ButtonAt(form,"EKSPORT .ICS",408,210,145,delegate{ExportServiceProAppointmentsIcs();});
-            ButtonAt(form,"EKSPORT CSV",563,210,145,delegate{ExportServiceProAppointmentsCsv();});
-            ButtonAt(form,"ODŚWIEŻ",718,210,130,delegate{LoadServiceProAppointments();});
-            Panel list=Card(page,"TERMINARZ SERWISU",10,320,950,270);
-            serviceProAppointmentsGrid=CreateServiceProGrid(list,18,42,902,205,new string[]{"Data i godzina","Klient","Telefon","Sprzęt / usługa","Status"},new int[]{150,180,135,290,130});
-            serviceProAppointmentsGrid.SelectionChanged+=delegate{LoadSelectedServiceProAppointment();};
-            LoadServiceProAppointments();
-        }
-        private XmlDocument LoadServiceProAppointmentsDocument()
-        {
-            return LoadServiceProXml(ServiceProAppointmentPath(),"ServiceProAppointments");
-        }
-        private void ClearServiceProAppointment()
-        {
-            selectedServiceProAppointmentId="";
-            if(serviceProAppointmentClientBox!=null)serviceProAppointmentClientBox.Text="";
-            if(serviceProAppointmentPhoneBox!=null)serviceProAppointmentPhoneBox.Text="";
-            if(serviceProAppointmentDeviceBox!=null)serviceProAppointmentDeviceBox.Text="";
-            if(serviceProAppointmentNotesBox!=null)serviceProAppointmentNotesBox.Text="";
-            if(serviceProAppointmentStatusBox!=null)serviceProAppointmentStatusBox.SelectedIndex=0;
-            if(serviceProAppointmentDateBox!=null)serviceProAppointmentDateBox.Value=DateTime.Now.AddHours(1);
-            if(serviceProAppointmentsGrid!=null)serviceProAppointmentsGrid.ClearSelection();
-        }
-        private void LoadServiceProAppointments()
-        {
-            if(serviceProAppointmentsGrid==null)return;
-            serviceProAppointmentsGrid.Rows.Clear();
-            try
-            {
-                XmlDocument d=LoadServiceProAppointmentsDocument();
-                List<XmlNode> nodes=new List<XmlNode>();
-                foreach(XmlNode n in d.SelectNodes("/ServiceProAppointments/Appointment"))nodes.Add(n);
-                nodes.Sort(delegate(XmlNode a,XmlNode b){DateTime da,db;DateTime.TryParse(ServiceProRead(a,"When"),out da);DateTime.TryParse(ServiceProRead(b,"When"),out db);return da.CompareTo(db);});
-                foreach(XmlNode n in nodes)
-                {
-                    DateTime dt;DateTime.TryParse(ServiceProRead(n,"When"),out dt);
-                    serviceProAppointmentsGrid.Rows.Add(dt==DateTime.MinValue?ServiceProRead(n,"When"):dt.ToString("yyyy-MM-dd HH:mm"),ServiceProRead(n,"Client"),ServiceProRead(n,"Phone"),ServiceProRead(n,"Device"),ServiceProRead(n,"Status"));
-                    serviceProAppointmentsGrid.Rows[serviceProAppointmentsGrid.Rows.Count-1].Tag=n.Attributes["id"]==null?"":n.Attributes["id"].Value;
-                }
-            }
-            catch(Exception ex){AppendLog("Kalendarz wizyt: "+ex.Message);}
-        }
-        private void LoadSelectedServiceProAppointment()
-        {
-            if(serviceProAppointmentsGrid==null||serviceProAppointmentsGrid.SelectedRows.Count==0)return;
-            DataGridViewRow row=serviceProAppointmentsGrid.SelectedRows[0];string id=Convert.ToString(row.Tag);if(String.IsNullOrEmpty(id))return;
-            try
-            {
-                XmlDocument d=LoadServiceProAppointmentsDocument();XmlNode n=d.SelectSingleNode("/ServiceProAppointments/Appointment[@id='"+id.Replace("'","&apos;")+"']");if(n==null)return;
-                selectedServiceProAppointmentId=id;serviceProAppointmentClientBox.Text=ServiceProRead(n,"Client");serviceProAppointmentPhoneBox.Text=ServiceProRead(n,"Phone");serviceProAppointmentDeviceBox.Text=ServiceProRead(n,"Device");serviceProAppointmentNotesBox.Text=ServiceProRead(n,"Notes");
-                DateTime dt;if(DateTime.TryParse(ServiceProRead(n,"When"),out dt))serviceProAppointmentDateBox.Value=dt<serviceProAppointmentDateBox.MinDate?serviceProAppointmentDateBox.MinDate:(dt>serviceProAppointmentDateBox.MaxDate?serviceProAppointmentDateBox.MaxDate:dt);
-                string status=ServiceProRead(n,"Status");int ix=serviceProAppointmentStatusBox.Items.IndexOf(status);serviceProAppointmentStatusBox.SelectedIndex=ix<0?0:ix;
-            }
-            catch(Exception ex){AppendLog("Odczyt terminu: "+ex.Message);}
-        }
-        private void SaveServiceProAppointment()
-        {
-            if(String.IsNullOrWhiteSpace(serviceProAppointmentClientBox.Text)){MessageBox.Show("Wpisz nazwę klienta.","Kalendarz wizyt",MessageBoxButtons.OK,MessageBoxIcon.Warning);return;}
-            try
-            {
-                XmlDocument d=LoadServiceProAppointmentsDocument();XmlElement item=null;
-                if(!String.IsNullOrEmpty(selectedServiceProAppointmentId))item=d.SelectSingleNode("/ServiceProAppointments/Appointment[@id='"+selectedServiceProAppointmentId+"']") as XmlElement;
-                bool created=item==null;if(created){item=d.CreateElement("Appointment");selectedServiceProAppointmentId="WIZ-"+DateTime.Now.ToString("yyyyMMdd-HHmmss",CultureInfo.InvariantCulture)+"-"+Guid.NewGuid().ToString("N").Substring(0,6).ToUpperInvariant();item.SetAttribute("id",selectedServiceProAppointmentId);item.SetAttribute("createdUtc",DateTime.UtcNow.ToString("o",CultureInfo.InvariantCulture));d.DocumentElement.AppendChild(item);}
-                ServiceProWrite(d,item,"When",serviceProAppointmentDateBox.Value.ToString("o",CultureInfo.InvariantCulture));ServiceProWrite(d,item,"Client",serviceProAppointmentClientBox.Text.Trim());ServiceProWrite(d,item,"Phone",serviceProAppointmentPhoneBox.Text.Trim());ServiceProWrite(d,item,"Device",serviceProAppointmentDeviceBox.Text.Trim());ServiceProWrite(d,item,"Status",Convert.ToString(serviceProAppointmentStatusBox.SelectedItem));ServiceProWrite(d,item,"Notes",serviceProAppointmentNotesBox.Text);
-                SaveXmlSafely(d,ServiceProAppointmentPath(),10);AddServiceProHistory(selectedServiceProAppointmentId,created?"Utworzono termin":"Zmieniono termin",serviceProAppointmentClientBox.Text.Trim()+" | "+serviceProAppointmentDateBox.Value.ToString("yyyy-MM-dd HH:mm"));LoadServiceProAppointments();MessageBox.Show("Termin zapisany lokalnie.","Kalendarz wizyt",MessageBoxButtons.OK,MessageBoxIcon.Information);
-            }
-            catch(Exception ex){MessageBox.Show("Nie udało się zapisać terminu: "+ex.Message,"Kalendarz wizyt",MessageBoxButtons.OK,MessageBoxIcon.Error);}
-        }
-        private void DeleteServiceProAppointment()
-        {
-            if(String.IsNullOrEmpty(selectedServiceProAppointmentId)){MessageBox.Show("Wybierz termin z tabeli.");return;}
-            if(MessageBox.Show("Usunąć wybrany termin?","Potwierdź",MessageBoxButtons.YesNo,MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2)!=DialogResult.Yes)return;
-            try{XmlDocument d=LoadServiceProAppointmentsDocument();XmlNode n=d.SelectSingleNode("/ServiceProAppointments/Appointment[@id='"+selectedServiceProAppointmentId+"']");if(n!=null)d.DocumentElement.RemoveChild(n);SaveXmlSafely(d,ServiceProAppointmentPath(),10);AddServiceProHistory(selectedServiceProAppointmentId,"Usunięto termin","Termin usunięty z kalendarza.");ClearServiceProAppointment();LoadServiceProAppointments();}catch(Exception ex){MessageBox.Show("Nie udało się usunąć terminu: "+ex.Message);}
-        }
-        private string IcsEscape(string value){return (value??"").Replace("\\","\\\\").Replace(";","\\;").Replace(",","\\,").Replace("\r\n","\\n").Replace("\n","\\n").Replace("\r","\\n");}
-        private void ExportServiceProAppointmentsIcs()
-        {
-            try
-            {
-                SaveFileDialog dlg=new SaveFileDialog();dlg.Filter="Kalendarz iCalendar (*.ics)|*.ics";dlg.FileName="Terminy_Serwisu.ics";if(dlg.ShowDialog()!=DialogResult.OK)return;
-                StringBuilder b=new StringBuilder();b.AppendLine("BEGIN:VCALENDAR");b.AppendLine("VERSION:2.0");b.AppendLine("PRODID:-//KOMPUTEROWE CENTRUM SERWISU//FIX139//PL");b.AppendLine("CALSCALE:GREGORIAN");
-                XmlDocument d=LoadServiceProAppointmentsDocument();foreach(XmlNode n in d.SelectNodes("/ServiceProAppointments/Appointment")){DateTime dt;if(!DateTime.TryParse(ServiceProRead(n,"When"),null,DateTimeStyles.RoundtripKind,out dt))continue;string uid=ServiceProRead(n,"id");if(n.Attributes["id"]!=null)uid=n.Attributes["id"].Value;b.AppendLine("BEGIN:VEVENT");b.AppendLine("UID:"+IcsEscape(uid)+"@kcs.local");b.AppendLine("DTSTAMP:"+DateTime.UtcNow.ToString("yyyyMMdd'T'HHmmss'Z'"));b.AppendLine("DTSTART:"+dt.ToUniversalTime().ToString("yyyyMMdd'T'HHmmss'Z'"));b.AppendLine("DTEND:"+dt.AddMinutes(30).ToUniversalTime().ToString("yyyyMMdd'T'HHmmss'Z'"));b.AppendLine("SUMMARY:"+IcsEscape("Serwis: "+ServiceProRead(n,"Client")+" — "+ServiceProRead(n,"Device")));b.AppendLine("DESCRIPTION:"+IcsEscape("Telefon: "+ServiceProRead(n,"Phone")+" | Status: "+ServiceProRead(n,"Status")+" | "+ServiceProRead(n,"Notes")));b.AppendLine("END:VEVENT");}b.AppendLine("END:VCALENDAR");File.WriteAllText(dlg.FileName,b.ToString(),new UTF8Encoding(false));MessageBox.Show("Wyeksportowano kalendarz .ics.","Eksport",MessageBoxButtons.OK,MessageBoxIcon.Information);
-            }
-            catch(Exception ex){MessageBox.Show("Eksport ICS nie powiódł się: "+ex.Message);}
-        }
-        private void ExportServiceProAppointmentsCsv()
-        {
-            try
-            {
-                SaveFileDialog dlg=new SaveFileDialog();dlg.Filter="CSV UTF-8 (*.csv)|*.csv";dlg.FileName="Terminy_Serwisu.csv";if(dlg.ShowDialog()!=DialogResult.OK)return;
-                StringBuilder b=new StringBuilder();b.AppendLine("Data;Klient;Telefon;Sprzęt;Status;Notatki");XmlDocument d=LoadServiceProAppointmentsDocument();foreach(XmlNode n in d.SelectNodes("/ServiceProAppointments/Appointment")){string[] fields={ServiceProRead(n,"When"),ServiceProRead(n,"Client"),ServiceProRead(n,"Phone"),ServiceProRead(n,"Device"),ServiceProRead(n,"Status"),ServiceProRead(n,"Notes")};for(int i=0;i<fields.Length;i++){if(i>0)b.Append(';');b.Append('"').Append((fields[i]??"").Replace("\"","\"\"").Replace("\r"," ").Replace("\n"," ")).Append('"');}b.AppendLine();}File.WriteAllText(dlg.FileName,"\uFEFF"+b.ToString(),new UTF8Encoding(true));MessageBox.Show("Wyeksportowano terminarz CSV.","Eksport",MessageBoxButtons.OK,MessageBoxIcon.Information);
-            }
-            catch(Exception ex){MessageBox.Show("Eksport CSV nie powiódł się: "+ex.Message);}
-        }
     }
 }

@@ -1,13 +1,13 @@
-﻿@echo off
+@echo off
 setlocal EnableExtensions
-title KOMPUTEROWE CENTRUM SERWISU FIX141 - BUILD MANAGER
+title KOMPUTEROWE CENTRUM SERWISU FIX137 - BUILD MANAGER
 pushd "%~dp0"
 set "LOGDIR=%~dp0dist\build-logs"
 if not exist "%LOGDIR%" mkdir "%LOGDIR%"
 :menu
 cls
 echo ============================================================
-echo KOMPUTEROWE CENTRUM SERWISU - BUILD MANAGER PRO  ^|  FIX141
+echo KOMPUTEROWE CENTRUM SERWISU - BUILD MANAGER PRO  ^|  FIX137
 echo ============================================================
 echo 1. Build PORTABLE EXE only
 echo 2. Build modern INSTALLER EXE only (Windows 7 SP1 - 11)
@@ -76,16 +76,7 @@ call "%~dp0%TASK%" /nopause > "%LOG%" 2>&1
 set "RC=%ERRORLEVEL%"
 type "%LOG%"
 >>"%LOGDIR%\MANAGER_HISTORY.txt" echo [%DATE% %TIME%] %TASK% - EXIT %RC%
-if /i "%TASK%"=="BUILD_INSTALLER_XP.cmd" goto :report_xp
 if "%RC%"=="0" (echo [PASS] %TASK%) else (echo [FAIL] %TASK% - EXIT %RC%)
-goto :run_done
-:report_xp
-if exist "%LOGDIR%\XP_INSTALLER.status" findstr /i /x "PASS" "%LOGDIR%\XP_INSTALLER.status" >nul
-if not errorlevel 1 (echo [PASS] Optional XP installer built.) else (
-  if exist "%LOGDIR%\XP_INSTALLER.status" findstr /i /x "SKIPPED" "%LOGDIR%\XP_INSTALLER.status" >nul
-  if not errorlevel 1 (echo [SKIP] Optional XP installer skipped.) else (echo [WARN] Optional XP installer failed. See 03-xp-installer.log.)
-)
-:run_done
 echo Log: %LOG%
 pause
 exit /b 0

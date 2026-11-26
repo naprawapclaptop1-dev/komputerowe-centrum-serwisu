@@ -1,4 +1,4 @@
-GITHUB RELEASES — KOMPUTEROWE CENTRUM SERWISU
+﻿GITHUB RELEASES — KOMPUTEROWE CENTRUM SERWISU
 
 1. Repozytorium tego programu jest przypisane na stałe: naprawapclaptop1-dev/komputerowe-centrum-serwisu.
 2. Uruchom wyłącznie URUCHOM_TYLKO_TEN_PLIK.cmd.
@@ -7,6 +7,6 @@ GITHUB RELEASES — KOMPUTEROWE CENTRUM SERWISU
 5. Każdy tag i release jest tworzony tylko wtedy, gdy jeszcze nie istnieje. Bez --clobber i bez nadpisywania starych plików.
 
 Adres repozytorium: https://github.com/naprawapclaptop1-dev/komputerowe-centrum-serwisu
-Aktualizator klienta używa niezmiennych adresów tagowych v1.0.0.75 dla manifestów i pakietów. Nie korzysta z aliasu /releases/latest/download/, który może wskazywać inne wydanie lub nie udostępniać assetu Beta.
+Aktualizator klienta używa niezmiennych adresów tagowych v1.0.0.73 dla manifestów i pakietów. Nie korzysta z aliasu /releases/latest/download/, który może wskazywać inne wydanie lub nie udostępniać assetu Beta.
 
 FIX108: folder rozpakowania może mieć dowolną nazwę; tożsamość pakietu potwierdza marker FIX099 i przypisane repozytorium.

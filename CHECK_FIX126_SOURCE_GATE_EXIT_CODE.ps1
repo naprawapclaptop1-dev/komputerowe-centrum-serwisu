@@ -27,7 +27,7 @@ $currentFixMatch = [regex]::Match($cmd, '(?im)^title\s+.*?(?<fix>FIX\d{3})')
 $currentFix = $currentFixMatch.Groups['fix'].Value
 $reportName = 'CHECK_SOURCE_' + $currentFix + '.log'
 $reportTempName = 'CHECK_SOURCE_' + $currentFix + '-current.txt'
-$runnerBlock = [regex]::Match($cmd, '(?s):run_ps_check\r?\n(.*?):run_ps_check_return').Groups[1].Value
+$runnerBlock = [regex]::Match($cmd, '(?s):run_ps_check\r?\n(.*)$').Groups[1].Value
 $runnerPattern = '(?s)powershell\.exe[^\r\n]*-File "%~dp0%~1"[^\r\n]*>"%KCS_TEST_OUTPUT%" 2>&1\r?\nset "KCS_TEST_RC=%ERRORLEVEL%"'
 $safeBlock = [regex]::Match($policyTest, '\$safePaths\s*=\s*@\((.*?)\)', [Text.RegularExpressions.RegexOptions]::Singleline).Groups[1].Value
 $currentBlock = [regex]::Match($policyTest, '\$currentTagChanges\s*=\s*@\((.*?)\)', [Text.RegularExpressions.RegexOptions]::Singleline).Groups[1].Value

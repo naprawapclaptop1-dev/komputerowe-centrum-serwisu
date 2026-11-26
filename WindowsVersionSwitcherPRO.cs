@@ -1236,7 +1236,7 @@ namespace NaprawaPC.WindowsSwitcher
                 {
                     string path=route.StartsWith("/")?route:"/"+route;
                     req=(HttpWebRequest)WebRequest.Create(host+path);
-                    req.Method="GET";req.UserAgent="NaprawaPC-UniversalWindowsMigrationPRO/1.0.0.76";
+                    req.Method="GET";req.UserAgent="NaprawaPC-UniversalWindowsMigrationPRO/1.0.0.73";
                     req.Accept="application/json";req.Timeout=10000;req.ReadWriteTimeout=10000;
                     req.AutomaticDecompression=DecompressionMethods.GZip|DecompressionMethods.Deflate;
                     using(HttpWebResponse response=(HttpWebResponse)req.GetResponse())
@@ -1584,7 +1584,7 @@ namespace NaprawaPC.WindowsSwitcher
                 HttpWebRequest req=(HttpWebRequest)WebRequest.Create(target);
                 req.Method="GET";req.Timeout=9000;req.ReadWriteTimeout=7000;req.KeepAlive=false;
                 req.AllowAutoRedirect=true;req.MaximumAutomaticRedirections=8;
-                req.UserAgent="NaprawaPC Radio Stream Probe/1.0.0.76";req.Accept="audio/*,*/*;q=0.8";
+                req.UserAgent="NaprawaPC Radio Stream Probe/1.0.0.73";req.Accept="audio/*,*/*;q=0.8";
                 try{req.AddRange(0,2047);}catch{}
                 using(HttpWebResponse response=(HttpWebResponse)req.GetResponse())
                 using(Stream stream=response.GetResponseStream())
@@ -1939,7 +1939,6 @@ namespace NaprawaPC.WindowsSwitcher
             AddNav("Magazyn części PRO","Magazyn części i podzespołów",0);
             AddNav("Historia serwisu PRO","Historia operacji serwisowych",0);
             AddNav("Kopia danych serwisu PRO","Kopie kartoteki i magazynu",0);
-            AddNav("Kalendarz wizyt PRO","Terminy, przyjęcia i eksport kalendarza",0);
             AddNav("Kontrola integralności","Kontrola integralności",0);
             AddNav("Konfiguracja PRO","Ustawienia i konfiguracja",0);
             AddNav("Raport przed migracją","Raport przed migracją",0);
@@ -2296,16 +2295,9 @@ namespace NaprawaPC.WindowsSwitcher
         }
         private Button ButtonAt(Control p,string text,int x,int y,int w,EventHandler click)
         {
-            return ButtonAt(p,text,x,y,w,40,click);
-        }
-
-        // Overload with an explicit height for compact or taller module-specific actions.
-        // The original five-argument layout contract remains unchanged for existing pages.
-        private Button ButtonAt(Control p,string text,int x,int y,int w,int h,EventHandler click)
-        {
             PremiumButton b=new PremiumButton();
             Theme t=GetCurrentTheme();b.AccentColor=t==null?Color.FromArgb(18,169,225):t.Accent;
-            b.Text=PolishUiText(text); b.InterfaceStyle=currentInterfaceStyle; b.Location=new Point(UX(x),UY(y)); b.Size=new Size(UX(w),UY(h));
+            b.Text=PolishUiText(text); b.InterfaceStyle=currentInterfaceStyle; b.Location=new Point(UX(x),UY(y)); b.Size=new Size(UX(w),UY(40));
             b.ForeColor=Color.White; b.Font=new Font("Segoe UI",9.3F*layoutScaleY,FontStyle.Bold);
             b.Image=NavIconRenderer.Create(text,Color.White,18,false); b.Click+=click; p.Controls.Add(b); return b;
         }
@@ -2345,7 +2337,6 @@ namespace NaprawaPC.WindowsSwitcher
             if(id=="Magazyn części PRO") BuildServiceProPartsPage();
             if(id=="Historia serwisu PRO") BuildServiceProHistoryPage();
             if(id=="Kopia danych serwisu PRO") BuildServiceProBackupPage();
-            if(id=="Kalendarz wizyt PRO") BuildServiceProAppointmentsPage();
             if(id=="Kontrola integralności") BuildIntegrityPage();
             if(id=="Konfiguracja PRO") BuildConfigurationPage();
             if(id=="Raport przed migracją") BuildMigrationReadinessPage();
@@ -3773,7 +3764,7 @@ namespace NaprawaPC.WindowsSwitcher
                 if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
                 File.WriteAllText(consentFile,
                     "Accepted=" + DateTime.Now.ToString("o") + Environment.NewLine +
-                    "Application=KOMPUTEROWE CENTRUM SERWISU - CENTRUM MIGRACJI I NAPRAW - FIX141" + Environment.NewLine,
+                    "Application=KOMPUTEROWE CENTRUM SERWISU - CENTRUM MIGRACJI I NAPRAW - FIX137" + Environment.NewLine,
                     Encoding.UTF8);
                 AppendLog("Zaakceptowano ostrzeżenie o używaniu programu na własną odpowiedzialność.");
                 return true;
