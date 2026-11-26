@@ -30,15 +30,15 @@ foreach ($setup in @($modern,$legacy)) {
     Add-Check ($setup.Contains('IsDotNetFullAt(HKLM,') -and $setup.Contains('SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full') -and $setup.Contains('SOFTWARE\WOW6432Node\Microsoft\NET Framework Setup\NDP\v4\Full')) 'Both standard and WOW6432Node registry paths are checked'
     Add-Check ($setup.Contains('KCS_PREREQUISITE_OK') -and $setup.Contains('KCS_PREREQUISITE_MISSING')) 'Prerequisite success/failure is recorded in the Inno Setup log'
 }
-Add-Check ($modern.Contains('SetupLogging=yes') -and $modern.Contains('OutputBaseFilename=KomputeroweCentrumSerwisu_FIX137_INSTALATOR')) 'Modern installer logging and FIX137 output name are enabled'
-Add-Check ($runner.Contains('/LOG=') -and $runner.Contains('installation-FIX137-inno.log') -and $runner.Contains('Get-Content -LiteralPath $InstallLog -Tail 80')) 'Automated installation saves a separate Inno log and shows its tail on errors'
+Add-Check ($modern.Contains('SetupLogging=yes') -and $modern.Contains('OutputBaseFilename=KomputeroweCentrumSerwisu_FIX141_INSTALATOR')) 'Modern installer logging and FIX141 output name are enabled'
+Add-Check ($runner.Contains('/LOG=') -and $runner.Contains('installation-FIX141-inno.log') -and $runner.Contains('Get-Content -LiteralPath $InstallLog -Tail 80')) 'Automated installation saves a separate Inno log and shows its tail on errors'
 Add-Check ($runner.Contains('switch([int]$p.ExitCode)') -and $runner.Contains('Setup failed to initialize') -and $runner.Contains('if($p.ExitCode -ne 0)')) 'Inno exit codes are identified; failed installations are never reported as successful'
-Add-Check ($runner.Contains("ExpectedVersion '1.0.0.73'") -and $runner.Contains('$installedRaw') -and $runner.Contains('ConvertTo-KcsProductVersion')) 'Installer and installed application FileVersion are still validated'
-Add-Check ($assembly.Contains('AssemblyVersion("1.0.0.73")') -and $assembly.Contains('AssemblyFileVersion("1.0.0.73")') -and $assembly.Contains('AssemblyInformationalVersion("FIX137")')) 'Application assembly metadata is aligned to product version 1.0.0.73 / FIX137'
-Add-Check ($modules.Contains('ProgramVersion = "1.0.0.73"') -and $modules.Contains('KomputeroweCentrumSerwisu_FIX137_INSTALATOR.exe')) 'In-app updater uses the FIX137 tag and installer asset name'
-Add-Check ($publisher.Contains('$Version="1.0.0.73"') -and $publisher.Contains('$SetupName="KomputeroweCentrumSerwisu_FIX137_INSTALATOR.exe"') -and $publisher.Contains('$PortableName="KomputeroweCentrumSerwisu_FIX137_PORTABLE.exe"')) 'Publisher targets new immutable release v1.0.0.73 and FIX137 artifacts'
-Add-Check ($manifestGenerator.Contains('$Version="1.0.0.73"; $Tag="v$Version"; $Fix="FIX137"') -and $manifestGenerator.Contains('KomputeroweCentrumSerwisu_FIX137_INSTALATOR.exe')) 'Standalone manifest generator uses the same FIX137 release identity'
-Add-Check ($version -eq '1.0.0.73') 'VERSION.txt declares product version 1.0.0.73'
+Add-Check ($runner.Contains("ExpectedVersion '1.0.0.76'") -and $runner.Contains('$installedRaw') -and $runner.Contains('ConvertTo-KcsProductVersion')) 'Installer and installed application FileVersion are still validated'
+Add-Check ($assembly.Contains('AssemblyVersion("1.0.0.76")') -and $assembly.Contains('AssemblyFileVersion("1.0.0.76")') -and $assembly.Contains('AssemblyInformationalVersion("FIX141")')) 'Application assembly metadata is aligned to product version 1.0.0.76 / FIX141'
+Add-Check ($modules.Contains('ProgramVersion = "1.0.0.76"') -and $modules.Contains('KomputeroweCentrumSerwisu_FIX141_INSTALATOR.exe')) 'In-app updater uses the FIX141 tag and installer asset name'
+Add-Check ($publisher.Contains('$Version="1.0.0.76"') -and $publisher.Contains('$SetupName="KomputeroweCentrumSerwisu_FIX141_INSTALATOR.exe"') -and $publisher.Contains('$PortableName="KomputeroweCentrumSerwisu_FIX141_PORTABLE.exe"')) 'Publisher targets new immutable release v1.0.0.76 and FIX141 artifacts'
+Add-Check ($manifestGenerator.Contains('$Version="1.0.0.76"; $Tag="v$Version"; $Fix="FIX141"') -and $manifestGenerator.Contains('KomputeroweCentrumSerwisu_FIX141_INSTALATOR.exe')) 'Standalone manifest generator uses the same FIX141 release identity'
+Add-Check ($version -eq '1.0.0.76') 'VERSION.txt declares product version 1.0.0.76'
 $failed = @($checks | Where-Object { -not $_.Passed })
 foreach ($check in $checks) { if ($check.Passed) { Write-Host ('[PASS] ' + $check.Name) } else { Write-Host ('[FAIL] ' + $check.Name) } }
 if ($failed.Count) { Write-Host ('[FAIL] FIX123 installer initialization regression: ' + (($failed | ForEach-Object { $_.Name }) -join '; ')); exit 1 }

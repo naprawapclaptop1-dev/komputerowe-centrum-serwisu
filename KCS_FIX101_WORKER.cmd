@@ -1,8 +1,8 @@
 @echo off
-rem FIX138 worker: runs inside the persistent cmd.exe /K host; build manager is isolated in a child cmd.exe.
+rem FIX141 worker: runs inside the persistent cmd.exe /K host; build manager is isolated in a child cmd.exe.
 setlocal EnableExtensions DisableDelayedExpansion
 chcp 65001 >nul
-title KOMPUTEROWE CENTRUM SERWISU - AUTOMATYCZNY START FIX138
+title KOMPUTEROWE CENTRUM SERWISU - AUTOMATYCZNY START FIX141
 set "ROOT=%~dp0"
 pushd "%ROOT%" >nul 2>&1
 if errorlevel 1 goto :path_fail
@@ -15,14 +15,14 @@ set "LOG=%LOGDIR%\00-AUTOMATYCZNY-START.log"
 set "STATUS=%LOGDIR%\FULL_RELEASE.status"
 set "RC=0"
 set "CHECKSTEP=initialization"
->"%LOG%" echo KOMPUTEROWE CENTRUM SERWISU FIX138
+>"%LOG%" echo KOMPUTEROWE CENTRUM SERWISU FIX141
 >>"%LOG%" echo Folder: %ROOT%
 >>"%LOG%" echo Repozytorium: %GHREPO%
 >>"%LOG%" echo Start: %DATE% %TIME%
 if exist "%STATUS%" del /q "%STATUS%" >nul 2>&1
 if exist "%ROOT%PUBLICATION_VERIFICATION.status" del /q "%ROOT%PUBLICATION_VERIFICATION.status" >nul 2>&1
 echo ============================================================
-echo KOMPUTEROWE CENTRUM SERWISU - FIX138
+echo KOMPUTEROWE CENTRUM SERWISU - FIX141
 echo AUTOMATYCZNA BUDOWA + PUBLIKACJA + INSTALACJA
 echo ============================================================
 echo Repozytorium: %GHREPO%
@@ -32,15 +32,22 @@ echo Aktywny folder: %ROOT%
 echo.
 
 set "CHECKSTEP=walidacja pakietu"
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%VALIDATE_FIX100_PACKAGE.ps1" >>"%LOG%" 2>&1
+echo [ETAP 1/6] Walidacja pakietu - prosze czekac...
+>>"%LOG%" echo [%DATE% %TIME%] [ETAP 1/6] Walidacja pakietu
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%VALIDATE_FIX100_PACKAGE.ps1"
 set "RC=%ERRORLEVEL%"
+>>"%LOG%" echo [%DATE% %TIME%] [ETAP 1/6] Walidacja pakietu - kod %RC%
 if not "%RC%"=="0" goto :validation_fail
 
 >"%ROOT%GITHUB_REPOSITORY.txt" echo %GHREPO%
 
 set "CHECKSTEP=bramka testow CHECK_SOURCE"
-call "%ROOT%CHECK_SOURCE.cmd" /nopause >>"%LOG%" 2>&1
+echo [ETAP 2/6] Testy zrodel CHECK_SOURCE - uruchamiam testy regresji; to moze potrwac kilka minut...
+>>"%LOG%" echo [%DATE% %TIME%] [ETAP 2/6] CHECK_SOURCE start
+call "%ROOT%CHECK_SOURCE.cmd" /nopause
 set "RC=%ERRORLEVEL%"
+if exist "%LOGDIR%\CHECK_SOURCE_FIX141.log" type "%LOGDIR%\CHECK_SOURCE_FIX141.log" >>"%LOG%"
+>>"%LOG%" echo [%DATE% %TIME%] [ETAP 2/6] CHECK_SOURCE - kod %RC%
 if not "%RC%"=="0" goto :validation_fail
 
 echo.
@@ -50,9 +57,11 @@ set "CLEAN_RC=%ERRORLEVEL%"
 if not "%CLEAN_RC%"=="0" echo [WARN] Czyszczenie folderu programu niepelne - kod %CLEAN_RC%; budowa bedzie kontynuowana; raport czyszczenia zostal zachowany. Raport: dist\build-logs\SAFE_TEMP_CLEANUP.log.
 
 echo.
-echo [0/5] Automatyczne przygotowanie narzedzi...
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%BOOTSTRAP_BUILD_TOOLS.ps1" >>"%LOG%" 2>&1
+echo [ETAP 3/6] Automatyczne przygotowanie narzedzi - Git, GitHub CLI, Inno Setup i kompilator...
+>>"%LOG%" echo [%DATE% %TIME%] [ETAP 3/6] Bootstrap narzedzi
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ROOT%BOOTSTRAP_BUILD_TOOLS.ps1"
 set "RC=%ERRORLEVEL%"
+>>"%LOG%" echo [%DATE% %TIME%] [ETAP 3/6] Bootstrap narzedzi - kod %RC%
 if not "%RC%"=="0" goto :tools_fail
 if not exist "%LOGDIR%\TOOLS_PATHS.txt" goto :tools_fail
 for /f "usebackq tokens=1,* delims==" %%A in ("%LOGDIR%\TOOLS_PATHS.txt") do (
@@ -71,7 +80,7 @@ if not "%RC%"=="0" goto :source_fail
 
 echo.
 echo [2/5] Kompilacja aplikacji, wersji portable i instalatora...
-rem FIX138: isolate legacy batch build manager in a child CMD process.
+rem FIX141: isolate legacy batch build manager in a child CMD process.
 rem This prevents an EXIT issued by any nested build script from terminating this worker.
 set "BUILD_LOG=%LOGDIR%\02-build-all.log"
 if exist "%BUILD_LOG%" del /q "%BUILD_LOG%" >nul 2>&1
@@ -108,7 +117,7 @@ echo.
 echo [PASS] GOTOWE: aplikacja, instalator i strona zostaly zweryfikowane.
 echo Repozytorium: %GHURL%
 echo Strona globalna: %PAGEURL%
-echo Wersja produktu: 1.0.0.73
+echo Wersja produktu: 1.0.0.76
 echo Log: %LOG%
 echo.
 popd
@@ -121,16 +130,16 @@ powershell.exe -NoLogo -NoProfile -Command "Get-Content -LiteralPath '%LOG%' -Ta
 if /I "%CHECKSTEP%"=="bramka testow CHECK_SOURCE" (
   echo.
   echo ============================================================
-  echo SZCZEGOLOWA DIAGNOSTYKA CHECK_SOURCE FIX138
+  echo SZCZEGOLOWA DIAGNOSTYKA CHECK_SOURCE FIX141
   echo ============================================================
-  if exist "%LOGDIR%\CHECK_SOURCE_FIX138.log" (
+  if exist "%LOGDIR%\CHECK_SOURCE_FIX141.log" (
     >>"%LOG%" echo ============================================================
-    >>"%LOG%" echo SZCZEGOLOWA DIAGNOSTYKA CHECK_SOURCE FIX138
-    type "%LOGDIR%\CHECK_SOURCE_FIX138.log"
-    type "%LOGDIR%\CHECK_SOURCE_FIX138.log" >>"%LOG%"
+    >>"%LOG%" echo SZCZEGOLOWA DIAGNOSTYKA CHECK_SOURCE FIX141
+    type "%LOGDIR%\CHECK_SOURCE_FIX141.log"
+    type "%LOGDIR%\CHECK_SOURCE_FIX141.log" >>"%LOG%"
   ) else (
-    echo [WARN] Brak pliku CHECK_SOURCE_FIX138.log. Nie mozna ustalic testu, ktory zakonczyl sie bledem.
-    >>"%LOG%" echo [WARN] Brak pliku CHECK_SOURCE_FIX138.log.
+    echo [WARN] Brak pliku CHECK_SOURCE_FIX141.log. Nie mozna ustalic testu, ktory zakonczyl sie bledem.
+    >>"%LOG%" echo [WARN] Brak pliku CHECK_SOURCE_FIX141.log.
   )
 )
 goto :end_fail

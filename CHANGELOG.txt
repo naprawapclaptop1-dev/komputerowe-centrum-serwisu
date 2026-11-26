@@ -1,4 +1,34 @@
-﻿FIX138 — NAPRAWA HISTORYCZNYCH REGRESJI I MANIFESTU
+﻿FIX145 HOTFIX05 — BOM DLA SKRYPTÓW KONTROLI WYDANIA
+- Dodano UTF-8 BOM do CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1 i CHECK_FIX136_SOURCE_BUILD_IDENTITY.ps1.
+- Zaktualizowano ich sumy SHA-256 w FIX099_POWERSHELL_MANIFEST.txt.
+- Wersja produktu pozostaje 1.0.0.76 / FIX141; nie zmieniano kodu aplikacji.
+
+FIX144 HOTFIX04 — kodowanie walidatora PowerShell 5.1
+- Dodano UTF-8 BOM do VALIDATE_FIX100_PACKAGE.ps1, aby polskie znaki były poprawnie dekodowane przez Windows PowerShell 5.1.
+- Zaktualizowano manifest SHA-256 i metadane pakietu.
+- Wersja produktu pozostaje 1.0.0.76 / FIX141; poprawka dotyczy wyłącznie walidatora.
+
+FIX142 HOTFIX02 — spójność testów i metadanych wydania 1.0.0.76 / FIX141
+- Naprawiono rozjazd updatera i instalatora względem VERSION.txt.
+- Zaktualizowano nieaktualne asercje FIX140 oraz poprawiono testy historyczne i kontrolę gałęzi CMD.
+- Dodano dokumentację FIX142.
+
+FIX139 HOTFIX 01 — NAPRAWA KODOWANIA PLIKÓW CMD
+- Usunięto UTF-8 BOM ze wszystkich 12 plików CMD; pierwszy bajt pliku startowego to teraz „@” (ASCII), zgodnie z walidatorem FIX099.
+- Poprawiono również pliki worker/build, aby uruchamiane bezpośrednio skrypty wsadowe nie otrzymywały błędnego prefiksu BOM.
+- Zachowano logikę budowania, konfigurację repozytorium, źródła, dane, ustawienia i istniejące artefakty; nie zmieniono kodu aplikacji ani wersji produktu 1.0.0.74.
+- Weryfikacja lokalna: wszystkie pliki .cmd bez BOM; archiwum ZIP testowane po utworzeniu. Kompilacja Windows i publikacja wymagają uruchomienia na komputerze użytkownika.
+Data: 2026-11-20
+
+FIX138 HOTFIX 01 — NAPRAWA KOMPILACJI BUTTONAT W MAGAZYNIE SERWIS PRO
+- Naprawiono błąd CS1501 w WindowsVersionSwitcherPRO.Modules.cs: metoda ButtonAt była wywoływana z argumentem wysokości, ale brakowało odpowiadającego przeciążenia.
+- Dodano przeciążenie ButtonAt(..., width, height, click); dotychczasowa sygnatura zachowuje domyślną wysokość 40 px, więc istniejące ekrany nie zmieniają układu.
+- Akcja „WYDAJ DO AKTYWNEGO ZLECENIA” korzysta z jawnej wysokości 40 px.
+- Rozszerzono CHECK_FIX138_HISTORICAL_RELEASE_REGRESSIONS.ps1 o kontrolę obu sygnatur i wywołania magazynu; odświeżono hash testu w FIX099_POWERSHELL_MANIFEST.txt.
+- Wersja produktu 1.0.0.73 / FIX137 pozostaje bez zmian; jest to poprawka kompilacji w ramach zachowania bieżącej tożsamości wydania.
+Data: 2026-11-20
+
+FIX138 — NAPRAWA HISTORYCZNYCH REGRESJI I MANIFESTU
 - Testy FIX132/FIX133/FIX134 weryfikują wersję 1.0.0.72 / FIX072 jako historyczną informację z notatek, a nie jako wymaganą aktualną wersję aplikacji.
 - Test FIX128 pobiera nazwę logu instalatora z VERSION.txt, dzięki czemu nie oczekuje już installation-FIX072-inno.log.
 - Testy FIX133–FIX137 normalizują CRLF przed dopasowaniem hashy z manifestu PowerShell.
@@ -1253,3 +1283,106 @@ KOMPUTEROWE CENTRUM SERWISU — FIX121
 - Dodano CHECK_FIX121_PUBLIC_HTTP_TEXT.ps1 i podłączono go do CHECK_SOURCE oraz pełnego walidatora.
 - Zachowano ochronę istniejących assetów i blokadę ponownego użycia wydania przy zmianach kodu aplikacji lub instalatora.
 - Wersja produktu bez zmian: 1.0.0.69.
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX139
+Wersja produktu: 1.0.0.74
+
+NOWY MODUŁ: KALENDARZ WIZYT PRO
+- Lokalny terminarz wizyt, przyjęć i odbiorów sprzętu.
+- Pola klienta, telefonu, daty/godziny, sprzętu/usługi, statusu i notatek.
+- Dodawanie, edycja, usuwanie z potwierdzeniem oraz sortowanie terminów po dacie.
+- Eksport terminów do iCalendar (.ics) oraz CSV UTF-8.
+- Zapis XML przez istniejący mechanizm bezpiecznego zapisu; dane pozostają lokalnie w Data\ServicePRO.
+- Zmiany terminów są dopisywane do historii operacji Serwis PRO.
+
+ZACHOWANO
+- Dotychczasowe zlecenia, historię urządzeń, diagnostykę przed/po, magazyn, raporty i kopie zapasowe.
+- FIX138 HOTFIX01 i wszystkie wcześniejsze testy regresji.
+
+OGRANICZENIA
+- Kalendarz jest lokalny; nie wysyła SMS/e-mail i nie synchronizuje automatycznie z usługami zewnętrznymi.
+- Eksport ICS można zaimportować do Outlook/Google Calendar ręcznie.
+- Nie wykonano kompilacji Windows ani publikacji w tym środowisku.
+
+
+KOMPUTEROWE CENTRUM SERWISU — FIX139 HOTFIX02
+- Naprawiono brak widocznego postępu podczas walidacji pakietu, testów CHECK_SOURCE i przygotowania narzędzi.
+- Długie etapy pokazują teraz komunikat startowy i wynik, a testy CHECK_SOURCE prezentują nazwy testów oraz status PASS/FAIL w oknie CMD.
+- Zachowano kody wyjścia, osobny log główny i log CHECK_SOURCE; nie zmieniono danych aplikacji ani konfiguracji.
+- Wersja produktu bez zmian: 1.0.0.74.
+- Nie oznacza to potwierdzenia kompilacji lub publikacji; te etapy nadal wymagają wykonania na Windows.
+
+KOMPUTEROWE CENTRUM SERWISU — FIX140
+Wersja produktu: 1.0.0.75
+
+NAPRAWA KOMPILACJI KALENDARZA WIZYT PRO
+- Usunięto konflikt nazw metod LoadServiceProAppointments: metoda zwracająca XmlDocument ma teraz nazwę LoadServiceProAppointmentsDocument().
+- Metoda LoadServiceProAppointments() pozostaje metodą odświeżającą tabelę kalendarza.
+- Wywołania odczytu XML w edycji, zapisie, usuwaniu, filtrowaniu i eksporcie kierują do metody dokumentowej.
+- Dodano CHECK_FIX140_CALENDAR_COMPILE_GUARD.ps1: kontroluje pojedyncze deklaracje obu metod, brak starej kolidującej deklaracji i zgodność tożsamości wydania.
+- Zachowano kalendarz, lokalny zapis XML, eksport CSV/iCalendar i historię Serwis PRO.
+
+TOŻSAMOŚĆ WYDANIA
+- Nowa poprawka kodu C# otrzymuje nowe niezmienne wydanie 1.0.0.75 / FIX140.
+- Zaktualizowano AssemblyInfo, VERSION, konfigurację portable/instalatora, aktualizator, manifest wydania, launcher, worker i oznaczenia bieżącego wydania.
+- FIX139 / 1.0.0.74 pozostaje historycznym wydaniem; nie jest nadpisywane.
+
+WERYFIKACJA
+- Wykonano kontrolę statyczną źródeł i spójności plików pakietu.
+- Nie wykonano kompilacji C# na Windows, uruchomienia instalatora ani publikacji GitHub. Te etapy wymagają uruchomienia pakietu na Windows i nie są oznaczone jako PASS.
+Data: 2026-11-20
+
+
+FIX140 HOTFIX 01 — KOMPATYBILNOŚĆ KODOWANIA POWERSHELL 5.1
+- Dodano znacznik UTF-8 BOM do skryptów PowerShell, które zawierały polskie znaki i były zapisane bez BOM; zapobiega to błędnemu dekodowaniu przez Windows PowerShell 5.1.
+- Odświeżono sumy SHA-256 zmienionych skryptów w FIX099_POWERSHELL_MANIFEST.txt.
+- Nie zmieniano kodu aplikacji C#, danych użytkownika ani konfiguracji repozytorium; wersja produktu pozostaje 1.0.0.75 / FIX140.
+- Wymagany test końcowy: uruchomienie walidacji i kompilacji w Windows PowerShell 5.1 na komputerze użytkownika.
+
+
+FIX141 — SPÓJNOŚĆ RAPORTU DIAGNOSTYCZNEGO I TOŻSAMOŚCI WYDANIA
+- Raport diagnostyczny aplikacji identyfikuje teraz aktywne wydanie FIX141 zamiast historycznego FIX139.
+- Wersja produktu została podniesiona do 1.0.0.76 zgodnie z ochroną niezmiennych wydań przy zmianie kodu C#.
+- Ujednolicono metadane Assembly, aktualizatora, instalatora, portable, manifestów i strony.
+- Naprawiono wymagania walidatora i test ochrony publicznych wydań; wcześniejsze FIX139/FIX140 pozostają historyczne.
+- Kompilacja, publikacja i instalacja wymagają potwierdzenia na Windows.
+- Przeniesiono podprogram etykiety run_ps_check przed główny przepływ CHECK_SOURCE.cmd; start głównego przebiegu omija sekcję podprogramu.
+FIX143 — poprawka asercji manifestu SHA-256 (FIX136)
+- Zmieniono oczekiwaną nazwę kontroli kalendarza z nieistniejącej CHECK_FIX141_CALENDAR_COMPILE_GUARD.ps1 na aktywną CHECK_FIX140_CALENDAR_COMPILE_GUARD.ps1.
+- Zaktualizowano hash CHECK_FIX136_SOURCE_BUILD_IDENTITY.ps1 w FIX099_POWERSHELL_MANIFEST.txt.
+- Wersja produktu bez zmian: 1.0.0.76 / FIX141.
+
+FIX146 — zgodność weryfikacji payloadu FIX141
+- Dodano wrapper CHECK_FIX141_APPOINTMENTS.ps1 delegujący do aktywnego testu kalendarza FIX139.
+- Uzupełniono walidację pakietu, CHECK_SOURCE, allowlistę i politykę zachowania wydania.
+- Wersja produktu pozostaje 1.0.0.76 / FIX141; zmiana dotyczy wyłącznie narzędzi wydania.
+
+FIX148 — brakujące artefakty dokumentacyjne FIX147
+- Uzupełniono archiwum o FIX147_RELEASE_NOTES.txt i FIX147_MODULE_MAP.txt wymagane przez walidator FIX099/FIX100.
+- Dodano CHECK_FIX148_PACKAGE_ARTIFACTS.ps1 i podłączono go do CHECK_SOURCE oraz walidacji pakietu.
+- Zaktualizowano allowlistę i ochronę niezmienności publicznego wydania.
+- Wersja produktu pozostaje 1.0.0.76 / FIX141; zmiana dotyczy wyłącznie kompletności pakietu.
+
+
+FIX149 — naprawa identyfikacji opcjonalnego instalatora XP
+Data: 2026-11-21
+Wersja produktu bez zmian: 1.0.0.76 / FIX141.
+- Instalator XP odczytuje wersję i numer FIX bezpośrednio z VERSION.txt.
+- Usunięto nieaktualne oczekiwanie 1.0.0.75 / FIX140 i nazwę wyjściową FIX140.
+- Walidacja payloadu sprawdza bieżący FILEVERSION, FIX oraz BUILD_ID.
+- Dodano regresję FIX149 do CHECK_SOURCE i walidacji pełnego pakietu.
+- Zmiana dotyczy wyłącznie narzędzi budowania; kod produktu i numer wydania pozostają bez zmian.
+
+
+FIX150 — izolacja błędów opcjonalnego instalatora XP
+- Niepowodzenie opcjonalnej kompilacji XP jest raportowane jako FAIL/WARN, ale nie przerywa weryfikacji wymaganych Portable i nowoczesnego instalatora.
+- Raporty Build Manager i BUILD_INSTALLERS rozróżniają PASS, SKIPPED i FAIL.
+- Wersja produktu bez zmian: 1.0.0.76 / FIX141.
+
+
+FIX151 — naprawa kodowania bramki źródłowej
+- Usunięto UTF-8 BOM z CHECK_SOURCE.cmd; plik zaczyna się teraz od @echo off, zgodnie z walidatorem FIX099.
+- Dodano test regresji FIX151 i podłączono go do CHECK_SOURCE oraz walidacji pełnego pakietu.
+- Zaktualizowano allowlistę i manifest SHA-256.
+- Wersja produktu bez zmian: 1.0.0.76 / FIX141.

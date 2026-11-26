@@ -1,4 +1,4 @@
-﻿$ErrorActionPreference = 'Stop'
+﻿﻿$ErrorActionPreference = 'Stop'
 $root = $PSScriptRoot
 $xp = [IO.File]::ReadAllText((Join-Path $root 'BUILD_INSTALLER_XP.cmd'))
 $all = [IO.File]::ReadAllText((Join-Path $root 'BUILD_ALL.cmd'))

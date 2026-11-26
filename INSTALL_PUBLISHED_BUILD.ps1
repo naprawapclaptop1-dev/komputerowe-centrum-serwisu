@@ -32,12 +32,12 @@ function ConvertTo-KcsProductVersion {
 
 $LogDir=Join-Path $PSScriptRoot "dist\build-logs"
 New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
-$InstallLog=Join-Path $LogDir "installation-FIX137-inno.log"
+$InstallLog=Join-Path $LogDir "installation-FIX141-inno.log"
 if(Test-Path -LiteralPath $InstallLog){Remove-Item -LiteralPath $InstallLog -Force}
-$Installer=Join-Path $PSScriptRoot "dist\installers\KomputeroweCentrumSerwisu_FIX137_INSTALATOR.exe"
+$Installer=Join-Path $PSScriptRoot "dist\installers\KomputeroweCentrumSerwisu_FIX141_INSTALATOR.exe"
 if(!(Test-Path -LiteralPath $Installer)){throw "Nie znaleziono świeżego instalatora do instalacji."}
 $versionRaw=[Diagnostics.FileVersionInfo]::GetVersionInfo($Installer).FileVersion
-$version=ConvertTo-KcsProductVersion -RawVersion $versionRaw -ExpectedVersion '1.0.0.73' -Label 'Instalator'
+$version=ConvertTo-KcsProductVersion -RawVersion $versionRaw -ExpectedVersion '1.0.0.76' -Label 'Instalator'
 Write-Host "[AUTO] Instaluję opublikowaną wersję $version..."
 $logArgument='/LOG="' + $InstallLog + '"'
 Write-Host '[INFO] Instalator uruchomi się w trybie interaktywnym.'
@@ -69,7 +69,7 @@ if(!$exe){
 }
 if(!$exe){throw "Instalator zakończył pracę, ale nie można odnaleźć zainstalowanego pliku EXE do weryfikacji."}
 $installedRaw=[Diagnostics.FileVersionInfo]::GetVersionInfo($exe).FileVersion
-$installed=ConvertTo-KcsProductVersion -RawVersion $installedRaw -ExpectedVersion '1.0.0.73' -Label 'Zainstalowany program'
+$installed=ConvertTo-KcsProductVersion -RawVersion $installedRaw -ExpectedVersion '1.0.0.76' -Label 'Zainstalowany program'
 Write-Host "[PASS] Zainstalowana wersja: $installed"
 Write-Host "[PASS] Repozytorium aktualizacji jest zapisane w instalatorze: naprawapclaptop1-dev/komputerowe-centrum-serwisu"
 Write-Host ("[PASS] Log instalatora: {0}" -f $InstallLog)
