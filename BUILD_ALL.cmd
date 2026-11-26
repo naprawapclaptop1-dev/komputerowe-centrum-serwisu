@@ -1,4 +1,4 @@
-﻿@echo off
+@echo off
 setlocal EnableExtensions DisableDelayedExpansion
 title KOMPUTEROWE CENTRUM SERWISU FIX141 - BUDOWANIE WSZYSTKICH ELEMENTOW
 pushd "%~dp0"
@@ -46,15 +46,16 @@ if not "%M_RC%"=="0" goto :modern_failed
 
 echo.
 echo [3/5] Building optional XP installer...
-call "%~dp0BUILD_INSTALLER_XP.cmd" /nopause > "%LOGDIR%\stage-xp-output.log" 2>&1
+"%ComSpec%" /d /s /c ""%~dp0BUILD_INSTALLER_XP.cmd" /nopause" > "%LOGDIR%\stage-xp-output.log" 2>&1
 set "X_RC=%ERRORLEVEL%"
 type "%LOGDIR%\stage-xp-output.log"
 if not "%X_RC%"=="0" goto :xp_optional_failed
-if exist "%LOGDIR%\XP_INSTALLER.status" findstr /i /x "FAIL" "%LOGDIR%\XP_INSTALLER.status" >nul
+if not exist "%LOGDIR%\XP_INSTALLER.status" goto :xp_optional_failed
+findstr /i /x "FAIL" "%LOGDIR%\XP_INSTALLER.status" >nul
 if not errorlevel 1 goto :xp_optional_failed
-if exist "%LOGDIR%\XP_INSTALLER.status" findstr /i /x "SKIPPED" "%LOGDIR%\XP_INSTALLER.status" >nul
+findstr /i /x "SKIPPED" "%LOGDIR%\XP_INSTALLER.status" >nul
 if not errorlevel 1 goto :xp_optional_skipped
-if exist "%LOGDIR%\XP_INSTALLER.status" findstr /i /x "PASS" "%LOGDIR%\XP_INSTALLER.status" >nul
+findstr /i /x "PASS" "%LOGDIR%\XP_INSTALLER.status" >nul
 if errorlevel 1 goto :xp_optional_failed
 >>"%LOGDIR%\BUILD_SUMMARY.txt" echo [PASS] Optional XP installer
  goto :verify

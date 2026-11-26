@@ -1,4 +1,4 @@
-﻿@echo off
+@echo off
 setlocal EnableExtensions
 title KOMPUTEROWE CENTRUM SERWISU - OPCJONALNY INSTALATOR XP
 pushd "%~dp0"
@@ -12,6 +12,7 @@ set "PRODUCT_FIX="
 set "FINAL="
 set "ISCC5="
 if not exist "%LOGDIR%" mkdir "%LOGDIR%"
+if exist "%LOGDIR%\XP_INSTALLER.status" del /q "%LOGDIR%\XP_INSTALLER.status" >nul 2>&1
 if not exist "%DIST%\installers" mkdir "%DIST%\installers"
 rem Read the active immutable product identity; never pin an old version/FIX in this optional stage.
 if not exist "%~dp0VERSION.txt" goto :identity_fail
@@ -19,8 +20,10 @@ set /p PRODUCT_VERSION=<"%~dp0VERSION.txt"
 for /f "usebackq skip=1 tokens=1" %%F in ("%~dp0VERSION.txt") do if not defined PRODUCT_FIX set "PRODUCT_FIX=%%F"
 if not defined PRODUCT_VERSION goto :identity_fail
 if not defined PRODUCT_FIX goto :identity_fail
-echo(%PRODUCT_VERSION%| findstr /r /x "[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*" >nul || goto :identity_fail
-echo(%PRODUCT_FIX%| findstr /r /x "FIX[0-9][0-9][0-9]" >nul || goto :identity_fail
+echo(%PRODUCT_VERSION%| findstr /r /x "[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*" >nul
+if errorlevel 1 goto :identity_fail
+echo(%PRODUCT_FIX%| findstr /r /x "FIX[0-9][0-9][0-9]" >nul
+if errorlevel 1 goto :identity_fail
 set "FINAL=%DIST%\installers\KomputeroweCentrumSerwisu_%PRODUCT_FIX%_INSTALATOR_XP.exe"
 >"%LOG%" echo KOMPUTEROWE CENTRUM SERWISU %PRODUCT_FIX% - OPTIONAL WINDOWS XP SETUP
 >>"%LOG%" echo Date: %DATE% %TIME%

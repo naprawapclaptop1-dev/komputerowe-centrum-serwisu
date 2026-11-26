@@ -3,7 +3,7 @@ $root = $PSScriptRoot
 $cmd = [IO.File]::ReadAllText((Join-Path $root 'BUILD_INSTALLER_XP.cmd'))
 $version = Get-Content -LiteralPath (Join-Path $root 'VERSION.txt')
 $checks = @()
-$checks += [pscustomobject]@{Name='Reads product version from VERSION.txt'; Pass=($cmd -match '(?im)^set /p PRODUCT_VERSION=<"%~dp0VERSION\.txt"$')}
+$checks += [pscustomobject]@{Name='Reads product version from VERSION.txt'; Pass=($cmd -match '(?im)^set /p PRODUCT_VERSION=<"%~dp0VERSION\.txt"\r?$')}
 $checks += [pscustomobject]@{Name='Reads product FIX from second VERSION.txt line'; Pass=($cmd -match '(?im)^for /f .*skip=1.*PRODUCT_FIX')}
 $checks += [pscustomobject]@{Name='Payload verifier uses resolved product version and FIX'; Pass=($cmd -match '-ExpectedVersion "%PRODUCT_VERSION%" -ExpectedFix "%PRODUCT_FIX%"')}
 $checks += [pscustomobject]@{Name='XP output filename uses resolved product FIX'; Pass=($cmd -match 'KomputeroweCentrumSerwisu_%PRODUCT_FIX%_INSTALATOR_XP\.exe')}

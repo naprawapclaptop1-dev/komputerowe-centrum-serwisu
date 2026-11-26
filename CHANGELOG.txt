@@ -1,4 +1,10 @@
-﻿FIX145 HOTFIX05 — BOM DLA SKRYPTÓW KONTROLI WYDANIA
+﻿FIX153 - test odczytu wersji XP obsluguje CRLF i LF. Dodano test przebiegu BUILD_ALL w katalogu ze spacjami i nawiasami.
+
+FIX152 - naprawa etapu opcjonalnego instalatora XP
+Osobny proces CMD dla etapu XP, jawna obsluga braku statusu, poprawione kodowanie CMD i testu PowerShell.
+Produkt 1.0.0.76 / FIX141. Uruchom URUCHOM_TYLKO_TEN_PLIK.cmd po wypakowaniu calego projektu.
+
+FIX145 HOTFIX05 — BOM DLA SKRYPTÓW KONTROLI WYDANIA
 - Dodano UTF-8 BOM do CHECK_FIX119_PUBLISHED_RELEASE_PRESERVATION.ps1 i CHECK_FIX136_SOURCE_BUILD_IDENTITY.ps1.
 - Zaktualizowano ich sumy SHA-256 w FIX099_POWERSHELL_MANIFEST.txt.
 - Wersja produktu pozostaje 1.0.0.76 / FIX141; nie zmieniano kodu aplikacji.

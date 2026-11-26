@@ -125,7 +125,7 @@ call :run_ps_check "CHECK_FIX108_RELEASE_PUBLISHING.ps1" "Release publishing FIX
 call :run_ps_check "CHECK_FIX147_PUBLIC_VERSION_RESOLVER.ps1" "Public version resolver FIX147"
 call :run_ps_check "CHECK_FIX148_PACKAGE_ARTIFACTS.ps1" "FIX147 package artifacts FIX148"
 call :run_ps_check "CHECK_FIX149_XP_INSTALLER_IDENTITY.ps1" "XP installer current product identity FIX149"
-call :run_ps_check "CHECK_FIX150_OPTIONAL_XP_ORCHESTRATION.ps1" "Optional XP failure isolation FIX150"
+call :run_ps_check "CHECK_FIX150_OPTIONAL_XP_ORCHESTRATION.ps1" "Optional XP failure isolation FIX150"
 call :run_ps_check "CHECK_FIX151_CMD_BOM.ps1" "CHECK_SOURCE CMD BOM regression FIX151"
 
 call :run_ps_check "CHECK_FIX110_BUILD_DIAGNOSTICS.ps1" "Build diagnostics FIX110"
