@@ -7189,7 +7189,7 @@ try {
             ButtonAt(edit,"NOWA CZĘŚĆ",218,130,145,delegate{ClearServiceProPart();});
             ButtonAt(edit,"USUŃ CZĘŚĆ",373,130,145,delegate{DeleteServiceProPart();});
             LabelAt(edit,"Ilość do wydania",18,184,130,22);serviceProPartUseQuantityBox=TextAt(edit,148,180,70,27,"1");
-            ButtonAt(edit,"WYDAJ DO AKTYWNEGO ZLECENIA",230,176,285,40,delegate{ConsumeServiceProPartForCase();});
+            ButtonAt(edit,"WYDAJ DO AKTYWNEGO ZLECENIA",230,176,285,delegate{ConsumeServiceProPartForCase();});
             LabelAt(edit,"Wydanie zmniejsza stan magazynowy i zapisuje pozycję w karcie bieżącego zlecenia.",535,184,370,25);
             Panel stock=Card(p,"STAN MAGAZYNU — POZYCJE PONIŻEJ PROGU MINIMALNEGO SĄ OZNACZANE",10,253,950,405);
             serviceProPartsGrid=CreateServiceProGrid(stock,18,43,902,350,new string[]{"SKU","Nazwa","Kategoria","Ilość","Min.","Koszt PLN","Cena PLN","Status"},new int[]{90,230,120,65,65,100,100,110});
